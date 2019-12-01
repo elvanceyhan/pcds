@@ -2,7 +2,7 @@
 % Please edit documentation in R/PCDFunctions.r
 \name{rascMT}
 \alias{rascMT}
-\title{An object of class "Patterns"
+\title{An object of class "Patterns":
 
 Generation of points associated (in a Type I fashion) with a given set of points}
 \usage{
@@ -13,30 +13,46 @@ rascMT(n, Yp, delta, DTmesh = NULL, DTr = NULL)
 
 \item{Yp}{A set of 2D points from which Delaunay triangulation is constructed}
 
-\item{delta}{A positive real number in (0,4/9). delta is the parameter of association (that is, only
-delta*100 %  area around each vertex in each Delaunay triangle is allowed for point generation).}
+\item{delta}{A positive real number in (0,4/9). \code{delta} is the parameter of association (that is, only
+\eqn{\delta\,100} \% area around each vertex in each Delaunay triangle is allowed for point generation).}
 
-\item{DTmesh}{Delaunay triangulation of Yp, default is NULL, which is computed via tri.mesh function
-in tripack package. tri.mesh function yields the triangulation nodes with their neigbours, and
+\item{DTmesh}{Delaunay triangulation of \code{Yp}, default is NULL, which is computed via \code{\link[tripack]{tri.mesh}} function
+in \code{tripack} package. \code{\link[tripack]{tri.mesh}} function yields the triangulation nodes with their neigbours, and
 creates a triangulation object}
 
-\item{DTr}{Delaunay triangles based on Yp, default is NULL, which is computed via tri.mesh function
-in tripack package. triangles function yields a triangulation data structure from the triangulation object created
-by tri.mesh.}
+\item{DTr}{Delaunay triangles based on \code{Yp}, default is NULL, which is computed via \code{\link[tripack]{tri.mesh}} function
+in \code{tripack} package. \code{\link[tripack]{triangles}} function yields a triangulation data structure from the triangulation object created
+by \code{\link[tripack]{tri.mesh}}.}
+}
+\value{
+A list with the elements
+\item{type}{The type of the pattern from which points are to be generated}
+\item{mtitle}{The "main" title for the plot of the point pattern}
+\item{parameters}{Attraction parameter, \code{delta}, of the Type I association pattern. \code{delta} is in (0,4/9)
+only \eqn{\delta\,100} \% of the area around each vertex in each Delaunay triangle is allowed for point generation.}
+\item{ref.points}{The input set of points \code{Yp};
+reference points, i.e., points with which generated points are associated.}
+\item{gen.points}{The output set of generated points associated with \code{Yp} points.}
+\item{tri.Y}{Logical output, TRUE if triangulation based on \code{Yp} points should be implemented.}
+\item{desc.pat}{Description of the point pattern}
+\item{num.points}{The vector of two numbers, which are the number of generated points
+and the number of reference (i.e., \code{Yp}) points.}
+\item{xlimit,ylimit}{The ranges of the x- and y-coordinates of the reference points, which are the
+\code{Yp} points}
 }
 \description{
-Generates n points uniformly in the support for Type I segregation in the convex hull of set of points, Yp.
-delta is the parameter of association (that is, only delta*100 % area around each vertex in each Delaunay
-triangle is allowed for point generation). delta corresponds to eps in the standard equilateral triangle
-Te as delta=4eps^2/3 (see rsegTe function). DTmesh must be the Delaunay triangulation of Yp
-and DTr must be the corresponding Delaunay triangles (both DTmesh and DTr are NULL by default).
-If NULL, DTmesh is computed via tri.mesh and DTr is computed via triangles function in tripack package.
-tri.mesh function yields the triangulation nodes with their neigbours, and creates a triangulation object,
-and triangles function yields a triangulation data structure from the triangulation object created
-by tri.mesh (the first three colums are the vertex indices of the Delaunay triangles).
+Generates \code{n} points uniformly in the support for Type I segregation in the convex hull of set of points, \code{Yp}.
+\code{delta} is the parameter of association (that is, only \eqn{\delta\,100} \% area around each vertex in each Delaunay
+triangle is allowed for point generation). \code{delta} corresponds to \code{eps} in the standard equilateral triangle
+\eqn{T_e} as \eqn{delta=4eps^2/3} (see \code{rsegTe}  function). \code{DTmesh} must be the Delaunay triangulation of \code{Yp}
+and \code{DTr} must be the corresponding Delaunay triangles (both \code{DTmesh} and \code{DTr} are NULL by default).
+If NULL, \code{DTmesh} is computed via \code{\link[tripack]{tri.mesh}} and \code{DTr} is computed via \code{\link[tripack]{triangles}} function in \code{tripack} package.
+\code{\link[tripack]{tri.mesh}} function yields the triangulation nodes with their neigbours, and creates a triangulation object,
+and \code{\link[tripack]{triangles}} function yields a triangulation data structure from the triangulation object created
+by \code{\link[tripack]{tri.mesh}} (the first three colums are the vertex indices of the Delaunay triangles).
 See (\insertCite{ceyhan:arc-density-PE,ceyhan:arc-density-CS,ceyhan:dom-num-NPE-Spat2011;textual}{pcds}) for more on the
 association pattern.
-Also see (\insertCite{okabe:2000,ceyhan:comp-geo-2010,renka:1996;textual}{pcds}) for more on Delaunay triangulation and the tripack algorithm.
+Also see (\insertCite{okabe:2000,ceyhan:comp-geo-2010,renka:1996;textual}{pcds}) for more on Delaunay triangulation and the TRIPACK algorithm.
 }
 \examples{
 nx<-1000 #number of X points (target) #try nx<-1, 10, 100 also
@@ -46,27 +62,27 @@ ny<-10 #number of Y points (nontarget)
 Yp<-cbind(runif(ny),runif(ny))
 del<-.4
 
-Xdt<-rsegMT(nx,Yp,del)
+Xdt<-rascMT(nx,Yp,del)
 Xdt
 summary(Xdt)
 plot(Xdt)
 
 Yp<-cbind(runif(ny),runif(ny))
 del<-.3 #try .5, .75, .85
-dat<-rsegMT(nx,Yp,del) #data under CSR in the convex hull of Ypoints
+dat<-rascMT(nx,Yp,del) #data under CSR in the convex hull of Ypoints
 #or use
-DTY<-tri.mesh(Yp[,1],Yp[,2],duplicate="remove") #Delaunay triangulation based on Y points
-dat<-rsegMT(nx,Yp,del,DTY) #data under CSR in the convex hull of Ypoints
+DTY<-tripack::tri.mesh(Yp[,1],Yp[,2],duplicate="remove") #Delaunay triangulation based on Y points
+dat<-rascMT(nx,Yp,del,DTY) #data under CSR in the convex hull of Ypoints
 
 #or use
-DTY<-tri.mesh(Yp[,1],Yp[,2],duplicate="remove") #Delaunay triangulation based on Y points
-TRY<-triangles(DTY)[,1:3];
-dat<-rsegMT(nx,Yp,del,DTr=TRY) #data under CSR in the convex hull of Ypoints
+DTY<-tripack::tri.mesh(Yp[,1],Yp[,2],duplicate="remove") #Delaunay triangulation based on Y points
+TRY<-tripack::triangles(DTY)[,1:3];
+dat<-rascMT(nx,Yp,del,DTr=TRY) #data under CSR in the convex hull of Ypoints
 
 #or use
-DTY<-tri.mesh(Yp[,1],Yp[,2],duplicate="remove") #Delaunay triangulation based on Y points
-TRY<-triangles(DTY)[,1:3];
-dat<-rsegMT(nx,Yp,del,DTY,TRY)$gen.points #data under CSR in the convex hull of Ypoints
+DTY<-tripack::tri.mesh(Yp[,1],Yp[,2],duplicate="remove") #Delaunay triangulation based on Y points
+TRY<-tripack::triangles(DTY)[,1:3];
+dat<-rascMT(nx,Yp,del,DTY,TRY)$g #data under CSR in the convex hull of Ypoints
 
 Xlim<-range(Yp[,1])
 Ylim<-range(Yp[,2])
@@ -74,24 +90,22 @@ xd<-Xlim[2]-Xlim[1]
 yd<-Ylim[2]-Ylim[1]
 
 #plot of the data in the convex hull of Y points together with the Delaunay triangulation
-DTY<-tri.mesh(Yp[,1],Yp[,2],duplicate="remove") #Delaunay triangulation based on Y points
+DTY<-tripack::tri.mesh(Yp[,1],Yp[,2],duplicate="remove") #Delaunay triangulation based on Y points
 
-#par(pty="s")
 plot(dat,main=" ", xlab=" ", ylab=" ",xlim=Xlim+xd*c(-.05,.05),ylim=Ylim+yd*c(-.05,.05),type="n")
-plot.tri(DTY, add=TRUE, do.points=TRUE,col="blue")
+tripack::plot.tri(DTY, add=TRUE, do.points=TRUE,col="blue")
 points(dat,pch=".",cex=3)
 
 Yp<-rbind(c(.3,.2),c(.4,.5),c(.14,.15))
-rsegMT(nx,Yp,del)
+rascMT(nx,Yp,del)
 
 dat.fr<-data.frame(a=Yp)
-rsegMT(nx,dat.fr,del)
+rascMT(nx,dat.fr,del)
 
 }
 \references{
 \insertAllCited{}
 }
 \seealso{
-\code{\link{rasc.disc}}, \code{\link{rascTe}}, \code{\link{rascIITe}},
-and \code{\link{rsegMT}}
+\code{\link{rasc.disc}}, \code{\link{rascTe}}, \code{\link{rascIITe}}, and \code{\link{rsegMT}}
 }

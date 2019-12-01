@@ -2,13 +2,20 @@
 % Please edit documentation in R/PCDFunctions.r
 \name{TSDomPEBin}
 \alias{TSDomPEBin}
-\title{An object of class "htest"
+\title{An object of class "htest":
 
 A test of segregation/association based on domination number of Proportional Edge Proximity Catch Digraph
-(PE-PCD) for 2D Data - Binomial Approximation}
+(PE-PCD) for 2D data - Binomial Approximation}
 \usage{
-TSDomPEBin(Xp, Yp, r, ch.cor = F, nt = NULL,
-  alternative = c("two.sided", "less", "greater"), conf.level = 0.95)
+TSDomPEBin(
+  Xp,
+  Yp,
+  r,
+  ch.cor = F,
+  nt = NULL,
+  alternative = c("two.sided", "less", "greater"),
+  conf.level = 0.95
+)
 }
 \arguments{
 \item{Xp}{A set of 2D points which constitute the vertices of the PE-PCD}
@@ -16,24 +23,24 @@ TSDomPEBin(Xp, Yp, r, ch.cor = F, nt = NULL,
 \item{Yp}{A set of 2D points which constitute the vertices of the Delaunay triangles}
 
 \item{r}{A positive real number which serves as the expansion parameter in PE proximity region;
-must be in (1,1.5]}
+must be in \eqn{(1,1.5]}}
 
-\item{ch.cor}{A logical argument for convex hull correction, default ch.cor=FALSE,
-recommended when both Xp and Yp have the same rectangular support}
+\item{ch.cor}{A logical argument for convex hull correction, default \code{ch.cor}=FALSE,
+recommended when both \code{Xp} and \code{Yp} have the same rectangular support}
 
-\item{nt}{Number of Delaunay triangles based on Yp points, default is NULL}
+\item{nt}{Number of Delaunay triangles based on \code{Yp} points, default is NULL}
 
 \item{alternative}{Type of the alternative hypothesis in the test, one of "two.sided", "less", "greater".}
 
 \item{conf.level}{Level of the confidence interval, default is 0.95, for the probability of success
-(i.e. Pr(domination number=3) for PE-PCD whose vertices are the 2D data set Xp.}
+(i.e. Pr(domination number=3) for PE-PCD whose vertices are the 2D data set \code{Xp}.}
 }
 \value{
 A list with the elements
 \item{statistic}{Test statistic}
-\item{p.value}{p-value for the hypothesis test for the corresponding alternative}
-\item{conf.int}{Confidence interval for Pr(Domination Number=3) at the given level conf.level and
-depends on the type of alternative.}
+\item{p.value}{\eqn{p}-value for the hypothesis test for the corresponding alternative}
+\item{conf.int}{Confidence interval for Pr(Domination Number=3) at the given level \code{conf.level} and
+depends on the type of \code{alternative}.}
 \item{estimate}{a vector with two entries: first is is the estimate of the parameter, i.e.,
 Pr(Domination Number=3) and second is the domination number}
 \item{null.value}{Hypothesized value for the parameter, i.e., the null value for Pr(Domination Number=3)}
@@ -43,38 +50,66 @@ Pr(Domination Number=3) and second is the domination number}
 }
 \description{
 This is an "htest" (i.e., hypothesis test) function which performs a hypothesis test of complete spatial
-randomness (CSR) or uniformity of Xp points in the convex hull of Yp points against the alternatives
-of segregation (where Xp points cluster away from Yp points i.e. cluster around the centers of the Delaunay
-triangles) and association (where Xp points cluster around Yp points) based on the (asymptotic) binomial
+randomness (CSR) or uniformity of \code{Xp} points in the convex hull of \code{Yp} points against the alternatives
+of segregation (where \code{Xp} points cluster away from \code{Yp} points i.e. cluster around the centers of the Delaunay
+triangles) and association (where \code{Xp} points cluster around \code{Yp} points) based on the (asymptotic) binomial
 distribution of the domination number of PE-PCD for uniform 2D data
-in the convex hull of Yp points and yields the test statistic, p-value for the corresponding alternative,
+in the convex hull of \code{Yp} points and yields the test statistic, \eqn{p}-value for the corresponding alternative,
 the confidence interval, estimate and null value for the parameter of interest (which is Pr(Domination
 Number=3)), and method and name of the data set used.
-Under the null hypothesis of uniformity of Xp points in the convex hull of Yp points, probability of success
+
+Under the null hypothesis of uniformity of \code{Xp} points in the convex hull of \code{Yp} points, probability of success
 (i.e. Pr(Domination Number=3) ) equals to its expected value under the uniform distribution) and
-alternative could be two-sided, or left-sided (i.e. data is accumulated around the Yp points, or association)
+\code{alternative} could be two-sided, or left-sided (i.e. data is accumulated around the \code{Yp} points, or association)
 or right-sided (i.e. data is accumulated around the centers of the triangles, or segregation).
-PE proximity region is constructed with the expansion parameter r>=1 and M-vertex regions where M
+
+PE proximity region is constructed with the expansion parameter \eqn{r \ge 1} and M-vertex regions where M
 is a center that yields non-degenerate asymptotic distribution of the domination number.
 The test statistic is based on the binomial distribution, when domination number is scaled to have value
 0 and 1 in the one triangle case (i.e., Domination Number - 2 for the one triangle case).
-That is, the test statistic is based on the domination number for Xp points inside convex hull of Yp points
-for the PE-PCD and default convex hull correction, ch, is FALSE
-where M is the center that yields nondegenerate asymptotic distribution for the domination number.
-For this approximation to work, Yp must be at least 10 (i.e. about 15 or more Delaunay triangles)
-and Xp must be at least 7 times more than Yp points.
+That is, the test statistic is based on the domination number for \code{Xp} points inside convex hull of \code{Yp} points
+for the PE-PCD and default convex hull correction, \code{ch.cor}, is FALSE
+where \code{M} is the center that yields nondegenerate asymptotic distribution for the domination number.
+For this approximation to work, \code{Yp} must be at least 10 (i.e. about 15 or more Delaunay triangles)
+and \code{Xp} must be at least 7 times more than \code{Yp} points.
 See also (\insertCite{ceyhan:dom-num-NPE-Spat2011;textual}{pcds}).
 }
 \examples{
+nx<-1000
 ny<-10
+r<-1.4
+#r<-1.5
 
 #set.seed(1)
+Xp<-cbind(runif(nx,0,1),runif(nx,0,1))
+#Xp<-cbind(runif(nx,.5,1.5),runif(nx))
+#Xp<-cbind(runif(nx,1,2),runif(nx))
 Yp<-cbind(runif(ny,0,1),runif(ny,0,1))
 
-NumDelTri(Yp)
+plotDeltri(Xp,Yp,xlab="",ylab="")
+
+PEdomMTnd(Xp,Yp,r)
+
+TSDomPEBin(Xp,Yp,r,alt="t")
+TSDomPEBin(Xp,Yp,r,alt="l")
+TSDomPEBin(Xp,Yp,r,alt="g")
+TSDomPEBin(Xp,Yp,r,ch=TRUE)
+TSDomPEBin(Xp,Yp,r=1.25)
+#or try
+ndt<-NumDelTri(Yp)
+TSDomPEBin(Xp,Yp,r,nt=ndt)
+#values might differ due to the random of choice of the three centers M1,M2,M3
+#for the non-degenerate asymptotic distribution of the domination number
+
+TSDomPEBin(Xp,Yp,r)
+
+TSDomPEBin(Xp,rbind(Yp,Yp),r)
+
+dat.fr<-data.frame(a=Xp)
+TSDomPEBin(dat.fr,Yp,r)
 
 dat.fr<-data.frame(a=Yp)
-NumDelTri(dat.fr)
+TSDomPEBin(Xp,dat.fr,r)
 
 }
 \references{

@@ -2,67 +2,71 @@
 % Please edit documentation in R/PCDFunctions.r
 \name{runif.stdtetra}
 \alias{runif.stdtetra}
-\title{An object of class "Uniform"
+\title{An object of class "Uniform":
 
-Generation of Uniform Points in the Standard Regular Tetrahedron Th}
+Generation of Uniform Points in the Standard Regular Tetrahedron \eqn{T_h}}
 \usage{
 runif.stdtetra(k)
 }
 \arguments{
 \item{k}{A positive integer representing the number of uniform points to be generated in the
-standard regular tetrahedron Th}
+standard regular tetrahedron \eqn{T_h}}
 }
 \value{
 A list with the elements
 \item{type}{The type of the pattern from which points are to be generated}
-\item{mtxt}{The "main" title for the plot of the point pattern}
+\item{mtitle}{The "main" title for the plot of the point pattern}
 \item{tess.points}{The vertices of the support region of the uniformly generated points, it is the
-standard regular tetrahedron Th for this function}
-\item{gen.points}{The output set of generated points uniformly in the standard regular tetrahedron Th.}
+standard regular tetrahedron \eqn{T_h} for this function}
+\item{gen.points}{The output set of generated points uniformly in the standard regular tetrahedron \eqn{T_h}.}
 \item{out.region}{The outer region which contains the support region, NULL for this function.}
 \item{desc.pat}{Description of the point pattern from which points are to be generated}
 \item{num.points}{The vector of two numbers, which are the number of generated points and the number
 of vertices of the support points (here it is 4).}
-\item{txt4pnts}{Description of the two numbers in num.points}
-\item{xlimit,ylimit,zlimit}{The ranges of the x-, y-, and z-coordinates of the support, Th}
+\item{txt4pnts}{Description of the two numbers in \code{num.points}}
+\item{xlimit,ylimit,zlimit}{The ranges of the x-, y-, and z-coordinates of the support, \eqn{T_h}}
 }
 \description{
-Generates k points uniformly in the standard regular tetrahedron
-Th=T((0,0,0),(1,0,0),(1/2,sqrt(3)/2,0),(1/2,sqrt(3)/6,sqrt(6)/3))
+Generates \code{k} points uniformly in the standard regular tetrahedron
+\eqn{T_h=T((0,0,0),(1,0,0),(1/2,sqrt(3)/2,0),(1/2,\sqrt{3}/6,\sqrt{6}/3))}
 }
 \examples{
-A<-c(1,2,3); B<-c(3,9,12); C<-c(1,1,3); P<-c(5,2,40)
-#A<-runif(3); B<-runif(3); C<-runif(3); P<-runif(3)
-#A<-runif(3,1,100); B<-runif(3,1,100); C<-runif(3,1,100); P<-runif(3,1,100)
-dis<-dp2pl(P,A,B,C);
-dis
-Pr<-dis$Pr2pl #projection on the plane
+#T((0,0,0),(1,0,0),(1/2,sqrt(3)/2,0),(1/2,sqrt(3)/6,sqrt(6)/3))
+A<-c(0,0,0); B<-c(1,0,0); C<-c(1/2,sqrt(3)/2,0); D<-c(1/2,sqrt(3)/6,sqrt(6)/3)
+tetra<-rbind(A,B,C,D)
+n<-100
 
-P2<-c(0,0,0)
-dp2pl(P2,A,B,C);
+#set.seed(1)
+Xdt<-runif.stdtetra(n)
+Xdt
+summary(Xdt)
+plot(Xdt)
 
-dp2pl(A,A,B,C);
+Dt<-runif.stdtetra(n)$g
+#library(scatterplot3d)
+#s3d<-scatterscatterplot3d(Dt, highlight.3d=TRUE,xlab="x",ylab="y",zlab="z",
+#              col.axis="blue", col.grid="lightblue",
+#               main="3D Scatterplot of the data", pch=20)
+#s3d$points3d(tetra,pch=20,col="blue")
 
-xseq<-seq(0,10,l=100)
-yseq<-seq(0,10,l=100)
+Xlim<-range(tetra[,1])
+Ylim<-range(tetra[,2])
+Zlim<-range(tetra[,3])
+xd<-Xlim[2]-Xlim[1]
+yd<-Ylim[2]-Ylim[1]
+zd<-Zlim[2]-Zlim[1]
 
-pl.grid<-Plane(A,B,C,xseq,yseq)$z
-
-library(plot3D)
-persp3D(z = pl.grid, x = xseq, y = yseq, theta =225, phi = 30, ticktype = "detailed") #plane spanned by points A, B, C
+#library(plot3D)
+plot3D::scatter3D(Dt[,1],Dt[,2],Dt[,3],
+phi =20,theta=15, bty = "g", pch = 20, cex = 1, ticktype = "detailed",
+xlim=Xlim+xd*c(-.05,.05),ylim=Ylim+yd*c(-.05,.05), zlim=Zlim+zd*c(-.05,.05))
 #add the vertices of the tetrahedron
-points3D(P[1],P[2],P[3], add=TRUE)
-points3D(Pr[1],Pr[2],Pr[3], add=TRUE)
-#L<-rbind(A,A,A,B,B,C); R<-rbind(B,C,D,C,D,D)
-segments3D(P[1], P[2], P[3], Pr[1], Pr[2],Pr[3], add=TRUE,lwd=2)
+plot3D::points3D(tetra[,1],tetra[,2],tetra[,3], add=TRUE)
+L<-rbind(A,A,A,B,B,C); R<-rbind(B,C,D,C,D,D)
+plot3D::segments3D(L[,1], L[,2], L[,3], R[,1], R[,2],R[,3], add=TRUE,lwd=2)
 
-text3D(P[1]-.5,P[2],P[3]+1, c("P"),add=TRUE)
-text3D(Pr[1]-.5,Pr[2],Pr[3]+2, c("Pr"),add=TRUE)
-
-persp(xseq,yseq,pl.grid, xlab="x",ylab="y",zlab="z",theta = -30, phi = 30, expand = 0.5, col = "lightblue",
-      ltheta = 120, shade = 0.05, ticktype = "detailed")
-
-dp2pl(P,A,B,C)
+plot3D::text3D(tetra[,1]+c(.05,0,0,0),tetra[,2],tetra[,3],
+labels=c("A","B","C","D"), add=TRUE)
 
 }
 \seealso{

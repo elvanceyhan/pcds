@@ -7,34 +7,38 @@
 rv.bastri.cent(p, c1, c2, M)
 }
 \arguments{
-\item{p}{A 2D point for which M-vertex region it resides in is to be determined in the
-basic triangle Tb}
+\item{p}{A 2D point for which \code{M}-vertex region it resides in is to be determined in the
+basic triangle \eqn{T_b}}
 
 \item{c1, c2}{Positive real numbers which constitute the vertex of the basic triangle
-adjacent to the shorter edges; c1 must be in [0,1/2], c2>0 and (1-c1)^2+c2^2 <=1}
+adjacent to the shorter edges; \code{c1} must be in \eqn{[0,1/2]}, \eqn{c_2>0} and \eqn{(1-c_1)^2+c_2^2 \le 1}}
 
 \item{M}{A 2D point in Cartesian coordinates or a 3D point in barycentric coordinates
 which serves as a center in the interior of the basic triangle}
 }
 \value{
 A list with two elements
-\item{rv}{Index of the vertex whose region contains point, p; index of the vertex is the same as the row
-number in the basic triangle, Tb}
-\item{tri}{The vertices of the basic triangle, Tb, where row number corresponds to the vertex index rv
-with rv=1 is row 1=(0,0), rv=2 is row 2=(1,0), and rv=3 is row 3=(c1,c2).}
+\item{rv}{Index of the vertex whose region contains point, \code{p}; index of the vertex is the same as the row
+number in the basic triangle, \eqn{T_b}}
+\item{tri}{The vertices of the basic triangle, \eqn{T_b}, where row number corresponds to the vertex index \code{rv}
+with \eqn{rv=1} is row 1=(0,0), \eqn{rv=2} is row 2=(1,0), and \eqn{rv=3} is row 3=\eqn{(c_1,c_2)}.}
 }
 \description{
-Returns the index of the related vertex in the basic triangle whose region contains point p.
-The basic triangle is Tb=T((0,0),(1,0),(c1,c2)) where c1 is in [0,1/2], c2>0 and (1-c1)^2+c2^2<=1
-and vertex regions are based on the general center M=(m1,m2) in Cartesian coordinates or
-M=(alpha,beta,gamma) in barycentric coordinates in the interior of the basic triangle Tb.
-Vertices of the basic triangle Tb are labeled according to the row number the
-vertex is recorded, i.e., as 1=(0,0),2=(1,0),and 3=(c1,c2).
-If the point, p, is not inside Tb, then the function yields NA as output.
-The corresponding vertex region is the polygon with the vertex, M, and projections from M
-to the edges on the lines joining vertices and M.
-That is, vr=1 has vertices (0,0),D3,M,D2; vr=2 has vertices (1,0),D1,M,D3; and
-vr=3 has vertices (c1,c2),D2,M,D1 (see the illustration in the examples).
+Returns the index of the related vertex in the basic triangle whose region contains point \code{p}.
+The basic triangle is \eqn{T_b=T((0,0),(1,0),(c_1,c_2))} where \code{c1} is in \eqn{[0,1/2]}, \eqn{c_2>0} and \eqn{(1-c_1)^2+c_2^2 \le 1}.
+
+Vertex regions are based on the general center \eqn{M=(m_1,m_2)} in Cartesian coordinates or
+\eqn{M=(\alpha,\beta,\gamma)} in barycentric coordinates in the interior of the basic triangle \eqn{T_b}.
+Vertices of the basic triangle \eqn{T_b} are labeled according to the row number the
+vertex is recorded, i.e., as 1=(0,0), 2=(1,0),and 3=\eqn{(c_1,c_2)}.
+
+
+If the point, \code{p}, is not inside \eqn{T_b}, then the function yields NA as output.
+The corresponding vertex region is the polygon with the vertex, \code{M}, and projections from \code{M}
+to the edges on the lines joining vertices and \code{M}.
+That is, \eqn{rv=1} has vertices (0,0),D3,M,D2; \eqn{rv=2} has vertices (1,0),D1,M,D3; and
+\eqn{rv=3} has vertices \eqn{(c_1,c_2)},D2,M,D1 (see the illustration in the examples).
+
 Any given triangle can be mapped to the basic triangle
 by a combination of rigid body motions (i.e., translation, rotation and reflection) and scaling,
 preserving uniformity of the points in the original triangle. Hence basic triangle is useful for simulation
@@ -45,6 +49,22 @@ See also (\insertCite{ceyhan:Phd-thesis,ceyhan:comp-geo-2010,ceyhan:mcap2012;tex
 c1<-.4; c2<-.6
 A<-c(0,0); B<-c(1,0); C<-c(c1,c2);
 Tb<-rbind(A,B,C);
+M<-c(.6,.2)
+
+P<-c(.4,.2)
+rv.bastri.cent(P,c1,c2,M)
+
+P<-c(1.8,.5)
+rv.bastri.cent(P,c1,c2,M)
+
+P<-c(.5,.26)
+rv.bastri.cent(P,c1,c2,M)
+
+n<-20
+#set.seed(1)
+dat<-runif.bastri(n,c1,c2)$g
+#dat<-cbind(runif(n),runif(n))
+#dat<-cbind(runif(n,1,2),runif(n,0,1))
 
 M<-as.numeric(runif.bastri(1,c1,c2)$g)
 #M<-c(.6,.2)
@@ -52,23 +72,27 @@ M<-as.numeric(runif.bastri(1,c1,c2)$g)
 #M<-c(1.3,1.3)
 #M<-c(.3,.3)
 
-cp2e.bastri(c1,c2,M)
+Rv<-vector()
+for (i in 1:n)
+{ Rv<-c(Rv,rv.bastri.cent(dat[i,],c1,c2,M)$rv)}
+Rv
 
 Ds<-cp2e.bastri(c1,c2,M)
 
-Xlim<-range(Tb[,1])
-Ylim<-range(Tb[,2])
+Xlim<-range(Tb[,1],dat[,1])
+Ylim<-range(Tb[,2],dat[,2])
 xd<-Xlim[2]-Xlim[1]
 yd<-Ylim[2]-Ylim[1]
 
-if (dimension(M)==3) {M<-bary2cart(M,Tb)} #need to run this when M is given in barycentric coordinates
+if (dimension(M)==3) {M<-bary2cart(M,Tb)}
+#need to run this when M is given in barycentric coordinates
 
-plot(Tb,pch=".",xlab="",ylab="",axes=TRUE,xlim=Xlim+xd*c(-.1,.1),ylim=Ylim+yd*c(-.05,.05))
+plot(Tb,pch=".",xlab="",ylab="",axes=TRUE,
+xlim=Xlim+xd*c(-.1,.1),ylim=Ylim+yd*c(-.05,.05))
 polygon(Tb)
+points(dat,pch=".",col=1)
 L<-rbind(M,M,M); R<-Ds
 segments(L[,1], L[,2], R[,1], R[,2], lty=2)
-L<-rbind(M,M,M); R<-Tb
-segments(L[,1], L[,2], R[,1], R[,2], lty=3,col=2)
 
 xc<-Tb[,1]+c(-.04,.05,.04)
 yc<-Tb[,2]+c(.02,.02,.03)
@@ -76,12 +100,15 @@ txt.str<-c("rv=1","rv=2","rv=3")
 text(xc,yc,txt.str)
 
 txt<-rbind(M,Ds)
-xc<-txt[,1]+c(-.02,.03,-.03,0)
+xc<-txt[,1]+c(-.02,.04,-.03,0)
 yc<-txt[,2]+c(-.02,.02,.02,-.03)
 txt.str<-c("M","D1","D2","D3")
 text(xc,yc,txt.str)
 
-cp2e.bastri(c1,c2,M)
+text(dat,labels=factor(Rv))
+
+P<-c(.4,.2)
+rv.bastri.cent(P,c1,c2,M)
 
 }
 \references{

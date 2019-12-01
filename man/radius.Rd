@@ -7,84 +7,52 @@
 radius(pt, Y)
 }
 \arguments{
-\item{pt}{A d-dimensional point for which radius is computed. Radius of pt equals to the
-distance to the closest Y point to pt.}
+\item{pt}{A d-dimensional point for which radius is computed. Radius of \code{pt} equals to the
+distance to the closest \code{Y} point to pt.}
 
 \item{Y}{A set of d-dimensional points representing the reference points for the balls. That is, radius
-of the point pt is defined as the minimum distance to the Y points.}
+of the point \code{pt} is defined as the minimum distance to the \code{Y} points.}
 }
 \value{
 A list with three elements
-\item{rad}{Radius value for the point, pt defined as \min_{y in Y}(d(pt,y))}
-\item{index.of.clYpnt}{Index of the closest Y points to the point pt}
-\item{closest.Ypnt}{The closest Y point to the point pt}
+\item{rad}{Radius value for the point, \code{pt}  defined as \eqn{\min_{y in Y} d(pt,y)}}
+\item{index.of.clYpnt}{Index of the closest \code{Y} points to the point \code{pt}}
+\item{closest.Ypnt}{The closest \code{Y} point to the point \code{pt}}
 }
 \description{
-Returns the radius for the ball centered at point pt with radius=min distance to Y points.
-That is, for the point pt radius=\min_{y in Y}(d(pt,y)) (i.e. distance form pt to the closest Y point).
-The point pt and Y points must be of same dimension.
+Returns the radius for the ball centered at point \code{pt} with radius=min distance to \code{Y} points.
+That is, for the point \code{pt} \eqn{radius= \min_{y \in Y}d(pt,y)} (i.e. distance from \code{pt} to the closest \code{Y} point).
+The point \code{pt} and \code{Y} points must be of same dimension.
 }
 \examples{
-nx<-10
-ny<-5
-X<-cbind(runif(nx),runif(nx))
+A<-c(1,1); B<-c(2,0); C<-c(1.5,2);
+#A<-runif(2); B<-runif(2); C<-runif(2);
+ny<-10
 Y<-cbind(runif(ny),runif(ny))
-Rad<-radii(X,Y)
-Rad
-rd<-Rad$rad
+radius(A,Y)
+radius(B,Y)
+radius(C,Y)
 
-Xlim<-range(X[,1]-rd,X[,1]+rd,Y[,1])
-Ylim<-range(X[,2]-rd,X[,2]+rd,Y[,2])
-xd<-Xlim[2]-Xlim[1]
-yd<-Ylim[2]-Ylim[1]
+radius(B,C)
 
-plot(rbind(Y),asp=1,pch=16,col=2,xlab="",ylab="",axes=TRUE,xlim=Xlim+xd*c(-.05,.05),ylim=Ylim+yd*c(-.05,.05))
-points(rbind(X))
-circles(X[,1],X[,2],Rad$rad,lty=1,lwd=1,col=4)
-
-###
-nx<-5
-ny<-1
+nx<-10
 X<-cbind(runif(nx),runif(nx))
-Y<-matrix(c(runif(ny),runif(ny)),ncol=2)
-Rad<-radii(X,Y)
-Rad
-radii(Y,X)
+rad<-rep(0,nx)
+for (i in 1:nx)
+rad[i]<-radius(X[i,],Y)$rad
 
-rd<-Rad$rad
-
-Xlim<-range(X[,1]-rd,X[,1]+rd,Y[,1])
-Ylim<-range(X[,2]-rd,X[,2]+rd,Y[,2])
+Xlim<-range(X[,1]-rad,X[,1]+rad,Y[,1])
+Ylim<-range(X[,2]-rad,X[,2]+rad,Y[,2])
 xd<-Xlim[2]-Xlim[1]
 yd<-Ylim[2]-Ylim[1]
 
-plot(rbind(Y),asp=1,pch=16,col=2,xlab="",ylab="",axes=TRUE,xlim=Xlim+xd*c(-.05,.05),ylim=Ylim+yd*c(-.05,.05))
+plot(rbind(Y),asp=1,pch=16,col=2,xlab="",ylab="",axes=TRUE,
+xlim=Xlim+xd*c(-.05,.05),ylim=Ylim+yd*c(-.05,.05))
 points(rbind(X))
-circles(X[,1],X[,2],Rad$rad,lty=1,lwd=1,col=4)
+tripack::circles(X[,1],X[,2],rad,lty=1,lwd=1,col=4)
 
-radii(c(1,2),c(2,3))
-
-###
-nx<-10
-ny<-5
-X<-runif(nx)
-Y<-runif(ny)
-radii(X,Y) #this does not work, as X and Y are treated as vectors (i.e. points)
-
-X<-as.matrix(X)
-Y<-as.matrix(Y)
-radii(X,Y) #this works as X and Y are treated as 1D data sets
-
-###
-nx<-10
-ny<-5
-X<-cbind(runif(nx),runif(nx),runif(nx))
-Y<-cbind(runif(ny),runif(ny),runif(ny))
-radii(X,Y)
-
-dat.fr<-data.frame(a=X)
-radii(dat.fr,Y)
-radii(Y,dat.fr)
+dat.fr<-data.frame(a=Y)
+radii(A,dat.fr)
 
 }
 \seealso{

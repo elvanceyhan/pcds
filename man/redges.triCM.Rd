@@ -14,22 +14,84 @@ containing them are to be determined}
 }
 \value{
 A list with the elements
-\item{rv}{Indices (i.e., a vector of indices) of the edges whose region contains points in Dt
-in the triangle tri}
-\item{tri}{The vertices of the triangle, where row number corresponds to the vertex index in rv.}
-\item{txt}{Description of the edge labels as "Edge labels are AB=1, BC=2, and AC=3".}
+\item{re}{Indices (i.e., a vector of indices) of the edges whose region contains points in \code{Dt}
+in the triangle \code{tri}}
+\item{tri}{The vertices of the triangle, where row number corresponds to the vertex index in \code{rv}.}
+\item{desc}{Description of the edge labels as "Edge labels are AB=1, BC=2, and AC=3".}
 }
 \description{
-Returns the indices of the edges whose regions contain the points in data set Dt in
-a triangle tri=(A,B,C) and edge regions are based on the center of mass CM of tri.
-(see the plots in the example for illustrations). The vertices of the  triangle tri are labeled as
-1=A,2=B, and 3=C also according to the row number the vertex is recorded in tri
+Returns the indices of the edges whose regions contain the points in data set \code{Dt} in
+a triangle \code{tri}=\eqn{(A,B,C)} and edge regions are based on the center of mass CM of \code{tri}.
+(see the plots in the example for illustrations). The vertices of the  triangle \code{tri} are labeled as
+1=A,2=B, and 3=C also according to the row number the vertex is recorded in \code{tri}
 and the corresponding edges are 1=BC, 2=AC, and 3=AB.
-If a point in Dt is not inside tri, then the function yields NA as output for that entry.
+If a point in \code{Dt} is not inside \code{tri}, then the function yields NA as output for that entry.
 The corresponding edge region is the polygon
 with the vertex, CM, and vertices other than the non-adjacent vertex, i.e., edge region 1 is the triangle
-T(B,CM,C), edge region 2 is T(A,CM,C) and edge region 3 is T(A,B,CM).
+T(B,CM,C), edge region 2 is T(A,CM,C) and edge region 3 is \eqn{T(A,B,CM)}.
 See also (\insertCite{ceyhan:Phd-thesis,ceyhan:comp-geo-2010,ceyhan:mcap2012,ceyhan:arc-density-CS;textual}{pcds}).
+}
+\examples{
+A<-c(1,1); B<-c(2,0); C<-c(1.5,2);
+#A<-runif(2); B<-runif(2); C<-runif(2);
+#A<-runif(2,1,100); B<-runif(2,1,100); C<-runif(2,1,100);
+Tr<-rbind(A,B,C);
+
+P<-c(.4,.2)
+redges.triCM(P,Tr)
+
+P<-c(1.8,.5)
+redges.triCM(P,Tr)
+
+P<-c(10.5,1.6)
+redges.triCM(P,Tr)
+
+n<-20
+#set.seed(1)
+dat<-runif.tri(n,Tr)$g
+#dat<-cbind(runif(n,1,2),runif(n,0,2))
+#dat<-cbind(runif(n),runif(n))
+
+re<-redges.triCM(dat,Tr)
+re
+CM<-(A+B+C)/3
+D1<-(B+C)/2; D2<-(A+C)/2; D3<-(A+B)/2;
+Ds<-rbind(D1,D2,D3)
+
+Xlim<-range(Tr[,1],dat[,1])
+Ylim<-range(Tr[,2],dat[,2])
+xd<-Xlim[2]-Xlim[1]
+yd<-Ylim[2]-Ylim[1]
+
+plot(Tr,pch=".",xlab="",ylab="",axes=TRUE,xlim=Xlim+xd*c(-.05,.05),ylim=Ylim+yd*c(-.05,.05))
+polygon(Tr)
+points(dat,pch=".",col=1)
+L<-Tr; R<-matrix(rep(CM,3),ncol=2,byrow=TRUE)
+segments(L[,1], L[,2], R[,1], R[,2], lty=2)
+
+xc<-Tr[,1]#+c(-.02,.03,.02)
+yc<-Tr[,2]#+c(.02,.02,.04)
+txt.str<-c("A","B","C")
+text(xc,yc,txt.str)
+
+txt<-rbind(CM,Ds)
+xc<-txt[,1]#+c(.05,.06,-.05,-.02)
+yc<-txt[,2]#+c(.03,.03,.05,-.08)
+txt.str<-c("CM","re=2","re=3","re=1")
+text(xc,yc,txt.str)
+text(dat,labels=factor(re$re))
+
+redges.triCM(dat,Tr)
+
+dat.fr<-data.frame(a=dat)
+redges.triCM(dat.fr,Tr)
+
+dat.fr<-data.frame(a=Tr)
+redges.triCM(dat,dat.fr)
+
+}
+\references{
+\insertAllCited{}
 }
 \seealso{
 \code{\link{redges.tri.cent}}, \code{\link{rverts.tri.cent}} and \code{\link{rverts.tri.nd}}

@@ -8,25 +8,28 @@ rv.bastriCC(p, c1, c2)
 }
 \arguments{
 \item{p}{A 2D point for which CC-vertex region it resides in is to be determined in the
-basic triangle Tb}
+basic triangle \eqn{T_b}}
 
 \item{c1, c2}{Positive real numbers which constitute the upper vertex of the basic triangle (i.e., the vertex
-adjacent to the shorter edges of Tb); c1 must be in [0,1/2], c2>0 and (1-c1)^2+c2^2 <=1}
+adjacent to the shorter edges of \eqn{T_b}); \code{c1} must be in \eqn{[0,1/2]}, \eqn{c_2>0} and \eqn{(1-c_1)^2+c_2^2 \le 1}}
 }
 \value{
 A list with two elements
-\item{rv}{Index of the CC-vertex region that contains point, p in the basic triangle Tb}
-\item{tri}{The vertices of the triangle, where row number corresponds to the vertex index in rv
-with row 1=(0,0), row 2=(1,0), and row 3=(c1,c2).}
+\item{rv}{Index of the CC-vertex region that contains point, \code{p} in the basic triangle \eqn{T_b}}
+\item{tri}{The vertices of the triangle, where row number corresponds to the vertex index in \code{rv}
+with row 1=(0,0), row 2=(1,0), and row 3=\eqn{(c_1,c_2)}.}
 }
 \description{
-Returns the index of the vertex whose region contains point p in
-the basic triangle Tb=T((0,0),(1,0),(c1,c2)) where c1 is in [0,1/2], c2>0 and (1-c1)^2+c2^2 <=1
-and vertex regions are based on the circumcenter CC of Tb.
-(see the plots in the example for illustrations). The vertices of the basic triangle Tb are labeled as
-1=(0,0),2=(1,0),and 3=(c1,c2) also according to the row number the vertex is recorded in Tb.
-If the point, p, is not inside Tb, then the function yields NA as output.
+Returns the index of the vertex whose region contains point \code{p} in
+the basic triangle \eqn{T_b=T((0,0),(1,0),(c_1,c_2))} where \code{c1} is in \eqn{[0,1/2]}, \eqn{c_2>0} and \eqn{(1-c_1)^2+c_2^2 \le 1}
+and vertex regions are based on the circumcenter CC of \eqn{T_b}.
+(see the plots in the example for illustrations).
+
+The vertices of the basic triangle \eqn{T_b} are labeled as
+1=(0,0),2=(1,0),and 3=\eqn{(c_1,c_2)} also according to the row number the vertex is recorded in \eqn{T_b}.
+If the point, \code{p}, is not inside \eqn{T_b}, then the function yields NA as output.
 The corresponding vertex region is the polygon whose interior points are closest to that vertex.
+
 Any given triangle can be mapped to the basic triangle
 by a combination of rigid body motions (i.e., translation, rotation and reflection) and scaling,
 preserving uniformity of the points in the original triangle. Hence basic triangle is useful for simulation
@@ -35,43 +38,87 @@ See also (\insertCite{ceyhan:Phd-thesis,ceyhan:comp-geo-2010,ceyhan:mcap2012;tex
 }
 \examples{
 c1<-.4; c2<-.6;
-A<-c(0,0); B<-c(1,0); C<-c(c1,c2);  #the vertices of the basic triangle Tb
+#c1<-.5; c2<-.5;
+
+P<-c(.3,.2)
+rv.bastriCC(P,c1,c2)
+
+P<-c(.6,.2)
+rv.bastriCC(P,c1,c2)
+
+P<-c(.5,.4)
+rv.bastriCC(P,c1,c2)
+
+P<-c(1.5,.4)
+rv.bastriCC(P,c1,c2)
+
+A<-c(0,0);B<-c(1,0);C<-c(c1,c2);
 Tb<-rbind(A,B,C)
-xfence<-abs(A[1]-B[1])*.25 #how far to go at the lower and upper ends in the x-coordinate
-x<-seq(min(A[1],B[1])-xfence,max(A[1],B[1])+xfence,by=.01)
-
-lnD2CC<-lD2CCinTb(x,c1,c2)
-lnD2CC
-summary(lnD2CC)
-plot(lnD2CC)
-
 CC<-circ.cent.bastri(c1,c2) #the circumcenter
-CC
-D1<-(B+C)/2; D2<-(A+C)/2; D3<-(A+B)/2; #midpoints of the edges
+D1<-(B+C)/2; D2<-(A+C)/2; D3<-(A+B)/2;
 Ds<-rbind(D1,D2,D3)
 
-x2<-seq(0,1,by=.01)
-y2<-lD2CCinTb(x2,c1,c2)$y
-
-Xlim<-range(Tb[,1],x1)
-Ylim<-range(Tb[,2],y2)
+Xlim<-range(Tb[,1])
+Ylim<-range(Tb[,2])
 xd<-Xlim[2]-Xlim[1]
 yd<-Ylim[2]-Ylim[1]
 
-plot(A,pch=".",asp=1,xlab="",ylab="",axes=TRUE,xlim=Xlim+xd*c(-.05,.05),ylim=Ylim+yd*c(-.05,.05))
+plot(Tb,asp=1,xlab="",ylab="",axes=TRUE,pch=".",xlim=Xlim+xd*c(-.05,.05),ylim=Ylim+yd*c(-.05,.05))
 polygon(Tb)
-L<-matrix(rep(CC,3),ncol=3,byrow=T); R<-Ds
+L<-matrix(rep(CC,3),ncol=2,byrow=TRUE); R<-Ds
 segments(L[,1], L[,2], R[,1], R[,2], lty=2)
 
-txt<-rbind(Tb,CC,D1,D2,D3)
-xc<-txt[,1]+c(-.03,.04,.03,.02,.09,-.08,0)
-yc<-txt[,2]+c(.02,.02,.04,.08,.03,.03,-.05)
+txt<-rbind(Tb,CC,Ds)
+xc<-txt[,1]+c(-.03,.03,0.02,-.01,.05,-.05,.01)
+yc<-txt[,2]+c(.02,.02,.03,.06,.03,.03,-.03)
 txt.str<-c("A","B","C","CC","D1","D2","D3")
 text(xc,yc,txt.str)
 
-lines(x2,y2,type="l",lty=2)
-text(0,.5,"lD2CCinTb")
+RV1<-(A+D3+CC+D2)/4
+RV2<-(B+D3+CC+D1)/4
+RV3<-(C+D2+CC+D1)/4
 
+txt<-rbind(RV1,RV2,RV3)
+xc<-txt[,1]
+yc<-txt[,2]
+txt.str<-c("rv=1","rv=2","rv=3")
+text(xc,yc,txt.str)
+
+###
+n<-20
+dat<-runif.bastri(n,c1,c2)$g
+#dat<-cbind(runif(n),runif(n))
+#dat<-cbind(runif(n,1,2),runif(n,0,1))
+
+Rv<-vector()
+for (i in 1:n)
+  Rv<-c(Rv,rv.bastriCC(dat[i,],c1,c2)$rv)
+Rv
+
+Xlim<-range(Tb[,1],dat[,1])
+Ylim<-range(Tb[,2],dat[,2])
+xd<-Xlim[2]-Xlim[1]
+yd<-Ylim[2]-Ylim[1]
+
+plot(Tb,asp=1,xlab="",pch=".",ylab="",axes=TRUE,xlim=Xlim+xd*c(-.05,.05),ylim=Ylim+yd*c(-.05,.05))
+points(dat,pch=".")
+polygon(Tb)
+L<-matrix(rep(CC,3),ncol=2,byrow=TRUE); R<-Ds
+segments(L[,1], L[,2], R[,1], R[,2], lty=2)
+text(dat,labels=factor(Rv))
+
+txt<-rbind(Tb,CC,Ds)
+xc<-txt[,1]+c(-.03,.03,0.02,-.01,.05,-.05,.01)
+yc<-txt[,2]+c(.02,.02,.03,.06,.03,.03,-.04)
+txt.str<-c("A","B","C","CC","D1","D2","D3")
+text(xc,yc,txt.str)
+
+P<-c(.3,.2)
+rv.bastriCC(P,c1,c2)
+
+}
+\references{
+\insertAllCited{}
 }
 \seealso{
 \code{\link{rv.triCM}}, \code{\link{rv.tri.cent}}, \code{\link{rv.triCC}},

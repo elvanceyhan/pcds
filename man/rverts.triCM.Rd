@@ -14,79 +14,83 @@ containing them are to be determined}
 }
 \value{
 A list with two elements
-\item{rv}{Indices (i.e., a vector of indices) of the vertices whose region contains points in Dt
-in the triangle tri}
-\item{tri}{The vertices of the triangle, where row number corresponds to the vertex index in rv.}
+\item{rv}{Indices (i.e., a vector of indices) of the vertices whose region contains points in \code{Dt}
+in the triangle \code{tri}}
+\item{tri}{The vertices of the triangle, where row number corresponds to the vertex index in \code{rv}.}
 }
 \description{
-Returns the indices of the vertices whose regions contain the points in data set Dt in
-a triangle tri=(A,B,C) and vertex regions are based on the center of mass CM of tri.
-(see the plots in the example for illustrations). The vertices of the  triangle tri are labeled as
-1=A,2=B, and 3=C also according to the row number the vertex is recorded in tri.
-If a point in Dt is not inside tri, then the function yields NA as output for that entry.
+Returns the indices of the vertices whose regions contain the points in data set \code{Dt} in
+a triangle \code{tri}=\eqn{(A,B,C)} and vertex regions are based on the center of mass CM of \code{tri}.
+(see the plots in the example for illustrations). The vertices of the  triangle \code{tri} are labeled as
+1=A,2=B, and 3=C also according to the row number the vertex is recorded in \code{tri}.
+If a point in \code{Dt} is not inside \code{tri}, then the function yields NA as output for that entry.
 The corresponding vertex region is the polygon
 with the vertex, CM, and midpoints the edges crossing the vertex.
 See also (\insertCite{ceyhan:Phd-thesis,ceyhan:comp-geo-2010,ceyhan:mcap2012;textual}{pcds}).
 }
 \examples{
-c1<-.4; c2<-.6;
-A<-c(0,0); B<-c(1,0); C<-c(c1,c2);
-Tb<-rbind(A,B,C)
+A<-c(1,1); B<-c(2,0); C<-c(1.5,2);
+#A<-runif(2); B<-runif(2); C<-runif(2);
+#A<-runif(2,1,100); B<-runif(2,1,100); C<-runif(2,1,100);
+Tr<-rbind(A,B,C);
+
+P<-c(.4,.2)
+rverts.triCM(P,Tr)
+
+P<-c(1.8,.5)
+rverts.triCM(P,Tr)
+
+P<-c(10.5,1.6)
+rverts.triCM(P,Tr)
+
 n<-20
-
 #set.seed(1)
-dat<-runif.bastri(n,c1,c2)$g
-#dat<-cbind(runif(n),runif(n))
+dat<-runif.tri(n,Tr)$g
 #dat<-cbind(runif(n,1,2),runif(n,0,1))
+#dat<-cbind(runif(n),runif(n))
 
-M<-as.numeric(runif.bastri(1,c1,c2)$g)
-#M<-c(.6,.3)
-#M<-circ.cent.tri(Tb)
-#M<-c(1,1,1) #M<-c(1,2,3) #M<-c(-1,2,3) #barycentric coordinates
-#M<-c(1.3,1.3)
-#M<-c(.3,.3)
-r<-2
+rverts.triCM(dat,Tr)
+rverts.triCM(rbind(dat,c(2,2)),Tr)
 
-Gam2PEbastri(dat[1,],dat[2,],dat,r,c1,c2,M)
-Gam2PEbastri(c(1,1),dat[2,],dat,r,c1,c2,M)
+rv<-rverts.triCM(dat,Tr)
+rv
 
-Gam2PEbastri(c(1,2),dat[2,],dat,r,c1,c2,M)
-Gam2PEbastri(c(1,2),dat[2,],dat,r,c1,c2,M,ch.data.pnts = TRUE)
+CM<-(A+B+C)/3
+D1<-(B+C)/2; D2<-(A+C)/2; D3<-(A+B)/2;
+Ds<-rbind(D1,D2,D3)
 
+Xlim<-range(Tr[,1],dat[,1])
+Ylim<-range(Tr[,2],dat[,2])
+xd<-Xlim[2]-Xlim[1]
+yd<-Ylim[2]-Ylim[1]
 
-Gam2PEbastri(c(1,2),c(1,3),rbind(c(1,2),c(1,3)),r,c1,c2,M)
-Gam2PEbastri(c(1,2),c(1,3),rbind(c(1,2),c(1,3)),r,c1,c2,M,ch.data.pnts = TRUE)
+plot(Tr,pch=".",xlab="",ylab="",axes=TRUE,xlim=Xlim+xd*c(-.05,.05),ylim=Ylim+yd*c(-.05,.05))
+polygon(Tr)
+points(dat,pch=".",col=1)
+L<-matrix(rep(CM,3),ncol=2,byrow=TRUE); R<-Ds
+segments(L[,1], L[,2], R[,1], R[,2], lty=2)
 
-ind.gam2<-vector()
-for (i in 1:(n-1))
-  for (j in (i+1):n)
-  {if (Gam2PEbastri(dat[i,],dat[j,],dat,r,c1,c2,M)==1)
-    ind.gam2<-rbind(ind.gam2,c(i,j))}
-ind.gam2
+xc<-Tr[,1]#+c(-.04,.05,.05)
+yc<-Tr[,2]#+c(-.05,.05,.03)
+txt.str<-c("rv=1","rv=2","rv=3")
+text(xc,yc,txt.str)
 
-#or try
-rv1<-rv.bastri.cent(dat[1,],c1,c2,M)$rv;
-rv2<-rv.bastri.cent(dat[2,],c1,c2,M)$rv;
-Gam2PEbastri(dat[1,],dat[2,],dat,r,c1,c2,M,rv1,rv2)
+txt<-rbind(CM,Ds)
+xc<-txt[,1]#+c(.04,.04,-.03,0)
+yc<-txt[,2]#+c(-.07,.04,.06,-.08)
+txt.str<-c("CM","D1","D2","D3")
+text(xc,yc,txt.str)
 
-#or try
-rv1<-rv.bastri.cent(dat[1,],c1,c2,M)$rv;
-Gam2PEbastri(dat[1,],dat[2,],dat,r,c1,c2,M,rv1)
+text(dat,labels=factor(rv$rv))
 
-#or try
-rv2<-rv.bastri.cent(dat[2,],c1,c2,M)$rv;
-Gam2PEbastri(dat[1,],dat[2,],dat,r,c1,c2,M,rv2=rv2)
-
-P1<-c(.4,.2)
-P2<-c(.6,.2)
-Gam2PEbastri(P1,P2,dat,r,c1,c2,M)
-
-Gam2PEbastri(P1,P2,rbind(dat,dat),r,c1,c2,M)
-Gam2PEbastri(P1,P2,cbind(dat,dat),r,c1,c2,M)
-Gam2PEbastri(P1,P2, rbind(c("a","b"),dat),r,c1,c2,M)
+P<-c(1.8,.5)
+rverts.triCM(P,Tr)
 
 dat.fr<-data.frame(a=dat)
-Gam2PEbastri(P1,P2,dat.fr,r,c1,c2,M)
+rverts.triCM(dat.fr,Tr)
+
+dat.fr<-data.frame(a=Tr)
+rverts.triCM(dat,dat.fr)
 
 }
 \references{

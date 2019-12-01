@@ -2,7 +2,7 @@
 % Please edit documentation in R/PCDFunctions.r
 \name{six.ext}
 \alias{six.ext}
-\title{An object of class "Extrema"
+\title{An object of class "Extrema":
 
 The furthest points from edges in each edge region}
 \usage{
@@ -18,42 +18,48 @@ A list with the elements
 \item{txt1}{Region labels as r1-r6 (corresponds to row number in Extrema Points).}
 \item{txt2}{A short description of the distances as "Distances to Line Segments (A,CM), (B,CM), and (C,CM) in the six regions r1-r6".}
 \item{type}{Type of the extrema points}
-\item{mtxt}{The "main" title for the plot of the exrema}
+\item{mtitle}{The "main" title for the plot of the exrema}
 \item{Ext}{The extrema points, here, closest points in each of regions r1-r6 to the line segments
 joining vertices to the center of mass, CM.}
-\item{X}{The input data, Dt, can be a matrix or data frame}
-\item{num.points}{The number of data points, i.e., size of Dt}
-\item{supp}{Support of the data points, here, it is Te.}
+\item{X}{The input data, \code{Dt}, can be a matrix or data frame}
+\item{num.points}{The number of data points, i.e., size of \code{Dt}}
+\item{supp}{Support of the data points, here, it is \eqn{T_e}.}
 \item{cent}{The center point used for construction of edge regions.}
-\item{ncent}{Name of the center, cent, it is center of mass "CM" for this function.}
-\item{regions}{The six regions, r1-r6 and edge regions inside the triangle, Te, provided as a list.}
+\item{ncent}{Name of the center, \code{cent}, it is center of mass "CM" for this function.}
+\item{regions}{The six regions, r1-r6 and edge regions inside the triangle, \eqn{T_e}, provided as a list.}
 \item{region.names}{Names of the regions as "r1"-"r6" and names of the edge regions as "er=1","er=2","er=3".}
-\item{region.centers}{Centers of mass of the regions r1-r6 and of edge regions inside Te.}
+\item{region.centers}{Centers of mass of the regions r1-r6 and of edge regions inside \eqn{T_e}.}
 \item{dist2ref}{Distances from closest points in each of regions r1-r6 to the line segments
 joining vertices to the center of mass, CM.}
 }
 \description{
-Returns the six closest points among the data set, Dt, in the standard equilateral triangle
-Te=T(A=(0,0),B=(1,0),C=(1/2,sqrt(3)/2)) in half edge regions. In particular,
-in regions r1 and r6, it finds the closest point in each region to the line segment [A,CM]
-in regions r2 and r3, it finds the closest point in each region to the line segment [B,CM] and
-in regions r4 and r5, it finds the closest point in each region to the line segment [C,CM]
-where CM=(A+B+C)/3 is the center of mass. See the example for this function or example for
-rel.six.Te function. If there is no data point in region ri, then it returns "NA NA" for ith row in the extrema.
-ch.all.intri is for checking whether all data points are in Te (default is FALSE)
+Returns the six closest points among the data set, \code{Dt}, in the standard equilateral triangle
+\eqn{T_e=T(A=(0,0),B=(1,0),C=(1/2,\sqrt{3}/2))} in half edge regions. In particular,
+in regions \eqn{r_1} and \eqn{r_6}, it finds the closest point in each region to the line segment [A,CM]
+in regions \eqn{r_2} and \eqn{r_3}, it finds the closest point in each region to the line segment [B,CM] and
+in regions \eqn{r_4} and \eqn{r_5}, it finds the closest point in each region to the line segment [C,CM]
+where \eqn{CM=(A+B+C)/3} is the center of mass. See the example for this function or example for
+\code{rel.six.Te} function. If there is no data point in region \eqn{r_i}, then it returns "NA NA" for ith row in the extrema.
+\code{ch.all.intri} is for checking whether all data points are in \eqn{T_e} (default is FALSE)
 }
 \examples{
-P<-c(.4,.2)
-rel.six.Te(P)
+\dontrun{
+n<-100
+dat<-runifTe(n)$gen.points
+#dat<-cbind(runif(n),runif(n))
+#dat<-cbind(runif(n,1,2),runif(n,0,1))
 
-P<-c(.4,.3)
-rel.six.Te(P)
+Ext<-six.ext(dat)
+Ext
+summary(Ext)
+plot(Ext)
 
-P<-c(.8,.8)
-rel.six.Te(P)
+six.ext(dat[1:5,])$Ext
+sixt<-six.ext(dat)
 
-P<-c(.5,.61)
-rel.six.Te(P)
+dat2<-rbind(dat,c(.8,.8))
+six.ext(dat2)
+six.ext(dat2,ch.all.intri = TRUE)
 
 A<-c(0,0); B<-c(1,0); C<-c(0.5,sqrt(3)/2);
 Te<-rbind(A,B,C)
@@ -67,57 +73,28 @@ h4<-c(1/2, 5*sqrt(3)/18); h5<-c(1/3, 2*sqrt(3)/9); h6<-c(1/3, sqrt(3)/9);
 r1<-(h1+h6+CM)/3;r2<-(h1+h2+CM)/3;r3<-(h2+h3+CM)/3;
 r4<-(h3+h4+CM)/3;r5<-(h4+h5+CM)/3;r6<-(h5+h6+CM)/3;
 
-Xlim<-range(Te[,1])
-Ylim<-range(Te[,2])
-xd<-Xlim[2]-Xlim[1]
-yd<-Ylim[2]-Ylim[1]
-
-plot(A,pch=".",xlab="",ylab="",axes=TRUE,xlim=Xlim+xd*c(-.05,.05),ylim=Ylim+yd*c(-.05,.05))
-polygon(Te)
-L<-Te; R<-Ds
-segments(L[,1], L[,2], R[,1], R[,2], lty=2)
-polygon(rbind(h1,h2,h3,h4,h5,h6))
-
-txt<-rbind(h1,h2,h3,h4,h5,h6)
-xc<-txt[,1]+c(-.02,.02,.02,0,0,0)
-yc<-txt[,2]+c(.02,.02,.02,0,0,0)
-txt.str<-c("h1","h2","h3","h4","h5","h6")
-text(xc,yc,txt.str)
-
-txt<-rbind(Te,CM,r1,r2,r3,r4,r5,r6)
-xc<-txt[,1]+c(-.02,.02,.02,0,0,0,0,0,0,0)
-yc<-txt[,2]+c(.02,.02,.02,0,0,0,0,0,0,0)
-txt.str<-c("A","B","C","CM","1","2","3","4","5","6")
-text(xc,yc,txt.str)
-
-n<-40
-dat<-runifTe(n)$gen.points
-#dat<-cbind(runif(n),runif(n))
-#dat<-cbind(runif(n,1,2),runif(n,0,1))
-
 Xlim<-range(Te[,1],dat[,1])
 Ylim<-range(Te[,2],dat[,2])
 xd<-Xlim[2]-Xlim[1]
 yd<-Ylim[2]-Ylim[1]
 
-rsix<-vector()
-for (i in 1:n)
-  rsix<-c(rsix,rel.six.Te(dat[i,]))
-rsix
-
 plot(A,pch=".",xlab="",ylab="",axes=TRUE,xlim=Xlim+xd*c(-.05,.05),ylim=Ylim+yd*c(-.05,.05))
 polygon(Te)
-points(dat,pch=".")
 L<-Te; R<-Ds
 segments(L[,1], L[,2], R[,1], R[,2], lty=2)
 polygon(rbind(h1,h2,h3,h4,h5,h6))
-text(dat,labels=factor(rsix))
+points(dat)
+points(sixt$Ext,pty=2,pch=4,col="red")
 
-txt<-rbind(Te,CM)
-xc<-txt[,1]+c(-.02,.02,.02,0)
-yc<-txt[,2]+c(.02,.02,.02,-.05)
-txt.str<-c("A","B","C","CM")
+txt<-rbind(Te,r1,r2,r3,r4,r5,r6)
+xc<-txt[,1]+c(-.02,.02,.02,0,0,0,0,0,0)
+yc<-txt[,2]+c(.02,.02,.03,0,0,0,0,0,0)
+txt.str<-c("A","B","C","1","2","3","4","5","6")
 text(xc,yc,txt.str)
+
+dat.fr<-data.frame(a=dat)
+six.ext(dat.fr)
+}
 
 }
 \seealso{

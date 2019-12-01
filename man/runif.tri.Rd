@@ -2,7 +2,7 @@
 % Please edit documentation in R/PCDFunctions.r
 \name{runif.tri}
 \alias{runif.tri}
-\title{An object of class "Uniform"
+\title{An object of class "Uniform":
 
 Generation of Uniform Points in a triangle}
 \usage{
@@ -16,56 +16,45 @@ runif.tri(k, tri)
 \value{
 A list with the elements
 \item{type}{The type of the pattern from which points are to be generated}
-\item{mtxt}{The "main" title for the plot of the point pattern}
+\item{mtitle}{The "main" title for the plot of the point pattern}
 \item{tess.points}{The vertices of the support of the uniformly generated points, it is the triangle
-tri for this function}
-\item{gen.points}{The output set of generated points uniformly in the triangle, tri.}
+\code{tri} for this function}
+\item{gen.points}{The output set of generated points uniformly in the triangle, \code{tri}.}
 \item{out.region}{The outer region which contains the support region, NULL for this function.}
 \item{desc.pat}{Description of the point pattern from which points are to be generated}
 \item{num.points}{The vector of two numbers, which are the number of generated points and the number
 of vertices of the support points (here it is 3).}
-\item{txt4pnts}{Description of the two numbers in num.points}
-\item{xlimit,ylimit}{The ranges of the x- and y-coordinates of the support, tri}
+\item{txt4pnts}{Description of the two numbers in \code{num.points}}
+\item{xlimit,ylimit}{The ranges of the x- and y-coordinates of the support, \code{tri}}
 }
 \description{
-Generates k points uniformly in a given triangle, tri
+Generates \code{k} points uniformly in a given triangle, \code{tri}
 }
 \examples{
-#A<-c(0,0); B<-c(1,0); C<-c(.5,sqrt(3.)/2);
-A<-c(1,1); B<-c(2,0); C<-c(1.5,2); p<-c(1.4,1.2)
-#A<-runif(2); B<-runif(2);  C<-runif(2); p<-runif(2);
-#A<-runif(2,1,100); B<-runif(2,1,100); C<-runif(2,1,100); p<-runif(2,1,100)
+n<-100
+A<-c(1,1); B<-c(2,0); C<-c(1.5,2);
+#A<-runif(2); B<-runif(2); C<-runif(2);
+#A<-runif(2,1,100); B<-runif(2,1,100); C<-runif(2,1,100);
 Tr<-rbind(A,B,C)
 
-inTriAll(p,Tr)
-
-#for the vertex A
-inTriAll(A,Tr)
-inTriAll(A,Tr,boundary=TRUE)
-
-#for a point on the edge AB
-D3<-(A+B)/2
-inTriAll(D3,Tr)
-inTriAll(D3,Tr,boundary=TRUE)
-
-#data set
-n<-10
-dat<-cbind(runif(n),runif(n))
-inTriAll(dat,Tr,boundary=TRUE)
-
-dat<-runifTe(n)$gen.points
-inTriAll(dat,Tr)
-inTriAll(dat,Tr,boundary=TRUE)
+Xdt<-runif.tri(n,Tr)
+Xdt
+summary(Xdt)
+plot(Xdt)
 
 dat<-runif.tri(n,Tr)$g
-inTriAll(dat,Tr)
-inTriAll(dat,Tr,boundary=TRUE)
+Xlim<-range(Tr[,1])
+Ylim<-range(Tr[,2])
+xd<-Xlim[2]-Xlim[1]
+yd<-Ylim[2]-Ylim[1]
 
-dat.fr<-data.frame(a=dat)
-inTriAll(dat.fr,Tr)
-
-dat.fr<-data.frame(a=Tr)
-inTriAll(dat,dat.fr)
+plot(Tr,pch=".",xlab="",ylab="",xlim=Xlim+xd*c(-.05,.05),ylim=Ylim+yd*c(-.05,.05))
+polygon(Tr)
+points(dat)
+xc<-Tr[,1]#+c(-.03,.03,0.03)
+yc<-Tr[,2]#+c(.02,.02,.02)
+txt.str<-c("A","B","C")
+text(xc,yc,txt.str)
 
 }
 \seealso{

@@ -7,51 +7,90 @@
 radii(x, y)
 }
 \arguments{
-\item{X}{A set of d-dimensional points for which the radii are computed. Radius of an X point equals to the
-distance to the closest Y point}
+\item{x}{A set of d-dimensional points for which the radii are computed. Radius of an \code{x} point equals to the
+distance to the closest \code{y} point}
 
-\item{Y}{A set of d-dimensional points representing the reference points for the balls. That is, radius
-of an X point is defined as the minimum distance to the Y points.}
+\item{y}{A set of d-dimensional points representing the reference points for the balls. That is, radius
+of an \code{x} point is defined as the minimum distance to the \code{y} points.}
 }
 \value{
 A list with three elements
-\item{rad}{A vector whose entries are the radius values for the X points. Radius of an X point equals to
-the distance to the closest Y point}
-\item{index.of.clYp}{A vector of indices of the closest Y points to the X points. The i-th entry in this
-vector is the index of the closest Y point to i-th X point.}
-\item{closest.Yp}{A vector of the closest Y points to the X points. The i-th entry in this
-vector or i-th row in the matrix is the closest Y point to i-th X point.}
+\item{rad}{A vector whose entries are the radius values for the \code{x} points. Radius of an \code{x} point equals to
+the distance to the closest \code{y} point}
+\item{index.of.clYp}{A vector of indices of the closest \code{y} points to the \code{x} points. The i-th entry in this
+vector is the index of the closest \code{y} point to i-th \code{x} point.}
+\item{closest.Yp}{A vector of the closest \code{y} points to the \code{x} points. The i-th entry in this
+vector or i-th row in the matrix is the closest \code{y} point to i-th \code{x} point.}
 }
 \description{
-Returns the radii of the balls centered at X points where radius of an X point equals to the minimum distance
-to Y points (i.e. distance to the closest Y point). That is, for each X point radius=\min_{y in Y}(d(x,y)).
-X and Y points must be of the same dimension.
+Returns the radii of the balls centered at \code{x} points where radius of an \code{x} point equals to the minimum distance
+to \code{y} points (i.e. distance to the closest \code{y} point). That is, for each \code{x} point \eqn{radius= \min_{y \in Y}(d(x,y))}.
+\code{x} and \code{y} points must be of the same dimension.
 }
 \examples{
-A<-c(0,0); B<-c(1,0); C<-c(1/2,sqrt(3)/2);
-Te<-rbind(A,B,C) #+10^(-16)
-is.StdEqTri(Te)
+nx<-10
+ny<-5
+X<-cbind(runif(nx),runif(nx))
+Y<-cbind(runif(ny),runif(ny))
+Rad<-radii(X,Y)
+Rad
+rd<-Rad$rad
 
-is.StdEqTri(Te)
+Xlim<-range(X[,1]-rd,X[,1]+rd,Y[,1])
+Ylim<-range(X[,2]-rd,X[,2]+rd,Y[,2])
+xd<-Xlim[2]-Xlim[1]
+yd<-Ylim[2]-Ylim[1]
 
-Te<-rbind(B,C,A)
-is.StdEqTri(Te)
+plot(rbind(Y),asp=1,pch=16,col=2,xlab="",ylab="",axes=TRUE,
+xlim=Xlim+xd*c(-.05,.05),ylim=Ylim+yd*c(-.05,.05))
+points(rbind(X))
+tripack::circles(X[,1],X[,2],Rad$rad,lty=1,lwd=1,col=4)
 
-Tr<-rbind(A,B,-C)
-is.StdEqTri(Tr)
+###
+nx<-5
+ny<-1
+X<-cbind(runif(nx),runif(nx))
+Y<-matrix(c(runif(ny),runif(ny)),ncol=2)
+Rad<-radii(X,Y)
+Rad
+radii(Y,X)
 
-A<-c(1,1); B<-c(2,0); C<-c(1.5,2);
-Tr<-rbind(A,B,C);
-is.StdEqTri(Tr)
+rd<-Rad$rad
 
-A<-c(0,0); B<-c(1,0); C<-c(.5,0.8660254);
-Te<-rbind(A,B,C)
-is.StdEqTri(Te)
+Xlim<-range(X[,1]-rd,X[,1]+rd,Y[,1])
+Ylim<-range(X[,2]-rd,X[,2]+rd,Y[,2])
+xd<-Xlim[2]-Xlim[1]
+yd<-Ylim[2]-Ylim[1]
 
-is.StdEqTri(rbind(A,A,B))
+plot(rbind(Y),asp=1,pch=16,col=2,xlab="",ylab="",axes=TRUE,
+xlim=Xlim+xd*c(-.05,.05),ylim=Ylim+yd*c(-.05,.05))
+points(rbind(X))
+tripack::circles(X[,1],X[,2],Rad$rad,lty=1,lwd=1,col=4)
 
-dat.fr<-data.frame(a=Te)
-is.StdEqTri(dat.fr)
+radii(c(1,2),c(2,3))
+
+\dontrun{
+###
+nx<-10
+ny<-5
+X<-runif(nx)
+Y<-runif(ny)
+radii(X,Y) #this does not work, as X and Y are treated as vectors (i.e. points)
+
+X<-as.matrix(X)
+Y<-as.matrix(Y)
+radii(X,Y) #this works as X and Y are treated as 1D data sets
+}
+###
+nx<-10
+ny<-5
+X<-cbind(runif(nx),runif(nx),runif(nx))
+Y<-cbind(runif(ny),runif(ny),runif(ny))
+radii(X,Y)
+
+dat.fr<-data.frame(a=X)
+radii(dat.fr,Y)
+radii(Y,dat.fr)
 
 }
 \seealso{

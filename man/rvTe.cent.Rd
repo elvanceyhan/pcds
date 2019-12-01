@@ -7,71 +7,80 @@
 rvTe.cent(pt, M)
 }
 \arguments{
-\item{M}{A 2D point in Cartesian coordinates or a 3D point in barycentric coordinates
-which serves as a center in the interior of the standard equilateral triangle Te}
+\item{pt}{A 2D point for which \code{M}-vertex region it resides in is to be determined in the
+standard equilateral triangle \eqn{T_e}}
 
-\item{p}{A 2D point for which M-vertex region it resides in is to be determined in the
-standard equilateral triangle Te}
+\item{M}{A 2D point in Cartesian coordinates or a 3D point in barycentric coordinates
+which serves as a center in the interior of the standard equilateral triangle \eqn{T_e}}
 }
 \value{
 A list with two elements
-\item{rv}{Index of the vertex whose region contains point, pt}
-\item{tri}{The vertices of the triangle, Te, where row number corresponds to the vertex index in rv
+\item{rv}{Index of the vertex whose region contains point, \code{pt} }
+\item{tri}{The vertices of the triangle, \eqn{T_e}, where row number corresponds to the vertex index in \code{rv}
 with row 1=(0,0), row 2=(1,0), and row 3=(1/2,sqrt(3)/2).}
 }
 \description{
-Returns the index of the vertex whose region contains point pt in standard equilateral triangle
-Te=T((0,0),(1,0),(1/2,sqrt(3)/2)) with vertex regions are constructed with center M=(m1,m2)
-in Cartesian coordinates or M=(alpha,beta,gamma) in barycentric coordinates in the interior of Te.
-(see the plots in the example for illustrations). The vertices of triangle, Te, are labeled as 1,2,3
-according to the row number the vertex is recorded in Te. If the point, pt, is not inside Te, then the
-function yields NA as output. The corresponding vertex region is the polygon with the vertex, M, and
-projections from M to the edges on the lines joining vertices and M.
+Returns the index of the vertex whose region contains point \code{pt} in standard equilateral triangle
+\eqn{T_e=T((0,0),(1,0),(1/2,\sqrt{3}/2))} with vertex regions are constructed with center \eqn{M=(m_1,m_2)}
+in Cartesian coordinates or \eqn{M=(\alpha,\beta,\gamma)} in barycentric coordinates in the interior of \eqn{T_e}.
+(see the plots in the example for illustrations). The vertices of triangle, \eqn{T_e}, are labeled as 1,2,3
+according to the row number the vertex is recorded in \eqn{T_e}. If the point, \code{pt}, is not inside \eqn{T_e}, then the
+function yields NA as output. The corresponding vertex region is the polygon with the vertex, \code{M}, and
+projections from \code{M} to the edges on the lines joining vertices and \code{M}.
 See also (\insertCite{ceyhan:Phd-thesis,ceyhan:comp-geo-2010,ceyhan:mcap2012;textual}{pcds}).
 }
 \examples{
-A<-c(0,0); B<-c(1,0); C<-c(.5,sqrt(3.)/2);
+A<-c(0,0); B<-c(1,0); C<-c(1/2,sqrt(3)/2);
 Te<-rbind(A,B,C)
-
 n<-20
+
 #set.seed(1)
 dat<-runifTe(n)$gen.points
 #dat<-cbind(runif(n),runif(n))
 #dat<-cbind(runif(n,1,2),runif(n,0,1))
 
-rvTeCM(dat[1,])
-rvTeCM(c(.7,.2))
-rvTeCM(c(0,1))
+M<-as.numeric(runifTe(1)$g)
+#M<-c(.6,.2)
+#M<-circ.cent.tri(Te)
+#M<-c(1,1,1) #M<-c(1,2,3) #M<-c(-1,2,3) #barycentric coordinates
+#M<-c(1.3,1.3)
+#M<-c(.3,.3)
+
+rvTe.cent(dat[1,],M)
+rvTe.cent(c(.7,.2),M)
+rvTe.cent(c(0,1),M)
 
 Rv<-vector()
 for (i in 1:n)
-  Rv<-c(Rv,rvTeCM(dat[i,])$rv)
+  Rv<-c(Rv,rvTe.cent(dat[i,],M)$rv)
 Rv
 
-CM<-(A+B+C)/3
-D1<-(B+C)/2; D2<-(A+C)/2; D3<-(A+B)/2;
-Ds<-rbind(D1,D2,D3)
+Ds<-cp2e.tri(Te,M)
 
 Xlim<-range(Te[,1],dat[,1])
 Ylim<-range(Te[,2],dat[,2])
 xd<-Xlim[2]-Xlim[1]
 yd<-Ylim[2]-Ylim[1]
 
-plot(Te,asp=1,pch=".",xlab="",ylab="",axes=TRUE,xlim=Xlim+xd*c(-.05,.05),ylim=Ylim+yd*c(-.05,.05))
+if (dimension(M)==3) {M<-bary2cart(M,Te)}
+#need to run this when M is given in barycentric coordinates
+
+plot(Te,asp=1,pch=".",xlab="",ylab="",axes=TRUE,
+xlim=Xlim+xd*c(-.05,.05),ylim=Ylim+yd*c(-.05,.05))
 polygon(Te)
 points(dat,pch=".",col=1)
-L<-matrix(rep(CM,3),ncol=3,byrow=T); R<-Ds
+L<-rbind(M,M,M); R<-Ds
 segments(L[,1], L[,2], R[,1], R[,2], lty=2)
 
-txt<-rbind(Te,CM)
+txt<-rbind(Te,M)
 xc<-txt[,1]+c(-.02,.03,.02,0)
 yc<-txt[,2]+c(.02,.02,.03,.05)
-txt.str<-c("A","B","C","CM")
+txt.str<-c("A","B","C","M")
 text(xc,yc,txt.str)
 
 text(dat,labels=factor(Rv))
 
-rvTeCM(c(.7,.2))
+rvTe.cent(c(.7,.2),M)
 
 }
 \references{

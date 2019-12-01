@@ -2,35 +2,41 @@
 % Please edit documentation in R/PCDFunctions.r
 \name{TSArcDensCS1D}
 \alias{TSArcDensCS1D}
-\title{An object of class "htest"
+\title{An object of class "htest":
 
 A test of uniformity of 1D data in a given interval based on Central Similarity Proximity Catch Digraph
 (CS-PCD)}
 \usage{
-TSArcDensCS1D(dat, t, c, int, alternative = c("two.sided", "less",
-  "greater"), conf.level = 0.95)
+TSArcDensCS1D(
+  dat,
+  t,
+  c,
+  int,
+  alternative = c("two.sided", "less", "greater"),
+  conf.level = 0.95
+)
 }
 \arguments{
 \item{dat}{A set or vector of 1D points which constitute the vertices of CS-PCD}
 
 \item{t}{A positive real number which serves as the expansion parameter in CS proximity region}
 
-\item{c}{A positive real number in (0,1) parameterizing the center inside int=(a,b).
-For the interval, int=(a,b), the parameterized center is Mc=a+c*(b-a)}
+\item{c}{A positive real number in \eqn{(0,1)} parameterizing the center inside \eqn{int=(a,b)}.
+For the interval, \eqn{int=(a,b)}, the parameterized center is \eqn{M_c=a+c(b-a)}}
 
 \item{int}{A vector of two real numbers representing an interval}
 
 \item{alternative}{Type of the alternative hypothesis in the test, one of "two.sided", "less", "greater".}
 
 \item{conf.level}{Level of the confidence interval, default is 0.95, for the arc density of CS-PCD based on
-the 1D data set dat.}
+the 1D data set \code{dat}.}
 }
 \value{
 A list with the elements
 \item{statistic}{Test statistic}
-\item{p.value}{p-value for the hypothesis test for the corresponding alternative}
-\item{conf.int}{Confidence interval for the arc density at the given level conf.level and
-depends on the type of alternative.}
+\item{p.value}{\eqn{p}-value for the hypothesis test for the corresponding alternative}
+\item{conf.int}{Confidence interval for the arc density at the given level \code{conf.level} and
+depends on the type of \code{alternative}.}
 \item{estimate}{Estimate of the parameter, i.e., arc density}
 \item{null.value}{Hypothesized value for the parameter, i.e., the null arc density, which is usually the
 mean arc density under uniform distribution.}
@@ -41,33 +47,48 @@ mean arc density under uniform distribution.}
 \description{
 This is an "htest" (i.e., hypothesis test) function which performs a hypothesis test of uniformity of 1D
 data in one interval based on the normal approximation of the arc density of the CS-PCD with expansion
-parameter t>0 and centrality parameter c in (0,1). The function  yields the test statistic, p-value for the
+parameter \eqn{t>0} and centrality parameter \code{c} in \eqn{(0,1)}. The function  yields the test statistic, \eqn{p}-value for the
 corresponding alternative, the confidence interval, estimate and null value for the parameter of interest
-(which is the arc density), and method and name of the data set used. The null hypothesis is that data is
+(which is the arc density), and method and name of the data set used.
+
+The null hypothesis is that data is
 uniform in a finite interval (i.e. arc density of CS-PCD equals to its expected value under uniform
-distribution) and alternative could be two-sided, or left-sided (i.e. data is accumulated around the end
-points) or right-sided (i.e. data is accumulated around the mid point or center Mc).
+distribution) and \code{alternative} could be two-sided, or left-sided (i.e. data is accumulated around the end
+points) or right-sided (i.e. data is accumulated around the mid point or center \eqn{M_c}).
 See also (\insertCite{ceyhan:revstat-2016;textual}{pcds}).
 }
 \examples{
-asyvarCS1D(1.2,.8)
+c<-.4
+t<-2
+a<-0; b<-10; int<-c(a,b)
 
-tseq<-seq(0.01,5,by=.05)
-cseq<-seq(0.01,.99,by=.05)
+n<-10
+dat<-runif(n,a,b)
 
-ltseq<-length(tseq)
-lcseq<-length(cseq)
+NumArcsCSmid1D(dat,t,c,int)
+TSArcDensCS1D(dat,t,c,int)
 
-var.grid<-matrix(0,nrow=ltseq,ncol=lcseq)
-for (i in 1:ltseq)
-  for (j in 1:lcseq)
-  {
-    var.grid[i,j]<-asyvarCS1D(tseq[i],cseq[j])
-  }
+NumArcsCSmid1D(dat,t,c=.3,int)
+TSArcDensCS1D(dat,t,c=.3,int)
 
-persp(tseq,cseq,var.grid, xlab="t", ylab="c", zlab="var(t,c)", theta = -30, phi = 30, expand = 0.5, col = "lightblue",
-      ltheta = 120, shade = 0.05, ticktype = "detailed")
+NumArcsCSmid1D(dat,t=1.5,c,int)
+TSArcDensCS1D(dat,t=1.5,c,int)
 
+dat<-runif(n,a-1,b+1)
+NumArcsCSmid1D(dat,t,c,int)
+TSArcDensCS1D(dat,t,c,int)
+
+c<-.4
+t<-.5
+a<-0; b<-10; int<-c(a,b)
+n<-20
+dat<-runif(n,a,b)
+
+TSArcDensCS1D(dat,t,c,int)
+
+}
+\references{
+\insertAllCited{}
 }
 \seealso{
 \code{\link{TSArcDensPE1D}}

@@ -8,26 +8,28 @@ re.bastriCM(pt, c1, c2)
 }
 \arguments{
 \item{pt}{A 2D point for which CM-edge region it resides in is to be determined in the
-basic triangle Tb}
+basic triangle \eqn{T_b}}
 
 \item{c1, c2}{Positive real numbers which constitute the upper vertex of the basic triangle (i.e., the vertex
-adjacent to the shorter edges of Tb); c1 must be in [0,1/2], c2>0 and (1-c1)^2+c2^2 <=1}
+adjacent to the shorter edges of \eqn{T_b}); \code{c1} must be in \eqn{[0,1/2]}, \eqn{c_2>0} and \eqn{(1-c_1)^2+c_2^2 \le 1}}
 }
 \value{
 A list with three elements
 
-\item{re}{Index of the CM-edge region that contains point, pt in the basic triangle Tb}
-\item{tri}{The vertices of the triangle, where row labels are A=(0,0), B=(1,0), and C=(c1,c2)
+\item{re}{Index of the CM-edge region that contains point, \code{pt}  in the basic triangle \eqn{T_b}}
+\item{tri}{The vertices of the triangle, where row labels are \eqn{A=(0,0)}, \eqn{B=(1,0)}, and \eqn{C=(c_1,c_2)}
 with edges are labeled as 3 for edge AB, 1 for edge BC, and 2 for edge AC.}
-\item{txt}{Description of the edge labels}
+\item{desc}{Description of the edge labels}
 }
 \description{
-Returns the index of the edge whose region contains point, pt, in the
-basic triangle Tb=T(A=(0,0),B=(1,0),C=(c1,c2) where c1 is in [0,1/2], c2>0 and (1-c1)^2+c2^2 <=1 with
-edge regions based on center of mass CM=(A+B+C)/3.
+Returns the index of the edge whose region contains point, \code{pt}, in the
+basic triangle \eqn{T_b=T(A=(0,0),B=(1,0),C=(c_1,c_2)} where \code{c1} is in \eqn{[0,1/2]}, \eqn{c_2>0} and \eqn{(1-c_1)^2+c_2^2 \le 1} with
+edge regions based on center of mass \eqn{CM=(A+B+C)/3}.
+
 Edges are labeled as 3 for edge AB, 1 for edge BC, and 2 for edge AC.
-If the point, pt, is not inside tri, then the function yields NA as output.
-Edge region 1 is the triangle T(B,C,CM), edge region 2 is T(A,C,CM), and edge region 3 is T(A,B,CM).
+If the point, \code{pt}, is not inside \code{tri}, then the function yields NA as output.
+Edge region 1 is the triangle \eqn{T(B,C,CM)}, edge region 2 is \eqn{T(A,C,CM)}, and edge region 3 is \eqn{T(A,B,CM)}.
+
 Any given triangle can be mapped to the basic triangle
 by a combination of rigid body motions (i.e., translation, rotation and reflection) and scaling,
 preserving uniformity of the points in the original triangle. Hence basic triangle is useful for simulation
@@ -35,77 +37,57 @@ studies under the uniformness hypothesis.
 See also (\insertCite{ceyhan:Phd-thesis,ceyhan:comp-geo-2010,ceyhan:mcap2012,ceyhan:arc-density-CS;textual}{pcds}).
 }
 \examples{
-A<-c(1,1); B<-c(2,0); C<-c(1.5,2);
-#A<-runif(2); B<-runif(2); C<-runif(2)
-#A<-runif(2,1,100); B<-runif(2,1,100); C<-runif(2,1,100);
-Tr<-rbind(A,B,C);
+c1<-.4; c2<-.6
+P<-c(.4,.2)
+re.bastriCM(P,c1,c2)
 
-P<-c(1.4,1.2)
-M<-as.numeric(runif.tri(1,Tr)$g)
-#M<-c(1.6,1.2)
-#M<-circ.cent.tri(Tr); #M<-"CC"; #M<-"CM"
-#M<-c(1,1,1) #M<-c(1,2,3) #M<-c(-1,2,3) #barycentric coordinates
-
-re.tri.cent(P,Tr,M)
+c1<-.5; c2<-.8
+P<-c(.4,.2)
+re.bastriCM(P,c1,c2)
 
 P<-c(.8,.2)
-re.tri.cent(P,Tr,M)
+re.bastriCM(P,c1,c2)
 
-P<-c(1.5,1.61)
-re.tri.cent(P,Tr,M)
+P<-c(1.8,.2)
+re.bastriCM(P,c1,c2)
 
-re.tri.cent(A,Tr,M)
-re.tri.cent(B,Tr,M)
-re.tri.cent(C,Tr,M)
-re.tri.cent(M,Tr,M)
+c1<-.4; c2<-.6
+A<-c(0,0);B<-c(1,0);C<-c(c1,c2);
+Tb<-rbind(A,B,C)
+CM<-(A+B+C)/3
+
+re.bastriCM(A,c1,c2)
+re.bastriCM(B,c1,c2)
+re.bastriCM(C,c1,c2)
+re.bastriCM(CM,c1,c2)
 
 n<-20
-dat<-runif.tri(n,Tr)$g
-#dat<-cbind(runif(n,1,2),runif(n,0,2))
+dat<-runif.bastri(n,c1,c2)$g
 #dat<-cbind(runif(n),runif(n))
+#dat<-cbind(runif(n,1,2),runif(n,0,1))
 
 re<-vector()
 for (i in 1:n)
-  re<-c(re,re.tri.cent(dat[i,],Tr,M)$re)
+  re<-c(re,re.bastriCM(dat[i,],c1,c2)$re)
 re
 
-Xlim<-range(Tr[,1],dat[,1])
-Ylim<-range(Tr[,2],dat[,2])
+Xlim<-range(Tb[,1],dat[,1])
+Ylim<-range(Tb[,2],dat[,2])
 xd<-Xlim[2]-Xlim[1]
 yd<-Ylim[2]-Ylim[1]
 
-if (dimension(M)==3) {M<-bary2cart(M,Tr)}
-
-plot(Tr,xlab="",ylab="",axes=TRUE,pch=".",xlim=Xlim+xd*c(-.05,.05),ylim=Ylim+yd*c(-.05,.05))
-polygon(Tr)
+plot(Tb,xlab="",ylab="",axes=TRUE,pch=".",xlim=Xlim+xd*c(-.05,.05),ylim=Ylim+yd*c(-.05,.05))
 points(dat,pch=".")
-L<-Tr; R<-rbind(M,M,M)
+polygon(Tb)
+L<-Tb; R<-matrix(rep(CM,3),ncol=2,byrow=TRUE)
 segments(L[,1], L[,2], R[,1], R[,2], lty=2)
 text(dat,labels=factor(re))
 
-txt<-rbind(Tr,M)
-xc<-txt[,1]#+c(-.02,.03,.03,.06)
-yc<-txt[,2]#+c(.02,.02,.04,.05)
-txt.str<-c("A","B","C","M")
+txt<-rbind(Tb,CM)
+xc<-txt[,1]+c(-.03,.03,.02,0)
+yc<-txt[,2]+c(.02,.02,.02,-.04)
+txt.str<-c("A","B","C","CM")
 text(xc,yc,txt.str)
-
-p1<-(A+B+M)/3
-p2<-(B+C+M)/3
-p3<-(A+C+M)/3
-
-plot(Tr,xlab="",ylab="",axes=TRUE,pch=".",xlim=Xlim+xd*c(-.05,.05),ylim=Ylim+yd*c(-.05,.05))
-polygon(Tr)
-L<-Tr; R<-rbind(M,M,M)
-segments(L[,1], L[,2], R[,1], R[,2], lty=2)
-
-txt<-rbind(Tr,M,p1,p2,p3)
-xc<-txt[,1]#+c(-.02,.03,.03,-.05,0,0,0)
-yc<-txt[,2]#+c(.02,.02,.04,.07,0,0,0)
-txt.str<-c("A","B","C","M","re=3","re=1","re=2")
-text(xc,yc,txt.str)
-
-dat.fr<-data.frame(a=Tr)
-re.tri.cent(P,dat.fr,M)
 
 }
 \references{

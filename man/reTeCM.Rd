@@ -8,84 +8,91 @@ reTeCM(pt)
 }
 \arguments{
 \item{pt}{A 2D point for which CM-edge region it resides in is to be determined in the
-the standard equilateral triangle Te}
+the standard equilateral triangle \eqn{T_e}}
 }
 \value{
 A list with three elements
-\item{re}{Index of the CM-edge region that contains point, pt in the standard equilateral triangle Te}
-\item{tri}{The vertices of the standard equilateral triangle Te, where row labels are A, B, and C
+\item{re}{Index of the CM-edge region that contains point, \code{pt}  in the standard equilateral triangle \eqn{T_e}}
+\item{tri}{The vertices of the standard equilateral triangle \eqn{T_e}, where row labels are A, B, and C
 with edges are labeled as 3 for edge AB, 1 for edge BC, and 2 for edge AC.}
-\item{txt}{Description of the edge labels}
+\item{desc}{Description of the edge labels}
 }
 \description{
-Returns the index of the edge whose region contains point, Pt, in
-the standard equilateral triangle Te=T(A=(0,0),B=(1,0),C=(1/2,sqrt(3)/2)) with edge regions based on
-center of mass CM=(A+B+C)/3.
+Returns the index of the edge whose region contains point, \code{pt}, in
+the standard equilateral triangle \eqn{T_e=T(A=(0,0),B=(1,0),C=(1/2,\sqrt{3}/2))} with edge regions based on
+center of mass \eqn{CM=(A+B+C)/3}.
 Edges are labeled as 3 for edge AB, 1 for edge BC, and 2 for edge AC.
-If the point, pt, is not inside tri, then the function yields NA as output.
-Edge region 1 is the triangle T(B,C,M), edge region 2 is T(A,C,M), and edge region 3 is T(A,B,M).
+If the point, \code{pt}, is not inside \code{tri}, then the function yields NA as output.
+Edge region 1 is the triangle \eqn{T(B,C,M)}, edge region 2 is \eqn{T(A,C,M)}, and edge region 3 is \eqn{T(A,B,M)}.
 See also (\insertCite{ceyhan:Phd-thesis,ceyhan:comp-geo-2010,ceyhan:mcap2012,ceyhan:arc-density-CS;textual}{pcds}).
 }
 \examples{
-c1<-.4; c2<-.6
-A<-c(0,0); B<-c(1,0); C<-c(c1,c2);
-Tb<-rbind(A,B,C);
-M<-c(.6,.2)
-
 P<-c(.4,.2)
-re.bastri.cent(P,c1,c2,M)
-
-P<-c(1.4,.2)
-re.bastri.cent(P,c1,c2,M)
-
-c1<-.5; c2<-.8
-P<-c(.4,.2)
-re.bastri.cent(P,c1,c2,M)
+reTeCM(P)
 
 P<-c(.8,.2)
-re.bastri.cent(P,c1,c2,M)
+reTeCM(P)
 
-c1<-.4; c2<-.6
-A<-c(0,0);B<-c(1,0);C<-c(c1,c2);
-Tb<-rbind(A,B,C)
+P<-c(.8,.8)
+reTeCM(P)
 
-re.bastri.cent(A,c1,c2,M)
-re.bastri.cent(B,c1,c2,M)
-re.bastri.cent(C,c1,c2,M)
-re.bastri.cent(M,c1,c2,M)
+P<-c(.5,.61)
+reTeCM(P)
+
+A<-c(0,0); B<-c(1,0); C<-c(0.5,sqrt(3)/2);
+Te<-rbind(A,B,C)
+D1<-(B+C)/2; D2<-(A+C)/2; D3<-(A+B)/2;
+reTeCM(A)
+reTeCM(B)
+reTeCM(C)
+reTeCM(D1)
+reTeCM(D2)
+reTeCM(D3)
+
+CM<-(A+B+C)/3
+reTeCM(CM)
 
 n<-20
-dat<-runif.bastri(n,c1,c2)$g
+dat<-runifTe(n)$gen.points
 #dat<-cbind(runif(n),runif(n))
 #dat<-cbind(runif(n,1,2),runif(n,0,1))
 
-M<-as.numeric(runif.bastri(1,c1,c2)$g)
-#M<-c(.6,.2)
-#M<-c(1,1,1) #M<-c(1,2,3) #M<-c(-1,2,3) #barycentric coordinates
-#M<-c(1.3,1.3)
-#M<-c(.3,.3)
-
 re<-vector()
 for (i in 1:n)
-  re<-c(re,re.bastri.cent(dat[i,],c1,c2,M)$re)
+  re<-c(re,reTeCM(dat[i,])$re)
 re
 
-Xlim<-range(Tb[,1],dat[,1])
-Ylim<-range(Tb[,2],dat[,2])
+Xlim<-range(Te[,1],dat[,1])
+Ylim<-range(Te[,2],dat[,2])
 xd<-Xlim[2]-Xlim[1]
 yd<-Ylim[2]-Ylim[1]
 
-plot(Tb,xlab="",ylab="",axes=TRUE,pch=".",xlim=Xlim+xd*c(-.05,.05),ylim=Ylim+yd*c(-.05,.05))
+plot(Te,asp=1,xlab="",ylab="",axes=TRUE,pch=".",xlim=Xlim+xd*c(-.01,.01),ylim=Ylim+yd*c(-.01,.01))
 points(dat,pch=".")
-polygon(Tb)
-L<-Tb; R<-rbind(M,M,M)
+polygon(Te)
+L<-Te; R<-matrix(rep(CM,3),ncol=2,byrow=TRUE)
 segments(L[,1], L[,2], R[,1], R[,2], lty=2)
 text(dat,labels=factor(re))
 
-txt<-rbind(Tb,M)
-xc<-txt[,1]+c(-.03,.03,.02,0)
-yc<-txt[,2]+c(.02,.02,.02,-.03)
-txt.str<-c("A","B","C","M")
+txt<-rbind(Te,CM)
+xc<-txt[,1]+c(-.03,.03,.03,-.06)
+yc<-txt[,2]+c(.02,.02,.02,.03)
+txt.str<-c("A","B","C","CM")
+text(xc,yc,txt.str)
+
+p1<-(A+B+CM)/3
+p2<-(B+C+CM)/3
+p3<-(A+C+CM)/3
+
+plot(Te,xlab="",ylab="",axes=TRUE,pch=".",xlim=Xlim+xd*c(-.01,.01),ylim=Ylim+yd*c(-.01,.01))
+polygon(Te)
+L<-Te; R<-matrix(rep(CM,3),ncol=2,byrow=TRUE)
+segments(L[,1], L[,2], R[,1], R[,2], lty=2)
+
+txt<-rbind(Te,CM,p1,p2,p3)
+xc<-txt[,1]+c(-.03,.03,.03,-.06,0,0,0)
+yc<-txt[,2]+c(.02,.02,.02,.03,0,0,0)
+txt.str<-c("A","B","C","CM","re=3","re=1","re=2")
 text(xc,yc,txt.str)
 
 }

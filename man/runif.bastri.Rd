@@ -2,7 +2,7 @@
 % Please edit documentation in R/PCDFunctions.r
 \name{runif.bastri}
 \alias{runif.bastri}
-\title{An object of class "Uniform"
+\title{An object of class "Uniform":
 
 Generation of Uniform Points in the basic triangle}
 \usage{
@@ -11,52 +11,64 @@ runif.bastri(k, c1, c2)
 \arguments{
 \item{k}{A positive integer representing the number of uniform points to be generated in the basic triangle}
 
-\item{c1, c2}{Positive real numbers representing the top vertex in basic triangle Tb=T((0,0),(1,0),(c1,c2)),
-c1 must be in [0,1/2], c2>0 and (1-c1)^2+c2^2 <=1}
+\item{c1, c2}{Positive real numbers representing the top vertex in basic triangle \eqn{T_b=T((0,0),(1,0),(c_1,c_2))},
+\code{c1} must be in \eqn{[0,1/2]}, \eqn{c_2>0} and \eqn{(1-c_1)^2+c_2^2 \le 1}.}
 }
 \value{
 A list with the elements
 \item{type}{The type of the pattern from which points are to be generated}
-\item{mtxt}{The "main" title for the plot of the point pattern}
+\item{mtitle}{The "main" title for the plot of the point pattern}
 \item{tess.points}{The vertices of the support of the uniformly generated points, it is the basic triangle
-Tb for this function}
+\eqn{T_b} for this function}
 \item{gen.points}{The output set of generated points uniformly in the basic triangle}
 \item{out.region}{The outer region which contains the support region, NULL for this function.}
 \item{desc.pat}{Description of the point pattern from which points are to be generated}
 \item{num.points}{The vector of two numbers, which are the number of generated points and the number
 of vertices of the support points (here it is 3).}
-\item{txt4pnts}{Description of the two numbers in num.points.}
+\item{txt4pnts}{Description of the two numbers in \code{num.points}.}
 \item{xlimit,ylimit}{The ranges of the x- and y-coordinates of the support, Tb}
 }
 \description{
-Generates k points uniformly in the basic triangle Tb=T((0,0),(1,0),(c1,c2))
-where c1 is in [0,1/2], c2>0 and (1-c1)^2+c2^2 <=1. Any given triangle can be mapped to the basic triangle
-by a combination of rigid body motions (i.e., translation, rotation and reflection) and scaling,
+Generates \code{k} points uniformly in the basic triangle \eqn{T_b=T((0,0),(1,0),(c_1,c_2))}
+where \code{c1} is in \eqn{[0,1/2]}, \eqn{c_2>0} and \eqn{(1-c_1)^2+c_2^2 \le 1}.
+
+Any given triangle can be mapped to the basic
+triangle by a combination of rigid body motions (i.e., translation, rotation and reflection) and scaling,
 preserving uniformity of the points in the original triangle
 (\insertCite{ceyhan:Phd-thesis,ceyhan:arc-density-CS,ceyhan:arc-density-PE;textual}{pcds}).
 Hence basic triangle is useful for simulation studies under the uniformness hypothesis.
 }
 \examples{
-A<-c(0,0); B<-c(1,0); C<-c(.5,sqrt(3.)/2);
-Te<-rbind(A,B,C);
+c1<-.4; c2<-.6
+A<-c(0,0); B<-c(1,0); C<-c(c1,c2);
+Tb<-rbind(A,B,C);
 n<-100
 
 #set.seed(1)
-Xdt<-runifTe(n)
+runif.bastri(1,c1,c2)
+Xdt<-runif.bastri(n,c1,c2)
 Xdt
 summary(Xdt)
-plot(Xdt,asp=1)
+plot(Xdt)
 
-Xlim<-range(Te[,1])
-Ylim<-range(Te[,2])
+dat<-runif.bastri(n,c1,c2)$g
+
+Xlim<-range(Tb[,1])
+Ylim<-range(Tb[,2])
 xd<-Xlim[2]-Xlim[1]
 yd<-Ylim[2]-Ylim[1]
 
-dat<-runifTe(n)$gen.points
-plot(Te,asp=1,pch=".",xlab="",ylab="",xlim=Xlim+xd*c(-.01,.01),ylim=Ylim+yd*c(-.01,.01))
-polygon(Te)
+plot(Tb,xlab="",ylab="",xlim=Xlim+xd*c(-.01,.01),ylim=Ylim+yd*c(-.01,.01),type="n")
+polygon(Tb)
 points(dat)
 
+#runif.bastri(n,.6,.6)
+#runif.bastri(1,c(.2,.4),.6)
+#runif.bastri(1,"a",.6)
+
+}
+\references{
+\insertAllCited{}
 }
 \seealso{
 \code{\link{runifTe}}, \code{\link{runif.tri}}, and \code{\link{runifMT}}

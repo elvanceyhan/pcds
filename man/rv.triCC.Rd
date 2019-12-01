@@ -8,104 +8,107 @@ rv.triCC(p, tri)
 }
 \arguments{
 \item{p}{A 2D point for which CC-vertex region it resides in is to be determined in the
-triangle tri}
+triangle \code{tri}}
 
 \item{tri}{Three 2D points, stacked row-wise, each row representing a vertex of the triangle}
 }
 \value{
 A list with two elements
-\item{rv}{Index of the CC-vertex region that contains point, p in the triangle tri}
-\item{tri}{The vertices of the triangle, where row number corresponds to the vertex index in rv.}
+\item{rv}{Index of the CC-vertex region that contains point, \code{p} in the triangle \code{tri}}
+\item{tri}{The vertices of the triangle, where row number corresponds to the vertex index in \code{rv}.}
 }
 \description{
-Returns the index of the vertex whose region contains point p in
-a triangle tri=(A,B,C) and vertex regions are based on the circumcenter CC of tri.
-(see the plots in the example for illustrations). The vertices of the  triangle tri are labeled as
-1=A,2=B, and 3=C also according to the row number the vertex is recorded in tri.
-If the point, p, is not inside tri, then the function yields NA as output.
+Returns the index of the vertex whose region contains point \code{p} in
+a triangle \code{tri}=\eqn{(A,B,C)} and vertex regions are based on the circumcenter CC of \code{tri}.
+(see the plots in the example for illustrations). The vertices of the  triangle \code{tri} are labeled as
+1=A,2=B, and 3=C also according to the row number the vertex is recorded in \code{tri}.
+If the point, \code{p}, is not inside \code{tri}, then the function yields NA as output.
 The corresponding vertex region is the polygon whose interior points are closest to that vertex.
-If tri is equilateral triangle, then CC and CM (center of mass) coincide.
+If \code{tri} is equilateral triangle, then CC and CM (center of mass) coincide.
 See also (\insertCite{ceyhan:Phd-thesis,ceyhan:comp-geo-2010,ceyhan:mcap2012;textual}{pcds}).
 }
 \examples{
-c1<-.4; c2<-.6;
-#c1<-.5; c2<-.5;
+A<-c(1,1); B<-c(2,0); C<-c(1.5,2);
+#A<-runif(2); B<-runif(2); C<-runif(2);
+#A<-runif(2,1,100); B<-runif(2,1,100); C<-runif(2,1,100);
+Tr<-rbind(A,B,C);
 
-P<-c(.3,.2)
-rv.bastriCC(P,c1,c2)
+P<-c(1.3,1.2)
+rv.triCC(P,Tr)
 
-P<-c(.6,.2)
-rv.bastriCC(P,c1,c2)
+P<-c(1.8,.5)
+rv.triCC(P,Tr)
 
-P<-c(.5,.4)
-rv.bastriCC(P,c1,c2)
+P<-c(1.6,1.4)
+rv.triCC(P,Tr)
 
-P<-c(1.5,.4)
-rv.bastriCC(P,c1,c2)
+P<-c(.5,.8)
+rv.triCC(P,Tr)
 
-A<-c(0,0);B<-c(1,0);C<-c(c1,c2);
-Tb<-rbind(A,B,C)
-CC<-circ.cent.bastri(c1,c2) #the circumcenter
+CC<-circ.cent.tri(Tr) #the circumcenter
 D1<-(B+C)/2; D2<-(A+C)/2; D3<-(A+B)/2;
 Ds<-rbind(D1,D2,D3)
 
-Xlim<-range(Tb[,1])
-Ylim<-range(Tb[,2])
+Xlim<-range(Tr[,1],CC[1])
+Ylim<-range(Tr[,2],CC[2])
 xd<-Xlim[2]-Xlim[1]
 yd<-Ylim[2]-Ylim[1]
 
-plot(Tb,asp=1,xlab="",ylab="",axes=TRUE,pch=".",xlim=Xlim+xd*c(-.05,.05),ylim=Ylim+yd*c(-.05,.05))
-polygon(Tb)
-L<-matrix(rep(CC,3),ncol=3,byrow=T); R<-Ds
+plot(Tr,asp=1,xlab="",ylab="",pch=".",axes=TRUE,xlim=Xlim+xd*c(-.05,.05),ylim=Ylim+yd*c(-.05,.05))
+polygon(Tr)
+L<-matrix(rep(CC,3),ncol=2,byrow=TRUE); R<-Ds
 segments(L[,1], L[,2], R[,1], R[,2], lty=2)
 
-txt<-rbind(Tb,CC,Ds)
-xc<-txt[,1]+c(-.03,.03,0.02,-.01,.05,-.05,.01)
-yc<-txt[,2]+c(.02,.02,.03,.06,.03,.03,-.03)
+txt<-rbind(Tr,CC,Ds)
+xc<-txt[,1]#+c(-.07,.08,.06,.12,-.1,-.1,-.09)
+yc<-txt[,2]#+c(.02,-.02,.03,.0,.02,.06,-.04)
 txt.str<-c("A","B","C","CC","D1","D2","D3")
 text(xc,yc,txt.str)
 
-RV1<-(A+D3+CC+D2)/4
-RV2<-(B+D3+CC+D1)/4
-RV3<-(C+D2+CC+D1)/4
+RV1<-(A+.5*(D3-A)+A+.5*(D2-A))/2
+RV2<-(B+.5*(D3-B)+B+.5*(D1-B))/2
+RV3<-(C+.5*(D2-C)+C+.5*(D1-C))/2
 
 txt<-rbind(RV1,RV2,RV3)
-xc<-txt[,1]
-yc<-txt[,2]
+xc<-txt[,1]#+c(-.08,.0,-.04)
+yc<-txt[,2]#+c(.02,-.2,.2)
 txt.str<-c("rv=1","rv=2","rv=3")
 text(xc,yc,txt.str)
 
 ###
 n<-20
-dat<-runif.bastri(n,c1,c2)$g
+dat<-runif.tri(n,Tr)$g
+#dat<-cbind(runif(n,1,2),runif(n,0,2))
 #dat<-cbind(runif(n),runif(n))
-#dat<-cbind(runif(n,1,2),runif(n,0,1))
 
 Rv<-vector()
 for (i in 1:n)
-  Rv<-c(Rv,rv.bastriCC(dat[i,],c1,c2)$rv)
+  Rv<-c(Rv,rv.triCC(dat[i,],Tr)$rv)
 Rv
 
-Xlim<-range(Tb[,1],dat[,1])
-Ylim<-range(Tb[,2],dat[,2])
+Xlim<-range(Tr[,1],dat[,1])
+Ylim<-range(Tr[,2],dat[,2])
 xd<-Xlim[2]-Xlim[1]
 yd<-Ylim[2]-Ylim[1]
 
-plot(Tb,asp=1,xlab="",pch=".",ylab="",axes=TRUE,xlim=Xlim+xd*c(-.05,.05),ylim=Ylim+yd*c(-.05,.05))
+plot(Tr,asp=1,xlab="",ylab="",pch=".",axes=TRUE,xlim=Xlim+xd*c(-.05,.05),ylim=Ylim+yd*c(-.05,.05))
+polygon(Tr)
 points(dat,pch=".")
-polygon(Tb)
-L<-matrix(rep(CC,3),ncol=3,byrow=T); R<-Ds
+L<-matrix(rep(CC,3),ncol=2,byrow=TRUE); R<-Ds
 segments(L[,1], L[,2], R[,1], R[,2], lty=2)
 text(dat,labels=factor(Rv))
 
-txt<-rbind(Tb,CC,Ds)
-xc<-txt[,1]+c(-.03,.03,0.02,-.01,.05,-.05,.01)
-yc<-txt[,2]+c(.02,.02,.03,.06,.03,.03,-.04)
+txt<-rbind(Tr,CC,Ds)
+xc<-txt[,1]#+c(-.07,.08,.06,.12,-.1,-.1,-.09)
+yc<-txt[,2]#+c(.02,-.02,.03,.0,.02,.06,-.04)
 txt.str<-c("A","B","C","CC","D1","D2","D3")
 text(xc,yc,txt.str)
 
-P<-c(.3,.2)
-rv.bastriCC(P,c1,c2)
+P<-c(1.3,1.2)
+rv.triCC(P,Tr)
+
+dat.fr<-data.frame(a=Tr)
+rv.triCC(P,dat.fr)
 
 }
 \references{

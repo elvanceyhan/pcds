@@ -10,63 +10,94 @@ rel.six.Te(Pt)
 \item{Pt}{A 2D point.}
 }
 \value{
-rel an integer between 1-6 (inclusive) or NA
+rel An integer between 1-6 (inclusive) or NA
 }
 \description{
-Returns the region index of the point Pt for the 6 regions in sandard equilateral triangle
-Te=T((0,0),(1,0),(1/2,sqrt(3)/2)), starting with 1 on the first one-sixth of the triangle,
+Returns the region index of the point \code{Pt} for the 6 regions in sandard equilateral triangle
+\eqn{T_e=T((0,0),(1,0),(1/2,\sqrt{3}/2))}, starting with 1 on the first one-sixth of the triangle,
 and numbering follows the counter-clockwise direction (see the plot in the examples).
-These regions are in the inner hexagon which is the Gamma-1 region for CS-PCD with t=1
-if Pt is not in any of the 6 regions the function returns NA.
+These regions are in the inner hexagon which is the Gamma-1 region for CS-PCD with \eqn{t=1}
+if \code{Pt} is not in any of the 6 regions the function returns NA.
 }
 \examples{
-n<-20
-dat<-runifTe(n)$gen.points
-#dat<-cbind(runif(n),runif(n))
-#dat<-cbind(runif(n,1,2),runif(n,0,1))
+\dontrun{
+P<-c(.4,.2)
+rel.six.Te(P)
 
-Ext<-cl2edgesTe(dat)
-Ext
-summary(Ext)
-plot(Ext,asp=1)
+P<-c(.4,.3)
+rel.six.Te(P)
 
-cl2edgesTe(dat[1,])
-cl2edgesTe(c(10,10))
+P<-c(.8,.8)
+rel.six.Te(P)
 
-ed.clo<-cl2edgesTe(dat)
-
-dat2<-rbind(dat,c(.8,.8))
-cl2edgesTe(dat2)
+P<-c(.5,.61)
+rel.six.Te(P)
 
 A<-c(0,0); B<-c(1,0); C<-c(0.5,sqrt(3)/2);
 Te<-rbind(A,B,C)
 CM<-(A+B+C)/3
-p1<-(A+B)/2
-p2<-(B+C)/2
-p3<-(A+C)/2
+D1<-(B+C)/2; D2<-(A+C)/2; D3<-(A+B)/2;
+Ds<-rbind(D1,D2,D3)
+
+h1<-c(1/2,sqrt(3)/18); h2<-c(2/3, sqrt(3)/9); h3<-c(2/3, 2*sqrt(3)/9);
+h4<-c(1/2, 5*sqrt(3)/18); h5<-c(1/3, 2*sqrt(3)/9); h6<-c(1/3, sqrt(3)/9);
+
+r1<-(h1+h6+CM)/3;r2<-(h1+h2+CM)/3;r3<-(h2+h3+CM)/3;
+r4<-(h3+h4+CM)/3;r5<-(h4+h5+CM)/3;r6<-(h5+h6+CM)/3;
+
+Xlim<-range(Te[,1])
+Ylim<-range(Te[,2])
+xd<-Xlim[2]-Xlim[1]
+yd<-Ylim[2]-Ylim[1]
+
+plot(A,pch=".",xlab="",ylab="",axes=TRUE,xlim=Xlim+xd*c(-.05,.05),ylim=Ylim+yd*c(-.05,.05))
+polygon(Te)
+L<-Te; R<-Ds
+segments(L[,1], L[,2], R[,1], R[,2], lty=2)
+polygon(rbind(h1,h2,h3,h4,h5,h6))
+
+txt<-rbind(h1,h2,h3,h4,h5,h6)
+xc<-txt[,1]+c(-.02,.02,.02,0,0,0)
+yc<-txt[,2]+c(.02,.02,.02,0,0,0)
+txt.str<-c("h1","h2","h3","h4","h5","h6")
+text(xc,yc,txt.str)
+
+txt<-rbind(Te,CM,r1,r2,r3,r4,r5,r6)
+xc<-txt[,1]+c(-.02,.02,.02,0,0,0,0,0,0,0)
+yc<-txt[,2]+c(.02,.02,.02,0,0,0,0,0,0,0)
+txt.str<-c("A","B","C","CM","1","2","3","4","5","6")
+text(xc,yc,txt.str)
+
+n<-40
+dat<-runifTe(n)$gen.points
+#dat<-cbind(runif(n),runif(n))
+#dat<-cbind(runif(n,1,2),runif(n,0,1))
 
 Xlim<-range(Te[,1],dat[,1])
 Ylim<-range(Te[,2],dat[,2])
 xd<-Xlim[2]-Xlim[1]
 yd<-Ylim[2]-Ylim[1]
 
+rsix<-vector()
+for (i in 1:n)
+  rsix<-c(rsix,rel.six.Te(dat[i,]))
+rsix
+
 plot(A,pch=".",xlab="",ylab="",axes=TRUE,xlim=Xlim+xd*c(-.05,.05),ylim=Ylim+yd*c(-.05,.05))
 polygon(Te)
-points(dat,xlab="",ylab="")
-points(ed.clo$Ext,pty=2,pch=4,col="red")
+points(dat,pch=".")
+L<-Te; R<-Ds
+segments(L[,1], L[,2], R[,1], R[,2], lty=2)
+polygon(rbind(h1,h2,h3,h4,h5,h6))
+text(dat,labels=factor(rsix))
 
-txt<-rbind(Te,p1,p2,p3)
-xc<-txt[,1]+c(-.03,.03,.03,0,0,0)
-yc<-txt[,2]+c(.02,.02,.02,0,0,0)
-txt.str<-c("A","B","C","re=1","re=2","re=3")
+txt<-rbind(Te,CM)
+xc<-txt[,1]+c(-.02,.02,.02,0)
+yc<-txt[,2]+c(.02,.02,.02,-.05)
+txt.str<-c("A","B","C","CM")
 text(xc,yc,txt.str)
-
-dat.fr<-data.frame(a=dat)
-cl2edgesTe(dat.fr)
-
 }
-\references{
-\insertAllCited{}
+
 }
 \seealso{
 \code{\link{runif.1_6thTe}}

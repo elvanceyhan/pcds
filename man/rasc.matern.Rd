@@ -2,7 +2,7 @@
 % Please edit documentation in R/PCDFunctions.r
 \name{rasc.matern}
 \alias{rasc.matern}
-\title{An object of class "Patterns"
+\title{An object of class "Patterns":
 
 Generation of points associated (in a Matern-like fashion) to a given set of points}
 \usage{
@@ -14,93 +14,79 @@ rasc.matern(n, Y, e)
 \item{Y}{A set of 2D points representing the reference points. The generated points are associated
 (in a Matern-cluster like fashion) with these points.}
 
-\item{e}{A positive real number representing the radius of the balls centered at Y points. Only these balls
-are allowed for the generated points (i.e., generated points would be in the union of these balls)}
+\item{e}{A positive real number representing the radius of the balls centered at \code{Y} points. Only
+these balls are allowed for the generated points (i.e., generated points would be in the union of
+these balls).}
 }
 \value{
 A list with the elements
 \item{type}{The type of the point pattern}
-\item{mtxt}{The "main" title for the plot of the point pattern}
+\item{mtitle}{The "main" title for the plot of the point pattern}
 \item{parameters}{Radial (i.e. circular) attraction parameter of the association pattern.}
 \item{ref.points}{The input set of attraction points \code{Y},
 i.e., points with which generated points are associated.}
 \item{gen.points}{The output set of generated points associated with \code{Y} points.}
-\item{tri.Y}{Logical output for triangulation based on Y points should be implemented or not.
-if TRUE triangulation based on Y points is to be implemented (default is set to FALSE).}
+\item{tri.Y}{Logical output for triangulation based on \code{Y} points should be implemented or not.
+if TRUE triangulation based on \code{Y} points is to be implemented (default is set to FALSE).}
 \item{desc.pat}{Description of the point pattern}
 \item{num.points}{The vector of two numbers, which are the number of generated points and the number of
-attraction (i.e., Y) points.}
+attraction (i.e., \code{Y}) points.}
 \item{xlimit}{The possible range of the x-coordinates of the generated points.}
 \item{ylimit}{The possible range of the y-coordinates of the generated points.}
 }
 \description{
-Generates n 2D points uniformly in \cup B(y_i,e) where Y=(y_1,y_2,...,y_{ny}) with
-ny being number of Y points for various values of e under the association pattern
-and B(y_i,e) is the ball centered at y_i with radius e.
-The pattern resembles the Matern cluster pattern (see rMatClust in the spatstat package for further
-information (\insertCite{baddeley:2005;textual}{pcds}). rMatClust(kappa, scale, mu, win) in the simplest case generates a uniform Poisson point
-process of "parent" points with intensity kappa. Then each parent point is replaced by a random cluster of
-"offspring" points, the number of points per cluster being Poisson (mu) distributed, and their positions
+Generates \code{n} 2D points uniformly in \eqn{\cup B(y_i,e)} where \eqn{Y=(y_1,y_2,...,y_{n_y})}
+with \eqn{n_y} being number of \code{Y} points for various values of e under the association pattern
+and \eqn{B(y_i,e)} is the ball centered at \eqn{y_i} with radius \code{e}.
+The pattern resembles the Matern cluster pattern (see \code{\link[spatstat]{rMatClust}} in the
+\code{spatstat} package for further information (\insertCite{baddeley:2005;textual}{pcds}).
+\code{rMatClust(kappa, scale, mu, win)} in the simplest
+case generates a uniform Poisson point process of "parent" points with intensity \code{kappa}.
+Then each parent point is replaced by a random cluster of
+"offspring" points, the number of points per cluster being Poisson(\code{mu}) distributed, and their positions
 being placed and uniformly inside a disc of radius scale centred on the parent point. The resulting point
 pattern is a realisation of the classical "stationary Matern cluster process" generated inside the
-window win. The main difference of rasc.matern and rMatClust is that the parent points are Y points
-which are given beforehand and we do not discard them in the end in rasc.matern and the offspring points
-are the points associated with the reference points, Y;
-e must be positive and very large values of e provide patterns close to CSR.
-This function is also very similar to rasc.disc, where rasc.disc needs the study window to be specified,
-while rasc.matern does not.
+window \code{win}. The main difference of \code{rasc.matern} and \code{\link[spatstat]{rMatClust}} is that the parent points are \code{Y} points
+which are given beforehand and we do not discard them in the end in \code{rasc.matern} and the offspring points
+are the points associated with the reference points, \code{Y};
+\code{e} must be positive and very large values of e provide patterns close to CSR.
+This function is also very similar to \code{\link{rasc.disc}}, where \code{\link{rasc.disc}} needs the study window to be specified,
+while \code{rasc.matern} does not.
 }
 \examples{
 nx<-1000;
 ny<-10;
 
 e<-.15;
-#with default bounding box (i.e., unit square)
+#e<-1.1; #closer to CSR than association, as e is large
+#e<--.15; #not possible, gives error
+#Y points uniform in unit square
 Y<-cbind(runif(ny),runif(ny))
 
-Xdat<-rasc.disc(nx,Y,e)
-Xdat
-summary(Xdat)
-plot(Xdat,asp=1)
+Xdt<-rasc.matern(nx,Y,e)
+Xdt
+summary(Xdt)
+plot(Xdt,asp=1)
 
-Xdt<-rasc.disc(nx,Y,e)$gen.points
+Xdt<-rasc.matern(nx,Y,e)$gen.points
 Xlim<-range(Xdt[,1],Y[,1]);
 Ylim<-range(Xdt[,2],Y[,2])
 xd<-Xlim[2]-Xlim[1]
 yd<-Ylim[2]-Ylim[1]
 
-plot(Y,asp=1,xlab="x",ylab="y",main="association of two classes",
+plot(Y,asp=1,xlab="x",ylab="y",main="Association of two classes",
      xlim=Xlim+xd*c(-.01,.01),ylim=Ylim+yd*c(-.01,.01),pch=16,col=2,lwd=2)
 points(Xdt)
 
-e<-.25; #pattern is very close to CSR!
-
-#e<-.1;
-
-#with default bounding box (i.e., unit square)
-Y<-cbind(runif(ny),runif(ny))
-Xdt<-rasc.disc(nx,Y,e)$gen.points
-
-Xlim<-range(Xdt[,1],Y[,1]);
-Ylim<-range(Xdt[,2],Y[,2])
-xd<-Xlim[2]-Xlim[1]
-yd<-Ylim[2]-Ylim[1]
-
-plot(Y,asp=1,xlab="x",ylab="y",main="association of two classes",
-     xlim=Xlim+xd*c(-.01,.01),ylim=Ylim+yd*c(-.01,.01),pch=16,col=2,lwd=2)
-points(Xdt)
-
-#with a rectangular bounding box
+#Y points uniform in a rectangle
 a1<-0; a2<-10;
 b1<-0; b2<-5;
 e<-1.1;
 
-#e<-5; #pattern very close to CSR!
-#e<-1.5; #negative d is not recommended for association
 Y<-cbind(runif(ny,a1,a2),runif(ny,b1,b2))
 #Y<-cbind(runif(ny,a1,a2/2),runif(ny,b1,b2/2))
 
-Xdt<-rasc.disc(nx,Y,e,a1,a2,b1,b2)$gen.points
+Xdt<-rasc.matern(nx,Y,e)$gen.points
 Xlim<-range(Xdt[,1],Y[,1]);
 Ylim<-range(Xdt[,2],Y[,2])
 xd<-Xlim[2]-Xlim[1]
@@ -112,10 +98,13 @@ points(Xdt)
 
 e<-.15
 Y<-data.frame(yp=cbind(runif(ny),runif(ny)) )
-Xdt<-rasc.disc(nx,Y,e)
+Xdt<-rasc.matern(nx,Y,e)
 
+}
+\references{
+\insertAllCited{}
 }
 \seealso{
 \code{\link{rasc.disc}}, \code{\link{rascTe}}, \code{\link{rascIITe}},
-\code{\link{rascMT}}, \code{\link{rseg.disc}}, and \code{\link{rMatClust}} in the spatstat package
+\code{\link{rascMT}}, \code{\link{rseg.disc}}, and \code{\link[spatstat]{rMatClust}} in the spatstat package
 }

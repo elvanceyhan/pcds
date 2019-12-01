@@ -2,35 +2,41 @@
 % Please edit documentation in R/PCDFunctions.r
 \name{TSArcDensPEMT}
 \alias{TSArcDensPEMT}
-\title{An object of class "htest"
+\title{An object of class "htest":
 
 A test of segregation/association based on arc density of Proportional Edge Proximity Catch Digraph
-(PE-PCD) for 2D Data}
+(PE-PCD) for 2D data}
 \usage{
-TSArcDensPEMT(Xp, Yp, r, ch.cor = FALSE, alternative = c("two.sided",
-  "less", "greater"), conf.level = 0.95)
+TSArcDensPEMT(
+  Xp,
+  Yp,
+  r,
+  ch.cor = FALSE,
+  alternative = c("two.sided", "less", "greater"),
+  conf.level = 0.95
+)
 }
 \arguments{
 \item{Xp}{A set of 2D points which constitute the vertices of the PE-PCD}
 
 \item{Yp}{A set of 2D points which constitute the vertices of the Delaunay triangles}
 
-\item{r}{A positive real number which serves as the expansion parameter in PE proximity region; must be >= 1}
+\item{r}{A positive real number which serves as the expansion parameter in PE proximity region; must be \eqn{\ge 1}}
 
-\item{ch.cor}{A logical argument for convex hull correction, default ch=FALSE,
-recommended when both Xp and Yp have the same rectangular support}
+\item{ch.cor}{A logical argument for convex hull correction, default \code{ch.cor}=FALSE,
+recommended when both \code{Xp} and \code{Yp} have the same rectangular support}
 
 \item{alternative}{Type of the alternative hypothesis in the test, one of "two.sided", "less", "greater".}
 
 \item{conf.level}{Level of the confidence interval, default is 0.95, for the arc density of PE-PCD based on
-the 2D data set Xp.}
+the 2D data set \code{Xp}.}
 }
 \value{
 A list with the elements
 \item{statistic}{Test statistic}
-\item{p.value}{p-value for the hypothesis test for the corresponding alternative}
-\item{conf.int}{Confidence interval for the arc density at the given confidence level conf.level and
-depends on the type of alternative.}
+\item{p.value}{\eqn{p}-value for the hypothesis test for the corresponding alternative}
+\item{conf.int}{Confidence interval for the arc density at the given confidence level \code{conf.level} and
+depends on the type of \code{alternative}.}
 \item{estimate}{Estimate of the parameter, i.e., arc density}
 \item{null.value}{Hypothesized value for the parameter, i.e., the null arc density, which is usually the
 mean arc density under uniform distribution.}
@@ -40,21 +46,24 @@ mean arc density under uniform distribution.}
 }
 \description{
 This is an "htest" (i.e., hypothesis test) function which performs a hypothesis test of complete spatial
-randomness (CSR) or uniformity of Xp points in the convex hull of Yp points against the alternatives
-of segregation (where Xp points cluster away from Yp points) and association (where Xp points cluster around
-Yp points) based on the normal approximation of the arc density of the PE-PCD for uniform 2D data
-in the convex hull of Yp points and yields the test statistic, p-value for the corresponding alternative,
+randomness (CSR) or uniformity of \code{Xp} points in the convex hull of \code{Yp} points against the alternatives
+of segregation (where \code{Xp} points cluster away from \code{Yp} points) and association (where \code{Xp} points cluster around
+\code{Yp} points) based on the normal approximation of the arc density of the PE-PCD for uniform 2D data
+in the convex hull of \code{Yp} points and yields the test statistic, \eqn{p}-value for the corresponding alternative,
 the confidence interval, estimate and null value for the parameter of interest (which is the arc density),
 and method and name of the data set used.
-Under the null hypothesis of uniformity of Xp points in the convex hull of Yp points, arc density
-of PE-PCD whose vertices are Xp points equals to its expected value under the uniform distribution and
-alternative could be two-sided, or left-sided (i.e. data is accumulated around the Yp points, or association)
+
+Under the null hypothesis of uniformity of \code{Xp} points in the convex hull of \code{Yp} points, arc density
+of PE-PCD whose vertices are \code{Xp} points equals to its expected value under the uniform distribution and
+\code{alternative} could be two-sided, or left-sided (i.e. data is accumulated around the \code{Yp} points, or association)
 or right-sided (i.e. data is accumulated around the centers of the triangles, or segregation).
-PE proximity region is constructed with the expansion parameter r>=1 and CM-vertex regions
+
+PE proximity region is constructed with the expansion parameter \eqn{r \ge 1} and CM-vertex regions
 (i.e., the test is not available for a general center M at this version of the function).
-This test is more appropriate when supports of Xp and Yp has a substantial overlap,
-ch is for convex hull correction (default is "no convex hull correction", i.e., ch=FALSE)
-which is recommended when both Xp and Yp have the same rectangular support.
+This test is more appropriate when supports of \code{Xp} and \code{Yp} has a substantial overlap,
+
+\code{ch.cor} is for convex hull correction (default is "no convex hull correction", i.e., \code{ch.cor}=FALSE)
+which is recommended when both \code{Xp} and \code{Yp} have the same rectangular support.
 See also (\insertCite{ceyhan:Phd-thesis,ceyhan:arc-density-PE;textual}{pcds}) for more on the test based on the arc
 density of PE-PCDs.
 }
@@ -66,30 +75,32 @@ ny<-10
 Xp<-cbind(runif(nx),runif(nx))
 #Xp<-cbind(runif(nx,.5,1.5),runif(nx))
 #Xp<-cbind(runif(nx,1,2),runif(nx))
-#Xp<-c(.5,.5)
 Yp<-cbind(runif(ny),runif(ny))
 
 plotDeltri(Xp,Yp,xlab="",ylab="")
 
-M<-c(1,1,1) #M<-c(1,2,3) #M<-c(-1,2,3) #barycentric coordinates
-#M<-"CC"
-#M<-c(1.3,1.3)
+NumArcsPEMT(Xp,Yp,r=1.25)
+TSArcDensPEMT(Xp,Yp,r=1.25)
+TSArcDensPEMT(Xp,Yp,r=1.25,ch=TRUE)
 
-NumArcsPEMT(Xp,Yp,r=1.25,M)
-NumArcsPEMT(Xp,Yp,r=1.5,M)
-NumArcsPEMT(Xp,Yp,r=2,M)
+NumArcsPEMT(Xp,Yp,r=1.5)
+TSArcDensPEMT(Xp,Yp,r=1.5,alt="l")
+TSArcDensPEMT(Xp,Yp,r=1.5,ch=TRUE,alt="l")
 
-NumArcsPEMT(c(.4,.2),Yp,r=1.25)
+NumArcsPEMT(Xp,Yp,r=2)
+TSArcDensPEMT(Xp,Yp,r=2)
+TSArcDensPEMT(Xp,Yp,r=2,ch=TRUE)
 
-NumArcsPEMT(Xp1,Yp1,r)
+r<-2
+TSArcDensPEMT(Xp,Yp,r)
 
-NumArcsPEMT(Xp1,rbind(Yp1,Yp1),r)
+TSArcDensPEMT(Xp,rbind(Yp,Yp),r)
 
-dat.fr<-data.frame(a=Xp1)
-NumArcsPEMT(dat.fr,Yp1,r)
+dat.fr<-data.frame(a=Xp)
+TSArcDensPEMT(dat.fr,Yp,r)
 
-dat.fr<-data.frame(a=Yp1)
-NumArcsPEMT(Xp1,dat.fr,r)
+dat.fr<-data.frame(a=Yp)
+TSArcDensPEMT(Xp,dat.fr,r)
 
 }
 \references{

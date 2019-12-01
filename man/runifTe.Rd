@@ -2,33 +2,55 @@
 % Please edit documentation in R/PCDFunctions.r
 \name{runifTe}
 \alias{runifTe}
-\title{An object of class "Uniform"
+\title{An object of class "Uniform":
 
-Generation of Uniform Points in the Standard Equilateral Triangle Te}
+Generation of Uniform Points in the Standard Equilateral Triangle}
 \usage{
 runifTe(k)
 }
 \arguments{
 \item{k}{A positive integer representing the number of uniform points to be generated in the
-standard equilateral triangle Te}
+standard equilateral triangle \eqn{T_e}}
 }
 \value{
 A list with the elements
 \item{type}{The type of the pattern from which points are to be generated}
-\item{mtxt}{The "main" title for the plot of the point pattern}
+\item{mtitle}{The "main" title for the plot of the point pattern}
 \item{tess.points}{The vertices of the support region of the uniformly generated points, it is the
-standard equilateral triangle Te for this function}
-\item{gen.points}{The output set of generated points uniformly in the standard equilateral triangle Te.}
+standard equilateral triangle \eqn{T_e} for this function}
+\item{gen.points}{The output set of generated points uniformly in the standard equilateral triangle \eqn{T_e}.}
 \item{out.region}{The outer region which contains the support region, NULL for this function.}
 \item{desc.pat}{Description of the point pattern from which points are to be generated}
 \item{num.points}{The vector of two numbers, which are the number of generated points and the number
 of vertices of the support points (here it is 3).}
-\item{txt4pnts}{Description of the two numbers in num.points}
-\item{xlimit,ylimit}{The ranges of the x- and y-coordinates of the support, Te}
+\item{txt4pnts}{Description of the two numbers in \code{num.points}}
+\item{xlimit,ylimit}{The ranges of the x- and y-coordinates of the support, \eqn{T_e}}
 }
 \description{
-Generates k points uniformly in the standard equilateral triangle Te=(A,B,C)
-with vertices A=(0,0), B=(1,0), and C=(.5,sqrt(3)/2).
+Generates \code{k} points uniformly in the standard equilateral triangle \eqn{T_e=T(A,B,C)}
+with vertices \eqn{A=(0,0)}, \eqn{B=(1,0)}, and \eqn{C=(1/2,sqrt{3}/2)}.
+}
+\examples{
+A<-c(0,0); B<-c(1,0); C<-c(1/2,sqrt(3)/2);
+Te<-rbind(A,B,C);
+n<-100
+
+#set.seed(1)
+Xdt<-runifTe(n)
+Xdt
+summary(Xdt)
+plot(Xdt,asp=1)
+
+Xlim<-range(Te[,1])
+Ylim<-range(Te[,2])
+xd<-Xlim[2]-Xlim[1]
+yd<-Ylim[2]-Ylim[1]
+
+dat<-runifTe(n)$gen.points
+plot(Te,asp=1,pch=".",xlab="",ylab="",xlim=Xlim+xd*c(-.01,.01),ylim=Ylim+yd*c(-.01,.01))
+polygon(Te)
+points(dat)
+
 }
 \seealso{
 \code{\link{runif.bastri}}, \code{\link{runif.tri}}, and \code{\link{runifMT}}

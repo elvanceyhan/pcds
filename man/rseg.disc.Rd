@@ -2,12 +2,19 @@
 % Please edit documentation in R/PCDFunctions.r
 \name{rseg.disc}
 \alias{rseg.disc}
-\title{An object of class "Patterns"
+\title{An object of class "Patterns":
 
 Generation of points segregated (in a radial or circular fashion) from a given set of points}
 \usage{
-rseg.disc(n, Y, e, a1 = min(Y[, 1]), a2 = max(Y[, 1]), b1 = min(Y[,
-  2]), b2 = max(Y[, 2]))
+rseg.disc(
+  n,
+  Y,
+  e,
+  a1 = min(Y[, 1]),
+  a2 = max(Y[, 1]),
+  b1 = min(Y[, 2]),
+  b2 = max(Y[, 2])
+)
 }
 \arguments{
 \item{n}{A positive integer representing the number of points to be generated}
@@ -15,69 +22,87 @@ rseg.disc(n, Y, e, a1 = min(Y[, 1]), a2 = max(Y[, 1]), b1 = min(Y[,
 \item{Y}{A set of 2D points representing the reference points. The generated points are segregated
 (in a circular/radial fashion) from these points.}
 
-\item{e}{A positive real number representing the radius of the balls centered at Y points. These balls
+\item{e}{A positive real number representing the radius of the balls centered at \code{Y} points. These balls
 are forbidden for the generated points (i.e., generated points would be in the complement of union of these
 balls)}
 
 \item{a1, a2}{Real numbers representing the range of x-coordinates in the region
-(default is the range of x-coordinates of the Y points)}
+(default is the range of x-coordinates of the \code{Y} points)}
 
-\item{b1, }{b2 Real numbers representing the range of y-coordinates in the region
-(default is the range of y-coordinates of the Y points)}
+\item{b1, b2}{Real numbers representing the range of y-coordinates in the region
+(default is the range of y-coordinates of the \code{Y} points)}
 }
 \value{
 A list with the elements
 \item{type}{The type of the point pattern}
-\item{mtxt}{The "main" title for the plot of the point pattern}
+\item{mtitle}{The "main" title for the plot of the point pattern}
 \item{parameters}{Radial (i.e. circular) exclusion parameter of the segregation pattern}
 \item{ref.points}{The input set of reference points \code{Y}, i.e., points from which generated points are
 segregated.}
 \item{gen.points}{The output set of generated points segregated from \code{Y} points}
-\item{tri.Y}{Logical output for triangulation based on Y points should be implemented or not.
-if TRUE triangulation based on Y points is to be implemented (default is set to FALSE).}
+\item{tri.Y}{Logical output for triangulation based on \code{Y} points should be implemented or not.
+if TRUE triangulation based on \code{Y} points is to be implemented (default is set to FALSE).}
 \item{desc.pat}{Description of the point pattern}
 \item{num.points}{The vector of two numbers, which are the number of generated points and
-the number of reference (i.e., Y) points.}
+the number of reference (i.e., \code{Y}) points.}
 \item{xlimit,ylimit}{The possible ranges of the x- and y-coordinates of the generated points}
 }
 \description{
-Generates n 2D points uniformly in (a1-e,a1+e)x(a1-e,a1+e) \ B(y_i,e) where Y=(y_1,y_2,...,y_{ny}) with
-ny being number of Y points for various values of e under the segregation pattern
-and B(y_i,e) is the ball centered at y_i with radius e.
-Positive values of e yield realizations from the segregation pattern
-and nonpositive values of e provide a type of complete spatial randomness (CSR),
-e should not be too large to make the support of generated points empty,
-a1 is defaulted to the minimum of the x-coordinates of the Y points,
-a2 is defaulted to the maximum of the x-coordinates of the Y points,
-b1 is defaulted to the minimum of the y-coordinates of the Y points,
-b2 is defaulted to the maximum of the y-coordinates of the Y points.
+Generates \code{n} 2D points uniformly in \eqn{(a1-e,a1+e)x(a1-e,a1+e) \setminus B(y_i,e)} where
+\eqn{Y=(y_1,y_2,...,y_{n_y})} with \eqn{n_y} being number of \code{Y} points for various values of \code{e}
+under the segregation pattern and \eqn{B(y_i,e)} is the ball centered at \eqn{y_i} with radius \code{e}.
+Positive values of \code{e} yield realizations from the segregation pattern
+and nonpositive values of \code{e} provide a type of complete spatial randomness (CSR),
+\code{e} should not be too large to make the support of generated points empty,
+\code{a1} is defaulted to the minimum of the x-coordinates of the \code{Y} points,
+\code{a2} is defaulted to the maximum of the x-coordinates of the \code{Y} points,
+\code{b1} is defaulted to the minimum of the y-coordinates of the \code{Y} points,
+\code{b2} is defaulted to the maximum of the y-coordinates of the \code{Y} points.
 }
 \examples{
-A<-c(0,0); B<-c(1,0); C<-c(.5,sqrt(3.)/2);
-Te<-rbind(A,B,C);
-dist.pt2set(c(1,2),Te)
+nx<-1000;
+ny<-10; #try 1 also
+e<-.15;
+#with default bounding box (i.e., unit square)
+Y<-cbind(runif(ny),runif(ny))
 
-X2<-cbind(runif(10),runif(10))
-dist.pt2set(c(1,2),X2)
+Xdt<-rseg.disc(nx,Y,e)
+Xdt
+summary(Xdt)
+plot(Xdt,asp=1)
 
-dist.pt2set(C,C)
-dist.pt2set(B,C)
+e<-.15;
+#e<--.1; #this provides a CSR realization
+#e<-.15;
 
-x<-runif(1)
-y<-runif(10)
-dist.pt2set(x,y) #this does not work because both entries are treated as vectors
+#with default bounding box (i.e., unit square)
+Y<-cbind(runif(ny),runif(ny))
+Xdt<-rseg.disc(nx,Y,e)$gen.points
+Xlim<-range(Xdt[,1],Y[,1]);
+Ylim<-range(Xdt[,2],Y[,2])
+xd<-Xlim[2]-Xlim[1]
+yd<-Ylim[2]-Ylim[1]
 
-x<-runif(1)
-y<-as.matrix(runif(10))
-dist.pt2set(x,y) #this works, because x is a 1D point, and y is treated as a set of 10 1D points
+plot(Y,asp=1,pch=16,col=2,lwd=2, xlab="x",ylab="y",main="segregation of two classes",
+     xlim=Xlim+xd*c(-.01,.01),ylim=Ylim+yd*c(-.01,.01))
+points(Xdt)
 
-dat.fr<-data.frame(b=B,c=C)
-dist.pt2set(A,dat.fr)
+#with a rectangular bounding box
+a1<-0; a2<-10;
+b1<-0; b2<-5;
+e<-1.5;
+#e<-1.5;
+Y<-cbind(runif(ny,a1,a2),runif(ny,b1,b2))
+#Y<-cbind(runif(ny,a1,a2/2),runif(ny,b1,b2/2))
 
-dist.pt2set(dat.fr,dat.fr)
+Xdt<-rseg.disc(nx,Y,e,a1,a2,b1,b2)$gen.points
+Xlim<-range(Xdt[,1],Y[,1]); Ylim<-range(Xdt[,2],Y[,2])
+
+plot(Y,pch=16,asp=1,col=2,lwd=2, xlab="x",ylab="y",main="segregation of two classes",
+     xlim=Xlim+xd*c(-.05,.05),ylim=Ylim+yd*c(-.05,.05))
+points(Xdt)
 
 }
 \seealso{
-\code{\link{rasc.disc}}, \code{\link{rsegTe}}, \code{\link{rsegIITe}},
-and \code{\link{rsegMT}}
+\code{\link{rasc.disc}}, \code{\link{rsegTe}}, \code{\link{rsegIITe}}, and \code{\link{rsegMT}}
 }

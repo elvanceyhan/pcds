@@ -2,9 +2,9 @@
 % Please edit documentation in R/PCDFunctions.r
 \name{rsegTe}
 \alias{rsegTe}
-\title{An object of class "Patterns"
+\title{An object of class "Patterns":
 
-Generation of points segregated (in a Type I fashion) from the vertices of Te}
+Generation of points segregated (in a Type I fashion) from the vertices of \eqn{T_e}}
 \usage{
 rsegTe(k, eps)
 }
@@ -17,55 +17,79 @@ height of the triangular forbidden regions around the vertices)}
 \value{
 A list with the elements
 \item{type}{The type of the point pattern}
-\item{mtxt}{The "main" title for the plot of the point pattern}
-\item{parameters}{The exclusion parameter, eps, of the segregation pattern, which is the height
+\item{mtitle}{The "main" title for the plot of the point pattern}
+\item{parameters}{The exclusion parameter, \code{eps}, of the segregation pattern, which is the height
 of the triangular forbidden regions around the vertices }
 \item{ref.points}{The input set of points \code{Y};
-reference points, i.e., points from which generated points are segregated (i.e., vertices of Te).}
-\item{gen.points}{The output set of generated points segregated from \code{Y} points (i.e., vertices of Te).}
-\item{tri.Y}{Logical output for triangulation based on Y points should be implemented or not.
-if TRUE triangulation based on Y points is to be implemented (default is set to FALSE).}
+reference points, i.e., points from which generated points are segregated (i.e., vertices of \eqn{T_e}).}
+\item{gen.points}{The output set of generated points segregated from \code{Y} points (i.e., vertices of \eqn{T_e}).}
+\item{tri.Y}{Logical output for triangulation based on \code{Y} points should be implemented or not.
+if TRUE triangulation based on \code{Y} points is to be implemented (default is set to FALSE).}
 \item{desc.pat}{Description of the point pattern}
 \item{num.points}{The vector of two numbers, which are the number of generated points and
-the number of reference (i.e., Y) points, which is 3 here.}
+the number of reference (i.e., \code{Y}) points, which is 3 here.}
 \item{xlimit,ylimit}{The ranges of the x- and y-coordinates of the reference points, which are the
-vertices of Te here}
+vertices of \eqn{T_e} here}
 }
 \description{
-Generates k points uniformly in the standard equilateral triangle Te=T((0,0),(1,0),(1/2,sqrt(3)/2))
-under the type I segregation alternative for eps in (0,sqrt(3)/3=0.5773503].
+Generates \code{k} points uniformly in the standard equilateral triangle \eqn{T_e=T((0,0),(1,0),(1/2,\sqrt{3}/2))}
+under the type I segregation alternative for \code{eps} in \eqn{(0,\sqrt{3}/3=0.5773503]}.
 In the type I segregation, the triangular forbidden regions around the vertices are determined by
-the parameter eps which serves as the height of these triangles (see examples for a sample plot.)
+the parameter \code{eps} which serves as the height of these triangles (see examples for a sample plot.)
 See also (\insertCite{ceyhan:arc-density-PE,ceyhan:arc-density-CS,ceyhan:dom-num-NPE-Spat2011;textual}{pcds}).
 }
 \examples{
-n<-100
-A<-c(1,1); B<-c(2,0); C<-c(1.5,2);
-#A<-runif(2); B<-runif(2); C<-runif(2);
-#A<-runif(2,1,100); B<-runif(2,1,100); C<-runif(2,1,100);
-Tr<-rbind(A,B,C)
+A<-c(0,0); B<-c(1,0); C<-c(1/2,sqrt(3)/2);
+Te<-rbind(A,B,C);
+n<-1000
+eps<-.3 #try also .15, .5, .75
 
-Xdt<-runif.tri(n,Tr)
+#set.seed(1)
+Xdt<-rsegTe(n,eps)
 Xdt
 summary(Xdt)
-plot(Xdt)
+plot(Xdt,asp=1)
 
-dat<-runif.tri(n,Tr)$g
-Xlim<-range(Tr[,1])
-Ylim<-range(Tr[,2])
+Xlim<-range(Te[,1])
+Ylim<-range(Te[,2])
 xd<-Xlim[2]-Xlim[1]
 yd<-Ylim[2]-Ylim[1]
 
-plot(Tr,pch=".",xlab="",ylab="",xlim=Xlim+xd*c(-.05,.05),ylim=Ylim+yd*c(-.05,.05))
-polygon(Tr)
+#set.seed(1)
+dat<-rsegTe(n,eps)$gen.points
+
+plot(Te,asp=1,pch=".",xlab="",ylab="",
+main="Type I segregation in the \n standard equilateral triangle",
+     xlim=Xlim+xd*c(-.01,.01),ylim=Ylim+yd*c(-.01,.01))
+polygon(Te)
 points(dat)
-xc<-Tr[,1]#+c(-.03,.03,0.03)
-yc<-Tr[,2]#+c(.02,.02,.02)
-txt.str<-c("A","B","C")
-text(xc,yc,txt.str)
+
+# The support for the Type I segregation alternative
+sr<-eps/(sqrt(3)/2)
+C1<-C+sr*(A-C); C2<-C+sr*(B-C)
+A1<-A+sr*(B-A); A2<-A+sr*(C-A)
+B1<-B+sr*(A-B); B2<-B+sr*(C-B)
+supp<-rbind(A1,B1,B2,C2,C1,A2)
+
+plot(Te,asp=1,pch=".",xlab="",ylab="",main="Support of the Type I Segregation",
+     xlim=Xlim+xd*c(-.01,.01),ylim=Ylim+yd*c(-.01,.01))
+if (sr<=.5)
+{
+  polygon(Te)
+  polygon(supp,col=5)
+} else
+{
+  polygon(Te,col=5,lwd=2.5)
+  polygon(rbind(A,A1,A2),col=0,border=NA)
+  polygon(rbind(B,B1,B2),col=0,border=NA)
+  polygon(rbind(C,C1,C2),col=0,border=NA)
+}
+#points(dat)
 
 }
+\references{
+\insertAllCited{}
+}
 \seealso{
-\code{\link{rseg.disc}}, \code{\link{rasc.disc}},  \code{\link{rsegIITe}},
-and \code{\link{rsegMT}}
+\code{\link{rseg.disc}}, \code{\link{rasc.disc}},  \code{\link{rsegIITe}}, and \code{\link{rsegMT}}
 }

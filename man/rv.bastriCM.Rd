@@ -8,26 +8,30 @@ rv.bastriCM(p, c1, c2)
 }
 \arguments{
 \item{p}{A 2D point for which CM-vertex region it resides in is to be determined in the
-basic triangle Tb}
+basic triangle \eqn{T_b}}
 
 \item{c1, c2}{Positive real numbers which constitute the upper vertex of the basic triangle (i.e., the vertex
-adjacent to the shorter edges of Tb); c1 must be in [0,1/2], c2>0 and (1-c1)^2+c2^2 <=1}
+adjacent to the shorter edges of \eqn{T_b}); \code{c1} must be in \eqn{[0,1/2]}, \eqn{c_2>0} and \eqn{(1-c_1)^2+c_2^2 \le 1}}
 }
 \value{
 A list with two elements
-\item{rv}{Index of the CM-vertex region that contains point, p in the basic triangle Tb}
-\item{tri}{The vertices of the triangle, where row number corresponds to the vertex index in rv
-with row 1=(0,0), row 2=(1,0), and row 3=(c1,c2).}
+\item{rv}{Index of the CM-vertex region that contains point, \code{p} in the basic triangle \eqn{T_b}}
+\item{tri}{The vertices of the triangle, where row number corresponds to the vertex index in \code{rv}
+with row 1=(0,0), row 2=(1,0), and row 3=\eqn{(c_1,c_2)}.}
 }
 \description{
-Returns the index of the vertex whose region contains point p in
-the basic triangle Tb=T((0,0),(1,0),(c1,c2)) where c1 is in [0,1/2], c2>0 and (1-c1)^2+c2^2 <=1
-and vertex regions are based on the center of mass CM=((1+c1)/3,c2/3) of Tb.
-(see the plots in the example for illustrations). The vertices of the basic triangle Tb are labeled as
-1=(0,0),2=(1,0),and 3=(c1,c2) also according to the row number the vertex is recorded in Tb.
-If the point, p, is not inside Tb, then the function yields NA as output.
+Returns the index of the vertex whose region contains point \code{p} in
+the basic triangle \eqn{T_b=T((0,0),(1,0),(c_1,c_2))} where \code{c1} is in \eqn{[0,1/2]}, \eqn{c_2>0}
+and \eqn{(1-c_1)^2+c_2^2 \le 1} and vertex regions are based on the center of mass CM=((1+c1)/3,c2/3) of \eqn{T_b}.
+(see the plots in the example for illustrations).
+
+The vertices of the basic triangle \eqn{T_b} are labeled as
+1=(0,0),2=(1,0),and 3=\eqn{(c_1,c_2)} also according to the row number the vertex is recorded in \eqn{T_b}.
+If the point, \code{p}, is not inside \eqn{T_b}, then the function yields NA as output.
 The corresponding vertex region is the polygon with the vertex, CM, and
-midpoints of the edges adjacent to the vertex. Any given triangle can be mapped to the basic triangle
+midpoints of the edges adjacent to the vertex.
+
+Any given triangle can be mapped to the basic triangle
 by a combination of rigid body motions (i.e., translation, rotation and reflection) and scaling,
 preserving uniformity of the points in the original triangle. Hence basic triangle is useful for simulation
 studies under the uniformness hypothesis.
@@ -35,37 +39,80 @@ See also (\insertCite{ceyhan:Phd-thesis,ceyhan:comp-geo-2010,ceyhan:mcap2012,cey
 }
 \examples{
 c1<-.4; c2<-.6
-A<-c(0,0); B<-c(1,0); C<-c(c1,c2);
+P<-c(.4,.2)
+rv.bastriCM(P,c1,c2)
 
-#A<-runif(2); B<-runif(2); C<-runif(2)
-#A<-runif(2,1,100); B<-runif(2,1,100); C<-runif(2,1,100);
-Tr<-rbind(A,B,C)
+c1<-.5; c2<-.8
+P<-c(.4,.2)
+rv.bastriCM(P,c1,c2)
 
-bary2cart(c(.3,.2,.5),Tr)
-bary2cart(c(.4,.2,.4),Tr)
-bary2cart(c(.5,.2,.3),Tr)
-bary2cart(c(6,2,4),Tr)
+P<-c(.8,.2)
+rv.bastriCM(P,c1,c2)
 
-P<-c(.8,.2,.3)
-bary2cart(P,Tr)
+P<-c(1,.2)
+rv.bastriCM(P,c1,c2)
 
-P<-c(-.5,.4,.2)
-bary2cart(P,Tr)
+c1<-.4; c2<-.6
+A<-c(0,0);B<-c(1,0);C<-c(c1,c2);
+Tb<-rbind(A,B,C)
+CM<-(A+B+C)/3
+D1<-(B+C)/2; D2<-(A+C)/2; D3<-(A+B)/2;
+Ds<-rbind(D1,D2,D3)
 
-CM<-(A+B+C)/3; CM
-bary2cart(c(1,1,1),Tr)
+rv.bastriCM(A,c1,c2)
+rv.bastriCM(CM,c1,c2)
+rv.bastriCM(D1,c1,c2)
+rv.bastriCM(D2,c1,c2)
+rv.bastriCM(D3,c1,c2)
 
-####
-A<-c(1,1); B<-c(2,0); C<-c(1.5,2);
-Tr<-rbind(A,B,C);
-bary2cart(c(1.4,1.2,1),Tr)
+n<-20
+dat<-runif.bastri(n,c1,c2)$g
+#dat<-cbind(runif(n),runif(n))
+#dat<-cbind(runif(n,1,2),runif(n,0,1))
 
-bary2cart(c(.8,.2,.6),Tr)
+Rv<-vector()
+for (i in 1:n)
+  Rv<-c(Rv,rv.bastriCM(dat[i,],c1,c2)$rv)
+Rv
 
-bary2cart(c(1,2,3),Tr)
+Xlim<-range(Tb[,1],dat[,1])
+Ylim<-range(Tb[,2],dat[,2])
+xd<-Xlim[2]-Xlim[1]
+yd<-Ylim[2]-Ylim[1]
 
-dat.fr<-data.frame(a=Tr)
-bary2cart(c(.8,.2,.3),dat.fr)
+plot(Tb,xlab="",ylab="",axes="T",pch=".",xlim=Xlim+xd*c(-.05,.05),ylim=Ylim+yd*c(-.05,.05))
+points(dat,pch=".")
+polygon(Tb)
+L<-Ds; R<-matrix(rep(CM,3),ncol=2,byrow=TRUE)
+segments(L[,1], L[,2], R[,1], R[,2], lty=2)
+text(dat,labels=factor(Rv))
+
+txt<-rbind(Tb,CM,Ds)
+xc<-txt[,1]+c(-.03,.03,.02,-.01,.06,-.05,.0)
+yc<-txt[,2]+c(.02,.02,.02,.04,.02,.02,-.03)
+txt.str<-c("A","B","C","CM","D1","D2","D3")
+text(xc,yc,txt.str)
+
+plot(Tb,xlab="",ylab="",axes="T",pch=".",xlim=Xlim+xd*c(-.05,.05),ylim=Ylim+yd*c(-.05,.05))
+polygon(Tb)
+L<-Ds; R<-matrix(rep(CM,3),ncol=2,byrow=TRUE)
+segments(L[,1], L[,2], R[,1], R[,2], lty=2)
+
+RV1<-(A+D3+CM+D2)/4
+RV2<-(B+D3+CM+D1)/4
+RV3<-(C+D2+CM+D1)/4
+
+txt<-rbind(RV1,RV2,RV3)
+xc<-txt[,1]
+yc<-txt[,2]
+txt.str<-c("rv=1","rv=2","rv=3")
+text(xc,yc,txt.str)
+
+txt<-rbind(Tb,CM,Ds)
+xc<-txt[,1]+c(-.03,.03,.02,-.01,.04,-.03,.0)
+yc<-txt[,2]+c(.02,.02,.02,.04,.02,.02,-.03)
+txt.str<-c("A","B","C","CM","D1","D2","D3")
+text(xc,yc,txt.str)
 
 }
 \references{

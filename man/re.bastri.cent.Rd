@@ -7,37 +7,34 @@
 re.bastri.cent(pt, c1, c2, M)
 }
 \arguments{
-\item{pt}{A 2D point for which M-edge region it resides in is to be determined in the
-basic triangle Tb}
+\item{pt}{A 2D point for which \code{M}-edge region it resides in is to be determined in the
+basic triangle \eqn{T_b}}
 
 \item{c1, c2}{Positive real numbers which constitute the upper vertex of the basic triangle (i.e., the vertex
-adjacent to the shorter edges of Tb); c1 must be in [0,1/2], c2>0 and (1-c1)^2+c2^2 <=1}
+adjacent to the shorter edges of \eqn{T_b}); \code{c1} must be in \eqn{[0,1/2]}, \eqn{c_2>0} and \eqn{(1-c_1)^2+c_2^2 \le 1}}
 
 \item{M}{A 2D point in Cartesian coordinates or a 3D point in barycentric coordinates
-which serves as a center in the interior of the basic triangle Tb}
+which serves as a center in the interior of the basic triangle \eqn{T_b}}
 }
 \value{
 A list with three elements
 
-\item{re}{Index of the edge whose region contains point, pt.}
-\item{tri}{The vertices of the triangle, where row labels are A=(0,0), B=(1,0), and C=(c1,c2)
+\item{re}{Index of the \code{M}-edge region that contains point, \code{pt}  in the basic triangle \eqn{T_b}.}
+\item{tri}{The vertices of the triangle, where row labels are A, B, and C
 with edges are labeled as 3 for edge AB, 1 for edge BC, and 2 for edge AC.}
-\item{txt}{Description of the edge labels.}
-
-\item{re}{Index of the M-edge region that contains point, pt in the basic triangle Tb.}
-\item{tri}{The vertices of the triangle, where row labels are A,B, and C
-with edges are labeled as 3 for edge AB, 1 for edge BC, and 2 for edge AC.}
-\item{txt}{Description of the edge labels}
+\item{desc}{Description of the edge labels}
 }
 \description{
-Returns the index of the edge whose region contains point, pt, in
-the basic triangle Tb=T(A=(0,0),B=(1,0),C=(c1,c2)) and edge regions based on center
-M=(m1,m2) in Cartesian coordinates or M=(alpha,beta,gamma) in barycentric coordinates
-in the interior of the basic triangle Tb.
+Returns the index of the edge whose region contains point, \code{pt}, in
+the basic triangle \eqn{T_b=T(A=(0,0),B=(1,0),C=(c_1,c_2))} and edge regions based on center
+\eqn{M=(m_1,m_2)} in Cartesian coordinates or \eqn{M=(\alpha,\beta,\gamma)} in barycentric coordinates
+in the interior of the basic triangle \eqn{T_b}.
+
 Edges are labeled as 3 for edge AB, 1 for edge BC, and 2 for edge AC.
-If the point, pt, is not inside tri, then the function yields NA as output.
-Edge region 1 is the triangle T(B,C,M), edge region 2 is T(A,C,M), and edge region 3 is T(A,B,M).
-In the basic triangle Tb=T(A=(0,0),B=(1,0),C=(c1,c2)) c1 is in [0,1/2], c2>0 and (1-c1)^2+c2^2 <=1.
+If the point, \code{pt}, is not inside \code{tri}, then the function yields NA as output.
+Edge region 1 is the triangle \eqn{T(B,C,M)}, edge region 2 is \eqn{T(A,C,M)}, and edge region 3 is \eqn{T(A,B,M)}.
+In the basic triangle \eqn{T_b} \code{c1} is in \eqn{[0,1/2]}, \eqn{c_2>0} and \eqn{(1-c_1)^2+c_2^2 \le 1}.
+
 Any given triangle can be mapped to the basic triangle by a combination of rigid body motions
 (i.e., translation, rotation and reflection) and scaling, preserving uniformity of the points in the
 original triangle. Hence basic triangle is useful for simulation
@@ -46,37 +43,46 @@ See also (\insertCite{ceyhan:Phd-thesis,ceyhan:comp-geo-2010,ceyhan:mcap2012,cey
 }
 \examples{
 c1<-.4; c2<-.6
+A<-c(0,0); B<-c(1,0); C<-c(c1,c2);
+Tb<-rbind(A,B,C);
+M<-c(.6,.2)
+
 P<-c(.4,.2)
-re.bastriCM(P,c1,c2)
+re.bastri.cent(P,c1,c2,M)
+
+P<-c(1.4,.2)
+re.bastri.cent(P,c1,c2,M)
 
 c1<-.5; c2<-.8
 P<-c(.4,.2)
-re.bastriCM(P,c1,c2)
+re.bastri.cent(P,c1,c2,M)
 
 P<-c(.8,.2)
-re.bastriCM(P,c1,c2)
-
-P<-c(1.8,.2)
-re.bastriCM(P,c1,c2)
+re.bastri.cent(P,c1,c2,M)
 
 c1<-.4; c2<-.6
 A<-c(0,0);B<-c(1,0);C<-c(c1,c2);
 Tb<-rbind(A,B,C)
-CM<-(A+B+C)/3
 
-re.bastriCM(A,c1,c2)
-re.bastriCM(B,c1,c2)
-re.bastriCM(C,c1,c2)
-re.bastriCM(CM,c1,c2)
+re.bastri.cent(A,c1,c2,M)
+re.bastri.cent(B,c1,c2,M)
+re.bastri.cent(C,c1,c2,M)
+re.bastri.cent(M,c1,c2,M)
 
 n<-20
 dat<-runif.bastri(n,c1,c2)$g
 #dat<-cbind(runif(n),runif(n))
 #dat<-cbind(runif(n,1,2),runif(n,0,1))
 
+M<-as.numeric(runif.bastri(1,c1,c2)$g)
+#M<-c(.6,.2)
+#M<-c(1,1,1) #M<-c(1,2,3) #M<-c(-1,2,3) #barycentric coordinates
+#M<-c(1.3,1.3)
+#M<-c(.3,.3)
+
 re<-vector()
 for (i in 1:n)
-  re<-c(re,re.bastriCM(dat[i,],c1,c2)$re)
+  re<-c(re,re.bastri.cent(dat[i,],c1,c2,M)$re)
 re
 
 Xlim<-range(Tb[,1],dat[,1])
@@ -87,14 +93,14 @@ yd<-Ylim[2]-Ylim[1]
 plot(Tb,xlab="",ylab="",axes=TRUE,pch=".",xlim=Xlim+xd*c(-.05,.05),ylim=Ylim+yd*c(-.05,.05))
 points(dat,pch=".")
 polygon(Tb)
-L<-Tb; R<-matrix(rep(CM,3),ncol=3,byrow=T)
+L<-Tb; R<-rbind(M,M,M)
 segments(L[,1], L[,2], R[,1], R[,2], lty=2)
 text(dat,labels=factor(re))
 
-txt<-rbind(Tb,CM)
+txt<-rbind(Tb,M)
 xc<-txt[,1]+c(-.03,.03,.02,0)
-yc<-txt[,2]+c(.02,.02,.02,-.04)
-txt.str<-c("A","B","C","CM")
+yc<-txt[,2]+c(.02,.02,.02,-.03)
+txt.str<-c("A","B","C","M")
 text(xc,yc,txt.str)
 
 }

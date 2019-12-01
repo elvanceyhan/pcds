@@ -8,62 +8,104 @@ re.triCM(pt, tri)
 }
 \arguments{
 \item{pt}{A 2D point for which CM-edge region it resides in is to be determined in the triangle
-tri}
+\code{tri}}
 
 \item{tri}{Three 2D points, stacked row-wise, each row representing a vertex of the triangle}
 }
 \value{
 A list with three elements
-\item{re}{Index of the CM-edge region that contains point, pt in the triangle tri.}
-\item{tri}{The vertices of the triangle, where row labels are A,B, and C
+\item{re}{Index of the CM-edge region that contains point, \code{pt}  in the triangle \code{tri}.}
+\item{tri}{The vertices of the triangle, where row labels are A, B, and C
 with edges are labeled as 3 for edge AB, 1 for edge BC, and 2 for edge AC.}
-\item{txt}{Description of the edge labels}
+\item{desc}{Description of the edge labels}
 }
 \description{
-Returns the index of the edge whose region contains point, pt, in
-the triangle tri=T(A,B,C) with edge regions based on center of mass CM=(A+B+C)/3.
+Returns the index of the edge whose region contains point, \code{pt}, in
+the triangle \eqn{tri=T(A,B,C)} with edge regions based on center of mass \eqn{CM=(A+B+C)/3}.
 Edges are labeled as 3 for edge AB, 1 for edge BC, and 2 for edge AC.
-If the point, pt, is not inside tri, then the function yields NA as output.
-Edge region 1 is the triangle T(B,C,CM), edge region 2 is T(A,C,CM), and edge region 3 is T(A,B,CM).
+If the point, \code{pt}, is not inside \code{tri}, then the function yields NA as output.
+Edge region 1 is the triangle \eqn{T(B,C,CM)}, edge region 2 is \eqn{T(A,C,CM)}, and
+edge region 3 is \eqn{T(A,B,CM)}.
 See also (\insertCite{ceyhan:Phd-thesis,ceyhan:comp-geo-2010,ceyhan:mcap2012,ceyhan:arc-density-CS;textual}{pcds}).
 }
 \examples{
-A<-c(0,0); B<-c(1,0); C<-c(0.5,.8);
+A<-c(1,1); B<-c(2,0); C<-c(1.5,2);
 #A<-runif(2); B<-runif(2); C<-runif(2)
 #A<-runif(2,1,100); B<-runif(2,1,100); C<-runif(2,1,100);
 Tr<-rbind(A,B,C);
-area.polygon(Tr)
+P<-c(1.4,1.2)
+re.triCM(P,Tr)
 
-A<-c(0,0); B<-c(1,0); C<-c(.7,.6); D<-c(0.3,.8);
-h1<-rbind(A,B,C,D); #h1<-rbind(A,B,D,C); #h1<-rbind(A,C,B,D)
-#h1<-rbind(A,D,C,B);
-area.polygon(h1)
+P<-c(.8,.2)
+re.triCM(P,Tr)
 
-Xlim<-range(h1[,1])
-Ylim<-range(h1[,2])
+P<-c(1.5,1.61)
+re.triCM(P,Tr)
+
+CM<-(A+B+C)/3
+
+re.triCM(A,Tr)
+re.triCM(B,Tr)
+re.triCM(C,Tr)
+re.triCM(CM,Tr)
+
+n<-20
+dat<-runif.tri(n,Tr)$g
+#dat<-cbind(runif(n,1,2),runif(n,0,2))
+#dat<-cbind(runif(n),runif(n))
+
+re<-vector()
+for (i in 1:n)
+  re<-c(re,re.triCM(dat[i,],Tr)$re)
+re
+
+Xlim<-range(Tr[,1],dat[,1])
+Ylim<-range(Tr[,2],dat[,2])
 xd<-Xlim[2]-Xlim[1]
 yd<-Ylim[2]-Ylim[1]
 
-plot(h1,xlab="",ylab="",xlim=Xlim+xd*c(-.05,.05),ylim=Ylim+yd*c(-.05,.05))
-polygon(h1)
-xc<-rbind(A,B,C,D)[,1]+c(-.03,.03,.02,-.01)
-yc<-rbind(A,B,C,D)[,2]+c(.02,.02,.02,.04)
-txt.str<-c("A","B","C","D")
+plot(Tr,xlab="",ylab="",axes=TRUE,pch=".",xlim=Xlim+xd*c(-.05,.05),ylim=Ylim+yd*c(-.05,.05))
+points(dat,pch=".")
+polygon(Tr)
+L<-Tr; R<-matrix(rep(CM,3),ncol=2,byrow=TRUE)
+segments(L[,1], L[,2], R[,1], R[,2], lty=2)
+text(dat,labels=factor(re))
+
+txt<-rbind(Tr,CM)
+xc<-txt[,1]#+c(-.03,.04,.03,.06)
+yc<-txt[,2]#+c(.02,.02,.04,.05)
+txt.str<-c("A","B","C","CM")
 text(xc,yc,txt.str)
 
-#when the triangle is degenerate
-B<-A+2*(C-A);
-T2<-rbind(A,B,C)
-area.polygon(T2)
+p1<-(A+B+CM)/3
+p2<-(B+C+CM)/3
+p3<-(A+C+CM)/3
+
+plot(Tr,xlab="",ylab="",axes=TRUE,pch=".",xlim=Xlim+xd*c(-.05,.05),ylim=Ylim+yd*c(-.05,.05))
+polygon(Tr)
+L<-Tr; R<-matrix(rep(CM,3),ncol=2,byrow=TRUE)
+segments(L[,1], L[,2], R[,1], R[,2], lty=2)
+
+txt<-rbind(Tr,CM,p1,p2,p3)
+xc<-txt[,1]#+c(-.02,.03,.03,-.04,0,0,0)
+yc<-txt[,2]#+c(.02,.02,.04,.07,0,0,0)
+txt.str<-c("A","B","C","CM","re=3","re=1","re=2")
+text(xc,yc,txt.str)
+
+###
+A<-c(0,0); B<-c(1,0); C<-c(0.5,.8);
+Tr<-rbind(A,B,C);
+P<-c(.4,.2)
+re.triCM(P,Tr)
 
 dat.fr<-data.frame(a=Tr)
-area.polygon(dat.fr)
+re.triCM(P,dat.fr)
 
 }
 \references{
 \insertAllCited{}
 }
 \seealso{
-\code{\link{re.tri.cent}}, \code{\link{re.triCM}}, \code{\link{re.bastriCM}},
-\code{\link{re.bastri.cent}}, \code{\link{reTeCM}}, and \code{\link{redge.triCM}}
+\code{\link{re.tri.cent}}, \code{\link{re.bastriCM}}, \code{\link{re.bastri.cent}},
+\code{\link{reTeCM}}, and \code{\link{redge.triCM}}
 }

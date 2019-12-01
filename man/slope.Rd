@@ -7,35 +7,21 @@
 slope(a, b)
 }
 \arguments{
-\item{a, b}{2D points that determine the straight line (i.e., through which the straight line is passing)}
+\item{a, b}{2D points that determine the straight line (i.e., through which the straight line passes).}
 }
 \value{
 Slope of the line joining 2D points \code{a} and \code{b}
 }
 \description{
-Returns the slope of the line joining two distinct 2D points a and b
+Returns the slope of the line joining two distinct 2D points \code{a} and \code{b}.
 }
 \examples{
-dimension(3)
-dim(3)
+A<-c(-1.22,-2.33); B<-c(2.55,3.75)
+slope(A,B)
 
-A<-c(1,2)
-dimension(A)
-dim(A)
+slope(c(1,2),c(2,3))
+slope(c(1,2),c(1,3))
 
-B<-c(2,3)
-dimension(rbind(A,B,A))
-dimension(cbind(A,B,A))
-
-M<-matrix(runif(20),ncol=5)
-dimension(M)
-dim(M)
-
-dat.fr<-data.frame(a=A,b=B)
-dimension(dat.fr)
-dim(dat.fr)
-
-dimension(c("a","b"))
 }
 \seealso{
 \code{\link{Line}}, \code{\link{paraline}}, and \code{\link{perpline}}

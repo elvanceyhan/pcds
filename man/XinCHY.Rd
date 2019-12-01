@@ -12,11 +12,11 @@ XinCHY(Xp, Yp)
 \item{Yp}{A set of 2D points which constitute the vertices of the Delaunay triangles}
 }
 \value{
-Xp points inside the convex hull of Yp points
+\code{Xp} points inside the convex hull of \code{Yp} points
 }
 \description{
-Given two 2D data sets, Xp and Yp, it returns the Xp points inside the convex hull of Yp points.
-See (\insertCite{okabe:2000,ceyhan:comp-geo-2010,renka:1996;textual}{pcds}) for more on Delaunay triangulation and the tripack algorithm.
+Given two 2D data sets, \code{Xp} and \code{Yp}, it returns the \code{Xp} points inside the convex hull of \code{Yp} points.
+See (\insertCite{okabe:2000,ceyhan:comp-geo-2010,renka:1996;textual}{pcds}) for more on Delaunay triangulation and the TRIPACK algorithm.
 }
 \examples{
 nx<-100
@@ -26,36 +26,31 @@ ny<-10
 Xp<-cbind(runif(nx,0,1),runif(nx,0,1))
 #Xp<-cbind(runif(nx,0.5,1.5),runif(nx,0,1))
 #Xp<-cbind(runif(nx,1,2),runif(nx,0,1))
-#Xp<-c(.5,.5)
 Yp<-cbind(runif(ny,0,1),runif(ny,0,1))
 
-M<-c(1,1,1) #M<-c(1,2,3) #M<-c(-1,2,3) #barycentric coordinates
-#M<-"CC"
-#M<-c(1.3,1.3)
-r<-1.5
-#r<-2
+DT<-tripack::tri.mesh(Yp[,1],Yp[,2],duplicate="remove")
 
-IM<-IncMatPEMT(Xp,Yp,r,M)
-IM
-dom.greedy(IM)
-#dom.exact(IM) #might take a long time in this brute-force fashion ignoring the
-#disconnected nature of the digraph inherent by the geometric construction of it
-PEdomMTnd(Xp,Yp,r)
+Xlim<-range(Xp[,1],Yp[,1])
+Ylim<-range(Xp[,2],Yp[,2])
+xd<-Xlim[2]-Xlim[1]
+yd<-Ylim[2]-Ylim[1]
 
-Arcs<-ArcsPEMT(Xp,Yp,r,M)
-Arcs
-summary(Arcs)
-plot(Arcs)
+Xch<-XinCHY(Xp,Yp)
 
-IncMatPEMT(Xp,Yp,r,M)
+plot(Xp,main=" ", xlab=" ", ylab=" ",
+xlim=Xlim+xd*c(-.05,.05),ylim=Ylim+yd*c(-.05,.05),pch=".",cex=3)
+tripack::convex.hull(DT,plot.it = TRUE, add = TRUE) # or try polygon(Yp[ch$i,])
+points(Xch,pch=4,col="red")
 
-IncMatPEMT(Xp,rbind(Yp,Yp),r,M)
+XinCHY(Xp,Yp)
+
+XinCHY(Xp,rbind(Yp,Yp))
 
 dat.fr<-data.frame(a=Xp)
-IncMatPEMT(dat.fr,Yp,r,M)
+XinCHY(dat.fr,Yp)
 
 dat.fr<-data.frame(a=Yp)
-IncMatPEMT(Xp,dat.fr,r,M)
+XinCHY(Xp,dat.fr)
 
 }
 \references{

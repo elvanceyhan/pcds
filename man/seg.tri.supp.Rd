@@ -13,54 +13,73 @@ seg.tri.supp(delta, tri)
 }
 \value{
 the vertices of the triangle (stacked row-wise) whose intersection with a general triangle
-gives the support for type I segregation for the given delta
+gives the support for type I segregation for the given \code{delta}
 }
 \description{
 Returns the triangle whose intersection with a general triangle gives the support for
-type I segregation given the delta (i.e., delta*100 % area of a triangle around the vertices is chopped off).
+type I segregation given the \code{delta} (i.e., \eqn{\delta\,100} \% area of a triangle around the vertices is chopped off).
 See the plot in the examples.
-Caveat: the vertices of this triangle may be outside the triangle, tri, depending on the value of delta
-(i.e., for small values of delta)
+Caveat: the vertices of this triangle may be outside the triangle, \code{tri}, depending on the value of \code{delta}
+(i.e., for small values of \code{delta})
 }
 \examples{
-nx<-40 #number of X points (target)
-ny<-10 #number of Y points (nontarget)
+\dontrun{
+#for the standard equilateral triangle
+A<-c(0,0); B<-c(1,0); C<-c(1/2,sqrt(3)/2);
+Te<-rbind(A,B,C);
+delta<-.3 #also try .5,.75,.85
+seg.tri.supp(delta,Te)
 
-#set.seed(1)
-Yp<-cbind(runif(ny),runif(ny))
-dat<-runifMT(nx,Yp)$g #data under CSR in the convex hull of Ypoints
-#dat<-cbind(runif(nx),runif(nx))
+Tseg<-seg.tri.supp(delta,Te)
 
-tr.ind<-indices.Del.tri(dat,Yp) #indices of the Delaunay triangles
-tr.ind
-
-#or use
-DTY<-tri.mesh(Yp[,1],Yp[,2],duplicate="remove") #Delaunay triangulation based on Y points
-tr.ind<-indices.Del.tri(dat,Yp,DTY) #indices of the Delaunay triangles
-tr.ind
-
-Xlim<-range(Yp[,1],dat[,1])
-Ylim<-range(Yp[,2],dat[,2])
+Xlim<-range(Te[,1],Tseg[,1])
+Ylim<-range(Te[,2],Tseg[,2])
 xd<-Xlim[2]-Xlim[1]
 yd<-Ylim[2]-Ylim[1]
 
-#plot of the data in the convex hull of Y points together with the Delaunay triangulation
 #par(pty="s")
-plot(dat,main=" ", xlab=" ", ylab=" ",xlim=Xlim+xd*c(-.05,.05),ylim=Ylim+yd*c(-.05,.05),pch=".")
-plot.tri(DTY, add=TRUE, do.points=T,pch=16,col="blue")
-text(dat,labels = factor(tr.ind) )
+plot(Te,pch=".",xlab="",ylab="",
+main="segregation support is the intersection\n of these two triangles"
+     ,axes=T,xlim=Xlim+xd*c(-.05,.05),ylim=Ylim+yd*c(-.05,.05))
+#points(sixt,pty=2,pch=2,col="red")
+polygon(Te)
+polygon(Tseg,lty=2)
 
-Yp<-rbind(c(.3,.2),c(.4,.5),c(.14,.15))
-indices.Del.tri(c(.25,.25),Yp)
+txt<-rbind(Te,Tseg)
+xc<-txt[,1]+c(-.03,.03,.03,.05,.04,-.04)
+yc<-txt[,2]+c(.02,.02,.04,-.03,0,0)
+txt.str<-c("A","B","C","T1","T2","T3")
+text(xc,yc,txt.str)
 
-dat<-rbind(c(.25,.25),c(.15,.25))
-indices.Del.tri(dat,Yp)
+#for a general triangle
+A<-c(1,1); B<-c(2,0); C<-c(1.5,2);
+#A<-runif(2); B<-runif(2); C<-runif(2)
+#A<-runif(2,1,100); B<-runif(2,1,100); C<-runif(2,1,100);
+Tr<-rbind(A,B,C);
+delta<-.3 #also try .5,.75,.85
+Tseg<-seg.tri.supp(delta,Tr)
 
-dat.fr<-data.frame(a=dat)
-indices.Del.tri(dat.fr,Yp)
+Xlim<-range(Tr[,1],Tseg[,1])
+Ylim<-range(Tr[,2],Tseg[,2])
+xd<-Xlim[2]-Xlim[1]
+yd<-Ylim[2]-Ylim[1]
 
-dat.fr<-data.frame(a=Yp)
-indices.Del.tri(c(.25,.25),dat.fr)
+#par(pty="s")
+plot(Tr,pch=".",xlab="",ylab="",
+main="segregation support is the intersection\n of these two triangles"
+     ,axes=T,xlim=Xlim+xd*c(-.05,.05),ylim=Ylim+yd*c(-.05,.05))
+polygon(Tr)
+polygon(Tseg,lty=2)
+
+txt<-rbind(Tr,Tseg)
+xc<-txt[,1]#+c(-.03,.03,.03,.06,.04,-.04)
+yc<-txt[,2]#+c(.02,.02,.04,-.03,0,0)
+txt.str<-c("A","B","C","T1","T2","T3")
+text(xc,yc,txt.str)
+
+dat.fr<-data.frame(a=Tr)
+seg.tri.supp(delta,dat.fr)
+}
 
 }
 \seealso{

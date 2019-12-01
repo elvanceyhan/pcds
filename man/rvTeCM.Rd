@@ -7,73 +7,70 @@
 rvTeCM(pt)
 }
 \arguments{
-\item{p}{A 2D point for which CM-vertex region it resides in is to be determined in the
-standard equilateral triangle Te}
+\item{pt}{A 2D point for which CM-vertex region it resides in is to be determined in the
+standard equilateral triangle \eqn{T_e}}
 }
 \value{
 A list with two elements
-\item{rv}{Index of the vertex whose region contains point, pt}
-\item{tri}{The vertices of the triangle, Te, where row number corresponds to the vertex index in rv
+\item{rv}{Index of the vertex whose region contains point, \code{p}.}
+\item{tri}{The vertices of the triangle, \eqn{T_e}, where row number corresponds to the vertex index in \code{rv}
 with row 1=(0,0), row 2=(1,0), and row 3=(1/2,sqrt(3)/2).}
 }
 \description{
-Returns the index of the vertex whose region contains point pt in standard equilateral triangle
-Te=T((0,0),(1,0),(1/2,sqrt(3)/2)) with vertex regions are constructed with center of mass CM
-(see the plots in the example for illustrations). The vertices of triangle, Te, are labeled as 1,2,3
-according to the row number the vertex is recorded in Te. If the point, pt, is not inside Te, then the
+Returns the index of the vertex whose region contains point \code{p} in standard equilateral triangle
+\eqn{T_e=T((0,0),(1,0),(1/2,\sqrt{3}/2))} with vertex regions are constructed with center of mass CM
+(see the plots in the example for illustrations). The vertices of triangle, \eqn{T_e}, are labeled as 1,2,3
+according to the row number the vertex is recorded in \eqn{T_e}. If the point, \code{p}, is not inside \eqn{T_e}, then the
 function yields NA as output. The corresponding vertex region is the polygon with the vertex, CM, and
 midpoints of the edges adjacent to the vertex.
 See also (\insertCite{ceyhan:Phd-thesis,ceyhan:comp-geo-2010,ceyhan:mcap2012;textual}{pcds}).
 }
 \examples{
-c1<-.4; c2<-.6
-A<-c(0,0); B<-c(1,0); C<-c(c1,c2);
-Tb<-rbind(A,B,C);
+A<-c(0,0); B<-c(1,0); C<-c(1/2,sqrt(3)/2);
+Te<-rbind(A,B,C)
 
-M<-as.numeric(runif.bastri(1,c1,c2)$g)
-#M<-c(.6,.2)
-#M<-circ.cent.tri(Tb)
-#M<-c(1,1,1) #M<-c(1,2,3) #M<-c(-1,2,3) #barycentric coordinates
-#M<-c(1.3,1.3)
-#M<-c(.3,.3)
-r<-2
+n<-20
+#set.seed(1)
+dat<-runifTe(n)$gen.points
+#dat<-cbind(runif(n),runif(n))
+#dat<-cbind(runif(n,1,2),runif(n,0,1))
 
-P1<-as.numeric(runif.bastri(1,c1,c2)$g)
-P2<-as.numeric(runif.bastri(1,c1,c2)$g)
-IndNPEbastri(P1,P2,r,c1,c2,M)
+rvTeCM(dat[1,])
+rvTeCM(c(.7,.2))
+rvTeCM(c(0,1))
 
-P1<-c(.4,.2)
-P2<-c(.5,.26)
-IndNPEbastri(P1,P2,r,c1,c2,M)
-IndNPEbastri(P2,P1,r,c1,c2,M)
-IndNPEbastri(P1,P1,r,c1,c2,M)
+Rv<-vector()
+for (i in 1:n)
+  Rv<-c(Rv,rvTeCM(dat[i,])$rv)
+Rv
 
-#or try
-Rv<-rv.bastri.cent(P1,c1,c2,M)$rv
-IndNPEbastri(P1,P2,r,c1,c2,M,Rv)
+CM<-(A+B+C)/3
+D1<-(B+C)/2; D2<-(A+C)/2; D3<-(A+B)/2;
+Ds<-rbind(D1,D2,D3)
 
-P1<-c(1.4,.2)
-P2<-c(.5,.26)
-IndNPEbastri(P1,P2,r,c1,c2,M)
-IndNPEbastri(P1,P1,r,c1,c2,M)
+Xlim<-range(Te[,1],dat[,1])
+Ylim<-range(Te[,2],dat[,2])
+xd<-Xlim[2]-Xlim[1]
+yd<-Ylim[2]-Ylim[1]
 
-#or try
-Rv<-rv.bastri.cent(P1,c1,c2,M)$rv
-IndNPEbastri(P1,P2,r,c1,c2,M,Rv)
-IndNPEbastri(P1,P1,r,c1,c2,M,Rv)
+plot(Te,asp=1,pch=".",xlab="",ylab="",axes=TRUE,xlim=Xlim+xd*c(-.05,.05),ylim=Ylim+yd*c(-.05,.05))
+polygon(Te)
+points(dat,pch=".",col=1)
+L<-matrix(rep(CM,3),ncol=2,byrow=TRUE); R<-Ds
+segments(L[,1], L[,2], R[,1], R[,2], lty=2)
 
-P1<-c(.4,.2)
-P2<-c(1.5,.26)
-IndNPEbastri(P1,P2,r,c1,c2,M)
+txt<-rbind(Te,CM)
+xc<-txt[,1]+c(-.02,.03,.02,0)
+yc<-txt[,2]+c(.02,.02,.03,.05)
+txt.str<-c("A","B","C","CM")
+text(xc,yc,txt.str)
 
-P1<-c(.4,.2)
-P2<-c(.5,.26)
-IndNPEbastri(P1,P2,r,c1,c2,M)
+text(dat,labels=factor(Rv))
+
+rvTeCM(c(.7,.2))
 
 }
 \references{
-\insertAllCited{}
-
 \insertAllCited{}
 }
 \seealso{

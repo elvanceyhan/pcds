@@ -14,47 +14,88 @@ tri}
 }
 \value{
 A list with two elements
-\item{rv}{Index of the CM-vertex region that contains point, p in the triangle tri.}
-\item{tri}{The vertices of the triangle, where row number corresponds to the vertex index in rv.}
+\item{rv}{Index of the CM-vertex region that contains point, \code{p} in the triangle \code{tri}.}
+\item{tri}{The vertices of the triangle, where row number corresponds to the vertex index in \code{rv}.}
 }
 \description{
-Returns the index of the vertex whose region contains point p in
-the triangle tri=(y1,y2,y3) with vertex regions are constructed with center of mass CM=(y1+y2+y3)/3
-(see the plots in the example for illustrations). The vertices of triangle, tri, are labeled as 1,2,3
-according to the row number the vertex is recorded in tri. If the point, p, is not inside tri, then the
+Returns the index of the vertex whose region contains point \code{p} in
+the triangle \code{tri}=\eqn{(y_1,y_2,y_3)} with vertex regions are constructed with center of mass \eqn{CM=(y_1+y_2+y_3)/3}
+(see the plots in the example for illustrations). The vertices of triangle, \code{tri}, are labeled as 1,2,3
+according to the row number the vertex is recorded in \code{tri}. If the point, \code{p}, is not inside \code{tri}, then the
 function yields NA as output. The corresponding vertex region is the polygon with the vertex, CM, and
 midpoints of the edges adjacent to the vertex.
 See (\insertCite{ceyhan:Phd-thesis,ceyhan:comp-geo-2010,ceyhan:mcap2012;textual}{pcds})
 }
 \examples{
-A<-c(1,1); B<-c(2,0); C<-c(1.5,2);
-#A<-runif(2); B<-runif(2); C<-runif(2);
-ny<-10
-Y<-cbind(runif(ny),runif(ny))
-radius(A,Y)
-radius(B,Y)
-radius(C,Y)
+A<-c(1,1); B<-c(2,0); C<-c(1.6,2);
+#A<-runif(2); B<-runif(2); C<-runif(2)
+#A<-runif(2,1,100); B<-runif(2,1,100); C<-runif(2,1,100);
+Tr<-rbind(A,B,C);
+P<-c(1.4,1.2)
+rv.triCM(P,Tr)
 
-radius(B,C)
+P<-c(.8,.2)
+rv.triCM(P,Tr)
 
-nx<-10
-X<-cbind(runif(nx),runif(nx))
-rad<-rep(0,nx)
-for (i in 1:nx)
-rad[i]<-radius(X[i,],Y)$rad
+P<-c(1.5,1.6)
+rv.triCM(P,Tr)
 
-Xlim<-range(X[,1]-rad,X[,1]+rad,Y[,1])
-Ylim<-range(X[,2]-rad,X[,2]+rad,Y[,2])
+n<-20
+dat<-runif.tri(n,Tr)$g
+#dat<-cbind(runif(n,1,2),runif(n,0,2))
+#dat<-cbind(runif(n),runif(n))
+
+Rv<-vector()
+for (i in 1:n)
+  Rv<-c(Rv,rv.triCM(dat[i,],Tr)$rv)
+Rv
+
+CM<-(A+B+C)/3
+D1<-(B+C)/2; D2<-(A+C)/2; D3<-(A+B)/2;
+Ds<-rbind(D1,D2,D3)
+
+Xlim<-range(Tr[,1],dat[,1])
+Ylim<-range(Tr[,2],dat[,2])
 xd<-Xlim[2]-Xlim[1]
 yd<-Ylim[2]-Ylim[1]
 
-plot(rbind(Y),asp=1,pch=16,col=2,xlab="",ylab="",axes=TRUE,xlim=Xlim+xd*c(-.05,.05),ylim=Ylim+yd*c(-.05,.05))
-points(rbind(X))
-circles(X[,1],X[,2],rad,lty=1,lwd=1,col=4)
+plot(Tr,xlab="",ylab="",axes=TRUE,pch=".",xlim=Xlim+xd*c(-.05,.05),ylim=Ylim+yd*c(-.05,.05))
+polygon(Tr)
+points(dat,pch=".")
+L<-Ds; R<-matrix(rep(CM,3),ncol=2,byrow=TRUE)
+segments(L[,1], L[,2], R[,1], R[,2], lty=2)
+text(dat,labels=factor(Rv))
 
-dat.fr<-data.frame(a=Y)
-radii(A,dat.fr)
+txt<-rbind(Tr,CM,D1,D2,D3)
+xc<-txt[,1]#+c(-.07,.06,.08,-.08,.07,-.04,-.02)
+yc<-txt[,2]#+c(-.02,-.04,.06,-.02,.02,.08,-.08)
+txt.str<-c("rv=1","rv=2","rv=3","CM","D1","D2","D3")
+text(xc,yc,txt.str)
 
+rv.triCM(A,Tr)
+rv.triCM(CM,Tr)
+rv.triCM(D1,Tr)
+rv.triCM(D2,Tr)
+rv.triCM(D3,Tr)
+
+#right triangle
+A<-c(1,1); B<-c(1,2); C<-c(1.5,2);
+T3<-rbind(A,B,C);
+P<-c(1.1,1.5)
+rv.triCM(P,T3)
+
+#isosceles triangle
+A<-c(1,1); B<-c(2,1); C<-c(1.5,2);
+Tr<-rbind(A,B,C);
+P<-c(1.5,1.1)
+rv.triCM(P,Tr)
+
+dat.fr<-data.frame(a=Tr)
+rv.triCM(P,dat.fr)
+
+}
+\references{
+\insertAllCited{}
 }
 \seealso{
 \code{\link{rv.tri.cent}}, \code{\link{rv.triCC}}, \code{\link{rv.bastriCM}},

@@ -8,21 +8,22 @@ rv.tetraCM(p, th)
 }
 \arguments{
 \item{p}{A 3D point for which CM-vertex region it resides in is to be determined in the
-tetrahedron th}
+tetrahedron \code{th}}
 
 \item{th}{Four 3D points, stacked row-wise, each row representing a vertex of the tetrahedron}
 }
 \value{
 A list with two elements
-\item{rv}{Index of the CM-vertex region that contains point, p in the tetrahedron th}
-\item{tri}{The vertices of the tetrahedron, where row number corresponds to the vertex index in rv.}
+\item{rv}{Index of the CM-vertex region that contains point, \code{p} in the tetrahedron \code{th}}
+\item{th}{The vertices of the tetrahedron, where row number corresponds to the vertex index in \code{rv}.}
 }
 \description{
-Returns the index of the vertex whose region contains point p in
-a tetrahedron th=T(A,B,C,D) and vertex regions are based on the center of mass CM=(A+B+C+D)/4 of th.
-(see the plots in the example for illustrations). The vertices of the tetrahedron th are labeled as
-1=A, 2=B, 3=C, and 4=C also according to the row number the vertex is recorded in th.
-If the point, p, is not inside th, then the function yields NA as output.
+Returns the index of the vertex whose region contains point \code{p} in
+a tetrahedron \eqn{th=T(A,B,C,D)} and vertex regions are based on the center of mass CM=(A+B+C+D)/4 of \code{th}.
+(see the plots in the example for illustrations). The vertices of the tetrahedron \code{th} are labeled as
+1=A, 2=B, 3=C, and 4=C also according to the row number the vertex is recorded in \code{th}.
+
+If the point, \code{p}, is not inside \code{th}, then the function yields NA as output.
 The corresponding vertex region is the simplex with the vertex, CM, and
 midpoints of the edges adjacent to the vertex.
 See also (\insertCite{ceyhan:Phd-thesis,ceyhan:comp-geo-2010;textual}{pcds}).
@@ -38,62 +39,64 @@ n<-20
 Dt<-runif.tetra(n,tetra)$g
 #Dt<-cbind(runif(n),runif(n),runif(n))
 
-rv.tetraCC(Dt[1,],tetra)
-rv.tetraCC(Dt[5,],tetra)
-rv.tetraCC(c(2,2,2),tetra)
+rv.tetraCM(Dt[1,],tetra)
+rv.tetraCM(Dt[5,],tetra)
+rv.tetraCM(c(2,2,2),tetra)
 
 Rv<-vector()
 for (i in 1:n)
- Rv<-c(Rv,rv.tetraCC(Dt[i,],tetra)$rv)
+  Rv<-c(Rv, rv.tetraCM(Dt[i,],tetra)$rv )
 Rv
 
-CC<-circ.cent.tetra(tetra)
-CC
-
-Xlim<-range(tetra[,1],Dt[,1],CC[1])
-Ylim<-range(tetra[,2],Dt[,2],CC[2])
-Zlim<-range(tetra[,3],Dt[,3],CC[3])
+Xlim<-range(tetra[,1],Dt[,1])
+Ylim<-range(tetra[,2],Dt[,2])
+Zlim<-range(tetra[,3],Dt[,3])
 xd<-Xlim[2]-Xlim[1]
 yd<-Ylim[2]-Ylim[1]
 zd<-Zlim[2]-Zlim[1]
 
-library(plot3D)
-scatter3D(tetra[,1],tetra[,2],tetra[,3], phi =0,theta=40, bty = "g", xlim=Xlim+xd*c(-.05,.05),ylim=Ylim+yd*c(-.05,.05), zlim=Zlim+zd*c(-.05,.05),
+CM<-apply(tetra,2,mean)
+
+#library(plot3D)
+plot3D::scatter3D(tetra[,1],tetra[,2],tetra[,3], phi =0,theta=40, bty = "g",
+xlim=Xlim+xd*c(-.05,.05),ylim=Ylim+yd*c(-.05,.05), zlim=Zlim+zd*c(-.05,.05),
           pch = 20, cex = 1, ticktype = "detailed")
 L<-rbind(A,A,A,B,B,C); R<-rbind(B,C,D,C,D,D)
-segments3D(L[,1], L[,2], L[,3], R[,1], R[,2],R[,3], add=TRUE,lwd=2)
+plot3D::segments3D(L[,1], L[,2], L[,3], R[,1], R[,2],R[,3], add=TRUE,lwd=2)
 #add the data points
-points3D(Dt[,1],Dt[,2],Dt[,3], add=TRUE)
+plot3D::points3D(Dt[,1],Dt[,2],Dt[,3], add=TRUE)
 
-text3D(tetra[,1],tetra[,2],tetra[,3], labels=c("A","B","C","D"), add=TRUE)
-text3D(CC[1],CC[2],CC[3], labels=c("CC"), add=TRUE)
+plot3D::text3D(tetra[,1],tetra[,2],tetra[,3], labels=c("A","B","C","D"), add=TRUE)
+plot3D::text3D(CM[1],CM[2],CM[3], labels=c("CM"), add=TRUE)
 
 D1<-(A+B)/2; D2<-(A+C)/2; D3<-(A+D)/2; D4<-(B+C)/2; D5<-(B+D)/2; D6<-(C+D)/2;
-L<-rbind(D1,D2,D3,D4,D5,D6); R<-matrix(rep(CC,6),ncol=3,byrow=T)
-segments3D(L[,1], L[,2], L[,3], R[,1], R[,2],R[,3], add=TRUE,lty=2)
+L<-rbind(D1,D2,D3,D4,D5,D6); R<-matrix(rep(CM,6),ncol=3,byrow=TRUE)
+plot3D::segments3D(L[,1], L[,2], L[,3], R[,1], R[,2],R[,3], add=TRUE,lty=2)
 
-F1<-int.line.plane(A,CC,B,C,D)
-L<-matrix(rep(F1,4),ncol=3,byrow=T); R<-rbind(D4,D5,D6,CC)
-segments3D(L[,1], L[,2], L[,3], R[,1], R[,2],R[,3],col=2, add=TRUE,lty=2)
+F1<-int.line.plane(A,CM,B,C,D)
+L<-matrix(rep(F1,4),ncol=3,byrow=TRUE); R<-rbind(D4,D5,D6,CM)
+plot3D::segments3D(L[,1], L[,2], L[,3], R[,1], R[,2],R[,3],col=2, add=TRUE,lty=2)
 
-F2<-int.line.plane(B,CC,A,C,D)
-L<-matrix(rep(F2,4),ncol=3,byrow=T); R<-rbind(D2,D3,D6,CC)
-segments3D(L[,1], L[,2], L[,3], R[,1], R[,2],R[,3],col=3, add=TRUE,lty=2)
+F2<-int.line.plane(B,CM,A,C,D)
+L<-matrix(rep(F2,4),ncol=3,byrow=TRUE); R<-rbind(D2,D3,D6,CM)
+plot3D::segments3D(L[,1], L[,2], L[,3], R[,1], R[,2],R[,3],col=3, add=TRUE,lty=2)
 
-F3<-int.line.plane(C,CC,A,B,D)
-L<-matrix(rep(F3,4),ncol=3,byrow=T); R<-rbind(D3,D5,D6,CC)
-segments3D(L[,1], L[,2], L[,3], R[,1], R[,2],R[,3],col=4, add=TRUE,lty=2)
+F3<-int.line.plane(C,CM,A,B,D)
+L<-matrix(rep(F3,4),ncol=3,byrow=TRUE); R<-rbind(D3,D5,D6,CM)
+plot3D::segments3D(L[,1], L[,2], L[,3], R[,1], R[,2],R[,3],col=4, add=TRUE,lty=2)
 
-F4<-int.line.plane(D,CC,A,B,C)
-L<-matrix(rep(F4,4),ncol=3,byrow=T); R<-rbind(D1,D2,D4,CC)
-segments3D(L[,1], L[,2], L[,3], R[,1], R[,2],R[,3],col=5, add=TRUE,lty=2)
+F4<-int.line.plane(D,CM,A,B,C)
+L<-matrix(rep(F4,4),ncol=3,byrow=TRUE); R<-rbind(D1,D2,D4,CM)
+plot3D::segments3D(L[,1], L[,2], L[,3], R[,1], R[,2],R[,3],col=5, add=TRUE,lty=2)
 
-text3D(Dt[,1],Dt[,2],Dt[,3], labels=factor(Rv), add=TRUE)
+plot3D::text3D(Dt[,1],Dt[,2],Dt[,3], labels=factor(Rv), add=TRUE)
 
-rv.tetraCC(P,tetra)
+P<-c(.1,.1,.1)
+rv.tetraCM(P,tetra)
 
 dat.fr<-data.frame(a=tetra)
-rv.tetraCC(P,dat.fr)
+rv.tetraCM(P,dat.fr)
+
 }
 \references{
 \insertAllCited{}

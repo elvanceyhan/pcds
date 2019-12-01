@@ -7,29 +7,31 @@
 rv.tri.cent(p, tri, M)
 }
 \arguments{
-\item{p}{A 2D point for which M-vertex region it resides in is to be determined in the
-triangle tri}
+\item{p}{A 2D point for which \code{M}-vertex region it resides in is to be determined in the
+triangle \code{tri}}
 
 \item{tri}{Three 2D points, stacked row-wise, each row representing a vertex of the triangle}
 
 \item{M}{A 2D point in Cartesian coordinates or a 3D point in barycentric coordinates
-which serves as a center in the interior of the triangle tri}
+which serves as a center in the interior of the triangle \code{tri}}
 }
 \value{
 A list with two elements
-\item{rv}{Index of the vertex whose region contains point, p; index of the vertex is the same as the row
-number in the triangle, tri}
-\item{tri}{The vertices of the triangle, tri, where row number corresponds to the vertex index rv
-with rv=1 is row 1, rv=2 is row 2, and rv=3 is row 3.}
+\item{rv}{Index of the vertex whose region contains point, \code{p}; index of the vertex is the same as the row
+number in the triangle, \code{tri}}
+\item{tri}{The vertices of the triangle, \code{tri}, where row number corresponds to the vertex index \code{rv}
+with \eqn{rv=1} is row 1, \eqn{rv=2} is row 2, and \eqn{rv=3} is is row 3.}
 }
 \description{
-Returns the index of the related vertex in the triangle, tri, whose region contains point p.
-Vertex regions are based on the general center M=(m1,m2) in Cartesian coordinates or
-M=(alpha,beta,gamma) in barycentric coordinates in the interior of the triangle tri.
-Vertices of the triangle tri are labeled according to the row number the vertex is recorded.
-If the point, p, is not inside tri, then the function yields NA as output.
-The corresponding vertex region is the polygon with the vertex, M, and projections from M
-to the edges on the lines joining vertices and M. (see the illustration in the examples).
+Returns the index of the related vertex in the triangle, \code{tri}, whose region contains point \code{p}.
+
+Vertex regions are based on the general center \eqn{M=(m_1,m_2)} in Cartesian coordinates or
+\eqn{M=(\alpha,\beta,\gamma)} in barycentric coordinates in the interior of the triangle \code{tri}.
+Vertices of the triangle \code{tri} are labeled according to the row number the vertex is recorded.
+
+If the point, \code{p}, is not inside \code{tri}, then the function yields NA as output.
+The corresponding vertex region is the polygon with the vertex, \code{M}, and projections from \code{M}
+to the edges on the lines joining vertices and \code{M}. (see the illustration in the examples).
 See also (\insertCite{ceyhan:Phd-thesis,ceyhan:comp-geo-2010,ceyhan:mcap2012;textual}{pcds}).
 }
 \examples{
@@ -37,6 +39,23 @@ A<-c(1,1); B<-c(2,0); C<-c(1.5,2);
 #A<-runif(2); B<-runif(2); C<-runif(2);
 #A<-runif(2,1,100); B<-runif(2,1,100); C<-runif(2,1,100);
 Tr<-rbind(A,B,C);
+M<-c(1.6,1.0)
+
+P<-c(.4,.2)
+rv.tri.cent(P,Tr,M)
+
+P<-c(1.8,.5)
+rv.tri.cent(P,Tr,M)
+
+P<-c(1.5,1.6)
+rv.tri.cent(P,Tr,M)
+#rv.tri.cent(P,Tr,M=c(2,2)) #center is not in the interior of the triangle
+
+n<-20
+#set.seed(1)
+dat<-runif.tri(n,Tr)$g
+#dat<-cbind(runif(n,1,2),runif(n,0,2))
+#dat<-cbind(runif(n),runif(n))
 
 M<-as.numeric(runif.tri(1,Tr)$g)
 #M<-c(1.6,1.0)
@@ -44,38 +63,46 @@ M<-as.numeric(runif.tri(1,Tr)$g)
 #M<-c(1.3,1.3)
 #M<-c(.3,.3)
 
-cp2e.tri(Tr,M)
-cp2e.tri(Tr,M=c(1,1))
+Rv<-vector()
+for (i in 1:n)
+{Rv<-c(Rv,rv.tri.cent(dat[i,],Tr,M)$rv)}
+Rv
 
 Ds<-cp2e.tri(Tr,M)
 
-Xlim<-range(Tr[,1])
-Ylim<-range(Tr[,2])
+Xlim<-range(Tr[,1],dat[,1])
+Ylim<-range(Tr[,2],dat[,2])
 xd<-Xlim[2]-Xlim[1]
 yd<-Ylim[2]-Ylim[1]
 
-if (dimension(M)==3) {M<-bary2cart(M,Tr)} #need to run this when M is given in barycentric coordinates
+if (dimension(M)==3) {M<-bary2cart(M,Tr)}
+#need to run this when M is given in barycentric coordinates
 
-plot(Tr,pch=".",xlab="",ylab="",axes=TRUE,xlim=Xlim+xd*c(-.05,.05),ylim=Ylim+yd*c(-.05,.05))
+plot(Tr,pch=".",xlab="",ylab="",axes=TRUE,
+xlim=Xlim+xd*c(-.05,.05),ylim=Ylim+yd*c(-.05,.05))
 polygon(Tr)
+points(dat,pch=".",col=1)
 L<-rbind(M,M,M); R<-Ds
 segments(L[,1], L[,2], R[,1], R[,2], lty=2)
 
-xc<-Tr[,1]#+c(-.04,.05,.06)
-yc<-Tr[,2]#+c(.02,.02,.03)
+xc<-Tr[,1]#+c(-.04,.05,.05)
+yc<-Tr[,2]#+c(-.05,.05,.04)
 txt.str<-c("rv=1","rv=2","rv=3")
 text(xc,yc,txt.str)
 
 txt<-rbind(M,Ds)
-xc<-txt[,1]#+c(-.02,.04,-.04,-.02)
-yc<-txt[,2]#+c(-.02,.04,.04,-.06)
+xc<-txt[,1]#+c(-.02,.04,-.04,0)
+yc<-txt[,2]#+c(-.02,.04,.05,-.08)
 txt.str<-c("M","D1","D2","D3")
 text(xc,yc,txt.str)
 
-cp2e.tri(Tr,M)
+text(dat,labels=factor(Rv))
+
+P<-c(1.8,.5)
+rv.tri.cent(P,Tr,M)
 
 dat.fr<-data.frame(a=Tr)
-cp2e.tri(dat.fr,M)
+rv.tri.cent(P,dat.fr,M)
 
 }
 \references{

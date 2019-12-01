@@ -13,67 +13,64 @@ rv.end.int(pt, int)
 }
 \value{
 A list with two elements
-\item{rv}{Index of the end vertex whose region contains point, pt.}
+\item{rv}{Index of the end vertex whose region contains point, \code{pt}.}
 \item{int}{The vertices of the interval as a vector where position of the vertex corresponds to
-the vertex index as int=(rv=1,rv=2).}
+the vertex index as \eqn{int=(rv=1,rv=2)}.}
 }
 \description{
-Returns the index of the vertex in the interval, int, whose end interval contains the 1D point pt,
-that is, it finds the index of the vertex for the point, pt, outside
-the interval int=(a,b)=(vertex 1,vertex 2);
+Returns the index of the vertex in the interval, \code{int}, whose end interval contains the 1D point \code{pt},
+that is, it finds the index of the vertex for the point, \code{pt}, outside
+the interval \eqn{int=(a,b)=(vertex\, 1,vertex\, 2)};
 vertices of interval are labeled as 1 and 2 according to their order in the interval.
-If the point, pt, is inside int, then the function yields NA as output.
-The corresponding vertex region is an interval as (-Inf,a) or (b,Inf) for the interval (a,b).
-Then if pt<a, then rv=1 and if pt>b, then rv=2. Unlike rv.mid.int, centrality parameter (i.e., center
-of the interval is not relevant for rv.end.int.)
+If the point, \code{pt}, is inside \code{int}, then the function yields NA as output.
+The corresponding vertex region is an interval as \eqn{(-\infty,a)} or \eqn{(b,\infty)} for the interval \eqn{(a,b)}.
+Then if \code{pt}<a, then \eqn{rv=1} and if \code{pt}>b, then rv=2. Unlike \code{\link{rv.mid.int}}, centrality parameter (i.e., center
+of the interval is not relevant for \code{rv.end.int}.)
 See also (\insertCite{ceyhan:metrika-2012,ceyhan:revstat-2016;textual}{pcds}).
 }
 \examples{
-r<-2
-c<-.4
-a<-0; b<-10;
-#c<-runif(1)
+a<-0; b<-10; int<-c(a,b)
 #a<-runif(1); b<-runif(1); int<-range(a,b); a<-int[1]; b<-int[2]
-nx<-40; ny<-10
 
-#set.seed(1)
-Xp<-runif(nx,a,b)
-#Xp<-runif(nx,a+5,b+5)
-#Xp<-runif(nx,a+10,b+10)
-Yp<-runif(ny,a,b)
+rv.end.int(-6,int)
+rv.end.int(16,int)
 
-Arcs<-ArcsPEmid1D(Xp,Yp,r,c)
-Arcs
-summary(Arcs)
-plot(Arcs)
+n<-5
+xr<-range(a,b)
+xf<-(xr[2]-xr[1])*.5
+datL<-runif(n,a-xf,a)
+datR<-runif(n,b,b+xf)
+dat<-c(datL,datR)
+rv.end.int(dat[1],int)
 
-S<-Arcs$S
-E<-Arcs$E
+Rv<-vector()
+for (i in 1:length(dat))
+  Rv<-c(Rv,rv.end.int(dat[i],int)$rv)
+Rv
 
-ArcsPEmid1D(Xp,Yp,r,c)
-ArcsPEmid1D(Xp,Yp+10,r,c)
-
-jit<-.1
-yjit<-runif(nx,-jit,jit)
-
-Xlim<-range(Xp,Yp)
+Xlim<-range(a,b,dat)
 xd<-Xlim[2]-Xlim[1]
 
-plot(cbind(a,0),main="arcs of PE-PCD for points (jittered along y-axis)\\n in middle intervals ", xlab=" ", ylab=" ",
-     xlim=Xlim+xd*c(-.05,.05),ylim=3*c(-jit,jit),pch=".")
-abline(h=0,lty=1)
-points(Xp, yjit,pch=".",cex=3)
-abline(v=Yp,lty=2)
-arrows(S, yjit, E, yjit, length = .05, col= 4)
+plot(cbind(a,0),xlab="",pch=".",xlim=Xlim+xd*c(-.05,.05))
+abline(h=0)
+abline(v=c(a,b),col=1,lty=2)
+points(cbind(dat,0))
+text(cbind(dat,0.1),labels=factor(Rv))
+text(cbind(c(a,b),-0.1),c("rv=1","rv=2"))
 
-r<-2
-c<-.4
-a<-0; b<-10;
-nx<-40; ny<-10
-Xp<-runif(nx,a,b)
-Yp<-runif(ny,a,b)
-ArcsPEmid1D(Xp,Yp,r,c)
+jit<-.1
+yjit<-runif(length(dat),-jit,jit)
 
+Xlim<-range(a,b,dat)
+xd<-Xlim[2]-Xlim[1]
+
+plot(cbind(a,0),main="vertex region indices for the points\n in the end intervals",
+     xlab=" ", ylab=" ",pch=".",xlim=Xlim+xd*c(-.05,.05),ylim=3*range(yjit))
+points(dat, yjit,xlim=Xlim+xd*c(-.05,.05),pch=".",cex=3)
+abline(h=0)
+abline(v=c(a,b),lty=2)
+text(dat,yjit,labels=factor(Rv))
+text(cbind(c(a,b),-.01),c("rv=1","rv=2"))
 
 }
 \references{

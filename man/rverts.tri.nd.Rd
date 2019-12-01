@@ -13,86 +13,95 @@ containing them are to be determined}
 \item{tri}{Three 2D points, stacked row-wise, each row representing a vertex of the triangle}
 
 \item{r}{A positive real number which serves as the expansion parameter in PE proximity region;
-must be in (1,1.5] for this function}
+must be in \eqn{(1,1.5]} for this function}
 
 \item{cent}{index of the center (as 1,2,3 corresponding to M1,M2,M3) which gives nondegenerate asymptotic
-distribution of the domination number of PE-PCD for uniform data in tri for expansion parameter r>=1 in (1,1.5];
-default cent=1.}
+distribution of the domination number of PE-PCD for uniform data in \code{tri} for expansion parameter \code{r} in \eqn{(1,1.5]};
+default \code{cent}=1.}
 }
 \value{
 A list with two elements
-\item{rv}{Indices (i.e., a vector of indices) of the vertices whose region contains points in Dt
-in the triangle tri}
-\item{tri}{The vertices of the triangle, where row number corresponds to the vertex index in rv.}
+\item{rv}{Indices (i.e., a vector of indices) of the vertices whose region contains points in \code{Dt}
+in the triangle \code{tri}}
+\item{tri}{The vertices of the triangle, where row number corresponds to the vertex index in \code{rv}.}
 }
 \description{
-Returns the indices of the vertices whose regions contain the points in data set Dt in
-a triangle tri=(A,B,C) and vertex regions are based on the center M which yields nondegenerate asymptotic
-distribution of the domination number of PE-PCD for uniform data in tri for expansion parameter r>=1 in (1,1.5].
-Vertices of triangle tri are labeled as 1,2,3 according to the row number the vertex is recorded
-if a point in Dt is not inside tri, then the function yields NA as output for that entry.
-The corresponding vertex region is the polygon with the vertex, M, and projection points on the edges.
-The center label cent values 1,2,3 correspond to the vertices M1,M2,and M3; with default 1
+Returns the indices of the vertices whose regions contain the points in data set \code{Dt} in
+a triangle \code{tri}=\eqn{(A,B,C)} and vertex regions are based on the center \code{cent} which yields nondegenerate asymptotic
+distribution of the domination number of PE-PCD for uniform data in \code{tri} for expansion parameter \code{r} in \eqn{(1,1.5]}.
+Vertices of triangle \code{tri} are labeled as 1,2,3 according to the row number the vertex is recorded
+if a point in \code{Dt} is not inside \code{tri}, then the function yields NA as output for that entry.
+The corresponding vertex region is the polygon with the vertex, \code{cent}, and projection points on the edges.
+The center label \code{cent} values 1,2,3 correspond to the vertices \eqn{M_1}, \eqn{M_2}, and \eqn{M_3}; with default 1
 (see the examples for an illustration).
 See also (\insertCite{ceyhan:Phd-thesis,ceyhan:dom-num-NPE-Spat2011,ceyhan:comp-geo-2010,ceyhan:mcap2012;textual}{pcds}).
 }
 \examples{
 A<-c(1,1); B<-c(2,0); C<-c(1.5,2);
-#c1<-.4; c2<-.6; A<-c(0,0); B<-c(1,0); C<-c(c1,c2);
-#A<-c(0,0); B<-c(1,0); C<-c(.5,sqrt(3.)/2);
-A<-runif(2); B<-runif(2); C<-runif(2);
+#A<-runif(2); B<-runif(2); C<-runif(2);
 #A<-runif(2,1,100); B<-runif(2,1,100); C<-runif(2,1,100);
 Tr<-rbind(A,B,C);
 r<-1.35
+cen<-2
 
-cp2edges.nd(Tr,r,cent=2)
-cp2edges.nd(Tr,r,cent=5)
-cp2edges.nd(Tr,r=2,cent=2)
+P<-c(1.4,1.0)
+rverts.tri.nd(P,Tr,r,cen)
 
-T2<-rbind(A,A+2*(C-A),C)
-cp2edges.nd(T2,r,cent=2)
+P<-c(1.8,.5)
+rverts.tri.nd(P,Tr,r,cen)
 
-Ms<-cent.nondeg(Tr,r)
+P<-c(10.5,1.6)
+rverts.tri.nd(P,Tr,r,cen)
 
-#Ds<-cp2edges.nd(T,r,cent=1)
-Ds<-cp2edges.nd(Tr,r,cent=2)
-#Ds<-cp2edges.nd(T,r,cent=3)
-D1<-Ds[1,]; D2<-Ds[2,]; D3<-Ds[3,]
+n<-20
+#set.seed(1)
+dat<-runif.tri(n,Tr)$g
+#dat<-cbind(runif(n,1,2),runif(n,0,2))
+#dat<-cbind(runif(n),runif(n))
 
-Xlim<-range(Tr[,1])
-Ylim<-range(Tr[,2])
+rverts.tri.nd(dat,Tr,r,cen)
+rverts.tri.nd(rbind(dat,c(2,2)),Tr,r,cen)
+
+rv<-rverts.tri.nd(dat,Tr,r,cen)
+
+M<-cent.nondeg(Tr,r)[cen,];
+Ds<-cp2edges.nd(Tr,r,cen)
+
+Xlim<-range(Tr[,1],dat[,1])
+Ylim<-range(Tr[,2],dat[,2])
 xd<-Xlim[2]-Xlim[1]
 yd<-Ylim[2]-Ylim[1]
 
 plot(Tr,pch=".",xlab="",ylab="",axes=TRUE,xlim=Xlim+xd*c(-.05,.05),ylim=Ylim+yd*c(-.05,.05))
 polygon(Tr)
-points(Ms,pch=".",col=1)
-polygon(Ms,lty=2)
+points(dat,pch=".",col=1)
+L<-rbind(M,M,M); R<-Ds
+segments(L[,1], L[,2], R[,1], R[,2], lty=2)
 
-xc<-Tr[,1]#+c(-.02,.03,.02)
-yc<-Tr[,2]#+c(.02,.02,.03)
-txt.str<-c("A","B","C")
+xc<-Tr[,1]#+c(-.03,.05,.05)
+yc<-Tr[,2]#+c(-.06,.02,.05)
+txt.str<-c("rv=1","rv=2","rv=3")
 text(xc,yc,txt.str)
 
-txt<-Ms
-xc<-txt[,1]#+c(-.03,.04,.01)
-yc<-txt[,2]#+c(.02,.02,.06)
-txt.str<-c("M1","M2","M3")
+txt<-rbind(M,Ds)
+xc<-txt[,1]#+c(.02,.04,-.03,0)
+yc<-txt[,2]#+c(.07,.03,.05,-.07)
+txt.str<-c("M","D1","D2","D3")
 text(xc,yc,txt.str)
 
-points(Ds,pch=4,col=2)
-L<-Tr; R<-Ds
-segments(L[,1], L[,2], R[,1], R[,2], lty=2,col=2)
-txt<-Ds
-xc<-txt[,1]#+c(.05,-.03,0)
-yc<-txt[,2]#+c(03,.06,-.07)
-txt.str<-c("D1","D2","D3")
-text(xc,yc,txt.str)
+text(dat,labels=factor(rv$rv))
 
-cp2edges.nd(Tr,r,1)
+P<-c(1.4,1.0)
+rverts.tri.nd(P,Tr,r,cen)
+rverts.tri.nd(dat,Tr,r,cen)
+
+rverts.tri.nd(rbind(dat,dat),Tr,r,cen)
+
+dat.fr<-data.frame(a=dat)
+rverts.tri.nd(dat.fr,Tr,r,1)
 
 dat.fr<-data.frame(a=Tr)
-cp2edges.nd(dat.fr,r,1)
+rverts.tri.nd(dat,dat.fr,r,1)
 
 }
 \references{
