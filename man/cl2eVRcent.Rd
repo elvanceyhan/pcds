@@ -2,7 +2,7 @@
 % Please edit documentation in R/PCDFunctions.r
 \name{cl2eVRcent}
 \alias{cl2eVRcent}
-\title{An object of class "Extrema"
+\title{An object of class "Extrema":
 
 The closest points among a data set in the vertex regions to the respective edges in a triangle}
 \usage{
@@ -14,7 +14,7 @@ cl2eVRcent(Dt, tri, M)
 \item{tri}{Three 2D points, stacked row-wise, each row representing a vertex of the triangle}
 
 \item{M}{A 2D point in Cartesian coordinates or a 3D point in barycentric coordinates
-which serves as a center in the interior of the riangle tri or the circumcenter of tri}
+which serves as a center in the interior of the triangle \code{tri} or the circumcenter of \code{tri}}
 }
 \value{
 A list with the elements
@@ -22,90 +22,97 @@ A list with the elements
 \item{txt2}{A short description of the distances as "Distances to Edges in the Respective M-Vertex Regions".}
 \item{type}{Type of the extrema points}
 \item{desc}{A short description of the extrema points}
-\item{mtxt}{The "main" title for the plot of the exrema}
+\item{mtitle}{The "main" title for the plot of the exrema}
 \item{Ext}{The extrema points, here, closest points to edges in the respective vertex region.}
-\item{X}{The input data, Dt, can be a matrix or data frame}
-\item{num.points}{The number of data points, i.e., size of Dt}
-\item{supp}{Support of the data points, here, it is tri}
+\item{X}{The input data, \code{Dt}, can be a matrix or data frame}
+\item{num.points}{The number of data points, i.e., size of \code{Dt}}
+\item{supp}{Support of the data points, here, it is \code{tri}}
 \item{cent}{The center point used for construction of vertex regions}
-\item{ncent}{Name of the center, cent, it is "M" or "CC" for this function}
-\item{regions}{Vertex regions inside the triangle, tri, provided as a list}
+\item{ncent}{Name of the center, \code{cent}, it is "M" or "CC" for this function}
+\item{regions}{Vertex regions inside the triangle, \code{tri}, provided as a list}
 \item{region.names}{Names of the vertex regions as "vr=1","vr=2","vr=3"}
-\item{region.centers}{Centers of mass of the vertex regions inside tri}
-\item{dist2ref}{Distances of closest points in the M-vertex regions to corresponding edges.}
+\item{region.centers}{Centers of mass of the vertex regions inside \code{tri}}
+\item{dist2ref}{Distances of closest points in the \code{M}-vertex regions to corresponding edges.}
 }
 \description{
-Returns the closest data points among the data set, Dt, to edge i in M-vertex region i for i=1,2,3
-in the triangle tri=T(A,B,C). Vertex labels are A=1, B=2, and C=3, and corresponding edge labels are
-BC=1, AC=2, and AB=3. Vertex regions are based on center M=(m1,m2) in Cartesian coordinates or
-M=(alpha,beta,gamma) in barycentric coordinates in the interior of the triangle tri
-or based on the circumcenter of tri.
+Returns the closest data points among the data set, \code{Dt}, to edge \eqn{i} in \code{M}-vertex region \eqn{i} for \eqn{i=1,2,3}
+in the triangle \eqn{tri=T(A,B,C)}. Vertex labels are A=1, B=2, and C=3, and corresponding edge labels are
+BC=1, AC=2, and AB=3.
+
+Vertex regions are based on center \eqn{M=(m_1,m_2)} in Cartesian coordinates or
+\eqn{M=(\alpha,\beta,\gamma)} in barycentric coordinates in the interior of the triangle \code{tri}
+or based on the circumcenter of \code{tri}.
 See also (\insertCite{ceyhan:Phd-thesis,ceyhan:comp-geo-2010,ceyhan:dom-num-NPE-Spat2011;textual}{pcds}).
 }
 \examples{
-c1<-.4;  c2<-.6
-A<-c(0,0); B<-c(1,0); C<-c(c1,c2);
-Tb<-rbind(A,B,C);
+A<-c(1,1); B<-c(2,0); C<-c(1.5,2);
+#A<-runif(2); B<-runif(2); C<-runif(2);
+#A<-runif(2,1,100); B<-runif(2,1,100); C<-runif(2,1,100);
+Tr<-rbind(A,B,C);
+n<-20
 
 #set.seed(1)
-n<-20
-dat<-runif.bastri(n,c1,c2)$g
+dat<-runif.tri(n,Tr)$g
+#dat<-cbind(runif(n,1,2),runif(n,0,2))
 #dat<-cbind(runif(n),runif(n))
-#dat<-cbind(runif(n,1,2),runif(n,0,1))
 
-M<-as.numeric(runif.bastri(1,c1,c2)$g)
-#M<-c(.6,.3)
-#M<-circ.cent.tri(Tb)
+M<-as.numeric(runif.tri(1,Tr)$g)
+#M<-c(1.6,1.0)
+#M<-circ.cent.tri(Tr)
 #M<-c(1,1,1) #M<-c(1,2,3) #M<-c(-1,2,3) #barycentric coordinates
 #M<-c(1.3,1.3)
 #M<-c(.3,.3)
 
-Ext<-cl2eTbVRcent(dat,c1,c2,M)
+Ext<-cl2eVRcent(dat,Tr,M)
 Ext
 summary(Ext)
 plot(Ext)
 
-cl2eTbVRcent(dat[1,],c1,c2,M)
-cl2eTbVRcent(c(1,2),c1,c2,M)
-
-cl2e<-cl2eTbVRcent(dat,c1,c2,M)
+cl2eVRcent(dat[1,],Tr,M)
+cl2e<-cl2eVRcent(dat,Tr,M)
 cl2e
 
-Ds<-cp2e.bastri(c1,c2,M)
+Ds<-cp2e.tri(Tr,M)
 
-Xlim<-range(Tb[,1],dat[,1])
-Ylim<-range(Tb[,2],dat[,2])
+Xlim<-range(Tr[,1],dat[,1])
+Ylim<-range(Tr[,2],dat[,2])
 xd<-Xlim[2]-Xlim[1]
 yd<-Ylim[2]-Ylim[1]
 
-plot(Tb,pch=".",xlab="",ylab="",axes=TRUE,xlim=Xlim+xd*c(-.05,.05),ylim=Ylim+yd*c(-.05,.05))
-polygon(Tb)
+if (dimension(M)==3) {M<-bary2cart(M,Tr)}
+#need to run this when M is given in barycentric coordinates
+
+plot(Tr,pch=".",xlab="",ylab="",axes=TRUE,
+xlim=Xlim+xd*c(-.05,.05),ylim=Ylim+yd*c(-.05,.05))
+polygon(Tr)
 points(dat,pch=1,col=1)
 L<-rbind(M,M,M); R<-Ds
 segments(L[,1], L[,2], R[,1], R[,2], lty=2)
 points(cl2e$Ext,pch=3,col=2)
 
-xc<-Tb[,1]+c(-.02,.02,0.02)
-yc<-Tb[,2]+c(.02,.02,.02)
+xc<-Tr[,1]#+c(-.02,.03,.02)
+yc<-Tr[,2]#+c(.02,.02,.04)
 txt.str<-c("A","B","C")
 text(xc,yc,txt.str)
 
 txt<-rbind(M,Ds)
-xc<-txt[,1]+c(-.02,.04,-.03,0)
-yc<-txt[,2]+c(-.02,.02,.02,-.03)
+xc<-txt[,1]#+c(-.02,.05,-.02,-.01)
+yc<-txt[,2]#+c(-.03,.02,.08,-.07)
 txt.str<-c("M","D1","D2","D3")
 text(xc,yc,txt.str)
 
-cl2eTbVRcent(dat,c1,c2,M)
+cl2eVRcent(dat,Tr,M)
 
 dat.fr<-data.frame(a=dat)
-cl2eTbVRcent(dat.fr,c1,c2,M)
+cl2eVRcent(dat.fr,Tr,M)
 
+dat.fr<-data.frame(a=Tr)
+cl2eVRcent(dat,dat.fr,M)
 
 }
 \references{
 \insertAllCited{}
 }
 \seealso{
-\code{\link{cl2e.inYbVR.CM}}, \code{\link{cl2eVRCM}}, and \code{\link{cl2edgesTe}}
+\code{\link{cl2eTbVRcent}}, \code{\link{cl2eVRCM}}, and \code{\link{cl2edgesTe}}
 }

@@ -9,30 +9,31 @@ centersMc(x, c)
 \arguments{
 \item{x}{A vector real numbers that constitute the end points of intervals}
 
-\item{c}{A positive real number in (0,1) parameterizing the centers inside the intervals.
-For the interval, int=(a,b), the parameterized center is Mc=a+c*(b-a)}
+\item{c}{A positive real number in \eqn{(0,1)} parameterizing the centers inside the intervals.
+For the interval, \eqn{int=(a,b)}, the parameterized center is \eqn{M_c=a+c(b-a)}}
 }
 \value{
-(parameterized) centers of the intervals based on x points as a vector
+(parameterized) centers of the intervals based on \code{x} points as a vector
 }
 \description{
-Returns the centers of the intervals based on 1D points in x parameterized by c in (0,1)
-so that 100c % of the length of interval is to the left of Mc and 100(1-c) % of the length of the interval
-is to the right of Mc. That is, for an interval (a,b), the parameterized center is Mc=a+c*(b-a)
-x is a vector of 1D points, not necessarily sorted.
+Returns the centers of the intervals based on 1D points in x parameterized by \code{c} in \eqn{(0,1)}
+so that \eqn{100c} \% of the length of interval is to the left of \eqn{M_c} and \eqn{100(1-c)} \% of the length of the interval
+is to the right of \eqn{M_c}. That is, for an interval \eqn{(a,b)}, the parameterized center is \eqn{M_c=a+c(b-a)}
+\code{x} is a vector of 1D points, not necessarily sorted.
 See also (\insertCite{ceyhan:metrika-2012,ceyhan:revstat-2016;textual}{pcds}).
 }
 \examples{
+n<-10
 c<-.4
-a<-0; b<-10; int<-c(a,b)
 #c<-runif(1)
-#a<-runif(1,0,5); b<-runif(1,5,10); int<-c(a,b)
-int
-centMc(int,c)
+x<-runif(n)
+centersMc(x,c)
 
+n<-10
 c<-.3
-a<-2; b<-4; int<-c(a,b)
-centMc(int,c)
+#c<-runif(1)
+x<-runif(n,0,10)
+centersMc(x,c)
 
 }
 \references{

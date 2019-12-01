@@ -12,71 +12,69 @@ in.tetrahedron(p, th, boundary = FALSE)
 \item{th}{Four 3D points, stacked row-wise, each row representing a vertex of the tetrahedron}
 
 \item{boundary}{A logical parameter (default=FALSE) to include boundary or not, so if it is TRUE,
-the function checks if the point, p, lies in the closure of the tetrahedron (i.e. interior and boundary
-combined) else it checks if p lies in the interior of the tetrahedron.}
+the function checks if the point, \code{p}, lies in the closure of the tetrahedron (i.e. interior and boundary
+combined) else it checks if \code{p} lies in the interior of the tetrahedron.}
 }
 \value{
 A list with two elements
-\item{inside.tetra}{A logical output, if the point, p, is inside the tetrahedron, Th, it is TRUE,
+\item{inside.tetra}{A logical output, if the point, \code{p}, is inside the tetrahedron, \code{th}, it is TRUE,
 else it is FALSE.}
-\item{barycentric}{The barycentric coordinates of the point p with respect to the tetrahedron, Th.}
+\item{barycentric}{The barycentric coordinates of the point \code{p} with respect to the tetrahedron, \code{th}.}
 }
 \description{
-Checks if the point p lies in the tetrahedron, th, using the barycentric coordinates, generally denoted as
-(alpha,beta,gamma). If all (normalized or non-normalized) barycentric coordinates are positive then the
-point p is inside the tetrahedron, if all are nonnegative with one or more are zero, then p falls on the
-boundary. If some of the barycentric coordinates are negative, then p falls outside the tetrahedron.
-boundary is a logical argument (default=FALSE) to include boundary or not, so if it is TRUE,
-the function checks if the point, p, lies in the closure of the tetrahedron (i.e. interior and boundary
-combined) else it checks if p lies in the interior of the tetrahedron.
+Checks if the point \code{p} lies in the tetrahedron, \code{th}, using the barycentric coordinates, generally denoted as
+\eqn{(\alpha,\beta,\gamma)}. If all (normalized or non-normalized) barycentric coordinates are positive then the
+point \code{p} is inside the tetrahedron, if all are nonnegative with one or more are zero, then \code{p} falls on the
+boundary. If some of the barycentric coordinates are negative, then \code{p} falls outside the tetrahedron.
+
+\code{boundary} is a logical argument (default=FALSE) to include boundary or not, so if it is TRUE,
+the function checks if the point, \code{p}, lies in the closure of the tetrahedron (i.e. interior and boundary
+combined) else it checks if \code{p} lies in the interior of the tetrahedron.
 }
 \examples{
-A<-c(1,10,3); B<-c(1,1,3); C<-c(3,9,12); P<-c(1,1,0)
-#A<-runif(3); B<-runif(3); C<-runif(3); P<-runif(3)
-#A<-runif(3,1,100); B<-runif(3,1,100); C<-runif(3,1,100); P<-runif(3,1,100)
+A<-c(0,0,0); B<-c(1,0,0); C<-c(1/2,sqrt(3)/2,0); D<-c(1/2,sqrt(3)/6,sqrt(6)/3); P<-c(.1,.1,.1)
+#A<-runif(3); B<-runif(3); C<-runif(3); D<-runif(3); P<-runif(3)
+#A<-runif(3,1,100); B<-runif(3,1,100); C<-runif(3,1,100); D<-runif(3,1,100); P<-runif(3,1,100)
+tetra<-rbind(A,B,C,D)
 
-Plane(A,B,C,.1,.2)
+in.tetrahedron(P,tetra,boundary=FALSE)
 
-pts<-rbind(A,B,C,P)
-paraplane(P,A,B,C,.1,.2)
-paraplane(P,A,B,C,0,0)
+in.tetrahedron(C,tetra,boundary=FALSE)
+in.tetrahedron(C,tetra,boundary=TRUE)
 
-xr<-range(pts[,1]); yr<-range(pts[,2])
-xf<-(xr[2]-xr[1])*.25 #how far to go at the lower and upper ends in the x-coordinate
-yf<-(yr[2]-yr[1])*.25 #how far to go at the lower and upper ends in the y-coordinate
-x<-seq(xr[1]-xf,xr[2]+xf,l=100)
-y<-seq(yr[1]-yf,yr[2]+yf,l=100)
+n<-40
+Dt<-cbind(runif(n),runif(n,0,sqrt(3)/2),runif(n,0,sqrt(6)/3))
 
-plP2ABC<-paraplane(P,A,B,C,x,y)
-plP2ABC
-summary(plP2ABC)
-plot(plP2ABC)
+in.tetra<-vector()
+for (i in 1:n)
+{in.tetra<-c(in.tetra,in.tetrahedron(Dt[i,],tetra,boundary=TRUE)$inside.tetra) }
 
-paraplane(P,A,B,A+B,.1,.2)
+in.tetra
+Dt.tet<-Dt[in.tetra,]
 
-z.grid<-plP2ABC$z
+Xlim<-range(tetra[,1],Dt[,1])
+Ylim<-range(tetra[,2],Dt[,2])
+Zlim<-range(tetra[,3],Dt[,3])
+xd<-Xlim[2]-Xlim[1]
+yd<-Ylim[2]-Ylim[1]
+zd<-Zlim[2]-Zlim[1]
 
-plABC<-Plane(A,B,C,x,y)
-plABC
-pl.grid<-plABC$z
+#library(plot3D)
+plot3D::scatter3D(Dt[,1],Dt[,2],Dt[,3], phi =40,theta=40, bty = "g", pch = 20, cex = 1,
+ticktype = "detailed", xlim=Xlim+xd*c(-.05,.05),ylim=Ylim+yd*c(-.05,.05),
+zlim=Zlim+zd*c(-.05,.05))
+#add the vertices of the tetrahedron
+plot3D::points3D(tetra[,1],tetra[,2],tetra[,3], add=TRUE)
+plot3D::points3D(Dt.tet[,1],Dt.tet[,2],Dt.tet[,3],pch=4, add=TRUE)
+L<-rbind(A,A,A,B,B,C); R<-rbind(B,C,D,C,D,D)
+plot3D::segments3D(L[,1], L[,2], L[,3], R[,1], R[,2],R[,3], add=TRUE,lwd=2)
 
-zr<-max(z.grid)-min(z.grid)
-Pts<-rbind(A,B,C,P)+rbind(c(0,0,zr*.1),c(0,0,zr*.1),c(0,0,zr*.1),c(0,0,zr*.1))
-Mn.pts<-apply(Pts[1:3,],2,mean)
+plot3D::text3D(tetra[,1],tetra[,2],tetra[,3], labels=c("A","B","C","D"), add=TRUE)
 
-library(plot3D)
-persp3D(z = pl.grid, x = x, y = y, theta =225, phi = 30, ticktype = "detailed") #plane spanned by points A, B, C
-persp3D(z = z.grid, x = x, y = y,add=TRUE) #plane parallel to the original plane and passing thru point P
+in.tetrahedron(P,tetra)
 
-persp3D(z = z.grid, x = x, y = y, theta =225, phi = 30, ticktype = "detailed") #plane spanned by points A, B, C
-#add the defining points
-points3D(Pts[,1],Pts[,2],Pts[,3], add=TRUE)
-text3D(Pts[,1],Pts[,2],Pts[,3], c("A","B","C","P"),add=TRUE)
-text3D(Mn.pts[1],Mn.pts[2],Mn.pts[3],plP2ABC$equation,add=TRUE)
-polygon3D(Pts[1:3,1],Pts[1:3,2],Pts[1:3,3], add=TRUE)
-
-P<-c(1,1,1)
-paraplane(P,A,B,C,.1,.2)
+dat.fr<-data.frame(a=tetra)
+in.tetrahedron(P,dat.fr)
 
 }
 \seealso{

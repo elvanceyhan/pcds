@@ -2,7 +2,7 @@
 % Please edit documentation in R/PCDFunctions.r
 \name{cl2CC.TbVR}
 \alias{cl2CC.TbVR}
-\title{An object of class "Extrema"
+\title{An object of class "Extrema":
 
 The closest points to circumcenter in each CC-vertex region in a basic triangle}
 \usage{
@@ -12,92 +12,93 @@ cl2CC.TbVR(Dt, c1, c2, ch.all.intri = FALSE)
 \item{Dt}{A set of 2D points}
 
 \item{c1, c2}{Positive real numbers which constitute the vertex of the basic triangle
-adjacent to the shorter edges; c1 must be in [0,1/2], c2>0 and (1-c1)^2+c2^2 <=1}
+adjacent to the shorter edges; \code{c1} must be in \eqn{[0,1/2]}, \eqn{c_2>0} and \eqn{(1-c_1)^2+c_2^2 \le 1}}
 
-\item{ch.all.intri}{A logical argument}
+\item{ch.all.intri}{A logical argument for checking whether all data points are inside \eqn{T_b} (default is FALSE)}
 }
 \value{
 A list with the elements
 \item{txt1}{Vertex labels are A=1, B=2, and C=3 (corresponds to row number in Extrema Points).}
 \item{txt2}{A short description of the distances as "Distances to CC".}
 \item{type}{Type of the extrema points}
-\item{mtxt}{The "main" title for the plot of the exrema}
+\item{mtitle}{The "main" title for the plot of the exrema}
 \item{Ext}{The extrema points, here, closest points to CC in each vertex region.}
-\item{X}{The input data, Dt, can be a matrix or data frame}
-\item{num.points}{The number of data points, i.e., size of Dt}
-\item{supp}{Support of the data points, here, it is Tb.}
+\item{X}{The input data, \code{Dt}, can be a matrix or data frame}
+\item{num.points}{The number of data points, i.e., size of \code{Dt}}
+\item{supp}{Support of the data points, here, it is \eqn{T_b}.}
 \item{cent}{The center point used for construction of vertex regions}
-\item{ncent}{Name of the center, cent, it is "CC" for this function.}
-\item{regions}{Vertex regions inside the triangle, Tb, provided as a list.}
+\item{ncent}{Name of the center, \code{cent}, it is "CC" for this function.}
+\item{regions}{Vertex regions inside the triangle, \eqn{T_b}, provided as a list.}
 \item{region.names}{Names of the vertex regions as "vr=1","vr=2","vr=3"}
-\item{region.centers}{Centers of mass of the vertes regions inside Tb.}
+\item{region.centers}{Centers of mass of the vertes regions inside \eqn{T_b}.}
 \item{dist2ref}{Distances from closest points in each vertex region to CC.}
 }
 \description{
-Returns the closest data points among the data set, Dt, to circumcenter, CC, in each CC-vertex region
-in the basic triangle Tb=T(A=(0,0),B=(1,0),C=(c1,c2))=(vertex 1,vertex 2,vertex 3).
-ch.all.intri is for checking whether all data points are inside Tb (default is FALSE).
+Returns the closest data points among the data set, \code{Dt}, to circumcenter, CC, in each CC-vertex region
+in the basic triangle \eqn{T_b=T(A=(0,0),B=(1,0),C=(c_1,c_2))}=(vertex 1,vertex 2,vertex 3).
+\code{ch.all.intri} is for checking whether all data points are inside \eqn{T_b} (default is FALSE).
 See also (\insertCite{ceyhan:Phd-thesis,ceyhan:mcap2012;textual}{pcds}).
 }
 \examples{
-A<-c(1,1); B<-c(2,0); C<-c(1.5,2);
-#A<-runif(2); B<-runif(2); C<-runif(2);
-#A<-runif(2,1,100); B<-runif(2,1,100); C<-runif(2,1,100);
-Tr<-rbind(A,B,C);
+\dontrun{
+c1<-.4; c2<-.6;
+A<-c(0,0); B<-c(1,0); C<-c(c1,c2);
+Tb<-rbind(A,B,C)
 n<-20
-k<-3
 
 #set.seed(1)
-dat<-runif.tri(n,Tr)$g
+dat<-runif.bastri(n,c1,c2)$g
 #dat<-cbind(runif(n),runif(n))
-#dat<-cbind(runif(n,1,2),runif(n,0,2))
+#dat<-cbind(runif(n,1,2),runif(n,0,1))
 
-Ext<-Kfr2vVRCC(dat,Tr,k)
+Ext<-cl2CC.TbVR(dat,c1,c2)
 Ext
 summary(Ext)
 plot(Ext)
 
-Kfr2vVRCC(dat[1:k,],Tr,k)
-Kfr2vVRCC(dat[1,],Tr,k)
+cl2CC.TbVR(dat[1,],c1,c2)
 
 dat2<-rbind(dat,c(.2,.4))
-Kfr2vVRCC(dat2,Tr,k)
-Kfr2vVRCC(dat2,Tr,k,ch.all.intri = TRUE)
+cl2CC.TbVR(dat2,c1,c2)
+cl2CC.TbVR(dat2,c1,c2,ch.all.intri = TRUE)
 
-kf2v<-Kfr2vVRCC(dat,Tr,k)
+c2CC<-cl2CC.TbVR(dat,c1,c2)
 
-CC<-circ.cent.tri(Tr) #the circumcenter
+CC<-circ.cent.bastri(c1,c2) #the circumcenter
 D1<-(B+C)/2; D2<-(A+C)/2; D3<-(A+B)/2;
 Ds<-rbind(D1,D2,D3)
 
-Xlim<-range(Tr[,1],dat[,1])
-Ylim<-range(Tr[,2],dat[,2])
+Xlim<-range(Tb[,1],dat[,1])
+Ylim<-range(Tb[,2],dat[,2])
 xd<-Xlim[2]-Xlim[1]
 yd<-Ylim[2]-Ylim[1]
 
 plot(A,pch=".",asp=1,xlab="",ylab="",xlim=Xlim+xd*c(-.05,.05),ylim=Ylim+yd*c(-.05,.05))
-polygon(Tr)
-L<-matrix(rep(CC,3),ncol=3,byrow=T); R<-Ds
+polygon(Tb)
+L<-matrix(rep(CC,3),ncol=2,byrow=TRUE); R<-Ds
 segments(L[,1], L[,2], R[,1], R[,2], lty=2)
 points(dat)
-points(kf2v$Ext,pch=4,col=2)
+points(c2CC$Ext,pch=4,col=2)
 
-txt<-rbind(Tr,CC,Ds)
-xc<-txt[,1]+c(-.06,.08,.05,.12,-.1,-.1,-.09)
-yc<-txt[,2]+c(.02,-.02,.04,.0,.02,.06,-.04)
+txt<-rbind(Tb,CC,Ds)
+xc<-txt[,1]+c(-.03,.03,.02,.07,.06,-.05,.01)
+yc<-txt[,2]+c(.02,.02,.03,-.01,.03,.03,-.04)
 txt.str<-c("A","B","C","CC","D1","D2","D3")
 text(xc,yc,txt.str)
 
-Kfr2vVRCC(dat,Tr,k)
+cl2CC.TbVR(dat,c1,c2)
+
+cl2CC.TbVR(c(.4,.2),c1,c2)
 
 dat.fr<-data.frame(a=dat)
-Kfr2vVRCC(dat.fr,Tr,k)
-
-dat.fr<-data.frame(a=Tr)
-fr2vVRCC(dat,dat.fr)
+cl2CC.TbVR(dat.fr,c1,c2)
+}
 
 }
+\references{
+\insertAllCited{}
+}
 \seealso{
-\code{\link{cl2CC.VR}}, \code{\link{cl2eTbVRcent}}, \code{\link{cl2eVRcent}}, \code{\link{cl2eVRCM}} and
- \code{\link{fr2eTeER}}
+\code{\link{cl2CC.VR}}, \code{\link{cl2eTbVRcent}}, \code{\link{cl2eVRcent}}, \code{\link{cl2eVRCM}}
+and \code{\link{fr2eTeER}}
 }

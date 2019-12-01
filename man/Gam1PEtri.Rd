@@ -5,8 +5,7 @@
 \title{The indicator for a point being a dominating point for Proportional Edge Proximity Catch Digraphs (PE-PCDs)
 - one triangle case}
 \usage{
-Gam1PEtri(p, Dt, tri, r, M = c(1, 1, 1), rv = NULL,
-  ch.data.pnt = FALSE)
+Gam1PEtri(p, Dt, tri, r, M = c(1, 1, 1), rv = NULL, ch.data.pnt = FALSE)
 }
 \arguments{
 \item{p}{A 2D point that is to be tested for being a dominating point or not of the PE-PCD}
@@ -15,33 +14,35 @@ Gam1PEtri(p, Dt, tri, r, M = c(1, 1, 1), rv = NULL,
 
 \item{tri}{Three 2D points, stacked row-wise, each row representing a vertex of the triangle}
 
-\item{r}{A positive real number which serves as the expansion parameter in PE proximity region; must be >= 1}
+\item{r}{A positive real number which serves as the expansion parameter in PE proximity region; must be \eqn{\ge 1}}
 
 \item{M}{A 2D point in Cartesian coordinates or a 3D point in barycentric coordinates
-which serves as a center in the interior of the triangle tri or the circumcenter of tri;
-default is M=c(1,1,1) i.e. the center of mass of tri}
+which serves as a center in the interior of the triangle \code{tri} or the circumcenter of \code{tri};
+default is \eqn{M=(1,1,1)} i.e. the center of mass of \code{tri}}
 
-\item{rv}{Index of the vertex whose region contains point p, rv takes the vertex labels as 1,2,3 as
-in the row order of the vertices in tri}
+\item{rv}{Index of the vertex whose region contains point \code{p}, \code{rv} takes the vertex labels as 1,2,3 as
+in the row order of the vertices in \code{tri}}
 
-\item{ch.data.pnt}{A logical argument for checking whether point p is a data point
-in Dt or not (default is FALSE)}
+\item{ch.data.pnt}{A logical argument for checking whether point \code{p} is a data point
+in \code{Dt} or not (default is FALSE)}
 }
 \value{
-I(p is a dominating point of the 2D data set Dt for PE-PCD),
-that is, returns 1 if p is a dominating point, returns 0 otherwise
+I(\code{p} is a dominating point of the PE-PCD) where the vertices of the PE-PCD are the 2D data set \code{Dt},
+that is, returns 1 if \code{p} is a dominating point, returns 0 otherwise
 }
 \description{
-Returns I(p is a dominating point of the 2D data set Dt for PE-PCD) in the triangle tri, that is,
-returns 1 if p is a dominating point for PE-PCD, returns 0 otherwise.
-Point, p, is in the vertex region of vertex rv (default is NULL); vertices are labeled as 1,2,3
-in the order they are stacked row-wise in tri.
-PE proximity region is constructed with respect to the triangle tri with expansion parameter r>=1
-and vertex regions are based on center M=(m1,m2) in Cartesian coordinates or
-M=(alpha,beta,gamma) in barycentric coordinates in the interior of the triangle tri
-or based on the circumcenter of tri; default is M=c(1,1,1) i.e. the center of mass of tri.
-ch.data.pnt is for checking whether point p is a data point in Dt or not (default is FALSE),
-so by default this function checks whether the point p would be a dominating point
+Returns I(\code{p} is a dominating point of the PE-PCD) where the vertices of the PE-PCD are the 2D data set \code{Dt} in the triangle \code{tri}, that is,
+returns 1 if \code{p} is a dominating point of PE-PCD, returns 0 otherwise.
+Point, \code{p}, is in the vertex region of vertex \code{rv} (default is NULL); vertices are labeled as 1,2,3
+in the order they are stacked row-wise in \code{tri}.
+
+PE proximity region is constructed with respect to the triangle \code{tri} with expansion parameter \eqn{r \ge 1}
+and vertex regions are based on center \eqn{M=(m_1,m_2)} in Cartesian coordinates or
+\eqn{M=(\alpha,\beta,\gamma)} in barycentric coordinates in the interior of the triangle \code{tri}
+or based on the circumcenter of \code{tri}; default is \eqn{M=(1,1,1)} i.e. the center of mass of \code{tri}.
+
+\code{ch.data.pnt} is for checking whether point \code{p} is a data point in \code{Dt} or not (default is FALSE),
+so by default this function checks whether the point \code{p} would be a dominating point
 if it actually were in the data set.
 See also (\insertCite{ceyhan:Phd-thesis,ceyhan:masa-2007,ceyhan:dom-num-NPE-Spat2011,ceyhan:mcap2012;textual}{pcds}).
 }
@@ -50,7 +51,7 @@ A<-c(1,1); B<-c(2,0); C<-c(1.5,2);
 #A<-runif(2); B<-runif(2); C<-runif(2);
 #A<-runif(2,1,100); B<-runif(2,1,100); C<-runif(2,1,100);
 Tr<-rbind(A,B,C);
-n<-10
+n<-20
 
 #set.seed(1)
 dat<-runif.tri(n,Tr)$g
@@ -63,28 +64,62 @@ M<-as.numeric(runif.tri(1,Tr)$g)
 #M<-c(1,1,1) #M<-c(1,2,3) #M<-c(-1,2,3) #barycentric coordinates
 #M<-c(1.3,1.3)
 #M<-c(.3,.3)
-
-#dat<-c(.5,.5)
-IM<-IncMatPEtri(dat,Tr,r=1.25,M)
-
-IM
-dom.greedy(IM)
-dom.exact(IM)
-IndUBdom(IM,2)
-IndUBdom(IM,3)
-
-IncMatPEtri(dat,Tr,r=1.5,M)
-IncMatPEtri(dat,Tr,r=2,M)
-
+#r<-1.5
 r<-2
-IncMatPEtri(dat,Tr,r,M)
+
+Gam1PEtri(c(1.4,1),c(1.4,1),Tr,r,M)
+Gam1PEtri(dat[1,],dat,Tr,r,M)
+Gam1PEtri(c(1,2),dat,Tr,r,M)
+#Gam1PEtri(c(1,2),dat,Tr,r,M,ch.data.pnt = TRUE) #p is not a data point
+
+Gam1PEtri(c(1,2),c(1,2),Tr,r,M)
+Gam1PEtri(c(1,2),c(1,2),Tr,r,M,ch.data.pnt = TRUE)
+
+gam.vec<-vector()
+for (i in 1:n)
+{gam.vec<-c(gam.vec,Gam1PEtri(dat[i,],dat,Tr,r,M))}
+
+ind.gam1<-which(gam.vec==1)
+ind.gam1
+
+#or try
+Rv<-rv.tri.cent(dat[1,],Tr,M)$rv
+Gam1PEtri(dat[1,],dat,Tr,r,M,Rv)
+
+Ds<-cp2e.tri(Tr,M)
+
+if (dimension(M)==3) {M<-bary2cart(M,Tr)}
+#need to run this when M is given in barycentric coordinates
+
+Xlim<-range(Tr[,1],dat[,1],M[1])
+Ylim<-range(Tr[,2],dat[,2],M[2])
+xd<-Xlim[2]-Xlim[1]
+yd<-Ylim[2]-Ylim[1]
+
+plot(Tr,pch=".",xlab="",ylab="",axes=TRUE,
+xlim=Xlim+xd*c(-.05,.05),ylim=Ylim+yd*c(-.05,.05))
+polygon(Tr)
+points(dat,pch=1,col=1)
+L<-rbind(M,M,M); R<-Ds
+segments(L[,1], L[,2], R[,1], R[,2], lty=2)
+points(rbind(dat[ind.gam1,]),pch=4,col=2)
+#rbind is to insert the points correctly if there is only one dominating point
+
+txt<-rbind(Tr,M,Ds)
+xc<-txt[,1]#+c(-.02,.03,.02,-.02,.04,-.03,.0)
+yc<-txt[,2]#+c(.02,.02,.05,-.03,.04,.06,-.07)
+txt.str<-c("A","B","C","M","D1","D2","D3")
+text(xc,yc,txt.str)
+
+P<-c(1.4,1)
+Gam1PEtri(P,P,Tr,r,M)
+Gam1PEtri(dat[1,],dat,Tr,r,M)
 
 dat.fr<-data.frame(a=dat)
-IncMatPEtri(dat.fr,Tr,r,M)
+Gam1PEtri(P,dat.fr,Tr,r,M)
 
 dat.fr<-data.frame(a=Tr)
-IncMatPEtri(dat,dat.fr,r,M)
-
+Gam1PEtri(P,dat,dat.fr,r,M)
 
 }
 \references{

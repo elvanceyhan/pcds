@@ -2,7 +2,7 @@
 % Please edit documentation in R/PCDFunctions.r
 \name{ArcsPEMT}
 \alias{ArcsPEMT}
-\title{An object of class "Digraphs"
+\title{An object of class "Digraphs":
 
 The arcs of Proportional Edge Proximity Catch Digraph (PE-PCD) for 2D data - multiple triangle case}
 \usage{
@@ -13,88 +13,93 @@ ArcsPEMT(Xp, Yp, r, M = c(1, 1, 1))
 
 \item{Yp}{A set of 2D points which constitute the vertices of the Delaunay triangles}
 
-\item{r}{A positive real number which serves as the expansion parameter in PE proximity region; must be >=1}
+\item{r}{A positive real number which serves as the expansion parameter in PE proximity region; must be \eqn{\ge 1}}
 
 \item{M}{A 3D point in barycentric coordinates which serves as a center in the interior of each Delaunay
-triangle or circumcenter of each Delaunay triangle (for this argument should be set as M="CC"),
-default for M is c(1,1,1) which is the center of mass of each triangle}
+triangle or circumcenter of each Delaunay triangle (for this argument should be set as \code{M}="CC"),
+default for \eqn{M=(1,1,1)} which is the center of mass of each triangle}
 }
 \value{
 A list with the elements
 \item{type}{A description of the type of the digraph}
 \item{parameters}{Parameters of the digraph, here, it is the center used to construct the vertex regions.}
 \item{tess.points}{Points on which the tessellation of the study region is performed, here, tessellation
-is Delaunay triangulation based on Yp points.}
-\item{tess.name}{Name of data set used in tessellation, it is Yp for this function}
-\item{vertices}{Vertices of the digraph, Xp points}
+is Delaunay triangulation based on \code{Yp} points.}
+\item{tess.name}{Name of data set used in tessellation, it is \code{Yp} for this function}
+\item{vertices}{Vertices of the digraph, \code{Xp} points}
 \item{vert.name}{Name of the data set which constitute the vertices of the digraph}
-\item{S}{tails (or sources) of the arcs of PE-PCD for 2D data Xp as vertices of the digraph}
-\item{E}{heads (or arrow ends) of the arcs of PE-PCD for 2D data Xp as vertices of the digraph}
-\item{mtxt}{Text for "main" title in the plot of the digraph}
+\item{S}{tails (or sources) of the arcs of PE-PCD for 2D data set \code{Xp} as vertices of the digraph}
+\item{E}{heads (or arrow ends) of the arcs of PE-PCD for 2D data set \code{Xp} as vertices of the digraph}
+\item{mtitle}{Text for "main" title in the plot of the digraph}
 \item{quant}{Various quantities for the digraph: number of vertices, number of partition points,
 number of intervals, number of arcs, and arc density.}
 }
 \description{
 Returns arcs as tails (or sources) and heads (or arrow ends) of Proportional Edge Proximity Catch Digraph
-(PE-PCD) whose vertices are the data points in Xp in the multiple triangle case. PE proximity regions are
-defined with respect to the Delaunay triangles based on Yp points with expansion parameter r>=1 and
-vertex regions in each triangle are based on the center M=(alpha,beta,gamma) in barycentric coordinates
+(PE-PCD) whose vertices are the data points in \code{Xp} in the multiple triangle case.
+
+PE proximity regions are
+defined with respect to the Delaunay triangles based on \code{Yp} points with expansion parameter \eqn{r \ge 1} and
+vertex regions in each triangle are based on the center \eqn{M=(\alpha,\beta,\gamma)} in barycentric coordinates
 in the interior of each Delaunay triangle or based on circumcenter of each Delaunay triangle
-(default for M is c(1,1,1) which is the center of mass of the triangle).
-Each Delaunay triangle is first converted to an (unscaled) basic triangle so that M will be the same
-type of center for each Delaunay triangle (this conversion is not necessary when M is CM).
-Convex hull of Yp is partitioned by the Delaunay triangles based on Yp points
+(default for \eqn{M=(1,1,1)} which is the center of mass of the triangle).
+Each Delaunay triangle is first converted to an (unscaled) basic triangle so that \code{M} will be the same
+type of center for each Delaunay triangle (this conversion is not necessary when \code{M} is CM).
+Convex hull of \code{Yp} is partitioned by the Delaunay triangles based on \code{Yp} points
 (i.e., multiple triangles are the set of these Delaunay triangles whose union constitutes the
-convex hull of Yp points). For the number of arcs, loops are not allowed so arcs are only possible
-for points inside the convex hull of Yp points.
+convex hull of \code{Yp} points). For the number of arcs, loops are not allowed so arcs are only possible
+for points inside the convex hull of \code{Yp} points.
 See (\insertCite{ceyhan:Phd-thesis,ceyhan:arc-density-PE,ceyhan:dom-num-NPE-Spat2011;textual}{pcds})
 for more on the PE-PCDs.
-Also see (\insertCite{okabe:2000,ceyhan:comp-geo-2010,renka:1996;textual}{pcds}) for more on Delaunay triangulation and the tripack algorithm.
+Also see (\insertCite{okabe:2000,ceyhan:comp-geo-2010,renka:1996;textual}{pcds}) for more on Delaunay triangulation and the TRIPACK algorithm.
 }
 \examples{
-A<-c(1,1); B<-c(2,0); C<-c(1.5,2);
-#A<-runif(2); B<-runif(2); C<-runif(2);
-#A<-runif(2,1,100); B<-runif(2,1,100); C<-runif(2,1,100);
-Tr<-rbind(A,B,C);
-n<-10
+nx<-100
+ny<-10
 
 #set.seed(1)
-dat<-runif.tri(n,Tr)$g
-#dat<-cbind(runif(n,1,2),runif(n,0,2))
-#dat<-cbind(runif(n),runif(n))
-#dat<-c(.5,.5)
-dat<-matrix(dat,ncol=2)
+Xp<-cbind(runif(nx,0,1),runif(nx,0,1))
+#Xp<-cbind(runif(nx,0.5,1.5),runif(nx,0,1))
+#Xp<-cbind(runif(nx,1,2),runif(nx,0,1))
+Yp<-cbind(runif(ny,0,1),runif(ny,0,1))
 
-M<-as.numeric(runif.tri(1,Tr)$g)
-#M<-c(1.6,1.0)
-#M<-circ.cent.tri(Tr)
-#M<-c(1,1,1) #M<-c(1,2,3) #M<-c(-1,2,3) #barycentric coordinates
+M<-c(1,1,1) #M<-c(1,2,3) #M<-c(-1,2,3) #barycentric coordinates
+#M<-"CC"
 #M<-c(1.3,1.3)
-#M<-c(.3,.3)
 r<-1.5
 #r<-2
 
-ifelse(identical(M,circ.cent.tri(Tr)),Ds<-rbind((B+C)/2,(A+C)/2,(A+B)/2),Ds<-cp2e.tri(Tr,M))
+#Xp<-c(.5,.5)
+ArcsPEMT(Xp,Yp,r,M)
 
-plot.regsPEtri(dat,Tr,r,M)
-plot.regsPEtri(dat[1,],Tr,r,M)
+Arcs<-ArcsPEMT(Xp,Yp,r,M)
+Arcs
+summary(Arcs)
+plot(Arcs)
 
-dat<-matrix(dat,ncol=2)
-Xlim<-range(Tr[,1],dat[,1],M[1])
-Ylim<-range(Tr[,2],dat[,2],M[2])
+S<-Arcs$S
+E<-Arcs$E
+DT<-tripack::tri.mesh(Yp[,1],Yp[,2],duplicate="remove")
+
+Xlim<-range(Xp[,1],Yp[,1])
+Ylim<-range(Xp[,2],Yp[,2])
 xd<-Xlim[2]-Xlim[1]
 yd<-Ylim[2]-Ylim[1]
 
-if (dimension(M)==3) {M<-bary2cart(M,Tr)} #need to run this when M is given in barycentric coordinates
-plot.regsPEtri(dat,Tr,r,M,main="PE Proximity Regions with r=1.5",xlab="",ylab="",xlim=Xlim+xd*c(-.05,.05),ylim=Ylim+yd*c(-.05,.05))
-L<-rbind(M,M,M); R<-Ds
-segments(L[,1], L[,2], R[,1], R[,2], lty=2)
+plot(Xp,main=" ", xlab=" ", ylab=" ",
+xlim=Xlim+xd*c(-.05,.05),ylim=Ylim+yd*c(-.05,.05),pch=".",cex=3)
+tripack::plot.tri(DT, add=TRUE, do.points = TRUE)
+arrows(S[,1], S[,2], E[,1], E[,2], length = 0.1, col= 4)
 
-txt<-rbind(Tr,M,Ds)
-xc<-txt[,1]#+c(-.02,.03,.03,.03,.05,-0.03,-.01)
-yc<-txt[,2]#+c(.02,.02,.02,.07,.02,.05,-.06)
-txt.str<-c("A","B","C","M","D1","D2","D3")
-text(xc,yc,txt.str)
+ArcsPEMT(Xp,Yp,r)
+
+ArcsPEMT(Xp,rbind(Yp,Yp),r)
+
+dat.fr<-data.frame(a=Xp)
+ArcsPEMT(dat.fr,Yp,r)
+
+dat.fr<-data.frame(a=Yp)
+ArcsPEMT(Xp,dat.fr,r)
 
 }
 \references{

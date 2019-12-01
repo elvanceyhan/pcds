@@ -2,7 +2,7 @@
 % Please edit documentation in R/PCDFunctions.r
 \name{ArcsCStri}
 \alias{ArcsCStri}
-\title{An object of class "Digraphs"
+\title{An object of class "Digraphs":
 
 The arcs of Central Similarity Proximity Catch Digraphs (CS-PCD) for 2D data - one triangle case}
 \usage{
@@ -16,8 +16,8 @@ ArcsCStri(Xp, tri, t, M = c(1, 1, 1))
 \item{t}{A positive real number which serves as the expansion parameter in CS proximity region}
 
 \item{M}{A 2D point in Cartesian coordinates or a 3D point in barycentric coordinates
-which serves as a center in the interior of the triangle tri or the circumcenter of tri;
-default is M=c(1,1,1) i.e. the center of mass of tri}
+which serves as a center in the interior of the triangle \code{tri} or the circumcenter of \code{tri};
+default is \eqn{M=(1,1,1)} i.e. the center of mass of \code{tri}}
 }
 \value{
 A list with the elements
@@ -26,60 +26,89 @@ A list with the elements
 \item{tess.points}{Points on which the tessellation of the study region is performed, here, tessellation
 is the support triangle.}
 \item{tess.name}{Name of data set used in tessellation (i.e., vertices of the triangle)}
-\item{vertices}{Vertices of the digraph, Xp points}
+\item{vertices}{Vertices of the digraph, \code{Xp} points}
 \item{vert.name}{Name of the data set which constitute the vertices of the digraph}
-\item{S}{tails (or sources) of the arcs of CS-PCD for 2D data Xp as vertices of the digraph}
-\item{E}{heads (or arrow ends) of the arcs of CS-PCD for 2D data Xp as vertices of the digraph}
-\item{mtxt}{Text for "main" title in the plot of the digraph}
+\item{S}{tails (or sources) of the arcs of CS-PCD for 2D data set \code{Xp} as vertices of the digraph}
+\item{E}{heads (or arrow ends) of the arcs of CS-PCD for 2D data set \code{Xp} as vertices of the digraph}
+\item{mtitle}{Text for "main" title in the plot of the digraph}
 \item{quant}{Various quantities for the digraph: number of vertices, number of partition points,
 number of intervals, number of arcs, and arc density.}
 }
 \description{
-Returns arcs as tails (or sources) and heads (or arrow ends) for data set Xp as the vertices
-of CS-PCD. CS proximity regions are constructed with respect to the triangle tri with expansion
-parameter t>0, i.e., arcs may exist for points only inside tri.
+Returns arcs as tails (or sources) and heads (or arrow ends) for data set \code{Xp} as the vertices
+of CS-PCD.
+
+CS proximity regions are constructed with respect to the triangle \code{tri} with expansion
+parameter \eqn{t>0}, i.e., arcs may exist for points only inside \code{tri}.
 It also provides various descriptions and quantities about the arcs of the CS-PCD
-such as number of arcs, arc density, etc. Edge regions are based on center M=(m1,m2)
-in Cartesian coordinates or M=(alpha,beta,gamma) in barycentric coordinates in the interior of
-the triangle tri; default is M=c(1,1,1) i.e. the center of mass of tri.
+such as number of arcs, arc density, etc. Edge regions are based on center \eqn{M=(m_1,m_2)}
+in Cartesian coordinates or \eqn{M=(\alpha,\beta,\gamma)} in barycentric coordinates in the interior of
+the triangle \code{tri}; default is \eqn{M=(1,1,1)} i.e. the center of mass of \code{tri}.
 See also (\insertCite{ceyhan:Phd-thesis,ceyhan:arc-density-CS,ceyhan:test2014;textual}{pcds}).
 }
 \examples{
-nx<-100
-ny<-10
+A<-c(1,1); B<-c(2,0); C<-c(1.5,2);
+#A<-runif(2); B<-runif(2); C<-runif(2);
+#A<-runif(2,1,100); B<-runif(2,1,100); C<-runif(2,1,100);
+Tr<-rbind(A,B,C);
+n<-10
 
 #set.seed(1)
-Xp<-cbind(runif(nx),runif(nx))
-#Xp<-cbind(runif(nx,0.5,1.5),runif(nx,0,1))
-#Xp<-cbind(runif(nx,1,2),runif(nx,0,1))
-Yp<-cbind(runif(ny),runif(ny))
+dat<-runif.tri(n,Tr)$g
+#dat<-cbind(runif(n),runif(n))
+#dat<-cbind(runif(n,1,2),runif(n,0,2))
+#dat<-c(1.4,1)
 
-plotDeltri(Xp,Yp,xlab="",ylab = "")
+M<-as.numeric(runif.tri(1,Tr)$g)
+#M<-c(1.6,1.0)
+#M<-c(1,1,1) #M<-c(1,2,3) #M<-c(-1,2,3) #barycentric coordinates
+#M<-c(1.3,1.3)
+#M<-c(.3,.3)
+t<-1.5
+#t<-2
 
-NumArcsCSMT(Xp,Yp,t=.5)
+ArcsCStri(dat,Tr,t,M)
 
-TSArcDensCSMT(Xp,Yp,t=.5)
-TSArcDensCSMT(Xp,Yp,t=.5,ch=TRUE)
+Arcs<-ArcsCStri(dat,Tr,t,M)
+Arcs
+summary(Arcs)
+plot(Arcs)
 
-NumArcsCSMT(Xp,Yp,t=1.0)
-TSArcDensCSMT(Xp,Yp,t=1.0)
-TSArcDensCSMT(Xp,Yp,t=1.0,ch=TRUE)
+S<-Arcs$S
+E<-Arcs$E
 
-NumArcsCSMT(Xp,Yp,t=1.5)
-TSArcDensCSMT(Xp,Yp,t=1.5)
-TSArcDensCSMT(Xp,Yp,t=1.5,ch=TRUE)
+Xlim<-range(Tr[,1],dat[,1])
+Ylim<-range(Tr[,2],dat[,2])
+xd<-Xlim[2]-Xlim[1]
+yd<-Ylim[2]-Ylim[1]
 
-TSArcDensCSMT(c(.4,.2),Yp,t=.5)
+Ds<-cp2e.tri(Tr,M)
 
-TSArcDensCSMT(Xp1,Yp1,t)
+if (dimension(M)==3) {M<-bary2cart(M,Tr)}
+#need to run this when M is given in barycentric coordinates
 
-TSArcDensCSMT(Xp1,rbind(Yp1,Yp1),t)
+plot(Tr,pch=".",xlab="",ylab="",axes=TRUE,
+xlim=Xlim+xd*c(-.05,.05),ylim=Ylim+yd*c(-.05,.05))
+polygon(Tr)
+points(dat,pch=1,col=1)
+L<-rbind(M,M,M); R<-Ds
+segments(L[,1], L[,2], R[,1], R[,2], lty=2)
+arrows(S[,1], S[,2], E[,1], E[,2], length = 0.1, col= 4)
 
-dat.fr<-data.frame(a=Xp1)
-TSArcDensCSMT(dat.fr,Yp1,t)
+txt<-rbind(Tr,M,Ds)
+xc<-txt[,1]#+c(-.02,.03,.02,.03,.04,-.03,-.01)
+yc<-txt[,2]#+c(.02,.02,.03,.06,.03,.05,-.07)
+txt.str<-c("A","B","C","M","D1","D2","D3")
+text(xc,yc,txt.str)
 
-dat.fr<-data.frame(a=Yp1)
-TSArcDensCSMT(Xp1,dat.fr,t)
+t<-2
+ArcsCStri(dat,Tr,t,M)
+
+dat.fr<-data.frame(a=dat)
+ArcsCStri(dat.fr,Tr,t,M)
+
+dat.fr<-data.frame(a=Tr)
+ArcsCStri(dat,dat.fr,t,M)
 
 }
 \references{

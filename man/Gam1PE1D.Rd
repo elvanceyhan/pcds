@@ -12,55 +12,81 @@ Gam1PE1D(p, Dt, r, c, int, rv = NULL, ch.data.pnt = FALSE)
 
 \item{Dt}{A set of 1D points which constitutes the vertices of the PE-PCD}
 
-\item{r}{A positive real number which serves as the expansion parameter in PE proximity region; must be >=1}
+\item{r}{A positive real number which serves as the expansion parameter in PE proximity region; must be \eqn{\ge 1}}
 
-\item{c}{A positive real number in (0,1) parameterizing the center inside int=(a,b).
-For the interval, int=(a,b), the parameterized center is Mc=a+c*(b-a); default c=.5}
+\item{c}{A positive real number in \eqn{(0,1)} parameterizing the center inside \eqn{int=(a,b)}.
+For the interval, \eqn{int=(a,b)}, the parameterized center is \eqn{M_c=a+c(b-a)}; default c=.5}
 
 \item{int}{A vector of two real numbers representing an interval}
 
 \item{rv}{Index of the vertex region in which the point resides, either 1, 2 or NULL (default is NULL)}
 
-\item{ch.data.pnt}{A logical argument for checking whether point p is a data point
-in Dt or not (default is FALSE)}
+\item{ch.data.pnt}{A logical argument for checking whether point \code{p} is a data point
+in \code{Dt} or not (default is FALSE)}
 }
 \value{
-I(p is a dominating point for PE-PCD whose vertices are the 1D data set Dt),
-that is, returns 1 if p is a dominating point, returns 0 otherwise
+I(\code{p} is a dominating point of the PE-PCD) where the vertices of the PE-PCD are the 1D data set \code{Dt},
+that is, returns 1 if \code{p} is a dominating point, returns 0 otherwise
 }
 \description{
-Returns I(p is a dominating point for PE-PCD whose vertices are the 1D data set Dt).
-PE proximity region is defined with respect to the interval int with an expansion parameter, r >=1,
-and a centrality parameter, c in (0,1), so arcs may exist for Dt points inside the interval int=(a,b).
-Vertex regions are based on the center associated with the centrality parameter c in (0,1).
-rv is the index of the vertex region p resides, with default=NULL.
-ch.data.pnt is for checking whether point p is a data point in Dt or not (default is FALSE),
-so by default this function checks whether the point p would be a dominating point
+Returns I(\code{p} is a dominating point of the PE-PCD) where the vertices of the PE-PCD are the 1D data set \code{Dt}.
+
+PE proximity region is defined with respect to the interval \code{int} with an expansion parameter, \eqn{r \ge 1},
+and a centrality parameter, \code{c} in \eqn{(0,1)}, so arcs may exist for \code{Dt} points inside the interval \eqn{int=(a,b)}.
+
+Vertex regions are based on the center associated with the centrality parameter \code{c} in \eqn{(0,1)}.
+\code{rv} is the index of the vertex region p resides, with default=NULL.
+\code{ch.data.pnt} is for checking whether point \code{p} is a data point in \code{Dt} or not (default is FALSE),
+so by default this function checks whether the point \code{p} would be a dominating point
 if it actually were in the data set.
 }
 \examples{
 r<-2
 c<-.4
-a<-0; b<-10;
+a<-0; b<-10; int<-c(a,b)
 #c<-runif(1)
 #a<-runif(1); b<-runif(1); int<-range(a,b); a<-int[1]; b<-int[2]
-nx<-40; ny<-10
+Mc<-centMc(int,c)
+
+n<-10
 
 #set.seed(1)
-xr<-range(a,b)
-xf<-(xr[2]-xr[1])*.1
-Xp<-runif(nx,a-xf,b+xf)
-#Xp<-runif(nx,a-5,b+5)
-#Xp<-runif(nx,a+5,b+5)
-#Xp<-runif(nx,a+10,b+10)
-Yp<-runif(ny,a,b)
+dat<-runif(n,a,b)
 
-plot.regsPEMI(Xp,Yp,r,c,xlab="",ylab="")
-plot.regsPEMI(Xp,Yp+10,r,c,xlab="",ylab="")
+Gam1PE1D(dat[5],dat,r,c,int)
+#Gam1PE1D(2,dat,r,c,int,ch.data.pnt = TRUE) #point p is not a data point in Dt
 
-}
-\references{
-\insertAllCited{}
+gam.vec<-vector()
+for (i in 1:n)
+{gam.vec<-c(gam.vec,Gam1PE1D(dat[i],dat,r,c,int))}
+
+ind.gam1<-which(gam.vec==1)
+ind.gam1
+
+domset<-dat[ind.gam1]
+if(length(ind.gam1)==0)
+{domset<-NA}
+
+#or try
+Rv<-rv.mid.int(dat[5],c,int)$rv
+Gam1PE1D(dat[5],dat,r,c,int,Rv)
+
+Xlim<-range(a,b,dat)
+xd<-Xlim[2]-Xlim[1]
+
+plot(cbind(a,0),xlab="",pch=".",xlim=Xlim+xd*c(-.05,.05))
+abline(h=0)
+points(cbind(dat,0))
+abline(v=c(a,b,Mc),col=c(1,1,2),lty=2)
+points(cbind(domset,0),pch=4,col=2)
+text(cbind(c(a,b,Mc),-0.1),c("a","b","Mc"))
+
+Gam1PE1D(dat[5],dat,r,c,int)
+
+n<-10
+dat2<-runif(n,a+b,b+10)
+Gam1PE1D(5,dat2,r,c,int)
+
 }
 \seealso{
 \code{\link{Gam1PEtri}}

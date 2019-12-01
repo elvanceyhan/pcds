@@ -10,57 +10,66 @@ cp2e.tri(tri, M)
 \item{tri}{Three 2D points, stacked row-wise, each row representing a vertex of the triangle}
 
 \item{M}{A 2D point in Cartesian coordinates or a 3D point in barycentric coordinates
-which serves as a center in the interior of the triangle tri}
+which serves as a center in the interior of the triangle \code{tri}}
 }
 \value{
-Three projection points (stacked row-wise) from a general center M=(m1,m2) in Cartesian coordinates
-or M=(alpha,beta,gamma) in barycentric coordinates in the interior of a triangle to the edges on
-the extension of the lines joining M to the vertices;
-row i is the projection  point into edge i, for i=1,2,3.
+Three projection points (stacked row-wise) from a general center \eqn{M=(m_1,m_2)} in Cartesian coordinates
+or \eqn{M=(\alpha,\beta,\gamma)} in barycentric coordinates in the interior of a triangle to the edges on
+the extension of the lines joining \code{M} to the vertices;
+row \eqn{i} is the projection  point into edge \eqn{i}, for \eqn{i=1,2,3}.
 }
 \description{
-Returns the projections from a general center M=(m1,m2) in Cartesian coordinates or M=(alpha,beta,gamma) in
+Returns the projections from a general center \eqn{M=(m_1,m_2)} in Cartesian coordinates or \eqn{M=(\alpha,\beta,\gamma)} in
 barycentric coordinates in the interior of a triangle to the edges on the extension of the lines joining
-M to the vertices (see the examples for an illustration).
+\code{M} to the vertices (see the examples for an illustration).
 See also (\insertCite{ceyhan:Phd-thesis,ceyhan:comp-geo-2010,ceyhan:mcap2012;textual}{pcds}).
 }
 \examples{
-A<-c(0,0); B<-c(1,0); C<-c(.5,sqrt(3.)/2);
-Te<-rbind(A,B,C)
-n<-10
+A<-c(1,1); B<-c(2,0); C<-c(1.5,2);
+#A<-runif(2); B<-runif(2); C<-runif(2);
+#A<-runif(2,1,100); B<-runif(2,1,100); C<-runif(2,1,100);
+Tr<-rbind(A,B,C);
 
-#set.seed(1)
-dat<-runifTe(n)$gen.points
-#dat<-cbind(runif(n),runif(n))
-#dat<-cbind(runif(n,1,2),runif(n,0,1))
-
-M<-as.numeric(runifTe(1)$g)
-#M<-c(.6,.2)
-#M<-circ.cent.tri(Te)
+M<-as.numeric(runif.tri(1,Tr)$g)
+#M<-c(1.6,1.0)
 #M<-c(1,1,1) #M<-c(1,2,3) #M<-c(-1,2,3) #barycentric coordinates
 #M<-c(1.3,1.3)
 #M<-c(.3,.3)
 
-NumArcsPETe(dat,r=1.25)
+cp2e.tri(Tr,M)
+#cp2e.tri(Tr,M=c(1,1))
 
-inc.mat<-IncMatPETe(dat,r=1.25,M)
-inc.mat
-sum(inc.mat)-n
+Ds<-cp2e.tri(Tr,M)
 
-dom.greedy(inc.mat)
-IndUBdom(inc.mat,2)
-dom.exact(inc.mat)
+Xlim<-range(Tr[,1])
+Ylim<-range(Tr[,2])
+xd<-Xlim[2]-Xlim[1]
+yd<-Ylim[2]-Ylim[1]
 
-inc.mat<-IncMatPETe(rbind(dat,c(0,1)),r=1.25,M)
-inc.mat
-sum(inc.mat)-(n+1)
+if (dimension(M)==3) {M<-bary2cart(M,Tr)}
+#need to run this when M is given in barycentric coordinates
 
-IncMatPETe(dat,r=1.5,M);
+plot(Tr,pch=".",xlab="",ylab="",axes=TRUE,
+xlim=Xlim+xd*c(-.05,.05),ylim=Ylim+yd*c(-.05,.05))
+polygon(Tr)
+L<-rbind(M,M,M); R<-Ds
+segments(L[,1], L[,2], R[,1], R[,2], lty=2)
 
-IncMatPETe(rbind(dat,dat),r=1.5,M)
+xc<-Tr[,1]#+c(-.04,.05,.06)
+yc<-Tr[,2]#+c(.02,.02,.03)
+txt.str<-c("rv=1","rv=2","rv=3")
+text(xc,yc,txt.str)
 
-dat.fr<-data.frame(a=dat)
-IncMatPETe(dat.fr,r=1.5,M);
+txt<-rbind(M,Ds)
+xc<-txt[,1]#+c(-.02,.04,-.04,-.02)
+yc<-txt[,2]#+c(-.02,.04,.04,-.06)
+txt.str<-c("M","D1","D2","D3")
+text(xc,yc,txt.str)
+
+cp2e.tri(Tr,M)
+
+dat.fr<-data.frame(a=Tr)
+cp2e.tri(dat.fr,M)
 
 }
 \references{

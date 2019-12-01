@@ -7,57 +7,46 @@
 dist.pt2set(x, Y)
 }
 \arguments{
-\item{x}{A vector (i.e., a point in R^d)}
+\item{x}{A vector (i.e., a point in \eqn{\mathbb R^d})}
 
 \item{Y}{A set of d-dimensional points}
 }
 \value{
 A list of elements
-\item{distance}{Distance from point x to set Y}
-\item{ind.cl.point}{Index of the closest point in set Y to the point x}
-\item{closest.point}{The closest point in set Y to the point x}
+\item{distance}{Distance from point \code{x} to set \code{Y}}
+\item{ind.cl.point}{Index of the closest point in set \code{Y} to the point \code{x}}
+\item{closest.point}{The closest point in set \code{Y} to the point \code{x}}
 }
 \description{
-Returns the Euclidean distance between a point x and set of points Y and the closest point in set Y to x.
-Distance between a point and a set is by definition the distance from the point to the closest point in the
-set. x should be of finite dimension and Y should be of finite cardinality and x and elements of Y
-must have the same dimension.
+Returns the Euclidean distance between a point \code{x} and set of points \code{Y} and the
+closest point in set \code{Y} to \code{x}. Distance between a point and a set is by definition the distance
+from the point to the closest point in the set. \code{x} should be of finite dimension and \code{Y} should
+be of finite cardinality and \code{x} and elements of \code{Y} must have the same dimension.
 }
 \examples{
-B<-c(1,0); C<-c(.5,sqrt(3.)/2);
-Dist(B,C);
-dist(rbind(B,C))
-dist(rbind(as.vector(B),as.vector(C)))
-Dist(B,B);
+A<-c(0,0); B<-c(1,0); C<-c(1/2,sqrt(3)/2);
+Te<-rbind(A,B,C);
+dist.pt2set(c(1,2),Te)
 
-x<-runif(10)
+X2<-cbind(runif(10),runif(10))
+dist.pt2set(c(1,2),X2)
+
+dist.pt2set(C,C)
+dist.pt2set(B,C)
+
+x<-runif(1)
 y<-runif(10)
-Dist(x,y)
+#dist.pt2set(x,y) #this does not work because both entries are treated as vectors
 
-xm<-matrix(x,ncol=2)
-ym<-matrix(y,ncol=2)
-Dist(xm,ym)
-dist(rbind(as.vector(xm),as.vector(ym)))
-
-Dist(xm,xm)
-
-xm<-matrix(x,ncol=2)
-ym<-matrix(y,ncol=1)
-Dist(xm,ym) #gives error, since vectors are not of the same dimension
-
-Dist(B,xm)
-
-Dist(B,x) #gives error, since vectors are not of the same dimension
+x<-runif(1)
+y<-as.matrix(runif(10))
+dist.pt2set(x,y) #this works, because x is a 1D point, and y is treated as a set of 10 1D points
 
 dat.fr<-data.frame(b=B,c=C)
-Dist(B,dat.fr)
-Dist(dat.fr,dat.fr)
-Dist(dat.fr,cbind(B,C))
+dist.pt2set(A,dat.fr)
 
+#dist.pt2set(dat.fr,dat.fr)  #this does not work since first entry must be a vector
 
-}
-\references{
-\insertAllCited{}
 }
 \seealso{
 \code{\link{dp2l}} and \code{\link{dp2pl}}

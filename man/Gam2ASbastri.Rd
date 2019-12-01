@@ -5,8 +5,17 @@
 \title{The indicator for two points being a dominating set for Arc Slice Proximity Catch Digraphs
 (AS-PCDs) - basic triangle case}
 \usage{
-Gam2ASbastri(pt1, pt2, Dt, c1, c2, M = "CC", rv1 = NULL, rv2 = NULL,
-  ch.data.pnts = FALSE)
+Gam2ASbastri(
+  pt1,
+  pt2,
+  Dt,
+  c1,
+  c2,
+  M = "CC",
+  rv1 = NULL,
+  rv2 = NULL,
+  ch.data.pnts = FALSE
+)
 }
 \arguments{
 \item{pt1, pt2}{Two 2D points to be tested for constituting a dominating set of the AS-PCD}
@@ -14,127 +23,95 @@ Gam2ASbastri(pt1, pt2, Dt, c1, c2, M = "CC", rv1 = NULL, rv2 = NULL,
 \item{Dt}{A set of 2D points which constitutes the vertices of the AS-PCD}
 
 \item{c1, c2}{Positive real numbers which constitute the vertex of the basic triangle
-adjacent to the shorter edges; c1 must be in [0,1/2], c2>0 and (1-c1)^2+c2^2 <=1}
+adjacent to the shorter edges; \code{c1} must be in \eqn{[0,1/2]}, \eqn{c_2>0} and \eqn{(1-c_1)^2+c_2^2 \le 1}}
 
-\item{M}{"CC" which stand for circumcenter of the triangle Tb or a 2D point in Cartesian coordinates or
-a 3D point in barycentric coordinates which serves as a center in the interior of the triangle Tb;
-default is M="CC" i.e. the circumcenter of Tb}
+\item{M}{"CC" which stands for circumcenter of the triangle \eqn{T_b} or a 2D point in Cartesian coordinates or
+a 3D point in barycentric coordinates which serves as a center in the interior of the triangle \eqn{T_b};
+default is \code{M}="CC" i.e. the circumcenter of \eqn{T_b}}
 
-\item{rv1, rv2}{The indices of the vertices whose regions contains pt1 and pt2, respectively.
-They take the vertex labels as 1,2,3 as in the row order of the vertices in Tb}
+\item{rv1, rv2}{The indices of the vertices whose regions contains \code{pt1} and \code{pt2}, respectively.
+They take the vertex labels as 1,2,3 as in the row order of the vertices in \eqn{T_b} (default is NULL for both)}
 
 \item{ch.data.pnts}{A logical argument}
 }
 \value{
-I({pt1,pt2} is a dominating set of the AS-PCD whose vertices are the 2D data set Dt),
-that is, returns 1 if {pt1,pt2} is a dominating set of AS-PCD, returns 0 otherwise
+I(\{\code{pt1,pt2}\} is a dominating set of the AS-PCD) where the vertices of AS-PCD are the 2D data set \code{Dt}),
+that is, returns 1 if \{\code{pt1,pt2}\} is a dominating set of AS-PCD, returns 0 otherwise
 }
 \description{
-Returns I({pt1,pt2} is a dominating set of AS-PCD whose vertices are the 2D data set Dt),
-that is, returns 1 if {pt1,pt2} is a dominating set for AS-PCD, returns 0 otherwise.
-AS proximity regions are defined with respect to the basic triangle Tb=T(c(0,0),c(1,0),c(c1,c2)),
-In the basic triangle, Tb, c1 is in [0,1/2], c2>0 and (1-c1)^2+c2^2 <=1.
+Returns I(\{\code{pt1,pt2}\} is a dominating set of AS-PCD) where vertices of AS-PCD are the 2D
+data set \code{Dt}), that is, returns 1 if \{\code{pt1,pt2}\} is a dominating set of AS-PCD, returns 0 otherwise.
+AS proximity regions are defined with respect to the basic triangle \eqn{T_b=T(c(0,0),c(1,0),c(c1,c2))},
+In the basic triangle, \eqn{T_b}, \code{c1} is in \eqn{[0,1/2]}, \eqn{c_2>0} and \eqn{(1-c_1)^2+c_2^2 \le 1}.
+
 Any given triangle can be mapped to the basic triangle by a combination of rigid body motions
 (i.e., translation, rotation and reflection) and scaling, preserving uniformity of the points in the
 original triangle. Hence basic triangle is useful for simulation
 studies under the uniformness hypothesis.
-Point, pt1, is in the vertex region of vertex rv1 (default is NULL)
-and point, pt2, is in the vertex region of vertex rv2 (default is NULL); vertices are labeled as 1,2,3
+
+Point, \code{pt1}, is in the vertex region of vertex \code{rv1} (default is NULL)
+and point, \code{pt2}, is in the vertex region of vertex \code{rv2} (default is NULL); vertices are labeled as 1,2,3
 in the order they are stacked row-wise.
-Vertex regions are based on the center M="CC" for circumcenter
-of Tb; or M=(m1,m2) in Cartesian coordinates or M=(alpha,beta,gamma) in barycentric coordinates in the
-interior of Tb; default is M="CC".
-ch.data.pnts is for checking whether points pt1 and pt2 are data points in Dt or not
-(default is FALSE), so by default this function checks whether the points pt1 and pt2 would be a
+
+Vertex regions are based on the center \code{M}="CC" for circumcenter
+of \eqn{T_b}; or \eqn{M=(m_1,m_2)} in Cartesian coordinates or \eqn{M=(\alpha,\beta,\gamma)} in barycentric coordinates in the
+interior of \eqn{T_b}; default is \code{M}="CC".
+
+\code{ch.data.pnts} is for checking whether points \code{pt1} and \code{pt2} are data points in \code{Dt} or not
+(default is FALSE), so by default this function checks whether the points \code{pt1} and \code{pt2} would be a
 dominating set if they actually were in the data set.
 See also (\insertCite{ceyhan:Phd-thesis,ceyhan:comp-geo-2010,ceyhan:mcap2012;textual}{pcds}).
 }
 \examples{
-A<-c(1,1); B<-c(2,0); C<-c(1.5,2);
-#A<-runif(2); B<-runif(2); C<-runif(2);
-#A<-runif(2,1,100); B<-runif(2,1,100); C<-runif(2,1,100);
-Tr<-rbind(A,B,C);
-n<-10
+\dontrun{
+c1<-.4; c2<-.6;
+A<-c(0,0); B<-c(1,0); C<-c(c1,c2);
+Tb<-rbind(A,B,C)
+n<-20
 
 #set.seed(1)
-dat<-runif.tri(n,Tr)$g
+dat<-runif.bastri(n,c1,c2)$g
 #dat<-cbind(runif(n),runif(n))
 #dat<-cbind(runif(n,1,2),runif(n,0,2))
 
-M<-as.numeric(runif.tri(1,Tr)$g)
-#M<-c(1.6,1.2)
-#M<-circ.cent.tri(Tr); #M<-"CC"; #M<-"CM"
+M<-as.numeric(runif.bastri(1,c1,c2)$g)
+#M<-c(.6,.2)
+#M<-circ.cent.tri(Tb); #M<-"CC"; #M<-"CM"
 #M<-c(1,1,1) #M<-c(1,2,3) #M<-c(-1,2,3) #barycentric coordinates
 #M<-c(1.3,1.3)
 #M<-c(.3,.3)
 
-Gam1AStri(dat[1,],dat,Tr,M)
-Gam1AStri(dat[1,],dat[1,],Tr,M)
-Gam1AStri(c(1.5,1.5),c(1.6,1),Tr,M)
-Gam1AStri(c(1.6,1),c(1.5,1.5),Tr,M)
+Gam2ASbastri(dat[1,],dat[2,],dat,c1,c2,M)
+Gam2ASbastri(dat[1,],dat[1,],dat,c1,c2,M) #one point can not a dominating set of size two
 
-gam.vec<-vector()
-for (i in 1:n)
-{gam.vec<-c(gam.vec,Gam1AStri(dat[i,],dat,Tr,M))}
+Gam2ASbastri(c(.2,.4),c(.2,.5),rbind(c(.2,.4),c(.2,.5)),c1,c2,M)
 
-ind.gam1<-which(gam.vec==1)
-ind.gam1
+ind.gam2<-vector()
+for (i in 1:(n-1))
+  for (j in (i+1):n)
+  {if (Gam2ASbastri(dat[i,],dat[j,],dat,c1,c2,M)==1)
+    ind.gam2<-rbind(ind.gam2,c(i,j))}
+ind.gam2
 
 #or try
-Rv<-rv.triCC(dat[1,],Tr)$rv
-Gam1AStri(dat[1,],dat,Tr,M,Rv)
+rv1<-rv.bastriCC(dat[1,],c1,c2)$rv
+rv2<-rv.bastriCC(dat[2,],c1,c2)$rv
+Gam2ASbastri(dat[1,],dat[2,],dat,c1,c2,M,rv1,rv2)
+Gam2ASbastri(c(.2,.4),dat[2,],dat,c1,c2,M,rv1,rv2)
 
-Gam1AStri(c(1.5,1.1),dat,Tr,M)
-Gam1AStri(c(1.5,1.1),dat,Tr,M,ch.data.pnt=TRUE)
+#or try
+rv1<-rv.bastriCC(dat[1,],c1,c2)$rv
+Gam2ASbastri(dat[1,],dat[2,],dat,c1,c2,M,rv1)
 
-Gam1AStri(c(.2,.4),dat,Tr,M)
-Gam1AStri(c(.2,.4),c(.2,.4),Tr,M)
+#or try
+Rv2<-rv.bastriCC(dat[2,],c1,c2)$rv
+Gam2ASbastri(dat[1,],dat[2,],dat,c1,c2,M,rv2=Rv2)
 
-dat2<-rbind(dat,c(.2,.4))
-Gam1AStri(dat[1,],dat2,Tr,M)
-
-if (dimension(M)==3) {M<-bary2cart(M,Tr)} #need to run this when M is given in barycentric coordinates
-
-CC<-circ.cent.tri(Tr) #the circumcenter
-
-if (isTRUE(all.equal(M,CC)) || identical(M,"CC"))
-{cent<-CC
-D1<-(B+C)/2; D2<-(A+C)/2; D3<-(A+B)/2;
-Ds<-rbind(D1,D2,D3)
-cent.name<-"CC"
-} else
-{cent<-M
-cent.name<-"M"
-Ds<-cp2e.tri(Tr,M)
-D1<-Ds[1,]; D2<-Ds[2,]; D3<-Ds[3,]
-}
-
-Xlim<-range(Tr[,1],dat[,1])
-Ylim<-range(Tr[,2],dat[,2])
-xd<-Xlim[2]-Xlim[1]
-yd<-Ylim[2]-Ylim[1]
-
-plot(A,pch=".",xlab="",ylab="",xlim=Xlim+xd*c(-.05,.05),ylim=Ylim+yd*c(-.05,.05))
-polygon(Tr)
-points(dat)
-L<-rbind(cent,cent,cent); R<-Ds
-segments(L[,1], L[,2], R[,1], R[,2], lty=2)
-points(rbind(dat[ind.gam1,]),pch=4,col=2)
-
-txt<-rbind(Tr,cent,Ds)
-xc<-txt[,1]#+c(-.06,.08,.06,.12,-.09,-.1,-.09)
-yc<-txt[,2]#+c(.02,-.02,.03,.0,.0,.06,-.04)
-txt.str<-c("A","B","C",cent.name,"D1","D2","D3")
-text(xc,yc,txt.str)
-
-Gam1AStri(c(1.5,1.1),dat,Tr,M)
+Gam2ASbastri(c(.3,.2),c(.35,.25),dat,c1,c2,M)
 
 dat.fr<-data.frame(a=dat)
-Gam1AStri(c(1.5,1.1),dat.fr,Tr,M)
-
-dat.fr<-data.frame(a=Tr)
-Gam1AStri(c(1.5,1.1),dat,dat.fr,M)
-
+Gam2ASbastri(c(.3,.2),c(.35,.25),dat.fr,c1,c2,M)
+}
 
 }
 \references{

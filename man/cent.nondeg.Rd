@@ -11,86 +11,62 @@ cent.nondeg(tri, r)
 \item{tri}{Three 2D points, stacked row-wise, each row representing a vertex of the triangle}
 
 \item{r}{A positive real number which serves as the expansion parameter in PE proximity region;
-must be in (1,1.5] for this function}
+must be in \eqn{(1,1.5]} for this function}
 }
 \value{
 The centers (stacked row-wise) which give nondegenerate asymptotic distribution
-for the domination number of PE-PCD for uniform data in a triangle, tri.
+for the domination number of PE-PCD for uniform data in a triangle, \code{tri}.
 }
 \description{
 Returns the centers which yield nondegenerate asymptotic distribution for the domination number
-of PE-PCD for uniform data in a triangle, tri=T(v1,v2,v3). PE proximity region is defined with
-respect to the triangle tri with expansion parameter r>=1 in (1,1.5].
+of PE-PCD for uniform data in a triangle, \eqn{tri=T(v_1,v_2,v_3)}.
+
+PE proximity region is defined with
+respect to the triangle \code{tri} with expansion parameter \code{r} in \eqn{(1,1.5]}.
+
 Vertex regions are defined with the centers that are output of this function.
 Centers are stacked row-wise with row number is corresponding to the vertex
-row number in tri (see the examples for an illustration). center label cent values 1,2,3 correspond
-to the vertices M1,M2,and M3 (which are the three centers for r in (1,1.5) which becomes center of mass
-for r=1.5.).
+row number in \code{tri} (see the examples for an illustration). The center labels 1,2,3 correspond
+to the vertices \eqn{M_1}, \eqn{M_2}, and \eqn{M_3} (which are the three centers for \code{r} in \eqn{(1,1.5)} which becomes center of mass
+for \eqn{r=1.5}.).
 See also (\insertCite{ceyhan:Phd-thesis,ceyhan:masa-2007,ceyhan:dom-num-NPE-Spat2011,ceyhan:mcap2012;textual}{pcds}).
 }
 \examples{
 A<-c(1,1); B<-c(2,0); C<-c(1.5,2);
+#c1<-.4; c2<-.6; A<-c(0,0); B<-c(1,0); C<-c(c1,c2);
+#A<-c(0,0); B<-c(1,0); C<-c(1/2,sqrt(3)/2);
 #A<-runif(2); B<-runif(2); C<-runif(2);
 #A<-runif(2,1,100); B<-runif(2,1,100); C<-runif(2,1,100);
 Tr<-rbind(A,B,C);
+r<-1.35
 
-P<-c(.4,.2)
-rverts.triCM(P,Tr)
+Ms<-cent.nondeg(Tr,r)
+Ms
 
-P<-c(1.8,.5)
-rverts.triCM(P,Tr)
-
-P<-c(10.5,1.6)
-rverts.triCM(P,Tr)
-
-n<-20
-#set.seed(1)
-dat<-runif.tri(n,Tr)$g
-#dat<-cbind(runif(n,1,2),runif(n,0,1))
-#dat<-cbind(runif(n),runif(n))
-
-rverts.triCM(dat,Tr)
-rverts.triCM(rbind(dat,c(2,2)),Tr)
-
-rv<-rverts.triCM(dat,Tr)
-rv
-
-CM<-(A+B+C)/3
-D1<-(B+C)/2; D2<-(A+C)/2; D3<-(A+B)/2;
-Ds<-rbind(D1,D2,D3)
-
-Xlim<-range(Tr[,1],dat[,1])
-Ylim<-range(Tr[,2],dat[,2])
+Xlim<-range(Tr[,1])
+Ylim<-range(Tr[,2])
 xd<-Xlim[2]-Xlim[1]
 yd<-Ylim[2]-Ylim[1]
 
 plot(Tr,pch=".",xlab="",ylab="",axes=TRUE,xlim=Xlim+xd*c(-.05,.05),ylim=Ylim+yd*c(-.05,.05))
 polygon(Tr)
-points(dat,pch=".",col=1)
-L<-matrix(rep(CM,3),ncol=3,byrow=T); R<-Ds
-segments(L[,1], L[,2], R[,1], R[,2], lty=2)
+points(Ms,pch=".",col=1)
+polygon(Ms,lty=2)
 
-xc<-Tr[,1]#+c(-.04,.05,.05)
-yc<-Tr[,2]#+c(-.05,.05,.03)
-txt.str<-c("rv=1","rv=2","rv=3")
+xc<-Tr[,1]#+c(-.02,.02,.02)
+yc<-Tr[,2]#+c(.02,.02,.03)
+txt.str<-c("A","B","C")
 text(xc,yc,txt.str)
 
-txt<-rbind(CM,Ds)
-xc<-txt[,1]#+c(.04,.04,-.03,0)
-yc<-txt[,2]#+c(-.07,.04,.06,-.08)
-txt.str<-c("CM","D1","D2","D3")
+xc<-Ms[,1]#+c(-.04,.04,.03)
+yc<-Ms[,2]#+c(.02,.02,.05)
+txt.str<-c("M1","M2","M3")
 text(xc,yc,txt.str)
 
-text(dat,labels=factor(rv$rv))
-
-P<-c(1.8,.5)
-rverts.triCM(P,Tr)
-
-dat.fr<-data.frame(a=dat)
-rverts.triCM(dat.fr,Tr)
+cent.nondeg(Tr,r)
 
 dat.fr<-data.frame(a=Tr)
-rverts.triCM(dat,dat.fr)
+cent.nondeg(dat.fr,r)
 
 }
 \references{

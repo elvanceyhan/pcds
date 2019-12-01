@@ -10,67 +10,54 @@ circ.cent.tri(tri)
 \item{tri}{Three 2D points, stacked row-wise, each row representing a vertex of the triangle}
 }
 \value{
-circumcenter of the triangle tri
+circumcenter of the triangle \code{tri}
 }
 \description{
-Returns the circumcenter a given triangle, tri, with vertices stacked row-wise.
+Returns the circumcenter a given triangle, \code{tri}, with vertices stacked row-wise.
 See (\insertCite{weisstein-tri-centers,ceyhan:comp-geo-2010;textual}{pcds}) for triangle centers.
 }
 \examples{
-c1<-.4; c2<-.6;
-A<-c(0,0); B<-c(1,0); C<-c(c1,c2);  #the vertices of the basic triangle Tb
-Tb<-rbind(A,B,C)
-CC<-circ.cent.bastri(c1,c2) #the circumcenter
+A<-c(1,1); B<-c(2,0); C<-c(1.5,2);
+#A<-runif(2); B<-runif(2); C<-runif(2);
+#A<-runif(2,1,100); B<-runif(2,1,100); C<-runif(2,1,100);
+Tr<-rbind(A,B,C);  #the vertices of the triangle T
+
+CC<-circ.cent.tri(Tr) #the circumcenter
 CC
 
 D1<-(B+C)/2; D2<-(A+C)/2; D3<-(A+B)/2; #midpoints of the edges
 Ds<-rbind(D1,D2,D3)
 
-Xlim<-range(Tb[,1])
-Ylim<-range(Tb[,2])
+Xlim<-range(Tr[,1],CC[1])
+Ylim<-range(Tr[,2],CC[2])
 xd<-Xlim[2]-Xlim[1]
 yd<-Ylim[2]-Ylim[1]
 
 #par(pty="s")
-plot(A,pch=".",asp=1,xlab="",ylab="",axes=TRUE,xlim=Xlim+xd*c(-.05,.05),ylim=Ylim+yd*c(-.05,.05))
-polygon(Tb)
+plot(A,asp=1,pch=".",xlab="",ylab="",axes=TRUE,xlim=Xlim+xd*c(-.05,.05),ylim=Ylim+yd*c(-.05,.05))
+polygon(Tr)
 points(rbind(CC))
-L<-matrix(rep(CC,3),ncol=3,byrow=T); R<-Ds
+L<-matrix(rep(CC,3),ncol=2,byrow=TRUE); R<-Ds
 segments(L[,1], L[,2], R[,1], R[,2], lty=2)
 
-txt<-rbind(Tb,CC,D1,D2,D3)
-xc<-txt[,1]+c(-.03,.04,.03,.06,.06,-.03,0)
-yc<-txt[,2]+c(.02,.02,.03,-.03,.02,.04,-.03)
+txt<-rbind(Tr,CC,Ds)
+xc<-txt[,1]#+c(-.08,.08,.08,.12,-.09,-.1,-.09)
+yc<-txt[,2]#+c(.02,-.02,.03,-.06,.02,.06,-.04)
 txt.str<-c("A","B","C","CC","D1","D2","D3")
 text(xc,yc,txt.str)
 
-#for an obtuse triangle
-c1<-.4; c2<-.3;
-A<-c(0,0); B<-c(1,0); C<-c(c1,c2);  #the vertices of the basic triangle Tb
-Tb<-rbind(A,B,C)
-CC<-circ.cent.bastri(c1,c2) #the circumcenter
-CC
+##
 
-D1<-(B+C)/2; D2<-(A+C)/2; D3<-(A+B)/2; #midpoints of the edges
-Ds<-rbind(D1,D2,D3)
+A<-c(0,0); B<-c(1,0); C<-c(1/2,sqrt(3)/2);
+Te<-rbind(A,B,C);  #the vertices of the triangle T
+circ.cent.tri(Te) #the circumcenter
 
-Xlim<-range(Tb[,1],CC[1])
-Ylim<-range(Tb[,2],CC[2])
-xd<-Xlim[2]-Xlim[1]
-yd<-Ylim[2]-Ylim[1]
+A<-c(0,0); B<-c(0,1); C<-c(2,0);
+Tr<-rbind(A,B,C);  #the vertices of the triangle T
+circ.cent.tri(Tr) #the circumcenter
 
-#par(pty="s")
-plot(A,pch=".",asp=1,xlab="",ylab="",axes=TRUE,xlim=Xlim+xd*c(-.05,.05),ylim=Ylim+yd*c(-.05,.05))
-polygon(Tb)
-points(rbind(CC))
-L<-matrix(rep(CC,3),ncol=3,byrow=T); R<-Ds
-segments(L[,1], L[,2], R[,1], R[,2], lty=2)
-
-txt<-rbind(Tb,CC,D1,D2,D3)
-xc<-txt[,1]+c(-.03,.03,.03,.07,.07,-.05,0)
-yc<-txt[,2]+c(.02,.02,.04,-.03,.03,.04,.06)
-txt.str<-c("A","B","C","CC","D1","D2","D3")
-text(xc,yc,txt.str)
+dat.fr<-data.frame(a=Tr)
+circ.cent.tri(dat.fr)
 
 }
 \references{

@@ -11,54 +11,52 @@ IncMatASMT(Xp, Yp, M = "CC")
 
 \item{Yp}{A set of 2D points which constitute the vertices of the Delaunay triangles}
 
-\item{M}{"CC" which stand for circumcenter of each Delaunay triangle tri or 3D point in barycentric
+\item{M}{"CC" which stands for circumcenter of each Delaunay triangle \code{tri} or 3D point in barycentric
 coordinates which serves as a center in the interior of each Delaunay triangle;
-default is M="CC" i.e. the circumcenter of each triangle}
+default is \code{M}="CC" i.e. the circumcenter of each triangle}
 }
 \value{
-Incidence matrix for the AS-PCD whose vertices are the 2D data set, dat,
-and AS proximity regions are defined in the Delaunay triangles based on Yp points.
+Incidence matrix for the AS-PCD whose vertices are the 2D data set, \code{Xp},
+and AS proximity regions are defined in the Delaunay triangles based on \code{Yp} points.
 }
 \description{
-Returns the incidence matrix for the AS-PCD whose vertices are a given 2D numerical data set, Xp,
-in the convex hull of Yp which is partitioned by the Delaunay triangles based on Yp points.
-AS proximity regions are defined with respec to the Delaunay triangles based on Yp points and vertex
-regions are based on the center M="CC"
-for circumcenter of each Delaunay triangle or M=(alpha,beta,gamma) in barycentric coordinates in the
-interior of each Delaunay triangle; default is M="CC" i.e. circumcenter of each triangle.
+Returns the incidence matrix for the AS-PCD whose vertices are a given 2D numerical data set, \code{Xp},
+in the convex hull of \code{Yp} which is partitioned by the Delaunay triangles based on \code{Yp} points.
+
+AS proximity regions are defined with respect to the Delaunay triangles based on \code{Yp} points and vertex
+regions are based on the center \code{M}="CC"
+for circumcenter of each Delaunay triangle or \eqn{M=(\alpha,\beta,\gamma)} in barycentric coordinates in the
+interior of each Delaunay triangle; default is \code{M}="CC" i.e. circumcenter of each triangle.
 Loops are allowed, so the diagonal entries are all equal to 1.
 See (\insertCite{ceyhan:Phd-thesis,ceyhan:comp-geo-2010,ceyhan:mcap2012;textual}{pcds}) for more on AS-PCDs.
 Also see (\insertCite{okabe:2000,ceyhan:comp-geo-2010,renka:1996;textual}{pcds}) for more on Delaunay triangulation
-and the tripack algorithm.
+and the TRIPACK algorithm.
 }
 \examples{
-A<-c(1,1); B<-c(2,0); C<-c(1.5,2);
-#A<-runif(2); B<-runif(2); C<-runif(2);
-#A<-runif(2,1,100); B<-runif(2,1,100); C<-runif(2,1,100);
-Tr<-rbind(A,B,C);
-n<-10
+nx<-100
+ny<-10
 
 #set.seed(1)
-dat<-runif.tri(n,Tr)$g
-#dat<-cbind(runif(n,1,2),runif(n,0,2))
-#dat<-cbind(runif(n),runif(n))
-#dat<-c(.5,.5)
+Xp<-cbind(runif(nx,0,1),runif(nx,0,1))
+#Xp<-cbind(runif(nx,0.5,1.5),runif(nx,0,1))
+#Xp<-cbind(runif(nx,1,2),runif(nx,0,1))
+Yp<-cbind(runif(ny,0,1),runif(ny,0,1))
+#Xp<-c(.5,.5)
 
-M<-as.numeric(runif.tri(1,Tr)$g)
-#M<-c(1.6,1.2)
-#M<-circ.cent.tri(Tr); #M<-"CC"; #M<-"CM"
+M<-"CC"
 #M<-c(1,1,1) #M<-c(1,2,3) #M<-c(-1,2,3) #barycentric coordinates
 #M<-c(1.3,1.3)
-#M<-c(.3,.3)
 
-IM<-IncMatAStri(dat,Tr,M)
+IM<-IncMatASMT(Xp,Yp,M)
 IM
 
 dom.greedy(IM)
-dom.exact(IM)
+#dom.exact(IM) #this might take a long time for large  nx
 
-dat.fr<-data.frame(a=dat)
-IncMatAStri(dat.fr,Tr,M)
+IncMatASMT(Xp,rbind(Yp,Yp))
+
+dat.fr<-data.frame(a=Xp)
+IncMatASMT(dat.fr,Yp,M)
 
 }
 \references{

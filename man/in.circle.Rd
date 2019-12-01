@@ -14,54 +14,39 @@ in.circle(pt, cent, rad, boundary = FALSE)
 \item{rad}{A positive real number which serves as the radius of the circle}
 
 \item{boundary}{A logical parameter (default=FALSE) to include boundary or not, so if it is TRUE,
-the function checks if the point, pt, lies in the closure of the circle (i.e. interior and boundary combined)
-else it checks if pt lies in the interior of the circle.}
+the function checks if the point, \code{pt}, lies in the closure of the circle (i.e. interior and
+boundary combined) else it checks if \code{pt} lies in the interior of the circle.}
 }
 \value{
-Indicator for the point pt being inside the circle or not, i.e., returns 1 or TRUE
-if pt is inside the circle, and 0 otherwise.
+Indicator for the point \code{pt} being inside the circle or not, i.e., returns 1 or TRUE
+if \code{pt} is inside the circle, and 0 otherwise.
 }
 \description{
-Checks if the point pt lies in the circle with center cent and radius rad, denoted as C(cent,rad).
-So, it returns 1 or TRUE if pt is inside the circle, and 0 otherwise.
-boundary is a logical argument (default=FALSE) to include boundary or not, so if it is TRUE,
-the function checks if the point, pt, lies in the closure of the circle (i.e. interior and boundary combined)
-else it checks if pt lies in the interior of the circle.
+Checks if the point \code{pt} lies in the circle with center \code{cent} and radius \code{rad},
+denoted as \code{C(cent,rad)}. So, it returns 1 or TRUE if \code{pt} is inside the circle, and 0 otherwise.
+\code{boundary} is a logical argument (default=FALSE) to include boundary or not, so if it is TRUE,
+the function checks if the point, \code{pt}, lies in the closure of the circle (i.e. interior and
+boundary combined) else it checks if \code{pt} lies in the interior of the circle.
 }
 \examples{
-c1<-.4; c2<-.6
-A<-c(0,0); B<-c(1,0); C<-c(c1,c2);
-Tb<-rbind(A,B,C);
-n<-100
+cent<-c(1,1); rad<-1; p<-c(1.4,1.2)
 
-#set.seed(1)
-runif.bastri(1,c1,c2)
-Xdt<-runif.bastri(n,c1,c2)
-Xdt
-summary(Xdt)
-plot(Xdt)
+#cent<-runif(2); rad<-runif(1); p<-runif(2);
+in.circle(p,cent,rad)
 
-dat<-runif.bastri(n,c1,c2)$g
+p<-c(.4,-.2)
+in.circle(p,cent,rad)
 
-Xlim<-range(Tb[,1])
-Ylim<-range(Tb[,2])
-xd<-Xlim[2]-Xlim[1]
-yd<-Ylim[2]-Ylim[1]
+p<-c(1,0)
+in.circle(p,cent,rad)
+in.circle(p,cent,rad,boundary=TRUE)
 
-plot(Tb,xlab="",ylab="",xlim=Xlim+xd*c(-.01,.01),ylim=Ylim+yd*c(-.01,.01),type="n")
-polygon(Tb)
-points(dat)
+#for a NA entry point
+p<-c(NA,.2)
+in.circle(p,cent,rad)
 
-runif.bastri(n,.6,.6)
-runif.bastri(1,c(.2,.4),.6)
-
-runif.bastri(1,"a",.6)
-
-}
-\references{
-\insertAllCited{}
 }
 \seealso{
 \code{\link{in.triangle}}, \code{\link{in.tetrahedron}},  and
-\code{\link{in.convex.hull}} from the tripack package
+\code{\link[tripack]{in.convex.hull}} from the \code{tripack} package
 }

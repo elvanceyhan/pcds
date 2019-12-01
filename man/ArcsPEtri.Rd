@@ -2,7 +2,7 @@
 % Please edit documentation in R/PCDFunctions.r
 \name{ArcsPEtri}
 \alias{ArcsPEtri}
-\title{An object of class "Digraphs"
+\title{An object of class "Digraphs":
 
 The arcs of Proportional Edge Proximity Catch Digraph (PE-PCD) for 2D data - one triangle case}
 \usage{
@@ -13,11 +13,11 @@ ArcsPEtri(Xp, tri, r, M = c(1, 1, 1))
 
 \item{tri}{Three 2D points, stacked row-wise, each row representing a vertex of the triangle}
 
-\item{r}{A positive real number which serves as the expansion parameter in PE proximity region; must be >= 1}
+\item{r}{A positive real number which serves as the expansion parameter in PE proximity region; must be \eqn{\ge 1}}
 
 \item{M}{A 2D point in Cartesian coordinates or a 3D point in barycentric coordinates
-which serves as a center in the interior of the triangle tri or the circumcenter of tri;
-default is M=c(1,1,1) i.e. the center of mass of tri}
+which serves as a center in the interior of the triangle \code{tri} or the circumcenter of \code{tri};
+default is \eqn{M=(1,1,1)} i.e. the center of mass of \code{tri}}
 }
 \value{
 A list with the elements
@@ -26,22 +26,26 @@ A list with the elements
 \item{tess.points}{Points on which the tessellation of the study region is performed, here, tessellation
 is the support triangle.}
 \item{tess.name}{Name of data set used in tessellation (i.e., vertices of the triangle)}
-\item{vertices}{Vertices of the digraph, Xp points}
+\item{vertices}{Vertices of the digraph, \code{Xp} points}
 \item{vert.name}{Name of the data set which constitute the vertices of the digraph}
-\item{S}{tails (or sources) of the arcs of PE-PCD for 2D data Xp as vertices of the digraph}
-\item{E}{heads (or arrow ends) of the arcs of PE-PCD for 2D data Xp as vertices of the digraph}
-\item{mtxt}{Text for "main" title in the plot of the digraph}
+\item{S}{tails (or sources) of the arcs of PE-PCD for 2D data set \code{Xp} as vertices of the digraph}
+\item{E}{heads (or arrow ends) of the arcs of PE-PCD for 2D data set \code{Xp} as vertices of the digraph}
+\item{mtitle}{Text for "main" title in the plot of the digraph}
 \item{quant}{Various quantities for the digraph: number of vertices, number of partition points,
 number of intervals, number of arcs, and arc density.}
 }
 \description{
-Returns arcs as tails (or sources) and heads (or arrow ends) for data set Xp as the vertices
-of PE-PCD. PE proximity regions are constructed with respect to the triangle tri with expansion
-parameter r>=1, i.e., arcs may exist for points only inside tri.
+Returns arcs as tails (or sources) and heads (or arrow ends) for data set \code{Xp} as the vertices
+of PE-PCD.
+
+PE proximity regions are constructed with respect to the triangle \code{tri} with expansion
+parameter \eqn{r \ge 1}, i.e., arcs may exist for points only inside \code{tri}.
 It also provides various descriptions and quantities about the arcs of the PE-PCD
-such as number of arcs, arc density, etc. Vertex regions are based on center M=(m1,m2)
-in Cartesian coordinates or M=(alpha,beta,gamma) in barycentric coordinates in the interior of
-the triangle tri or based on the circumcenter of tri; default is M=c(1,1,1) i.e. the center of mass of tri.
+such as number of arcs, arc density, etc.
+
+Vertex regions are based on center \eqn{M=(m_1,m_2)}
+in Cartesian coordinates or \eqn{M=(\alpha,\beta,\gamma)} in barycentric coordinates in the interior of
+the triangle \code{tri} or based on the circumcenter of \code{tri}; default is \eqn{M=(1,1,1)} i.e. the center of mass of \code{tri}.
 See also (\insertCite{ceyhan:Phd-thesis,ceyhan:arc-density-PE;textual}{pcds}).
 }
 \examples{
@@ -52,9 +56,10 @@ Tr<-rbind(A,B,C);
 n<-10
 
 #set.seed(1)
-dat<-runif.tri(n,Tr)$gen.points
+dat<-runif.tri(n,Tr)$g
+#dat<-cbind(runif(n,1,2),runif(n,0,2))
 #dat<-cbind(runif(n),runif(n))
-#dat<-cbind(runif(n,1,2),runif(n,0,1))
+#dat<-c(1.4,1)
 
 M<-as.numeric(runif.tri(1,Tr)$g)
 #M<-c(1.6,1.0)
@@ -63,34 +68,50 @@ M<-as.numeric(runif.tri(1,Tr)$g)
 #M<-c(1.3,1.3)
 #M<-c(.3,.3)
 r<-1.5
+#r<-2
 
-S<-rbind(dat[1,],dat[2,])
-IndNPEtri.domset(S,dat,r,Tr,M)
+ArcsPEtri(dat,Tr,r,M)
 
-S<-rbind(dat[1,],dat[2,],dat[3,],dat[5,])
-IndNPEtri.domset(S,dat,r,Tr,M)
+Arcs<-ArcsPEtri(dat,Tr,r,M)
+Arcs
+summary(Arcs)
+plot(Arcs)
 
-S<-rbind(c(.1,.1),c(.3,.4),c(.5,.3))
-IndNPEtri.domset(S,dat,r,Tr,M)
+S<-Arcs$S
+E<-Arcs$E
 
-IndNPEtri.domset(c(.2,.5),dat,r,Tr,M)
-IndNPEtri.domset(c(.2,.5),c(.2,.5),r,Tr,M)
+Xlim<-range(Tr[,1],dat[,1],M[1])
+Ylim<-range(Tr[,2],dat[,2],M[2])
+xd<-Xlim[2]-Xlim[1]
+yd<-Ylim[2]-Ylim[1]
 
-IndNPEtri.domset(dat[5,],dat[2,],r,Tr,M)
+Ds<-cp2e.tri(Tr,M)
 
-S<-rbind(dat[1,],dat[2,],dat[3,],dat[5,],c(.2,.5))
-IndNPEtri.domset(S,dat[3,],r,Tr,M)
+if (dimension(M)==3) {M<-bary2cart(M,Tr)}
+#need to run this when M is given in barycentric coordinates
 
-IndNPEtri.domset(dat,dat,r,Tr,M)
+plot(Tr,pch=".",xlab="",ylab="",axes=TRUE,
+xlim=Xlim+xd*c(-.05,.05),ylim=Ylim+yd*c(-.05,.05))
+polygon(Tr)
+points(dat,pch=1,col=1)
+L<-rbind(M,M,M); R<-Ds
+segments(L[,1], L[,2], R[,1], R[,2], lty=2)
+arrows(S[,1], S[,2], E[,1], E[,2], length = 0.1, col= 4)
 
-P<-c(.4,.2)
-S<-dat[c(1,3,4),]
-IndNPEtri.domset(dat,P,r,Tr,M)
+txt<-rbind(Tr,M,Ds)
+xc<-txt[,1]#+c(-.02,.03,.02,.03,.04,-.03,-.01)
+yc<-txt[,2]#+c(.02,.02,.03,.06,.04,.05,-.07)
+txt.str<-c("A","B","C","M","D1","D2","D3")
+text(xc,yc,txt.str)
 
-IndNPEtri.domset(rbind(S,S),dat,r,Tr,M)
+r<-2
+ArcsPEtri(dat,Tr,r,M)
 
 dat.fr<-data.frame(a=dat)
-IndNPEtri.domset(S,dat.fr,r,Tr,M)
+ArcsPEtri(dat.fr,Tr,r,M)
+
+dat.fr<-data.frame(a=Tr)
+ArcsPEtri(dat,dat.fr,r,M)
 
 }
 \references{

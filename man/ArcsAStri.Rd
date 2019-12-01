@@ -2,7 +2,7 @@
 % Please edit documentation in R/PCDFunctions.r
 \name{ArcsAStri}
 \alias{ArcsAStri}
-\title{An object of class "Digraphs"
+\title{An object of class "Digraphs":
 
 The arcs of Arc Slice Proximity Catch Digraph (AS-PCD) for 2D data - one triangle case}
 \usage{
@@ -13,9 +13,9 @@ ArcsAStri(Xp, tri, M = "CC")
 
 \item{tri}{Three 2D points, stacked row-wise, each row representing a vertex of the triangle}
 
-\item{M}{"CC" which stand for circumcenter of the triangle tri or a 2D point in Cartesian coordinates or a 3D point in
-barycentric coordinates which serves as a center in the interior of the triangle Tb;
-default is M="CC" i.e. the circumcenter of tri}
+\item{M}{"CC" which stands for circumcenter of the triangle \code{tri} or a 2D point in Cartesian coordinates or a 3D point in
+barycentric coordinates which serves as a center in the interior of the triangle \eqn{T_b};
+default is \code{M}="CC" i.e. the circumcenter of \code{tri}}
 }
 \value{
 A list with the elements
@@ -25,22 +25,26 @@ i.e., circumcenter}
 \item{tess.points}{Points on which the tessellation of the study region is performed, here, tessellation
 is the support triangle.}
 \item{tess.name}{Name of data set used in tessellation (i.e., vertices of the triangle).}
-\item{vertices}{Vertices of the digraph, Xp.}
+\item{vertices}{Vertices of the digraph, \code{Xp}.}
 \item{vert.name}{Name of the data set which constitute the vertices of the digraph}
-\item{S}{tails (or sources) of the arcs of AS-PCD for 2D data Xp as vertices of the digraph}
-\item{E}{heads (or arrow ends) of the arcs of AS-PCD for 2D data Xp as vertices of the digraph}
-\item{mtxt}{Text for "main" title in the plot of the digraph}
+\item{S}{tails (or sources) of the arcs of AS-PCD for 2D data set \code{Xp} as vertices of the digraph}
+\item{E}{heads (or arrow ends) of the arcs of AS-PCD for 2D data set \code{Xp} as vertices of the digraph}
+\item{mtitle}{Text for "main" title in the plot of the digraph}
 \item{quant}{Various quantities for the digraph: number of vertices, number of partition points,
 number of intervals, number of arcs, and arc density.}
 }
 \description{
-Returns arcs as tails (or sources) and heads (or arrow ends) for data set Xp as the vertices
-of AS-PCD. AS proximity regions are constructed with respect to the triangle tri, i.e.,
-arcs may exist for points only inside tri.
+Returns arcs as tails (or sources) and heads (or arrow ends) for data set \code{Xp} as the vertices
+of AS-PCD.
+
+AS proximity regions are constructed with respect to the triangle \code{tri}, i.e.,
+arcs may exist for points only inside \code{tri}.
 It also provides various descriptions and quantities about the arcs of the AS-PCD
-such as number of arcs, arc density, etc. Vertex regions are based on the center M="CC" for
-circumcenter of tri; or M=(m1,m2) in Cartesian coordinates or M=(alpha,beta,gamma) in barycentric
-coordinates in the interior of the triangle tri; default is M="CC" the circumcenter of tri.
+such as number of arcs, arc density, etc.
+
+Vertex regions are based on the center \code{M}="CC" for
+circumcenter of \code{tri}; or \eqn{M=(m_1,m_2)} in Cartesian coordinates or \eqn{M=(\alpha,\beta,\gamma)} in barycentric
+coordinates in the interior of the triangle \code{tri}; default is \code{M}="CC" the circumcenter of \code{tri}.
 See also (\insertCite{ceyhan:Phd-thesis,ceyhan:comp-geo-2010,ceyhan:mcap2012;textual}{pcds}).
 }
 \examples{
@@ -52,54 +56,65 @@ n<-10
 
 #set.seed(1)
 dat<-runif.tri(n,Tr)$g
-#dat<-cbind(runif(n),runif(n))
 #dat<-cbind(runif(n,1,2),runif(n,0,2))
+#dat<-cbind(runif(n),runif(n))
+#dat<-c(1.4,1)
 
 M<-as.numeric(runif.tri(1,Tr)$g)
 #M<-c(1.6,1.2)
-#M<-circ.cent.tri(Tr); #M<-"CC"; #M<-"CM"
+#M<-circ.cent.tri(Tb); #M<-"CC"; #M<-"CM"
 #M<-c(1,1,1) #M<-c(1,2,3) #M<-c(-1,2,3) #barycentric coordinates
 #M<-c(1.3,1.3)
 #M<-c(.3,.3)
 
-Gam2AStri(dat[1,],dat[2,],dat,Tr,M)
-Gam2AStri(dat[1,],dat[1,],dat,Tr,M) #same two points cannot be a dominating set of size 2
+ArcsAStri(dat,Tr,M)
 
-Gam2AStri(c(.2,.4),dat[2,],dat,Tr,M)
-Gam2AStri(c(.2,.4),c(.2,.5),dat,Tr,M)
-Gam2AStri(c(.2,.4),c(.2,.5),rbind(c(.2,.4),c(.2,.5)),Tr,M)
-#or try
-rv1<-rv.triCC(c(.2,.4),Tr)$rv
-rv2<-rv.triCC(c(.2,.5),Tr)$rv
-Gam2AStri(c(.2,.4),c(.2,.5),rbind(c(.2,.4),c(.2,.5)),Tr,M,rv1,rv2)
+Arcs<-ArcsAStri(dat,Tr,M)
+Arcs
+summary(Arcs)
+plot(Arcs)
 
-ind.gam2<-vector()
-for (i in 1:(n-1))
-  for (j in (i+1):n)
-  {if (Gam2AStri(dat[i,],dat[j,],dat,Tr,M)==1)
-    ind.gam2<-rbind(ind.gam2,c(i,j))}
-ind.gam2
+S<-Arcs$S
+E<-Arcs$E
 
-#or try
-rv1<-rv.triCC(dat[1,],Tr)$rv
-rv2<-rv.triCC(dat[2,],Tr)$rv
-Gam2AStri(dat[1,],dat[2,],dat,Tr,M,rv1,rv2)
+Xlim<-range(Tr[,1],dat[,1])
+Ylim<-range(Tr[,2],dat[,2])
+xd<-Xlim[2]-Xlim[1]
+yd<-Ylim[2]-Ylim[1]
 
-#or try
-rv1<-rv.triCC(dat[1,],Tr)$rv
-Gam2AStri(dat[1,],dat[2,],dat,Tr,M,rv1)
+if (dimension(M)==3) {M<-bary2cart(M,Tr)}
+#need to run this when M is given in barycentric coordinates
 
-#or try
-Rv2<-rv.triCC(dat[2,],Tr)$rv
-Gam2AStri(dat[1,],dat[2,],dat,Tr,M,rv2=Rv2)
+CC<-circ.cent.tri(Tr)
+if (isTRUE(all.equal(M,CC)) || identical(M,"CC"))
+{cent<-CC
+D1<-(B+C)/2; D2<-(A+C)/2; D3<-(A+B)/2;
+Ds<-rbind(D1,D2,D3)
+cent.name<-"CC"
+plot(Tr,pch=".",asp=1,xlab="",ylab="",axes=TRUE,
+xlim=Xlim+xd*c(-.05,.05),ylim=Ylim+yd*c(-.05,.05))
+} else
+{cent<-M
+cent.name<-"M"
+Ds<-cp2e.tri(Tr,M)
+D1<-Ds[1,]; D2<-Ds[2,]; D3<-Ds[3,]
+plot(Tr,pch=".",xlab="",ylab="",axes=TRUE,
+xlim=Xlim+xd*c(-.05,.05),ylim=Ylim+yd*c(-.05,.05))
+}
+polygon(Tr)
+points(dat,pch=1,col=1)
+L<-rbind(cent,cent,cent); R<-Ds
+segments(L[,1], L[,2], R[,1], R[,2], lty=2)
+arrows(S[,1], S[,2], E[,1], E[,2], length = 0.1, col= 4)
 
-Gam2AStri(c(1.3,1.2),c(1.35,1.25),dat,Tr,M)
+txt<-rbind(Tr,cent,Ds)
+xc<-txt[,1]#+c(-.02,.03,.02,.03,.04,-.03,-.01)
+yc<-txt[,2]#+c(.02,.02,.03,.06,.04,.05,-.07)
+txt.str<-c("A","B","C",cent.name,"D1","D2","D3")
+text(xc,yc,txt.str)
 
 dat.fr<-data.frame(a=dat)
-Gam2AStri(c(.3,.2),c(.35,.25),dat.fr,Tr,M)
-
-dat.fr<-data.frame(a=Tr)
-Gam2AStri(c(.3,.2),c(.35,.25),dat,dat.fr,M)
+ArcsAStri(dat.fr,Tr,M)
 
 }
 \references{
@@ -107,5 +122,5 @@ Gam2AStri(c(.3,.2),c(.35,.25),dat,dat.fr,M)
 }
 \seealso{
 \code{\link{ArcsASMT}}, \code{\link{ArcsPEtri}}, \code{\link{ArcsCStri}}, \code{\link{ArcsPEMT}},
- and \code{\link{ArcsCSMT}}
+and \code{\link{ArcsCSMT}}
 }

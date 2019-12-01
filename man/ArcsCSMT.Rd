@@ -2,7 +2,7 @@
 % Please edit documentation in R/PCDFunctions.r
 \name{ArcsCSMT}
 \alias{ArcsCSMT}
-\title{An object of class "Digraphs"
+\title{An object of class "Digraphs":
 
 The arcs of Central Similarity Proximity Catch Digraph (CS-PCD) for 2D data - multiple triangle case}
 \usage{
@@ -16,79 +16,87 @@ ArcsCSMT(Xp, Yp, t, M = c(1, 1, 1))
 \item{t}{A positive real number which serves as the expansion parameter in CS proximity region}
 
 \item{M}{A 3D point in barycentric coordinates which serves as a center in the interior of each Delaunay
-triangle, default for M is c(1,1,1) which is the center of mass of each triangle}
+triangle, default for \eqn{M=(1,1,1)} which is the center of mass of each triangle}
 }
 \value{
 A list with the elements
 \item{type}{A description of the type of the digraph}
 \item{parameters}{Parameters of the digraph, here, it is the center used to construct the vertex regions.}
 \item{tess.points}{Points on which the tessellation of the study region is performed, here, tessellation
-is Delaunay triangulation based on Yp points.}
-\item{tess.name}{Name of data set used in tessellation, it is Yp for this function}
-\item{vertices}{Vertices of the digraph, Xp points}
+is Delaunay triangulation based on \code{Yp} points.}
+\item{tess.name}{Name of data set used in tessellation, it is \code{Yp} for this function}
+\item{vertices}{Vertices of the digraph, \code{Xp} points}
 \item{vert.name}{Name of the data set which constitute the vertices of the digraph}
-\item{S}{tails (or sources) of the arcs of CS-PCD for 2D data Xp as vertices of the digraph}
-\item{E}{heads (or arrow ends) of the arcs of CS-PCD for 2D data Xp as vertices of the digraph}
-\item{mtxt}{Text for "main" title in the plot of the digraph}
+\item{S}{tails (or sources) of the arcs of CS-PCD for 2D data set \code{Xp} as vertices of the digraph}
+\item{E}{heads (or arrow ends) of the arcs of CS-PCD for 2D data set \code{Xp} as vertices of the digraph}
+\item{mtitle}{Text for "main" title in the plot of the digraph}
 \item{quant}{Various quantities for the digraph: number of vertices, number of partition points,
 number of intervals, number of arcs, and arc density.}
 }
 \description{
 Returns arcs as tails (or sources) and heads (or arrow ends) of Central Similarity Proximity Catch Digraph
-(CS-PCD) whose vertices are the data points in Xp in the multiple triangle case. CS proximity regions are
-defined with respect to the Delaunay triangles based on Yp points with expansion parameter t>0 and
-edge regions in each triangle are based on the center M=(alpha,beta,gamma) in barycentric coordinates
-in the interior of each Delaunay triangle (default for M is c(1,1,1) which is the center of mass of
+(CS-PCD) whose vertices are the data points in \code{Xp} in the multiple triangle case.
+
+CS proximity regions are
+defined with respect to the Delaunay triangles based on \code{Yp} points with expansion parameter \eqn{t>0} and
+edge regions in each triangle are based on the center \eqn{M=(\alpha,\beta,\gamma)} in barycentric coordinates
+in the interior of each Delaunay triangle (default for \eqn{M=(1,1,1)} which is the center of mass of
 the triangle). Each Delaunay triangle is first converted to an (unscaled) basic triangle so that
-M will be the same type of center for each Delaunay triangle (this conversion is not necessary when M is CM).
-Convex hull of Yp is partitioned by the Delaunay triangles based on Yp points
+\code{M} will be the same type of center for each Delaunay triangle (this conversion is not necessary when \code{M} is CM).
+Convex hull of \code{Yp} is partitioned by the Delaunay triangles based on \code{Yp} points
 (i.e., multiple triangles are the set of these Delaunay triangles whose union constitutes the
-convex hull of Yp points). For the number of arcs, loops are not allowed so arcs are only possible
-for points inside the convex hull of Yp points.
+convex hull of \code{Yp} points). For the number of arcs, loops are not allowed so arcs are only possible
+for points inside the convex hull of \code{Yp} points.
 See (\insertCite{ceyhan:Phd-thesis,ceyhan:arc-density-CS,ceyhan:test2014;textual}{pcds}) for more on CS-PCDs.
-Also see (\insertCite{okabe:2000,ceyhan:comp-geo-2010,renka:1996;textual}{pcds}) for more on Delaunay triangulation and the tripack algorithm.
+Also see (\insertCite{okabe:2000,ceyhan:comp-geo-2010,renka:1996;textual}{pcds}) for more on Delaunay triangulation and the TRIPACK algorithm.
 }
 \examples{
-A<-c(1,1); B<-c(2,0); C<-c(1.5,2);
-#A<-runif(2); B<-runif(2); C<-runif(2);
-#A<-runif(2,1,100); B<-runif(2,1,100); C<-runif(2,1,100);
-Tr<-rbind(A,B,C);
-n<-10
+nx<-100
+ny<-10
 
 #set.seed(1)
-dat<-runif.tri(n,Tr)$g
-#dat<-cbind(runif(n,1,2),runif(n,0,2))
-#dat<-cbind(runif(n),runif(n))
-#dat<-c(.5,.5)
-dat<-matrix(dat,ncol=2)
+Xp<-cbind(runif(nx,0,1),runif(nx,0,1))
+#Xp<-cbind(runif(nx,0.5,1.5),runif(nx,0,1))
+#Xp<-cbind(runif(nx,1,2),runif(nx,0,1))
+Yp<-cbind(runif(ny,0,1),runif(ny,0,1))
+#Xp<-c(.5,.5)
 
-M<-as.numeric(runif.tri(1,Tr)$g)
-#M<-c(1.6,1.0)
-#M<-c(1,1,1) #M<-c(1,2,3) #M<-c(-1,2,3) #barycentric coordinates
+M<-c(1,1,1) #M<-c(1,2,3) #M<-c(-1,2,3) #barycentric coordinates
 #M<-c(1.3,1.3)
 #M<-c(.3,.3)
-t<-.5
+t<-1.5
 #t<-2
 
-dat<-matrix(dat,ncol=2)
-Xlim<-range(Tr[,1],dat[,1])
-Ylim<-range(Tr[,2],dat[,2])
+ArcsCSMT(Xp,Yp,t,M)
+
+Arcs<-ArcsCSMT(Xp,Yp,t,M)
+Arcs
+summary(Arcs)
+plot(Arcs)
+
+S<-Arcs$S
+E<-Arcs$E
+DT<-tripack::tri.mesh(Yp[,1],Yp[,2],duplicate="remove")
+
+Xlim<-range(Xp[,1],Yp[,1])
+Ylim<-range(Xp[,2],Yp[,2])
 xd<-Xlim[2]-Xlim[1]
 yd<-Ylim[2]-Ylim[1]
 
-plot.regsCStri(dat[4,],Tr,t,M)
-plot.regsCStri(dat,Tr,t,M)
+plot(Xp,main=" ", xlab=" ", ylab=" ",
+xlim=Xlim+xd*c(-.05,.05),ylim=Ylim+yd*c(-.05,.05),pch=".",cex=3)
+tripack::plot.tri(DT, add=TRUE, do.points = TRUE)
+arrows(S[,1], S[,2], E[,1], E[,2], length = 0.1, col= 4)
 
-if (dimension(M)==3) {M<-bary2cart(M,Tr)} #need to run this when M is given in barycentric coordinates
-plot.regsCStri(dat,Tr,t,M,main="CS Proximity Regions with t=.5",xlab="",ylab="",xlim=Xlim+xd*c(-.05,.05),ylim=Ylim+yd*c(-.05,.05))
-L<-rbind(M,M,M); R<-Tr
-segments(L[,1], L[,2], R[,1], R[,2], lty=2)
+ArcsCSMT(Xp,Yp,t,M)
 
-txt<-rbind(Tr,M)
-xc<-txt[,1]#+c(-.02,.03,.03,.03)
-yc<-txt[,2]#+c(.02,.02,.02,.07)
-txt.str<-c("A","B","C","M")
-text(xc,yc,txt.str)
+ArcsCSMT(Xp,rbind(Yp,Yp),t,M)
+
+dat.fr<-data.frame(a=Xp)
+ArcsCSMT(dat.fr,Yp,t,M)
+
+dat.fr<-data.frame(a=Yp)
+ArcsCSMT(Xp,dat.fr,t,M)
 
 }
 \references{

@@ -2,7 +2,7 @@
 % Please edit documentation in R/PCDFunctions.r
 \name{fr2vTbVRCC}
 \alias{fr2vTbVRCC}
-\title{An object of class "Extrema"
+\title{An object of class "Extrema":
 
 The furthest points from vertices in each CC-vertex region in a basic triangle}
 \usage{
@@ -12,7 +12,7 @@ fr2vTbVRCC(Dt, c1, c2, ch.all.intri = FALSE)
 \item{Dt}{A set of 2D points}
 
 \item{c1, c2}{Positive real numbers which constitute the vertex of the basic triangle
-adjacent to the shorter edges; c1 must be in [0,1/2], c2>0 and (1-c1)^2+c2^2 <=1}
+adjacent to the shorter edges; \code{c1} must be in \eqn{[0,1/2]}, \eqn{c_2>0} and \eqn{(1-c_1)^2+c_2^2 \le 1}}
 
 \item{ch.all.intri}{A logical argument}
 }
@@ -22,59 +22,89 @@ A list with the elements
 \item{txt2}{A short description of the distances as "Distances to Vertices".}
 \item{type}{Type of the extrema points}
 \item{desc}{A short description of the extrema points}
-\item{mtxt}{The "main" title for the plot of the exrema}
+\item{mtitle}{The "main" title for the plot of the exrema}
 \item{Ext}{The extrema points, here, furthest points from vertices in each vertex region.}
-\item{X}{The input data, Dt, can be a matrix or data frame}
-\item{num.points}{The number of data points, i.e., size of Dt}
-\item{supp}{Support of the data points, here, it is Tb.}
+\item{X}{The input data, \code{Dt}, can be a matrix or data frame}
+\item{num.points}{The number of data points, i.e., size of \code{Dt}}
+\item{supp}{Support of the data points, here, it is \eqn{T_b}.}
 \item{cent}{The center point used for construction of edge regions.}
-\item{ncent}{Name of the center, cent, it is circumcenter "CC" for this function.}
-\item{regions}{Vertex regions inside the triangle, Tb, provided as a list.}
+\item{ncent}{Name of the center, \code{cent}, it is circumcenter "CC" for this function.}
+\item{regions}{Vertex regions inside the triangle, \eqn{T_b}, provided as a list.}
 \item{region.names}{Names of the vertex regions as "vr=1","vr=2","vr=3"}
-\item{region.centers}{Centers of mass of the vertex regions inside Tb.}
+\item{region.centers}{Centers of mass of the vertex regions inside \eqn{T_b}.}
 \item{dist2ref}{Distances from furthest points in each vertex region to the corresponding vertex.}
 }
 \description{
-Returns the furthest data points among the data set, Dt, in each CC-vertex region from the
-corresponding vertex in the basic triangle Tb=T(A=(0,0),B=(1,0),C=(c1,c2)).
+Returns the furthest data points among the data set, \code{Dt}, in each CC-vertex region from the
+corresponding vertex in the basic triangle \eqn{T_b=T(A=(0,0),B=(1,0),C=(c_1,c_2))}.
+
 Any given triangle can be mapped to the basic triangle by a combination of rigid body motions
 (i.e., translation, rotation and reflection) and scaling, preserving uniformity of the points in the
 original triangle. Hence basic triangle is useful for simulation
 studies under the uniformness hypothesis.
-ch.all.intri is for checking whether all data points are inside Tb (default is FALSE).
+\code{ch.all.intri} is for checking whether all data points are inside \eqn{T_b} (default is FALSE).
 See also (\insertCite{ceyhan:Phd-thesis,ceyhan:mcap2012;textual}{pcds}).
 }
 \examples{
-nx<-100
-ny<-10
+\dontrun{
+c1<-.4; c2<-.6;
+A<-c(0,0); B<-c(1,0); C<-c(c1,c2);
+Tb<-rbind(A,B,C)
+n<-20
 
 #set.seed(1)
-Xp<-cbind(runif(nx,0,1),runif(nx,0,1))
-#Xp<-cbind(runif(nx,0.5,1.5),runif(nx,0,1))
-#Xp<-cbind(runif(nx,1,2),runif(nx,0,1))
-Yp<-cbind(runif(ny,0,1),runif(ny,0,1))
-#Xp<-c(.5,.5)
+dat<-runif.bastri(n,c1,c2)$g
+#dat<-cbind(runif(n),runif(n))
+#dat<-cbind(runif(n,1,2),runif(n,0,1))
 
-M<-"CC"
-#M<-c(1,1,1) #M<-c(1,2,3) #M<-c(-1,2,3) #barycentric coordinates
-#M<-c(1.3,1.3)
+Ext<-fr2vTbVRCC(dat,c1,c2)
+Ext
+summary(Ext)
+plot(Ext)
 
-IM<-IncMatASMT(Xp,Yp,M)
-IM
+fr2vTbVRCC(dat[1,],c1,c2)
 
-dom.greedy(IM)
-#dom.exact(IM) #this might take a long time for large  n
+dat2<-rbind(dat,c(.2,.4))
+fr2vTbVRCC(dat2,c1,c2)
 
-IncMatASMT(Xp,rbind(Yp,Yp))
+f2v<-fr2vTbVRCC(dat,c1,c2)
 
-dat.fr<-data.frame(a=Xp)
-IncMatASMT(dat.fr,Yp,M)
+CC<-circ.cent.bastri(c1,c2) #the circumcenter
+D1<-(B+C)/2; D2<-(A+C)/2; D3<-(A+B)/2;
+Ds<-rbind(D1,D2,D3)
+
+Xlim<-range(Tb[,1],dat[,1])
+Ylim<-range(Tb[,2],dat[,2])
+xd<-Xlim[2]-Xlim[1]
+yd<-Ylim[2]-Ylim[1]
+
+plot(A,pch=".",asp=1,xlab="",ylab="",xlim=Xlim+xd*c(-.05,.05),ylim=Ylim+yd*c(-.05,.05))
+polygon(Tb)
+L<-matrix(rep(CC,3),ncol=2,byrow=TRUE); R<-Ds
+segments(L[,1], L[,2], R[,1], R[,2], lty=2)
+points(dat)
+points(rbind(f2v$Ext),pch=4,col=2)
+
+txt<-rbind(Tb,CC,D1,D2,D3)
+xc<-txt[,1]+c(-.03,.03,0.02,.07,.06,-.05,.01)
+yc<-txt[,2]+c(.02,.02,.03,.01,.02,.02,-.04)
+txt.str<-c("A","B","C","CC","D1","D2","D3")
+text(xc,yc,txt.str)
+
+#set.seed(1)
+dat<-runif.bastri(n,c1,c2)$g
+fr2vTbVRCC(dat,c1,c2)
+
+fr2vTbVRCC(c(.4,.2),c1,c2)
+
+dat.fr<-data.frame(a=dat)
+fr2vTbVRCC(dat.fr,c1,c2)
+}
 
 }
 \references{
 \insertAllCited{}
 }
 \seealso{
-\code{\link{fr2vVRCC}}, \code{\link{fr2eTeER}}, \code{\link{Kfr2vTbVRCC}} and
- \code{\link{Kfr2vVRCC}}
+\code{\link{fr2vVRCC}}, \code{\link{fr2eTeER}}, \code{\link{Kfr2vTbVRCC}} and \code{\link{Kfr2vVRCC}}
 }

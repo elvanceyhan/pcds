@@ -2,7 +2,7 @@
 % Please edit documentation in R/PCDFunctions.r
 \name{ArcsPEmid1D}
 \alias{ArcsPEmid1D}
-\title{An object of class "Digraphs"
+\title{An object of class "Digraphs":
 
 The arcs of Proportional Edge Proximity Catch Digraph (PE-PCD) for 1D data - middle intervals case}
 \usage{
@@ -13,64 +13,85 @@ ArcsPEmid1D(Xp, Yp, r, c)
 
 \item{Yp}{A set or vector of 1D points which constitute the end points of the intervals}
 
-\item{r}{A positive real number which serves as the expansion parameter in PE proximity region; must be >= 1}
+\item{r}{A positive real number which serves as the expansion parameter in PE proximity region; must be \eqn{\ge 1}}
 
-\item{c}{A positive real number in (0,1) parameterizing the center inside int=(a,b).
-For the interval, int=(a,b), the parameterized center is Mc=a+c*(b-a)}
+\item{c}{A positive real number in \eqn{(0,1)} parameterizing the center inside \eqn{int=(a,b)}.
+For the interval, \eqn{int=(a,b)}, the parameterized center is \eqn{M_c=a+c(b-a)}}
 }
 \value{
 A list with the elements
 \item{type}{A description of the type of the digraph}
 \item{parameters}{Parameters of the digraph, here, they are expansion and centrality parameters.}
 \item{tess.points}{Points on which the tessellation of the study region is performed, here, tessellation
-is the intervalization based on Yp points.}
-\item{tess.name}{Name of data set used in tessellation, it is Yp for this function}
-\item{vertices}{Vertices of the digraph, i.e. Xp points}
+is the intervalization based on \code{Yp} points.}
+\item{tess.name}{Name of data set used in tessellation, it is \code{Yp} for this function}
+\item{vertices}{Vertices of the digraph, i.e. \code{Xp} points}
 \item{vert.name}{Name of the data set which constitute the vertices of the digraph}
 \item{S}{tails (or sources) of the arcs of PE-PCD for 1D data in the middle intervals}
 \item{E}{heads (or arrow ends) of the arcs of PE-PCD for 1D data in the middle intervals}
-\item{mtxt}{Text for "main" title in the plot of the digraph}
+\item{mtitle}{Text for "main" title in the plot of the digraph}
 \item{quant}{Various quantities for the digraph: number of vertices, number of partition points,
 number of intervals, number of arcs, and arc density.}
 }
 \description{
-Returns arcs as tails (or sources) and heads (or arrow ends) for 1D data set Xp as the vertices
-of PE-PCD. For this function, PE proximity regions are constructed with respect to the intervals
-based on Yp points with expansion parameter r>=1 and centrality parameter c in (0,1). That is, for this function,
+Returns arcs as tails (or sources) and heads (or arrow ends) for 1D data set \code{Xp} as the vertices
+of PE-PCD.
+
+For this function, PE proximity regions are constructed with respect to the intervals
+based on \code{Yp} points with expansion parameter \eqn{r \ge 1} and centrality parameter \code{c} in \eqn{(0,1)}. That is, for this function,
 arcs may exist for points only inside the intervals.
 It also provides various descriptions and quantities about the arcs of the PE-PCD
-such as number of arcs, arc density, etc. Vertex regions are based on center Mc of each middle interval.
+such as number of arcs, arc density, etc.
+
+Vertex regions are based on center \eqn{M_c} of each middle interval.
 See also (\insertCite{ceyhan:metrika-2012;textual}{pcds}).
 }
 \examples{
-c<-.4
 r<-2
-a<-0; b<-10; int<-c(a,b)
-
-n<-20
-dat<-runif(n,a,b)
-
-NumArcsPEint(dat,r,c,int)
-TSArcDensPE1D(dat,r,c,int)
-TSArcDensPE1D(dat,r,c,int,alt="g")
-TSArcDensPE1D(dat,r,c,int,alt="l")
-
-NumArcsPEint(dat,r,c=.3,int)
-TSArcDensPE1D(dat,r,c=.3,int)
-
-NumArcsPEint(dat,r=1.5,c,int)
-TSArcDensPE1D(dat,r=1.5,c,int)
-
-dat<-runif(n,a-1,b+1)
-NumArcsPEint(dat,r,c,int)
-TSArcDensPE1D(dat,r,c,int)
-
 c<-.4
+a<-0; b<-10;
+#c<-runif(1)
+#a<-runif(1); b<-runif(1); int<-range(a,b); a<-int[1]; b<-int[2]
+nx<-40; ny<-10
+
+#set.seed(1)
+Xp<-runif(nx,a,b)
+#Xp<-runif(nx,a+5,b+5)
+#Xp<-runif(nx,a+10,b+10)
+Yp<-runif(ny,a,b)
+
+Arcs<-ArcsPEmid1D(Xp,Yp,r,c)
+Arcs
+summary(Arcs)
+plot(Arcs)
+
+S<-Arcs$S
+E<-Arcs$E
+
+ArcsPEmid1D(Xp,Yp,r,c)
+ArcsPEmid1D(Xp,Yp+10,r,c)
+
+jit<-.1
+yjit<-runif(nx,-jit,jit)
+
+Xlim<-range(Xp,Yp)
+xd<-Xlim[2]-Xlim[1]
+
+plot(cbind(a,0),
+main="arcs of PE-PCD for points (jittered along y-axis)\n in middle intervals ",
+xlab=" ", ylab=" ", xlim=Xlim+xd*c(-.05,.05),ylim=3*c(-jit,jit),pch=".")
+abline(h=0,lty=1)
+points(Xp, yjit,pch=".",cex=3)
+abline(v=Yp,lty=2)
+arrows(S, yjit, E, yjit, length = .05, col= 4)
+
 r<-2
-a<-0; b<-10; int<-c(a,b)
-n<-20
-dat<-runif(n,a,b)
-TSArcDensPE1D(dat,r,c,int)
+c<-.4
+a<-0; b<-10;
+nx<-40; ny<-10
+Xp<-runif(nx,a,b)
+Yp<-runif(ny,a,b)
+ArcsPEmid1D(Xp,Yp,r,c)
 
 }
 \references{

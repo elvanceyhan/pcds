@@ -2,7 +2,7 @@
 % Please edit documentation in R/PCDFunctions.r
 \name{cl2eTbVRcent}
 \alias{cl2eTbVRcent}
-\title{An object of class "Extrema"
+\title{An object of class "Extrema":
 
 The closest points among a data set in the vertex regions to the corresponding edges in a basic triangle}
 \usage{
@@ -12,10 +12,10 @@ cl2eTbVRcent(Dt, c1, c2, M)
 \item{Dt}{A set of 2D points representing the set of data points}
 
 \item{c1, c2}{Positive real numbers which constitute the vertex of the basic triangle
-adjacent to the shorter edges; c1 must be in [0,1/2], c2>0 and (1-c1)^2+c2^2 <=1}
+adjacent to the shorter edges; \code{c1} must be in \eqn{[0,1/2]}, \eqn{c_2>0} and \eqn{(1-c_1)^2+c_2^2 \le 1}}
 
 \item{M}{A 2D point in Cartesian coordinates or a 3D point in barycentric coordinates
-which serves as a center in the interior of the basic triangle Tb or the circumcenter of Tb}
+which serves as a center in the interior of the basic triangle \eqn{T_b} or the circumcenter of \eqn{T_b}}
 }
 \value{
 A list with the elements
@@ -23,25 +23,27 @@ A list with the elements
 \item{txt2}{A short description of the distances as "Distances to Edges in the Respective M-Vertex Regions".}
 \item{type}{Type of the extrema points}
 \item{desc}{A short description of the extrema points}
-\item{mtxt}{The "main" title for the plot of the exrema}
+\item{mtitle}{The "main" title for the plot of the exrema}
 \item{Ext}{The extrema points, here, closest points to edges in the corresponding vertex region.}
-\item{X}{The input data, Dt, can be a matrix or data frame}
-\item{num.points}{The number of data points, i.e., size of Dt}
-\item{supp}{Support of the data points, here, it is Tb.}
+\item{X}{The input data, \code{Dt}, can be a matrix or data frame}
+\item{num.points}{The number of data points, i.e., size of \code{Dt}}
+\item{supp}{Support of the data points, here, it is \eqn{T_b}.}
 \item{cent}{The center point used for construction of vertex regions}
-\item{ncent}{Name of the center, cent, it is "M" or "CC" for this function}
-\item{regions}{Vertex regions inside the triangle, Tb.}
+\item{ncent}{Name of the center, \code{cent}, it is "M" or "CC" for this function}
+\item{regions}{Vertex regions inside the triangle, \eqn{T_b}.}
 \item{region.names}{Names of the vertex regions as "vr=1","vr=2","vr=3"}
-\item{region.centers}{Centers of mass of the vertex regions inside Tb.}
+\item{region.centers}{Centers of mass of the vertex regions inside \eqn{T_b}.}
 \item{dist2ref}{Distances of closest points in the vertex regions to corresponding edges.}
 }
 \description{
-Returns the closest data points among the data set, Dt, to edge i in M-vertex region i for i=1,2,3
-in the basic triangle Tb=T(A=(0,0),B=(1,0),C=(c1,c2)) where c1 is in [0,1/2], c2>0 and (1-c1)^2+c2^2 <=1.
+Returns the closest data points among the data set, \code{Dt}, to edge \eqn{i} in \code{M}-vertex region \eqn{i} for \eqn{i=1,2,3}
+in the basic triangle \eqn{T_b=T(A=(0,0),B=(1,0),C=(c_1,c_2))} where \code{c1} is in \eqn{[0,1/2]}, \eqn{c_2>0} and \eqn{(1-c_1)^2+c_2^2 \le 1}.
 Vertex labels are A=1, B=2, and C=3, and corresponding edge labels are BC=1, AC=2, and AB=3.
-Vertex regions are based on center M=(m1,m2) in Cartesian coordinates or
-M=(alpha,beta,gamma) in barycentric coordinates in the interior of the basic triangle Tb
-or based on the circumcenter of Tb.
+
+Vertex regions are based on center \eqn{M=(m_1,m_2)} in Cartesian coordinates or
+\eqn{M=(\alpha,\beta,\gamma)} in barycentric coordinates in the interior of the basic triangle \eqn{T_b}
+or based on the circumcenter of \eqn{T_b}.
+
 Any given triangle can be mapped to the basic triangle by a combination of rigid body motions
 (i.e., translation, rotation and reflection) and scaling, preserving uniformity of the points in the
 original triangle. Hence basic triangle is useful for simulation
@@ -49,72 +51,65 @@ studies under the uniformness hypothesis.
 See also (\insertCite{ceyhan:Phd-thesis,ceyhan:comp-geo-2010,ceyhan:dom-num-NPE-Spat2011;textual}{pcds}).
 }
 \examples{
-A<-c(1,1); B<-c(2,0); C<-c(1.5,2);
-#A<-runif(2); B<-runif(2); C<-runif(2);
-#A<-runif(2,1,100); B<-runif(2,1,100); C<-runif(2,1,100);
-Tr<-rbind(A,B,C);
-M<-c(1.6,1.0)
+\dontrun{
+c1<-.4;  c2<-.6
+A<-c(0,0); B<-c(1,0); C<-c(c1,c2);
+Tb<-rbind(A,B,C);
 
-P<-c(.4,.2)
-rv.tri.cent(P,Tr,M)
-
-P<-c(1.8,.5)
-rv.tri.cent(P,Tr,M)
-
-P<-c(1.5,1.6)
-rv.tri.cent(P,Tr,M)
-rv.tri.cent(P,Tr,M=c(2,2))
-
-n<-20
 #set.seed(1)
-dat<-runif.tri(n,Tr)$g
-#dat<-cbind(runif(n,1,2),runif(n,0,2))
+n<-20
+dat<-runif.bastri(n,c1,c2)$g
 #dat<-cbind(runif(n),runif(n))
+#dat<-cbind(runif(n,1,2),runif(n,0,1))
 
-M<-as.numeric(runif.tri(1,Tr)$g)
-#M<-c(1.6,1.0)
+M<-as.numeric(runif.bastri(1,c1,c2)$g)
+#M<-c(.6,.3)
+#M<-circ.cent.tri(Tb)
 #M<-c(1,1,1) #M<-c(1,2,3) #M<-c(-1,2,3) #barycentric coordinates
 #M<-c(1.3,1.3)
 #M<-c(.3,.3)
 
-Rv<-vector()
-for (i in 1:n)
-{Rv<-c(Rv,rv.tri.cent(dat[i,],Tr,M)$rv)}
-Rv
+Ext<-cl2eTbVRcent(dat,c1,c2,M)
+Ext
+summary(Ext)
+plot(Ext)
 
-Ds<-cp2e.tri(Tr,M)
+cl2eTbVRcent(dat[1,],c1,c2,M)
+cl2eTbVRcent(c(1,2),c1,c2,M)
 
-Xlim<-range(Tr[,1],dat[,1])
-Ylim<-range(Tr[,2],dat[,2])
+cl2e<-cl2eTbVRcent(dat,c1,c2,M)
+cl2e
+
+Ds<-cp2e.bastri(c1,c2,M)
+
+Xlim<-range(Tb[,1],dat[,1])
+Ylim<-range(Tb[,2],dat[,2])
 xd<-Xlim[2]-Xlim[1]
 yd<-Ylim[2]-Ylim[1]
 
-if (dimension(M)==3) {M<-bary2cart(M,Tr)} #need to run this when M is given in barycentric coordinates
-
-plot(Tr,pch=".",xlab="",ylab="",axes=TRUE,xlim=Xlim+xd*c(-.05,.05),ylim=Ylim+yd*c(-.05,.05))
-polygon(Tr)
-points(dat,pch=".",col=1)
+plot(Tb,pch=".",xlab="",ylab="",axes=TRUE,xlim=Xlim+xd*c(-.05,.05),ylim=Ylim+yd*c(-.05,.05))
+polygon(Tb)
+points(dat,pch=1,col=1)
 L<-rbind(M,M,M); R<-Ds
 segments(L[,1], L[,2], R[,1], R[,2], lty=2)
+points(cl2e$Ext,pch=3,col=2)
 
-xc<-Tr[,1]#+c(-.04,.05,.05)
-yc<-Tr[,2]#+c(-.05,.05,.04)
-txt.str<-c("rv=1","rv=2","rv=3")
+xc<-Tb[,1]+c(-.02,.02,0.02)
+yc<-Tb[,2]+c(.02,.02,.02)
+txt.str<-c("A","B","C")
 text(xc,yc,txt.str)
 
 txt<-rbind(M,Ds)
-xc<-txt[,1]#+c(-.02,.04,-.04,0)
-yc<-txt[,2]#+c(-.02,.04,.05,-.08)
+xc<-txt[,1]+c(-.02,.04,-.03,0)
+yc<-txt[,2]+c(-.02,.02,.02,-.03)
 txt.str<-c("M","D1","D2","D3")
 text(xc,yc,txt.str)
 
-text(dat,labels=factor(Rv))
+cl2eTbVRcent(dat,c1,c2,M)
 
-P<-c(1.8,.5)
-rv.tri.cent(P,Tr,M)
-
-dat.fr<-data.frame(a=Tr)
-rv.tri.cent(P,dat.fr,M)
+dat.fr<-data.frame(a=dat)
+cl2eTbVRcent(dat.fr,c1,c2,M)
+}
 
 }
 \references{

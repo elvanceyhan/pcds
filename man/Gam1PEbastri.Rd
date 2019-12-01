@@ -5,118 +5,146 @@
 \title{The indicator for a point being a dominating point or not for Proportional Edge Proximity Catch
 Digraphs (PE-PCDs) - basic triangle case}
 \usage{
-Gam1PEbastri(p, Dt, r, c1, c2, M = c(1, 1, 1), rv = NULL,
-  ch.data.pnt = FALSE)
+Gam1PEbastri(p, Dt, r, c1, c2, M = c(1, 1, 1), rv = NULL, ch.data.pnt = FALSE)
 }
 \arguments{
 \item{p}{A 2D point that is to be tested for being a dominating point or not of the PE-PCD}
 
 \item{Dt}{A set of 2D points which constitutes the vertices of the PE-PCD}
 
-\item{r}{A positive real number which serves as the expansion parameter in PE proximity region; must be >= 1}
+\item{r}{A positive real number which serves as the expansion parameter in PE proximity region; must be \eqn{\ge 1}}
 
 \item{c1, c2}{Positive real numbers which constitute the vertex of the basic triangle
-adjacent to the shorter edges; c1 must be in [0,1/2], c2>0 and (1-c1)^2+c2^2 <=1}
+adjacent to the shorter edges; \code{c1} must be in \eqn{[0,1/2]}, \eqn{c_2>0} and \eqn{(1-c_1)^2+c_2^2 \le 1}}
 
 \item{M}{A 2D point in Cartesian coordinates or a 3D point in barycentric coordinates
-which serves as a center in the interior of the basic triangle Tb or the circumcenter of Tb;
-default is M=c(1,1,1) i.e. the center of mass of Tb}
+which serves as a center in the interior of the basic triangle \eqn{T_b} or the circumcenter of \eqn{T_b};
+default is \eqn{M=(1,1,1)} i.e. the center of mass of \eqn{T_b}}
 
-\item{rv}{Index of the vertex whose region contains point p, rv takes the vertex labels as 1,2,3 as
-in the row order of the vertices in Tb}
+\item{rv}{Index of the vertex whose region contains point \code{p}, \code{rv} takes the vertex labels as 1,2,3 as
+in the row order of the vertices in \eqn{T_b}}
 
-\item{ch.data.pnt}{A logical argument for checking whether point p is a data point in Dt or not
+\item{ch.data.pnt}{A logical argument for checking whether point \code{p} is a data point in \code{Dt} or not
 (default is FALSE)}
 }
 \value{
-I(p is a dominating point of the 2D data set Dt for PE-PCD),
-that is, returns 1 if p is a dominating point, returns 0 otherwise
+I(\code{p} is a dominating point of the PE-PCD) where the vertices of the PE-PCD are the 2D data set \code{Dt},
+that is, returns 1 if \code{p} is a dominating point, returns 0 otherwise
 }
 \description{
-Returns I(p is a dominating point of the 2D data set Dt for PE-PCD) for data in the basic triangle
-Tb=T(c(0,0),c(1,0),c(c1,c2)), that is, returns 1 if p is a dominating point for PE-PCD, returns 0 otherwise.
-PE proximity regions are defined with respect to the basic triangle Tb.
-In the basic triangle, Tb, c1 is in [0,1/2], c2>0 and (1-c1)^2+c2^2 <=1.
+Returns I(\code{p} is a dominating point of the PE-PCD) where the vertices of the PE-PCD are the 2D data set \code{Dt} for data in the basic triangle
+\eqn{T_b=T((0,0),(1,0),(c_1,c_2))}, that is, returns 1 if \code{p} is a dominating point of PE-PCD, returns 0 otherwise.
+
+PE proximity regions are defined with respect to the basic triangle \eqn{T_b}.
+In the basic triangle, \eqn{T_b}, \code{c1} is in \eqn{[0,1/2]}, \eqn{c_2>0} and \eqn{(1-c_1)^2+c_2^2 \le 1}.
+
 Any given triangle can be mapped to the basic triangle by a combination of rigid body motions
 (i.e., translation, rotation and reflection) and scaling, preserving uniformity of the points in the
 original triangle. Hence basic triangle is useful for simulation
-studies under the uniformness hypothesis. Vertex regions are based on center M=(m1,m2) in Cartesian
-coordinates or M=(alpha,beta,gamma) in barycentric coordinates in the interior of a basic triangle
-to the edges on the extension of the lines joining M to the vertices or based on the circumcenter of Tb;
-default is M=c(1,1,1) i.e. the center of mass of Tb.
-Point, p, is in the vertex region of vertex rv (default is NULL); vertices are labeled as 1,2,3
+studies under the uniformness hypothesis.
+
+Vertex regions are based on center \eqn{M=(m_1,m_2)} in Cartesian
+coordinates or \eqn{M=(\alpha,\beta,\gamma)} in barycentric coordinates in the interior of a basic triangle
+to the edges on the extension of the lines joining \code{M} to the vertices or based on the circumcenter of \eqn{T_b};
+default is \eqn{M=(1,1,1)} i.e. the center of mass of \eqn{T_b}.
+Point, \code{p}, is in the vertex region of vertex \code{rv} (default is NULL); vertices are labeled as 1,2,3
 in the order they are stacked row-wise.
-ch.data.pnt is for checking whether point p is a data point in Dt or not (default is FALSE),
-so by default this function checks whether the point p would be a dominating point
+
+\code{ch.data.pnt} is for checking whether point \code{p} is a data point in \code{Dt} or not (default is FALSE),
+so by default this function checks whether the point \code{p} would be a dominating point
 if it actually were in the data set.
 See also (\insertCite{ceyhan:Phd-thesis,ceyhan:dom-num-NPE-Spat2011;textual}{pcds}).
 }
 \examples{
-n<-10
-dat<-cbind(runif(n),runif(n))
+c1<-.4; c2<-.6;
+A<-c(0,0); B<-c(1,0); C<-c(c1,c2);
+Tb<-rbind(A,B,C)
+n<-20
 
-P<-dat[7,]
-is.in.data(P,dat)
-is.in.data(P,dat[7,])
+#set.seed(1)
+dat<-runif.bastri(n,c1,c2)$g
+#dat<-cbind(runif(n),runif(n))
+#dat<-cbind(runif(n,1,2),runif(n,0,1))
 
-P<-dat[7,]+10^(-7)
-is.in.data(P,dat)
+M<-as.numeric(runif.bastri(1,c1,c2)$g)
+#M<-c(.6,.3)
+#M<-circ.cent.tri(Tb)
+#M<-c(1,1,1) #M<-c(1,2,3) #M<-c(-1,2,3) #barycentric coordinates
+#M<-c(1.3,1.3)
+#M<-c(.3,.3)
+r<-2
 
-P<-dat[7,]+10^(-9)
-is.in.data(P,dat)
+P<-c(.4,.2)
+Gam1PEbastri(P,dat,r,c1,c2,M)
+Gam1PEbastri(P,P,r,c1,c2,M)
 
-is.in.data(P,P)
+Gam1PEbastri(dat[1,],dat,r,c1,c2,M)
 
-is.in.data(c(2,2),c(2,2))
+Gam1PEbastri(c(1,1),dat,r,c1,c2,M)
+#Gam1PEbastri(c(1,1),dat,r,c1,c2,M,ch.data.pnt = TRUE) #point p is not a data point in Dt
+Gam1PEbastri(c(1,1),c(1,1),r,c1,c2,M)
 
-is.in.data(P,vector())
+#or try
+Rv<-rv.bastri.cent(dat[1,],c1,c2,M)$rv
+Gam1PEbastri(dat[1,],dat,r,c1,c2,M,Rv)
 
-###for 1D data
-n<-10
-dat<-runif(n)
+Gam1PEbastri(c(2,1),dat,r,c1,c2,M)
 
-P<-dat[7]
-is.in.data(P,dat)  #this does not work because both entries are treated as vectors of different dimensions
-is.in.data(P,dat[7]) #this works because both entries are treated as 1D vectors
+Gam1PEbastri(c(.2,.1),dat,r,c1,c2,M)
+#Gam1PEbastri(c(.2,.1),dat,r,c1,c2,M,ch.data.pnt=TRUE) #point p is not a data point in Dt
 
-dat<-as.matrix(dat)
-is.in.data(P,dat) #this works, because P is a 1D point, and dat is treated as a set of 10 1D points
+gam.vec<-vector()
+for (i in 1:n)
+{gam.vec<-c(gam.vec,Gam1PEbastri(dat[i,],dat,r,c1,c2,M))}
 
-P<-dat[7]+10^(-7)
-is.in.data(P,dat)
+ind.gam1<-which(gam.vec==1)
+ind.gam1
 
-P<-dat[7]+10^(-9)
-is.in.data(P,dat)
+Xlim<-range(Tb[,1],dat[,1])
+Ylim<-range(Tb[,2],dat[,2])
+xd<-Xlim[2]-Xlim[1]
+yd<-Ylim[2]-Ylim[1]
 
-is.in.data(P,P)
+if (dimension(M)==3) {M<-bary2cart(M,Tb)}
+#need to run this when M is given in barycentric coordinates
 
-is.in.data(P,vector())
+if (identical(M,circ.cent.tri(Tb)))
+{
+  plot(Tb,pch=".",asp=1,xlab="",ylab="",axes=TRUE,
+  xlim=Xlim+xd*c(-.05,.05),ylim=Ylim+yd*c(-.05,.05))
+  polygon(Tb)
+  points(dat,pch=1,col=1)
+  Ds<-rbind((B+C)/2,(A+C)/2,(A+B)/2)
+} else
+{plot(Tb,pch=".",xlab="",ylab="",axes=TRUE,
+xlim=Xlim+xd*c(-.05,.05),ylim=Ylim+yd*c(-.05,.05))
+  polygon(Tb)
+  points(dat,pch=1,col=1)
+  Ds<-cp2e.bastri(c1,c2,M)}
+L<-rbind(M,M,M); R<-Ds
+segments(L[,1], L[,2], R[,1], R[,2], lty=2)
+points(rbind(dat[ind.gam1,]),pch=4,col=2)
 
-###for 3D data
-n<-10
-dat<-cbind(runif(n),runif(n),runif(n))
+txt<-rbind(Tb,M,Ds)
+xc<-txt[,1]+c(-.02,.02,.02,-.02,.03,-.03,.01)
+yc<-txt[,2]+c(.02,.02,.02,-.02,.02,.02,-.03)
+txt.str<-c("A","B","C","M","D1","D2","D3")
+text(xc,yc,txt.str)
 
-P<-dat[7,]
-is.in.data(P,dat)
-is.in.data(P,dat[7,])
+P<-c(.4,.2)
+Gam1PEbastri(P,dat,r,c1,c2,M)
 
-P<-dat[7,]+10^(-7)
-is.in.data(P,dat)
-
-P<-dat[7,]+10^(-9)
-is.in.data(P,dat)
-
-is.in.data(P,P)
-
-n<-10
-dat<-cbind(runif(n),runif(n))
-P<-dat[7,]
-is.in.data(P,dat)
-
+Gam1PEbastri(P,rbind(dat,dat),r,c1,c2,M)
+\dontrun{
+Gam1PEbastri(P,cbind(dat,dat),r,c1,c2,M)
+Gam1PEbastri(P, rbind(c("a","b"),dat),r,c1,c2,M)
+}
 dat.fr<-data.frame(a=dat)
-is.in.data(P,dat.fr)
+Gam1PEbastri(P,dat.fr,r,c1,c2,M)
 
-
+}
+\references{
+\insertAllCited{}
 }
 \seealso{
 \code{\link{Gam1ASbastri}} and \code{\link{Gam1AStri}}

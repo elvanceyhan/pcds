@@ -2,7 +2,7 @@
 % Please edit documentation in R/PCDFunctions.r
 \name{ArcsCSmid1D}
 \alias{ArcsCSmid1D}
-\title{An object of class "Digraphs"
+\title{An object of class "Digraphs":
 
 The arcs of Central Similarity Proximity Catch Digraph (CS-PCD) for 1D data - middle intervals case}
 \usage{
@@ -13,63 +13,86 @@ ArcsCSmid1D(Xp, Yp, t, c)
 
 \item{Yp}{A set or vector of 1D points which constitute the end points of the intervals}
 
-\item{c}{A positive real number in (0,1) parameterizing the center inside int=(a,b).
-For the interval, int=(a,b), the parameterized center is Mc=a+c*(b-a)}
+\item{t}{A positive real number which serves as the expansion parameter in CS proximity region}
 
-\item{r}{A positive real number which serves as the expansion parameter in CS proximity region}
+\item{c}{A positive real number in \eqn{(0,1)} parameterizing the center inside \eqn{int=(a,b)}.
+For the interval, \eqn{int=(a,b)}, the parameterized center is \eqn{M_c=a+c(b-a)}}
 }
 \value{
 A list with the elements
 \item{type}{A description of the type of the digraph}
 \item{parameters}{Parameters of the digraph, here, they are expansion and centrality parameters.}
 \item{tess.points}{Points on which the tessellation of the study region is performed, here, tessellation
-is the intervalization based on Yp points.}
-\item{tess.name}{Name of data set used in tessellation, it is Yp for this function}
-\item{vertices}{Vertices of the digraph, i.e. Xp points}
+is the intervalization based on \code{Yp} points.}
+\item{tess.name}{Name of data set used in tessellation, it is \code{Yp} for this function}
+\item{vertices}{Vertices of the digraph, i.e. \code{Xp} points}
 \item{vert.name}{Name of the data set which constitute the vertices of the digraph}
 \item{S}{tails (or sources) of the arcs of CS-PCD for 1D data in the middle intervals}
 \item{E}{heads (or arrow ends) of the arcs of CS-PCD for 1D data in the middle intervals}
-\item{mtxt}{Text for "main" title in the plot of the digraph}
+\item{mtitle}{Text for "main" title in the plot of the digraph}
 \item{quant}{Various quantities for the digraph: number of vertices, number of partition points,
 number of intervals, number of arcs, and arc density.}
 }
 \description{
-Returns arcs as tails (or sources) and heads (or arrow ends) for 1D data set Xp as the vertices
-of CS-PCD. For this function, CS proximity regions are constructed with respect to the intervals
-based on Yp points with expansion parameter t>0 and centrality parameter c in (0,1). That is, for this
+Returns arcs as tails (or sources) and heads (or arrow ends) for 1D data set \code{Xp} as the vertices
+of CS-PCD.
+
+For this function, CS proximity regions are constructed with respect to the intervals
+based on \code{Yp} points with expansion parameter \eqn{t>0} and centrality parameter \code{c} in \eqn{(0,1)}. That is, for this
 function, arcs may exist for points only inside the intervals.
 It also provides various descriptions and quantities about the arcs of the CS-PCD
-such as number of arcs, arc density, etc. Vertex regions are based on center Mc of each middle interval.
+such as number of arcs, arc density, etc.
+
+Vertex regions are based on center \eqn{M_c} of each middle interval.
 See also (\insertCite{ceyhan:revstat-2016;textual}{pcds}).
 }
 \examples{
+t<-1.5
 c<-.4
-t<-2
-a<-0; b<-10; int<-c(a,b)
+a<-0; b<-10
+#c<-runif(1)
+#a<-runif(1); b<-runif(1); int<-range(a,b); a<-int[1]; b<-int[2]
+nx<-40; ny<-10
 
-n<-10
-dat<-runif(n,a,b)
+#set.seed(1)
+Xp<-runif(nx,a,b)
+#Xp<-runif(nx,a+5,b+5)
+#Xp<-runif(nx,a+10,b+10)
+Yp<-runif(ny,a,b)
 
-NumArcsCSmid1D(dat,t,c,int)
-TSArcDensCS1D(dat,t,c,int)
+ArcsCSmid1D(Xp,Yp,t,c)
+ArcsCSmid1D(Xp,Yp+10,t,c)
 
-NumArcsCSmid1D(dat,t,c=.3,int)
-TSArcDensCS1D(dat,t,c=.3,int)
+Arcs<-ArcsCSmid1D(Xp,Yp,t,c)
+Arcs
+summary(Arcs)
+plot(Arcs)
 
-NumArcsCSmid1D(dat,t=1.5,c,int)
-TSArcDensCS1D(dat,t=1.5,c,int)
+S<-Arcs$S
+E<-Arcs$E
 
-dat<-runif(n,a-1,b+1)
-NumArcsCSmid1D(dat,t,c,int)
-TSArcDensCS1D(dat,t,c,int)
+jit<-.1
+yjit<-runif(nx,-jit,jit)
 
-c<-.4
+Xlim<-range(Xp,Yp)
+xd<-Xlim[2]-Xlim[1]
+
+plot(cbind(a,0),
+main="arcs of CS-PCD whose vertices (jittered along y-axis)\n in middle intervals ",
+xlab=" ", ylab=" ", xlim=Xlim+xd*c(-.05,.05),ylim=3*c(-jit,jit),pch=".")
+abline(h=0,lty=1)
+points(Xp, yjit,pch=".",cex=3)
+abline(v=Yp,lty=2)
+arrows(S, yjit, E, yjit, length = .05, col= 4)
+
 t<-.5
-a<-0; b<-10; int<-c(a,b)
-n<-20
-dat<-runif(n,a,b)
+c<-.4
+a<-0; b<-10;
+nx<-40; ny<-10
+Xp<-runif(nx,a,b)
+Yp<-runif(ny,a,b)
 
-TSArcDensCS1D(dat,t,c,int)
+ArcsCSmid1D(Xp,Yp,t,c)
 
 }
 \references{

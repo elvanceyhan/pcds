@@ -5,8 +5,16 @@
 \title{The indicator for two points constituting a dominating set for Arc Slice Proximity Catch Digraphs
 (AS-PCDs) - one triangle case}
 \usage{
-Gam2AStri(pt1, pt2, Dt, tri, M = "CC", rv1 = NULL, rv2 = NULL,
-  ch.data.pnts = FALSE)
+Gam2AStri(
+  pt1,
+  pt2,
+  Dt,
+  tri,
+  M = "CC",
+  rv1 = NULL,
+  rv2 = NULL,
+  ch.data.pnts = FALSE
+)
 }
 \arguments{
 \item{pt1, pt2}{Two 2D points to be tested for constituting a dominating set of the AS-PCD}
@@ -15,82 +23,96 @@ Gam2AStri(pt1, pt2, Dt, tri, M = "CC", rv1 = NULL, rv2 = NULL,
 
 \item{tri}{Three 2D points, stacked row-wise, each row representing a vertex of the triangle}
 
-\item{M}{"CC" which stand for circumcenter of the triangle tri or a 2D point in Cartesian coordinates or
-a 3D point in  barycentric coordinates which serves as a center in the interior of the triangle Tb;
-default is M="CC" i.e. the circumcenter of tri}
+\item{M}{"CC" which stands for circumcenter of the triangle \code{tri} or a 2D point in Cartesian coordinates or
+a 3D point in  barycentric coordinates which serves as a center in the interior of the triangle \eqn{T_b};
+default is \code{M}="CC" i.e. the circumcenter of \code{tri}}
 
-\item{rv1, rv2}{The indices of the vertices whose regions contains pt1 and pt2, respectively.
-They take the vertex labels as 1,2,3 as in the row order of the vertices in tri}
+\item{rv1, rv2}{The indices of the vertices whose regions contains \code{pt1} and \code{pt2}, respectively.
+They take the vertex labels as 1,2,3 as in the row order of the vertices in \code{tri} (default is NULL for both)}
 
-\item{ch.data.pnts}{A logical argument for checking whether points pt1 and pt2 are data points in Dt or not
+\item{ch.data.pnts}{A logical argument for checking whether points \code{pt1} and \code{pt2} are data points in \code{Dt} or not
 (default is FALSE)}
 }
 \value{
-I({pt1,pt2} is a dominating set of the AS-PCD whose vertices are the 2D data set Dt),
-that is, returns 1 if {pt1,pt2} is a dominating set of AS-PCD, returns 0 otherwise
+I(\{\code{pt1,pt2}\} is a dominating set of the AS-PCD) where vertices of the AS-PCD are the 2D data set \code{Dt}),
+that is, returns 1 if \{\code{pt1,pt2}\} is a dominating set of AS-PCD, returns 0 otherwise
 }
 \description{
-Returns I({pt1,pt2} is a dominating set of the AS-PCD whose vertices are the 2D data set Dt),
-that is, returns 1 if {pt1,pt2} is a dominating set of AS-PCD, returns 0 otherwise.
-AS proximity regions are defined with respect to the triangle tri.
-Point, pt1, is in the region of vertex rv1 (default is NULL)
-and point, pt2, is in the region of vertex rv2 (default is NULL); vertices (and hence rv1 and rv2)
-are labeled as 1,2,3 in the order they are stacked row-wise in tri. Vertex regions are based on
-the center M="CC" for circumcenter of tri; or M=(m1,m2) in Cartesian coordinates
-or M=(alpha,beta,gamma) in barycentric coordinates in the interior of the triangle tri;
-default is M="CC" the circumcenter of tri. ch.data.pnts is for checking whether points pt1 and pt2 are data points in Dt or not
-(default is FALSE), so by default this function checks whether the points pt1 and pt2 would be a
-dominating set if they actually were in the data set.
+Returns I(\{\code{pt1,pt2}\} is a dominating set of the AS-PCD) where vertices of the AS-PCD are
+the 2D data set \code{Dt}), that is, returns 1 if \{\code{pt1,pt2}\} is a dominating set of AS-PCD, returns 0 otherwise.
+
+AS proximity regions are defined with respect to the triangle \code{tri}.
+Point, \code{pt1}, is in the region of vertex \code{rv1} (default is NULL)
+and point, \code{pt2}, is in the region of vertex \code{rv2} (default is NULL); vertices (and hence \code{rv1} and \code{rv2})
+are labeled as 1,2,3 in the order they are stacked row-wise in \code{tri}.
+
+Vertex regions are based on
+the center \code{M}="CC" for circumcenter of \code{tri}; or \eqn{M=(m_1,m_2)} in Cartesian coordinates
+or \eqn{M=(\alpha,\beta,\gamma)} in barycentric coordinates in the interior of the triangle \code{tri};
+default is \code{M}="CC" the circumcenter of \code{tri}.
+
+\code{ch.data.pnts} is for checking whether points \code{pt1} and \code{pt2} are data
+points in \code{Dt} or not (default is FALSE), so by default this function checks whether the points \code{pt1} and \code{pt2}
+would constitute dominating set if they actually were in the data set.
 See also (\insertCite{ceyhan:Phd-thesis,ceyhan:comp-geo-2010,ceyhan:mcap2012;textual}{pcds}).
 }
 \examples{
-c1<-.4; c2<-.6;
-A<-c(0,0); B<-c(1,0); C<-c(c1,c2);
-Tb<-rbind(A,B,C)
-n<-20
+A<-c(1,1); B<-c(2,0); C<-c(1.5,2);
+#A<-runif(2); B<-runif(2); C<-runif(2);
+#A<-runif(2,1,100); B<-runif(2,1,100); C<-runif(2,1,100);
+Tr<-rbind(A,B,C);
+n<-10
 
 #set.seed(1)
-dat<-runif.bastri(n,c1,c2)$g
+dat<-runif.tri(n,Tr)$g
 #dat<-cbind(runif(n),runif(n))
 #dat<-cbind(runif(n,1,2),runif(n,0,2))
 
-M<-as.numeric(runif.bastri(1,c1,c2)$g)
-#M<-c(.6,.2)
-#M<-circ.cent.tri(Tb); #M<-"CC"; #M<-"CM"
+M<-as.numeric(runif.tri(1,Tr)$g)
+#M<-c(1.6,1.2)
+#M<-circ.cent.tri(Tr); #M<-"CC"; #M<-"CM"
 #M<-c(1,1,1) #M<-c(1,2,3) #M<-c(-1,2,3) #barycentric coordinates
 #M<-c(1.3,1.3)
 #M<-c(.3,.3)
 
-Gam2ASbastri(dat[1,],dat[2,],dat,c1,c2,M)
-Gam2ASbastri(dat[1,],dat[1,],dat,c1,c2,M) #one point can not a dominating set of size two
+Gam2AStri(dat[1,],dat[2,],dat,Tr,M)
+Gam2AStri(dat[1,],dat[1,],dat,Tr,M) #same two points cannot be a dominating set of size 2
 
-Gam2ASbastri(c(.2,.4),c(.2,.5),rbind(c(.2,.4),c(.2,.5)),c1,c2,M)
+Gam2AStri(c(.2,.4),dat[2,],dat,Tr,M)
+Gam2AStri(c(.2,.4),c(.2,.5),dat,Tr,M)
+Gam2AStri(c(.2,.4),c(.2,.5),rbind(c(.2,.4),c(.2,.5)),Tr,M)
+#or try
+rv1<-rv.triCC(c(.2,.4),Tr)$rv
+rv2<-rv.triCC(c(.2,.5),Tr)$rv
+Gam2AStri(c(.2,.4),c(.2,.5),rbind(c(.2,.4),c(.2,.5)),Tr,M,rv1,rv2)
 
 ind.gam2<-vector()
 for (i in 1:(n-1))
   for (j in (i+1):n)
-  {if (Gam2ASbastri(dat[i,],dat[j,],dat,c1,c2,M)==1)
+  {if (Gam2AStri(dat[i,],dat[j,],dat,Tr,M)==1)
     ind.gam2<-rbind(ind.gam2,c(i,j))}
 ind.gam2
 
 #or try
-rv1<-rv.bastriCC(dat[1,],c1,c2)$rv
-rv2<-rv.bastriCC(dat[2,],c1,c2)$rv
-Gam2ASbastri(dat[1,],dat[2,],dat,c1,c2,M,rv1,rv2)
-Gam2ASbastri(c(.2,.4),dat[2,],dat,c1,c2,M,rv1,rv2)
+rv1<-rv.triCC(dat[1,],Tr)$rv
+rv2<-rv.triCC(dat[2,],Tr)$rv
+Gam2AStri(dat[1,],dat[2,],dat,Tr,M,rv1,rv2)
 
 #or try
-rv1<-rv.bastriCC(dat[1,],c1,c2)$rv
-Gam2ASbastri(dat[1,],dat[2,],dat,c1,c2,M,rv1)
+rv1<-rv.triCC(dat[1,],Tr)$rv
+Gam2AStri(dat[1,],dat[2,],dat,Tr,M,rv1)
 
 #or try
-Rv2<-rv.bastriCC(dat[2,],c1,c2)$rv
-Gam2ASbastri(dat[1,],dat[2,],dat,c1,c2,M,rv2=Rv2)
+Rv2<-rv.triCC(dat[2,],Tr)$rv
+Gam2AStri(dat[1,],dat[2,],dat,Tr,M,rv2=Rv2)
 
-Gam2ASbastri(c(.3,.2),c(.35,.25),dat,c1,c2,M)
+Gam2AStri(c(1.3,1.2),c(1.35,1.25),dat,Tr,M)
 
 dat.fr<-data.frame(a=dat)
-Gam2ASbastri(c(.3,.2),c(.35,.25),dat.fr,c1,c2,M)
+Gam2AStri(c(.3,.2),c(.35,.25),dat.fr,Tr,M)
+
+dat.fr<-data.frame(a=Tr)
+Gam2AStri(c(.3,.2),c(.35,.25),dat,dat.fr,M)
 
 }
 \references{

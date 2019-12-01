@@ -7,85 +7,59 @@
 angle3pnts(a, b, c, radian = TRUE)
 }
 \arguments{
-\item{a, b, c}{Three 2D points which represent the intersecting line segments [ba] and [bc].
+\item{a, b, c}{Three 2D points which represent the intersecting line segments \eqn{[ba]} and \eqn{[bc]}.
 The smaller angle between these line segments is to be computed.}
 
 \item{radian}{A logical argument (default=TRUE). If TRUE, the (smaller) angle between the line segments
-[ba] and [bc] is provided in radians, else it is provided in degrees.}
+\eqn{[ba]} and \eqn{[bc]} is provided in radians, else it is provided in degrees.}
 }
 \value{
-angle in radians or degrees between the line segments [ba] and [bc]
+angle in radians or degrees between the line segments \eqn{[ba]} and \eqn{[bc]}
 }
 \description{
-Returns the angle in radians or degrees between two vectors or line segments at the point of intersection.
-The line segments are [ba] and [bc] when the arguments of the function are given as a,b,c.
-radian is a logical argument (default=TRUE) which yields the angle in radians if TRUE, and in degrees if FALSE.
+Returns the angle in radians or degrees between two vectors or line segments at the point of
+intersection. The line segments are \eqn{[ba]} and \eqn{[bc]} when the arguments of the function are given as \code{a,b,c}.
+\code{radian} is a logical argument (default=TRUE) which yields the angle in radians if TRUE, and in degrees if FALSE.
 The smaller of the angle between the line segments is provided by the function.
 }
 \examples{
-A<-c(1,1); B<-c(2,0); C<-c(1.5,2);
+A<-c(.3,.2); B<-c(.6,.3); C<-c(1,1)
 #A<-runif(2); B<-runif(2); C<-runif(2);
 #A<-runif(2,1,100); B<-runif(2,1,100); C<-runif(2,1,100);
-Tr<-rbind(A,B,C);
+pts<-rbind(A,B,C)
 
-P<-c(.4,.2)
-rverts.triCC(P,Tr)
+angle3pnts(A,B,C)
 
-P<-c(1.8,.5)
-rverts.triCC(P,Tr)
+angle3pnts(A,B,A)
+round(angle3pnts(A,B,A),7)
 
-P<-c(10.5,1.6)
-rverts.triCC(P,Tr)
+angle3pnts(A,B,C,radian=FALSE)
 
-n<-20
-#set.seed(1)
-dat<-runif.tri(n,Tr)$g
-#dat<-cbind(runif(n,1,2),runif(n,0,1))
-#dat<-cbind(runif(n),runif(n))
-
-rverts.triCC(dat,Tr)
-rverts.triCC(rbind(dat,c(2,2)),Tr)
-
-rv<-rverts.triCC(dat,Tr)
-rv
-
-CC<-circ.cent.tri(Tr)
-D1<-(B+C)/2; D2<-(A+C)/2; D3<-(A+B)/2;
-Ds<-rbind(D1,D2,D3)
-
-Xlim<-range(Tr[,1],dat[,1],CC[1])
-Ylim<-range(Tr[,2],dat[,2],CC[2])
+#plot of the line segments
+Xlim<-range(pts[,1])
+Ylim<-range(pts[,2])
 xd<-Xlim[2]-Xlim[1]
 yd<-Ylim[2]-Ylim[1]
 
-plot(Tr,pch=".",asp=1,xlab="",ylab="",axes=TRUE,xlim=Xlim+xd*c(-.05,.05),ylim=Ylim+yd*c(-.05,.05))
-polygon(Tr)
-points(dat,pch=".",col=1)
-L<-matrix(rep(CC,3),ncol=3,byrow=T); R<-Ds
+ang1<-angle3pnts(A,B,C,radian=FALSE)
+ang2<-angle3pnts(B+c(1,0),B,C,radian=FALSE)
+
+sa<-angle.str2end(A,B,C,radian=FALSE)$s #small arc angles
+ang1<-sa[1]
+ang2<-sa[2]
+
+plot(pts,asp=1,pch=1,xlab="x",ylab="y",
+xlim=Xlim+xd*c(-.05,.05),ylim=Ylim+yd*c(-.05,.05))
+L<-rbind(B,B); R<-rbind(A,C)
 segments(L[,1], L[,2], R[,1], R[,2], lty=2)
+#library(plotrix)
+plotrix::draw.arc(B[1],B[2],radius=xd*.1,deg1=ang1,deg2=ang2)
+txt<-rbind(A,B,C)
+text(txt+cbind(rep(xd*.05,nrow(txt)),rep(-xd*.02,nrow(txt))),c("A","B","C"))
 
-xc<-Tr[,1]#+c(-.04,.05,.05)
-yc<-Tr[,2]#+c(-.05,.05,.03)
-txt.str<-c("rv=1","rv=2","rv=3")
-text(xc,yc,txt.str)
+text(rbind(B)+.15*xd*c(cos(pi*(ang2+ang1)/360),sin(pi*(ang2+ang1)/360)),
+paste(round(abs(ang1-ang2),2)," degrees"))
 
-txt<-rbind(CC,Ds)
-xc<-txt[,1]#+c(.04,.04,-.03,0)
-yc<-txt[,2]#+c(-.07,.04,.06,-.08)
-txt.str<-c("CC","D1","D2","D3")
-text(xc,yc,txt.str)
-
-text(dat,labels=factor(rv$rv))
-
-P<-c(1.8,.5)
-rverts.triCC(P,Tr)
-
-dat.fr<-data.frame(a=dat)
-rverts.triCC(dat.fr,Tr)
-
-}
-\references{
-\insertAllCited{}
 }
 \seealso{
 \code{\link{angle.str2end}}

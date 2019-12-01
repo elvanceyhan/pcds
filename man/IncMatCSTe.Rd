@@ -13,53 +13,60 @@ IncMatCSTe(dat, t, M = c(1, 1, 1))
 \item{t}{A positive real number which serves as the expansion parameter in CS proximity region}
 
 \item{M}{A 2D point in Cartesian coordinates or a 3D point in barycentric coordinates
-which serves as a center in the interior of the standard equilateral triangle Te; default is M=c(1,1,1) i.e.
-the center of mass of Te}
+which serves as a center in the interior of the standard equilateral triangle \eqn{T_e}; default is \eqn{M=(1,1,1)} i.e.
+the center of mass of \eqn{T_e}}
 }
 \value{
-Incidence matrix for the CS-PCD with vertices being 2D data set, dat and CS proximity
-regions are defined in the standard equilateral triangle Te with M-edge regions.
+Incidence matrix for the CS-PCD with vertices being 2D data set, \code{dat} and CS proximity
+regions are defined in the standard equilateral triangle \eqn{T_e} with \code{M}-edge regions.
 }
 \description{
-Returns the incidence matrix for the CS-PCD whose vertices are the given 2D numerical data set, dat,
-in the standard equilateral triangle Te=T(v=1,v=2,v=3)=T((0,0),(1,0),(1/2,sqrt(3)/2)).
+Returns the incidence matrix for the CS-PCD whose vertices are the given 2D numerical data set, \code{dat},
+in the standard equilateral triangle \eqn{T_e=T(v=1,v=2,v=3)=T((0,0),(1,0),(1/2,\sqrt{3}/2))}.
+
 CS proximity region is defined with respect to the standard equilateral triangle
-Te=T(v=1,v=2,v=3)=T((0,0),(1,0),(1/2,sqrt(3)/2)) and edge regions are based on the center M=(m1,m2)
-in Cartesian coordinates or M=(alpha,beta,gamma) in barycentric coordinates in the interior of Te;
-default is M=c(1,1,1) i.e. the center of mass of Te.
- Loops are allowed, so the diagonal entries are all equal to 1.
+\eqn{T_e=T(v=1,v=2,v=3)=T((0,0),(1,0),(1/2,\sqrt{3}/2))} and edge regions are based on the center \eqn{M=(m_1,m_2)}
+in Cartesian coordinates or \eqn{M=(\alpha,\beta,\gamma)} in barycentric coordinates in the interior of \eqn{T_e};
+default is \eqn{M=(1,1,1)} i.e. the center of mass of \eqn{T_e}.
+Loops are allowed, so the diagonal entries are all equal to 1.
 See also (\insertCite{ceyhan:Phd-thesis,ceyhan:arc-density-CS,ceyhan:test2014;textual}{pcds}).
 }
 \examples{
-A<-c(0,0); B<-c(1,0); C<-c(.5,sqrt(3.)/2);
+A<-c(0,0); B<-c(1,0); C<-c(1/2,sqrt(3)/2);
 Te<-rbind(A,B,C);
 n<-10
 
 #set.seed(1)
 dat<-runifTe(n)$gen.points
+#dat<-cbind(runif(n),runif(n))
+#dat<-cbind(runif(n,1,2),runif(n,0,1))
 
 M<-as.numeric(runifTe(1)$g)
 #M<-c(.6,.2)
 #M<-c(1,1,1) #M<-c(1,2,3) #M<-c(-1,2,3) #barycentric coordinates
 #M<-c(1.3,1.3)
 #M<-c(.3,.3)
-t<-1
 
-IndNCSTe(dat[1,],dat[2,],t,M)
-IndNCSTe(dat[1,],dat[1,],t,M)
+NumArcsCSTe(dat,t=1.25)
 
-IndNCSTe(dat[1,],dat[2,],t=4,M)
-IndNCSTe(dat[2,],dat[5,],t,M)
-IndNCSTe(c(.2,.5),dat[2,],t,M)
+inc.mat<-IncMatCSTe(dat,t=1.25,M)
+inc.mat
+sum(inc.mat)-n
 
-IndNCSTe(c(.2,.5),c(.2,.5),t,M)
+dom.greedy(inc.mat)
+#dom.exact(inc.mat) #might take a long time for large n
+IndUBdom(inc.mat,1)
 
-#or try
-re<-reTeCM(dat[1,])$re
-IndNCSTe(dat[1,],dat[2,],t,M,re=re)
+inc.mat<-IncMatCSTe(rbind(dat,c(0,1)),t=1.25,M)
+inc.mat
+sum(inc.mat)-(n+1)
 
-IndNCSTe(dat[1,],dat[2,],t,M)
+IncMatCSTe(dat,t=1.5,M);
 
+IncMatCSTe(rbind(dat,dat),t=1.5,M)
+
+dat.fr<-data.frame(a=dat)
+IncMatCSTe(dat.fr,t=1.5,M);
 
 }
 \references{

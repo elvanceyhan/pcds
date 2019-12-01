@@ -9,44 +9,30 @@ centMc(int, c)
 \arguments{
 \item{int}{A vector with two entries representing an interval}
 
-\item{c}{A positive real number in (0,1) parameterizing the center inside int=(a,b).
-For the interval, int=(a,b), the parameterized center is Mc=a+c*(b-a)}
+\item{c}{A positive real number in \eqn{(0,1)} parameterizing the center inside \eqn{int=(a,b)}.
+For the interval, \eqn{int=(a,b)}, the parameterized center is \eqn{M_c=a+c(b-a)}}
 }
 \value{
-(parameterized) center inside int
+(parameterized) center inside \code{int}
 }
 \description{
-Returns the (parameterized) center, Mc, of the interval, int=(a,b), parameterized by c in (0,1)
-so that 100c % of the length of interval is to the left of Mc and 100(1-c) % of the length of the interval
-is to the right of Mc. That is, for the interval, int=(a,b), the parameterized center is Mc=a+c*(b-a).
+Returns the (parameterized) center, \eqn{M_c}, of the interval, \eqn{int=(a,b)}, parameterized by \code{c} in \eqn{(0,1)}
+so that \eqn{100c} \% of the length of interval is to the left of \eqn{M_c} and \eqn{100(1-c)} \% of the length of the interval
+is to the right of \eqn{M_c}. That is, for the interval, \eqn{int=(a,b)}, the parameterized center is \eqn{M_c=a+c(b-a)}.
 See also (\insertCite{ceyhan:metrika-2012,ceyhan:revstat-2016;textual}{pcds}).
 }
 \examples{
-nx<-10
-ny<-10
+c<-.4
+a<-0; b<-10; int<-c(a,b)
+#c<-runif(1)
+#a<-runif(1,0,5); b<-runif(1,5,10); int<-c(a,b)
+int
+centMc(int,c)
 
-#set.seed(1)
-Xp<-cbind(runif(nx,0,1),runif(nx,0,1))
-#Xp<-cbind(runif(nx,0.5,1.5),runif(nx,0,1))
-#Xp<-cbind(runif(nx,1,2),runif(nx,0,1))
-Yp<-cbind(runif(ny,0,1),runif(ny,0,1))
+c<-.3
+a<-2; b<-4; int<-c(a,b)
+centMc(int,c)
 
-M<-c(1,1,1) #M<-c(1,2,3) #M<-c(-1,2,3) #barycentric coordinates
-#M<-"CC"
-#M<-c(1.3,1.3)
-
-plot.regsASMT(Xp,Yp,M,xlab="",ylab="")
-
-Xlim<-range(Xp[,1],Yp[,1])
-Ylim<-range(Xp[,2],Yp[,2])
-xd<-Xlim[2]-Xlim[1]
-yd<-Ylim[2]-Ylim[1]
-
-plot.regsASMT(Xp,Yp,M,xlab="",ylab="",xlim=Xlim+xd*c(-.05,.05),ylim=Ylim+yd*c(-.05,.05))
-
-Xp<-c(.5,.5)
-Xlim<-Ylim<-range(Xp,Yp)
-plot.regsASMT(Xp,Yp,M,xlab="",ylab="",xlim=Xlim,ylim=Ylim)
 }
 \references{
 \insertAllCited{}

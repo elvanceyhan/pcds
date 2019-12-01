@@ -2,7 +2,7 @@
 % Please edit documentation in R/PCDFunctions.r
 \name{fr2eTeER}
 \alias{fr2eTeER}
-\title{An object of class "Extrema"
+\title{An object of class "Extrema":
 
 The furthest points in a data set from edges in each CM-edge region in the standard
 equilateral triangle}
@@ -10,109 +10,86 @@ equilateral triangle}
 fr2eTeER(Dt, ch.all.intri = FALSE)
 }
 \arguments{
-\item{Dt}{A set of 2D points, some could be inside and some could be outside standard equilateral triangle Te}
+\item{Dt}{A set of 2D points, some could be inside and some could be outside standard equilateral triangle \eqn{T_e}}
 
-\item{ch.all.intri}{A logical argument used for checking whether all data points are inside Te
+\item{ch.all.intri}{A logical argument used for checking whether all data points are inside \eqn{T_e}
 (default is FALSE)}
 }
 \value{
 A list with the elements
-\item{txt1}{Edge labels as AB=3, BC=1, and AC=2 for Te (corresponds to row number in Extrema Points).}
+\item{txt1}{Edge labels as AB=3, BC=1, and AC=2 for \eqn{T_e} (corresponds to row number in Extrema Points).}
 \item{txt2}{A short description of the distances as "Distances to Edges".}
 \item{type}{Type of the extrema points}
 \item{desc}{A short description of the extrema points}
-\item{mtxt}{The "main" title for the plot of the exrema}
+\item{mtitle}{The "main" title for the plot of the exrema}
 \item{Ext}{The extrema points, here, furthest points from edges in each edge region.}
-\item{X}{The input data, Dt, can be a matrix or data frame}
-\item{num.points}{The number of data points, i.e., size of Dt}
-\item{supp}{Support of the data points, here, it is Te.}
+\item{X}{The input data, \code{Dt}, can be a matrix or data frame}
+\item{num.points}{The number of data points, i.e., size of \code{Dt}}
+\item{supp}{Support of the data points, here, it is \eqn{T_e}.}
 \item{cent}{The center point used for construction of edge regions.}
-\item{ncent}{Name of the center, cent, it is center of mass "CM" for this function.}
-\item{regions}{Edge regions inside the triangle, Te, provided as a list.}
+\item{ncent}{Name of the center, \code{cent}, it is center of mass "CM" for this function.}
+\item{regions}{Edge regions inside the triangle, \eqn{T_e}, provided as a list.}
 \item{region.names}{Names of the edge regions as "er=1","er=2","er=3".}
-\item{region.centers}{Centers of mass of the edge regions inside Te.}
+\item{region.centers}{Centers of mass of the edge regions inside \eqn{T_e}.}
 \item{dist2ref}{Distances from furthest points in each edge region to the corresponding edge.}
 }
 \description{
-Returns the furthest data points among the data set, Dt, in each CM-edge region from the edge in the
-standard equilateral triangle Te=T(A=(0,0),B=(1,0),C=(1/2,sqrt(3)/2)).
-ch.all.intri is for checking whether all data points are inside Te (default is FALSE).
+Returns the furthest data points among the data set, \code{Dt}, in each CM-edge region from the edge in the
+standard equilateral triangle \eqn{T_e=T(A=(0,0),B=(1,0),C=(1/2,\sqrt{3}/2))}.
+
+\code{ch.all.intri} is for checking whether all data points are inside \eqn{T_e} (default is FALSE).
 See also (\insertCite{ceyhan:Phd-thesis;textual}{pcds}).
 }
 \examples{
-P<-c(.4,.2)
-reTeCM(P)
-
-P<-c(.8,.2)
-reTeCM(P)
-
-P<-c(.8,.8)
-reTeCM(P)
-
-P<-c(.5,.61)
-reTeCM(P)
-
-A<-c(0,0); B<-c(1,0); C<-c(0.5,sqrt(3)/2);
-Te<-rbind(A,B,C)
-D1<-(B+C)/2; D2<-(A+C)/2; D3<-(A+B)/2;
-reTeCM(A)
-reTeCM(B)
-reTeCM(C)
-reTeCM(D1)
-reTeCM(D2)
-reTeCM(D3)
-
-CM<-(A+B+C)/3
-reTeCM(CM)
-
+\dontrun{
 n<-20
 dat<-runifTe(n)$gen.points
 #dat<-cbind(runif(n),runif(n))
 #dat<-cbind(runif(n,1,2),runif(n,0,1))
 
-re<-vector()
-for (i in 1:n)
-  re<-c(re,reTeCM(dat[i,])$re)
-re
+Ext<-fr2eTeER(dat)
+Ext
+summary(Ext)
+plot(Ext,asp=1)
+
+fr2eTeER(dat[1,])
+ed.far<-fr2eTeER(dat)
+
+dat2<-rbind(dat,c(.8,.8))
+fr2eTeER(dat2)
+fr2eTeER(dat2,ch.all.intri = TRUE)
+
+A<-c(0,0); B<-c(1,0); C<-c(0.5,sqrt(3)/2);
+Te<-rbind(A,B,C)
+CM<-(A+B+C)/3
+p1<-(A+B)/2
+p2<-(B+C)/2
+p3<-(A+C)/2
 
 Xlim<-range(Te[,1],dat[,1])
 Ylim<-range(Te[,2],dat[,2])
 xd<-Xlim[2]-Xlim[1]
 yd<-Ylim[2]-Ylim[1]
 
-plot(Te,asp=1,xlab="",ylab="",axes=TRUE,pch=".",xlim=Xlim+xd*c(-.01,.01),ylim=Ylim+yd*c(-.01,.01))
-points(dat,pch=".")
+plot(A,pch=".",xlab="",ylab="",axes=TRUE,xlim=Xlim+xd*c(-.05,.05),ylim=Ylim+yd*c(-.05,.05))
 polygon(Te)
-L<-Te; R<-matrix(rep(CM,3),ncol=3,byrow=T)
+L<-Te; R<-matrix(rep(CM,3),ncol=2,byrow=TRUE)
 segments(L[,1], L[,2], R[,1], R[,2], lty=2)
-text(dat,labels=factor(re))
-
-txt<-rbind(Te,CM)
-xc<-txt[,1]+c(-.03,.03,.03,-.06)
-yc<-txt[,2]+c(.02,.02,.02,.03)
-txt.str<-c("A","B","C","CM")
-text(xc,yc,txt.str)
-
-p1<-(A+B+CM)/3
-p2<-(B+C+CM)/3
-p3<-(A+C+CM)/3
-
-plot(Te,xlab="",ylab="",axes=TRUE,pch=".",xlim=Xlim+xd*c(-.01,.01),ylim=Ylim+yd*c(-.01,.01))
-polygon(Te)
-L<-Te; R<-matrix(rep(CM,3),ncol=3,byrow=T)
-segments(L[,1], L[,2], R[,1], R[,2], lty=2)
+points(dat,xlab="",ylab="")
+points(ed.far$Ext,pty=2,pch=4,col="red")
 
 txt<-rbind(Te,CM,p1,p2,p3)
 xc<-txt[,1]+c(-.03,.03,.03,-.06,0,0,0)
-yc<-txt[,2]+c(.02,.02,.02,.03,0,0,0)
-txt.str<-c("A","B","C","CM","re=3","re=1","re=2")
+yc<-txt[,2]+c(.02,.02,.02,.02,0,0,0)
+txt.str<-c("A","B","C","CM","re=2","re=3","re=1")
 text(xc,yc,txt.str)
+}
 
 }
 \references{
 \insertAllCited{}
 }
 \seealso{
-\code{\link{fr2vTbVRCC}}, \code{\link{fr2vVRCC}}, \code{\link{Kfr2vTbVRCC}}
- \code{\link{Kfr2vVRCC}}, and \code{\link{cl2edgesTe}}
+\code{\link{fr2vTbVRCC}}, \code{\link{fr2vVRCC}}, \code{\link{Kfr2vTbVRCC}},
+\code{\link{Kfr2vVRCC}}, and \code{\link{cl2edgesTe}}
 }

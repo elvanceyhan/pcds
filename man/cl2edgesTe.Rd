@@ -2,7 +2,7 @@
 % Please edit documentation in R/PCDFunctions.r
 \name{cl2edgesTe}
 \alias{cl2edgesTe}
-\title{An object of class "Extrema"
+\title{An object of class "Extrema":
 
 The closest points in a data set to edges in the standard equilateral triangle}
 \usage{
@@ -12,41 +12,42 @@ cl2edgesTe(Dt, ch.all.intri = FALSE)
 \item{Dt}{A set of 2D points representing the set of data points}
 
 \item{ch.all.intri}{A logical argument (default=FALSE) to check whether all data points are inside
-the standard equilateral triangle Te. So if it is TRUE,
+the standard equilateral triangle \eqn{T_e}. So if it is TRUE,
 the function checks if all data points are inside the closure of the triangle (i.e. interior and boundary
 combined) else it does not.}
 }
 \value{
 A list with the elements
-\item{txt1}{Edge labels as AB=3, BC=1, and AC=2 for Te (corresponds to row number in Extrema Points).}
+\item{txt1}{Edge labels as AB=3, BC=1, and AC=2 for \eqn{T_e} (corresponds to row number in Extrema Points).}
 \item{txt2}{A short description of the distances as "Distances to Edges ...".}
 \item{type}{Type of the extrema points}
 \item{desc}{A short description of the extrema points}
-\item{mtxt}{The "main" title for the plot of the exrema}
+\item{mtitle}{The "main" title for the plot of the exrema}
 \item{Ext}{The extrema points, i.e., closest points to edges}
-\item{X}{The input data, Dt, which can be a matrix or data frame}
-\item{num.points}{The number of data points, i.e., size of Dt}
-\item{supp}{Support of the data points, i.e., the standard equilateral triangle Te}
+\item{X}{The input data, \code{Dt}, which can be a matrix or data frame}
+\item{num.points}{The number of data points, i.e., size of \code{Dt}}
+\item{supp}{Support of the data points, i.e., the standard equilateral triangle \eqn{T_e}}
 \item{cent}{The center point used for construction of edge regions, not required for this extrema,
 hence it is NULL for this function}
-\item{ncent}{Name of the center, cent, not required for this extrema, hence it is NULL for this function}
-\item{regions}{Edge regions inside the triangle, Te, not required for this extrema, hence it is NULL
+\item{ncent}{Name of the center, \code{cent}, not required for this extrema, hence it is NULL for this function}
+\item{regions}{Edge regions inside the triangle, \eqn{T_e}, not required for this extrema, hence it is NULL
 for this function}
 \item{region.names}{Names of the edge regions, not required for this extrema, hence it is NULL
 for this function}
-\item{region.centers}{Centers of mass of the edge regions inside Te, not required for this extrema,
+\item{region.centers}{Centers of mass of the edge regions inside \eqn{T_e}, not required for this extrema,
 hence it is NULL for this function}
 \item{dist2ref}{Distances from closest points in each edge region to the corresponding edge}
 }
 \description{
-Returns the closest points from the 2D data set, Dt, to the edges in the
-standard equilateral triangle Te=T(A=(0,0),B=(1,0),C=(1/2,sqrt(3)/2)).
-ch.all.intri is for checking whether all data points are inside Te (default is FALSE).
-If some of the data points are not inside Te and ch.all.intri=TRUE, then the function yields
+Returns the closest points from the 2D data set, \code{Dt}, to the edges in the
+standard equilateral triangle \eqn{T_e=T(A=(0,0),B=(1,0),C=(1/2,\sqrt{3}/2))}.
+
+\code{ch.all.intri} is for checking whether all data points are inside \eqn{T_e} (default is FALSE).
+If some of the data points are not inside \eqn{T_e} and \code{ch.all.intri}=TRUE, then the function yields
 an error message.
-If some of the data points are not inside Te and ch.all.intri=FALSE, then the function yields
-the closest points to edges among the data points inside Te (yields NA if there are no data points
-inside Te).
+If some of the data points are not inside \eqn{T_e} and \code{ch.all.intri}=FALSE, then the function yields
+the closest points to edges among the data points inside \eqn{T_e} (yields NA if there are no data points
+inside \eqn{T_e}).
 See also (\insertCite{ceyhan:Phd-thesis,ceyhan:arc-density-PE,ceyhan:masa-2007;textual}{pcds}).
 }
 \examples{
@@ -55,17 +56,18 @@ dat<-runifTe(n)$gen.points
 #dat<-cbind(runif(n),runif(n))
 #dat<-cbind(runif(n,1,2),runif(n,0,1))
 
-Ext<-fr2eTeER(dat)
+Ext<-cl2edgesTe(dat)
 Ext
 summary(Ext)
 plot(Ext,asp=1)
 
-fr2eTeER(dat[1,])
-ed.far<-fr2eTeER(dat)
+cl2edgesTe(dat[1,])
+cl2edgesTe(c(10,10))
+
+ed.clo<-cl2edgesTe(dat)
 
 dat2<-rbind(dat,c(.8,.8))
-fr2eTeER(dat2)
-fr2eTeER(dat2,ch.all.intri = TRUE)
+cl2edgesTe(dat2)
 
 A<-c(0,0); B<-c(1,0); C<-c(0.5,sqrt(3)/2);
 Te<-rbind(A,B,C)
@@ -81,22 +83,22 @@ yd<-Ylim[2]-Ylim[1]
 
 plot(A,pch=".",xlab="",ylab="",axes=TRUE,xlim=Xlim+xd*c(-.05,.05),ylim=Ylim+yd*c(-.05,.05))
 polygon(Te)
-L<-Te; R<-matrix(rep(CM,3),ncol=3,byrow=T)
-segments(L[,1], L[,2], R[,1], R[,2], lty=2)
 points(dat,xlab="",ylab="")
-points(ed.far$Ext,pty=2,pch=4,col="red")
+points(ed.clo$Ext,pty=2,pch=4,col="red")
 
-txt<-rbind(Te,CM,p1,p2,p3)
-xc<-txt[,1]+c(-.03,.03,.03,-.06,0,0,0)
-yc<-txt[,2]+c(.02,.02,.02,.02,0,0,0)
-txt.str<-c("A","B","C","CM","re=2","re=3","re=1")
+txt<-rbind(Te,p1,p2,p3)
+xc<-txt[,1]+c(-.03,.03,.03,0,0,0)
+yc<-txt[,2]+c(.02,.02,.02,0,0,0)
+txt.str<-c("A","B","C","re=1","re=2","re=3")
 text(xc,yc,txt.str)
+
+dat.fr<-data.frame(a=dat)
+cl2edgesTe(dat.fr)
 
 }
 \references{
 \insertAllCited{}
 }
 \seealso{
-\code{\link{cl2eTbVRcent}}, \code{\link{cl2eVRcent}}, \code{\link{cl2eVRCM}} and
- \code{\link{fr2eTeER}}
+\code{\link{cl2eTbVRcent}}, \code{\link{cl2eVRcent}}, \code{\link{cl2eVRCM}} and \code{\link{fr2eTeER}}
 }

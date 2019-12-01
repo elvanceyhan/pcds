@@ -11,50 +11,53 @@ IncMatAStri(dat, tri, M = "CC")
 
 \item{tri}{Three 2D points, stacked row-wise, each row representing a vertex of the triangle}
 
-\item{M}{"CC" which stand for circumcenter of the triangle tri or a 2D point in Cartesian coordinates or
-a 3D point in barycentric coordinates which serves as a center in the interior of tri;
-default is M="CC" i.e. the circumcenter of tri}
+\item{M}{"CC" which stands for circumcenter of the triangle \code{tri} or a 2D point in Cartesian coordinates or
+a 3D point in barycentric coordinates which serves as a center in the interior of \code{tri};
+default is \code{M}="CC" i.e. the circumcenter of \code{tri}}
 }
 \value{
-Incidence matrix for the AS-PCD whose vertices are 2D data set, dat,
-and AS proximity regions are defined with respect to the triangle tri and
+Incidence matrix for the AS-PCD whose vertices are 2D data set, \code{dat},
+and AS proximity regions are defined with respect to the triangle \code{tri} and
 vertex regions based on circumcenter.
 }
 \description{
-Returns the incidence matrix for the AS-PCD whose vertices are the given 2D numerical data set, dat.
-AS proximity regions are defined with respect to the triangle tri=T(v=1,v=2,v=3) and
-vertex regions based on the center M="CC" for circumcenter of tri;
-or M=(m1,m2) in Cartesian coordinates or M=(alpha,beta,gamma) in barycentric coordinates in the
-interior of the triangle tri; default is M="CC" i.e. circumcenter of tri.
+Returns the incidence matrix for the AS-PCD whose vertices are the given 2D numerical data set, \code{dat}.
+
+AS proximity regions are defined with respect to the triangle \eqn{tri=T(v=1,v=2,v=3)} and
+vertex regions based on the center \code{M}="CC" for circumcenter of \code{tri};
+or \eqn{M=(m_1,m_2)} in Cartesian coordinates or \eqn{M=(\alpha,\beta,\gamma)} in barycentric coordinates in the
+interior of the triangle \code{tri}; default is \code{M}="CC" i.e. circumcenter of \code{tri}.
 Loops are allowed, so the diagonal entries are all equal to 1.
 See also (\insertCite{ceyhan:Phd-thesis,ceyhan:comp-geo-2010,ceyhan:mcap2012;textual}{pcds}).
 }
 \examples{
-nx<-100
-ny<-10
+A<-c(1,1); B<-c(2,0); C<-c(1.5,2);
+#A<-runif(2); B<-runif(2); C<-runif(2);
+#A<-runif(2,1,100); B<-runif(2,1,100); C<-runif(2,1,100);
+Tr<-rbind(A,B,C);
+n<-10
 
 #set.seed(1)
-Xp<-cbind(runif(nx),runif(nx))
-#Xp<-cbind(runif(nx,.5,1.5),runif(nx))
-#Xp<-cbind(runif(nx,1,2),runif(nx))
-#Xp<-c(.5,.5)
-Yp<-cbind(runif(ny),runif(ny))
+dat<-runif.tri(n,Tr)$g
+#dat<-cbind(runif(n,1,2),runif(n,0,2))
+#dat<-cbind(runif(n),runif(n))
+#dat<-c(.5,.5)
 
-plotDeltri(Xp,Yp,xlab="",ylab="")
-
-M<-"CC"
+M<-as.numeric(runif.tri(1,Tr)$g)
+#M<-c(1.6,1.2)
+#M<-circ.cent.tri(Tr); #M<-"CC"; #M<-"CM"
 #M<-c(1,1,1) #M<-c(1,2,3) #M<-c(-1,2,3) #barycentric coordinates
 #M<-c(1.3,1.3)
+#M<-c(.3,.3)
 
-NumArcsASMT(Xp,Yp,M)
+IM<-IncMatAStri(dat,Tr,M)
+IM
 
-NumArcsASMT(c(.4,.2),Yp,M)
+dom.greedy(IM)
+dom.exact(IM)
 
-NumArcsASMT(Xp1,rbind(Yp1,Yp1),M)
-
-dat.fr<-data.frame(a=Xp1)
-NumArcsASMT(dat.fr,Yp,M)
-
+dat.fr<-data.frame(a=dat)
+IncMatAStri(dat.fr,Tr,M)
 
 }
 \references{

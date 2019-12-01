@@ -1,16 +1,23 @@
 Package: pcds
 Type: Package
-Title: Provides Spatial Pattern Tests and Simulation based on and Visualization of Proximity Catch Digraphs
+Title: Provides Spatial Pattern Tests and Simulation Based on and Visualization of Proximity Catch Digraphs
 Version: 0.1.0
 Author: Elvan Ceyhan
 Maintainer: Elvan Ceyhan <elvanceyhan@gmail.com>
-Description: This package contains the functions for generating patterns of segregation, association, CSR (complete spatial randomness) and Uniform data in one, two and three dimensional cases, for testing these patterns based on domination number and arc density of the proximity catch digraphs (PCDs) for two-dimensional data, for visualization of PCDs for one, two and three dimensional data. The PCD families considered are Arc-Slice PCDs, Proportional-Edge PCDs and Central Similarity PCDs.
+Description: Contains the functions for generating patterns of segregation, association, CSR (complete spatial randomness) and Uniform data in one, two and three dimensional cases, for testing these patterns based on domination number and arc density of the proximity catch digraphs (PCDs) for two-dimensional data, for visualization of PCDs for one, two and three dimensional data. The PCD families considered are Arc-Slice PCDs, Proportional-Edge PCDs and Central Similarity PCDs.
 License: GPL-2
 Encoding: UTF-8
 LazyData: TRUE
 Imports:
-    tripack, combinat, plot3D, Rdpack
+    tripack,
+    combinat,
+    plot3D,
+    Rdpack (>= 0.7),
+    plotrix,
+    graphics,
+    stats,
+    utils
 RdMacros: Rdpack
 Suggests:
     scatterplot3d
-RoxygenNote: 6.1.1
+RoxygenNote: 7.0.1

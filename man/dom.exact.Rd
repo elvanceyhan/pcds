@@ -13,28 +13,26 @@ a graph or digraph}
 \value{
 A list with two elements
 \item{dom.num}{The cardinality of the (exact) minimum dominating set i.e. (exact) domination number of the
-graph or digraph whose incidence matrix Inc.Mat is given as input.}
-\item{ind.mds}{Indices of the rows in the incidence matrix Inc.Mat for the (exact) minimum
+graph or digraph whose incidence matrix \code{Inc.Mat} is given as input.}
+\item{ind.mds}{Indices of the rows in the incidence matrix \code{Inc.Mat} for the (exact) minimum
 dominating set. The row numbers in the incidence matrix correspond to the indices of the vertices
 (i.e. indices of the data points).}
 }
 \description{
-Returns the (exact) domination number based on the incidence matrix Inc.Mat of a graph or a digraph
-and the indices (i.e. row numbers of Inc.Mat) for the corresponding (exact) minimum dominating set.
+Returns the (exact) domination number based on the incidence matrix \code{Inc.Mat} of a graph or a digraph
+and the indices (i.e. row numbers of \code{Inc.Mat}) for the corresponding (exact) minimum dominating set.
 Here the row number in the incidence matrix corresponds to the index of the vertex (i.e. index of the data
 point). The function works whether loops are allowed or not (i.e., whether the first diagonal is all 1 or
 all 0). It takes a rather long time for large number of vertices (i.e., large number of row numbers).
 }
 \examples{
 n<-10
-M<-matrix(sample(c(0,1),n^2,replace=T),nrow=n)
+M<-matrix(sample(c(0,1),n^2,replace=TRUE),nrow=n)
 diag(M)<-1
 
 dom.greedy(M)
 IndUBdom(M,2)
-
-for (k in 1:n)
-print(c(k,IndUBdom(M,k)))
+dom.exact(M)
 
 }
 \seealso{

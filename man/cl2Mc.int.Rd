@@ -2,20 +2,20 @@
 % Please edit documentation in R/PCDFunctions.r
 \name{cl2Mc.int}
 \alias{cl2Mc.int}
-\title{An object of class "Extrema"
+\title{An object of class "Extrema":
 
 The closest points to center in each vertex region in an interval}
 \usage{
 cl2Mc.int(Dt, int, c)
 }
 \arguments{
-\item{Dt}{A set or vector of 1D points from which closest points to Mc are found
-in the interval int}
+\item{Dt}{A set or vector of 1D points from which closest points to \eqn{M_c} are found
+in the interval \code{int}}
 
 \item{int}{A vector of two real numbers representing an interval}
 
-\item{c}{A positive real number in (0,1) parameterizing the center inside int=(a,b).
-For the interval, int=(a,b), the parameterized center is Mc=a+c*(b-a)}
+\item{c}{A positive real number in \eqn{(0,1)} parameterizing the center inside \eqn{int=(a,b)}.
+For the interval, \eqn{int=(a,b)}, the parameterized center is \eqn{M_c=a+c(b-a)}}
 }
 \value{
 A list with the elements
@@ -23,52 +23,71 @@ A list with the elements
 \item{txt2}{A short description of the distances as "Distances from ..."}
 \item{type}{Type of the extrema points}
 \item{desc}{A short description of the extrema points}
-\item{mtxt}{The "main" title for the plot of the exrema}
-\item{Ext}{The extrema points, here, closest points to Mc in each vertex region}
-\item{X}{The input data vector, Dt,}
-\item{num.points}{The number of data points, i.e., size of Dt}
+\item{mtitle}{The "main" title for the plot of the exrema}
+\item{Ext}{The extrema points, here, closest points to \eqn{M_c} in each vertex region}
+\item{X}{The input data vector, \code{Dt}.}
+\item{num.points}{The number of data points, i.e., size of \code{Dt}}
 \item{supp}{Support of the data points, here, it is int.}
 \item{cent}{The (parameterized) center point used for construction of vertex regions.}
-\item{ncent}{Name of the (parameterized) center, cent, it is "Mc" for this function.}
-\item{regions}{Vertex regions inside the interval, int, provided as a list.}
+\item{ncent}{Name of the (parameterized) center, \code{cent}, it is "Mc" for this function.}
+\item{regions}{Vertex regions inside the interval, \code{int}, provided as a list.}
 \item{region.names}{Names of the vertex regions as "vr=1","vr=2"}
-\item{region.centers}{Centers of mass of the vertex regions inside int.}
-\item{dist2ref}{Distances from closest points in each vertex region to Mc.}
+\item{region.centers}{Centers of mass of the vertex regions inside \code{int}.}
+\item{dist2ref}{Distances from closest points in each vertex region to \eqn{M_c}.}
 }
 \description{
-Returns the closest data points among the data set, Dt, in each Mc-vertex region
-i.e., finds the closest points from right and left to Mc among points of the 1D data set Dt which reside in
-in the interval int=(a,b). Mc is based on the centrality parameter c in (0,1),
-so that 100c % of the length of interval is to the left of Mc and 100(1-c) % of the length of the interval
-is to the right of Mc. That is, for the interval (a,b), Mc=a+c*(b-a). If there are no points from Dt to
-the left of Mc in the interval, then it yields NA, and likewise for the right of Mc in the interval.
+Returns the closest data points among the data set, \code{Dt}, in each \eqn{M_c}-vertex region
+i.e., finds the closest points from right and left to \eqn{M_c} among points of the 1D data set \code{Dt} which reside in
+in the interval \eqn{int=(a,b)}. \eqn{M_c} is based on the centrality parameter \code{c} in \eqn{(0,1)},
+so that \eqn{100c} \% of the length of interval is to the left of \eqn{M_c} and \eqn{100(1-c)} \% of the length of the interval
+is to the right of \eqn{M_c}. That is, for the interval \eqn{(a,b)}, \eqn{M_c=a+c(b-a)}. If there are no points from Dt to
+the left of \eqn{M_c} in the interval, then it yields NA, and likewise for the right of \eqn{M_c} in the interval.
 See also (\insertCite{ceyhan:metrika-2012;textual}{pcds}).
 }
 \examples{
 c<-.4
-r<-2
 a<-0; b<-10; int<-c(a,b)
+#c<-runif(1)
+#a<-runif(1); b<-runif(1); int<-range(a,b); a<-int[1]; b<-int[2]
+Mc<-centMc(int,c)
 
-n<-10
-dat<-runif(n,a,b)
-NumArcsPEmid1D(dat,r,c,int)
+nx<-10
+xr<-range(a,b,Mc)
+xf<-(xr[2]-xr[1])*.5
+dat<-runif(nx,a,b)
+#dat<-runif(n,a-xf,b+xf)
+#dat<-runif(nx,a,b)+10
 
-NumArcsPEmid1D(3,r,c,int)
+Ext<-cl2Mc.int(dat,int,c)
+Ext
+summary(Ext)
+plot(Ext)
 
-NumArcsPEmid1D(dat,r,c=.3,int)
+cl2Mc.int(dat[1],int,c)
+cMc<-cl2Mc.int(dat,int,c)
 
-NumArcsPEmid1D(dat,r=1.5,c,int)
+Xlim<-range(a,b,dat)
+xd<-Xlim[2]-Xlim[1]
+
+plot(cbind(a,0),xlab="",pch=".",xlim=Xlim+xd*c(-.05,.05))
+abline(h=0)
+abline(v=c(a,b,Mc),col=c(1,1,2),lty=2)
+points(cbind(dat,0))
+points(cbind(c(cMc$Ext),0),pch=4,col=2)
+text(cbind(c(a,b,Mc),-0.1),c("a","b","Mc"))
 
 n<-20
 dat<-runif(n,a-5,b+5)
-NumArcsPEmid1D(dat,r,c,int)
+cl2Mc.int(dat,c(a,b),c)
 
-dat<-runif(n,a+10,b+10)
-NumArcsPEmid1D(dat,r,c,int)
+dat<-runif(n,a+b,b+10)
+cl2Mc.int(dat,int,c)
 
+c<-.4
+a<-0; b<-10; int<-c(a,b)
 n<-10
 dat<-runif(n,a,b)
-NumArcsPEmid1D(dat,r,c,int)
+cl2Mc.int(dat,int,c)
 
 }
 \references{

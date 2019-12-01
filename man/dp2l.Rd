@@ -7,51 +7,71 @@
 dp2l(p, a, b)
 }
 \arguments{
-\item{p}{A 2D point, distance from p to the line passing through points a and b are to be computed.}
+\item{p}{A 2D point, distance from \code{p} to the line passing through points \code{a} and \code{b} are to be
+computed.}
 
-\item{a, b}{2D points that determine the straight line (i.e., through which the straight line is passing)}
+\item{a, b}{2D points that determine the straight line (i.e., through which the straight line passes)}
 }
 \value{
 A list with two elements
-\item{dis}{Distance from point p to the line passing through a and b}
-\item{cl2p}{The closest point on the line passing through a and b to the point p}
+\item{dis}{Distance from point \code{p} to the line passing through \code{a} and \code{b}}
+\item{cl2p}{The closest point on the line passing through \code{a} and \code{b} to the point \code{p}}
 }
 \description{
-Returns the distance from a point p to the line joining points a and b in 2D space.
+Returns the distance from a point \code{p} to the line joining points \code{a} and \code{b} in 2D space.
 }
 \examples{
-A<-c(-1.22,-2.33); B<-c(2.55,3.75); C<-c(0,6); D<-c(3,-2)
-#A<-runif(2); B<-runif(2); C<-runif(2); D<-runif(2)
-#A<-runif(2,1,100); B<-runif(2,1,100); C<-runif(2,1,100); D<-runif(2,1,100)
+A<-c(1,2); B<-c(2,3); P<-c(3,1.5)
+#A<-runif(2); B<-runif(2); P<-runif(2)
+#A<-runif(2,1,100); B<-runif(2,1,100); P<-runif(2,1,100);
+dpl<-dp2l(P,A,B);
+dpl
+C<-dpl$cl2p
+pts<-rbind(A,B,C,P)
 
-ip<-int.2lines(A,B,C,D)
-ip
-pts<-rbind(A,B,C,D,ip)
-xr<-range(pts)
-xf<-abs(xr[2]-xr[1])*.1 #how far to go at the lower and upper ends in the x-coordinate
+dp2l(A,A,B);
+dp2l((A+B)/2,A,B);
+
+xr<-range(pts[,1])
+xf<-(xr[2]-xr[1])*.25 #how far to go at the lower and upper ends in the x-coordinate
 x<-seq(xr[1]-xf,xr[2]+xf,l=100)
 lnAB<-Line(A,B,x)
-lnCD<-Line(C,D,x)
+y<-lnAB$y
+int<-lnAB$intercept #intercept
+sl<-lnAB$slope #slope
 
-y1<-lnAB$y
-y2<-lnCD$y
-Xlim<-range(x,pts)
-Ylim<-range(y1,y2,pts)
+xsq<-seq(min(A[1],B[1],P[1])-xf,max(A[1],B[1],P[1])+xf,l=100)
+pline<-(-1/sl)*(xsq-P[1])+P[2] #line passing thru P and perpendicular to AB
+
+Xlim<-range(pts[,1],x)
+Ylim<-range(pts[,2],y)
 xd<-Xlim[2]-Xlim[1]
 yd<-Ylim[2]-Ylim[1]
-pf<-c(xd,-yd)*.025
 
-#plot of the line joining A and B
-plot(rbind(A,B,C,D),pch=1,xlab="x",ylab="y",xlim=Xlim+xd*c(-.05,.05),ylim=Ylim+yd*c(-.05,.05))
-lines(x,y1,lty=1,col=1)
-lines(x,y2,lty=1,col=2)
-text(rbind(A+pf,B+pf),c("A","B"))
-text(rbind(C+pf,D+pf),c("C","D"))
-text(rbind(ip+pf),c("intersection\\n point"))
+plot(rbind(P),asp=1,pch=1,xlab="x",ylab="y",
+xlim=Xlim+xd*c(-.05,.05),ylim=Ylim+yd*c(-.05,.05))
+points(rbind(A,B),pch=1)
+lines(x,y,lty=1,xlim=Xlim,ylim=Ylim)
+int<-round(int,2);sl<-round(sl,2)
+text(rbind((A+B)/2+xd*c(-.01,-.01)),ifelse(sl==0,paste("y=",int),
+ifelse(sl==1,paste("y=x+",int),
+ifelse(int==0,paste("y=",sl,"x"),paste("y=",sl,"x+",int)))))
+text(rbind(A+xd*c(0,-.01),B+xd*c(.0,-.01),P+xd*c(.01,-.01)),c("A","B","P"))
+lines(xsq,pline,lty=2)
+segments(P[1],P[2], C[1], C[2], lty=1,col=2,lwd=2)
+text(rbind(C+xd*c(-.01,-.01)),"C")
 
-int.2lines(c(1,2),c(1,3),C,D)
+text(rbind((P+C)/2),col=2,paste("d=",round(dpl$dis,2)))
+
+A<-c(1,2); B<-c(1,3)
+P<-c(3,1.5)
+dp2l(P,A,B);
+
+A<-c(1,2); B<-c(2,2)
+P<-c(3,1.5)
+dp2l(P,A,B);
 
 }
 \seealso{
-\code{\link{dp2pl}}, \code{\link{dist.pt2set}}  and \code{\link{Dist}}
+\code{\link{dp2pl}}, \code{\link{dist.pt2set}} and \code{\link{Dist}}
 }

@@ -5,8 +5,17 @@
 \title{The indicator for two points constituting a dominating set for Proportional Edge Proximity Catch Digraphs
 (PE-PCDs) - one triangle case}
 \usage{
-Gam2PEtri(pt1, pt2, Dt, tri, r, M = c(1, 1, 1), rv1 = NULL,
-  rv2 = NULL, ch.data.pnts = FALSE)
+Gam2PEtri(
+  pt1,
+  pt2,
+  Dt,
+  tri,
+  r,
+  M = c(1, 1, 1),
+  rv1 = NULL,
+  rv2 = NULL,
+  ch.data.pnts = FALSE
+)
 }
 \arguments{
 \item{pt1, pt2}{Two 2D points to be tested for constituting a dominating set of the PE-PCD}
@@ -15,32 +24,36 @@ Gam2PEtri(pt1, pt2, Dt, tri, r, M = c(1, 1, 1), rv1 = NULL,
 
 \item{tri}{Three 2D points, stacked row-wise, each row representing a vertex of the triangle}
 
-\item{r}{A positive real number which serves as the expansion parameter in PE proximity region; must be >= 1}
+\item{r}{A positive real number which serves as the expansion parameter in PE proximity region; must be \eqn{\ge 1}}
 
 \item{M}{A 2D point in Cartesian coordinates or a 3D point in barycentric coordinates
-which serves as a center in the interior of the triangle tri or the circumcenter of tri;
-default is M=c(1,1,1) i.e. the center of mass of tri}
+which serves as a center in the interior of the triangle \code{tri} or the circumcenter of \code{tri};
+default is \eqn{M=(1,1,1)} i.e. the center of mass of \code{tri}}
 
-\item{rv1, rv2}{The indices of the vertices whose regions contains pt1 and pt2, respectively.
-They take the vertex labels as 1,2,3 as in the row order of the vertices in tri}
+\item{rv1, rv2}{The indices of the vertices whose regions contains \code{pt1} and \code{pt2}, respectively.
+They take the vertex labels as 1,2,3 as in the row order of the vertices in \code{tri} (default is NULL for both)}
 
-\item{ch.data.pnts}{A logical argument for checking whether points pt1 and pt2 are
-data points in Dt or not (default is FALSE)}
+\item{ch.data.pnts}{A logical argument for checking whether points \code{pt1} and \code{pt2} are
+data points in \code{Dt} or not (default is FALSE)}
 }
 \value{
-I({pt1,pt2} is a dominating set of the PE-PCD whose vertices are the 2D data set Dt),
-that is, returns 1 if {pt1,pt2} is a dominating set of PE-PCD, returns 0 otherwise
+I(\{\code{pt1,pt2}\} is a dominating set of the PE-PCD) where the vertices of the PE-PCD are the 2D data set \code{Dt}),
+that is, returns 1 if \{\code{pt1,pt2}\} is a dominating set of PE-PCD, returns 0 otherwise
 }
 \description{
-Returns I({pt1,pt2} is a dominating set of the PE-PCD whose vertices are the 2D data set Dt), that is,
-returns 1 if {pt1,pt2} is a dominating set of PE-PCD, returns 0 otherwise.
-Point, pt1, is in the region of vertex rv1 (default is NULL) and point, pt2, is in the region of vertex rv2
-(default is NULL); vertices (and hence rv1 and rv2) are labeled as 1,2,3 in the order they are stacked
-row-wise in tri. PE proximity regions are defined with respect to the triangle tri and vertex regions
-are based on center M=(m1,m2) in Cartesian coordinates or M=(alpha,beta,gamma) in barycentric coordinates
-in the interior of the triangle tri or circumcenter of tri; default is M=c(1,1,1) i.e. the center of mass of tri.
-ch.data.pnts is for checking whether points pt1 and pt2 are data points in Dt or not
-(default is FALSE), so by default this function checks whether the points pt1 and pt2 would be a
+Returns I(\{\code{pt1,pt2}\} is a dominating set of the PE-PCD) where the vertices of the PE-PCD
+are the 2D data set \code{Dt}), that is, returns 1 if \{\code{pt1,pt2}\} is a dominating set of PE-PCD,
+returns 0 otherwise.
+Point, \code{pt1}, is in the region of vertex \code{rv1} (default is NULL) and point, \code{pt2}, is in the region of vertex \code{rv2}
+(default is NULL); vertices (and hence \code{rv1} and \code{rv2}) are labeled as 1,2,3 in the order they are stacked
+row-wise in \code{tri}.
+
+PE proximity regions are defined with respect to the triangle \code{tri} and vertex regions
+are based on center \eqn{M=(m_1,m_2)} in Cartesian coordinates or \eqn{M=(\alpha,\beta,\gamma)} in barycentric coordinates
+in the interior of the triangle \code{tri} or circumcenter of \code{tri}; default is \eqn{M=(1,1,1)} i.e. the center of mass of \code{tri}.
+
+\code{ch.data.pnts} is for checking whether points \code{pt1} and \code{pt2} are data points in \code{Dt} or not
+(default is FALSE), so by default this function checks whether the points \code{pt1} and \code{pt2} would be a
 dominating set if they actually were in the data set.
 See also (\insertCite{ceyhan:Phd-thesis,ceyhan:masa-2007,ceyhan:dom-num-NPE-Spat2011,ceyhan:mcap2012;textual}{pcds}).
 }
@@ -62,65 +75,54 @@ M<-as.numeric(runif.tri(1,Tr)$g)
 #M<-c(1,1,1) #M<-c(1,2,3) #M<-c(-1,2,3) #barycentric coordinates
 #M<-c(1.3,1.3)
 #M<-c(.3,.3)
-#r<-1.5
-r<-2
+r<-1.5
+#r<-2
 
-Gam1PEtri(c(1.4,1),c(1.4,1),Tr,r,M)
-Gam1PEtri(dat[1,],dat,Tr,r,M)
-Gam1PEtri(c(1,2),dat,Tr,r,M)
-Gam1PEtri(c(1,2),dat,Tr,r,M,ch.data.pnt = TRUE)
+Gam2PEtri(dat[1,],dat[2,],dat,Tr,r,M)
+Gam2PEtri(dat[1,],dat[4,],dat,Tr,r,M)
+Gam2PEtri(dat[4,],dat[4,],dat,Tr,r,M)
 
-Gam1PEtri(c(1,2),c(1,2),Tr,r,M)
-Gam1PEtri(c(1,2),c(1,2),Tr,r,M,ch.data.pnt = TRUE)
+Gam2PEtri(dat[1,],c(1,2),dat,Tr,r,M)
+#Gam2PEtri(dat[1,],c(1,2),dat,Tr,r,M,ch.data.pnts = TRUE)
+#not both points, pt1 and pt2, are data points in Dt
 
-gam.vec<-vector()
-for (i in 1:n)
-{gam.vec<-c(gam.vec,Gam1PEtri(dat[i,],dat,Tr,r,M))}
+Gam2PEtri(c(1,2),c(1,3),rbind(c(1,2),c(1,3)),Tr,r,M)
 
-ind.gam1<-which(gam.vec==1)
-ind.gam1
+ind.gam2<-vector()
+for (i in 1:(n-1))
+  for (j in (i+1):n)
+  {if (Gam2PEtri(dat[i,],dat[j,],dat,Tr,r,M)==1)
+    ind.gam2<-rbind(ind.gam2,c(i,j))}
+ind.gam2
 
 #or try
-Rv<-rv.tri.cent(dat[1,],Tr,M)$rv
-Gam1PEtri(dat[1,],dat,Tr,r,M,Rv)
+rv1<-rv.tri.cent(dat[1,],Tr,M)$rv;
+rv2<-rv.tri.cent(dat[2,],Tr,M)$rv
+Gam2PEtri(dat[1,],dat[2,],dat,Tr,r,M,rv1,rv2)
 
-Ds<-cp2e.tri(Tr,M)
+#or try
+rv1<-rv.tri.cent(dat[1,],Tr,M)$rv;
+Gam2PEtri(dat[1,],dat[2,],dat,Tr,r,M,rv1)
 
-if (dimension(M)==3) {M<-bary2cart(M,Tr)} #need to run this when M is given in barycentric coordinates
+#or try
+rv2<-rv.tri.cent(dat[2,],Tr,M)$rv
+Gam2PEtri(dat[1,],dat[2,],dat,Tr,r,M,rv2=rv2)
 
-Xlim<-range(Tr[,1],dat[,1],M[1])
-Ylim<-range(Tr[,2],dat[,2],M[2])
-xd<-Xlim[2]-Xlim[1]
-yd<-Ylim[2]-Ylim[1]
-
-plot(Tr,pch=".",xlab="",ylab="",axes=TRUE,xlim=Xlim+xd*c(-.05,.05),ylim=Ylim+yd*c(-.05,.05))
-polygon(Tr)
-points(dat,pch=1,col=1)
-L<-rbind(M,M,M); R<-Ds
-segments(L[,1], L[,2], R[,1], R[,2], lty=2)
-points(rbind(dat[ind.gam1,]),pch=4,col=2) #rbind is to insert the points correctly if there is only one dominating point
-
-txt<-rbind(Tr,M,Ds)
-xc<-txt[,1]#+c(-.02,.03,.02,-.02,.04,-.03,.0)
-yc<-txt[,2]#+c(.02,.02,.05,-.03,.04,.06,-.07)
-txt.str<-c("A","B","C","M","D1","D2","D3")
-text(xc,yc,txt.str)
-
-P<-c(1.4,1)
-Gam1PEtri(P,P,Tr,r,M)
-Gam1PEtri(dat[1,],dat,Tr,r,M)
+P1<-c(1.4,1)
+P2<-c(1.6,1)
+Gam2PEtri(P1,P2,dat,Tr,r,M)
+Gam2PEtri(dat[1,],dat[2,],dat,Tr,r,M)
 
 dat.fr<-data.frame(a=dat)
-Gam1PEtri(P,dat.fr,Tr,r,M)
+Gam2PEtri(P1,P2,dat.fr,Tr,r,M)
 
 dat.fr<-data.frame(a=Tr)
-Gam1PEtri(P,dat,dat.fr,r,M)
-
+Gam2PEtri(P1,P2,dat,dat.fr,r,M)
 
 }
 \references{
 \insertAllCited{}
 }
 \seealso{
-\code{\link{Gam2PEbastri}}, \code{\link{Gam2AStri}}, and \code{\link{Gam2NPEtetra}}
+\code{\link{Gam2PEbastri}}, \code{\link{Gam2AStri}}, and \code{\link{Gam2PEtetra}}
 }

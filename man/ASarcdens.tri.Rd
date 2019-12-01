@@ -11,26 +11,28 @@ ASarcdens.tri(Xp, tri, M = "CC", tri.cor = TRUE)
 
 \item{tri}{Three 2D points, stacked row-wise, each row representing a vertex of the triangle}
 
-\item{M}{"CC" which stand for circumcenter of the triangle tri or a 2D point in Cartesian coordinates or
-a 3D point in barycentric coordinates which serves as a center in the interior of tri;
-default is M="CC" i.e. the circumcenter of tri}
+\item{M}{"CC" which stands for circumcenter of the triangle \code{tri} or a 2D point in Cartesian coordinates or
+a 3D point in barycentric coordinates which serves as a center in the interior of \code{tri};
+default is \code{M}="CC" i.e. the circumcenter of \code{tri}}
 
-\item{tri.cor}{A logical argument for computing the arc density for only the points inside the triangle, tri
-(default=TRUE), i.e., if TRUE only the induced digraph with the vertices inside tri are considered in the
+\item{tri.cor}{A logical argument for computing the arc density for only the points inside the triangle, \code{tri}
+(default=TRUE), i.e., if TRUE only the induced digraph with the vertices inside \code{tri} are considered in the
 computation of arc density}
 }
 \value{
-Arc density of AS-PCD whose vertices are the 2D numerical data set, Xp;
-AS proximity regions are defined with respect to the triangle tri and CC-vertex regions.
+Arc density of AS-PCD whose vertices are the 2D numerical data set, \code{Xp};
+AS proximity regions are defined with respect to the triangle \code{tri} and CC-vertex regions.
 }
 \description{
-Returns the arc density of AS-PCD whose vertex set is the given 2D numerical data set, Xp,
-(some of its members are) in the triangle tri. AS proximity regions is defined with respect to tri
-and vertex regions are defined with the center M="CC" for circumcenter of tri;
-or M=(m1,m2) in Cartesian coordinates or M=(alpha,beta,gamma) in barycentric coordinates in the
-interior of the triangle tri; default is M="CC" i.e. circumcenter of tri.
-For the number of arcs, loops are not allowed so arcs are only possible for points inside tri
-for this function. tri.cor is a logical argument for triangle correction (default is TRUE),
+Returns the arc density of AS-PCD whose vertex set is the given 2D numerical data set, \code{Xp},
+(some of its members are) in the triangle \code{tri}.
+
+AS proximity regions is defined with respect to \code{tri}
+and vertex regions are defined with the center \code{M}="CC" for circumcenter of \code{tri};
+or \eqn{M=(m_1,m_2)} in Cartesian coordinates or \eqn{M=(\alpha,\beta,\gamma)} in barycentric coordinates in the
+interior of the triangle \code{tri}; default is \code{M}="CC" i.e. circumcenter of \code{tri}.
+For the number of arcs, loops are not allowed so arcs are only possible for points inside \code{tri}
+for this function. \code{tri.cor} is a logical argument for triangle correction (default is TRUE),
 if TRUE, only the points inside the triangle are considered (i.e., digraph induced by these vertices
 are considered) in computing the arc density, otherwise all points are considered
 (for the number of vertices in the denominator of arc density).
@@ -42,8 +44,8 @@ A<-c(1,1); B<-c(2,0); C<-c(1.5,2);
 #A<-runif(2,1,100); B<-runif(2,1,100); C<-runif(2,1,100);
 Tr<-rbind(A,B,C);
 
-n<-20
 #set.seed(1)
+n<-20
 dat<-runif.tri(n,Tr)$g
 #dat<-cbind(runif(n,1,2),runif(n,0,2))
 #dat<-cbind(runif(n),runif(n))
@@ -55,13 +57,17 @@ M<-as.numeric(runif.tri(1,Tr)$g)
 #M<-c(1.3,1.3)
 #M<-c(.3,.3)
 
-NumArcsAStri(dat,Tr) #with default M="CC"
 NumArcsAStri(dat,Tr,M)
+ASarcdens.tri(dat,Tr,M)
+ASarcdens.tri(dat,Tr,M,tri.cor = FALSE)
 
-NumArcsAStri(rbind(dat,c(0,2)),Tr,M)
+ASarcdens.tri(dat,Tr,M)
 
 dat.fr<-data.frame(a=dat)
-NumArcsAStri(dat.fr,Tr,M)
+ASarcdens.tri(dat.fr,Tr,M)
+
+dat.fr<-data.frame(a=Tr)
+ASarcdens.tri(dat,dat.fr,M)
 
 }
 \references{

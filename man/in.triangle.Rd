@@ -12,45 +12,83 @@ in.triangle(p, tri, boundary = FALSE)
 \item{tri}{Three 2D points, stacked row-wise, each row representing a vertex of the triangle}
 
 \item{boundary}{A logical parameter (default=FALSE) to include boundary or not, so if it is TRUE,
-the function checks if the point, p, lies in the closure of the triangle (i.e. interior and boundary combined)
-else it checks if p lies in the interior of the triangle.}
+the function checks if the point, \code{p}, lies in the closure of the triangle (i.e. interior and boundary
+combined) else it checks if \code{p} lies in the interior of the triangle.}
 }
 \value{
 A list with two elements
-\item{inside.tri}{A logical output, it is TRUE, if the point, p, is inside the triangle, tri,
+\item{inside.tri}{A logical output, it is TRUE, if the point, \code{p}, is inside the triangle, \code{tri},
 else it is FALSE.}
-\item{barycentric}{The barycentric coordinates (alpha, beta, gamma) of the point p with respect to the triangle, tri.}
+\item{barycentric}{The barycentric coordinates (alpha, beta, gamma) of the point \code{p} with respect to
+the triangle, \code{tri}.}
 }
 \description{
-Checks if the point p lies in the triangle, tri, using the barycentric coordinates, generally denoted as
-(alpha,beta,gamma). If all (normalized or non-normalized) barycentric coordinates are positive then the point p is inside the triangle,
-if all are nonnegative with one or more are zero, then p falls in the boundary. If some of the barycentric
-coordinates are negative, then p falls outside the triangle.
-boundary is a logical argument (default=FALSE) to include boundary or not, so if it is TRUE,
-the function checks if the point, p, lies in the closure of the triangle (i.e. interior and boundary combined)
-else it checks if p lies in the interior of the triangle.
+Checks if the point \code{p} lies in the triangle, \code{tri}, using the barycentric
+coordinates, generally denoted as \eqn{(\alpha,\beta,\gamma)}. If all (normalized or non-normalized)
+barycentric coordinates are positive then the point \code{p} is inside the triangle,
+if all are nonnegative with one or more are zero, then \code{p} falls in the boundary. If some of the
+barycentric coordinates are negative, then \code{p} falls outside the triangle.
+
+\code{boundary} is a logical argument (default=FALSE) to include boundary or not, so if it is TRUE,
+the function checks if the point, \code{p}, lies in the closure of the triangle (i.e. interior and boundary
+combined) else it checks if \code{p} lies in the interior of the triangle.
 }
 \examples{
-cent<-c(1,1); rad<-1; p<-c(1.4,1.2)
+#A<-c(0,0); B<-c(1,0); C<-c(1/2,sqrt(3)/2);
+A<-c(1,1); B<-c(2,0); C<-c(1.5,2); p<-c(1.4,1.2)
+#A<-runif(2); B<-runif(2); C<-runif(2); p<-runif(2);
+#A<-runif(2,1,100); B<-runif(2,1,100); C<-runif(2,1,100); p<-runif(2,1,100);
+Tr<-rbind(A,B,C)
 
-#cent<-runif(2); rad<-runif(1); p<-runif(2);
-in.circle(p,cent,rad)
+in.triangle(p,Tr)
 
 p<-c(.4,-.2)
-in.circle(p,cent,rad)
+in.triangle(p,Tr)
 
-p<-c(1,0)
-in.circle(p,cent,rad)
-in.circle(p,cent,rad,boundary=TRUE)
+#for the vertex A
+in.triangle(A,Tr)
+in.triangle(A,Tr,boundary=TRUE)
+
+#for a point on the edge AB
+D3<-(A+B)/2
+in.triangle(D3,Tr)
+in.triangle(D3,Tr,boundary=TRUE)
 
 #for a NA entry point
 p<-c(NA,.2)
-in.circle(p,cent,rad)
+in.triangle(p,Tr)
+
+\dontrun{
+#when triangle is degenerate
+B<-A+2*(C-A);
+Tr<-rbind(A,B,C)
+p<-c(.4,.2)
+in.triangle(p,Tr)
+
+A<-c(1,1); B<-c(2,0); C<-c(1.5,2);
+Tr<-rbind(A,B,C)
+in.triangle(c("a","b"),Tr)
+in.triangle(rbind(p,p),Tr)
+
+in.triangle(p,cbind(Tr,Tr))
+
+in.triangle(p,c(1,2,3))
+in.triangle(p,rbind(c("a","b"),B,C))
+
+lis<-list(a=p)
+in.triangle(lis,Tr)
+
+lis<-list(tri=Tr)
+in.triangle(p,lis)
+
+dat.fr<-data.frame(a=p)
+in.triangle(dat.fr,Tr)
 
 dat.fr<-data.frame(a=Tr)
 in.triangle(p,dat.fr)
+}
 
 }
 \seealso{
-\code{\link{inTriAll}} and \code{\link{in.convex.hull}} from the tripack package
+\code{\link{inTriAll}} and \code{\link[tripack]{in.convex.hull}} from the \code{tripack} package
 }

@@ -7,32 +7,85 @@
 circ.cent.bastri(c1, c2)
 }
 \arguments{
-\item{c1, c2}{Positive real numbers representing the top vertex in basic triangle Tb=T((0,0),(1,0),(c1,c2)),
-c1 must be in [0,1/2], c2>0 and (1-c1)^2+c2^2 <=1}
+\item{c1, c2}{Positive real numbers representing the top vertex in basic triangle \eqn{T_b=T((0,0),(1,0),(c_1,c_2))},
+\code{c1} must be in \eqn{[0,1/2]}, \eqn{c_2>0} and \eqn{(1-c_1)^2+c_2^2 \le 1}}
 }
 \value{
-circumcenter of the basic triangle Tb=T((0,0),(1,0),(c1,c2)) given c1,c2 as the arguments of the
+circumcenter of the basic triangle \eqn{T_b=T((0,0),(1,0),(c_1,c_2))} given \code{c1}, \code{c2} as the arguments of the
 function
 }
 \description{
-Returns the circumcenter of a basic triangle Tb=T((0,0),(1,0),(c1,c2)) given c1,c2
-where c1 is in [0,1/2], c2>0 and (1-c1)^2+c2^2 <=1.
+Returns the circumcenter of a basic triangle \eqn{T_b=T((0,0),(1,0),(c_1,c_2))} given \code{c1}, \code{c2}
+where \code{c1} is in \eqn{[0,1/2]}, \eqn{c_2>0} and \eqn{(1-c_1)^2+c_2^2 \le 1}.
+
 Any given triangle can be mapped to the basic triangle by a combination of rigid body motions
 (i.e., translation, rotation and reflection) and scaling, preserving uniformity of the points in the
 original triangle. Hence basic triangle is useful for simulation
 studies under the uniformness hypothesis.
+
 See (\insertCite{weisstein-tri-centers,ceyhan:comp-geo-2010;textual}{pcds}) for triangle centers and
-(\insertCite{ceyhan:arc-density-PE,ceyhan:arc-density-CS,ceyhan:dom-num-NPE-Spat2011;textual}{pcds}) for the basic triangle.
+(\insertCite{ceyhan:arc-density-PE,ceyhan:arc-density-CS,ceyhan:dom-num-NPE-Spat2011;textual}{pcds}) for the
+basic triangle.
 }
 \examples{
-n<-10
-M<-matrix(sample(c(0,1),n^2,replace=T),nrow=n)
-diag(M)<-1
+c1<-.4; c2<-.6;
+A<-c(0,0); B<-c(1,0); C<-c(c1,c2);  #the vertices of the basic triangle Tb
+Tb<-rbind(A,B,C)
+CC<-circ.cent.bastri(c1,c2) #the circumcenter
+CC
 
-dom.greedy(M)
-IndUBdom(M,2)
-dom.exact(M)
+D1<-(B+C)/2; D2<-(A+C)/2; D3<-(A+B)/2; #midpoints of the edges
+Ds<-rbind(D1,D2,D3)
 
+Xlim<-range(Tb[,1])
+Ylim<-range(Tb[,2])
+xd<-Xlim[2]-Xlim[1]
+yd<-Ylim[2]-Ylim[1]
+
+#par(pty="s")
+plot(A,pch=".",asp=1,xlab="",ylab="",axes=TRUE,xlim=Xlim+xd*c(-.05,.05),ylim=Ylim+yd*c(-.05,.05))
+polygon(Tb)
+points(rbind(CC))
+L<-matrix(rep(CC,3),ncol=2,byrow=TRUE); R<-Ds
+segments(L[,1], L[,2], R[,1], R[,2], lty=2)
+
+txt<-rbind(Tb,CC,D1,D2,D3)
+xc<-txt[,1]+c(-.03,.04,.03,.06,.06,-.03,0)
+yc<-txt[,2]+c(.02,.02,.03,-.03,.02,.04,-.03)
+txt.str<-c("A","B","C","CC","D1","D2","D3")
+text(xc,yc,txt.str)
+
+#for an obtuse triangle
+c1<-.4; c2<-.3;
+A<-c(0,0); B<-c(1,0); C<-c(c1,c2);  #the vertices of the basic triangle Tb
+Tb<-rbind(A,B,C)
+CC<-circ.cent.bastri(c1,c2) #the circumcenter
+CC
+
+D1<-(B+C)/2; D2<-(A+C)/2; D3<-(A+B)/2; #midpoints of the edges
+Ds<-rbind(D1,D2,D3)
+
+Xlim<-range(Tb[,1],CC[1])
+Ylim<-range(Tb[,2],CC[2])
+xd<-Xlim[2]-Xlim[1]
+yd<-Ylim[2]-Ylim[1]
+
+#par(pty="s")
+plot(A,pch=".",asp=1,xlab="",ylab="",axes=TRUE,xlim=Xlim+xd*c(-.05,.05),ylim=Ylim+yd*c(-.05,.05))
+polygon(Tb)
+points(rbind(CC))
+L<-matrix(rep(CC,3),ncol=2,byrow=TRUE); R<-Ds
+segments(L[,1], L[,2], R[,1], R[,2], lty=2)
+
+txt<-rbind(Tb,CC,D1,D2,D3)
+xc<-txt[,1]+c(-.03,.03,.03,.07,.07,-.05,0)
+yc<-txt[,2]+c(.02,.02,.04,-.03,.03,.04,.06)
+txt.str<-c("A","B","C","CC","D1","D2","D3")
+text(xc,yc,txt.str)
+
+}
+\references{
+\insertAllCited{}
 }
 \seealso{
 \code{\link{circ.cent.tri}}

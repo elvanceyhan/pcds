@@ -12,89 +12,45 @@ as.bastri(tri)
 \value{
 A list with two elements
 \item{tri}{The vertices of the triangle stacked row-wise and labeled row-wise as A, B, C.}
-\item{txt}{Description of the edges based on the vertices, i.e.,
+\item{desc}{Description of the edges based on the vertices, i.e.,
  "Edges (in decreasing length are) AB, BC, and AC".}
-\item{orig.order}{Row order of the input triangle, tri,
+\item{orig.order}{Row order of the input triangle, \code{tri},
 when converted to the scaled version of the basic triangle}
 }
 \description{
-Labels the vertices of triangle, tri, as ABC so that AB is the longest edge, BC is the second longest
-and AC is the shortest edge (the order is as in the basic triangle). The new triangle T(A,B,C) is unscaled,
+Labels the vertices of triangle, \code{tri}, as ABC so that AB is the longest edge, BC is the second longest
+and AC is the shortest edge (the order is as in the basic triangle). The new triangle \eqn{T(A,B,C)} is unscaled,
 i.e., the longest edge AB may not be of unit length.
-The basic triangle is Tb=T((0,0),(1,0),(c1,c2)) where c1 is in [0,1/2], c2>0 and (1-c1)^2+c2^2 <=1
+The basic triangle is \eqn{T_b=T((0,0),(1,0),(c_1,c_2))} where \code{c1} is in \eqn{[0,1/2]}, \eqn{c_2>0} and \eqn{(1-c_1)^2+c_2^2 \le 1}
+
 Any given triangle can be mapped to the basic triangle by a combination of rigid body motions
 (i.e., translation, rotation and reflection) and scaling, preserving uniformity of the points in the
 original triangle. Hence basic triangle is useful for simulation
 studies under the uniformness hypothesis.
 }
 \examples{
-A<-c(1,1); B<-c(2,0); C<-c(1.6,2);
-#A<-runif(2); B<-runif(2); C<-runif(2)
+\dontrun{
+c1<-.4; c2<-.6
+A<-c(0,0); B<-c(1,0); C<-c(c1,c2);
+
+as.bastri(rbind(A,B,C))
+
+as.bastri(rbind(B,C,A))
+
+as.bastri(rbind(B,A,C))
+as.bastri(rbind(A,C,B))
+
+A<-c(1,1); B<-c(2,0); C<-c(1.5,2);
+as.bastri(rbind(A,B,C))
+as.bastri(rbind(A,C,B))
+as.bastri(rbind(B,A,C))
+
+A<-runif(2); B<-runif(2); C<-runif(2)
 #A<-runif(2,1,100); B<-runif(2,1,100); C<-runif(2,1,100);
-Tr<-rbind(A,B,C);
-P<-c(1.4,1.2)
-rv.triCM(P,Tr)
+as.bastri(rbind(A,B,C))
 
-P<-c(.8,.2)
-rv.triCM(P,Tr)
-
-P<-c(1.5,1.6)
-rv.triCM(P,Tr)
-
-n<-20
-dat<-runif.tri(n,Tr)$g
-#dat<-cbind(runif(n,1,2),runif(n,0,2))
-#dat<-cbind(runif(n),runif(n))
-
-Rv<-vector()
-for (i in 1:n)
-  Rv<-c(Rv,rv.triCM(dat[i,],Tr)$rv)
-Rv
-
-CM<-(A+B+C)/3
-D1<-(B+C)/2; D2<-(A+C)/2; D3<-(A+B)/2;
-Ds<-rbind(D1,D2,D3)
-
-Xlim<-range(Tr[,1],dat[,1])
-Ylim<-range(Tr[,2],dat[,2])
-xd<-Xlim[2]-Xlim[1]
-yd<-Ylim[2]-Ylim[1]
-
-plot(Tr,xlab="",ylab="",axes=TRUE,pch=".",xlim=Xlim+xd*c(-.05,.05),ylim=Ylim+yd*c(-.05,.05))
-polygon(Tr)
-points(dat,pch=".")
-L<-Ds; R<-matrix(rep(CM,3),ncol=3,byrow=T)
-segments(L[,1], L[,2], R[,1], R[,2], lty=2)
-text(dat,labels=factor(Rv))
-
-txt<-rbind(Tr,CM,D1,D2,D3)
-xc<-txt[,1]#+c(-.07,.06,.08,-.08,.07,-.04,-.02)
-yc<-txt[,2]#+c(-.02,-.04,.06,-.02,.02,.08,-.08)
-txt.str<-c("rv=1","rv=2","rv=3","CM","D1","D2","D3")
-text(xc,yc,txt.str)
-
-rv.triCM(A,Tr)
-rv.triCM(CM,Tr)
-rv.triCM(D1,Tr)
-rv.triCM(D2,Tr)
-rv.triCM(D3,Tr)
-
-#right triangle
-A<-c(1,1); B<-c(1,2); C<-c(1.5,2);
-T3<-rbind(A,B,C);
-P<-c(1.1,1.5)
-rv.triCM(P,T3)
-
-#isosceles triangle
-A<-c(1,1); B<-c(2,1); C<-c(1.5,2);
-Tr<-rbind(A,B,C);
-P<-c(1.5,1.1)
-rv.triCM(P,Tr)
-
-dat.fr<-data.frame(a=Tr)
-rv.triCM(P,dat.fr)
-
+dat.fr<-data.frame(a=rbind(A,B,C))
+as.bastri(dat.fr)
 }
-\references{
-\insertAllCited{}
+
 }

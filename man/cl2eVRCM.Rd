@@ -2,7 +2,7 @@
 % Please edit documentation in R/PCDFunctions.r
 \name{cl2eVRCM}
 \alias{cl2eVRCM}
-\title{An object of class "Extrema"
+\title{An object of class "Extrema":
 
 The closest points in a data set to edges in each CM-vertex region in a triangle}
 \usage{
@@ -20,26 +20,92 @@ A list with the elements
 CM-Vertex Regions".}
 \item{type}{Type of the extrema points}
 \item{desc}{A short description of the extrema points}
-\item{mtxt}{The "main" title for the plot of the exrema}
+\item{mtitle}{The "main" title for the plot of the exrema}
 \item{Ext}{The extrema points, here, closest points to edges in the respective vertex region.}
-\item{X}{The input data, dat, can be a matrix or data frame}
-\item{num.points}{The number of data points, i.e., size of dat}
-\item{supp}{Support of the data points, here, it is tri}
+\item{X}{The input data, \code{dat}, can be a matrix or data frame}
+\item{num.points}{The number of data points, i.e., size of \code{dat}}
+\item{supp}{Support of the data points, here, it is \code{tri}}
 \item{cent}{The center point used for construction of vertex regions}
-\item{ncent}{Name of the center, cent, it is "CM" for this function}
-\item{regions}{Vertex regions inside the triangle, tri, provided as a list}
+\item{ncent}{Name of the center, \code{cent}, it is "CM" for this function}
+\item{regions}{Vertex regions inside the triangle, \code{tri}, provided as a list}
 \item{region.names}{Names of the vertex regions as "vr=1","vr=2","vr=3"}
-\item{region.centers}{Centers of mass of the vertex regions inside tri}
+\item{region.centers}{Centers of mass of the vertex regions inside \code{tri}}
 \item{dist2ref}{Distances of closest points in the vertex regions to corresponding edges}
 }
 \description{
-Returns the closest data points among the data set, dat, to edge j in CM-vertex region j for j=1,2,3
-in the triangle, tri=T(A,B,C), where CM stands for center of mass. Vertex labels are A=1, B=2, and C=3,
+Returns the closest data points among the data set, \code{dat}, to edge \eqn{j} in CM-vertex region \eqn{j} for \eqn{j=1,2,3}
+in the triangle, \eqn{tri=T(A,B,C)}, where CM stands for center of mass. Vertex labels are A=1, B=2, and C=3,
 and corresponding edge labels are BC=1, AC=2, and AB=3.
 Function yields NA if there are no data points in a CM-vertex region.
 See also (\insertCite{ceyhan:Phd-thesis,ceyhan:masa-2007,ceyhan:comp-geo-2010,ceyhan:dom-num-NPE-Spat2011;textual}{pcds}).
 }
+\examples{
+A<-c(1,1); B<-c(2,0); C<-c(1.5,2);
+#A<-runif(2); B<-runif(2); C<-runif(2);
+#A<-runif(2,1,100); B<-runif(2,1,100); C<-runif(2,1,100);
+Tr<-rbind(A,B,C);
+
+n<-20
+#set.seed(1)
+dat<-runif.tri(n,Tr)$g
+#dat<-cbind(runif(n),runif(n))
+#dat<-cbind(runif(n,1,2),runif(n,0,2))
+
+Ext<-cl2eVRCM(dat,Tr)
+Ext
+summary(Ext)
+plot(Ext)
+
+cl2eVRCM(dat[1,],Tr)
+
+cl2e<-cl2eVRCM(dat,Tr)
+cl2e
+
+CM<-(A+B+C)/3;
+D1<-(B+C)/2; D2<-(A+C)/2; D3<-(A+B)/2;
+Ds<-rbind(D1,D2,D3)
+
+Xlim<-range(Tr[,1],dat[,1])
+Ylim<-range(Tr[,2],dat[,2])
+xd<-Xlim[2]-Xlim[1]
+yd<-Ylim[2]-Ylim[1]
+
+plot(Tr,pch=".",xlab="",ylab="",axes=TRUE,xlim=Xlim+xd*c(-.05,.05),ylim=Ylim+yd*c(-.05,.05))
+polygon(Tr)
+
+xc<-Tr[,1]#+c(-.02,.02,.02)
+yc<-Tr[,2]#+c(.02,.02,.04)
+txt.str<-c("A","B","C")
+text(xc,yc,txt.str)
+
+points(dat,pch=1,col=1)
+L<-matrix(rep(CM,3),ncol=2,byrow=TRUE); R<-Ds
+segments(L[,1], L[,2], R[,1], R[,2], lty=2)
+points(cl2e$Ext,pch=3,col=2)
+
+txt<-rbind(CM,Ds)
+xc<-txt[,1]#+c(-.04,.04,-.03,0)
+yc<-txt[,2]#+c(-.05,.04,.06,-.08)
+txt.str<-c("CM","D1","D2","D3")
+text(xc,yc,txt.str)
+
+P<-c(1.4,1.0)
+cl2eVRCM(P,Tr)
+cl2eVRCM(dat,Tr)
+
+cl2eVRCM(rbind(dat,dat),Tr)
+
+dat.fr<-data.frame(a=dat)
+cl2eVRCM(dat.fr,Tr)
+
+dat.fr<-data.frame(a=Tr)
+cl2eVRCM(dat,dat.fr)
+
+}
+\references{
+\insertAllCited{}
+}
 \seealso{
-\code{\link{cl2e.inTbVR.CM}}, \code{\link{cl2eVRCC}}, \code{\link{cl2eVRcent}},
+\code{\link{cl2eTbVRcent}}, \code{\link{cl2eVRCC}}, \code{\link{cl2eVRcent}},
 and \code{\link{cl2edgesTe}}
 }

@@ -2,7 +2,7 @@
 % Please edit documentation in R/PCDFunctions.r
 \name{area.polygon}
 \alias{area.polygon}
-\title{The area of a polygon in R^2}
+\title{The area of a polygon in \eqn{\mathbb R^2}}
 \usage{
 area.polygon(h)
 }
@@ -14,87 +14,44 @@ number of vertices of the polygon}
 area of \code{h}
 }
 \description{
-Returns the area of the polygon, h, in the real plane R^2; the vertices of the polygon h
+Returns the area of the polygon, \code{h}, in the real plane \eqn{\mathbb R^2}; the vertices of the polygon \code{h}
 must be provided in clockwise or counter-clockwise order, otherwise the function does not yield
 the area of the polygon. Also, the polygon could be convex or non-convex.
 See (\insertCite{weisstein-area-poly;textual}{pcds}).
 }
 \examples{
-c1<-.4; c2<-.6
-P<-c(.4,.2)
-rv.bastriCM(P,c1,c2)
+A<-c(0,0); B<-c(1,0); C<-c(0.5,.8);
+#A<-runif(2); B<-runif(2); C<-runif(2)
+#A<-runif(2,1,100); B<-runif(2,1,100); C<-runif(2,1,100);
+Tr<-rbind(A,B,C);
+area.polygon(Tr)
 
-c1<-.5; c2<-.8
-P<-c(.4,.2)
-rv.bastriCM(P,c1,c2)
+A<-c(0,0); B<-c(1,0); C<-c(.7,.6); D<-c(0.3,.8);
+h1<-rbind(A,B,C,D); #h1<-rbind(A,B,D,C); #h1<-rbind(A,C,B,D)
+#h1<-rbind(A,D,C,B);
+area.polygon(h1)
 
-P<-c(.8,.2)
-rv.bastriCM(P,c1,c2)
-
-P<-c(1,.2)
-rv.bastriCM(P,c1,c2)
-
-c1<-.4; c2<-.6
-A<-c(0,0);B<-c(1,0);C<-c(c1,c2);
-Tb<-rbind(A,B,C)
-CM<-(A+B+C)/3
-D1<-(B+C)/2; D2<-(A+C)/2; D3<-(A+B)/2;
-Ds<-rbind(D1,D2,D3)
-
-rv.bastriCM(A,c1,c2)
-rv.bastriCM(CM,c1,c2)
-rv.bastriCM(D1,c1,c2)
-rv.bastriCM(D2,c1,c2)
-rv.bastriCM(D3,c1,c2)
-
-n<-20
-dat<-runif.bastri(n,c1,c2)$g
-#dat<-cbind(runif(n),runif(n))
-#dat<-cbind(runif(n,1,2),runif(n,0,1))
-
-Rv<-vector()
-for (i in 1:n)
-  Rv<-c(Rv,rv.bastriCM(dat[i,],c1,c2)$rv)
-Rv
-
-Xlim<-range(Tb[,1],dat[,1])
-Ylim<-range(Tb[,2],dat[,2])
+Xlim<-range(h1[,1])
+Ylim<-range(h1[,2])
 xd<-Xlim[2]-Xlim[1]
 yd<-Ylim[2]-Ylim[1]
 
-plot(Tb,xlab="",ylab="",axes="T",pch=".",xlim=Xlim+xd*c(-.05,.05),ylim=Ylim+yd*c(-.05,.05))
-points(dat,pch=".")
-polygon(Tb)
-L<-Ds; R<-matrix(rep(CM,3),ncol=3,byrow=T)
-segments(L[,1], L[,2], R[,1], R[,2], lty=2)
-text(dat,labels=factor(Rv))
-
-txt<-rbind(Tb,CM,Ds)
-xc<-txt[,1]+c(-.03,.03,.02,-.01,.06,-.05,.0)
-yc<-txt[,2]+c(.02,.02,.02,.04,.02,.02,-.03)
-txt.str<-c("A","B","C","CM","D1","D2","D3")
+plot(h1,xlab="",ylab="",xlim=Xlim+xd*c(-.05,.05),ylim=Ylim+yd*c(-.05,.05))
+polygon(h1)
+xc<-rbind(A,B,C,D)[,1]+c(-.03,.03,.02,-.01)
+yc<-rbind(A,B,C,D)[,2]+c(.02,.02,.02,.04)
+txt.str<-c("A","B","C","D")
 text(xc,yc,txt.str)
 
-plot(Tb,xlab="",ylab="",axes="T",pch=".",xlim=Xlim+xd*c(-.05,.05),ylim=Ylim+yd*c(-.05,.05))
-polygon(Tb)
-L<-Ds; R<-matrix(rep(CM,3),ncol=3,byrow=T)
-segments(L[,1], L[,2], R[,1], R[,2], lty=2)
+\dontrun{
+#when the triangle is degenerate
+B<-A+2*(C-A);
+T2<-rbind(A,B,C)
+area.polygon(T2)
+}
 
-RV1<-(A+D3+CM+D2)/4
-RV2<-(B+D3+CM+D1)/4
-RV3<-(C+D2+CM+D1)/4
-
-txt<-rbind(RV1,RV2,RV3)
-xc<-txt[,1]
-yc<-txt[,2]
-txt.str<-c("rv=1","rv=2","rv=3")
-text(xc,yc,txt.str)
-
-txt<-rbind(Tb,CM,Ds)
-xc<-txt[,1]+c(-.03,.03,.02,-.01,.04,-.03,.0)
-yc<-txt[,2]+c(.02,.02,.02,.04,.02,.02,-.03)
-txt.str<-c("A","B","C","CM","D1","D2","D3")
-text(xc,yc,txt.str)
+dat.fr<-data.frame(a=Tr)
+area.polygon(dat.fr)
 
 }
 \references{

@@ -10,48 +10,46 @@ circ.cent.tetra(th)
 \item{th}{Four 3D points, stacked row-wise, each row representing a vertex of the tetrahedron}
 }
 \value{
-circumcenter of the tetrahedron th
+circumcenter of the tetrahedron \code{th}
 }
 \description{
-Returns the circumcenter a given tetrahedron th with vertices stacked row-wise.
+Returns the circumcenter a given tetrahedron \code{th} with vertices stacked row-wise.
 }
 \examples{
-n<-100
+A<-c(0,0,0); B<-c(1,0,0); C<-c(1/2,sqrt(3)/2,0); D<-c(1/2,sqrt(3)/6,sqrt(6)/3)
+#A<-runif(3); B<-runif(3); C<-runif(3); D<-runif(3)
+#A<-runif(3,1,100); B<-runif(3,1,100); C<-runif(3,1,100); D<-runif(3,1,100)
+tetra<-rbind(A,B,C,D)
 
-#set.seed(1)
-Xdt<-runif.tetra(n,tetra)
-Xdt
-summary(Xdt)
-plot(Xdt)
+CC<-circ.cent.tetra(tetra)
+CC
 
-Dt<-Xdt$g
-# library(scatterplot3d)
-# s3d<-scatterplot3d(Dt, highlight.3d=TRUE,xlab="x",ylab="y",zlab="z",
-#                    col.axis="blue", col.grid="lightblue",
-#                    main="3D Scatterplot of the Data", pch=20)
-# s3d$points3d(tetra,pch=20,col="blue")
-
-Xlim<-range(tetra[,1],Dt[,1])
-Ylim<-range(tetra[,2],Dt[,2])
-Zlim<-range(tetra[,3],Dt[,3])
+Xlim<-range(tetra[,1],CC[1])
+Ylim<-range(tetra[,2],CC[2])
+Zlim<-range(tetra[,3],CC[3])
 xd<-Xlim[2]-Xlim[1]
 yd<-Ylim[2]-Ylim[1]
 zd<-Zlim[2]-Zlim[1]
 
-library(plot3D)
-scatter3D(Dt[,1],Dt[,2],Dt[,3], theta =225, phi = 30, bty = "g", xlim=Xlim+xd*c(-.05,.05),ylim=Ylim+yd*c(-.05,.05), zlim=Zlim+zd*c(-.05,.05),
+#library(plot3D)
+plot3D::scatter3D(tetra[,1],tetra[,2],tetra[,3], phi =0,theta=40, bty = "g",
+xlim=Xlim+xd*c(-.05,.05),ylim=Ylim+yd*c(-.05,.05), zlim=Zlim+zd*c(-.05,.05),
           pch = 20, cex = 1, ticktype = "detailed")
 #add the vertices of the tetrahedron
-points3D(tetra[,1],tetra[,2],tetra[,3], add=TRUE)
+plot3D::points3D(CC[1],CC[2],CC[3], add=TRUE)
 L<-rbind(A,A,A,B,B,C); R<-rbind(B,C,D,C,D,D)
-segments3D(L[,1], L[,2], L[,3], R[,1], R[,2],R[,3], add=TRUE,lwd=2)
+plot3D::segments3D(L[,1], L[,2], L[,3], R[,1], R[,2],R[,3], add=TRUE,lwd=2)
 
-text3D(tetra[,1],tetra[,2],tetra[,3], labels=c("A","B","C","D"), add=TRUE)
+plot3D::text3D(tetra[,1],tetra[,2],tetra[,3], labels=c("A","B","C","D"), add=TRUE)
 
-runif.tetra(n,tetra)
+D1<-(A+B)/2; D2<-(A+C)/2; D3<-(A+D)/2; D4<-(B+C)/2; D5<-(B+D)/2; D6<-(C+D)/2;
+L<-rbind(D1,D2,D3,D4,D5,D6); R<-
+plot3D::segments3D(L[,1], L[,2], L[,3], R[,1], R[,2],R[,3], add=TRUE,lty=2)
+
+plot3D::text3D(CC[1],CC[2],CC[3], labels="CC", add=TRUE)
 
 dat.fr<-data.frame(a=tetra)
-runif.tetra(n,dat.fr)
+circ.cent.tetra(dat.fr)
 
 }
 \seealso{

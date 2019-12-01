@@ -14,35 +14,80 @@ CSarcdens.tri(Xp, tri, t, M = c(1, 1, 1), tri.cor = TRUE)
 \item{t}{A positive real number which serves as the expansion parameter in CS proximity region}
 
 \item{M}{A 2D point in Cartesian coordinates or a 3D point in barycentric coordinates
-which serves as a center in the interior of the triangle tri;
-default is M=c(1,1,1) i.e. the center of mass of tri}
+which serves as a center in the interior of the triangle \code{tri};
+default is \eqn{M=(1,1,1)} i.e. the center of mass of \code{tri}}
 
-\item{tri.cor}{A logical argument for computing the arc density for only the points inside the triangle, tri
-(default=TRUE), i.e., if TRUE only the induced digraph with the vertices inside tri are considered in the
+\item{tri.cor}{A logical argument for computing the arc density for only the points inside the triangle, \code{tri}
+(default=TRUE), i.e., if TRUE only the induced digraph with the vertices inside \code{tri} are considered in the
 computation of arc density}
 }
 \value{
 A list of elements
-\item{arc.dens}{Arc density of CS-PCD whose vertices are the 2D numerical data set, Xp;
-CS proximity regions are defined with respect to the triangle tri and M-edge regions}
+\item{arc.dens}{Arc density of CS-PCD whose vertices are the 2D numerical data set, \code{Xp};
+CS proximity regions are defined with respect to the triangle \code{tri} and \code{M}-edge regions}
 \item{std.arc.dens}{Arc density standardized by the mean and asymptotic variance of the arc
-density of CS-PCD for uniform data in the triangle tri.}
-\item{caveat}{The warning as "The standardized arc density is only correct when M is the center of mass
+density of CS-PCD for uniform data in the triangle \code{tri}.}
+\item{caveat}{The warning as "The standardized arc density is only correct when \code{M} is the center of mass
 in the current version".}
 }
 \description{
-Returns the arc density of CS-PCD whose vertex set is the given 2D numerical data set, Xp,
-(some of its members are) in the triangle tri. CS proximity regions is defined with respect to tri with
-expansion parameter t>0 and edge regions are based on center M=(m1,m2) in Cartesian coordinates or
-M=(alpha,beta,gamma) in barycentric coordinates in the interior of the triangle tri; default is
-M=c(1,1,1) i.e. the center of mass of tri.
+Returns the arc density of CS-PCD whose vertex set is the given 2D numerical data set, \code{Xp},
+(some of its members are) in the triangle \code{tri}.
+
+CS proximity regions is defined with respect to \code{tri} with
+expansion parameter \eqn{t>0} and edge regions are based on center \eqn{M=(m_1,m_2)} in Cartesian coordinates or
+\eqn{M=(\alpha,\beta,\gamma)} in barycentric coordinates in the interior of the triangle \code{tri}; default is
+\eqn{M=(1,1,1)} i.e. the center of mass of \code{tri}.
 The function also provides arc density standardized by the mean and asymptotic variance of the arc density
-of CS-PCD for uniform data in the triangle tri. For the number of arcs, loops are not allowed.
-tri.cor is a logical argument for triangle correction (default is TRUE), if TRUE, only the points inside the
+of CS-PCD for uniform data in the triangle \code{tri}. For the number of arcs, loops are not allowed.
+
+\code{tri.cor} is a logical argument for triangle correction (default is TRUE), if TRUE, only the points inside the
 triangle are considered (i.e., digraph induced by these vertices are considered) in computing the arc density,
 otherwise all points are considered (for the number of vertices in the denominator of arc density).
 See (\insertCite{ceyhan:Phd-thesis,ceyhan:arc-density-CS,ceyhan:test2014;textual}{pcds}) for more on CS-PCDs.
-Caveat: The standardized arc density is only correct when M is the center of mass in the current version.
+
+Caveat: The standardized arc density is only correct when \code{M} is the center of mass in the current version.
+}
+\examples{
+A<-c(1,1); B<-c(2,0); C<-c(1.5,2);
+#A<-runif(2); B<-runif(2); C<-runif(2);
+#A<-runif(2,1,100); B<-runif(2,1,100); C<-runif(2,1,100);
+Tr<-rbind(A,B,C);
+n<-20
+
+#set.seed(1)
+dat<-runif.tri(n,Tr)$g
+#dat<-cbind(runif(n,1,2),runif(n,0,2))
+#dat<-cbind(runif(n),runif(n))
+
+M<-as.numeric(runif.tri(1,Tr)$g)
+#M<-c(1.6,1.0)
+#M<-c(1,1,1) #M<-c(1,2,3) #M<-c(-1,2,3) #barycentric coordinates
+#M<-c(1.3,1.3)
+#M<-c(.3,.3)
+
+NumArcsCStri(dat,Tr,t=.5,M)
+CSarcdens.tri(dat,Tr,t=.5,M)
+CSarcdens.tri(dat,Tr,t=.5,M,tri.cor = FALSE)
+
+NumArcsCStri(dat,Tr,t=1,M)
+CSarcdens.tri(dat,Tr,t=1,M)
+
+NumArcsCStri(dat,Tr,t=1.5,M)
+CSarcdens.tri(dat,Tr,t=1.5,M)
+
+t<-2
+CSarcdens.tri(dat,Tr,t,M)
+
+dat.fr<-data.frame(a=dat)
+CSarcdens.tri(dat.fr,Tr,t,M)
+
+dat.fr<-data.frame(a=Tr)
+CSarcdens.tri(dat,dat.fr,t,M)
+
+}
+\references{
+\insertAllCited{}
 }
 \seealso{
 \code{\link{ASarcdens.tri}}, \code{\link{PEarcdens.tri}}, and \code{\link{NumArcsCStri}}

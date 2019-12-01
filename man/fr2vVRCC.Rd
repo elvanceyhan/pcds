@@ -2,7 +2,7 @@
 % Please edit documentation in R/PCDFunctions.r
 \name{fr2vVRCC}
 \alias{fr2vVRCC}
-\title{An object of class "Extrema"
+\title{An object of class "Extrema":
 
 The furthest points in a data set from vertices in each CC-vertex region in a triangle}
 \usage{
@@ -14,7 +14,7 @@ fr2vVRCC(Dt, tri, ch.all.intri = FALSE)
 \item{tri}{Three 2D points, stacked row-wise, each row representing a vertex of the triangle}
 
 \item{ch.all.intri}{A logical argument (default=FALSE) to check whether all data points are inside
-the triangle tri. So if it is TRUE,
+the triangle \code{tri}. So if it is TRUE,
 the function checks if all data points are inside the closure of the triangle (i.e. interior and boundary
 combined) else it does not.}
 }
@@ -24,88 +24,90 @@ A list with the elements
 \item{txt2}{A short description of the distances as "Distances to Vertices...".}
 \item{type}{Type of the extrema points}
 \item{desc}{A short description of the extrema points}
-\item{mtxt}{The "main" title for the plot of the exrema}
+\item{mtitle}{The "main" title for the plot of the exrema}
 \item{Ext}{The extrema points, here, furthest points from vertices in each CC-vertex region in the
-triangle tri.}
-\item{X}{The input data, Dt, can be a matrix or data frame}
-\item{num.points}{The number of data points, i.e., size of Dt}
-\item{supp}{Support of the data points, here, it is the triangle tri for this function.}
+triangle \code{tri}.}
+\item{X}{The input data, \code{Dt}, can be a matrix or data frame}
+\item{num.points}{The number of data points, i.e., size of \code{Dt}}
+\item{supp}{Support of the data points, here, it is the triangle \code{tri} for this function.}
 \item{cent}{The center point used for construction of edge regions.}
-\item{ncent}{Name of the center, cent, it is circumcenter "CC" for this function}
-\item{regions}{CC-Vertex regions inside the triangle, tri, provided as a list}
+\item{ncent}{Name of the center, \code{cent}, it is circumcenter "CC" for this function}
+\item{regions}{CC-Vertex regions inside the triangle, \code{tri}, provided as a list}
 \item{region.names}{Names of the vertex regions as "vr=1","vr=2","vr=3"}
-\item{region.centers}{Centers of mass of the vertex regions inside tri}
+\item{region.centers}{Centers of mass of the vertex regions inside \code{tri}}
 \item{dist2ref}{Distances from furthest points in each vertex region to the corresponding vertex}
 }
 \description{
-Returns the furthest data points among the data set, Dt, in each CC-vertex region from the vertex in the
-triangle, tri=T(A,B,C). Vertex region labels/numbers correspond to the row number of the vertex in tri.
-ch.all.intri is for checking whether all data points are inside tri (default is FALSE).
-If some of the data points are not inside tri and ch.all.intri=TRUE, then the function yields
+Returns the furthest data points among the data set, \code{Dt}, in each CC-vertex region from the vertex in the
+triangle, \eqn{tri=T(A,B,C)}. Vertex region labels/numbers correspond to the row number of the vertex in \code{tri}.
+\code{ch.all.intri} is for checking whether all data points are inside \code{tri} (default is FALSE).
+If some of the data points are not inside \code{tri} and \code{ch.all.intri}=TRUE, then the function yields
 an error message.
-If some of the data points are not inside tri and ch.all.intri=FALSE, then the function yields
-the closest points to edges among the data points inside tri (yields NA if there are no data points
-inside tri). See also (\insertCite{ceyhan:Phd-thesis,ceyhan:mcap2012;textual}{pcds}).
+If some of the data points are not inside \code{tri} and \code{ch.all.intri}=FALSE, then the function yields
+the closest points to edges among the data points inside \code{tri} (yields NA if there are no data points
+inside \code{tri}). See also (\insertCite{ceyhan:Phd-thesis,ceyhan:mcap2012;textual}{pcds}).
 }
 \examples{
-c1<-.4; c2<-.6;
-A<-c(0,0); B<-c(1,0); C<-c(c1,c2);
-Tb<-rbind(A,B,C)
+A<-c(1,1); B<-c(2,0); C<-c(1.5,2);
+#A<-runif(2); B<-runif(2); C<-runif(2);
+#A<-runif(2,1,100); B<-runif(2,1,100); C<-runif(2,1,100);
+Tr<-rbind(A,B,C);
 n<-20
 
 #set.seed(1)
-dat<-runif.bastri(n,c1,c2)$g
+dat<-runif.tri(n,Tr)$g
 #dat<-cbind(runif(n),runif(n))
-#dat<-cbind(runif(n,1,2),runif(n,0,1))
+#dat<-cbind(runif(n,1,2),runif(n,0,2))
 
-Ext<-fr2vTbVRCC(dat,c1,c2)
+Ext<-fr2vVRCC(dat,Tr)
 Ext
 summary(Ext)
 plot(Ext)
 
-fr2vTbVRCC(dat[1,],c1,c2)
+fr2vVRCC(dat[1,],Tr)
 
 dat2<-rbind(dat,c(.2,.4))
-fr2vTbVRCC(dat2,c1,c2)
+fr2vVRCC(dat2,Tr)
+#fr2vVRCC(dat2,Tr,ch.all.intri = TRUE) #not all points in the data set are in the triangle
 
-f2v<-fr2vTbVRCC(dat,c1,c2)
+f2v<-fr2vVRCC(dat,Tr)
 
-CC<-circ.cent.bastri(c1,c2) #the circumcenter
+CC<-circ.cent.tri(Tr) #the circumcenter
 D1<-(B+C)/2; D2<-(A+C)/2; D3<-(A+B)/2;
 Ds<-rbind(D1,D2,D3)
 
-Xlim<-range(Tb[,1],dat[,1])
-Ylim<-range(Tb[,2],dat[,2])
+Xlim<-range(Tr[,1],dat[,1])
+Ylim<-range(Tr[,2],dat[,2])
 xd<-Xlim[2]-Xlim[1]
 yd<-Ylim[2]-Ylim[1]
 
-plot(A,pch=".",asp=1,xlab="",ylab="",xlim=Xlim+xd*c(-.05,.05),ylim=Ylim+yd*c(-.05,.05))
-polygon(Tb)
-L<-matrix(rep(CC,3),ncol=3,byrow=T); R<-Ds
+plot(Tr,xlab="",asp=1,ylab="",pch=".",axes=TRUE,xlim=Xlim+xd*c(-.05,.05),ylim=Ylim+yd*c(-.05,.05))
+polygon(Tr)
+L<-matrix(rep(CC,3),ncol=2,byrow=TRUE); R<-Ds
 segments(L[,1], L[,2], R[,1], R[,2], lty=2)
 points(dat)
 points(rbind(f2v$Ext),pch=4,col=2)
 
-txt<-rbind(Tb,CC,D1,D2,D3)
-xc<-txt[,1]+c(-.03,.03,0.02,.07,.06,-.05,.01)
-yc<-txt[,2]+c(.02,.02,.03,.01,.02,.02,-.04)
+txt<-rbind(Tr,CC,Ds)
+xc<-txt[,1]+c(-.06,.08,.05,.12,-.1,-.1,-.09)
+yc<-txt[,2]+c(.02,-.02,.05,.0,.02,.06,-.04)
 txt.str<-c("A","B","C","CC","D1","D2","D3")
 text(xc,yc,txt.str)
 
-#set.seed(1)
-dat<-runif.bastri(n,c1,c2)$g
-fr2vTbVRCC(dat,c1,c2)
+fr2vVRCC(dat,Tr)
 
-fr2vTbVRCC(c(.4,.2),c1,c2)
+fr2vVRCC(c(1.4,1.2),Tr)
 
 dat.fr<-data.frame(a=dat)
-fr2vTbVRCC(dat.fr,c1,c2)
+fr2vVRCC(dat.fr,Tr)
+
+dat.fr<-data.frame(a=Tr)
+fr2vVRCC(dat,dat.fr)
 
 }
 \references{
 \insertAllCited{}
 }
 \seealso{
-\code{\link{fr2vTbVRCC}}, \code{\link{fr2eTeER}}, \code{\link{Kfr2vTbVRCC}} and
- \code{\link{Kfr2vVRCC}}
+\code{\link{fr2vTbVRCC}}, \code{\link{fr2eTeER}}, \code{\link{Kfr2vTbVRCC}} and \code{\link{Kfr2vVRCC}}
 }

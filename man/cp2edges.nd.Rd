@@ -11,36 +11,49 @@ cp2edges.nd(tri, r, cent = 1)
 \item{tri}{Three 2D points, stacked row-wise, each row representing a vertex of the triangle}
 
 \item{r}{A positive real number which serves as the expansion parameter in PE proximity region;
-must be in (1,1.5] for this function}
+must be in \eqn{(1,1.5]} for this function}
 
 \item{cent}{Index of the center (as 1,2,3 corresponding to M1,M2,M3) which gives nondegenerate asymptotic
-distribution of the domination number of PE-PCD for uniform data in tri for expansion parameter r>=1 in (1,1.5];
-default cent=1}
+distribution of the domination number of PE-PCD for uniform data in \code{tri} for expansion parameter \code{r} in \eqn{(1,1.5]};
+default \code{cent}=1}
 }
 \value{
 Three projection points (stacked row-wise) from one of the centers (as 1,2,3 corresponding to
 M1,M2,M3) which gives nondegenerate asymptotic distribution of the domination number of PE-PCD for
-uniform data in tri for expansion parameter r>=1 in (1,1.5].
+uniform data in \code{tri} for expansion parameter \code{r} in \eqn{(1,1.5]}.
 }
 \description{
-Returns the projections from  center M to the edges on the extension of the lines joining M to the vertices
-in the triangle, tri. Here M is one of the three centers which gives nondegenerate asymptotic distribution
-of the domination number of PE-PCD for uniform data in tri for a given expansion parameter r>=1 in (1,1.5).
-The center label cent values 1,2,3 correspond to the vertices M1,M2,and M3 (i.e., row numbers in the
-output of cent.nondeg(tri,r)); default for cent is 1. M becomes center of mass CM for r=1.5.
+Returns the projections from  center \code{cent} to the edges on the extension of the lines joining \code{cent} to the vertices
+in the triangle, \code{tri}. Here M is one of the three centers which gives nondegenerate asymptotic distribution
+of the domination number of PE-PCD for uniform data in \code{tri} for a given expansion parameter \code{r} in \eqn{(1,1.5]}.
+The center label \code{cent} values 1,2,3 correspond to the vertices \eqn{M_1}, \eqn{M_2}, and \eqn{M_3} (i.e., row numbers in the
+output of cent.nondeg(tri,r)); default for \code{cent} is 1. \code{cent} becomes center of mass CM for \eqn{r=1.5}.
 See also (\insertCite{ceyhan:Phd-thesis,ceyhan:masa-2007,ceyhan:dom-num-NPE-Spat2011;textual}{pcds}).
 }
 \examples{
 A<-c(1,1); B<-c(2,0); C<-c(1.5,2);
 #c1<-.4; c2<-.6; A<-c(0,0); B<-c(1,0); C<-c(c1,c2);
-#A<-c(0,0); B<-c(1,0); C<-c(.5,sqrt(3.)/2);
-#A<-runif(2); B<-runif(2); C<-runif(2);
+#A<-c(0,0); B<-c(1,0); C<-c(1/2,sqrt(3)/2);
+A<-runif(2); B<-runif(2); C<-runif(2);
 #A<-runif(2,1,100); B<-runif(2,1,100); C<-runif(2,1,100);
 Tr<-rbind(A,B,C);
 r<-1.35
 
+cp2edges.nd(Tr,r,cent=2)
+\dontrun{
+cp2edges.nd(Tr,r,cent=5) #center index, cent, must be 1, 2 or 3
+cp2edges.nd(Tr,r=2,cent=2) #r must be a scalar in (1,1.5]
+
+T2<-rbind(A,A+2*(C-A),C)
+cp2edges.nd(T2,r,cent=2)
+}
+
 Ms<-cent.nondeg(Tr,r)
-Ms
+
+#Ds<-cp2edges.nd(T,r,cent=1)
+Ds<-cp2edges.nd(Tr,r,cent=2)
+#Ds<-cp2edges.nd(T,r,cent=3)
+D1<-Ds[1,]; D2<-Ds[2,]; D3<-Ds[3,]
 
 Xlim<-range(Tr[,1])
 Ylim<-range(Tr[,2])
@@ -52,20 +65,30 @@ polygon(Tr)
 points(Ms,pch=".",col=1)
 polygon(Ms,lty=2)
 
-xc<-Tr[,1]#+c(-.02,.02,.02)
+xc<-Tr[,1]#+c(-.02,.03,.02)
 yc<-Tr[,2]#+c(.02,.02,.03)
 txt.str<-c("A","B","C")
 text(xc,yc,txt.str)
 
-xc<-Ms[,1]#+c(-.04,.04,.03)
-yc<-Ms[,2]#+c(.02,.02,.05)
+txt<-Ms
+xc<-txt[,1]#+c(-.03,.04,.01)
+yc<-txt[,2]#+c(.02,.02,.06)
 txt.str<-c("M1","M2","M3")
 text(xc,yc,txt.str)
 
-cent.nondeg(Tr,r)
+points(Ds,pch=4,col=2)
+L<-Tr; R<-Ds
+segments(L[,1], L[,2], R[,1], R[,2], lty=2,col=2)
+txt<-Ds
+xc<-txt[,1]#+c(.05,-.03,0)
+yc<-txt[,2]#+c(03,.06,-.07)
+txt.str<-c("D1","D2","D3")
+text(xc,yc,txt.str)
+
+cp2edges.nd(Tr,r,1)
 
 dat.fr<-data.frame(a=Tr)
-cent.nondeg(dat.fr,r)
+cp2edges.nd(dat.fr,r,1)
 
 }
 \references{

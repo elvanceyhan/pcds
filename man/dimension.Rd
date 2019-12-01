@@ -13,34 +13,34 @@ dimension(x)
 Dimension (i.e., # of columns) of \code{x}
 }
 \description{
-Returns the dimension (i.e., # of columns) of x, which is a matrix or a vector or a data frame.
-This is different than the dim function in the base distribution of R, in the sense that, dimension gives
-only the number of columns of the argument x, while dim gives the number of rows and columns of x.
-dimension also works for a scalar or a vector, while dim yields NULL for such arguments.
+Returns the dimension (i.e., # of columns) of \code{x}, which is a matrix or a vector or a data
+frame. This is different than the \code{dim} function in the base distribution of R, in the sense that,
+\code{dimension} gives only the number of columns of the argument \code{x}, while \code{dim} gives the number of rows and
+columns of \code{x}. \code{dimension} also works for a scalar or a vector, while \code{dim} yields NULL for such arguments.
 }
 \examples{
-A<-c(-1.22,-2.33); B<-c(2.55,3.75,4)
-is.point(A)
-is.point(A,2)
-is.point(A,1)
-is.point(A,3)
+dimension(3)
+dim(3)
 
-is.point(B)
-is.point(B,3)
+A<-c(1,2)
+dimension(A)
+dim(A)
 
-dat<-rbind(A,B[1:2])
-is.point(dat)
-is.point(as.vector(dat),4)
+B<-c(2,3)
+dimension(rbind(A,B,A))
+dimension(cbind(A,B,A))
 
-lis<-list(a=A,b=B)
-is.point(lis)
+M<-matrix(runif(20),ncol=5)
+dimension(M)
+dim(M)
 
-dat.fr<-data.frame(a=A,b=B[1:2])
-is.point(dat.fr)
+dat.fr<-data.frame(a=A,b=B)
+dimension(dat.fr)
+dim(dat.fr)
 
-is.point(c("a","b"))
+dimension(c("a","b"))
 
 }
 \seealso{
-\code{\link{is.point}} and  \code{\link{dim}} from the base distribution of R
+\code{\link{is.point}} and \code{\link{dim}} from the base distribution of R
 }

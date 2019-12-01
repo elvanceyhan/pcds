@@ -13,65 +13,48 @@ Dist(x, y)
 Euclidean distance between \code{x} and \code{y}
 }
 \description{
-Returns the Euclidean distance between x and y which can be vectors
-or matrices or data frames of any dimension (x and y should be of same dimension).
-This function is different from the dist function in the stats package of the standard R distribution.
-dist requires its argument to be a data matrix and dist computes and returns the distance matrix computed
+Returns the Euclidean distance between \code{x} and \code{y} which can be vectors
+or matrices or data frames of any dimension (\code{x} and \code{y} should be of same dimension).
+This function is different from the \code{\link[stats]{dist}} function in the \code{stats} package of the standard R distribution.
+\code{dist} requires its argument to be a data matrix and \code{\link[stats]{dist}} computes and returns the distance matrix computed
 by using the specified distance measure to compute the distances between the rows of a data matrix
 (\insertCite{S-Book:1998;textual}{pcds}),
-while Dist needs two arguments to find the distances between. For two data matrices A and B,
-dist(rbind(as.vector(A),as.vector(B))) and Dist(xm,ym) yield the same result.
+while \code{Dist} needs two arguments to find the distances between. For two data matrices A and B,
+\code{dist(rbind(as.vector(A),as.vector(B)))} and \code{Dist(xm,ym)} yield the same result.
 }
 \examples{
-A<-c(1,2); B<-c(2,3); P<-c(3,1.5)
-#A<-runif(2); B<-runif(2); P<-runif(2)
-#A<-runif(2,1,100); B<-runif(2,1,100); P<-runif(2,1,100);
-dpl<-dp2l(P,A,B);
-dpl
-C<-dpl$cl2p
-pts<-rbind(A,B,C,P)
+B<-c(1,0); C<-c(1/2,sqrt(3)/2);
+Dist(B,C);
+dist(rbind(B,C))
+dist(rbind(as.vector(B),as.vector(C)))
+Dist(B,B);
 
-dp2l(A,A,B);
-dp2l((A+B)/2,A,B);
+x<-runif(10)
+y<-runif(10)
+Dist(x,y)
 
-xr<-range(pts[,1])
-xf<-(xr[2]-xr[1])*.25 #how far to go at the lower and upper ends in the x-coordinate
-x<-seq(xr[1]-xf,xr[2]+xf,l=100)
-lnAB<-Line(A,B,x)
-y<-lnAB$y
-int<-lnAB$intercept #intercept
-sl<-lnAB$slope #slope
+xm<-matrix(x,ncol=2)
+ym<-matrix(y,ncol=2)
+Dist(xm,ym)
+dist(rbind(as.vector(xm),as.vector(ym)))
 
-xsq<-seq(min(A[1],B[1],P[1])-xf,max(A[1],B[1],P[1])+xf,l=100)
-pline<-(-1/sl)*(xsq-P[1])+P[2] #line passing thru P and perpendicular to AB
+Dist(xm,xm)
 
-Xlim<-range(pts[,1],x)
-Ylim<-range(pts[,2],y)
-xd<-Xlim[2]-Xlim[1]
-yd<-Ylim[2]-Ylim[1]
+xm<-matrix(x,ncol=2)
+ym<-matrix(y,ncol=1)
+#Dist(xm,ym) #gives error, since vectors are not of the same dimension
+#Dist(B,xm)
+#Dist(B,x) #gives error, since vectors are not of the same dimension
 
-plot(rbind(P),asp=1,pch=1,xlab="x",ylab="y",xlim=Xlim+xd*c(-.05,.05),ylim=Ylim+yd*c(-.05,.05))
-points(rbind(A,B),pch=1)
-lines(x,y,lty=1,xlim=Xlim,ylim=Ylim)
-int<-round(int,2);sl<-round(sl,2)
-text(rbind((A+B)/2+xd*c(-.01,-.01)),ifelse(sl==0,paste("y=",int),ifelse(sl==1,paste("y=x+",int),
-                                                                        ifelse(int==0,paste("y=",sl,"x"),paste("y=",sl,"x+",int)))))
-text(rbind(A+xd*c(0,-.01),B+xd*c(.0,-.01),P+xd*c(.01,-.01)),c("A","B","P"))
-lines(xsq,pline,lty=2)
-segments(P[1],P[2], C[1], C[2], lty=1,col=2,lwd=2)
-text(rbind(C+xd*c(-.01,-.01)),"C")
-
-text(rbind((P+C)/2),col=2,paste("d=",round(dpl$dis,2)))
-
-A<-c(1,2); B<-c(1,3)
-P<-c(3,1.5)
-dp2l(P,A,B);
-
-A<-c(1,2); B<-c(2,2)
-P<-c(3,1.5)
-dp2l(P,A,B);
+dat.fr<-data.frame(b=B,c=C)
+#Dist(B,dat.fr)
+Dist(dat.fr,dat.fr)
+Dist(dat.fr,cbind(B,C))
 
 }
+\references{
+\insertAllCited{}
+}
 \seealso{
-\code{\link{dist}} from the base package
+\code{\link[stats]{dist}} from the base package stats
 }

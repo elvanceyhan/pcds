@@ -14,76 +14,84 @@ Gam1AStri(p, Dt, tri, M = "CC", rv = NULL, ch.data.pnt = FALSE)
 
 \item{tri}{Three 2D points, stacked row-wise, each row representing a vertex of the triangle}
 
-\item{M}{"CC" which stand for circumcenter of the triangle tri or a 2D point in Cartesian coordinates or
-a 3D point in  barycentric coordinates which serves as a center in the interior of the triangle Tb;
-default is M="CC" i.e. the circumcenter of tri}
+\item{M}{"CC" which stands for circumcenter of the triangle \code{tri} or a 2D point in Cartesian coordinates or
+a 3D point in  barycentric coordinates which serves as a center in the interior of the triangle \eqn{T_b};
+default is \code{M}="CC" i.e. the circumcenter of \code{tri}}
 
-\item{rv}{Index of the vertex whose region contains point p, rv takes the vertex labels as 1,2,3 as
-in the row order of the vertices in tri}
+\item{rv}{Index of the vertex whose region contains point \code{p}, \code{rv} takes the vertex labels as 1,2,3 as
+in the row order of the vertices in \code{tri}}
 
-\item{ch.data.pnt}{A logical argument for checking whether point p is a data point in Dt or not
+\item{ch.data.pnt}{A logical argument for checking whether point \code{p} is a data point in \code{Dt} or not
 (default is FALSE)}
 }
 \value{
-I(p is a dominating point of the AS-PCD whose vertices are the 2D data set Dt),
-that is, returns 1 if p is a dominating point of the AS-PCD, returns 0 otherwise
+I(\code{p} is a dominating point of the AS-PCD whose vertices are the 2D data set \code{Dt}),
+that is, returns 1 if \code{p} is a dominating point of the AS-PCD, returns 0 otherwise
 }
 \description{
-Returns I(p is a dominating point of the AS-PCD whose vertices are the 2D data set Dt),
-that is, returns 1 if p is a dominating point for AS-PCD, returns 0 otherwise.
-Point, p, is in the region of vertex rv (default is NULL); vertices are labeled as 1,2,3
-in the order they are stacked row-wise in tri. AS proximity regions are defined with respect to the
-triangle tri and vertex regions are based on the center M="CC" for circumcenter of tri; or M=(m1,m2) in Cartesian coordinates
-or M=(alpha,beta,gamma) in barycentric coordinates in the interior of the triangle tri;
-default is M="CC" the circumcenter of tri.
-ch.data.pnt is for checking whether point p is a data point in Dt or not (default is FALSE),
-so by default this function checks whether the point p would be a dominating point
+Returns I(\code{p} is a dominating point of the AS-PCD whose vertices are the 2D data set \code{Dt}),
+that is, returns 1 if \code{p} is a dominating point of AS-PCD, returns 0 otherwise.
+Point, \code{p}, is in the region of vertex \code{rv} (default is NULL); vertices are labeled as 1,2,3
+in the order they are stacked row-wise in \code{tri}.
+
+AS proximity regions are defined with respect to the
+triangle \code{tri} and vertex regions are based on the center \code{M}="CC" for circumcenter of \code{tri}; or \eqn{M=(m_1,m_2)} in Cartesian coordinates
+or \eqn{M=(\alpha,\beta,\gamma)} in barycentric coordinates in the interior of the triangle \code{tri};
+default is \code{M}="CC" the circumcenter of \code{tri}.
+
+\code{ch.data.pnt} is for checking whether point \code{p} is a data point in \code{Dt} or not (default is FALSE),
+so by default this function checks whether the point \code{p} would be a dominating point
 if it actually were in the data set.
 See also (\insertCite{ceyhan:Phd-thesis,ceyhan:comp-geo-2010,ceyhan:mcap2012;textual}{pcds}).
 }
 \examples{
-c1<-.4; c2<-.6;
-A<-c(0,0); B<-c(1,0); C<-c(c1,c2);
-Tb<-rbind(A,B,C)
-n<-20
+A<-c(1,1); B<-c(2,0); C<-c(1.5,2);
+#A<-runif(2); B<-runif(2); C<-runif(2);
+#A<-runif(2,1,100); B<-runif(2,1,100); C<-runif(2,1,100);
+Tr<-rbind(A,B,C);
+n<-10
 
 #set.seed(1)
-dat<-runif.bastri(n,c1,c2)$g
+dat<-runif.tri(n,Tr)$g
 #dat<-cbind(runif(n),runif(n))
-#dat<-cbind(runif(n,1,2),runif(n,0,1))
+#dat<-cbind(runif(n,1,2),runif(n,0,2))
 
-M<-as.numeric(runif.bastri(1,c1,c2)$g)
-#M<-c(.6,.2)
-#M<-circ.cent.tri(Tb); #M<-"CC"; #M<-"CM"
+M<-as.numeric(runif.tri(1,Tr)$g)
+#M<-c(1.6,1.2)
+#M<-circ.cent.tri(Tr); #M<-"CC"; #M<-"CM"
 #M<-c(1,1,1) #M<-c(1,2,3) #M<-c(-1,2,3) #barycentric coordinates
 #M<-c(1.3,1.3)
 #M<-c(.3,.3)
 
-Gam1ASbastri(dat[1,],dat,c1,c2,M)
+Gam1AStri(dat[1,],dat,Tr,M)
+Gam1AStri(dat[1,],dat[1,],Tr,M)
+Gam1AStri(c(1.5,1.5),c(1.6,1),Tr,M)
+Gam1AStri(c(1.6,1),c(1.5,1.5),Tr,M)
 
 gam.vec<-vector()
 for (i in 1:n)
-{gam.vec<-c(gam.vec,Gam1ASbastri(dat[i,],dat,c1,c2,M))}
+{gam.vec<-c(gam.vec,Gam1AStri(dat[i,],dat,Tr,M))}
 
 ind.gam1<-which(gam.vec==1)
 ind.gam1
 
 #or try
-Rv<-rv.bastriCC(dat[1,],c1,c2)$rv
-Gam1ASbastri(dat[1,],dat,c1,c2,M,Rv)
+Rv<-rv.triCC(dat[1,],Tr)$rv
+Gam1AStri(dat[1,],dat,Tr,M,Rv)
 
-Gam1ASbastri(c(.5,.11),dat,c1,c2,M)
-Gam1ASbastri(c(.5,.11),dat,c1,c2,M,ch.data.pnt=TRUE)
+Gam1AStri(c(1.5,1.1),dat,Tr,M)
+#Gam1AStri(c(1.5,1.1),dat,Tr,M,ch.data.pnt=TRUE) #point p is not a data point in Dt
 
-Gam1ASbastri(c(.2,.4),dat,c1,c2,M)
-Gam1ASbastri(c(.2,.4),c(.2,.4),c1,c2,M)
+Gam1AStri(c(.2,.4),dat,Tr,M)
+Gam1AStri(c(.2,.4),c(.2,.4),Tr,M)
 
 dat2<-rbind(dat,c(.2,.4))
-Gam1ASbastri(dat[1,],dat2,c1,c2,M)
+Gam1AStri(dat[1,],dat2,Tr,M)
 
-CC<-circ.cent.bastri(c1,c2) #the circumcenter
+if (dimension(M)==3) {M<-bary2cart(M,Tr)}
+#need to run this when M is given in barycentric coordinates
 
-if (dimension(M)==3) {M<-bary2cart(M,Tb)} #need to run this when M is given in barycentric coordinates
+CC<-circ.cent.tri(Tr) #the circumcenter
 
 if (isTRUE(all.equal(M,CC)) || identical(M,"CC"))
 {cent<-CC
@@ -93,33 +101,35 @@ cent.name<-"CC"
 } else
 {cent<-M
 cent.name<-"M"
-Ds<-cp2e.bastri(c1,c2,M)
+Ds<-cp2e.tri(Tr,M)
 D1<-Ds[1,]; D2<-Ds[2,]; D3<-Ds[3,]
 }
 
-Xlim<-range(Tb[,1],dat[,1])
-Ylim<-range(Tb[,2],dat[,2])
+Xlim<-range(Tr[,1],dat[,1])
+Ylim<-range(Tr[,2],dat[,2])
 xd<-Xlim[2]-Xlim[1]
 yd<-Ylim[2]-Ylim[1]
 
 plot(A,pch=".",xlab="",ylab="",xlim=Xlim+xd*c(-.05,.05),ylim=Ylim+yd*c(-.05,.05))
-polygon(Tb)
+polygon(Tr)
+points(dat)
 L<-rbind(cent,cent,cent); R<-Ds
 segments(L[,1], L[,2], R[,1], R[,2], lty=2)
-points(dat)
 points(rbind(dat[ind.gam1,]),pch=4,col=2)
 
-txt<-rbind(Tb,cent,D1,D2,D3)
-xc<-txt[,1]+c(-.03,.03,.02,.06,.06,-0.05,.01)
-yc<-txt[,2]+c(.02,.02,.03,.0,.03,.03,-.03)
+txt<-rbind(Tr,cent,Ds)
+xc<-txt[,1]#+c(-.06,.08,.06,.12,-.09,-.1,-.09)
+yc<-txt[,2]#+c(.02,-.02,.03,.0,.0,.06,-.04)
 txt.str<-c("A","B","C",cent.name,"D1","D2","D3")
 text(xc,yc,txt.str)
 
-Gam1ASbastri(c(.4,.2),dat,c1,c2,M)
+Gam1AStri(c(1.5,1.1),dat,Tr,M)
 
 dat.fr<-data.frame(a=dat)
-Gam1ASbastri(c(.4,.2),dat.fr,c1,c2,M)
+Gam1AStri(c(1.5,1.1),dat.fr,Tr,M)
 
+dat.fr<-data.frame(a=Tr)
+Gam1AStri(c(1.5,1.1),dat,dat.fr,M)
 
 }
 \references{

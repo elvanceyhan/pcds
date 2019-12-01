@@ -2,7 +2,7 @@
 % Please edit documentation in R/PCDFunctions.r
 \name{cl2fVRth}
 \alias{cl2fVRth}
-\title{An object of class "Extrema"
+\title{An object of class "Extrema":
 
 The closest points among a data set in the vertex regions to the respective faces in a tetrahedron}
 \usage{
@@ -13,7 +13,7 @@ cl2fVRth(Dt, th, M = "CM")
 
 \item{th}{Four 3D points, stacked row-wise, each row representing a vertex of the tetrahedron}
 
-\item{M}{The center to be used in the construction of the vertex regions in the tetrahedron, th.
+\item{M}{The center to be used in the construction of the vertex regions in the tetrahedron, \code{th}.
 Currently it only takes "CC" for circumcenter and "CM" for center of mass; default="CM".}
 }
 \value{
@@ -22,96 +22,88 @@ A list with the elements
 \item{txt2}{A short description of the distances as "Distances from Closest Points to Faces ...".}
 \item{type}{Type of the extrema points}
 \item{desc}{A short description of the extrema points}
-\item{mtxt}{The "main" title for the plot of the exrema}
+\item{mtitle}{The "main" title for the plot of the exrema}
 \item{Ext}{The extrema points, here, closest points to faces in the respective vertex region.}
-\item{X}{The input data, Dt, can be a matrix or data frame}
-\item{num.points}{The number of data points, i.e., size of Dt}
-\item{supp}{Support of the data points, here, it is th}
+\item{X}{The input data, \code{Dt}, can be a matrix or data frame}
+\item{num.points}{The number of data points, i.e., size of \code{Dt}}
+\item{supp}{Support of the data points, here, it is \code{th}}
 \item{cent}{The center point used for construction of vertex regions, it is circumcenter of center of mass
 for this function}
 \item{ncent}{Name of the center, it is circumcenter "CC" or  center of mass "CM" for this function.}
-\item{regions}{Vertex regions inside the tetrahedron th provided as a list.}
+\item{regions}{Vertex regions inside the tetrahedron \code{th} provided as a list.}
 \item{region.names}{Names of the vertex regions as "vr=1","vr=2","vr=3","vr=4"}
-\item{region.centers}{Centers of mass of the vertex regions inside th}
+\item{region.centers}{Centers of mass of the vertex regions inside \code{th}.}
 \item{dist2ref}{Distances from closest points in each vertex region to the corresponding face.}
 }
 \description{
-Returns the closest data points among the data set, Dt, to face i in M-vertex region i for i=1,2,3,4
-in the tetrahedron th=T(A,B,C,D). Vertex labels are A=1, B=2, C=3, and D=4 and corresponding face
-labels are BCD=1, ACD=2, ABD=3, and ABC=4. Vertex regions are based on center M which can be the center
-of mass ("CM") or circumcenter ("CC") of th.
+Returns the closest data points among the data set, \code{Dt}, to face i in \code{M}-vertex region \eqn{i} for \eqn{i=1,2,3,4}
+in the tetrahedron \eqn{th=T(A,B,C,D)}. Vertex labels are A=1, B=2, C=3, and D=4 and corresponding face
+labels are BCD=1, ACD=2, ABD=3, and ABC=4.
+
+Vertex regions are based on center \code{M} which can be the center
+of mass ("CM") or circumcenter ("CC") of \code{th}.
 }
 \examples{
 A<-c(0,0,0); B<-c(1,0,0); C<-c(1/2,sqrt(3)/2,0); D<-c(1/2,sqrt(3)/6,sqrt(6)/3)
 #A<-runif(3); B<-runif(3); C<-runif(3); D<-runif(3)
 #A<-runif(3,1,100); B<-runif(3,1,100); C<-runif(3,1,100); D<-runif(3,1,100)
 tetra<-rbind(A,B,C,D)
+Cent<-"CC" #"CM"
 
 n<-20
-#Dt<-runif.stdtetra(n)$g
 Dt<-runif.tetra(n,tetra)$g
 #Dt<-cbind(runif(n),runif(n),runif(n))
 
-rv.tetraCM(Dt[1,],tetra)
-rv.tetraCM(Dt[5,],tetra)
-rv.tetraCM(c(2,2,2),tetra)
+Ext<-cl2fVRth(Dt,tetra,Cent)
+Ext
+summary(Ext)
+plot(Ext)
 
-Rv<-vector()
-for (i in 1:n)
-  Rv<-c(Rv, rv.tetraCM(Dt[i,],tetra)$rv )
-Rv
+cl2fVRth(c(.5,.5,.5),tetra,Cent)
 
-Xlim<-range(tetra[,1],Dt[,1])
-Ylim<-range(tetra[,2],Dt[,2])
-Zlim<-range(tetra[,3],Dt[,3])
+cl2fVRth(Dt,tetra,Cent)
+clf<-cl2fVRth(Dt,tetra,Cent)$Ext
+clf
+
+if (Cent=="CC") {M<-circ.cent.tetra(tetra)}
+if (Cent=="CM") {M<-apply(tetra,2,mean)}
+
+Xlim<-range(tetra[,1],Dt[,1],M[1])
+Ylim<-range(tetra[,2],Dt[,2],M[2])
+Zlim<-range(tetra[,3],Dt[,3],M[3])
 xd<-Xlim[2]-Xlim[1]
 yd<-Ylim[2]-Ylim[1]
 zd<-Zlim[2]-Zlim[1]
 
-CM<-apply(tetra,2,mean)
-
-library(plot3D)
-scatter3D(tetra[,1],tetra[,2],tetra[,3], phi =0,theta=40, bty = "g", xlim=Xlim+xd*c(-.05,.05),ylim=Ylim+yd*c(-.05,.05), zlim=Zlim+zd*c(-.05,.05),
+#library(plot3D)
+plot3D::scatter3D(Dt[,1],Dt[,2],Dt[,3], phi =0,theta=40, bty = "g",
+xlim=Xlim+xd*c(-.05,.05),ylim=Ylim+yd*c(-.05,.05), zlim=Zlim+zd*c(-.05,.05),
           pch = 20, cex = 1, ticktype = "detailed")
+#add the vertices of the tetrahedron
+plot3D::points3D(tetra[,1],tetra[,2],tetra[,3], add=TRUE)
 L<-rbind(A,A,A,B,B,C); R<-rbind(B,C,D,C,D,D)
-segments3D(L[,1], L[,2], L[,3], R[,1], R[,2],R[,3], add=TRUE,lwd=2)
-#add the data points
-points3D(Dt[,1],Dt[,2],Dt[,3], add=TRUE)
+plot3D::segments3D(L[,1], L[,2], L[,3], R[,1], R[,2],R[,3], add=TRUE,lwd=2)
+plot3D::points3D(clf[,1],clf[,2],clf[,3], pch=4,col="red", add=TRUE)
 
-text3D(tetra[,1],tetra[,2],tetra[,3], labels=c("A","B","C","D"), add=TRUE)
-text3D(CM[1],CM[2],CM[3], labels=c("CM"), add=TRUE)
+plot3D::text3D(tetra[,1],tetra[,2],tetra[,3], labels=c("A","B","C","D"), add=TRUE)
 
+#Cnt<-apply(tetra,2,mean) #for center of mass
 D1<-(A+B)/2; D2<-(A+C)/2; D3<-(A+D)/2; D4<-(B+C)/2; D5<-(B+D)/2; D6<-(C+D)/2;
-L<-rbind(D1,D2,D3,D4,D5,D6); R<-matrix(rep(CM,6),ncol=3,byrow=T)
-segments3D(L[,1], L[,2], L[,3], R[,1], R[,2],R[,3], add=TRUE,lty=2)
+L<-rbind(D1,D2,D3,D4,D5,D6); R<-rbind(M,M,M,M,M,M)
+plot3D::segments3D(L[,1], L[,2], L[,3], R[,1], R[,2],R[,3], add=TRUE,lty=2)
 
-F1<-int.line.plane(A,CM,B,C,D)
-L<-matrix(rep(F1,4),ncol=3,byrow=T); R<-rbind(D4,D5,D6,CM)
-segments3D(L[,1], L[,2], L[,3], R[,1], R[,2],R[,3],col=2, add=TRUE,lty=2)
+cl2fVRth(Dt,tetra,Cent)
 
-F2<-int.line.plane(B,CM,A,C,D)
-L<-matrix(rep(F2,4),ncol=3,byrow=T); R<-rbind(D2,D3,D6,CM)
-segments3D(L[,1], L[,2], L[,3], R[,1], R[,2],R[,3],col=3, add=TRUE,lty=2)
+P<-c(.1,.1,.1)
+cl2fVRth(P,tetra,Cent)
 
-F3<-int.line.plane(C,CM,A,B,D)
-L<-matrix(rep(F3,4),ncol=3,byrow=T); R<-rbind(D3,D5,D6,CM)
-segments3D(L[,1], L[,2], L[,3], R[,1], R[,2],R[,3],col=4, add=TRUE,lty=2)
-
-F4<-int.line.plane(D,CM,A,B,C)
-L<-matrix(rep(F4,4),ncol=3,byrow=T); R<-rbind(D1,D2,D4,CM)
-segments3D(L[,1], L[,2], L[,3], R[,1], R[,2],R[,3],col=5, add=TRUE,lty=2)
-
-text3D(Dt[,1],Dt[,2],Dt[,3], labels=factor(Rv), add=TRUE)
-
-rv.tetraCM(P,tetra)
+dat.fr<-data.frame(a=Dt)
+cl2fVRth(dat.fr,tetra,Cent)
 
 dat.fr<-data.frame(a=tetra)
-rv.tetraCM(P,dat.fr)
-}
-\references{
-\insertAllCited{}
+cl2fVRth(Dt,dat.fr,Cent)
+
 }
 \seealso{
-\code{\link{fr2vVRCC}}, \code{\link{fr2eTeER}}, \code{\link{Kfr2vTbVRCC}} and
- \code{\link{Kfr2vVRCC}}
+\code{\link{fr2vVRCC}}, \code{\link{fr2eTeER}}, \code{\link{Kfr2vTbVRCC}} and \code{\link{Kfr2vVRCC}}
 }

@@ -2,7 +2,7 @@
 % Please edit documentation in R/PCDFunctions.r
 \name{ArcsASMT}
 \alias{ArcsASMT}
-\title{An object of class "Digraphs"
+\title{An object of class "Digraphs":
 
 The arcs of Arc Slice Proximity Catch Digraph (AS-PCD) for a 2D data set - multiple triangle case}
 \usage{
@@ -12,11 +12,11 @@ ArcsASMT(Xp, Yp, M = "CC")
 \item{Xp}{A set of 2D points which constitute the vertices of the AS-PCD}
 
 \item{Yp}{A set of 2D points which constitute the vertices of the Delaunay triangulation. The Delaunay
-triangles partition the convex hull of Yp points.}
+triangles partition the convex hull of \code{Yp} points.}
 
-\item{M}{"CC" which stand for circumcenter of each Delaunay triangle tri or 3D point in barycentric
+\item{M}{The circumcenter "CC" of each Delaunay triangle \code{tri} or 3D point in barycentric
 coordinates which serves as a center in the interior of each Delaunay triangle;
-default is M="CC" i.e. the circumcenter of each triangle}
+default is \code{M}="CC" i.e. the circumcenter of each triangle}
 }
 \value{
 A list with the elements
@@ -24,83 +24,73 @@ A list with the elements
 \item{parameters}{Parameters of the digraph, here, it is the center used to construct the vertex regions, i.e.
 circumcenter.}
 \item{tess.points}{Points on which the tessellation of the study region is performed, here, tessellation
-is the Delaunay triangulation based on Yp points.}
-\item{tess.name}{Name of data set used in tessellation, i.e., Yp}
-\item{vertices}{Vertices of the digraph, Xp.}
+is the Delaunay triangulation based on \code{Yp} points.}
+\item{tess.name}{Name of data set used in tessellation, i.e., \code{Yp}}
+\item{vertices}{Vertices of the digraph, \code{Xp}.}
 \item{vert.name}{Name of the data set which constitute the vertices of the digraph}
-\item{S}{tails (or sources) of the arcs of AS-PCD for 2D data Xp in the multiple triangle case
+\item{S}{tails (or sources) of the arcs of AS-PCD for 2D data set \code{Xp} in the multiple triangle case
 as the vertices of the digraph}
-\item{E}{heads (or arrow ends) of the arcs of AS-PCD for 2D data Xp in the multiple triangle case
+\item{E}{heads (or arrow ends) of the arcs of AS-PCD for 2D data set \code{Xp} in the multiple triangle case
 as the vertices of the digraph}
-\item{mtxt}{Text for "main" title in the plot of the digraph}
+\item{mtitle}{Text for "main" title in the plot of the digraph}
 \item{quant}{Various quantities for the digraph: number of vertices, number of partition points,
 number of intervals, number of arcs, and arc density.}
 }
 \description{
-Returns arcs as tails (or sources) and heads (or arrow ends) of AS-PCD whose vertices are the data set Xp.
+Returns arcs as tails (or sources) and heads (or arrow ends) of AS-PCD whose vertices are the data set \code{Xp}.
+
 AS proximity regions are defined with respect to the Delaunay triangles based on
-Yp points, i.e., AS proximity regions are defined only for Xp points inside the convex hull of Yp points.
-That is, arcs may exist for points only inside the convex hull of Yp points.
+\code{Yp} points, i.e., AS proximity regions are defined only for \code{Xp} points inside the convex hull of \code{Yp} points.
+That is, arcs may exist for points only inside the convex hull of \code{Yp} points.
 It also provides various descriptions and quantities about the arcs of the AS-PCD
-such as number of arcs, arc density, etc. Vertex regions are based on the center M="CC"
-for circumcenter of each Delaunay triangle or M=(alpha,beta,gamma) in barycentric coordinates in the
-interior of each Delaunay triangle; default is M="CC" i.e. circumcenter of each triangle.
+such as number of arcs, arc density, etc.
+
+Vertex regions are based on the center \code{M}="CC"
+for circumcenter of each Delaunay triangle or \eqn{M=(\alpha,\beta,\gamma)} in barycentric coordinates in the
+interior of each Delaunay triangle; default is \code{M}="CC" i.e. circumcenter of each triangle.
 See (\insertCite{ceyhan:Phd-thesis,ceyhan:comp-geo-2010,ceyhan:mcap2012;textual}{pcds}) for more on AS PCDs.
-Also see (\insertCite{okabe:2000,ceyhan:comp-geo-2010,renka:1996;textual}{pcds}) for more on Delaunay triangulation and the tripack algorithm.
+Also see (\insertCite{okabe:2000,ceyhan:comp-geo-2010,renka:1996;textual}{pcds}) for more on Delaunay triangulation and the TRIPACK algorithm.
 }
 \examples{
-A<-c(1,1); B<-c(2,0); C<-c(1.5,2);
-#A<-runif(2); B<-runif(2); C<-runif(2);
-#A<-runif(2,1,100); B<-runif(2,1,100); C<-runif(2,1,100);
-Tr<-rbind(A,B,C);
-n<-1
+nx<-100
+ny<-10
 
 #set.seed(1)
-dat<-runif.tri(n,Tr)$g
-#dat<-cbind(runif(n,1,2),runif(n,0,2))
-#dat<-cbind(runif(n,0,1),runif(n,0,2))
+Xp<-cbind(runif(nx,0,1),runif(nx,0,1))
+#Xp<-cbind(runif(nx,0.5,1.5),runif(nx,0,1))
+#Xp<-cbind(runif(nx,1,2),runif(nx,0,1))
+Yp<-cbind(runif(ny,0,1),runif(ny,0,1))
+#Xp<-c(.5,.5)
 
-M<-as.numeric(runif.tri(1,Tr)$g)
-#M<-c(1.6,1.2); #dat<-c(1.61,1.19)
-#M<-circ.cent.tri(Tr); #M<-"CC"; #M<-"CM"
-#M<-c(1,1,1) #M<-c(1,2,3) #M<-c(-1,2,3) #barycentric coordinates
+M<-c(1,1,1) #M<-c(1,2,3) #M<-c(-1,2,3) #barycentric coordinates
+#M<-"CC"
 #M<-c(1.3,1.3)
-#M<-c(.3,.3)
 
-dat<-matrix(dat,ncol=2)
-Xlim<-range(Tr[,1],dat[,1])
-Ylim<-range(Tr[,2],dat[,2])
+ArcsASMT(Xp,Yp,M)
+
+Arcs<-ArcsASMT(Xp,Yp,M)
+Arcs
+summary(Arcs)
+plot(Arcs)
+
+S<-Arcs$S
+E<-Arcs$E
+DT<-tripack::tri.mesh(Yp[,1],Yp[,2],duplicate="remove")
+
+Xlim<-range(Xp[,1],Yp[,1])
+Ylim<-range(Xp[,2],Yp[,2])
 xd<-Xlim[2]-Xlim[1]
 yd<-Ylim[2]-Ylim[1]
 
-plot.regsAStri(dat,Tr,M,main="Proximity Regions for AS-PCD",xlab="",ylab="",xlim=Xlim+xd*c(-.05,.05),ylim=Ylim+yd*c(-.05,.05))
+plot(Xp,main=" ", xlab=" ", ylab=" ",xlim=Xlim+xd*c(-.05,.05),
+ylim=Ylim+yd*c(-.05,.05),pch=".",cex=3)
+tripack::plot.tri(DT, add=TRUE, do.points = TRUE)
+arrows(S[,1], S[,2], E[,1], E[,2], length = 0.1, col= 4)
 
-#plotArcsAStri(dat,Tr,main="arcs for AS-PCD",xlab="",ylab="",xlim=Xlim+c(-.05,.05),ylim=Ylim)
+ArcsASMT(Xp,rbind(Yp,Yp),M)
 
-if (dimension(M)==3) {M<-bary2cart(M,Tr)} #need to run this when M is given in barycentric coordinates
-
-CC<-circ.cent.tri(Tr)
-if (isTRUE(all.equal(M,CC)) || identical(M,"CC"))
-{cent<-CC
-D1<-(B+C)/2; D2<-(A+C)/2; D3<-(A+B)/2;
-Ds<-rbind(D1,D2,D3)
-cent.name<-"CC"
-} else
-{cent<-M
-cent.name<-"M"
-Ds<-cp2e.tri(Tr,M)
-D1<-Ds[1,]; D2<-Ds[2,]; D3<-Ds[3,]
-}
-
-plot.regsAStri(dat,Tr,M,main="Proximity Regions for AS-PCD",xlab="",ylab="")
-L<-rbind(cent,cent,cent); R<-Ds
-segments(L[,1], L[,2], R[,1], R[,2], lty=2)
-
-txt<-rbind(Tr,cent,Ds)
-xc<-txt[,1]#+c(-.02,.03,.03,.03,.05,-0.03,-.01)
-yc<-txt[,2]#+c(.02,.02,.02,.07,.02,.05,-.06)
-txt.str<-c("A","B","C",cent.name,"D1","D2","D3")
-text(xc,yc,txt.str)
+dat.fr<-data.frame(a=Xp)
+ArcsASMT(dat.fr,Yp,M)
 
 }
 \references{
@@ -108,5 +98,5 @@ text(xc,yc,txt.str)
 }
 \seealso{
 \code{\link{ArcsAStri}}, \code{\link{ArcsPEtri}}, \code{\link{ArcsCStri}}, \code{\link{ArcsPEMT}},
- and \code{\link{ArcsCSMT}}
+and \code{\link{ArcsCSMT}}
 }

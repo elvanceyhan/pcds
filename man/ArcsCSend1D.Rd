@@ -2,7 +2,7 @@
 % Please edit documentation in R/PCDFunctions.r
 \name{ArcsCSend1D}
 \alias{ArcsCSend1D}
-\title{An object of class "Digraphs"
+\title{An object of class "Digraphs":
 
 The arcs of Central Similarity Proximity Catch Digraph (CS-PCD) for 1D data - end interval case}
 \usage{
@@ -20,41 +20,71 @@ A list with the elements
 \item{type}{A description of the type of the digraph}
 \item{parameters}{Parameters of the digraph, here, it is the expansion parameter.}
 \item{tess.points}{Points on which the tessellation of the study region is performed, here, tessellation
-is the intervalization based on Yp.}
-\item{tess.name}{Name of data set used in tessellation, it is Yp for this function}
-\item{vertices}{Vertices of the digraph, Xp points}
+is the intervalization based on \code{Yp}.}
+\item{tess.name}{Name of data set used in tessellation, it is \code{Yp} for this function}
+\item{vertices}{Vertices of the digraph, \code{Xp} points}
 \item{vert.name}{Name of the data set which constitutes the vertices of the digraph}
 \item{S}{tails (or sources) of the arcs of CS-PCD for 1D data in the end intervals}
 \item{E}{heads (or arrow ends) of the arcs of CS-PCD for 1D data in the end intervals}
-\item{mtxt}{Text for "main" title in the plot of the digraph}
+\item{mtitle}{Text for "main" title in the plot of the digraph}
 \item{quant}{Various quantities for the digraph: number of vertices, number of partition points,
 number of intervals (which is 2 for end intervals), number of arcs, and arc density.}
 }
 \description{
-Returns arcs as tails (or sources) and heads (or arrow ends) for 1D data set Xp as the vertices
-of CS-PCD.  Yp determines the end points of the end intervals.
+Returns arcs as tails (or sources) and heads (or arrow ends) for 1D data set \code{Xp} as the vertices
+of CS-PCD.  \code{Yp} determines the end points of the end intervals.
+
 For this function, CS proximity regions are constructed data points outside the intervals based on
-Yp points with expansion parameter t>0. That is, for this function,
+\code{Yp} points with expansion parameter \eqn{t>0}. That is, for this function,
 arcs may exist for points only inside end intervals.
 It also provides various descriptions and quantities about the arcs of the CS-PCD
 such as number of arcs, arc density, etc.
 See also (\insertCite{ceyhan:revstat-2016;textual}{pcds}).
 }
 \examples{
-asyvarCSend1D(1.2)
+t<-1.5
+a<-0; b<-10; int<-c(a,b)
+#a<-runif(1); b<-runif(1); int<-range(a,b); a<-int[1]; b<-int[2]
+nx<-40; ny<-10
 
-tseq<-seq(.01,5,by=.05)
-ltseq<-length(tseq)
+#set.seed(1)
+xr<-range(a,b)
+xf<-(xr[2]-xr[1])*.5
+Xp<-runif(nx,a-xf,b+xf)
+#Xp<-runif(nx,a+5,b+5)
+#Xp<-runif(nx,a+10,b+10)
+Yp<-runif(ny,a,b)
+#Yp<-runif(ny,a,b)+c(-10,10)
 
-var.end<-vector()
-for (i in 1:ltseq)
-{
-  var.end<-c(var.end,asyvarCSend1D(tseq[i]))
+ArcsCSend1D(Xp,Yp,t)
+
+Arcs<-ArcsCSend1D(Xp,Yp,t)
+Arcs
+summary(Arcs)
+plot(Arcs)
+
+S<-Arcs$S
+E<-Arcs$E
+
+jit<-.1
+yjit<-runif(nx,-jit,jit)
+
+Xlim<-range(a,b,Xp,Yp)
+xd<-Xlim[2]-Xlim[1]
+
+plot(cbind(a,0),pch=".",
+main="arcs of CS-PCD with vertices (jittered along y-axis)\n in end intervals ",
+     xlab=" ", ylab=" ",xlim=Xlim+xd*c(-.05,.05),ylim=3*c(-jit,jit))
+abline(h=0,lty=1)
+points(Xp, yjit,pch=".",cex=3)
+abline(v=Yp,lty=2)
+arrows(S, yjit, E, yjit, length = .05, col= 4)
+
+ArcsCSend1D(Xp,Yp,t)
+
 }
-
-par(mar=c(5,5,4,2))
-plot(tseq, var.end,type="l",xlab="t",ylab=expression(paste(sigma^2,"(t)")),lty=1,xlim=range(tseq))
-
+\references{
+\insertAllCited{}
 }
 \seealso{
 \code{\link{ArcsCSmid1D}}, \code{\link{ArcsCS1D}} , \code{\link{ArcsPEmid1D}},

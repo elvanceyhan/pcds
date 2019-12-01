@@ -2,41 +2,41 @@
 % Please edit documentation in R/PCDFunctions.r
 \name{angle.str2end}
 \alias{angle.str2end}
-\title{The angles to draw arcs between two line segments
+\title{The angles to draw arcs between two line segments ---
 
 Gives the two pairs of angles in radians or degrees to draw arcs between two vectors or line segments
-for the draw.arc function in the plotrix package.
+for the \code{\link[plotrix]{draw.arc}} function in the plotrix package.
 The angles are provided with respect to the x-axis in the coordinate system.
-The line segments are [ba] and [bc] when the argument is given as a,b,c in the function.
-radian is a logical argument (default=TRUE) which yields the angle in radians if TRUE, and in degrees if FALSE.
-The first pair of angles is for drawing arcs in the smaller angle between [ba] and [bc]
-and the second pair of angles is for drawing arcs in the counter-clockwise order from [ba] to [bc].}
+The line segments are \eqn{[ba]} and \eqn{[bc]} when the argument is given as \code{a, b, c} in the function.
+\code{radian} is a logical argument (default=TRUE) which yields the angle in radians if TRUE, and in degrees if FALSE.
+The first pair of angles is for drawing arcs in the smaller angle between \eqn{[ba]} and \eqn{[bc]}
+and the second pair of angles is for drawing arcs in the counter-clockwise order from \eqn{[ba]} to \eqn{[bc]}.}
 \usage{
 angle.str2end(a, b, c, radian = TRUE)
 }
 \arguments{
-\item{a, b, c}{Three 2D points which represent the intersecting line segments [ba] and [bc].}
+\item{a, b, c}{Three 2D points which represent the intersecting line segments \eqn{[ba]} and \eqn{[bc]}.}
 
 \item{radian}{A logical argument (default=TRUE). If TRUE, the smaller angle or counter-clockwise angle
-between the line segments [ba] and [bc] is provided in radians, else it is provided in degrees.}
+between the line segments \eqn{[ba]} and \eqn{[bc]} is provided in radians, else it is provided in degrees.}
 }
 \value{
 A list with two elements
-\item{small.arc.angles}{Angles of [ba] and [bc] with the x-axis so that difference between them
-is the smaller angle between [ba] and [bc] }
-\item{ccw.arc.angles}{Angles of [ba] and [bc] with the x-axis so that difference between them
-is the counter-clockwise angle between [ba] and [bc]}
+\item{small.arc.angles}{Angles of \eqn{[ba]} and \eqn{[bc]} with the x-axis so that difference between them
+is the smaller angle between \eqn{[ba]} and \eqn{[bc]} }
+\item{ccw.arc.angles}{Angles of \eqn{[ba]} and \eqn{[bc]} with the x-axis so that difference between them
+is the counter-clockwise angle between \eqn{[ba]} and \eqn{[bc]}}
 }
 \description{
-The angles to draw arcs between two line segments
+The angles to draw arcs between two line segments ---
 
 Gives the two pairs of angles in radians or degrees to draw arcs between two vectors or line segments
-for the draw.arc function in the plotrix package.
+for the \code{\link[plotrix]{draw.arc}} function in the plotrix package.
 The angles are provided with respect to the x-axis in the coordinate system.
-The line segments are [ba] and [bc] when the argument is given as a,b,c in the function.
-radian is a logical argument (default=TRUE) which yields the angle in radians if TRUE, and in degrees if FALSE.
-The first pair of angles is for drawing arcs in the smaller angle between [ba] and [bc]
-and the second pair of angles is for drawing arcs in the counter-clockwise order from [ba] to [bc].
+The line segments are \eqn{[ba]} and \eqn{[bc]} when the argument is given as \code{a, b, c} in the function.
+\code{radian} is a logical argument (default=TRUE) which yields the angle in radians if TRUE, and in degrees if FALSE.
+The first pair of angles is for drawing arcs in the smaller angle between \eqn{[ba]} and \eqn{[bc]}
+and the second pair of angles is for drawing arcs in the counter-clockwise order from \eqn{[ba]} to \eqn{[bc]}.
 }
 \examples{
 A<-c(.3,.2); B<-c(.6,.3); C<-c(1,1)
@@ -44,35 +44,55 @@ A<-c(.3,.2); B<-c(.6,.3); C<-c(1,1)
 #A<-runif(2,1,100); B<-runif(2,1,100); C<-runif(2,1,100);
 pts<-rbind(A,B,C)
 
-angle3pnts(A,B,C)
+Xp<-c(B[1]+max(abs(C[1]-B[1]),abs(A[1]-B[1])),0)
 
-angle3pnts(A,B,A)
-round(angle3pnts(A,B,A),7)
+angle.str2end(A,B,C)
+angle.str2end(A,B,A)
 
-angle3pnts(A,B,C,radian=F)
+angle.str2end(A,B,C,radian=FALSE)
 
 #plot of the line segments
-Xlim<-range(pts[,1])
-Ylim<-range(pts[,2])
+ang.rad<-angle.str2end(A,B,C,radian=TRUE); ang.rad
+ang.deg<-angle.str2end(A,B,C,radian=FALSE); ang.deg
+ang.deg1<-ang.deg$s; ang.deg1
+ang.deg2<-ang.deg$c; ang.deg2
+
+rad<-min(Dist(A,B),Dist(B,C))
+
+Xlim<-range(pts[,1],Xp[1],B+Xp,B[1]+c(+rad,-rad))
+Ylim<-range(pts[,2],B[2]+c(+rad,-rad))
 xd<-Xlim[2]-Xlim[1]
 yd<-Ylim[2]-Ylim[1]
 
-ang1<-angle3pnts(A,B,C,radian=F)
-ang2<-angle3pnts(B+c(1,0),B,C,radian=F)
-
-sa<-angle.str2end(A,B,C,radian=F)$s #small arc angles
-ang1<-sa[1]
-ang2<-sa[2]
-
-plot(pts,asp=1,pch=1,xlab="x",ylab="y",xlim=Xlim+xd*c(-.05,.05),ylim=Ylim+yd*c(-.05,.05))
-L<-rbind(B,B); R<-rbind(A,C)
+#plot for the smaller arc
+plot(pts,pch=1,asp=1,xlab="x",ylab="y",xlim=Xlim+xd*c(-.05,.05),ylim=Ylim+yd*c(-.05,.05))
+L<-rbind(B,B,B); R<-rbind(A,C,B+Xp)
 segments(L[,1], L[,2], R[,1], R[,2], lty=2)
-library(plotrix)
-draw.arc(B[1],B[2],radius=xd*.1,deg1=ang1,deg2=ang2)
+plotrix::draw.arc(B[1],B[2],radius=.3*rad,angle1=ang.rad$s[1],angle2=ang.rad$s[2])
+plotrix::draw.arc(B[1],B[2],radius=.6*rad,angle1=0, angle2=ang.rad$s[1],lty=2,col=2)
+plotrix::draw.arc(B[1],B[2],radius=.9*rad,angle1=0,angle2=ang.rad$s[2],col=3)
 txt<-rbind(A,B,C)
-text(txt+cbind(rep(xd*.05,nrow(txt)),rep(-xd*.02,nrow(txt))),c("A","B","C"))
+text(txt+cbind(rep(xd*.02,nrow(txt)),rep(-xd*.02,nrow(txt))),c("A","B","C"))
 
-text(rbind(B)+.15*xd*c(cos(pi*(ang2+ang1)/360),sin(pi*(ang2+ang1)/360)),paste(round(abs(ang1-ang2),2)," degrees"))
+text(rbind(B)+.5*rad*c(cos(mean(ang.rad$s)),sin(mean(ang.rad$s))),
+     paste(abs(round(ang.deg1[2]-ang.deg1[1],2))," degrees",sep=""))
+text(rbind(B)+.6*rad*c(cos(ang.rad$s[1]/2),sin(ang.rad$s[1]/2)),paste(round(ang.deg1[1],2)),col=2)
+text(rbind(B)+.9*rad*c(cos(ang.rad$s[2]/2),sin(ang.rad$s[2]/2)),paste(round(ang.deg1[2],2)),col=3)
+
+#plot for the counter-clockwise arc
+plot(pts,pch=1,asp=1,xlab="x",ylab="y",xlim=Xlim+xd*c(-.05,.05),ylim=Ylim+yd*c(-.05,.05))
+L<-rbind(B,B,B); R<-rbind(A,C,B+Xp)
+segments(L[,1], L[,2], R[,1], R[,2], lty=2)
+plotrix::draw.arc(B[1],B[2],radius=.3*rad,angle1=ang.rad$c[1],angle2=ang.rad$c[2])
+plotrix::draw.arc(B[1],B[2],radius=.6*rad,angle1=0, angle2=ang.rad$s[1],lty=2,col=2)
+plotrix::draw.arc(B[1],B[2],radius=.9*rad,angle1=0,angle2=ang.rad$s[2],col=3)
+txt<-pts
+text(txt+cbind(rep(xd*.02,nrow(txt)),rep(-xd*.02,nrow(txt))),c("A","B","C"))
+
+text(rbind(B)+.5*rad*c(cos(mean(ang.rad$c)),sin(mean(ang.rad$c))),
+     paste(abs(round(ang.deg2[2]-ang.deg2[1],2))," degrees",sep=""))
+text(rbind(B)+.6*rad*c(cos(ang.rad$s[1]/2),sin(ang.rad$s[1]/2)),paste(round(ang.deg1[1],2)),col=2)
+text(rbind(B)+.9*rad*c(cos(ang.rad$s[2]/2),sin(ang.rad$s[2]/2)),paste(round(ang.deg1[2],2)),col=3)
 
 }
 \seealso{
