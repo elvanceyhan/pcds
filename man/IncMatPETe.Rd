@@ -10,53 +10,64 @@ IncMatPETe(dat, r, M = c(1, 1, 1))
 \arguments{
 \item{dat}{A set of 2D points which constitute the vertices of the PE-PCD}
 
-\item{r}{A positive real number which serves as the expansion parameter in PE proximity region; must be >=1}
+\item{r}{A positive real number which serves as the expansion parameter in PE proximity region; must be \eqn{\ge 1}}
 
 \item{M}{A 2D point in Cartesian coordinates or a 3D point in barycentric coordinates
-which serves as a center in the interior of the standard equilateral triangle Te; default is M=c(1,1,1) i.e.
-the center of mass of Te}
+which serves as a center in the interior of the standard equilateral triangle \eqn{T_e}; default is \eqn{M=(1,1,1)} i.e.
+the center of mass of \eqn{T_e}}
 }
 \value{
-Incidence matrix for the PE-PCD with vertices being 2D data set, dat and PE proximity
-regions are defined in the standard equilateral triangle Te with M-vertex regions.
+Incidence matrix for the PE-PCD with vertices being 2D data set, \code{dat} and PE proximity
+regions are defined in the standard equilateral triangle \eqn{T_e} with \code{M}-vertex regions.
 }
 \description{
-Returns the incidence matrix for the PE-PCD whose vertices are the given 2D numerical data set, dat,
-in the standard equilateral triangle Te=T(v=1,v=2,v=3)=T((0,0),(1,0),(1/2,sqrt(3)/2)).
-PE proximity region is constructed with respect to the standard equilateral triangle Te with
-expansion parameter r>=1 and vertex regions are based on
-the center M=(m1,m2) in Cartesian coordinates or M=(alpha,beta,gamma) in barycentric coordinates
-in the interior of Te; default is M=c(1,1,1) i.e. the center of mass of Te.
+Returns the incidence matrix for the PE-PCD whose vertices are the given 2D numerical data set, \code{dat},
+in the standard equilateral triangle \eqn{T_e=T(v=1,v=2,v=3)=T((0,0),(1,0),(1/2,\sqrt{3}/2))}.
+
+PE proximity region is constructed with respect to the standard equilateral triangle \eqn{T_e} with
+expansion parameter \eqn{r \ge 1} and vertex regions are based on
+the center \eqn{M=(m_1,m_2)} in Cartesian coordinates or \eqn{M=(\alpha,\beta,\gamma)} in barycentric coordinates
+in the interior of \eqn{T_e}; default is \eqn{M=(1,1,1)} i.e. the center of mass of \eqn{T_e}.
 Loops are allowed, so the diagonal entries are all equal to 1.
 See also (\insertCite{ceyhan:Phd-thesis,ceyhan:comp-geo-2010,ceyhan:dom-num-NPE-Spat2011;textual}{pcds}).
 }
 \examples{
-A<-c(0,0); B<-c(1,0); C<-c(.5,sqrt(3.)/2);
-n<-20
+A<-c(0,0); B<-c(1,0); C<-c(1/2,sqrt(3)/2);
+Te<-rbind(A,B,C)
+n<-10
 
 #set.seed(1)
 dat<-runifTe(n)$gen.points
 #dat<-cbind(runif(n),runif(n))
 #dat<-cbind(runif(n,1,2),runif(n,0,1))
 
-M<-c(.6,.2)
+M<-as.numeric(runifTe(1)$g)
+#M<-c(.6,.2)
 #M<-circ.cent.tri(Te)
 #M<-c(1,1,1) #M<-c(1,2,3) #M<-c(-1,2,3) #barycentric coordinates
 #M<-c(1.3,1.3)
 #M<-c(.3,.3)
 
-NumArcsPETe(dat,r=1.25,M)
-NumArcsPETe(dat,r=1.5,M)
-NumArcsPETe(dat,r=2,M)
+NumArcsPETe(dat,r=1.25)
 
-NumArcsPETe(rbind(dat,c(0,1)),r=2,M)
-NumArcsPETe(c(.2,.3),r=2,M)
+inc.mat<-IncMatPETe(dat,r=1.25,M)
+inc.mat
+sum(inc.mat)-n
 
-NumArcsPETe(dat,r=1.5,M);
+dom.greedy(inc.mat)
+IndUBdom(inc.mat,2)
+dom.exact(inc.mat)
+
+inc.mat<-IncMatPETe(rbind(dat,c(0,1)),r=1.25,M)
+inc.mat
+sum(inc.mat)-(n+1)
+
+IncMatPETe(dat,r=1.5,M);
+
+IncMatPETe(rbind(dat,dat),r=1.5,M)
 
 dat.fr<-data.frame(a=dat)
-NumArcsPETe(dat.fr,r=1.5,M);
-
+IncMatPETe(dat.fr,r=1.5,M);
 
 }
 \references{

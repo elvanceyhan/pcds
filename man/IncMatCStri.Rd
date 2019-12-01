@@ -14,19 +14,21 @@ IncMatCStri(dat, tri, t, M = c(1, 1, 1))
 \item{t}{A positive real number which serves as the expansion parameter in CS proximity region}
 
 \item{M}{A 2D point in Cartesian coordinates or a 3D point in barycentric coordinates
-which serves as a center in the interior of the triangle tri;
-default is M=c(1,1,1) i.e. the center of mass of tri}
+which serves as a center in the interior of the triangle \code{tri};
+default is \eqn{M=(1,1,1)} i.e. the center of mass of \code{tri}}
 }
 \value{
-Incidence matrix for the CS-PCD with vertices being 2D data set, dat,
-in the triangle tri with edge regions based on center M
+Incidence matrix for the CS-PCD with vertices being 2D data set, \code{dat},
+in the triangle \code{tri} with edge regions based on center \code{M}
 }
 \description{
-Returns the incidence matrix for the CS-PCD whose vertices are the given 2D numerical data set, dat,
-in the triangle tri=T(v=1,v=2,v=3). CS proximity regions are constructed with respect to triangle tri
-with expansion parameter t>0 and edge regions are based on the center M=(m1,m2) in Cartesian coordinates
-or M=(alpha,beta,gamma) in barycentric coordinates in the interior of the triangle tri;
-default is M=c(1,1,1) i.e. the center of mass of tri.
+Returns the incidence matrix for the CS-PCD whose vertices are the given 2D numerical data set, \code{dat},
+in the triangle \eqn{tri=T(v=1,v=2,v=3)}.
+
+CS proximity regions are constructed with respect to triangle \code{tri}
+with expansion parameter \eqn{t>0} and edge regions are based on the center \eqn{M=(m_1,m_2)} in Cartesian coordinates
+or \eqn{M=(\alpha,\beta,\gamma)} in barycentric coordinates in the interior of the triangle \code{tri};
+default is \eqn{M=(1,1,1)} i.e. the center of mass of \code{tri}.
 Loops are allowed, so the diagonal entries are all equal to 1.
 See also (\insertCite{ceyhan:Phd-thesis,ceyhan:arc-density-CS,ceyhan:test2014;textual}{pcds}).
 }
@@ -41,56 +43,31 @@ n<-10
 dat<-runif.tri(n,Tr)$g
 #dat<-cbind(runif(n),runif(n))
 #dat<-cbind(runif(n,1,2),runif(n,0,2))
-#dat<-c(1.4,1)
+#dat<-c(.5,.5)
 
 M<-as.numeric(runif.tri(1,Tr)$g)
 #M<-c(1.6,1.0)
 #M<-c(1,1,1) #M<-c(1,2,3) #M<-c(-1,2,3) #barycentric coordinates
 #M<-c(1.3,1.3)
 #M<-c(.3,.3)
-t<-1.5
-#t<-2
 
-ArcsCStri(dat,Tr,t,M)
+IM<-IncMatCStri(dat,Tr,t=1.25,M)
+IM
+dom.greedy(IM)
+dom.exact(IM)
+IndUBdom(IM,3)
 
-Arcs<-ArcsCStri(dat,Tr,t,M)
-Arcs
-summary(Arcs)
-plot(Arcs)
-
-S<-Arcs$S
-E<-Arcs$E
-
-Xlim<-range(Tr[,1],dat[,1])
-Ylim<-range(Tr[,2],dat[,2])
-xd<-Xlim[2]-Xlim[1]
-yd<-Ylim[2]-Ylim[1]
-
-Ds<-cp2e.tri(Tr,M)
-
-if (dimension(M)==3) {M<-bary2cart(M,Tr)} #need to run this when M is given in barycentric coordinates
-
-plot(Tr,pch=".",xlab="",ylab="",axes=TRUE,xlim=Xlim+xd*c(-.05,.05),ylim=Ylim+yd*c(-.05,.05))
-polygon(Tr)
-points(dat,pch=1,col=1)
-L<-rbind(M,M,M); R<-Ds
-segments(L[,1], L[,2], R[,1], R[,2], lty=2)
-arrows(S[,1], S[,2], E[,1], E[,2], length = 0.1, col= 4)
-
-txt<-rbind(Tr,M,Ds)
-xc<-txt[,1]#+c(-.02,.03,.02,.03,.04,-.03,-.01)
-yc<-txt[,2]#+c(.02,.02,.03,.06,.03,.05,-.07)
-txt.str<-c("A","B","C","M","D1","D2","D3")
-text(xc,yc,txt.str)
+IncMatCStri(dat,Tr,t=1.5,M)
+IncMatCStri(dat,Tr,t=2,M)
 
 t<-2
-ArcsCStri(dat,Tr,t,M)
+IncMatCStri(dat,Tr,t,M)
 
 dat.fr<-data.frame(a=dat)
-ArcsCStri(dat.fr,Tr,t,M)
+IncMatCStri(dat.fr,Tr,t,M)
 
 dat.fr<-data.frame(a=Tr)
-ArcsCStri(dat,dat.fr,t,M)
+IncMatCStri(dat,dat.fr,t,M)
 
 }
 \references{

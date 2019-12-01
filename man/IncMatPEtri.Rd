@@ -11,59 +11,66 @@ IncMatPEtri(dat, tri, r, M = c(1, 1, 1))
 
 \item{tri}{Three 2D points, stacked row-wise, each row representing a vertex of the triangle}
 
-\item{r}{A positive real number which serves as the expansion parameter in PE proximity region; must be >=1}
+\item{r}{A positive real number which serves as the expansion parameter in PE proximity region; must be \eqn{\ge 1}}
 
 \item{M}{A 2D point in Cartesian coordinates or a 3D point in barycentric coordinates
-which serves as a center in the interior of the triangle tri or the circumcenter of tri;
-default is M=c(1,1,1) i.e. the center of mass of tri}
+which serves as a center in the interior of the triangle \code{tri} or the circumcenter of \code{tri};
+default is \eqn{M=(1,1,1)} i.e. the center of mass of \code{tri}}
 }
 \value{
-Incidence matrix for the PE-PCD with vertices being 2D data set, dat,
-in the triangle tri with vertex regions based on center M
+Incidence matrix for the PE-PCD with vertices being 2D data set, \code{dat},
+in the triangle \code{tri} with vertex regions based on center \code{M}
 }
 \description{
-Returns the incidence matrix for the PE-PCD whose vertices are the given 2D numerical data set, dat,
-in the triangle tri=T(v=1,v=2,v=3). PE proximity regions are constructed with respect to triangle tri
-with expansion parameter r>=1 and vertex regions are based on the center M=(m1,m2) in Cartesian coordinates
-or M=(alpha,beta,gamma) in barycentric coordinates in the interior of the triangle tri;
-default is M=c(1,1,1) i.e. the center of mass of tri.
+Returns the incidence matrix for the PE-PCD whose vertices are the given 2D numerical data set, \code{dat},
+in the triangle \eqn{tri=T(v=1,v=2,v=3)}.
+
+PE proximity regions are constructed with respect to triangle \code{tri}
+with expansion parameter \eqn{r \ge 1} and vertex regions are based on the center \eqn{M=(m_1,m_2)} in Cartesian coordinates
+or \eqn{M=(\alpha,\beta,\gamma)} in barycentric coordinates in the interior of the triangle \code{tri};
+default is \eqn{M=(1,1,1)} i.e. the center of mass of \code{tri}.
 Loops are allowed, so the diagonal entries are all equal to 1.
 See also (\insertCite{ceyhan:Phd-thesis,ceyhan:arc-density-PE,ceyhan:dom-num-NPE-Spat2011;textual}{pcds}).
 }
 \examples{
-nx<-100
-ny<-10
+A<-c(1,1); B<-c(2,0); C<-c(1.5,2);
+#A<-runif(2); B<-runif(2); C<-runif(2);
+#A<-runif(2,1,100); B<-runif(2,1,100); C<-runif(2,1,100);
+Tr<-rbind(A,B,C);
+n<-10
 
 #set.seed(1)
-Xp<-cbind(runif(nx),runif(nx))
-#Xp<-cbind(runif(nx,.5,1.5),runif(nx))
-#Xp<-cbind(runif(nx,1,2),runif(nx))
-Yp<-cbind(runif(ny),runif(ny))
+dat<-runif.tri(n,Tr)$g
+#dat<-cbind(runif(n,1,2),runif(n,0,2))
+#dat<-cbind(runif(n),runif(n))
 
-plotDeltri(Xp,Yp,xlab="",ylab="")
+M<-as.numeric(runif.tri(1,Tr)$g)
+#M<-c(1.6,1.0)
+#M<-circ.cent.tri(Tr)
+#M<-c(1,1,1) #M<-c(1,2,3) #M<-c(-1,2,3) #barycentric coordinates
+#M<-c(1.3,1.3)
+#M<-c(.3,.3)
 
-NumArcsPEMT(Xp,Yp,r=1.25)
-TSArcDensPEMT(Xp,Yp,r=1.25)
-TSArcDensPEMT(Xp,Yp,r=1.25,ch=TRUE)
+#dat<-c(.5,.5)
+IM<-IncMatPEtri(dat,Tr,r=1.25,M)
 
-NumArcsPEMT(Xp,Yp,r=1.5)
-TSArcDensPEMT(Xp,Yp,r=1.5,alt="l")
-TSArcDensPEMT(Xp,Yp,r=1.5,ch=TRUE,alt="l")
+IM
+dom.greedy(IM)
+dom.exact(IM)
+IndUBdom(IM,2)
+IndUBdom(IM,3)
 
-NumArcsPEMT(Xp,Yp,r=2)
-TSArcDensPEMT(Xp,Yp,r=2)
-TSArcDensPEMT(Xp,Yp,r=2,ch=TRUE)
+IncMatPEtri(dat,Tr,r=1.5,M)
+IncMatPEtri(dat,Tr,r=2,M)
 
-TSArcDensPEMT(Xp1,Yp1,r)
+r<-2
+IncMatPEtri(dat,Tr,r,M)
 
-TSArcDensPEMT(Xp1,rbind(Yp1,Yp1),r)
+dat.fr<-data.frame(a=dat)
+IncMatPEtri(dat.fr,Tr,r,M)
 
-dat.fr<-data.frame(a=Xp1)
-TSArcDensPEMT(dat.fr,Yp1,r)
-
-dat.fr<-data.frame(a=Yp1)
-TSArcDensPEMT(Xp1,dat.fr,r)
-
+dat.fr<-data.frame(a=Tr)
+IncMatPEtri(dat,dat.fr,r,M)
 
 }
 \references{

@@ -11,20 +11,22 @@ IncMatPEtetra(dat, th, r, M = "CM")
 
 \item{th}{Four 3D points, stacked row-wise, each row representing a vertex of the tetrahedron}
 
-\item{r}{A positive real number which serves as the expansion parameter in PE proximity region; must be >= 1}
+\item{r}{A positive real number which serves as the expansion parameter in PE proximity region; must be \eqn{\ge 1}}
 
-\item{M}{The center to be used in the construction of the vertex regions in the tetrahedron, th.
+\item{M}{The center to be used in the construction of the vertex regions in the tetrahedron, \code{th}.
 Currently it only takes "CC" for circumcenter and "CM" for center of mass; default="CM"}
 }
 \value{
-Incidence matrix for the PE-PCD with vertices being 3D data set, dat,
-in the tetrahedron th with vertex regions based on circumcenter or center of mass
+Incidence matrix for the PE-PCD with vertices being 3D data set, \code{dat},
+in the tetrahedron \code{th} with vertex regions based on circumcenter or center of mass
 }
 \description{
-Returns the incidence matrix for the PE-PCD whose vertices are the given 3D numerical data set, dat,
-in the tetrahedron th=T(v=1,v=2,v=3,v=4). PE proximity regions are constructed with respect to tetrahedron
-th with expansion parameter r>=1 and vertex regions are based on the center M which is circumcenter ("CC")
-or center of mass ("CM") of th with default="CM".
+Returns the incidence matrix for the PE-PCD whose vertices are the given 3D numerical data set, \code{dat},
+in the tetrahedron \eqn{th=T(v=1,v=2,v=3,v=4)}.
+
+PE proximity regions are constructed with respect to tetrahedron
+th with expansion parameter \eqn{r \ge 1} and vertex regions are based on the center \code{M} which is circumcenter ("CC")
+or center of mass ("CM") of \code{th} with default="CM".
 Loops are allowed, so the diagonal entries are all equal to 1.
 See also (\insertCite{ceyhan:Phd-thesis,ceyhan:comp-geo-2010;textual}{pcds}).
 }
@@ -33,33 +35,32 @@ A<-c(0,0,0); B<-c(1,0,0); C<-c(1/2,sqrt(3)/2,0); D<-c(1/2,sqrt(3)/6,sqrt(6)/3)
 #A<-runif(3); B<-runif(3); C<-runif(3); D<-runif(3)
 #A<-runif(3,1,100); B<-runif(3,1,100); C<-runif(3,1,100); D<-runif(3,1,100)
 tetra<-rbind(A,B,C,D)
-n<-20
+n<-10
 dat<-runif.tetra(n,tetra)$g
+#dat<-c(.5,.5,.5)
 
 M<-"CM"
 #M<-"CC"
 r<-1.5
 
-IndNPEtetra(dat[1,],dat[2,],r,tetra) #uses the default M="CM"
-IndNPEtetra(dat[1,],dat[2,],r,tetra,M)
+IM<-IncMatPEtetra(dat,tetra,r=1.25)#uses the default M="CM"
+IM<-IncMatPEtetra(dat,tetra,r=1.25,M)
+IM
+dom.greedy(IM)
+IndUBdom(IM,3)
+dom.exact(IM) #this might take a long time for large n
 
-IndNPEtetra(dat[1,],dat[1,],r,tetra,M)
+IncMatPEtetra(dat,tetra,r=1.5)
+IncMatPEtetra(dat,tetra,r=2)
 
-IndNPEtetra(c(.4,.4,.4),c(.5,.5,.5),r,tetra,M)
+r<-2
+IncMatPEtetra(dat,tetra,r,M)
 
-#or try
-RV<-rv.tetraCC(dat[1,],tetra)$rv
-IndNPEtetra(dat[1,],dat[5,],r,tetra,M,rv=RV)
+dat.fr<-data.frame(a=dat)
+IncMatPEtetra(dat.fr,tetra,r,M)
 
-IndNPEtetra(dat[1,],c(-1,-1,-1),r,tetra,M,rv=NULL)
-
-IndNPEtetra(c(-1,-1,-1),dat[1,],r,tetra,M,rv=NULL)
-IndNPEtetra(c(-1,-1,-1),c(-1,-1,-1),r,tetra,M)
-
-P1<-c(.1,.1,.1)
-P2<-c(.5,.5,.5)
-IndNPEtetra(P1,P2,r,tetra,M)
-
+dat.fr<-data.frame(a=tetra)
+IncMatPEtetra(dat,dat.fr,r,M)
 
 }
 \references{

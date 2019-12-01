@@ -13,62 +13,50 @@ IncMatPE1D(Xp, Yp, r, c)
 \item{Yp}{a set of 1D points which constitutes the end points of the intervals
 that partition the real line.}
 
-\item{r}{A positive real number which serves as the expansion parameter in PE proximity region; must be >=1}
+\item{r}{A positive real number which serves as the expansion parameter in PE proximity region; must be \eqn{\ge 1}}
 
-\item{c}{A positive real number in (0,1) parameterizing the center inside int=(a,b).
-For the interval, int=(a,b), the parameterized center is Mc=a+c*(b-a)}
+\item{c}{A positive real number in \eqn{(0,1)} parameterizing the center inside \eqn{int=(a,b)}.
+For the interval, \eqn{int=(a,b)}, the parameterized center is \eqn{M_c=a+c(b-a)}}
 }
 \value{
-Incidence matrix for the PE-PCD with vertices being 1D data set, Xp,
-and Yp determines the end points of the intervals (in the multi-interval case)
+Incidence matrix for the PE-PCD with vertices being 1D data set, \code{Xp},
+and \code{Yp} determines the end points of the intervals (in the multi-interval case)
 }
 \description{
-Returns the incidence matrix for the PE-PCD for a given 1D numerical data set, Xp,
-as the vertices of the digraph and Yp determines the end points of the intervals (in the multi-interval case).
-Loops are allowed, so the diagonal entries are all equal to 1. PE proximity region is constructed
-with an expansion parameter r>=1 and a centrality parameter c in (0,1).
+Returns the incidence matrix for the PE-PCD for a given 1D numerical data set, \code{Xp},
+as the vertices of the digraph and \code{Yp} determines the end points of the intervals (in the multi-interval case).
+Loops are allowed, so the diagonal entries are all equal to 1.
+
+PE proximity region is constructed
+with an expansion parameter \eqn{r \ge 1} and a centrality parameter \code{c} in \eqn{(0,1)}.
 See also (\insertCite{ceyhan:metrika-2012;textual}{pcds}).
 }
 \examples{
 r<-2
 c<-.4
 a<-0; b<-10;
-#c<-runif(1)
-#a<-runif(1); b<-runif(1); int<-range(a,b); a<-int[1]; b<-int[2]
-nx<-40; ny<-10
+nx<-10; ny<-4
 
 #set.seed(1)
-xr<-range(a,b)
-xf<-(xr[2]-xr[1])*.1
-Xp<-runif(nx,a-xf,b+xf)
+Xp<-runif(nx,a,b)
 #Xp<-runif(nx,a-5,b+5)
 #Xp<-runif(nx,a+5,b+5)
 #Xp<-runif(nx,a+10,b+10)
 Yp<-runif(ny,a,b)
+
+IM<-IncMatPE1D(Xp,Yp,r,c)
+IM
+
+dom.greedy(IM)
+IndUBdom(IM,6)
+dom.exact(IM)
 
 Arcs<-ArcsPEMI(Xp,Yp,r,c)
 Arcs
 summary(Arcs)
 plot(Arcs)
 
-S<-Arcs$S
-E<-Arcs$E
-
-ArcsPEMI(Xp,Yp,r,c)
-ArcsPEMI(Xp,Yp+10,r,c)
-
-jit<-.1
-yjit<-runif(nx,-jit,jit)
-
-Xlim<-range(a,b,Xp,Yp)
-xd<-Xlim[2]-Xlim[1]
-
-plot(cbind(a,0),main="arcs of PE-PCD for points (jittered along y-axis)\\n in middle intervals ", xlab=" ", ylab=" ",
-     xlim=Xlim+xd*c(-.05,.05),ylim=3*c(-jit,jit),pch=".")
-abline(h=0,lty=1)
-points(Xp, yjit,pch=".",cex=3)
-abline(v=Yp,lty=2)
-arrows(S, yjit, E, yjit, length = .05, col= 4)
+IncMatPE1D(Xp,Yp+10,r,c)
 
 r<-2
 c<-.4
@@ -76,7 +64,7 @@ a<-0; b<-10;
 nx<-40; ny<-10
 Xp<-runif(nx,a,b)
 Yp<-runif(ny,a,b)
-ArcsPEMI(Xp,Yp,r,c)
+IncMatPE1D(Xp,Yp,r,c)
 
 }
 \references{
