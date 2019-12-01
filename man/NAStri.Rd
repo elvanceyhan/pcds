@@ -11,80 +11,140 @@ NAStri(pt, tri, M = "CC", rv = NULL, dec = 4)
 
 \item{tri}{Three 2D points, stacked row-wise, each row representing a vertex of the triangle}
 
-\item{M}{"CC" which stand for circumcenter of the triangle tri or a 2D point in Cartesian coordinates or a 3D point in
-barycentric coordinates which serves as a center in the interior of the triangle Tb;
-default is M="CC" i.e. the circumcenter of tri}
+\item{M}{"CC" which stands for circumcenter of the triangle \code{tri} or a 2D point in Cartesian coordinates or a 3D point in
+barycentric coordinates which serves as a center in the interior of the triangle \code{tri};
+default is \code{M}="CC" i.e. the circumcenter of \code{tri}}
 
-\item{rv}{Index of the M-vertex region containing the point pt, either 1, 2, 3 or NULL (default is NULL)}
+\item{rv}{Index of the \code{M}-vertex region containing the point \code{pt}, either 1, 2, 3 or NULL (default is NULL)}
 
 \item{dec}{a positive integer the number of decimals (default is 4) to round the barycentric coordinates when checking whether
-the end points fall on the boundary of the triangle tri or not}
+the end points fall on the boundary of the triangle \code{tri} or not}
 }
 \value{
 A list with the elements
 \item{L,R}{End points of the line segments on the boundary of the AS proximity region.
- Each row in L and R constitute a line segment on the boundary. }
+ Each row in \code{L} and \code{R} constitute a line segment on the boundary. }
 \item{Arc.Slices}{The end points of the arc-slices on the circular parts of the AS proximity region.
 Here points in row 1 and row 2 constitute the end points of one arc-slice, points on row 3 and row 4
 constitute the end points for the next arc-slice and so on}
 }
 \description{
 Returns the end points of the line segments and arc-slices that constitute the boundary of AS proximity
-region for a point in the triangle tri=T(A,B,C)=(rv=1,rv=2,rv=3).
-Vertex regions are based on the center M="CC" for circumcenter of tri; or M=(m1,m2) in Cartesian coordinates
-or M=(alpha,beta,gamma) in barycentric coordinates in the interior of the triangle tri;
-default is M="CC" the circumcenter of tri. rv is the index of the vertex region pt1 resides,
-with default=NULL. If pt is outside of tri, it returns NULL for the proximity region.
-dec is the number of decimals (default is 4) to round the barycentric coordinates when checking the points
-fall on the boundary of the triangle tri or not (so as not to miss the intersection points due to precision
+region for a point in the triangle \eqn{tri=T(A,B,C)=(rv=1,rv=2,rv=3)}.
+
+Vertex regions are based on the center \code{M}="CC" for circumcenter of \code{tri}; or \eqn{M=(m_1,m_2)} in Cartesian coordinates
+or \eqn{M=(\alpha,\beta,\gamma)} in barycentric coordinates in the interior of the triangle \code{tri};
+default is \code{M}="CC" the circumcenter of \code{tri}. \code{rv} is the index of the vertex region \code{pt1} resides,
+with default=NULL.
+
+If \code{pt} is outside of \code{tri}, it returns NULL for the proximity region.
+\code{dec} is the number of decimals (default is 4) to round the barycentric coordinates when checking the points
+fall on the boundary of the triangle \code{tri} or not (so as not to miss the intersection points due to precision
 in the decimals).
 See also (\insertCite{ceyhan:Phd-thesis,ceyhan:comp-geo-2010,ceyhan:mcap2012;textual}{pcds}).
 }
 \examples{
-c1<-.4; c2<-.6;
-A<-c(0,0); B<-c(1,0); C<-c(c1,c2);
-Tb<-rbind(A,B,C)
+A<-c(1,1); B<-c(2,0); C<-c(1.5,2);
+#A<-runif(2); B<-runif(2); C<-runif(2);
+#A<-runif(2,1,100); B<-runif(2,1,100); C<-runif(2,1,100);
+Tr<-rbind(A,B,C);
 
-M<-as.numeric(runif.bastri(1,c1,c2)$g)
-#M<-c(.6,.2)
-#M<-circ.cent.tri(Tb); #M<-"CC"; #M<-"CM"
+M<-as.numeric(runif.tri(1,Tr)$g)
+#M<-c(1.6,1.2)
+#M<-circ.cent.tri(Tr); #M<-"CC"; #M<-"CM"
 #M<-c(1,1,1) #M<-c(1,2,3) #M<-c(-1,2,3) #barycentric coordinates
 #M<-c(1.3,1.3)
 #M<-c(.3,.3)
 
-P1<-as.numeric(runif.bastri(1,c1,c2)$g)
-P2<-as.numeric(runif.bastri(1,c1,c2)$g)
-IndNASbastri(P1,P2,c1,c2,M)
-
-P1<-c(.3,.2)
-P2<-c(.6,.2)
-IndNASbastri(P1,P2,c1,c2,M)
-
+P1<-as.numeric(runif.tri(1,Tr)$g)
+#P1<-c(1.3,1.2)
+NAStri(P1,Tr,M)
 #or try
-Rv<-rv.bastriCC(P1,c1,c2)$rv
-IndNASbastri(P1,P2,c1,c2,M,Rv)
+Rv<-rv.triCC(P1,Tr)$rv
+NAStri(P1,Tr,M,Rv)
+
+NAStri(c(3,5),Tr,M)
+
+P2<-c(1.5,1.4)
+NAStri(P2,Tr,M)
+
+P3<-c(1.5,.4)
+NAStri(P3,Tr,M)
+
+if (dimension(M)==3) {M<-bary2cart(M,Tr)}
+#need to run this when M is given in barycentric coordinates
+
+CC<-circ.cent.tri(Tr) #the circumcenter
+
+if (isTRUE(all.equal(M,CC)) || identical(M,"CC"))
+{cent<-CC
+D1<-(B+C)/2; D2<-(A+C)/2; D3<-(A+B)/2;
+Ds<-rbind(D1,D2,D3)
+cent.name<-"CC"
+rv<-rv.triCC(P1,Tr)$rv
+} else
+{cent<-M
+cent.name<-"M"
+Ds<-cp2e.tri(Tr,M)
+D1<-Ds[1,]; D2<-Ds[2,]; D3<-Ds[3,]
+rv<-rv.tri.cent(P1,Tr,M)$rv
+}
+RV<-Tr[rv,]
+rad<-Dist(P1,RV)
+
+Int.Pts<-NAStri(P1,Tr,M)
+
+#plot of the NAS region
+
+Xlim<-range(Tr[,1],P1[1]+rad,P1[1]-rad)
+Ylim<-range(Tr[,2],P1[2]+rad,P1[2]-rad)
+xd<-Xlim[2]-Xlim[1]
+yd<-Ylim[2]-Ylim[1]
+
+plot(A,pch=".",asp=1,xlab="",ylab="",xlim=Xlim+xd*c(-.05,.05),ylim=Ylim+yd*c(-.05,.05))
+#asp=1 must be the case to have the arc properly placed in the figure
+polygon(Tr)
+points(rbind(Tr,P1,rbind(Int.Pts$L,Int.Pts$R)))
+L<-rbind(cent,cent,cent); R<-Ds
+segments(L[,1], L[,2], R[,1], R[,2], lty=2)
+tripack::circles(P1[1],P1[2],rad,lty=2)
+L<-Int.Pts$L; R<-Int.Pts$R
+segments(L[,1], L[,2], R[,1], R[,2], lty=1,col=2)
+Arcs<-Int.Pts$A;
+if(!is.null(Arcs))
+{
+  K<-nrow(Arcs)/2
+  for (i in 1:K)
+  {A1<-Int.Pts$Arc[2*i-1,]; A2<-Int.Pts$Arc[2*i,];
+  angles<-angle.str2end(A1,P1,A2)$c
+
+  test.ang1<-angles[1]+(.01)*(angles[2]-angles[1])
+  test.Pnt<-P1+rad*c(cos(test.ang1),sin(test.ang1))
+  if (!in.triangle(test.Pnt,Tr,boundary = T)$i) {angles<-c(min(angles),max(angles)-2*pi)}
+  plotrix::draw.arc(P1[1],P1[2],rad,angle1=angles[1],angle2=angles[2],col=2)
+  }
+}
+
+#proximity region with the triangle (i.e., for labeling the vertices of the NAS)
+IP.txt<-intpts<-c()
+if (!is.null(Int.Pts$A))
+{
+  intpts<-unique(round(Int.Pts$A,7))
+  #this part is for labeling the intersection points of the spherical
+  for (i in 1:(length(intpts)/2))
+    IP.txt<-c(IP.txt,paste("I",i+1, sep = ""))
+}
+txt<-rbind(Tr,P1,cent,intpts)
+txt.str<-c("A","B","C","P1",cent.name,IP.txt)
+text(txt+cbind(rep(xd*.02,nrow(txt)),rep(-xd*.03,nrow(txt))),txt.str)
 
 P1<-c(.3,.2)
-P2<-c(.8,.2)
-IndNASbastri(P1,P2,c1,c2,M)
-
-P3<-c(.5,.4)
-IndNASbastri(P1,P3,c1,c2,M)
-
-P4<-c(1.5,.4)
-IndNASbastri(P1,P4,c1,c2,M)
-IndNASbastri(P4,P4,c1,c2,M)
-
-c1<-.4; c2<-.6;
-P1<-c(.3,.2)
-P2<-c(.6,.2)
-IndNASbastri(P1,P2,c1,c2,M)
+NAStri(P1,Tr,M)
 
 }
 \references{
 \insertAllCited{}
 }
 \seealso{
-\code{\link{NASbastri}}, \code{\link{NPEtri}}, \code{\link{NCStri}}
-and \code{\link{IndNAStri}}
+\code{\link{NASbastri}}, \code{\link{NPEtri}}, \code{\link{NCStri}} and \code{\link{IndNAStri}}
 }

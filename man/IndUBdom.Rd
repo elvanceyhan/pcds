@@ -14,17 +14,17 @@ a graph or digraph}
 }
 \value{
 A list with two elements
-\item{domUB}{The upper bound (to be checked) for the domination number. It is prespecified as k
+\item{domUB}{The upper bound (to be checked) for the domination number. It is prespecified as \code{k}
 in the function arguments.}
 \item{IndUBdom}{The indicator for the upper bound for domination number of the graph or digraph being
-the specified value k or not. It returns 1 if the upper bound is k, and 0 otherwise based on the incidence
-matrix Inc.Mat of the graph or digraph.}
-\item{ind.domset}{Indices of the rows in the incidence matrix Inc.Mat that correspond to the vertices in the
-dominating set of size k if it exists, otherwise it yields NULL.}
+the specified value \code{k} or not. It returns 1 if the upper bound is \code{k}, and 0 otherwise based on the incidence
+matrix \code{Inc.Mat} of the graph or digraph.}
+\item{ind.domset}{Indices of the rows in the incidence matrix \code{Inc.Mat} that correspond to the vertices in the
+dominating set of size \code{k} if it exists, otherwise it yields NULL.}
 }
 \description{
-Returns 1 if the domination number is less than or equal to the prespecified value k and also the indices
-(i.e. row numbers) of a dominating set of size k based on the incidence matrix Inc.Mat of a graph or
+Returns 1 if the domination number is less than or equal to the prespecified value \code{k} and also the indices
+(i.e. row numbers) of a dominating set of size \code{k} based on the incidence matrix \code{Inc.Mat} of a graph or
 a digraph. Here the row number in the incidence matrix corresponds to the index of the vertex
 (i.e. index of the data point). The function works whether loops are allowed or not
 (i.e., whether the first diagonal is all 1 or all 0).
@@ -32,14 +32,15 @@ It takes a rather long time for large number of vertices (i.e., large number of 
 }
 \examples{
 n<-10
-M<-matrix(sample(c(0,1),n^2,replace=T),nrow=n)
+M<-matrix(sample(c(0,1),n^2,replace=TRUE),nrow=n)
 diag(M)<-1
 
 dom.greedy(M)
+IndUBdom(M,2)
 
-}
-\references{
-\insertAllCited{}
+for (k in 1:n)
+print(c(k,IndUBdom(M,k)))
+
 }
 \seealso{
 \code{\link{dom.exact}} and \code{\link{dom.greedy}}

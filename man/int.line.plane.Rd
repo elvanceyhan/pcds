@@ -12,73 +12,61 @@ int.line.plane(x1, x2, x3, x4, x5)
 \item{x3, x4, x5}{3D points that determine the plane (i.e., through which the plane passes)}
 }
 \value{
-The coordinates of the point of intersection the line determined by the 3D points x1 and x2 and the
-plane determined by 3D points x3, x4, and x5.
+The coordinates of the point of intersection the line determined by the 3D points \code{x1} and \code{x2} and the
+plane determined by 3D points \code{x3}, \code{x4}, and \code{x5}.
 }
 \description{
-Returns the point of the intersection of the line determined by the 3D points x1 and x2 and the plane spanned
-by 3D points x3,x4, and x5.
+Returns the point of the intersection of the line determined by the 3D points \code{x1} and \code{x2} and the plane spanned
+by 3D points \code{x3}, \code{x4}, and \code{x5}.
 }
 \examples{
-P<-c(1,1,1); A<-c(1,10,4); B<-c(1,1,3); C<-c(3,9,12)
-#P<-runif(3); A<-runif(3); B<-runif(3); C<-runif(3)
-#P<-runif(3,1,100); A<-runif(3,1,100); B<-runif(3,1,100); C<-runif(3,1,100)
-cf<-as.numeric(Plane(A,B,C,1,1)$coeff)
-a<-cf[1]; b<-cf[2]; c<--1;
-vecs<-rbind(A,c(a,b,c))
-pts<-rbind(P,A,B,C)
-perp.ln2pl(P,A,B,C,.1)
+L1<-c(2,4,6); L2<-c(1,3,5); A<-c(1,10,3); B<-c(1,1,3); C<-c(3,9,12)
+#L1<-runif(3); L2<-runif(3); A<-runif(3); B<-runif(3); C<-runif(3)
+#L1<-runif(3,1,100); L2<-runif(3,1,100);
+#A<-runif(3,1,100); B<-runif(3,1,100); C<-runif(3,1,100)
+Pint<-int.line.plane(L1,L2,A,B,C)
+Pint
+pts<-rbind(L1,L2,A,B,C,Pint)
 
-tr<-range(pts,vecs);
-tf<-(tr[2]-tr[1])*.1 #how far to go at the lower and upper ends in the x-coordinate
-tsq<-seq(-tf*10-tf,tf*10+tf,l=100)
+tr<-max(Dist(L1,L2),Dist(L1,Pint),Dist(L2,Pint))
+tf<-tr*1.1 #how far to go at the lower and upper ends in the x-coordinate
+tsq<-seq(-tf,tf,l=100)
 
-pln2pl<-perp.ln2pl(P,A,B,C,tsq)
-pln2pl
-summary(pln2pl)
-plot(pln2pl)
+lnAB3D<-Line3D(L1,L2,tsq)
+xl<-lnAB3D$x
+yl<-lnAB3D$y
+zl<-lnAB3D$z
 
-perp.ln2pl(P,A,B,C,c(.1,.2))
-
-xc<-pln2pl$x
-yc<-pln2pl$y
-zc<-pln2pl$z
-
-zr<-range(zc)
-zf<-(zr[2]-zr[1])*.2
-Bv<- -c(a,b,c)*zf*5
-
-Dr<-(A+B+C)/3
-
-pts2<-rbind(A,B,C)
-xr<-range(pts2[,1],xc); yr<-range(pts2[,2],yc)
+xr<-range(pts[,1]); yr<-range(pts[,2])
 xf<-(xr[2]-xr[1])*.1 #how far to go at the lower and upper ends in the x-coordinate
 yf<-(yr[2]-yr[1])*.1 #how far to go at the lower and upper ends in the y-coordinate
-xs<-seq(xr[1]-xf,xr[2]+xf,l=100)
-ys<-seq(yr[1]-yf,yr[2]+yf,l=100)
+xp<-seq(xr[1]-xf,xr[2]+xf,l=100)
+yp<-seq(yr[1]-yf,yr[2]+yf,l=100)
 
 plABC<-Plane(A,B,C,xp,yp)
 z.grid<-plABC$z
 
-Xlim<-range(xc,xs,pts[,1])
-Ylim<-range(yc,ys,pts[,2])
-Zlim<-range(zc,z.grid,pts[,3])
+res<-persp(xp,yp,z.grid, xlab="x",ylab="y",zlab="z",theta = -30, phi = 30, expand = 0.5,
+col = "lightblue", ltheta = 120, shade = 0.05, ticktype = "detailed")
+lines (trans3d(xl, yl, zl, pmat = res), col = 3)
+
+Xlim<-range(xl,pts[,1])
+Ylim<-range(yl,pts[,2])
+Zlim<-range(zl,pts[,3])
 
 xd<-Xlim[2]-Xlim[1]
 yd<-Ylim[2]-Ylim[1]
 zd<-Zlim[2]-Zlim[1]
 
-persp3D(z = z.grid, x = xs, y = ys, asp=1,theta =225, phi = 30, col="lightblue", ticktype = "detailed",
-        xlim=Xlim+xd*c(-.05,.05),ylim=Ylim+yd*c(-.05,.05),zlim=Zlim+zd*c(-.05,.05)) #plane spanned by points A, B, C
-lines3D(xc, yc, zc, bty = "g",pch = 20, cex = 2,col="red", ticktype = "detailed",add=T)
-arrows3D(Dr[1],Dr[2],Dr[3],Dr[1]+Bv[1],Dr[2]+Bv[2],Dr[3]+Bv[3], add=T)
-points3D(pts[,1],pts[,2],pts[,3],add=T)
-text3D(pts[,1],pts[,2],pts[,3],labels=c("P","A","B","C"),add=T)
-arrows3D(P[1],P[2],P[3]-zf,P[1],P[2],P[3],lty=2, add=T)
-text3D(P[1],P[2],P[3]-zf,labels="initial point",add=T)
-text3D(P[1],P[2],P[3]+zf/2,labels="P",add=T)
-arrows3D(Dr[1],Dr[2],Dr[3],Dr[1]+Bv[1]/2,Dr[2]+Bv[2]/2,Dr[3]+Bv[3]/2,lty=2, add=T)
-text3D(Dr[1]+Bv[1]/2,Dr[2]+Bv[2]/2,Dr[3]+Bv[3]/2,labels="normal vector",add=T)
+#library(plot3D)
+plot3D::persp3D(z = z.grid, x = xp, y = yp, theta =225, phi = 30, ticktype = "detailed"
+        ,xlim=Xlim+xd*c(-.05,.05),ylim=Ylim+yd*c(-.05,.05),zlim=Zlim+zd*c(-.1,.1))
+        #plane spanned by points A, B, C
+#add the defining points
+plot3D::points3D(pts[,1],pts[,2],pts[,3], pch = ".", col = "black", bty = "f", cex = 5,add=TRUE)
+plot3D::points3D(Pint[1],Pint[2],Pint[3], pch = "*", col = "red", bty = "f", cex = 5,add=TRUE)
+plot3D::lines3D(xl, yl, zl, bty = "g", cex = 2, ticktype = "detailed",add=TRUE)
+
 }
 \seealso{
 \code{\link{int.2lines}} and \code{\link{int.circ.line}}

@@ -14,62 +14,64 @@ NumArcsCSMT(Xp, Yp, t, M = c(1, 1, 1))
 \item{t}{A positive real number which serves as the expansion parameter in CS proximity region}
 
 \item{M}{A 3D point in barycentric coordinates which serves as a center in the interior of each Delaunay
-triangle, default for M is c(1,1,1) which is the center of mass of each triangle}
+triangle, default for \eqn{M=(1,1,1)} which is the center of mass of each triangle}
 }
 \value{
 A list of elements
 \item{num.arcs}{Total number of arcs in all triangles}
-\item{num.in.conhull}{Number of Xp points in the convex hull of Yp points}
-\item{weight.vec}{The vector of the areas of Delaunay triangles based on Yp points}
+\item{num.in.conhull}{Number of \code{Xp} points in the convex hull of \code{Yp} points}
+\item{weight.vec}{The vector of the areas of Delaunay triangles based on \code{Yp} points}
 }
 \description{
 Returns the number of arcs of Central Similarity Proximity Catch Digraph (CS-PCD) whose vertices are
-the data points in Xp in the multiple triangle case. CS proximity regions are defined with respect to the
-Delaunay triangles based on Yp points with expansion parameter t>01 and edge regions in each triangle
-is based on the center M=(alpha,beta,gamma) in barycentric coordinates in the interior of each
-Delaunay triangle or based on circumcenter of each Delaunay triangle (default for M is c(1,1,1)
+the data points in \code{Xp} in the multiple triangle case.
+
+CS proximity regions are defined with respect to the
+Delaunay triangles based on \code{Yp} points with expansion parameter \eqn{t>0} and edge regions in each triangle
+is based on the center \eqn{M=(\alpha,\beta,\gamma)} in barycentric coordinates in the interior of each
+Delaunay triangle or based on circumcenter of each Delaunay triangle (default for \eqn{M=(1,1,1)}
 which is the center of mass of the triangle).
-Each Delaunay triangle is first converted to an (unscaled) basic triangle so that M will be the same
-type of center for each Delaunay triangle (this conversion is not necessary when M is CM).
-Convex hull of Yp is partitioned by the Delaunay triangles based on Yp points
+Each Delaunay triangle is first converted to an (unscaled) basic triangle so that \code{M} will be the same
+type of center for each Delaunay triangle (this conversion is not necessary when \code{M} is CM).
+Convex hull of \code{Yp} is partitioned by the Delaunay triangles based on \code{Yp} points
 (i.e., multiple triangles are the set of these Delaunay triangles whose union constitutes the
-convex hull of Yp points). For the number of arcs, loops are not allowed so arcs are only possible
-for points inside the convex hull of Yp points.
+convex hull of \code{Yp} points). For the number of arcs, loops are not allowed so arcs are only possible
+for points inside the convex hull of \code{Yp} points.
 See (\insertCite{ceyhan:Phd-thesis,ceyhan:arc-density-CS,ceyhan:test2014;textual}{pcds}) for more on CS-PCDs.
-Also see (\insertCite{okabe:2000,ceyhan:comp-geo-2010,renka:1996;textual}{pcds}) for more on Delaunay triangulation and the tripack algorithm.
+Also see (\insertCite{okabe:2000,ceyhan:comp-geo-2010,renka:1996;textual}{pcds}) for more on Delaunay triangulation and the TRIPACK algorithm.
 }
 \examples{
-A<-c(1,1); B<-c(2,0); C<-c(1.5,2);
-#A<-runif(2); B<-runif(2); C<-runif(2);
-#A<-runif(2,1,100); B<-runif(2,1,100); C<-runif(2,1,100);
-Tr<-rbind(A,B,C);
+nx<-100
+ny<-10
 
-n<-20
 #set.seed(1)
-dat<-runif.tri(n,Tr)$g
-#dat<-cbind(runif(n,1,2),runif(n,0,2))
-#dat<-cbind(runif(n),runif(n))
+Xp<-cbind(runif(nx),runif(nx))
+#Xp<-cbind(runif(nx,0.5,1.5),runif(nx,0,1))
+#Xp<-cbind(runif(nx,1,2),runif(nx,0,1))
+Yp<-cbind(runif(ny),runif(ny))
 
-M<-as.numeric(runif.tri(1,Tr)$g)
-#M<-c(1.6,1.0)
-#M<-c(1,1,1) #M<-c(1,2,3) #M<-c(-1,2,3) #barycentric coordinates
+plotDeltri(Xp,Yp,xlab="",ylab="")
+
+M<-c(1,1,1) #M<-c(1,2,3) #M<-c(-1,2,3) #barycentric coordinates
 #M<-c(1.3,1.3)
-#M<-c(.3,.3)
 
-NumArcsCStri(dat,Tr,t=.5,M)
-NumArcsCStri(dat,Tr,t=1,M)
-NumArcsCStri(dat,Tr,t=1.5,M)
+NumArcsCSMT(Xp,Yp,t=.5,M)
+NumArcsCSMT(Xp,Yp,t=1.,M)
+NumArcsCSMT(Xp,Yp,t=1.5,M)
 
-NumArcsCStri(c(1.4,.2),Tr,t=.5,M)
+NumArcsCSMT(c(.4,.2),Yp,t=.5,M)
+NumArcsCSMT(c(.4,.2),Yp[1:3,],t=.5,M)
 
-t<-.5
-NumArcsCStri(dat,Tr,t,M)
+t<-2
+NumArcsCSMT(Xp,Yp,t,M)
 
-dat.fr<-data.frame(a=dat)
-NumArcsCStri(dat.fr,Tr,t,M)
+NumArcsCSMT(Xp,rbind(Yp,Yp),t,M)
 
-dat.fr<-data.frame(a=Tr)
-NumArcsCStri(dat,dat.fr,t,M)
+dat.fr<-data.frame(a=Xp)
+NumArcsCSMT(dat.fr,Yp,t,M)
+
+dat.fr<-data.frame(a=Yp)
+NumArcsCSMT(Xp,dat.fr,t,M)
 
 }
 \references{

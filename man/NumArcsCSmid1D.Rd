@@ -11,49 +11,55 @@ NumArcsCSmid1D(dat, t, c, int)
 
 \item{t}{A positive real number which serves as the expansion parameter in CS proximity region}
 
-\item{c}{A positive real number in (0,1) parameterizing the center inside int=(a,b).
-For the interval, int=(a,b), the parameterized center is Mc=a+c*(b-a)}
+\item{c}{A positive real number in \eqn{(0,1)} parameterizing the center inside \eqn{int=(a,b)}.
+For the interval, \eqn{int=(a,b)}, the parameterized center is \eqn{M_c=a+c(b-a)}}
 
 \item{int}{A vector of two real numbers representing an interval}
 }
 \value{
-Number of arcs for the PE-PCD whose vertices are the 1D data set, dat,
-with expansion parameter, r>=1, and centrality parameter, c in (0,1). PE proximity regions are defined only
-for dat points inside the interval int, i.e. arcs are possible for such points only.
+Number of arcs for the PE-PCD whose vertices are the 1D data set, \code{dat},
+with expansion parameter, \eqn{r \ge 1}, and centrality parameter, \code{c} in \eqn{(0,1)}. PE proximity regions are defined only
+for \code{dat} points inside the interval \code{int}, i.e. arcs are possible for such points only.
 }
 \description{
 Returns the number of arcs of of Central Similarity Proximity Catch Digraphs (CS-PCDs) whose vertices are
-the given 1D numerical data set, dat. CS proximity region NCS(x,t,c) is defined with respect to the interval
-int=(a,b) for this function. CS proximity region is constructed with expansion parameter t>0 and
-centrality parameter c in (0,1).
-Vertex regions are based on the center associated with the centrality parameter c in (0,1).
-For the interval, int=(a,b), the parameterized center is Mc=a+c*(b-a) and for the number of arcs,
-loops are not allowed so arcs are only possible for points inside the middle interval int for this function.
+the given 1D numerical data set, \code{dat}.
+
+CS proximity region \eqn{NCS(x,t,c)} is defined with respect to the interval
+\eqn{int=(a,b)} for this function. CS proximity region is constructed with expansion parameter \eqn{t>0} and
+centrality parameter \code{c} in \eqn{(0,1)}.
+
+Vertex regions are based on the center associated with the centrality parameter \code{c} in \eqn{(0,1)}.
+For the interval, \eqn{int=(a,b)}, the parameterized center is \eqn{M_c=a+c(b-a)} and for the number of arcs,
+loops are not allowed so arcs are only possible for points inside the middle interval \code{int} for this function.
 See also (\insertCite{ceyhan:revstat-2016;textual}{pcds}).
 }
 \examples{
-c<-.5
+c<-.4
 t<-2
 a<-0; b<-10; int<-c(a,b)
 
-IndNCSmid1D(7,5,t,c,int)
-IndNCSmid1D(7,7,t,c,int)
-IndNCSmid1D(7,5,t,c=.4,int)
+n<-10
+dat<-runif(n,a,b)
+NumArcsCSmid1D(dat,t,c,int)
 
-IndNCSmid1D(1,3,t,c,int)
+NumArcsCSmid1D(dat,t,c=.3,int)
 
-IndNCSmid1D(9,11,t,c,int)
+NumArcsCSmid1D(dat,t=1.5,c,int)
 
-IndNCSmid1D(19,1,t,c,int)
-IndNCSmid1D(19,19,t,c,int)
+NumArcsCSmid1D(dat,t,c,int+5)
+NumArcsCSmid1D(dat,t,c,int+10)
 
-IndNCSmid1D(3,5,t,c,int)
+n<-20
+dat<-runif(n,a-5,b+5)
+NumArcsCSint(dat,t,c,int)
 
-#or try
-Rv<-rv.mid.int(3,c,int)$rv
-IndNCSmid1D(3,5,t,c,int,rv=Rv)
+dat<-runif(n,a+10,b+10)
+NumArcsCSmid1D(dat,t,c,int)
 
-IndNCSmid1D(7,5,t,c,int)
+n<-10
+dat<-runif(n,a,b)
+NumArcsCSmid1D(dat,t,c,int)
 
 }
 \references{

@@ -2,7 +2,7 @@
 % Please edit documentation in R/PCDFunctions.r
 \name{IndNPEtetra}
 \alias{IndNPEtetra}
-\title{The indicator for the presence of arcs between two 3D points for
+\title{The indicator for the presence of an arc from one 3D point to another 3D point for
 Proportional Edge Proximity Catch Digraphs (PE-PCDs)}
 \usage{
 IndNPEtetra(pt1, pt2, r, th, M = "CM", rv = NULL)
@@ -10,30 +10,32 @@ IndNPEtetra(pt1, pt2, r, th, M = "CM", rv = NULL)
 \arguments{
 \item{pt1}{A 3D point whose PE proximity region is constructed.}
 
-\item{pt2}{A 3D point. The function determines whether pt2 is inside the PE proximity region of
-pt1 or not.}
+\item{pt2}{A 3D point. The function determines whether \code{pt2} is inside the PE proximity region of
+\code{pt1} or not.}
 
-\item{r}{A positive real number which serves as the expansion parameter in PE proximity region; must be >= 1}
+\item{r}{A positive real number which serves as the expansion parameter in PE proximity region; must be \eqn{\ge 1}}
 
 \item{th}{Four 3D points, stacked row-wise, each row representing a vertex of the tetrahedron}
 
-\item{M}{The center to be used in the construction of the vertex regions in the tetrahedron, th.
+\item{M}{The center to be used in the construction of the vertex regions in the tetrahedron, \code{th}.
 Currently it only takes "CC" for circumcenter and "CM" for center of mass; default="CM"}
 
-\item{rv}{Index of the M-vertex region containing the point, either 1, 2, 3, 4 (defualt is NULL)}
+\item{rv}{Index of the \code{M}-vertex region containing the point, either 1, 2, 3, 4 (defualt is NULL)}
 }
 \value{
-I(pt2 is in NPE(pt1,r)) for pt1, that is, returns 1 if pt2 is in NPE(pt1,r), returns 0 otherwise
+I(\code{pt2} is in \eqn{NPE(pt1,r)}) for \code{pt1}, that is, returns 1 if \code{pt2} is in \eqn{NPE(pt1,r)}, returns 0 otherwise
 }
 \description{
-Returns I(pt2 is in NPE(pt1,r)) for 3D points pt1 and pt2, that is, returns 1 if pt2 is in NPE(pt1,r),
-returns 0 otherwise, where NPE(x,r) is the PE proximity region for point x with the expansion parameter r>=1.
-PE proximity region is constructed with respect to the tetrahedron th and
-vertex regions are based on the center M which is circumcenter ("CC") or
-center of mass ("CM") of th with default="CM".
-rv is the index of the vertex region pt1 resides, with default=NULL.
-If pt1 and pt2 are distint and either of them are outside tri, it returns 0,
-but if they are identical, then it returns 1 regardless of its location (i.e., it allows loops).
+Returns I(\code{pt2} is in \eqn{NPE(pt1,r)}) for 3D points \code{pt1} and \code{pt2}, that is, returns 1 if \code{pt2} is in \eqn{NPE(pt1,r)},
+returns 0 otherwise, where NPE(x,r) is the PE proximity region for point \eqn{x} with the expansion parameter \eqn{r \ge 1}.
+
+PE proximity region is constructed with respect to the tetrahedron \code{th} and
+vertex regions are based on the center \code{M} which is circumcenter ("CC") or
+center of mass ("CM") of \code{th} with default="CM".
+\code{rv} is the index of the vertex region \code{pt1} resides, with default=NULL.
+
+If \code{pt1} and \code{pt2} are distint and either of them are outside \code{th}, it returns 0,
+but if they are identical, then it returns 1 regardless of their locations (i.e., it allows loops).
 See also (\insertCite{ceyhan:Phd-thesis,ceyhan:comp-geo-2010;textual}{pcds}).
 }
 \examples{
@@ -48,23 +50,25 @@ M<-"CM"
 #M<-"CC"
 r<-1.5
 
-NPEtetra(dat[1,],r,tetra) #uses the default M="CM"
-NPEtetra(dat[1,],r,tetra,M)
+IndNPEtetra(dat[1,],dat[2,],r,tetra) #uses the default M="CM"
+IndNPEtetra(dat[1,],dat[2,],r,tetra,M)
 
-NPEtetra(dat[5,],r,tetra,M)
+IndNPEtetra(dat[1,],dat[1,],r,tetra,M)
 
-NPEtetra(c(.4,.4,.4),r,tetra,M)
-NPEtetra(c(.5,.5,.5),r,tetra,M)
+IndNPEtetra(c(.4,.4,.4),c(.5,.5,.5),r,tetra,M)
 
 #or try
-RV<-rv.tetraCM(dat[1,],tetra)$rv
-NPEtetra(dat[1,],r,tetra,M,rv=RV)
+RV<-rv.tetraCC(dat[1,],tetra)$rv
+IndNPEtetra(dat[1,],dat[5,],r,tetra,M,rv=RV)
 
-NPEtetra(c(-1,-1,-1),r,tetra,M,rv=NULL)
+IndNPEtetra(dat[1,],c(-1,-1,-1),r,tetra,M,rv=NULL)
+
+IndNPEtetra(c(-1,-1,-1),dat[1,],r,tetra,M,rv=NULL)
+IndNPEtetra(c(-1,-1,-1),c(-1,-1,-1),r,tetra,M)
 
 P1<-c(.1,.1,.1)
 P2<-c(.5,.5,.5)
-NPEtetra(P1,r,tetra,M)
+IndNPEtetra(P1,P2,r,tetra,M)
 
 }
 \references{

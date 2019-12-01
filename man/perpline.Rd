@@ -2,77 +2,85 @@
 % Please edit documentation in R/PCDFunctions.r
 \name{perpline}
 \alias{perpline}
-\title{An object of class "Lines"
+\title{An object of class "Lines":
 
 The line passing thru a point and perpendicular to the line segment joining two points}
 \usage{
 perpline(p, a, b, x)
 }
 \arguments{
-\item{p}{A 2D point at which the perpendicular line to line segment joining a and b crosses.}
+\item{p}{A 2D point at which the perpendicular line to line segment joining \code{a} and \code{b} crosses.}
 
 \item{a, b}{2D points that determine the line segment (the line will be perpendicular to this line segment)}
 
 \item{x}{A scalar or a vector of scalars representing the x-coordinates of the line perpendicular to
-line joing a and b and crossing p}
+line joing \code{a} and \code{b} and crossing \code{p}.}
 }
 \value{
 A list with the elements
-\item{txt}{Description of the line passing through point p and perpendicular to line joining
+\item{desc}{Description of the line passing through point \code{p} and perpendicular to line joining
 \code{a} and \code{b}}
-\item{mtxt}{The "main" title for the plot of the line passing through point p and perpendicular to line joining
+\item{mtitle}{The "main" title for the plot of the line passing through point \code{p} and perpendicular to line joining
 \code{a} and \code{b}}
-\item{points}{The input points a and b (stacked row-wise,
-i.e., row 1 is point \code{a} and row 2 is point \code{b}). Line passing through point p is perpendicular
+\item{points}{The input points \code{a} and \code{b} (stacked row-wise,
+i.e., row 1 is point \code{a} and row 2 is point \code{b}). Line passing through point \code{p} is perpendicular
 to line joining \code{a} and \code{b}}
 \item{x}{The input vector, can be a scalar or a vector of scalars,
-which constitute the x-coordinates of the point(s) of interest on the line passing through point p and perpendicular to line joining
+which constitute the x-coordinates of the point(s) of interest on the line passing through point \code{p} and perpendicular to line joining
 \code{a} and \code{b}}
-\item{y}{The output vector which constitutes the y-coordinates of the point(s) of interest on the line passing through point p and perpendicular to line joining
+\item{y}{The output vector which constitutes the y-coordinates of the point(s) of interest on the line passing through point \code{p} and perpendicular to line joining
 \code{a} and \code{b}. If \code{x} is a scalar, then \code{y} will be a scalar and if \code{x} is a vector of scalars,
 then \code{y} will be a vector of scalars.}
-\item{slope}{Slope of the line passing through point p and perpendicular to line joining
+\item{slope}{Slope of the line passing through point \code{p} and perpendicular to line joining
 \code{a} and \code{b}}
-\item{intercept}{Intercept of the line passing through point p and perpendicular to line joining
+\item{intercept}{Intercept of the line passing through point \code{p} and perpendicular to line joining
 \code{a} and \code{b}}
-\item{equation}{Equation of the line passing through point p and perpendicular to line joining
+\item{equation}{Equation of the line passing through point \code{p} and perpendicular to line joining
 \code{a} and \code{b}}
 }
 \description{
-Returns the equation, slope, intercept, and y coordinates of the line crossing the point p and
-perpendicular to the line passing through the points a and b with x coordinates are provided in vector x.
+Returns the \code{equation, slope, intercept}, and y-coordinates of the line crossing
+the point \code{p} and perpendicular to the line passing through the points \code{a} and \code{b}
+with x-coordinates are provided in vector \code{x}.
 }
 \examples{
-A<-c(0,0); B<-c(1,0); C<-c(.5,sqrt(3.)/2);
-Te<-rbind(A,B,C);
-n<-1000
-eps<-.2 #try also .25, .1
+A<-c(1.1,1.2); B<-c(2.3,3.4); p<-c(.51,2.5)
+#A<-runif(2); B<-runif(2); p<-runif(2)
+#A<-runif(2,1,100); B<-runif(2,1,100); p<-runif(2,1,100);
+#A<-c(1,1); B<-c(1,2) #perpendicular line is horizontal
+#A<-c(1,2); B<-c(2,2) #perpendicular line is vertical
+#p<-(A+B)/2
 
-#set.seed(1)
-Xdt<-rascIITe(n,eps)
-Xdt
-summary(Xdt)
-plot(Xdt,asp=1)
+perpline(p,A,B,.45)
+perpline(A,A,B,.45)
 
-Xlim<-range(Te[,1])
-Ylim<-range(Te[,2])
+pts<-rbind(A,B,p)
+xr<-range(pts)
+xf<-(xr[2]-xr[1])*.25 #how far to go at the lower and upper ends in the x-coordinate
+x<-seq(xr[1]-xf,xr[2]+xf,l=100)
+
+plnAB<-perpline(p,A,B,x)
+plnAB
+summary(plnAB)
+plot(plnAB,asp=1)
+
+y<-plnAB$y
+Xlim<-range(x,pts[,1])
+if (!is.na(y[1])) {Ylim<-range(y,pts[,2])} else {Ylim<-range(pts[,2])}
 xd<-Xlim[2]-Xlim[1]
 yd<-Ylim[2]-Ylim[1]
+pf<-c(xd,-yd)*.025
 
-dat<-rascIITe(n,eps)$gen.points
-plot(Te,pch=".",xlab="",ylab="",main="Type II association in the \\n standard equilateral triangle",
-     xlim=Xlim+xd*c(-.01,.01),ylim=Ylim+yd*c(-.01,.01))
-polygon(Te)
-points(dat)
+plot(A,asp=1,pch=".",xlab="",ylab="",xlim=Xlim+xd*c(-.05,.05),ylim=Ylim+yd*c(-.05,.05))
+points(pts)
+txt.str<-c("A","B","p")
+text(pts+rbind(pf,pf,pf),txt.str)
 
-# The support for the Type II association alternative
-A1<-c(1/2-eps*sqrt(3),sqrt(3)/6-eps); B1<-c(1/2+eps*sqrt(3),sqrt(3)/6-eps); C1<-c(1/2,sqrt(3)/6+2*eps);
-supp<-rbind(A1,B1,C1)
-
-plot(Te,asp=1,pch=".",xlab="",ylab="",main="Support of the Type II Association",xlim=Xlim+xd*c(-.01,.01),ylim=Ylim+yd*c(-.01,.01))
-polygon(Te,col=5)
-polygon(supp,col=0)
-#points(dat)
+segments(A[1],A[2],B[1],B[2],lty=2)
+if (!is.na(y[1])) {lines(x,y,type="l",lty=1,xlim=Xlim,ylim=Ylim)} else {abline(v=p[1])}
+tx<-p[1]+abs(xr-p[1])/2;
+if (!is.na(y[1])) {ty<-perpline(p,A,B,tx)$y} else {ty=p[2]}
+text(tx,ty,"line perpendicular to AB\n and crossing p")
 
 }
 \seealso{

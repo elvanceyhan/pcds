@@ -2,7 +2,7 @@
 % Please edit documentation in R/PCDFunctions.r
 \name{IndNAStriSet}
 \alias{IndNAStriSet}
-\title{The indicator for the presence of an arc from a point in set S to the point pt for
+\title{The indicator for the presence of an arc from a point in set \code{S} to the point \code{pt} for
 Arc Slice Proximity Catch Digraphs (AS-PCDs) - one triangle case}
 \usage{
 IndNAStriSet(S, pt, tri, M = "CC")
@@ -10,29 +10,32 @@ IndNAStriSet(S, pt, tri, M = "CC")
 \arguments{
 \item{S}{A set of 2D points whose AS proximity regions are considered}
 
-\item{pt}{A 2D point. The function determines whether pt is inside the union of AS proximity
-regions of points in S or not.}
+\item{pt}{A 2D point. The function determines whether \code{pt} is inside the union of AS proximity
+regions of points in \code{S} or not.}
 
 \item{tri}{Three 2D points, stacked row-wise, each row representing a vertex of the triangle}
 
-\item{M}{"CC" which stand for circumcenter of the triangle tri or a 2D point in Cartesian coordinates or
-a 3D point in barycentric coordinates which serves as a center in the interior of tri;
-default is M="CC" i.e. the circumcenter of tri}
+\item{M}{"CC" which stands for circumcenter of the triangle \code{tri} or a 2D point in Cartesian coordinates or
+a 3D point in barycentric coordinates which serves as a center in the interior of \code{tri};
+default is \code{M}="CC" i.e. the circumcenter of \code{tri}}
 }
 \value{
-I(pt in U_{x in S}NAS(x,r)), that is, returns 1 if pt is in S or inside NAS(x) for at least
-one x in S, returns 0 otherwise, where AS proximity region is constructed in tri
+I(\code{pt} in U_{x in \code{S}}NAS(x,r)), that is, returns 1 if \code{pt} is in \code{S} or inside NAS(x) for at least
+one x in \code{S}, returns 0 otherwise, where AS proximity region is constructed in tri
 }
 \description{
-Returns I(pt in NAS(x) for some x in S), that is, returns 1 if pt is in U_{x in S}NAS(x),
-returns 0 otherwise, where NAS(x) is the AS proximity region for point x.
-AS proximity regions are constructed with respect to the triangle, tri=T(A,B,C)=(rv=1,rv=2,rv=3),
-and vertices of tri are also labeled as 1,2, and 3, respectively.
-Vertex regions are based on the center M="CC" for circumcenter of tri;
-or M=(m1,m2) in Cartesian coordinates or M=(alpha,beta,gamma) in barycentric coordinates in the
-interior of the triangle tri; default is M="CC" i.e. circumcenter of tri.
-If pt is not in S and either pt or all points in S are outside tri, it returns 0,
-but if pt is in S, then it always returns 1 (i.e., loops are allowed).
+Returns I(\eqn{pt \in N_{AS}(x)} for some \eqn{x \in S}), that is, returns 1 if \code{pt} is in \eqn{\cup_{x \in S}NAS(x)},
+returns 0 otherwise, where \eqn{N_{AS}(x)} is the AS proximity region for point \eqn{x}.
+
+AS proximity regions are constructed with respect to the triangle, \eqn{tri=T(A,B,C)=(rv=1,rv=2,rv=3)},
+and vertices of \code{tri} are also labeled as 1,2, and 3, respectively.
+
+Vertex regions are based on the center \code{M}="CC" for circumcenter of \code{tri};
+or \eqn{M=(m_1,m_2)} in Cartesian coordinates or \eqn{M=(\alpha,\beta,\gamma)} in barycentric coordinates in the
+interior of the triangle \code{tri}; default is \code{M}="CC" i.e. circumcenter of \code{tri}.
+
+If \code{pt} is not in \code{S} and either \code{pt} or all points in \code{S} are outside \code{tri}, it returns 0,
+but if \code{pt} is in \code{S}, then it always returns 1 (i.e., loops are allowed).
 See also (\insertCite{ceyhan:Phd-thesis,ceyhan:comp-geo-2010,ceyhan:mcap2012;textual}{pcds}).
 }
 \examples{
@@ -40,12 +43,14 @@ A<-c(1,1); B<-c(2,0); C<-c(1.5,2);
 #A<-runif(2); B<-runif(2); C<-runif(2);
 #A<-runif(2,1,100); B<-runif(2,1,100); C<-runif(2,1,100);
 Tr<-rbind(A,B,C);
+n<-10
 
 #set.seed(1)
-n<-20
-dat<-runif.tri(n,Tr)$g
-#dat<-cbind(runif(n,1,2),runif(n,0,2))
+dat<-runif.tri(n,Tr)$gen.points
 #dat<-cbind(runif(n),runif(n))
+#dat<-cbind(runif(n,1,2),runif(n,0,1))
+S<-rbind(dat[1,],dat[2,])
+#S<-c(1.5,1)
 
 M<-as.numeric(runif.tri(1,Tr)$g)
 #M<-c(1.6,1.2)
@@ -54,23 +59,42 @@ M<-as.numeric(runif.tri(1,Tr)$g)
 #M<-c(1.3,1.3)
 #M<-c(.3,.3)
 
-NumArcsAStri(dat,Tr,M)
-ASarcdens.tri(dat,Tr,M)
-ASarcdens.tri(dat,Tr,M,tri.cor = F)
+IndNAStriSet(S,dat[3,],Tr,M)
 
-ASarcdens.tri(dat,Tr,M)
+S<-rbind(dat[1,],dat[2,],dat[3,],dat[5,])
+IndNAStriSet(S,dat[3,],Tr,M)
 
-dat.fr<-data.frame(a=dat)
-ASarcdens.tri(dat.fr,Tr,M)
+IndNAStriSet(S,dat[6,],Tr,M)
 
-dat.fr<-data.frame(a=Tr)
-ASarcdens.tri(dat,dat.fr,M)
+S<-rbind(c(.1,.1),c(.3,.4),c(.5,.3))
+IndNAStriSet(S,dat[3,],Tr,M)
+
+IndNAStriSet(c(.2,.5),dat[2,],Tr,M)
+IndNAStriSet(dat,c(.2,.5),Tr,M)
+IndNAStriSet(dat,dat[2,],Tr,M)
+IndNAStriSet(c(.2,.5),c(.2,.5),Tr,M)
+IndNAStriSet(dat[5,],dat[2,],Tr,M)
+
+S<-rbind(dat[1,],dat[2,],dat[3,],dat[5,],c(.2,.5))
+IndNAStriSet(S,dat[3,],Tr,M)
+
+P<-c(.4,.2)
+S<-dat[c(1,3,4),]
+IndNAStriSet(dat,P,Tr,M)
+IndNAStriSet(S,P,Tr,M)
+
+IndNAStriSet(rbind(S,S),P,Tr,M)
+\dontrun{
+IndNAStriSet(cbind(S,S),P,Tr,M)
+IndNAStriSet(rbind(c("a","b"),S),P,Tr,M)
+}
+dat.fr<-data.frame(a=S)
+IndNAStriSet(dat.fr,P,Tr,M)
 
 }
 \references{
 \insertAllCited{}
 }
 \seealso{
-\code{\link{Ind.NASTe.set}}, \code{\link{IndNAStri}}, \code{\link{Ind.NAS.Te}},
-\code{\link{IndNAStriSet}}, and \code{\link{IndNCStriSet}}
+\code{\link{IndNAStri}}, \code{\link{IndNAStriSet}}, and \code{\link{IndNCStriSet}}
 }

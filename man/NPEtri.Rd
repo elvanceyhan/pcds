@@ -9,30 +9,83 @@ NPEtri(pt, r, tri, M = c(1, 1, 1), rv = NULL)
 \arguments{
 \item{pt}{A 2D point whose PE proximity region is to be computed}
 
-\item{r}{A positive real number which serves as the expansion parameter in PE proximity region; must be >=1}
+\item{r}{A positive real number which serves as the expansion parameter in PE proximity region; must be \eqn{\ge 1}}
 
 \item{tri}{Three 2D points, stacked row-wise, each row representing a vertex of the triangle}
 
 \item{M}{A 2D point in Cartesian coordinates or a 3D point in barycentric coordinates
-which serves as a center in the interior of the triangle tri or the circumcenter of tri;
-default is M=c(1,1,1) i.e. the center of mass of tri}
+which serves as a center in the interior of the triangle \code{tri} or the circumcenter of \code{tri};
+default is \eqn{M=(1,1,1)} i.e. the center of mass of \code{tri}}
 
-\item{rv}{Index of the M-vertex region containing the point pt, either 1, 2, 3 or NULL (default is NULL)}
+\item{rv}{Index of the \code{M}-vertex region containing the point \code{pt}, either 1, 2, 3 or NULL (default is NULL)}
 }
 \value{
 Vertices of the triangular region which constitutes the PE proximity region with expansion parameter
-r and center M for a point pt
+\code{r} and center \code{M} for a point \code{pt}
 }
 \description{
 Returns the vertices of the PE proximity region (which is itself a triangle) for a point in the
-triangle tri=T(A,B,C)=(rv=1,rv=2,rv=3). PE proximity region is defined with respect to the triangle tri
-with expansion parameter r>=1 and vertex regions based on center M=(m1,m2) in Cartesian coordinates or
-M=(alpha,beta,gamma) in barycentric coordinates in the interior of the triangle tri
-or based on the circumcenter of tri; default is M=c(1,1,1) i.e. the center of mass of tri.
+triangle \eqn{tri=T(A,B,C)=(rv=1,rv=2,rv=3)}.
+
+PE proximity region is defined with respect to the triangle \code{tri}
+with expansion parameter \eqn{r \ge 1} and vertex regions based on center \eqn{M=(m_1,m_2)} in Cartesian coordinates or
+\eqn{M=(\alpha,\beta,\gamma)} in barycentric coordinates in the interior of the triangle \code{tri}
+or based on the circumcenter of \code{tri}; default is \eqn{M=(1,1,1)} i.e. the center of mass of \code{tri}.
+
 Vertex regions are labeled as 1,2,3 rowwise for the vertices
-of the triangle tri. rv is the index of the vertex region pt resides, with default=NULL.
-If pt is outside of tri, it returns NULL for the proximity region.
+of the triangle \code{tri}. \code{rv} is the index of the vertex region \code{pt} resides, with default=NULL.
+
+If \code{pt} is outside of \code{tri}, it returns NULL for the proximity region.
 See also (\insertCite{ceyhan:Phd-thesis,ceyhan:arc-density-PE,ceyhan:dom-num-NPE-Spat2011;textual}{pcds}).
+}
+\examples{
+A<-c(1,1); B<-c(2,0); C<-c(1.5,2);
+#A<-runif(2); B<-runif(2); C<-runif(2);
+#A<-runif(2,1,100); B<-runif(2,1,100); C<-runif(2,1,100);
+Tr<-rbind(A,B,C);
+
+M<-as.numeric(runif.tri(1,Tr)$g)
+#M<-c(1.6,1.0)
+#M<-circ.cent.tri(Tb)
+#M<-c(1,1,1) #M<-c(1,2,3) #M<-c(-1,2,3) #barycentric coordinates
+#M<-c(1.3,1.3)
+#M<-c(.3,.3)
+r<-1.5
+
+n<-10
+#set.seed(1)
+dat<-runif.tri(n,Tr)$g
+
+NPEtri(dat[7,],r,Tr,M)
+
+P1<-as.numeric(runif.tri(1,Tr)$g)
+#P1<-c(.4,.2)
+NPEtri(P1,r,Tr,M)
+
+P2<-c(1.8,.5)
+NPEtri(P2,r,Tr,M)
+
+P3<-c(1.7,.6)
+NPEtri(P3,r,Tr,M)
+
+M<-c(1.3,1.3)
+r<-2
+
+P1<-c(1.4,1.2)
+P2<-c(1.5,1.26)
+NPEtri(P1,r,Tr,M)
+NPEtri(P2,r,Tr,M)
+
+#or try
+Rv<-rv.tri.cent(P1,Tr,M)$rv
+NPEtri(P1,r,Tr,M,Rv)
+
+dat.fr<-data.frame(a=Tr)
+NPEtri(P2,r,dat.fr,M)
+
+}
+\references{
+\insertAllCited{}
 }
 \seealso{
 \code{\link{NPEbastri}}, \code{\link{NAStri}}, \code{\link{NCStri}}

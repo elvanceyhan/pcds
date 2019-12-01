@@ -9,56 +9,39 @@ NPEint(x, r, c = 0.5, int)
 \arguments{
 \item{x}{A 1D point for which PE proximity region is constructed}
 
-\item{r}{A positive real number which serves as the expansion parameter in PE proximity region; must be >= 1}
+\item{r}{A positive real number which serves as the expansion parameter in PE proximity region; must be \eqn{\ge 1}}
 
-\item{c}{A positive real number in (0,1) parameterizing the center inside int=(a,b).
-For the interval, int=(a,b), the parameterized center is Mc=a+c*(b-a), and default=.5}
+\item{c}{A positive real number in \eqn{(0,1)} parameterizing the center inside \eqn{int=(a,b)}.
+For the interval, \eqn{int=(a,b)}, the parameterized center is \eqn{M_c=a+c(b-a)}, and default=.5}
 
 \item{int}{A vector of two real numbers representing an interval}
 }
 \value{
-The interval which constitutes the PE proximity region for the point x
+The interval which constitutes the PE proximity region for the point \code{x}
 }
 \description{
 Returns the end points of the interval which constitutess the PE proximity region for a point in the
-interval int=(a,b)=(rv=1,rv=2). PE proximity region is constructed with respect to the interval int
-with expansion parameter r>=1 and centrality parameter c in (0,1).
-Vertex regions are based on the (parameterized) center, Mc,
-which is Mc=a+c*(b-a) for the interval, int=(a,b).
-The PE proximity region is constructed whether x is inside or outside the interval int.
+interval \eqn{int=(a,b)=(rv=1,rv=2)}. PE proximity region is constructed with respect to the interval \code{int}
+with expansion parameter \eqn{r \ge 1} and centrality parameter \code{c} in \eqn{(0,1)}.
+
+Vertex regions are based on the (parameterized) center, \eqn{M_c},
+which is \eqn{M_c=a+c(b-a)} for the interval, \eqn{int=(a,b)}.
+The PE proximity region is constructed whether \code{x} is inside or outside the interval \code{int}.
 See also (\insertCite{ceyhan:metrika-2012;textual}{pcds}).
 }
 \examples{
-r<-2
 c<-.4
+r<-2
 a<-0; b<-10; int<-c(a,b)
-#c<-runif(1)
-#a<-runif(1); b<-runif(1); int<-range(a,b); a<-int[1]; b<-int[2]
-nx<-40; ny<-10
 
-#set.seed(1)
-xr<-range(a,b)
-xf<-(xr[2]-xr[1])*.1
-Xp<-runif(nx,a-xf,b+xf)
-#Xp<-runif(nx,a+5,b+5)
-#Xp<-runif(nx,a+10,b+10)
-Yp<-runif(ny,a,b)
+NPEint(7,r,c,int)
+NPEint(17,r,c,int)
+NPEint(1,r,c,int)
+NPEint(-1,r,c,int)
 
-Xlim=range(Xp,Yp)
-Ylim=c(-.2,.2)
-
-jit<-.1
-
-plotArcsPE1D(Xp,Yp,r,c,jit,xlab="",ylab="",xlim=Xlim,ylim=Ylim)
-
-set.seed(1)
-plotArcsPE1D(Xp,Yp,r=1.5,c=.3,jit,main="r=1.5, c=.3",xlab="",ylab="",centers=TRUE)
-set.seed(1)
-plotArcsPE1D(Xp,Yp,r=2,c=.3,jit,main="r=2, c=.3",xlab="",ylab="",centers=TRUE)
-set.seed(1)
-plotArcsPE1D(Xp,Yp,r=1.5,c=.5,jit,main="r=1.5, c=.5",xlab="",ylab="",centers=TRUE)
-set.seed(1)
-plotArcsPE1D(Xp,Yp,r=2,c=.5,jit,main="r=2, c=.5",xlab="",ylab="",centers=TRUE)
+NPEint(3,r,c,int)
+NPEint(4,r,c,int)
+NPEint(a,r,c,int)
 
 }
 \references{

@@ -10,34 +10,37 @@ IndNASbastri(pt1, pt2, c1, c2, M = "CC", rv = NULL)
 \arguments{
 \item{pt1}{A 2D point whose AS proximity region is constructed.}
 
-\item{pt2}{A 2D point. The function determines whether pt2 is inside the AS proximity region of
-pt1 or not.}
+\item{pt2}{A 2D point. The function determines whether \code{pt2} is inside the AS proximity region of
+\code{pt1} or not.}
 
-\item{c1, c2}{Positive real numbers representing the top vertex in basic triangle Tb=T((0,0),(1,0),(c1,c2)),
-c1 must be in [0,1/2], c2>0 and (1-c1)^2+c2^2 <=1}
+\item{c1, c2}{Positive real numbers representing the top vertex in basic triangle \eqn{T_b=T((0,0),(1,0),(c_1,c_2))},
+\code{c1} must be in \eqn{[0,1/2]}, \eqn{c_2>0} and \eqn{(1-c_1)^2+c_2^2 \le 1}}
 
-\item{M}{"CC" which stand for circumcenter or a 2D point in Cartesian coordinates or a 3D point in
-barycentric coordinates which serves as a center in the interior of the triangle Tb;
-default is M="CC" i.e. the circumcenter of Tb}
+\item{M}{"CC" which stands for circumcenter or a 2D point in Cartesian coordinates or a 3D point in
+barycentric coordinates which serves as a center in the interior of the triangle \eqn{T_b};
+default is \code{M}="CC" i.e. the circumcenter of \eqn{T_b}}
 
-\item{rv}{The index of the M-vertex region in Tb containing the point, either 1, 2, 3 or NULL
+\item{rv}{The index of the \code{M}-vertex region in \eqn{T_b} containing the point, either 1, 2, 3 or NULL
 (default is NULL)}
 }
 \value{
-I(pt2 is in NAS(pt1)) for points pt1 and pt2, that is, returns 1 if pt2 is in NAS(pt1)
+\eqn{I(pt2 \in N_{AS}(pt1))} for points \code{pt1} and \code{pt2}, that is, returns 1 if \code{pt2} is in NAS(\code{pt1})
 (i.e., if there is an arc from pt1 to pt2), returns 0 otherwise.
 }
 \description{
-Returns I(pt2 is in NAS(pt1)) for points pt1 and pt2, that is, returns 1 if pt2 is in NAS(pt1), returns 0
-otherwise, where NAS(x) is the AS proximity region for point x.
-AS proximity region is constructed in the basic triangle Tb=T((0,0),(1,0),(c1,c2))
-where c1 is in [0,1/2], c2>0 and (1-c1)^2+c2^2 <=1
-and vertex regions are based on the center M="CC" for circumcenter of Tb;
-or M=(m1,m2) in Cartesian coordinates or M=(alpha,beta,gamma) in barycentric coordinates in the
-interior of Tb; default is M="CC" i.e. circumcenter of Tb.
-rv is the index of the vertex region pt1 resides, with default=NULL.
-If pt1 and pt2 are distint and either of them are outside Tb, the function returns 0,
-but if they are identical, then it returns 1 regardless of its location (i.e., it allows loops).
+Returns \eqn{I(pt2 \in N_{AS}(pt1))} for points \code{pt1} and \code{pt2}, that is, returns 1 if \code{pt2} is in NAS(\code{pt1}), returns 0
+otherwise, where \eqn{N_{AS}(x)} is the AS proximity region for point \eqn{x}.
+AS proximity region is constructed in the basic triangle \eqn{T_b=T((0,0),(1,0),(c_1,c_2))}
+where \code{c1} is in \eqn{[0,1/2]}, \eqn{c_2>0} and \eqn{(1-c_1)^2+c_2^2 \le 1}.
+
+Vertex regions are based on the center \code{M}="CC" for circumcenter of \eqn{T_b};
+or \eqn{M=(m_1,m_2)} in Cartesian coordinates or \eqn{M=(\alpha,\beta,\gamma)} in barycentric coordinates in the
+interior of \eqn{T_b}; default is \code{M}="CC" i.e. circumcenter of \eqn{T_b}.
+\code{rv} is the index of the vertex region \code{pt1} resides, with default=NULL.
+
+If \code{pt1} and \code{pt2} are distint and either of them are outside \eqn{T_b}, the function returns 0,
+but if they are identical, then it returns 1 regardless of their locations (i.e., it allows loops).
+
 Any given triangle can be mapped to the basic triangle
 by a combination of rigid body motions (i.e., translation, rotation and reflection) and scaling,
 preserving uniformity of the points in the original triangle. Hence basic triangle is useful for simulation
@@ -45,7 +48,7 @@ studies under the uniformness hypothesis.
 See also (\insertCite{ceyhan:Phd-thesis,ceyhan:comp-geo-2010,ceyhan:mcap2012;textual}{pcds}).
 }
 \examples{
-c1<-.4; c2<-.6 #c1<-.2; c2<-.2;
+c1<-.4; c2<-.6;
 A<-c(0,0); B<-c(1,0); C<-c(c1,c2);
 Tb<-rbind(A,B,C)
 
@@ -56,91 +59,33 @@ M<-as.numeric(runif.bastri(1,c1,c2)$g)
 #M<-c(1.3,1.3)
 #M<-c(.3,.3)
 
-P1<-as.numeric(runif.bastri(1,c1,c2)$g);
-#P1<-c(.3,.2)
-NASbastri(P1,c1,c2) #default with M="CC"
-NASbastri(P1,c1,c2,M)
+P1<-as.numeric(runif.bastri(1,c1,c2)$g)
+P2<-as.numeric(runif.bastri(1,c1,c2)$g)
+IndNASbastri(P1,P2,c1,c2,M)
+
+P1<-c(.3,.2)
+P2<-c(.6,.2)
+IndNASbastri(P1,P2,c1,c2,M)
+
 #or try
 Rv<-rv.bastriCC(P1,c1,c2)$rv
-NASbastri(P1,c1,c2,M,Rv)
+IndNASbastri(P1,P2,c1,c2,M,Rv)
 
-NASbastri(c(3,5),c1,c2,M)
+P1<-c(.3,.2)
+P2<-c(.8,.2)
+IndNASbastri(P1,P2,c1,c2,M)
 
-P2<-c(.5,.4)
-NASbastri(P2,c1,c2,M)
+P3<-c(.5,.4)
+IndNASbastri(P1,P3,c1,c2,M)
 
-P3<-c(1.5,.4)
-NASbastri(P3,c1,c2,M)
-
-if (dimension(M)==3) {M<-bary2cart(M,Tr)} #need to run this when M is given in barycentric coordinates
-
-#plot of the NAS region
-P1<-as.numeric(runif.bastri(1,c1,c2)$g);
-#P1<-c(.13,.081) #P1<-c(.2,.1) #P1<-c(.4,.1) #P1<-c(.55,.1) #P1<-c(.6,.1) #P1<-c(.5,.3)
-#M<-as.numeric(runif.bastri(1,c1,c2)$g); P1<-as.numeric(runif.bastri(1,c1,c2)$g);
-CC<-circ.cent.bastri(c1,c2)
-
-if (isTRUE(all.equal(M,CC)) || identical(M,"CC"))
-{cent<-CC
-D1<-(B+C)/2; D2<-(A+C)/2; D3<-(A+B)/2;
-Ds<-rbind(D1,D2,D3)
-cent.name<-"CC"
-rv<-rv.bastriCC(P1,c1,c2)$rv
-} else
-{cent<-M
-cent.name<-"M"
-Ds<-cp2e.bastri(c1,c2,M)
-D1<-Ds[1,]; D2<-Ds[2,]; D3<-Ds[3,]
-rv<-rv.bastri.cent(P1,c1,c2,M)$rv
-}
-RV<-Tb[rv,]
-rad<-Dist(P1,RV)
-
-Int.Pts<-NASbastri(P1,c1,c2,M)
-
-Xlim<-range(Tb[,1],P1[1]+rad,P1[1]-rad)
-Ylim<-range(Tb[,2],P1[2]+rad,P1[2]-rad)
-xd<-Xlim[2]-Xlim[1]
-yd<-Ylim[2]-Ylim[1]
-
-plot(A,pch=".",asp=1,xlab="",ylab="",xlim=Xlim+xd*c(-.05,.05),ylim=Ylim+yd*c(-.05,.05))
-polygon(Tb)
-points(rbind(Tb,P1,rbind(Int.Pts$L,Int.Pts$R)))
-L<-rbind(cent,cent,cent); R<-Ds
-segments(L[,1], L[,2], R[,1], R[,2], lty=2)
-circles(P1[1],P1[2],rad,lty=2)
-L<-Int.Pts$L; R<-Int.Pts$R
-segments(L[,1], L[,2], R[,1], R[,2], lty=1,col=2)
-Arcs<-Int.Pts$A;
-if(!is.null(Arcs))
-{
-  K<-nrow(Arcs)/2
-  for (i in 1:K)
-  {A1<-Arcs[2*i-1,]; A2<-Arcs[2*i,];
-  angles<-angle.str2end(A1,P1,A2)$c
-
-  #test.ang1<-angles[1]+(.01)*(angles[2]-angles[1])
-  #test.Pnt<-P1+rad*c(cos(test.ang1),sin(test.ang1))
-  #if (!in.triangle(test.Pnt,Tb,boundary = T)$i) {angles<-c(min(angles),max(angles)-2*pi)}
-  draw.arc(P1[1],P1[2],rad,angle1=angles[1],angle2=angles[2],col=2)
-  }
-}
-
-#proximity region with the triangle (i.e., for labeling the vertices of the NAS)
-IP.txt<-intpts<-c()
-if (!is.null(Int.Pts$A))
-{
-  intpts<-unique(round(Int.Pts$A,7)) #this part is for labeling the intersection points of the spherical
-  for (i in 1:(length(intpts)/2))
-    IP.txt<-c(IP.txt,paste("I",i+1, sep = ""))
-}
-txt<-rbind(Tb,P1,cent,intpts)
-txt.str<-c("A","B","C","P1",cent.name,IP.txt)
-text(txt+cbind(rep(xd*.02,nrow(txt)),rep(-xd*.03,nrow(txt))),txt.str)
+P4<-c(1.5,.4)
+IndNASbastri(P1,P4,c1,c2,M)
+IndNASbastri(P4,P4,c1,c2,M)
 
 c1<-.4; c2<-.6;
 P1<-c(.3,.2)
-NASbastri(P1,c1,c2,M)
+P2<-c(.6,.2)
+IndNASbastri(P1,P2,c1,c2,M)
 
 }
 \references{

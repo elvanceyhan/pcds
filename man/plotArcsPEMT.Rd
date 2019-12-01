@@ -5,19 +5,30 @@
 \title{The plot of the arcs of Proportional Edge Proximity Catch Digraph (PE-PCD) for a
 2D data set - multiple triangle case}
 \usage{
-plotArcsPEMT(Xp, Yp, r, M = c(1, 1, 1), asp = NA, main = "",
-  xlab = "", ylab = "", xlim = NULL, ylim = NULL)
+plotArcsPEMT(
+  Xp,
+  Yp,
+  r,
+  M = c(1, 1, 1),
+  asp = NA,
+  main = "",
+  xlab = "",
+  ylab = "",
+  xlim = NULL,
+  ylim = NULL,
+  ...
+)
 }
 \arguments{
 \item{Xp}{A set of 2D points which constitute the vertices of the PE-PCD}
 
 \item{Yp}{A set of 2D points which constitute the vertices of the Delaunay triangles}
 
-\item{r}{A positive real number which serves as the expansion parameter in PE proximity region; must be >=1}
+\item{r}{A positive real number which serves as the expansion parameter in PE proximity region; must be \eqn{\ge 1}}
 
 \item{M}{A 3D point in barycentric coordinates which serves as a center in the interior of each Delaunay
-triangle or circumcenter of each Delaunay triangle (for this argument should be set as M="CC"),
-default for M is c(1,1,1) which is the center of mass of each triangle}
+triangle or circumcenter of each Delaunay triangle (for this argument should be set as \code{M}="CC"),
+default for \eqn{M=(1,1,1)} which is the center of mass of each triangle}
 
 \item{asp}{Numeric, giving the aspect ratio y/x (default is NA), see the official help for asp by typing "? asp"}
 
@@ -26,27 +37,30 @@ default for M is c(1,1,1) which is the center of mass of each triangle}
 \item{xlab, ylab}{Titles for the x and y axes, respectively (default="" for both)}
 
 \item{xlim, ylim}{Numeric vectors of length 2, giving the x- and y-coordinate ranges (default=NULL for both)}
+
+\item{...}{Additional plot parameters}
 }
 \value{
-A plot of the arcs of the PE-PCD whose vertices are the points in data set Xp and the Delaunay
-triangles based on Yp points
+A plot of the arcs of the PE-PCD whose vertices are the points in data set \code{Xp} and the Delaunay
+triangles based on \code{Yp} points
 }
 \description{
 Plots the arcs of Proportional Edge Proximity Catch Digraph (PE-PCD) whose vertices are the data
-points in Xp in the multiple triangle case and the Delauany triangles based on Yp points.
-PE proximity regions are defined with respect to the Delaunay triangles based on Yp points with
-expansion parameter r>=1 and vertex regions in each triangle are based on the center M=(alpha,beta,gamma)
+points in \code{Xp} in the multiple triangle case and the Delauany triangles based on \code{Yp} points.
+
+PE proximity regions are defined with respect to the Delaunay triangles based on \code{Yp} points with
+expansion parameter \eqn{r \ge 1} and vertex regions in each triangle are based on the center \eqn{M=(\alpha,\beta,\gamma)}
 in barycentric coordinates in the interior of each Delaunay triangle or based on circumcenter of
-each Delaunay triangle (default for M is c(1,1,1) which is the center of mass of the triangle).
-Each Delaunay triangle is first converted to an (unscaled) basic triangle so that M will be the same
-type of center for each Delaunay triangle (this conversion is not necessary when M is CM).
-Convex hull of Yp is partitioned by the Delaunay triangles based on Yp points
+each Delaunay triangle (default for \eqn{M=(1,1,1)} which is the center of mass of the triangle).
+Each Delaunay triangle is first converted to an (unscaled) basic triangle so that \code{M} will be the same
+type of center for each Delaunay triangle (this conversion is not necessary when \code{M} is CM).
+Convex hull of \code{Yp} is partitioned by the Delaunay triangles based on \code{Yp} points
 (i.e., multiple triangles are the set of these Delaunay triangles whose union constitutes the
-convex hull of Yp points). Loops are not allowed so arcs are only possible
-for points inside the convex hull of Yp points.
+convex hull of \code{Yp} points). Loops are not allowed so arcs are only possible
+for points inside the convex hull of \code{Yp} points.
 See (\insertCite{ceyhan:Phd-thesis,ceyhan:arc-density-PE,ceyhan:dom-num-NPE-Spat2011;textual}{pcds}) for more
 on the PE-PCDs.
-Also see (\insertCite{okabe:2000,ceyhan:comp-geo-2010,renka:1996;textual}{pcds}) for more on Delaunay triangulation and the tripack algorithm.
+Also see (\insertCite{okabe:2000,ceyhan:comp-geo-2010,renka:1996;textual}{pcds}) for more on Delaunay triangulation and the TRIPACK algorithm.
 }
 \examples{
 nx<-100
@@ -56,30 +70,21 @@ ny<-10
 Xp<-cbind(runif(nx,0,1),runif(nx,0,1))
 #Xp<-cbind(runif(nx,0.5,1.5),runif(nx,0,1))
 #Xp<-cbind(runif(nx,1,2),runif(nx,0,1))
+#Xp<-c(.5,.5); Xp<-matrix(Xp,ncol=2)
 Yp<-cbind(runif(ny,0,1),runif(ny,0,1))
 
-DT<-tri.mesh(Yp[,1],Yp[,2],duplicate="remove")
+M<-c(1,1,1) #M<-c(1,2,3) #M<-c(-1,2,3) #barycentric coordinates
+#M<-"CC"
+#M<-c(1.3,1.3)
+r<-1.5
+#r<-2
 
 Xlim<-range(Xp[,1],Yp[,1])
 Ylim<-range(Xp[,2],Yp[,2])
 xd<-Xlim[2]-Xlim[1]
 yd<-Ylim[2]-Ylim[1]
 
-Xch<-XinCHY(Xp,Yp)
-
-plot(Xp,main=" ", xlab=" ", ylab=" ",xlim=Xlim+xd*c(-.05,.05),ylim=Ylim+yd*c(-.05,.05),pch=".",cex=3)
-convex.hull(DT,plot.it = T, add = T) # or try polygon(Yp[ch$i,])
-points(Xch,pch=4,col="red")
-
-XinCHY(Xp,Yp)
-
-XinCHY(Xp,rbind(Yp,Yp))
-
-dat.fr<-data.frame(a=Xp)
-XinCHY(dat.fr,Yp)
-
-dat.fr<-data.frame(a=Yp)
-XinCHY(Xp,dat.fr)
+plotArcsPEMT(Xp,Yp,r,M,xlab="",ylab="",xlim=Xlim+xd*c(-.05,.05),ylim=Ylim+yd*c(-.05,.05))
 
 }
 \references{

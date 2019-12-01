@@ -8,83 +8,58 @@ Proximity Catch Digraphs (PE-PCDs) - middle interval case}
 IndNPEmid1D(x1, x2, r, c, int, rv = NULL)
 }
 \arguments{
-\item{x1, x2}{1D points; x1 is the point for which the proximity region, NPE(x1,r,c) is
-constructed and x2 is the point which the function is checking whether its inside NPE(x1,r,c) or not}
+\item{x1, x2}{1D points; \code{x1} is the point for which the proximity region, \eqn{NPE(x1,r,c)} is
+constructed and \code{x2} is the point which the function is checking whether its inside \eqn{NPE(x1,r,c)} or not}
 
-\item{r}{A positive real number which serves as the expansion parameter in PE proximity region; must be >=1}
+\item{r}{A positive real number which serves as the expansion parameter in PE proximity region; must be \eqn{\ge 1}}
 
-\item{c}{A positive real number in (0,1) parameterizing the center inside int=(a,b).
-For the interval, int=(a,b), the parameterized center is Mc=a+c*(b-a)}
+\item{c}{A positive real number in \eqn{(0,1)} parameterizing the center inside \eqn{int=(a,b)}.
+For the interval, \eqn{int=(a,b)}, the parameterized center is \eqn{M_c=a+c(b-a)}}
 
 \item{int}{A vector of two real numbers representing an interval}
 
-\item{rv}{The index of the vertex region x1 resides, with default=NULL.}
+\item{rv}{The index of the vertex region \code{x1} resides, with default=NULL.}
 }
 \value{
-I(x2 in NPE(x1,r,c)) for points x1 and x2 that is, returns 1 if x2 is in NPE(x1,r,c),
+I(\code{x2} in \eqn{NPE(x1,r,c)}) for points \code{x1} and \code{x2} that is, returns 1 if \code{x2} is in \eqn{NPE(x1,r,c)},
 returns 0 otherwise
 }
 \description{
-Returns I(x2 in NPE(x1,r,c)) for points x1 and x2, that is, returns 1 if x2 is in NPE(x1,r,c), returns 0
-otherwise, where NPE(x,r,c) is the PE proximity region for point x and is constructed with expansion
-parameter r>=1 and centrality parameter c in (0,1) for the interval (a,b).
-PE proximity regions are defined with respect to the middle interval int and vertex regions are based
-on the center associated with the centrality parameter c in (0,1). For the interval, int=(a,b), the
-parameterized center is Mc=a+c*(b-a). rv is the index of the vertex region x1 resides, with default=NULL.
-If x1 and x2 are distint and either of them are outside interval int, it returns 0,
-but if they are identical, then it returns 1 regardless of its location
+Returns I(\code{x2} in \eqn{NPE(x1,r,c)}) for points \code{x1} and \code{x2}, that is, returns 1 if \code{x2} is in \eqn{NPE(x1,r,c)}, returns 0
+otherwise, where \eqn{NPE(x,r,c)} is the PE proximity region for point \eqn{x} and is constructed with expansion
+parameter \eqn{r \ge 1} and centrality parameter \code{c} in \eqn{(0,1)} for the interval \eqn{(a,b)}.
+
+PE proximity regions are defined with respect to the middle interval \code{int} and vertex regions are based
+on the center associated with the centrality parameter \code{c} in \eqn{(0,1)}. For the interval, \eqn{int=(a,b)}, the
+parameterized center is \eqn{M_c=a+c(b-a)}. \code{rv} is the index of the vertex region \code{x1} resides, with default=NULL.
+If \code{x1} and \code{x2} are distint and either of them are outside interval \code{int}, it returns 0,
+but if they are identical, then it returns 1 regardless of their locations
 (i.e., loops are allowed in the digraph).
 See also (\insertCite{ceyhan:metrika-2012,ceyhan:revstat-2016;textual}{pcds}).
 }
 \examples{
 c<-.4
+r<-2
 a<-0; b<-10; int<-c(a,b)
-#c<-runif(1)
-#a<-runif(1); b<-runif(1); int<-range(a,b); a<-int[1]; b<-int[2]
-Mc<-centMc(int,c)
 
-rv.mid.int(6,c,int)
+IndNPEmid1D(7,5,r,c,int)
+IndNPEmid1D(17,17,r,c,int)
+IndNPEmid1D(1,3,r,c,int)
 
-rv.mid.int(3,c,int)
+IndNPEmid1D(3,5,r,c,int)
+IndNPEmid1D(3,3,r,c,int)
+IndNPEmid1D(4,5,r,c,int)
+IndNPEmid1D(a,5,r,c,int)
 
-rv.mid.int(13,c,int)
-
-rv.mid.int(4,c,int)
-rv.mid.int(0,c,int)
-rv.mid.int(-3,c,int)
-
-n<-20
-xr<-range(a,b,Mc)
-xf<-(xr[2]-xr[1])*.5
-#dat<-runif(n,a,b)
-dat<-runif(n,a-xf,b+xf)
-#dat<-runif(n,a+10,b+10)
-
-Rv<-vector()
-for (i in 1:n)
-  Rv<-c(Rv,rv.mid.int(dat[i],c,int)$rv)
-Rv
-
-jit<-.1
-yjit<-runif(n,-jit,jit)
-
-Xlim<-range(a,b,dat)
-xd<-Xlim[2]-Xlim[1]
-
-plot(cbind(Mc,0),main="vertex region indices for the points", xlab=" ", ylab=" ",
-     xlim=Xlim+xd*c(-.05,.05),ylim=3*range(yjit),pch=".",cex=3)
-abline(h=0)
-points(dat,yjit)
-abline(v=c(a,b,Mc),lty=2,col=c(1,1,2))
-text(dat,yjit,labels=factor(Rv))
-text(cbind(c(a,b,Mc),.02),c("rv=1","rv=2","Mc"))
-
-rv.mid.int(6,c,int)
+c<-.4
+r<-2
+a<-0; b<-10; int<-c(a,b)
+IndNPEmid1D(7,5,r,c,int)
 
 }
 \references{
 \insertAllCited{}
 }
 \seealso{
-\code{\link{IndNPEend1D}}, \code{\link{IndNCSmid1D}}, and \code{\link{ind.NCS.end.1D}}
+\code{\link{IndNPEend1D}}, \code{\link{IndNCSmid1D}}, and \code{\link{IndNCSend1D}}
 }

@@ -10,26 +10,28 @@ IndNPEstdtetra(pt1, pt2, r, rv = NULL)
 \arguments{
 \item{pt1}{A 3D point whose PE proximity region is constructed.}
 
-\item{pt2}{A 3D point. The function determines whether pt2 is inside the PE proximity region of
-pt1 or not.}
+\item{pt2}{A 3D point. The function determines whether \code{pt2} is inside the PE proximity region of
+\code{pt1} or not.}
 
-\item{r}{A positive real number which serves as the expansion parameter in PE proximity region; must be >= 1}
+\item{r}{A positive real number which serves as the expansion parameter in PE proximity region; must be \eqn{\ge 1}}
 
 \item{rv}{Index of the vertex region containing the point, either 1, 2, 3, 4 (defualt is NULL)}
 }
 \value{
-I(pt2 is in NPE(pt1,r)) for points pt1 and pt2, that is, returns 1 if pt2 is in NPE(pt1,r),
+I(\code{pt2} is in \eqn{NPE(pt1,r)}) for points \code{pt1} and \code{pt2}, that is, returns 1 if \code{pt2} is in \eqn{NPE(pt1,r)},
 returns 0 otherwise
 }
 \description{
-Returns I(pt2 is in NPE(pt1,r)) for points pt1 and pt2, that is, returns 1 if pt2 is in NPE(pt1,r),
-returns 0 otherwise, where NPE(x,r) is the PE proximity region for point x with expansion parameter r>=1.
+Returns I(\code{pt2} is in \eqn{NPE(pt1,r)}) for points \code{pt1} and \code{pt2}, that is, returns 1 if \code{pt2} is in \eqn{NPE(pt1,r)},
+returns 0 otherwise, where \eqn{NPE(x,r)} is the PE proximity region for point \eqn{x} with expansion parameter \eqn{r \ge 1}.
+
 PE proximity region is defined with respect to the standard regular tetrahedron
-th=T(v=1,v=2,v=3,v=4)=T((0,0,0),(1,0,0),(1/2,sqrt(3)/2,0),(1/2,sqrt(3)/6,sqrt(6)/3)) and vertex regions
+\eqn{T_h=T(v=1,v=2,v=3,v=4)}=\eqn{T((0,0,0),(1,0,0),(1/2,\sqrt{3}/2,0),(1/2,\sqrt{3}/6,\sqrt{6}/3))} and vertex regions
 are based on the circumcenter (which is equivalent to the center of mass for standard regular tetrahedron)
-of th. rv is the index of the vertex region pt1 resides, with default=NULL.
-If pt1 and pt2 are distint and either of them are outside th, it returns 0,
-but if they are identical, then it returns 1 regardless of its location (i.e., it allows loops).
+of \eqn{T_h}. \code{rv} is the index of the vertex region \code{pt1} resides, with default=NULL.
+
+If \code{pt1} and \code{pt2} are distint and either of them are outside \eqn{T_h}, it returns 0,
+but if they are identical, then it returns 1 regardless of their locations (i.e., it allows loops).
 See also (\insertCite{ceyhan:Phd-thesis,ceyhan:comp-geo-2010;textual}{pcds}).
 }
 \examples{
@@ -39,24 +41,26 @@ tetra<-rbind(A,B,C,D)
 n<-20
 dat<-runif.stdtetra(n)$g
 r<-1.5
-NPEstdtetra(dat[1,],r)
+IndNPEstdtetra(dat[1,],dat[1,],r)
 
-NPEstdtetra(dat[5,],r)
+IndNPEstdtetra(dat[1,],dat[5,],r)
 
-NPEstdtetra(c(.4,.4,.4),r)
-NPEstdtetra(c(.5,.5,.5),r)
-NPEstdtetra(c(.5,.5,5),r)
+IndNPEstdtetra(c(.4,.4,.4),c(.5,.5,.5),r)
 
 #or try
 RV<-rv.tetraCC(dat[1,],tetra)$rv
-NPEstdtetra(dat[1,],r,rv=RV)
+IndNPEstdtetra(dat[1,],dat[5,],r,rv=RV)
 
-NPEstdtetra(c(-1,-1,-1),r,rv=NULL)
+IndNPEstdtetra(dat[1,],c(-1,-1,-1),r,rv=NULL)
 
+IndNPEstdtetra(c(-1,-1,-1),dat[1,],r,rv=NULL)
+IndNPEstdtetra(c(-1,-1,-1),c(-1,-1,-1),r)
+
+IndNPEstdtetra(dat[1,],dat[5,],r)
 
 P1<-c(.1,.1,.1)
 P2<-c(.5,.5,.5)
-NPEstdtetra(P1,r)
+IndNPEstdtetra(P1,P2,r)
 
 }
 \references{

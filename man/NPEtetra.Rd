@@ -9,51 +9,62 @@ NPEtetra(pt, r, th, M = "CM", rv = NULL)
 \arguments{
 \item{pt}{A 3D point whose PE proximity region is to be computed}
 
-\item{r}{A positive real number which serves as the expansion parameter in PE proximity region; must be >= 1}
+\item{r}{A positive real number which serves as the expansion parameter in PE proximity region; must be \eqn{\ge 1}}
 
 \item{th}{Four 3D points, stacked row-wise, each row representing a vertex of the tetrahedron}
 
-\item{M}{The center to be used in the construction of the vertex regions in the tetrahedron, th.
+\item{M}{The center to be used in the construction of the vertex regions in the tetrahedron, \code{th}.
 Currently it only takes "CC" for circumcenter and "CM" for center of mass; default="CM"}
 
 \item{rv}{Index of the vertex region containing the point, either 1, 2, 3, 4 (default is NULL)}
 }
 \value{
 Vertices of the tetrahedron which constitutes the PE proximity region with expansion parameter
-r and circumcenter (or center of mass) for a point pt in the tetrahedron
+\code{r} and circumcenter (or center of mass) for a point \code{pt} in the tetrahedron
 }
 \description{
 Returns the vertices of the PE proximity region (which is itself a tetrahedron) for a point in the
-tetrahedron th. PE proximity region is defined with respect to the tetrahedron th
-with expansion parameter r>=1 and vertex regions based on the center M which is circumcenter ("CC") or
-center of mass ("CM") of th with default="CM".
-Vertex regions are labeled as 1,2,3,4 rowwise for the vertices of the tetrahedron th.
-rv is the index of the vertex region pt resides, with default=NULL.
-If pt is outside of th, it returns NULL for the proximity region.
+tetrahedron \code{th}.
+
+PE proximity region is defined with respect to the tetrahedron \code{th}
+with expansion parameter \eqn{r \ge 1} and vertex regions based on the center \code{M} which is circumcenter ("CC") or
+center of mass ("CM") of \code{th} with default="CM".
+
+Vertex regions are labeled as 1,2,3,4 rowwise for the vertices of the tetrahedron \code{th}.
+\code{rv} is the index of the vertex region \code{pt} resides, with default=NULL.
+
+If \code{pt} is outside of \code{th}, it returns NULL for the proximity region.
 See also (\insertCite{ceyhan:Phd-thesis,ceyhan:comp-geo-2010;textual}{pcds}).
 }
 \examples{
 A<-c(0,0,0); B<-c(1,0,0); C<-c(1/2,sqrt(3)/2,0); D<-c(1/2,sqrt(3)/6,sqrt(6)/3)
+#A<-runif(3); B<-runif(3); C<-runif(3); D<-runif(3)
+#A<-runif(3,1,100); B<-runif(3,1,100); C<-runif(3,1,100); D<-runif(3,1,100)
 tetra<-rbind(A,B,C,D)
+n<-20
+dat<-runif.tetra(n,tetra)$g
+
+M<-"CM"
+#M<-"CC"
 r<-1.5
 
-n<-20
-dat<-runif.stdtetra(n)$g
-#dat[,1]<-dat[,1]+1
+NPEtetra(dat[1,],r,tetra) #uses the default M="CM"
+NPEtetra(dat[1,],r,tetra,M)
 
-plot.regsPEstdtetra(dat[1,],r)
+NPEtetra(dat[5,],r,tetra,M)
 
-plot.regsPEstdtetra(dat[5,],r)
+NPEtetra(c(.4,.4,.4),r,tetra,M)
+NPEtetra(c(.5,.5,.5),r,tetra,M)
 
-plot.regsPEstdtetra(c(.4,.4,.4),r)
+#or try
+RV<-rv.tetraCM(dat[1,],tetra)$rv
+NPEtetra(dat[1,],r,tetra,M,rv=RV)
 
-plot.regsPEstdtetra(c(.5,.5,.5),r)
-
-plot.regsPEstdtetra(dat[1:3,],r)
+NPEtetra(c(-1,-1,-1),r,tetra,M,rv=NULL)
 
 P1<-c(.1,.1,.1)
-plot.regsPEstdtetra(c("a","b","c"),r)
-plot.regsPEstdtetra(rbind(P1,P1),r)
+P2<-c(.5,.5,.5)
+NPEtetra(P1,r,tetra,M)
 
 }
 \references{

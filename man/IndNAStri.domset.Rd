@@ -2,34 +2,36 @@
 % Please edit documentation in R/PCDFunctions.r
 \name{IndNAStri.domset}
 \alias{IndNAStri.domset}
-\title{The indicator for the set of points S being a dominating set or not for Arc Slice Proximity
+\title{The indicator for the set of points \code{S} being a dominating set or not for Arc Slice Proximity
 Catch Digraphs (AS-PCDs) - one triangle case}
 \usage{
 IndNAStri.domset(S, Dt, tri, M = "CC")
 }
 \arguments{
 \item{S}{A set of 2D points which is to be tested for being a dominating set for the
-AS-PCDs}
+AS-PCDs.}
 
-\item{Dt}{A set of 2D points which constitute the vertices of the AS-PCD}
+\item{Dt}{A set of 2D points which constitute the vertices of the AS-PCD.}
 
-\item{tri}{Three 2D points, stacked row-wise, each row representing a vertex of the triangle}
+\item{tri}{Three 2D points, stacked row-wise, each row representing a vertex of the triangle.}
 
-\item{M}{"CC" which stand for circumcenter of the triangle tri or a 2D point in Cartesian coordinates or
-a 3D point in barycentric coordinates which serves as a center in the interior of tri;
-default is M="CC" i.e. the circumcenter of tri}
+\item{M}{"CC" which stands for circumcenter of the triangle \code{tri} or a 2D point in Cartesian coordinates or
+a 3D point in barycentric coordinates which serves as a center in the interior of \code{tri};
+default is \code{M}="CC" i.e. the circumcenter of \code{tri}.}
 }
 \value{
-I(S a dominating set for AS-PCD), that is, returns 1 if S is a dominating set for AS-PCD whose
-vertices are the data points in Dt; returns 0 otherwise, where AS proximity region is constructed in
-the triangle tri
+I(\code{S} a dominating set of AS-PCD), that is, returns 1 if \code{S} is a dominating set of AS-PCD whose
+vertices are the data points in \code{Dt}; returns 0 otherwise, where AS proximity region is constructed in
+the triangle \code{tri}.
 }
 \description{
-Returns I(S a dominating set for AS-PCD), that is, returns 1 if S is a dominating set for AS-PCD,
-returns 0 otherwise. AS-PCD has vertex set Dt and AS proximity region is constructed with vertex
-regions based on the center M="CC" for circumcenter of tri;
-or M=(m1,m2) in Cartesian coordinates or M=(alpha,beta,gamma) in barycentric coordinates in the
-interior of the triangle tri; default is M="CC" i.e. circumcenter of tri
+Returns I(\code{S} a dominating set of AS-PCD), that is, returns 1 if \code{S} is a dominating set of AS-PCD,
+returns 0 otherwise.
+
+AS-PCD has vertex set \code{Dt} and AS proximity region is constructed with vertex
+regions based on the center \code{M}="CC" for circumcenter of \code{tri};
+or \eqn{M=(m_1,m_2)} in Cartesian coordinates or \eqn{M=(\alpha,\beta,\gamma)} in barycentric coordinates in the
+interior of the triangle \code{tri}; default is \code{M}="CC" i.e. circumcenter of \code{tri}
 whose vertices are also labeled as edges 1, 2, and 3, respectively.
 See also (\insertCite{ceyhan:Phd-thesis,ceyhan:comp-geo-2010,ceyhan:mcap2012;textual}{pcds}).
 }
@@ -44,8 +46,6 @@ n<-10
 dat<-runif.tri(n,Tr)$gen.points
 #dat<-cbind(runif(n),runif(n))
 #dat<-cbind(runif(n,1,2),runif(n,0,1))
-S<-rbind(dat[1,],dat[2,])
-#S<-c(1.5,1)
 
 M<-as.numeric(runif.tri(1,Tr)$g)
 #M<-c(1.6,1.2)
@@ -54,36 +54,34 @@ M<-as.numeric(runif.tri(1,Tr)$g)
 #M<-c(1.3,1.3)
 #M<-c(.3,.3)
 
-IndNAStriSet(S,dat[3,],Tr,M)
+S<-rbind(dat[1,],dat[2,])
+IndNAStri.domset(S,dat,Tr,M)
 
 S<-rbind(dat[1,],dat[2,],dat[3,],dat[5,])
-IndNAStriSet(S,dat[3,],Tr,M)
-
-IndNAStriSet(S,dat[6,],Tr,M)
+IndNAStri.domset(S,dat,Tr,M)
 
 S<-rbind(c(.1,.1),c(.3,.4),c(.5,.3))
-IndNAStriSet(S,dat[3,],Tr,M)
+IndNAStri.domset(S,dat,Tr,M)
 
-IndNAStriSet(c(.2,.5),dat[2,],Tr,M)
-IndNAStriSet(dat,c(.2,.5),Tr,M)
-IndNAStriSet(dat,dat[2,],Tr,M)
-IndNAStriSet(c(.2,.5),c(.2,.5),Tr,M)
-IndNAStriSet(dat[5,],dat[2,],Tr,M)
+IndNAStri.domset(c(.2,.5),dat,Tr,M)
+IndNAStri.domset(c(.2,.5),c(.2,.5),Tr,M)
+IndNAStri.domset(dat[5,],dat[2,],Tr,M)
 
 S<-rbind(dat[1,],dat[2,],dat[3,],dat[5,],c(.2,.5))
-IndNAStriSet(S,dat[3,],Tr,M)
+IndNAStri.domset(S,dat[3,],Tr,M)
+
+IndNAStri.domset(dat,dat,Tr,M)
 
 P<-c(.4,.2)
 S<-dat[c(1,3,4),]
-IndNAStriSet(dat,P,Tr,M)
-IndNAStriSet(S,P,Tr,M)
+IndNAStri.domset(dat,P,Tr,M)
+IndNAStri.domset(S,P,Tr,M)
+IndNAStri.domset(S,dat,Tr,M)
 
-IndNAStriSet(rbind(S,S),P,Tr,M)
-IndNAStriSet(cbind(S,S),P,Tr,M)
-IndNAStriSet(rbind(c("a","b"),S),P,Tr,M)
+IndNAStri.domset(rbind(S,S),dat,Tr,M)
 
-dat.fr<-data.frame(a=S)
-IndNAStriSet(dat.fr,P,Tr,M)
+dat.fr<-data.frame(a=dat)
+IndNAStri.domset(S,dat.fr,Tr,M)
 
 }
 \references{

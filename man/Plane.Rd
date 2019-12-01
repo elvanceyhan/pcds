@@ -2,9 +2,9 @@
 % Please edit documentation in R/PCDFunctions.r
 \name{Plane}
 \alias{Plane}
-\title{An object of class "Planes"
+\title{An object of class "Planes":
 
-The plane passing through three distinct 3D points a, b, and c}
+The plane passing through three distinct 3D points \code{a}, \code{b}, and \code{c}}
 \usage{
 Plane(a, b, c, x, y)
 }
@@ -15,68 +15,64 @@ Plane(a, b, c, x, y)
 }
 \value{
 A list with the elements
-\item{txt}{A description of the plane}
-\item{points}{The input points a, b, and c through which the plane is passing
+\item{desc}{A description of the plane}
+\item{points}{The input points \code{a}, \code{b}, and \code{c} through which the plane is passing
 (stacked row-wise, i.e., row 1 is point \code{a}, row 2 is point \code{b} and row 3 is point \code{c}).}
 \item{x,y}{The input vectors which constitutes the x- and y-coordinates of the point(s) of interest on the
 plane. \code{x} and \code{y} can be scalars or vectors of scalars.}
 \item{z}{The output vector which constitutes the z-coordinates of the point(s) of interest on the plane.
 If \code{x} and \code{y} are scalars, \code{z} will be a scalar and
 if \code{x} and \code{y} are vectors of scalars, then \code{z} needs to be matrix of scalars,
-containing the z-coordinate for each pair of x and y values.}
-\item{coeff}{Coefficients of the plane (in the z = Ax+By+C form).}
+containing the z-coordinate for each pair of \code{x} and \code{y} values.}
+\item{coeff}{Coefficients of the plane (in the \eqn{z = A x+B y+C} form).}
 \item{equation}{Equation of the plane in long form}
 \item{equation2}{Equation of the plane in short form, to be inserted on the plot}
 }
 \description{
-Returns the equation and z coordinates of the plane passing through three distinct 3D points a, b, and c
-with x- and y-coordinates are provided in vectors x and y, respectively.
+Returns the equation and z-coordinates of the plane passing through three distinct 3D points \code{a}, \code{b}, and \code{c}
+with x- and y-coordinates are provided in vectors \code{x} and \code{y}, respectively.
 }
 \examples{
-L1<-c(2,4,6); L2<-c(1,3,5); A<-c(1,10,3); B<-c(1,1,3); C<-c(3,9,12)
-#L1<-runif(3); L2<-runif(3); A<-runif(3); B<-runif(3); C<-runif(3)
-#L1<-runif(3,1,100); L2<-runif(3,1,100); A<-runif(3,1,100); B<-runif(3,1,100); C<-runif(3,1,100)
-Pint<-int.line.plane(L1,L2,A,B,C)
-Pint
-pts<-rbind(L1,L2,A,B,C,Pint)
-
-tr<-max(Dist(L1,L2),Dist(L1,Pint),Dist(L2,Pint))
-tf<-tr*1.1 #how far to go at the lower and upper ends in the x-coordinate
-tsq<-seq(-tf,tf,l=100)
-
-lnAB3D<-Line3D(L1,L2,tsq)
-xl<-lnAB3D$x
-yl<-lnAB3D$y
-zl<-lnAB3D$z
+A<-c(1,10,3); B<-c(1,1,3); C<-c(3,9,12)
+#A<-runif(3); B<-runif(3); C<-runif(3)
+#A<-runif(3,1,100); B<-runif(3,1,100); C<-runif(3,1,100)
+pts<-rbind(A,B,C)
+Plane(A,B,C,.1,.2)
 
 xr<-range(pts[,1]); yr<-range(pts[,2])
 xf<-(xr[2]-xr[1])*.1 #how far to go at the lower and upper ends in the x-coordinate
 yf<-(yr[2]-yr[1])*.1 #how far to go at the lower and upper ends in the y-coordinate
-xp<-seq(xr[1]-xf,xr[2]+xf,l=100)
-yp<-seq(yr[1]-yf,yr[2]+yf,l=100)
+x<-seq(xr[1]-xf,xr[2]+xf,l=100)
+y<-seq(yr[1]-yf,yr[2]+yf,l=100)
 
-plABC<-Plane(A,B,C,xp,yp)
+plABC<-Plane(A,B,C,x,y)
+plABC
+summary(plABC)
+plot(plABC)
+
+Plane(A,B,A+B,.1,.2)
+
 z.grid<-plABC$z
 
-res<-persp(xp,yp,z.grid, xlab="x",ylab="y",zlab="z",theta = -30, phi = 30, expand = 0.5, col = "lightblue",
+persp(x,y,z.grid, xlab="x",ylab="y",zlab="z",
+theta = -30, phi = 30, expand = 0.5, col = "lightblue",
       ltheta = 120, shade = 0.05, ticktype = "detailed")
-lines (trans3d(xl, yl, zl, pmat = res), col = 3)
 
-Xlim<-range(xl,pts[,1])
-Ylim<-range(yl,pts[,2])
-Zlim<-range(zl,pts[,3])
+zr<-max(z.grid)-min(z.grid)
+Pts<-rbind(A,B,C)+rbind(c(0,0,zr*.1),c(0,0,zr*.1),c(0,0,zr*.1))
+Mn.pts<-apply(Pts,2,mean)
 
-xd<-Xlim[2]-Xlim[1]
-yd<-Ylim[2]-Ylim[1]
-zd<-Zlim[2]-Zlim[1]
-
-library(plot3D)
-persp3D(z = z.grid, x = xp, y = yp, theta =225, phi = 30, ticktype = "detailed"
-        ,xlim=Xlim+xd*c(-.05,.05),ylim=Ylim+yd*c(-.05,.05),zlim=Zlim+zd*c(-.1,.1)) #plane spanned by points A, B, C
+#library(plot3D)
+plot3D::persp3D(z = z.grid, x = x, y = y, theta =225, phi = 30, ticktype = "detailed")
+#plane spanned by points A, B, C
 #add the defining points
-points3D(pts[,1],pts[,2],pts[,3], pch = ".", col = "black", bty = "f", cex = 5,add=TRUE)
-points3D(Pint[1],Pint[2],Pint[3], pch = "*", col = "red", bty = "f", cex = 5,add=TRUE)
-lines3D(xl, yl, zl, bty = "g", cex = 2, ticktype = "detailed",add=T)
+plot3D::points3D(Pts[,1],Pts[,2],Pts[,3], add=TRUE)
+plot3D::text3D(Pts[,1],Pts[,2],Pts[,3], c("A","B","C"),add=TRUE)
+plot3D::text3D(Mn.pts[1],Mn.pts[2],Mn.pts[3],plABC$equation,add=TRUE)
+plot3D::polygon3D(Pts[,1],Pts[,2],Pts[,3], add=TRUE)
+
+Plane(A,B,C,.1,.2)
+
 }
 \seealso{
 \code{\link{paraplane}}

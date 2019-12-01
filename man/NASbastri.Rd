@@ -9,38 +9,41 @@ NASbastri(pt, c1, c2, M = "CC", rv = NULL, dec = 4)
 \arguments{
 \item{pt}{A 2D point whose AS proximity region is to be computed}
 
-\item{c1, c2}{Positive real numbers representing the top vertex in basic triangle Tb=T((0,0),(1,0),(c1,c2)),
-c1 must be in [0,1/2], c2>0 and (1-c1)^2+c2^2 <=1}
+\item{c1, c2}{Positive real numbers representing the top vertex in basic triangle \eqn{T_b=T((0,0),(1,0),(c_1,c_2))},
+\code{c1} must be in \eqn{[0,1/2]}, \eqn{c_2>0} and \eqn{(1-c_1)^2+c_2^2 \le 1}}
 
-\item{M}{"CC" which stand for circumcenter of the triangle Tb or a 2D point in Cartesian coordinates or
-a 3D point in barycentric coordinates which serves as a center in the interior of the triangle Tb;
-default is M="CC" i.e. the circumcenter of Tb}
+\item{M}{"CC" which stands for circumcenter of the triangle \eqn{T_b} or a 2D point in Cartesian coordinates or
+a 3D point in barycentric coordinates which serves as a center in the interior of the triangle \eqn{T_b};
+default is \code{M}="CC" i.e. the circumcenter of \eqn{T_b}}
 
-\item{rv}{The index of the M-vertex region containing the point, either 1, 2, 3 or NULL (default is NULL)}
+\item{rv}{The index of the \code{M}-vertex region containing the point, either 1, 2, 3 or NULL (default is NULL)}
 
 \item{dec}{a positive integer the number of decimals (default is 4) to round the barycentric coordinates when checking whether
-the end points fall on the boundary of the triangle Tb or not}
+the end points fall on the boundary of the triangle \eqn{T_b} or not}
 }
 \value{
 A list with the elements
 \item{L,R}{The end points of the line segments on the boundary of the AS proximity region.
- Each row in L and R constitute a line segment on the boundary. }
+ Each row in \code{L} and \code{R} constitute a line segment on the boundary. }
 \item{Arc.Slices}{The end points of the arc-slices on the circular parts of the AS proximity region.
 Here points in row 1 and row 2 constitute the end points of one arc-slice, points on row 3 and row 4
 constitute the end points for the next arc-slice and so on}
 }
 \description{
 Returns the end points of the line segments and arc-slices that constitute the boundary of
-AS proximity region for a point in the basic triangle Tb=T((0,0),(1,0),(c1,c2))
-where c1 is in [0,1/2], c2>0 and (1-c1)^2+c2^2 <=1
-and vertex regions are based on the center M="CC" for circumcenter of Tb; or M=(m1,m2) in Cartesian
-coordinates or M=(alpha,beta,gamma) in barycentric coordinates in the interior of Tb;
-default is M="CC" the circumcenter of Tb.
-rv is the index of the vertex region pt resides, with default=NULL.
-If pt is outside Tb, it returns NULL for the proximity region.
-dec is the number of decimals (default is 4) to round the barycentric coordinates when checking whether
-the end points fall on the boundary of the triangle Tb or not (so as not to miss the intersection points
+AS proximity region for a point in the basic triangle \eqn{T_b=T((0,0),(1,0),(c_1,c_2))}
+where \code{c1} is in \eqn{[0,1/2]}, \eqn{c_2>0} and \eqn{(1-c_1)^2+c_2^2 \le 1}.
+
+Vertex regions are based on the center \code{M}="CC" for circumcenter of \eqn{T_b}; or \eqn{M=(m_1,m_2)} in Cartesian
+coordinates or \eqn{M=(\alpha,\beta,\gamma)} in barycentric coordinates in the interior of \eqn{T_b};
+default is \code{M}="CC" the circumcenter of \eqn{T_b}.
+\code{rv} is the index of the vertex region \code{pt} resides, with default=NULL.
+
+If \code{pt} is outside \eqn{T_b}, it returns NULL for the proximity region.
+\code{dec} is the number of decimals (default is 4) to round the barycentric coordinates when checking whether
+the end points fall on the boundary of the triangle \eqn{T_b} or not (so as not to miss the intersection points
 due to precision in the decimals).
+
 Any given triangle can be mapped to the basic triangle
 by a combination of rigid body motions (i.e., translation, rotation and reflection) and scaling,
 preserving uniformity of the points in the original triangle. Hence basic triangle is useful for simulation
@@ -48,52 +51,108 @@ studies under the uniformness hypothesis.
 See also (\insertCite{ceyhan:Phd-thesis,ceyhan:comp-geo-2010,ceyhan:mcap2012;textual}{pcds}).
 }
 \examples{
-P1<-c(.3,.2)*100
-P2<-c(.6,.3)*100
-cent<-c(1.1,1.1)*100
-rad<-2*100
+c1<-.4; c2<-.6 #c1<-.2; c2<-.2;
+A<-c(0,0); B<-c(1,0); C<-c(c1,c2);
+Tb<-rbind(A,B,C)
 
-int.circ.line(P1,P2,cent,rad)
-int.circ.line(P2,P1,cent,rad)
-int.circ.line(P1,P1+c(0,1),cent,rad)
-int.circ.line(P1+c(0,1),P1,cent,rad)
+M<-as.numeric(runif.bastri(1,c1,c2)$g)
+#M<-c(.6,.2)
+#M<-circ.cent.tri(Tb); #M<-"CC"; #M<-"CM"
+#M<-c(1,1,1) #M<-c(1,2,3) #M<-c(-1,2,3) #barycentric coordinates
+#M<-c(1.3,1.3)
+#M<-c(.3,.3)
 
-dp2l(cent,P1,P2)
-rad2<-dp2l(cent,P1,P2)$d
-int.circ.line(P1,P2,cent,rad2)
-int.circ.line(P1,P2,cent,rad=.8)
-int.circ.line(P1,P2,cent,rad=.78)
+P1<-as.numeric(runif.bastri(1,c1,c2)$g);
+#P1<-c(.3,.2)
+NASbastri(P1,c1,c2) #default with M="CC"
+NASbastri(P1,c1,c2,M)
+#or try
+Rv<-rv.bastriCC(P1,c1,c2)$rv
+NASbastri(P1,c1,c2,M,Rv)
 
-#plot of the line and the circle
-A<-c(.3,.2); B<-c(.6,.3); cent<-c(1,1); rad<-2 #dp2l(cent,A,B)$dis, .3
-#A<-runif(2); B<-runif(2); cent<-runif(2); rad<-runif(1)
-#A<-runif(2,1,100); B<-runif(2,1,100); cent<-runif(2,1,100); rad<-runif(2,1,100);
+NASbastri(c(3,5),c1,c2,M)
 
-IPs<-int.circ.line(A,B,cent,rad)
+P2<-c(.5,.4)
+NASbastri(P2,c1,c2,M)
 
-xr<-range(A[1],B[1],cent[1])
-xf<-(xr[2]-xr[1])*.1 #how far to go at the lower and upper ends in the x-coordinate
-x<-seq(xr[1]-rad-xf,xr[2]+rad+xf,l=100)
-lnAB<-Line(A,B,x)
-y<-lnAB$y
+P3<-c(1.5,.4)
+NASbastri(P3,c1,c2,M)
 
-Xlim<-range(x,cent[1])
-Ylim<-range(y,A[2],B[2],cent[2]-rad,cent[2]+rad)
+if (dimension(M)==3) {M<-bary2cart(M,Tr)}
+#need to run this when M is given in barycentric coordinates
+
+#plot of the NAS region
+P1<-as.numeric(runif.bastri(1,c1,c2)$g);
+#P1<-c(.13,.081) #P1<-c(.2,.1) #P1<-c(.4,.1) #P1<-c(.55,.1) #P1<-c(.6,.1) #P1<-c(.5,.3)
+#M<-as.numeric(runif.bastri(1,c1,c2)$g); P1<-as.numeric(runif.bastri(1,c1,c2)$g);
+CC<-circ.cent.bastri(c1,c2)
+
+if (isTRUE(all.equal(M,CC)) || identical(M,"CC"))
+{cent<-CC
+D1<-(B+C)/2; D2<-(A+C)/2; D3<-(A+B)/2;
+Ds<-rbind(D1,D2,D3)
+cent.name<-"CC"
+rv<-rv.bastriCC(P1,c1,c2)$rv
+} else
+{cent<-M
+cent.name<-"M"
+Ds<-cp2e.bastri(c1,c2,M)
+D1<-Ds[1,]; D2<-Ds[2,]; D3<-Ds[3,]
+rv<-rv.bastri.cent(P1,c1,c2,M)$rv
+}
+RV<-Tb[rv,]
+rad<-Dist(P1,RV)
+
+Int.Pts<-NASbastri(P1,c1,c2,M)
+
+Xlim<-range(Tb[,1],P1[1]+rad,P1[1]-rad)
+Ylim<-range(Tb[,2],P1[2]+rad,P1[2]-rad)
 xd<-Xlim[2]-Xlim[1]
 yd<-Ylim[2]-Ylim[1]
 
-plot(rbind(A,B,cent),pch=1,asp=1,xlab="x",ylab="y",xlim=Xlim+xd*c(-.05,.05),ylim=Ylim+yd*c(-.05,.05))
-lines(x,y,lty=1)
-circles(cent[1],cent[2],rad)
-IP.txt<-c()
-if (!is.null(IPs))
+plot(A,pch=".",asp=1,xlab="",ylab="",xlim=Xlim+xd*c(-.05,.05),ylim=Ylim+yd*c(-.05,.05))
+polygon(Tb)
+points(rbind(Tb,P1,rbind(Int.Pts$L,Int.Pts$R)))
+L<-rbind(cent,cent,cent); R<-Ds
+segments(L[,1], L[,2], R[,1], R[,2], lty=2)
+tripack::circles(P1[1],P1[2],rad,lty=2)
+L<-Int.Pts$L; R<-Int.Pts$R
+segments(L[,1], L[,2], R[,1], R[,2], lty=1,col=2)
+Arcs<-Int.Pts$A;
+if(!is.null(Arcs))
 {
-  for (i in 1:(length(IPs)/2))
-    IP.txt<-c(IP.txt,paste("I",i, sep = ""))
-}
-txt<-rbind(A,B,cent,IPs)
-text(txt+cbind(rep(xd*.03,nrow(txt)),rep(-yd*.03,nrow(txt))),c("A","B","M",IP.txt))
+  K<-nrow(Arcs)/2
+  for (i in 1:K)
+  {A1<-Arcs[2*i-1,]; A2<-Arcs[2*i,];
+  angles<-angle.str2end(A1,P1,A2)$c
 
+  #test.ang1<-angles[1]+(.01)*(angles[2]-angles[1])
+  #test.Pnt<-P1+rad*c(cos(test.ang1),sin(test.ang1))
+  #if (!in.triangle(test.Pnt,Tb,boundary = T)$i) {angles<-c(min(angles),max(angles)-2*pi)}
+  plotrix::draw.arc(P1[1],P1[2],rad,angle1=angles[1],angle2=angles[2],col=2)
+  }
+}
+
+#proximity region with the triangle (i.e., for labeling the vertices of the NAS)
+IP.txt<-intpts<-c()
+if (!is.null(Int.Pts$A))
+{
+  intpts<-unique(round(Int.Pts$A,7))
+  #this part is for labeling the intersection points of the spherical
+  for (i in 1:(length(intpts)/2))
+    IP.txt<-c(IP.txt,paste("I",i+1, sep = ""))
+}
+txt<-rbind(Tb,P1,cent,intpts)
+txt.str<-c("A","B","C","P1",cent.name,IP.txt)
+text(txt+cbind(rep(xd*.02,nrow(txt)),rep(-xd*.03,nrow(txt))),txt.str)
+
+c1<-.4; c2<-.6;
+P1<-c(.3,.2)
+NASbastri(P1,c1,c2,M)
+
+}
+\references{
+\insertAllCited{}
 }
 \seealso{
 \code{\link{NAStri}} and \code{\link{IndNASbastri}}

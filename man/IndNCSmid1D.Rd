@@ -8,56 +8,63 @@ Proximity Catch Digraphs (CS-PCDs) - middle interval case}
 IndNCSmid1D(x1, x2, t, c, int, rv = NULL)
 }
 \arguments{
-\item{x1, x2}{1D points; x1 is the point for which the proximity region, NCS(x1,t,c) is
-constructed and x2 is the point which the function is checking whether its inside NCS(x1,t,c) or not}
+\item{x1, x2}{1D points; \code{x1} is the point for which the proximity region, \eqn{NCS(x1,t,c)} is
+constructed and \code{x2} is the point which the function is checking whether its inside \eqn{NCS(x1,t,c)} or not}
 
 \item{t}{A positive real number which serves as the expansion parameter in CS proximity region}
 
-\item{c}{A positive real number in (0,1) parameterizing the center inside int}
+\item{c}{A positive real number in \eqn{(0,1)} parameterizing the center inside \code{int}}
 
 \item{int}{A vector of two real numbers representing an interval}
 
 \item{rv}{Index of the end interval containing the point, either 1, 2 or NULL (default is NULL)}
 }
 \value{
-I(x2 in NCS(x1,t,c)) for points x1 and x2 that is, returns 1 if x2 is in NCS(x1,t,c),
+I(\code{x2} in \eqn{NCS(x1,t,c)}) for points \code{x1} and \code{x2} that is, returns 1 if \code{x2} is in \eqn{NCS(x1,t,c)},
 returns 0 otherwise
 }
 \description{
-Returns I(x2 in NCS(x1,t,c)) for points x1 and x2, that is, returns 1 if x2 is in NCS(x1,t,c), returns 0
-otherwise, where NCS(x,t,c) is the CS proximity region for point x and is constructed with expansion
-parameter t>0 and centrality parameter c in (0,1) for the interval (a,b).
-CS proximity regions are defined with respect to the middle interval int and vertex regions are based
-on the center associated with the centrality parameter c in (0,1). For the interval, int=(a,b), the
-parameterized center is Mc=a+c*(b-a) . rv is the index of the vertex region x1 resides, with default=NULL.
-If x1 and x2 are distint and either of them are outside interval int, it returns 0,
-but if they are identical, then it returns 1 regardless of its location
+Returns I(\code{x2} in \eqn{NCS(x1,t,c)}) for points \code{x1} and \code{x2}, that is, returns 1 if \code{x2} is in \eqn{NCS(x1,t,c)}, returns 0
+otherwise, where \eqn{NCS(x,t,c)} is the CS proximity region for point \eqn{x} and is constructed with expansion
+parameter \eqn{t>0} and centrality parameter \code{c} in \eqn{(0,1)} for the interval \eqn{(a,b)}.
+
+CS proximity regions are defined with respect to the middle interval \code{int} and vertex regions are based
+on the center associated with the centrality parameter \code{c} in \eqn{(0,1)}. For the interval, \eqn{int=(a,b)}, the
+parameterized center is \eqn{M_c=a+c(b-a)} . \code{rv} is the index of the vertex region \code{x1} resides, with default=NULL.
+
+If \code{x1} and \code{x2} are distint and either of them are outside interval \code{int}, it returns 0,
+but if they are identical, then it returns 1 regardless of their locations
 (i.e., loops are allowed in the digraph).
 See also (\insertCite{ceyhan:revstat-2016;textual}{pcds}).
 }
 \examples{
-A<-c(0,0,0); B<-c(1,0,0); C<-c(1/2,sqrt(3)/2,0); D<-c(1/2,sqrt(3)/6,sqrt(6)/3)
-#A<-runif(3); B<-runif(3); C<-runif(3); D<-runif(3)
-#A<-runif(3,1,100); B<-runif(3,1,100); C<-runif(3,1,100); D<-runif(3,1,100)
-tetra<-rbind(A,B,C,D)
-n<-20
-dat<-runif.tetra(n,tetra)$g
+c<-.5
+t<-2
+a<-0; b<-10; int<-c(a,b)
 
-M<-"CM"
-#M<-"CC"
-r<-1.25
+IndNCSmid1D(7,5,t,c,int)
+IndNCSmid1D(7,7,t,c,int)
+IndNCSmid1D(7,5,t,c=.4,int)
 
-PEdom.tetra(dat,tetra,r,M)
+IndNCSmid1D(1,3,t,c,int)
 
-PEdom.tetra(rbind(dat,c(5,5,5)),tetra,r,M)
+IndNCSmid1D(9,11,t,c,int)
 
-P1<-c(.5,.5,.5)
-PEdom.tetra(P1,tetra,r,M)
+IndNCSmid1D(19,1,t,c,int)
+IndNCSmid1D(19,19,t,c,int)
+
+IndNCSmid1D(3,5,t,c,int)
+
+#or try
+Rv<-rv.mid.int(3,c,int)$rv
+IndNCSmid1D(3,5,t,c,int,rv=Rv)
+
+IndNCSmid1D(7,5,t,c,int)
 
 }
 \references{
 \insertAllCited{}
 }
 \seealso{
-\code{\link{ind.NCS.end.1D}}, \code{\link{IndNPEmid1D}}, and \code{\link{IndNPEend1D}}
+\code{\link{IndNCSend1D}}, \code{\link{IndNPEmid1D}}, and \code{\link{IndNPEend1D}}
 }

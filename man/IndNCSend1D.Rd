@@ -19,65 +19,37 @@ IndNCSend1D(x1, x2, t, int, rv = NULL)
 \item{rv}{Index of the end interval containing the point, either 1, 2 or NULL (default=NULL)}
 }
 \value{
-I(x2 in NCS(x1,t)) for points x1 and x2, that is, returns 1 if x2 is in NCS(x1,t)
-(i.e., if there is an arc from x1 to x2), returns 0 otherwise
+I(\code{x2} in \eqn{NCS(x1,t)}) for points \code{x1} and \code{x2}, that is, returns 1 if \code{x2} is in \eqn{NCS(x1,t)}
+(i.e., if there is an arc from \code{x1} to \code{x2}), returns 0 otherwise
 }
 \description{
-Returns I(x2 in NCS(x1,t)) for points x1 and x2, that is, returns 1 if x2 is in NCS(x1,t), returns 0
-otherwise, where NCS(x,t) is the CS proximity region for point x with expansion parameter t>0
-for the region outside the interval (a,b).
-rv is the index of the end vertex region x1 resides, with default=NULL,
-and rv=1 for left end interval and rv=2 for the right end interval.
-If x1 and x2 are distint and either of them are inside interval int, it returns 0,
-but if they are identical, then it returns 1 regardless of its location (i.e., it allows loops).
+Returns I(\code{x2} in \eqn{NCS(x1,t)}) for points \code{x1} and \code{x2}, that is, returns 1 if \code{x2} is in \eqn{NCS(x1,t)}, returns 0
+otherwise, where \eqn{NCS(x,t)} is the CS proximity region for point \eqn{x} with expansion parameter \eqn{t>0}
+for the region outside the interval \eqn{(a,b)}.
+\code{rv} is the index of the end vertex region \code{x1} resides, with default=NULL,
+and \eqn{rv=1} for left end interval and \eqn{rv=2} for the right end interval.
+If \code{x1} and \code{x2} are distint and either of them are inside interval \code{int}, it returns 0,
+but if they are identical, then it returns 1 regardless of their locations (i.e., it allows loops).
 See also (\insertCite{ceyhan:revstat-2016;textual}{pcds}).
 }
 \examples{
-t<-1.5
-c<-.4
-a<-0; b<-10
-#c<-runif(1)
-#a<-runif(1); b<-runif(1); int<-range(a,b); a<-int[1]; b<-int[2]
-nx<-40; ny<-10
+a<-0; b<-10; int<-c(a,b)
+t<-2
 
-#set.seed(1)
-Xp<-runif(nx,a,b)
-#Xp<-runif(nx,a+5,b+5)
-#Xp<-runif(nx,a+10,b+10)
-Yp<-runif(ny,a,b)
+IndNCSend1D(15,17,t,int)
+IndNCSend1D(15,15,t,int)
 
-ArcsCSmid1D(Xp,Yp,t,c)
-ArcsCSmid1D(Xp,Yp+10,t,c)
+IndNCSend1D(1.5,17,t,int)
+IndNCSend1D(1.5,1.5,t,int)
 
-Arcs<-ArcsCSmid1D(Xp,Yp,t,c)
-Arcs
-summary(Arcs)
-plot(Arcs)
+IndNCSend1D(-15,17,t,int)
 
-S<-Arcs$S
-E<-Arcs$E
+IndNCSend1D(-15,-17,t,int)
 
-jit<-.1
-yjit<-runif(nx,-jit,jit)
-
-Xlim<-range(Xp,Yp)
-xd<-Xlim[2]-Xlim[1]
-
-plot(cbind(a,0),main="arcs for CS-PCD points (jittered along y-axis)\\n in middle intervals ", xlab=" ", ylab=" ",
-     xlim=Xlim+xd*c(-.05,.05),ylim=3*c(-jit,jit),pch=".")
-abline(h=0,lty=1)
-points(Xp, yjit,pch=".",cex=3)
-abline(v=Yp,lty=2)
-arrows(S, yjit, E, yjit, length = .05, col= 4)
-
+a<-0; b<-10; int<-c(a,b)
 t<-.5
-c<-.4
-a<-0; b<-10;
-nx<-40; ny<-10
-Xp<-runif(nx,a,b)
-Yp<-runif(ny,a,b)
 
-ArcsCSmid1D(Xp,Yp,t,c)
+IndNCSend1D(15,17,t,int)
 
 }
 \references{

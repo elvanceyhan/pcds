@@ -9,84 +9,58 @@ NPEstdtetra(pt, r, rv = NULL)
 \arguments{
 \item{pt}{A 3D point whose PE proximity region is to be computed}
 
-\item{r}{A positive real number which serves as the expansion parameter in PE proximity region; must be >= 1}
+\item{r}{A positive real number which serves as the expansion parameter in PE proximity region; must be \eqn{\ge 1}}
 
 \item{rv}{Index of the vertex region containing the point, either 1, 2, 3, 4 or NULL (defaut is NULL)}
 }
 \value{
 Vertices of the tetrahedron which constitutes the PE proximity region with expansion parameter
-r and circumcenter (or center of mass) for a point pt in the standard regular tetrahedron
+\code{r} and circumcenter (or center of mass) for a point \code{pt} in the standard regular tetrahedron
 }
 \description{
 Returns the vertices of the PE proximity region (which is itself a tetrahedron) for a point in the
-standard regular tetrahedron th=T((0,0,0),(1,0,0),(1/2,sqrt(3)/2,0),(1/2,sqrt(3)/6,sqrt(6)/3))=
-(rv=1,rv=2,rv=3,rv=4). PE proximity region is defined with respect to the tetrahedron th
-with expansion parameter r>=1 and vertex regions based on the circumcenter of th (which is equivalent
+standard regular tetrahedron \eqn{T_h=T((0,0,0),(1,0,0),(1/2,\sqrt{3}/2,0),(1/2,\sqrt{3}/6,\sqrt{6}/3))=
+(rv=1,rv=2,rv=3,rv=4)}.
+
+PE proximity region is defined with respect to the tetrahedron \eqn{T_h}
+with expansion parameter \eqn{r \ge 1} and vertex regions based on the circumcenter of \eqn{T_h} (which is equivalent
 to the center of mass in the standard regular tetrahedron).
-Vertex regions are labeled as 1,2,3,4 rowwise for the vertices of the tetrahedron th.
-rv is the index of the vertex region pt resides, with default=NULL.
-If pt is outside of th, it returns NULL for the proximity region.
+
+Vertex regions are labeled as 1,2,3,4 rowwise for the vertices of the tetrahedron \eqn{T_h}.
+\code{rv} is the index of the vertex region \code{pt} resides, with default=NULL.
+
+If \code{pt} is outside of \eqn{T_h}, it returns NULL for the proximity region.
 See also (\insertCite{ceyhan:Phd-thesis,ceyhan:comp-geo-2010;textual}{pcds}).
 }
 \examples{
 A<-c(0,0,0); B<-c(1,0,0); C<-c(1/2,sqrt(3)/2,0); D<-c(1/2,sqrt(3)/6,sqrt(6)/3)
-#A<-runif(3); B<-runif(3); C<-runif(3); D<-runif(3)
-#A<-runif(3,1,100); B<-runif(3,1,100); C<-runif(3,1,100); D<-runif(3,1,100)
 tetra<-rbind(A,B,C,D)
-Cent<-"CC" #"CM"
 
 n<-20
-Dt<-runif.tetra(n,tetra)$g
-#Dt<-cbind(runif(n),runif(n),runif(n))
+dat<-runif.stdtetra(n)$g
+r<-1.5
+NPEstdtetra(dat[1,],r)
 
-Ext<-cl2fVRth(Dt,tetra,Cent)
-Ext
-summary(Ext)
-plot(Ext)
+NPEstdtetra(dat[5,],r)
 
-cl2fVRth(c(.5,.5,.5),tetra,Cent)
+NPEstdtetra(c(.4,.4,.4),r)
+NPEstdtetra(c(.5,.5,.5),r)
+NPEstdtetra(c(.5,.5,5),r)
 
-cl2fVRth(Dt,tetra,Cent)
-clf<-cl2fVRth(Dt,tetra,Cent)$Ext
-clf
+#or try
+RV<-rv.tetraCC(dat[1,],tetra)$rv
+NPEstdtetra(dat[1,],r,rv=RV)
 
-if (Cent=="CC") {M<-circ.cent.tetra(tetra)}
-if (Cent=="CM") {M<-apply(tetra,2,mean)}
+NPEstdtetra(c(-1,-1,-1),r,rv=NULL)
 
-Xlim<-range(tetra[,1],Dt[,1],M[1])
-Ylim<-range(tetra[,2],Dt[,2],M[2])
-Zlim<-range(tetra[,3],Dt[,3],M[3])
-xd<-Xlim[2]-Xlim[1]
-yd<-Ylim[2]-Ylim[1]
-zd<-Zlim[2]-Zlim[1]
 
-library(plot3D)
-scatter3D(Dt[,1],Dt[,2],Dt[,3], phi =0,theta=40, bty = "g", xlim=Xlim+xd*c(-.05,.05),ylim=Ylim+yd*c(-.05,.05), zlim=Zlim+zd*c(-.05,.05),
-          pch = 20, cex = 1, ticktype = "detailed")
-#add the vertices of the tetrahedron
-points3D(tetra[,1],tetra[,2],tetra[,3], add=TRUE)
-L<-rbind(A,A,A,B,B,C); R<-rbind(B,C,D,C,D,D)
-segments3D(L[,1], L[,2], L[,3], R[,1], R[,2],R[,3], add=TRUE,lwd=2)
-points3D(clf[,1],clf[,2],clf[,3], pch=4,col="red", add=TRUE)
+P1<-c(.1,.1,.1)
+P2<-c(.5,.5,.5)
+NPEstdtetra(P1,r)
 
-text3D(tetra[,1],tetra[,2],tetra[,3], labels=c("A","B","C","D"), add=TRUE)
-
-#Cnt<-apply(tetra,2,mean) #for center of mass
-D1<-(A+B)/2; D2<-(A+C)/2; D3<-(A+D)/2; D4<-(B+C)/2; D5<-(B+D)/2; D6<-(C+D)/2;
-L<-rbind(D1,D2,D3,D4,D5,D6); R<-rbind(M,M,M,M,M,M)
-segments3D(L[,1], L[,2], L[,3], R[,1], R[,2],R[,3], add=TRUE,lty=2)
-
-cl2fVRth(Dt,tetra,Cent)
-
-P<-c(.1,.1,.1)
-cl2fVRth(P,tetra,Cent)
-
-dat.fr<-data.frame(a=Dt)
-cl2fVRth(dat.fr,tetra,Cent)
-
-dat.fr<-data.frame(a=tetra)
-cl2fVRth(Dt,dat.fr,Cent)
-
+}
+\references{
+\insertAllCited{}
 }
 \seealso{
 \code{\link{NPEtetra}}, \code{\link{NPEtri}} and \code{\link{NPEint}}

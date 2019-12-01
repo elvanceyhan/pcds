@@ -8,25 +8,25 @@
 Pg2PE1D.asy(c)
 }
 \arguments{
-\item{c}{A positive real number in (0,1) parameterizing the center inside int=(a,b).
-For the interval, int=(a,b), the parameterized center is Mc=a+c*(b-a)}
+\item{c}{A positive real number in \eqn{(0,1)} parameterizing the center inside \eqn{int=(a,b)}.
+For the interval, \eqn{int=(a,b)}, the parameterized center is \eqn{M_c=a+c(b-a)}}
 }
 \value{
 The asymptotic P(domination number=2) for PE-PCD whose vertices are a uniform data set in a finite
-interval (a,b)
+interval \eqn{(a,b)}
 }
 \description{
 Returns the asymptotic P(domination number=2) for PE-PCD whose vertices are a uniform data set in a finite
-interval (a,b). The PE proximity region NPE(x,r,c) is defined with respect to (a,b) with centrality parameter c
-in (0,1) and expansion parameter r=1/max(c,1-c).
+interval \eqn{(a,b)}. The PE proximity region \eqn{NPE(x,r,c)} is defined with respect to (a,b) with centrality parameter \code{c}
+in \eqn{(0,1)} and expansion parameter \eqn{r=1/\max(c,1-c)}.
 }
 \examples{
-r<-2
 c<-.5
-n<-10
 
-Pg2PE1D(r,c,n)
+Pg2PE1D.asy(c)
 
+Pg2PE1D.asy(c=1/1.5)
+Pg2PE1D(r=1.5,c=1/1.5,n=10)
 Pg2PE1D(r=1.5,c=1/1.5,n=100)
 
 }

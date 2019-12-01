@@ -11,50 +11,39 @@ NCSint(x, t, c = 0.5, int)
 
 \item{t}{A positive real number which serves as the expansion parameter in CS proximity region}
 
-\item{c}{A positive real number in (0,1) parameterizing the center inside int=(a,b).
-For the interval, int=(a,b), the parameterized center is Mc=a+c*(b-a), and default=.5}
+\item{c}{A positive real number in \eqn{(0,1)} parameterizing the center inside \eqn{int=(a,b)}.
+For the interval, \eqn{int=(a,b)}, the parameterized center is \eqn{M_c=a+c(b-a)}, and default=.5}
 
 \item{int}{A vector of two real numbers representing an interval}
 }
 \value{
-The interval which constitutes the CS proximity region for the point x
+The interval which constitutes the CS proximity region for the point \code{x}
 }
 \description{
 Returns the end points of the interval which constitutess the CS proximity region for a point in the
-interval int=(a,b)=(rv=1,rv=2). CS proximity region is constructed with respect to the interval int
-with expansion parameter t>0 and centrality parameter c in (0,1).
-Vertex regions are based on the (parameterized) center, Mc,
-which is Mc=a+c*(b-a) for the interval, int=(a,b).
-The CS proximity region is constructed whether x is inside or outside the interval int.
+interval \eqn{int=(a,b)=(rv=1,rv=2)}.
+
+CS proximity region is constructed with respect to the interval \code{int}
+with expansion parameter \eqn{t>0} and centrality parameter \code{c} in \eqn{(0,1)}.
+
+Vertex regions are based on the (parameterized) center, \eqn{M_c},
+which is \eqn{M_c=a+c(b-a)} for the interval, \eqn{int=(a,b)}.
+The CS proximity region is constructed whether \code{x} is inside or outside the interval \code{int}.
 See also (\insertCite{ceyhan:revstat-2016;textual}{pcds}).
 }
 \examples{
-t<-1.5
 c<-.4
+t<-2
+a<-0; b<-10; int<-c(a,b)
 
-nx<-40; ny<-10
-xr<-range(a,b)
-xf<-(xr[2]-xr[1])*.1
-Xp<-runif(nx,a-xf,b+xf)
-#Xp<-runif(nx,a+5,b+5)
-#Xp<-runif(nx,a+10,b+10)
-Yp<-runif(ny,a,b)
+NCSint(7,t,c,int)
+NCSint(17,t,c,int)
+NCSint(1,t,c,int)
+NCSint(-1,t,c,int)
 
-Xlim=range(Xp,Yp)
-Ylim=c(-.2,.2)
-
-jit<-.1
-
-plotArcsCS1D(Xp,Yp,t,c,jit,xlab="",ylab="",xlim=Xlim,ylim=Ylim)
-
-set.seed(1)
-plotArcsCS1D(Xp,Yp,t=1.5,c=.3,jit,main="t=1.5, c=.3",xlab="",ylab="",centers=TRUE)
-set.seed(1)
-plotArcsCS1D(Xp,Yp,t=2,c=.3,jit,main="t=2, c=.3",xlab="",ylab="",centers=TRUE)
-set.seed(1)
-plotArcsCS1D(Xp,Yp,t=1.5,c=.5,jit,main="t=1.5, c=.5",xlab="",ylab="",centers=TRUE)
-set.seed(1)
-plotArcsCS1D(Xp,Yp,t=2,c=.5,jit,main="t=2, c=.5",xlab="",ylab="",centers=TRUE)
+NCSint(3,t,c,int)
+NCSint(4,t,c,int)
+NCSint(a,t,c,int)
 
 }
 \references{

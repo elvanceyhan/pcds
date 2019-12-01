@@ -13,29 +13,30 @@ NumArcsCSTe(dat, t, M = c(1, 1, 1))
 \item{t}{A positive real number which serves as the expansion parameter in CS proximity region}
 
 \item{M}{A 2D point in Cartesian coordinates or a 3D point in barycentric coordinates
-which serves as a center in the interior of the standard equilateral triangle Te; default is M=c(1,1,1) i.e.
-the center of mass of Te}
+which serves as a center in the interior of the standard equilateral triangle \eqn{T_e}; default is \eqn{M=(1,1,1)} i.e.
+the center of mass of \eqn{T_e}}
 }
 \value{
-Number of arcs for the CS-PCD with vertices being 2D data set, dat, in Te
-with expansion parameter, t>0, and center of mass CM. CS proximity regions are defined only
-for dat points inside Te, i.e. arcs are possible for such points only.
+Number of arcs for the CS-PCD with vertices being 2D data set, \code{dat}, in \eqn{T_e}
+with expansion parameter, \eqn{t>0}, and center of mass CM. CS proximity regions are defined only
+for \code{dat} points inside \eqn{T_e}, i.e. arcs are possible for such points only.
 }
 \description{
 Returns the number of arcs of Central Similarity Proximity Catch Digraphs (CS-PCDs) whose vertices are the
-given 2D numerical data set, dat. CS proximity region NCS(x,r) is defined with respect to the standard
-equilateral triangle Te=T(v=1,v=2,v=3)=T((0,0),(1,0),(1/2,sqrt(3)/2)) with expansion parameter t>0
-and edge regions are based on the center M=(m1,m2)
-in Cartesian coordinates or M=(alpha,beta,gamma) in barycentric coordinates in the interior of Te;
-default is M=c(1,1,1) i.e. the center of mass of Te.
+given 2D numerical data set, \code{dat}.
+
+CS proximity region NCS(x,r) is defined with respect to the standard
+equilateral triangle \eqn{T_e=T(v=1,v=2,v=3)=T((0,0),(1,0),(1/2,\sqrt{3}/2))} with expansion parameter \eqn{t>0}
+and edge regions are based on the center \eqn{M=(m_1,m_2)}
+in Cartesian coordinates or \eqn{M=(\alpha,\beta,\gamma)} in barycentric coordinates in the interior of \eqn{T_e};
+default is \eqn{M=(1,1,1)} i.e. the center of mass of \eqn{T_e}.
 For the number of arcs, loops are not allowed so
-arcs are only possible for points inside Te for this function.
+arcs are only possible for points inside \eqn{T_e} for this function.
 See also (\insertCite{ceyhan:Phd-thesis,ceyhan:arc-density-CS,ceyhan:test2014;textual}{pcds}).
 }
 \examples{
-A<-c(0,0); B<-c(1,0); C<-c(.5,sqrt(3.)/2);
-Te<-rbind(A,B,C);
-n<-10
+A<-c(0,0); B<-c(1,0); C<-c(1/2,sqrt(3)/2);
+n<-20
 
 #set.seed(1)
 dat<-runifTe(n)$gen.points
@@ -48,26 +49,19 @@ M<-as.numeric(runifTe(1)$g)
 #M<-c(1.3,1.3)
 #M<-c(.3,.3)
 
-NumArcsCSTe(dat,t=1.25)
+NumArcsCSTe(dat,t=.5,M)
+NumArcsCSTe(dat,t=3,M)
+NumArcsCSTe(dat,t=1.5,M)
 
-inc.mat<-IncMatCSTe(dat,t=1.25,M)
-inc.mat
-sum(inc.mat)-n
+NumArcsCSTe(rbind(dat,c(0,1)),t=2,M)
+NumArcsCSTe(c(.4,.2),t=.5,M)
 
-dom.greedy(inc.mat)
-dom.exact(inc.mat) #might take a long time for large n
-IndUBdom(inc.mat,1)
+NumArcsCSTe(dat,t=1.5,M);
 
-inc.mat<-IncMatCSTe(rbind(dat,c(0,1)),t=1.25,M)
-inc.mat
-sum(inc.mat)-(n+1)
-
-IncMatCSTe(dat,t=1.5,M);
-
-IncMatCSTe(rbind(dat,dat),t=1.5,M)
+NumArcsCSTe(rbind(dat,dat),t=1.5,M)
 
 dat.fr<-data.frame(a=dat)
-IncMatCSTe(dat.fr,t=1.5,M);
+NumArcsCSTe(dat.fr,t=1.5,M);
 
 }
 \references{

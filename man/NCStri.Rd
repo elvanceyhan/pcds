@@ -14,22 +14,25 @@ NCStri(pt, t, tri, M, re = NULL)
 \item{tri}{Three 2D points, stacked row-wise, each row representing a vertex of the triangle}
 
 \item{M}{A 2D point in Cartesian coordinates or a 3D point in barycentric coordinates
-which serves as a center in the interior of the triangle tri}
+which serves as a center in the interior of the triangle \code{tri}}
 
-\item{re}{Index of the M-edge region containing the point pt, either 1, 2, 3 or NULL (default is NULL)}
+\item{re}{Index of the \code{M}-edge region containing the point \code{pt}, either 1, 2, 3 or NULL (default is NULL)}
 }
 \value{
 Vertices of the triangular region which constitutes the CS proximity region with expansion parameter
-t>0 and center M for a point pt
+\eqn{t>0} and center \code{M} for a point \code{pt}
 }
 \description{
 Returns the vertices of the CS proximity region (which is itself a triangle) for a point in the
-triangle tri=T(A,B,C)=(rv=1,rv=2,rv=3). CS proximity region is defined with respect to the triangle tri
-with expansion parameter t>0 and edge regions based on center M=(m1,m2) in Cartesian coordinates or
-M=(alpha,beta,gamma) in barycentric coordinates in the interior of the triangle tri.
+triangle \eqn{tri=T(A,B,C)=(rv=1,rv=2,rv=3)}.
+
+CS proximity region is defined with respect to the triangle \code{tri}
+with expansion parameter \eqn{t>0} and edge regions based on center \eqn{M=(m_1,m_2)} in Cartesian coordinates or
+\eqn{M=(\alpha,\beta,\gamma)} in barycentric coordinates in the interior of the triangle \code{tri}.
+
 Edge regions are labeled as 1,2,3 rowwise for the corresponding vertices
-of the triangle tri. re is the index of the edge region pt resides, with default=NULL.
-If pt is outside of tri, it returns NULL for the proximity region.
+of the triangle \code{tri}. \code{re} is the index of the edge region \code{pt} resides, with default=NULL.
+If \code{pt} is outside of \code{tri}, it returns NULL for the proximity region.
 See also (\insertCite{ceyhan:Phd-thesis,ceyhan:comp-geo-2010,ceyhan:arc-density-CS;textual}{pcds}).
 }
 \examples{
@@ -37,23 +40,7 @@ A<-c(1,1); B<-c(2,0); C<-c(1.5,2);
 #A<-runif(2); B<-runif(2); C<-runif(2);
 #A<-runif(2,1,100); B<-runif(2,1,100); C<-runif(2,1,100);
 Tr<-rbind(A,B,C);
-
-M<-c(1.6,1.2)
-
-P<-c(.4,.2)
-redges.tri.cent(P,Tr,M)
-
-P<-c(1.8,.5)
-redges.tri.cent(P,Tr,M)
-
-P<-c(10.5,1.6)
-redges.tri.cent(P,Tr,M)
-
-n<-20
-#set.seed(1)
-dat<-runif.tri(n,Tr)$g
-#dat<-cbind(runif(n,1,2),runif(n,0,2))
-#dat<-cbind(runif(n),runif(n))
+t<-1.5
 
 M<-as.numeric(runif.tri(1,Tr)$g)
 #M<-c(1.6,1.2)
@@ -61,44 +48,28 @@ M<-as.numeric(runif.tri(1,Tr)$g)
 #M<-c(1.3,1.3)
 #M<-c(.3,.3)
 
-re<-redges.tri.cent(dat,Tr,M)
-re
+n<-10
+#set.seed(1)
+dat<-runif.tri(n,Tr)$g
 
-D1<-(B+C)/2; D2<-(A+C)/2; D3<-(A+B)/2;
-Ds<-rbind(D1,D2,D3)
+NCStri(dat[7,],t,Tr,M)
 
-Xlim<-range(Tr[,1],dat[,1])
-Ylim<-range(Tr[,2],dat[,2])
-xd<-Xlim[2]-Xlim[1]
-yd<-Ylim[2]-Ylim[1]
+P1<-as.numeric(runif.tri(1,Tr)$g)
+#P1<-c(.4,.2)
+NCStri(P1,t,Tr,M)
 
-if (dimension(M)==3) {M<-bary2cart(M,Tr)} #need to run this when M is given in barycentric coordinates
+P2<-c(1.8,.5)
+NCStri(P2,t,Tr,M)
 
-plot(Tr,pch=".",xlab="",ylab="",axes=TRUE,xlim=Xlim+xd*c(-.05,.05),ylim=Ylim+yd*c(-.05,.05))
-polygon(Tr)
-points(dat,pch=".",col=1)
-L<-Tr; R<-rbind(M,M,M)
-segments(L[,1], L[,2], R[,1], R[,2], lty=2)
+P3<-c(1.7,.6)
+NCStri(P3,t,Tr,M)
 
-xc<-Tr[,1]#+c(-.02,.03,.02)
-yc<-Tr[,2]#+c(.02,.02,.04)
-txt.str<-c("A","B","C")
-text(xc,yc,txt.str)
-
-txt<-rbind(M,Ds)
-xc<-txt[,1]#+c(.05,.06,-.05,-.02)
-yc<-txt[,2]#+c(.03,.03,.05,-.08)
-txt.str<-c("M","re=2","re=3","re=1")
-text(xc,yc,txt.str)
-text(dat,labels=factor(re$re))
-
-redges.tri.cent(dat,Tr,M)
-
-dat.fr<-data.frame(a=dat)
-redges.tri.cent(dat.fr,Tr,M)
+#or try
+re<-redges.tri.cent(P2,Tr,M)$re
+NCStri(P2,t,Tr,M,re)
 
 dat.fr<-data.frame(a=Tr)
-redges.tri.cent(dat,dat.fr,M)
+NCStri(P2,t,dat.fr,M)
 
 }
 \references{

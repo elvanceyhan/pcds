@@ -2,92 +2,108 @@
 % Please edit documentation in R/PCDFunctions.r
 \name{perp.ln2pl}
 \alias{perp.ln2pl}
-\title{An object of class "Lines3D"
+\title{An object of class "Lines3D":
 
-The line crossing the 3D point P and perpendicular to the plane spanned by 3D points A, B, and C}
+The line crossing the 3D point \code{P} and perpendicular to the plane spanned by 3D points \code{A}, \code{B}, and \code{C}}
 \usage{
 perp.ln2pl(P, A, B, C, t)
 }
 \arguments{
 \item{P}{A 3D point through which the straight line passes}
 
-\item{A, B, C}{3D points which determine the plane to which the line passing through point P would be
+\item{A, B, C}{3D points which determine the plane to which the line passing through point \code{P} would be
 perpendicular (i.e. the normal vector of this plane determines the direction of the straight line
-passing through P)}
+passing through \code{P})}
 
 \item{t}{A scalar or a vector of scalars representing the parameter of the coordinates of the line
-(for the form: x=x0 + a*t, y=y0 + b*t, and z=z0 + c*t  where P=(x0,y0,z0) and normal vector=(a,b,c))}
+(for the form: \eqn{x=x_0 + a t}, \eqn{y=y_0 + b t}, and \eqn{z=z_0 + c t}  where \eqn{P=(x_0,y_0,z_0)} and normal vector=(a,b,c))}
 }
 \value{
 A list with the elements
-\item{txt}{A description of the line}
-\item{mtxt}{The "main" title for the plot of the line}
-\item{points}{The input points that determine the line and plane, line crosses point P and plane is determined
-by 3D points A, B, and C.}
+\item{desc}{A description of the line}
+\item{mtitle}{The "main" title for the plot of the line}
+\item{points}{The input points that determine the line and plane, line crosses point \code{P} and plane is determined
+by 3D points \code{A}, \code{B}, and \code{C}.}
 \item{pnames}{The names of the input points that determine the line and plane; line would be perpendicular
 to the plane.}
-\item{vecs}{The point P and normal vector.}
-\item{vec.names}{The names of the point P and the second entry is "normal vector".}
+\item{vecs}{The point \code{P} and normal vector.}
+\item{vec.names}{The names of the point \code{P} and the second entry is "normal vector".}
 \item{x,y,z}{The x-, y- and z-coordinates of the point(s) of interest on the line perpendicular to the plane
-determined by points A, B and C.}
+determined by points \code{A}, \code{B}, and \code{C}.}
 \item{tsq}{The scalar or the vector of the parameter in defining each coordinate of the line for the form:
-x=x0 + a*t, y=y0 + b*t, and z=z0 + c*t where P=(x0,y0,z0) and normal vector=(a,b,c).}
-\item{equation}{Equation of the line passing through point P and perpendicular to the plane determined by
-points A, B and C (i.e., line is in the direction of the normal vector N of the plane). The line equation
-is in the form: x=x0 + a*t, y=y0 + b*t, and z=z0 + c*t where P=(x0,y0,z0) and normal vector=(a,b,c).}
+\eqn{x=x_0 + a t}, \eqn{y=y_0 + b t}, and \eqn{z=z_0 + c t} where \eqn{P=(x_0,y_0,z_0)} and normal vector=(a,b,c).}
+\item{equation}{Equation of the line passing through point \code{P} and perpendicular to the plane determined by
+points \code{A}, \code{B}, and \code{C} (i.e., line is in the direction of the normal vector N of the plane). The line equation
+is in the form: \eqn{x=x_0 + a t}, \eqn{y=y_0 + b t}, and \eqn{z=z_0 + c t} where \eqn{P=(x_0,y_0,z_0)} and normal vector=(a,b,c).}
 }
 \description{
-Returns the equation, x, y, and z coordinates of the line crossing 3D point P and perpendicular to the plane
-spanned by 3D points A, B and C (i.e., the line is in the direction of normal vector of this plane)
-with the parameter t being provided in vector t.
+Returns the equation, x-, y-, and z-coordinates of the line crossing 3D point \code{P} and perpendicular to the plane
+spanned by 3D points \code{A}, \code{B}, and \code{C} (i.e., the line is in the direction of normal vector of this plane)
+with the parameter \code{t} being provided in vector \code{t}.
 }
 \examples{
-P<-c(1,10,4); A<-c(1,1,3); B<-c(3,9,12)
-#<-runif(3); A<-runif(3); B<-runif(3)
-#P<-runif(3,1,100); A<-runif(3,1,100); B<-runif(3,1,100)
-vecs<-rbind(P,B-A)
-pts<-rbind(P,A,B)
-paraline3D(P,A,B,.1)
+P<-c(1,1,1); A<-c(1,10,4); B<-c(1,1,3); C<-c(3,9,12)
+#P<-runif(3); A<-runif(3); B<-runif(3); C<-runif(3)
+#P<-runif(3,1,100); A<-runif(3,1,100); B<-runif(3,1,100); C<-runif(3,1,100)
+cf<-as.numeric(Plane(A,B,C,1,1)$coeff)
+a<-cf[1]; b<-cf[2]; c<--1;
+vecs<-rbind(A,c(a,b,c))
+pts<-rbind(P,A,B,C)
+perp.ln2pl(P,A,B,C,.1)
 
 tr<-range(pts,vecs);
 tf<-(tr[2]-tr[1])*.1 #how far to go at the lower and upper ends in the x-coordinate
 tsq<-seq(-tf*10-tf,tf*10+tf,l=100)
 
-pln3D<-paraline3D(P,A,B,tsq)
-pln3D
-summary(pln3D)
-plot(pln3D)
+pln2pl<-perp.ln2pl(P,A,B,C,tsq)
+pln2pl
+summary(pln2pl)
+plot(pln2pl)
 
-paraline3D(P,A,B,c(.1,.2))
+perp.ln2pl(P,A,B,C,c(.1,.2))
 
-x<-pln3D$x
-y<-pln3D$y
-z<-pln3D$z
+xc<-pln2pl$x
+yc<-pln2pl$y
+zc<-pln2pl$z
 
-zr<-range(z)
+zr<-range(zc)
 zf<-(zr[2]-zr[1])*.2
-Av<-(B-A)*tf*5
+Bv<- -c(a,b,c)*zf*5
 
-Xlim<-range(x,pts[,1])
-Ylim<-range(y,pts[,2])
-Zlim<-range(z,pts[,3])
+Dr<-(A+B+C)/3
+
+pts2<-rbind(A,B,C)
+xr<-range(pts2[,1],xc); yr<-range(pts2[,2],yc)
+xf<-(xr[2]-xr[1])*.1 #how far to go at the lower and upper ends in the x-coordinate
+yf<-(yr[2]-yr[1])*.1 #how far to go at the lower and upper ends in the y-coordinate
+xs<-seq(xr[1]-xf,xr[2]+xf,l=100)
+ys<-seq(yr[1]-yf,yr[2]+yf,l=100)
+
+plABC<-Plane(A,B,C,xs,ys)
+z.grid<-plABC$z
+
+Xlim<-range(xc,xs,pts[,1])
+Ylim<-range(yc,ys,pts[,2])
+Zlim<-range(zc,z.grid,pts[,3])
 
 xd<-Xlim[2]-Xlim[1]
 yd<-Ylim[2]-Ylim[1]
 zd<-Zlim[2]-Zlim[1]
 
-Dr<-P+min(tsq)*(B-A)
+plot3D::persp3D(z = z.grid, x = xs, y = ys, asp=1,theta =225, phi = 30,
+col="lightblue", ticktype = "detailed",
+        xlim=Xlim+xd*c(-.05,.05),ylim=Ylim+yd*c(-.05,.05),zlim=Zlim+zd*c(-.05,.05))
+        #plane spanned by points A, B, C
+plot3D::lines3D(xc, yc, zc, bty = "g",pch = 20, cex = 2,col="red", ticktype = "detailed",add=TRUE)
+plot3D::arrows3D(Dr[1],Dr[2],Dr[3],Dr[1]+Bv[1],Dr[2]+Bv[2],Dr[3]+Bv[3], add=TRUE)
+plot3D::points3D(pts[,1],pts[,2],pts[,3],add=TRUE)
+plot3D::text3D(pts[,1],pts[,2],pts[,3],labels=c("P","A","B","C"),add=TRUE)
+plot3D::arrows3D(P[1],P[2],P[3]-zf,P[1],P[2],P[3],lty=2, add=TRUE)
+plot3D::text3D(P[1],P[2],P[3]-zf,labels="initial point",add=TRUE)
+plot3D::text3D(P[1],P[2],P[3]+zf/2,labels="P",add=TRUE)
+plot3D::arrows3D(Dr[1],Dr[2],Dr[3],Dr[1]+Bv[1]/2,Dr[2]+Bv[2]/2,Dr[3]+Bv[3]/2,lty=2, add=TRUE)
+plot3D::text3D(Dr[1]+Bv[1]/2,Dr[2]+Bv[2]/2,Dr[3]+Bv[3]/2,labels="normal vector",add=TRUE)
 
-lines3D(x, y, z, phi = 0, bty = "g",xlim=Xlim+xd*c(-.05,.05),ylim=Ylim+yd*c(-.05,.05),zlim=Zlim+zd*c(-.1,.1)+c(-zf,zf),
-        pch = 20, cex = 2, ticktype = "detailed")
-arrows3D(Dr[1],Dr[2],Dr[3]+zf,Dr[1]+Av[1],Dr[2]+Av[2],Dr[3]+zf+Av[3], add=T)
-points3D(pts[,1],pts[,2],pts[,3],add=T)
-text3D(pts[,1],pts[,2],pts[,3],labels=c("P","A","B"),add=T)
-arrows3D(P[1],P[2],P[3]-2*zf,P[1],P[2],P[3],lty=2, add=T)
-text3D(P[1],P[2],P[3]-2*zf,labels="initial point",add=T)
-arrows3D(Dr[1]+Av[1]/2,Dr[2]+Av[2]/2,Dr[3]+3*zf+Av[3]/2,Dr[1]+Av[1]/2,Dr[2]+Av[2]/2,Dr[3]+zf+Av[3]/2,lty=2, add=T)
-text3D(Dr[1]+Av[1]/2,Dr[2]+Av[2]/2,Dr[3]+3*zf+Av[3]/2,labels="direction vector",add=T)
-text3D(Dr[1]+Av[1]/2,Dr[2]+Av[2]/2,Dr[3]+zf+Av[3]/2,labels="B-A",add=T)f
 }
 \seealso{
 \code{\link{Line3D}}, \code{\link{paraline3D}} and \code{\link{perpline}}

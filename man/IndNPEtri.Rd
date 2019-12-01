@@ -10,33 +10,35 @@ IndNPEtri(pt1, pt2, r, tri, M = c(1, 1, 1), rv = NULL)
 \arguments{
 \item{pt1}{A 2D point whose PE proximity region is constructed.}
 
-\item{pt2}{A 2D point. The function determines whether pt2 is inside the PE proximity region of
-pt1 or not.}
+\item{pt2}{A 2D point. The function determines whether \code{pt2} is inside the PE proximity region of
+\code{pt1} or not.}
 
-\item{r}{A positive real number which serves as the expansion parameter in PE proximity region; must be >=1}
+\item{r}{A positive real number which serves as the expansion parameter in PE proximity region; must be \eqn{\ge 1}}
 
 \item{tri}{Three 2D points, stacked row-wise, each row representing a vertex of the triangle}
 
 \item{M}{A 2D point in Cartesian coordinates or a 3D point in barycentric coordinates
-which serves as a center in the interior of the triangle tri or the circumcenter of tri;
-default is M=c(1,1,1) i.e. the center of mass of tri}
+which serves as a center in the interior of the triangle \code{tri} or the circumcenter of \code{tri};
+default is \eqn{M=(1,1,1)} i.e. the center of mass of \code{tri}}
 
-\item{rv}{Index of the M-vertex region containing the point, either 1, 2, 3 or NULL (default is NULL)}
+\item{rv}{Index of the \code{M}-vertex region containing the point, either 1, 2, 3 or NULL (default is NULL)}
 }
 \value{
-I(pt2 is in NPE(pt1,r)) for points pt1 and pt2, that is, returns 1 if pt2 is in NPE(pt1,r),
+I(\code{pt2} is in \eqn{NPE(pt1,r)}) for points \code{pt1} and \code{pt2}, that is, returns 1 if \code{pt2} is in \eqn{NPE(pt1,r)},
 returns 0 otherwise
 }
 \description{
-Returns I(pt2 is in NPE(pt1,r)) for points pt1 and pt2, that is, returns 1 if pt2 is in NPE(pt1,r),
-returns 0 otherwise, where NPE(x,r) is the PE proximity region for point x with the expansion parameter r>=1.
-PE proximity region is constructed with respect to the triangle tri and
-vertex regions are based on the center, M=(m1,m2) in Cartesian coordinates or
-M=(alpha,beta,gamma) in barycentric coordinates in the interior of tri
-or based on the circumcenter of tri; default is M=c(1,1,1) i.e. the center of mass of tri.
-rv is the index of the vertex region pt1 resides, with default=NULL.
-If pt1 and pt2 are distint and either of them are outside tri, it returns 0,
-but if they are identical, then it returns 1 regardless of its location (i.e., it allows loops).
+Returns I(\code{pt2} is in \eqn{NPE(pt1,r)}) for points \code{pt1} and \code{pt2}, that is, returns 1 if \code{pt2} is in \eqn{NPE(pt1,r)},
+returns 0 otherwise, where \eqn{NPE(x,r)} is the PE proximity region for point \eqn{x} with the expansion parameter \eqn{r \ge 1}.
+
+PE proximity region is constructed with respect to the triangle \code{tri} and
+vertex regions are based on the center, \eqn{M=(m_1,m_2)} in Cartesian coordinates or
+\eqn{M=(\alpha,\beta,\gamma)} in barycentric coordinates in the interior of \code{tri}
+or based on the circumcenter of \code{tri}; default is \eqn{M=(1,1,1)} i.e. the center of mass of \code{tri}.
+\code{rv} is the index of the vertex region \code{pt1} resides, with default=NULL.
+
+If \code{pt1} and \code{pt2} are distint and either of them are outside \code{tri}, it returns 0,
+but if they are identical, then it returns 1 regardless of their locations (i.e., it allows loops).
 See also (\insertCite{ceyhan:Phd-thesis,ceyhan:arc-density-PE,ceyhan:dom-num-NPE-Spat2011;textual}{pcds}).
 }
 \examples{
@@ -46,8 +48,8 @@ A<-c(1,1); B<-c(2,0); C<-c(1.5,2);
 Tr<-rbind(A,B,C);
 
 M<-as.numeric(runif.tri(1,Tr)$g)
-#M<-c(1.6,1.0)
-#M<-circ.cent.tri(Tb)
+#M<-c(1.6,1.0);
+#M<-circ.cent.tri(Tr)
 #M<-c(1,1,1) #M<-c(1,2,3) #M<-c(-1,2,3) #barycentric coordinates
 #M<-c(1.3,1.3)
 #M<-c(.3,.3)
@@ -57,38 +59,47 @@ n<-10
 #set.seed(1)
 dat<-runif.tri(n,Tr)$g
 
-NPEtri(dat[7,],r,Tr,M)
+IndNPEtri(dat[1,],dat[2,],r,Tr,M)
 
 P1<-as.numeric(runif.tri(1,Tr)$g)
-#P1<-c(.4,.2)
-NPEtri(P1,r,Tr,M)
+P2<-as.numeric(runif.tri(1,Tr)$g)
+IndNPEtri(P1,P2,r,Tr,M)
 
+P1<-c(.4,.2)
 P2<-c(1.8,.5)
-NPEtri(P2,r,Tr,M)
+IndNPEtri(P1,P2,r,Tr,M)
+IndNPEtri(P2,P1,r,Tr,M)
+IndNPEtri(P1,P1,r,Tr,M)
+
+IndNPEtri(P2,P2,r,Tr,M)
 
 P3<-c(1.7,.6)
-NPEtri(P3,r,Tr,M)
+IndNPEtri(P2,P3,r,Tr,M)
+IndNPEtri(P3,P2,r,Tr,M)
 
 M<-c(1.3,1.3)
 r<-2
 
 P1<-c(1.4,1.2)
 P2<-c(1.5,1.26)
-NPEtri(P1,r,Tr,M)
-NPEtri(P2,r,Tr,M)
+IndNPEtri(P1,P2,r,Tr,M)
+IndNPEtri(P2,P1,r,Tr,M)
 
 #or try
 Rv<-rv.tri.cent(P1,Tr,M)$rv
-NPEtri(P1,r,Tr,M,Rv)
+IndNPEtri(P1,P2,r,Tr,M,Rv)
+
+P2<-c(1.8,.5)
+P3<-c(1.7,.6)
+IndNPEtri(P2,P3,r,Tr,M)
 
 dat.fr<-data.frame(a=Tr)
-NPEtri(P2,r,dat.fr,M)
+IndNPEtri(P2,P3,r,dat.fr,M)
 
 }
 \references{
 \insertAllCited{}
 }
 \seealso{
-\code{\link{IndNPEbastri}}, \code{\link{IndNPETe}}, \code{\link{IndNAStri}}, and
-\code{\link{IndNCStri}}
+\code{\link{IndNPEbastri}}, \code{\link{IndNPETe}}, \code{\link{IndNAStri}}, and \code{\link{IndNCStri}}
 }

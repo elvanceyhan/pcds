@@ -12,33 +12,36 @@ PEdomMTnd(Xp, Yp, r)
 
 \item{Yp}{A set of 2D points which constitute the vertices of the Delaunay triangles}
 
-\item{r}{A positive real number which serves as the expansion parameter in PE proximity region; must be >= 1}
+\item{r}{A positive real number which serves as the expansion parameter in PE proximity region; must be \eqn{\ge 1}}
 }
 \value{
 A list with two elements
-\item{dom.num}{Domination number of the PE-PCD whose vertices are Xp points. PE proximity regions are
-constructed with respect to the Delaunay triangles based on the Yp points with expansion parameter r>=1.}
-\item{mds}{A minimum dominating set of the PE-PCD whose vertices are Xp points}
+\item{dom.num}{Domination number of the PE-PCD whose vertices are \code{Xp} points. PE proximity regions are
+constructed with respect to the Delaunay triangles based on the \code{Yp} points with expansion parameter \eqn{r \ge 1}.}
+\item{mds}{A minimum dominating set of the PE-PCD whose vertices are \code{Xp} points}
 }
 \description{
 Returns the domination number and a minimum dominating set of PE-PCD whose vertices are the data
-points in Xp in the multiple triangle case and the Delauany triangles based on Yp points.
-PE proximity regions are defined with respect to the Delaunay triangles based on Yp points with
-expansion parameter r>=1 and vertex regions in each triangle are based on the center M=(alpha,beta,gamma)
-in barycentric coordinates in the inter#' The dominationior of each Delaunay triangle or based on
-circumcenter of each Delaunay triangle (default for M is c(1,1,1) which is the center M
-where M is one of the 3 centers that renders the asymptotic distribution of domination number
-to be non-degenerate for a given value of r in (1,1.5) and M is center of mass for r=1.5.
-Convex hull of Yp is partitioned by the Delaunay triangles based on Yp points
+points in \code{Xp} in the multiple triangle case and the Delauany triangles based on \code{Yp} points.
+
+PE proximity regions are defined with respect to the Delaunay triangles based on \code{Yp} points with
+expansion parameter \eqn{r \ge 1} and vertex regions in each triangle are based on the center \eqn{M=(\alpha,\beta,\gamma)}
+in barycentric coordinates in the interior of each Delaunay triangle or based on
+circumcenter of each Delaunay triangle (default for \eqn{M=(1,1,1)} which is the center M
+where \code{M} is one of the 3 centers that renders the asymptotic distribution of domination number
+to be non-degenerate for a given value of \code{r} in \eqn{(1,1.5)} and \code{M} is center of mass for \eqn{r=1.5}.
+Convex hull of \code{Yp} is partitioned by the Delaunay triangles based on \code{Yp} points
 (i.e., multiple triangles are the set of these Delaunay triangles whose union constitutes the
-convex hull of Yp points). Loops are allowed for the domination number.
+convex hull of \code{Yp} points). Loops are allowed for the domination number.
 See (\insertCite{ceyhan:Phd-thesis,ceyhan:masa-2007,ceyhan:dom-num-NPE-Spat2011,ceyhan:mcap2012;textual}{pcds}) more on the domination number of
 PE-PCDs. Also see (\insertCite{okabe:2000,ceyhan:comp-geo-2010,renka:1996;textual}{pcds}) for more on Delaunay triangulation and
-the tripack algorithm.
+the TRIPACK algorithm.
 }
 \examples{
 nx<-100
 ny<-10
+r<-1.5
+#r<-2
 
 #set.seed(1)
 #Xp<-c(.5,.5)
@@ -47,36 +50,26 @@ Xp<-cbind(runif(nx,0,1),runif(nx,0,1))
 #Xp<-cbind(runif(nx,1,2),runif(nx,0,1))
 Yp<-cbind(runif(ny,0,1),runif(ny,0,1))
 
-M<-c(1,1,1) #M<-c(1,2,3) #M<-c(-1,2,3) #barycentric coordinates
-#M<-"CC"
-#M<-c(1.3,1.3)
-r<-1.5
-#r<-2
+PEdomMTnd(Xp,Yp,r)
 
-PEdomMT(Xp,Yp,r,M)
-
-PEdomMT(Xp,Yp,r=1.4,M)
-PEdomMT(Xp,Yp,r=2,M)
+PEdomMTnd(Xp,Yp,r=1.4)
 
 r<-1.5
 #r<-2
-PEdomMT(Xp,Yp,r,M) #this may be different due to random selection of the center for r in (1,1.5)
+PEdomMTnd(Xp,Yp,r) #this may be different due to random selection of the center for r in (1,1.5)
 
-PEdomMT(Xp,Yp,r,M)
-
-PEdomMT(Xp,rbind(Yp,Yp),r,M)
+PEdomMTnd(Xp,rbind(Yp,Yp),r)
 
 dat.fr<-data.frame(a=Xp)
-PEdomMT(dat.fr,Yp,r,M)
+PEdomMTnd(dat.fr,Yp,r)
 
 dat.fr<-data.frame(a=Yp)
-PEdomMT(Xp,dat.fr,r,M)
+PEdomMTnd(Xp,dat.fr,r)
 
 }
 \references{
 \insertAllCited{}
 }
 \seealso{
-\code{\link{PEdomtri}}, \code{\link{PEdom.tetra}}, \code{\link{dom.exact}},
-and \code{\link{dom.greedy}}
+\code{\link{PEdomtri}}, \code{\link{PEdom.tetra}}, \code{\link{dom.exact}}, and \code{\link{dom.greedy}}
 }

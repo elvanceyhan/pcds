@@ -2,78 +2,93 @@
 % Please edit documentation in R/PCDFunctions.r
 \name{paraplane}
 \alias{paraplane}
-\title{An object of class "Planes"
+\title{An object of class "Planes":
 
-The plane paralel to the plane spanned by three distinct 3D points a, b, and c}
+The plane paralel to the plane spanned by three distinct 3D points \code{a}, \code{b}, and \code{c}}
 \usage{
 paraplane(p, a, b, c, x, y)
 }
 \arguments{
 \item{p}{A 3D point which the plane parallel to the plane spanned by
-three distinct 3D points a, b, and c crosses}
+three distinct 3D points \code{a}, \code{b}, and \code{c} crosses}
 
-\item{a, b, c}{3D points that determine the plane to which the plane crossing point p is parallel}
+\item{a, b, c}{3D points that determine the plane to which the plane crossing point \code{p} is parallel}
 
-\item{x}{A scalar or a vector of scalars representing the x- and y-coordinates of the plane parallel to
-the plane spanned by points a, b, and c and passing through point p}
+\item{x, y}{A scalar or a vector of scalars representing the x- and y-coordinates of the plane parallel to
+the plane spanned by points \code{a}, \code{b}, and \code{c} and passing through point \code{p}}
 }
 \value{
 A list with the elements
-\item{txt}{Description of the plane passing through point p and parallel to plane spanned by points
+\item{desc}{Description of the plane passing through point \code{p} and parallel to plane spanned by points
 \code{a}, \code{b} and \code{c}}
-\item{points}{The input points a, b, c, and p. Plane is parallel to the plane spanned by a, b, and c
-and passes through point p (stacked row-wise, i.e., row 1 is point \code{a}, row 2 is point \code{b},
+\item{points}{The input points \code{a}, \code{b}, \code{c}, and \code{p}. Plane is parallel to the plane spanned by \code{a}, \code{b}, and \code{c}
+and passes through point \code{p} (stacked row-wise, i.e., row 1 is point \code{a}, row 2 is point \code{b},
  row 3 is point \code{c}, and row 4 is point \code{p}).}
 \item{x,y}{The input vectors which constitutes the x- and y-coordinates of the point(s) of interest on the
 plane. \code{x} and \code{y} can be scalars or vectors of scalars.}
 \item{z}{The output vector which constitutes the z-coordinates of the point(s) of interest on the plane.
 If \code{x} and \code{y} are scalars, \code{z} will be a scalar and
 if \code{x} and \code{y} are vectors of scalars, then \code{z} needs to be matrix of scalars,
-containing the z-coordinate for each pair of x and y values.}
-\item{coeff}{Coefficients of the Plane (in the z=Ax+By+C form).}
+containing the z-coordinate for each pair of \code{x} and \code{y} values.}
+\item{coeff}{Coefficients of the Plane (in the \eqn{z = A x+B y+C} form).}
 \item{equation}{Equation of the plane in long form}
 \item{equation2}{Equation of the plane in short form, to be inserted on the plot}
 }
 \description{
-Returns the equation and z coordinates of the plane passing through point p and parallel to the plane spanned
-by three distinct 3D points a, b, and c with x- and y-coordinates are provided in vectors x and y,
+Returns the equation and z-coordinates of the plane passing through point \code{p} and parallel to the plane spanned
+by three distinct 3D points \code{a}, \code{b}, and \code{c} with x- and y-coordinates are provided in vectors \code{x} and \code{y},
 respectively.
 }
 \examples{
-#T((0,0,0),(1,0,0),(1/2,sqrt(3)/2,0),(1/2,sqrt(3)/6,sqrt(6)/3))
-A<-c(0,0,0); B<-c(1,0,0); C<-c(1/2,sqrt(3)/2,0); D<-c(1/2,sqrt(3)/6,sqrt(6)/3)
-tetra<-rbind(A,B,C,D)
-n<-100
+A<-c(1,10,3); B<-c(1,1,3); C<-c(3,9,12); P<-c(1,1,0)
+#A<-runif(3); B<-runif(3); C<-runif(3); P<-runif(3)
+#A<-runif(3,1,100); B<-runif(3,1,100); C<-runif(3,1,100); P<-runif(3,1,100)
 
-#set.seed(1)
-Xdt<-runif.stdtetra(n)
-Xdt
-summary(Xdt)
-plot(Xdt)
+Plane(A,B,C,.1,.2)
 
-Dt<-runif.stdtetra(n)$g
-# library(scatterplot3d)
-# s3d<-scatterplot3d(Dt, highlight.3d=TRUE,xlab="x",ylab="y",zlab="z",
-#               col.axis="blue", col.grid="lightblue",
-#               main="3D Scatterplot of the Data", pch=20)
-# s3d$points3d(tetra,pch=20,col="blue")
+pts<-rbind(A,B,C,P)
+paraplane(P,A,B,C,.1,.2)
+paraplane(P,A,B,C,0,0)
 
-Xlim<-range(tetra[,1])
-Ylim<-range(tetra[,2])
-Zlim<-range(tetra[,3])
-xd<-Xlim[2]-Xlim[1]
-yd<-Ylim[2]-Ylim[1]
-zd<-Zlim[2]-Zlim[1]
+xr<-range(pts[,1]); yr<-range(pts[,2])
+xf<-(xr[2]-xr[1])*.25 #how far to go at the lower and upper ends in the x-coordinate
+yf<-(yr[2]-yr[1])*.25 #how far to go at the lower and upper ends in the y-coordinate
+x<-seq(xr[1]-xf,xr[2]+xf,l=100)
+y<-seq(yr[1]-yf,yr[2]+yf,l=100)
 
-library(plot3D)
-scatter3D(Dt[,1],Dt[,2],Dt[,3], phi =20,theta=15, bty = "g", pch = 20, cex = 1, ticktype = "detailed",
-          xlim=Xlim+xd*c(-.05,.05),ylim=Ylim+yd*c(-.05,.05), zlim=Zlim+zd*c(-.05,.05))
-#add the vertices of the tetrahedron
-points3D(tetra[,1],tetra[,2],tetra[,3], add=TRUE)
-L<-rbind(A,A,A,B,B,C); R<-rbind(B,C,D,C,D,D)
-segments3D(L[,1], L[,2], L[,3], R[,1], R[,2],R[,3], add=TRUE,lwd=2)
+plP2ABC<-paraplane(P,A,B,C,x,y)
+plP2ABC
+summary(plP2ABC)
+plot(plP2ABC)
 
-text3D(tetra[,1]+c(.05,0,0,0),tetra[,2],tetra[,3], labels=c("A","B","C","D"), add=TRUE)
+paraplane(P,A,B,A+B,.1,.2)
+
+z.grid<-plP2ABC$z
+
+plABC<-Plane(A,B,C,x,y)
+plABC
+pl.grid<-plABC$z
+
+zr<-max(z.grid)-min(z.grid)
+Pts<-rbind(A,B,C,P)+rbind(c(0,0,zr*.1),c(0,0,zr*.1),c(0,0,zr*.1),c(0,0,zr*.1))
+Mn.pts<-apply(Pts[1:3,],2,mean)
+
+#library(plot3D)
+plot3D::persp3D(z = pl.grid, x = x, y = y, theta =225, phi = 30, ticktype = "detailed")
+#plane spanned by points A, B, C
+plot3D::persp3D(z = z.grid, x = x, y = y,add=TRUE)
+#plane parallel to the original plane and passing thru point \code{P}
+
+plot3D::persp3D(z = z.grid, x = x, y = y, theta =225, phi = 30, ticktype = "detailed")
+#plane spanned by points A, B, C
+#add the defining points
+plot3D::points3D(Pts[,1],Pts[,2],Pts[,3], add=TRUE)
+plot3D::text3D(Pts[,1],Pts[,2],Pts[,3], c("A","B","C","P"),add=TRUE)
+plot3D::text3D(Mn.pts[1],Mn.pts[2],Mn.pts[3],plP2ABC$equation,add=TRUE)
+plot3D::polygon3D(Pts[1:3,1],Pts[1:3,2],Pts[1:3,3], add=TRUE)
+
+P<-c(1,1,1)
+paraplane(P,A,B,C,.1,.2)
 
 }
 \seealso{

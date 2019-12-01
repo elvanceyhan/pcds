@@ -7,58 +7,48 @@
 PEdom1D(Xp, Yp, r, c = 0.5)
 }
 \arguments{
-\item{Xp}{A set of 1D points which constitute the vertices of the PE-PCD}
+\item{Xp}{A set of 1D points which constitute the vertices of the PE-PCD.}
 
 \item{Yp}{A set of 1D points which constitute the end points of the intervals which
-partition the real line}
+partition the real line.}
 
-\item{r}{A positive real number which serves as the expansion parameter in PE proximity region; must be >=1}
+\item{r}{A positive real number which serves as the expansion parameter in PE proximity region; must be \eqn{\ge 1}.}
 
-\item{c}{A positive real number in (0,1) parameterizing the center inside int (default c=.5)}
+\item{c}{A positive real number in \eqn{(0,1)} parameterizing the center inside \code{int} (default c=.5).}
 }
 \value{
 A list with two elements
-\item{dom.num}{Domination number of PE-PCD with vertex set=Xp and expansion parameter r>=1 and
-centrality parameter c in (0,1) }
-\item{mds}{A minimum dominating set for PE-PCD with vertex set=Xp and expansion parameter r>=1 and
-centrality parameter c in (0,1) }
+\item{dom.num}{Domination number of PE-PCD with vertex set=\code{Xp} and expansion parameter \eqn{r \ge 1} and
+centrality parameter \code{c} in \eqn{(0,1)} }
+\item{mds}{A minimum dominating set of PE-PCD with vertex set=\code{Xp} and expansion parameter \eqn{r \ge 1} and
+centrality parameter \code{c} in \eqn{(0,1)} }
 }
 \description{
-Returns the domination number of PE-PCD whose vertices are the 1D data set Xp.
-Yp determines the end points of the intervals (i.e., partition the real line via intervalization).
-PE proximity region is constructed with expansion parameter r>=1 and centrality parameter c in (0,1).
+Returns the domination number of PE-PCD whose vertices are the 1D data set \code{Xp}.
+\code{Yp} determines the end points of the intervals (i.e., partition the real line via intervalization).
+
+PE proximity region is constructed with expansion parameter \eqn{r \ge 1} and centrality parameter \code{c} in \eqn{(0,1)}.
 }
 \examples{
 a<-0; b<-10; int<-c(a,b)
+c<-.4
+r<-2
+#c<-runif(1); r<-rexp(1)+1
 #a<-runif(1); b<-runif(1); int<-range(a,b); a<-int[1]; b<-int[2]
 nx<-40; ny<-10
 
 #set.seed(1)
-xr<-range(a,b)
-xf<-(xr[2]-xr[1])*.1
-Xp<-runif(nx,a-xf,b+xf)
+Xp<-runif(nx,a,b)
 Yp<-runif(ny,a,b)
-#Yp<-runif(ny,a+1,b-1)
 
-ind<-ind.int.set(Xp,Yp)
-ind
+PlotIntervals(Xp,Yp,main="Xp Points and Intervals Based on Yp Points")
+PlotRegsPEMI(Xp,Yp,r,c,main="PE Proximity Regions for Xp points - Intervalization is by Yp Points")
 
-jit<-.1
-yjit<-runif(nx,-jit,jit)
+PEdom1D(Xp,Yp,r,c)
 
-Xlim<-range(a,b,Xp,Yp)
-xd<-Xlim[2]-Xlim[1]
-
-plot(cbind(a,0), xlab=" ", ylab=" ",xlim=Xlim+xd*c(-.05,.05),ylim=3*c(-jit,jit),pch=".")
-abline(h=0)
-points(Xp, yjit,pch=".",cex=3)
-abline(v=Yp,lty=2)
-text(Xp,yjit,labels=factor(ind))
-
-ind.int.set(3,5)
-ind.int.set(6,5)
-
-ind.int.set(Xp,Yp)
+PEdom1D(Xp,Yp,r,c=.25)
+PEdom1D(Xp,Yp,r,c=.01)
+PEdom1D(Xp,Yp,r=1.25,c)
 
 }
 \seealso{

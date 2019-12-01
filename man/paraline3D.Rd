@@ -2,94 +2,94 @@
 % Please edit documentation in R/PCDFunctions.r
 \name{paraline3D}
 \alias{paraline3D}
-\title{An object of class "Lines3D"
+\title{An object of class "Lines3D":
 
-The line crossing the 3D point P and parallel to line joining 3D points A and B}
+The line crossing the 3D point \code{P} and parallel to line joining 3D points \code{A} and \code{B}}
 \usage{
 paraline3D(P, A, B, t)
 }
 \arguments{
 \item{P}{A 3D point through which the straight line passes}
 
-\item{A, B}{3D points which determine the straight line to which the line passing through point P would be
-parallel (i.e. B-A determines the direction of the straight line passing through P)}
+\item{A, B}{3D points which determine the straight line to which the line passing through point \code{P} would be
+parallel (i.e. B-A determines the direction of the straight line passing through \code{P})}
 
 \item{t}{A scalar or a vector of scalars representing the parameter of the coordinates of the line
-(for the form: x=x0 + a*t, y=y0 + b*t, and z=z0 + c*t  where P=(x0,y0,z0) and B-A=(a,b,c))}
+(for the form: \eqn{x=x_0 + a t}, \eqn{y=y_0 + b t}, and \eqn{z=z_0 + c t}  where \eqn{P=(x_0,y_0,z_0)} and \eqn{B-A=(a,b,c)})}
 }
 \value{
 A list with the elements
-\item{txt}{A description of the line}
-\item{mtxt}{The "main" title for the plot of the line}
-\item{points}{The input points that determine the line to which the line crossing point P would be parallel.}
-\item{pnames}{The names of the input points that determine the line to which the line crossing point P would
+\item{desc}{A description of the line}
+\item{mtitle}{The "main" title for the plot of the line}
+\item{points}{The input points that determine the line to which the line crossing point \code{P} would be parallel.}
+\item{pnames}{The names of the input points that determine the line to which the line crossing point \code{P} would
 be parallel.}
-\item{vecs}{The points P, A, and B stacked row-wise in this order.}
-\item{vec.names}{The names of the points P, A, and B.}
+\item{vecs}{The points \code{P}, \code{A}, and \code{B} stacked row-wise in this order.}
+\item{vec.names}{The names of the points \code{P}, \code{A}, and \code{B}.}
 \item{x,y,z}{The x-, y- and z-coordinates of the point(s) of interest on the line parallel to the line
-determined by points A and B.}
+determined by points \code{A} and \code{B}.}
 \item{tsq}{The scalar or the vector of the parameter in defining each coordinate of the line for the form:
-x=x0 + a*t, y=y0 + b*t, and z=z0 + c*t where P=(x0,y0,z0) and B-A=(a,b,c).}
-\item{equation}{Equation of the line passing through point P and parallel to the line joining points A and B
-(i.e., in the direction of the vector B-A). The line equation is in the form: x=x0 + a*t, y=y0 + b*t, and
-z=z0 + c*t where P=(x0,y0,z0) and B-A=(a,b,c).}
+\eqn{x=x_0 + a t}, \eqn{y=y_0 + b t}, and \eqn{z=z_0 + c t} where \eqn{P=(x_0,y_0,z_0)} and \eqn{B-A=(a,b,c)}.}
+\item{equation}{Equation of the line passing through point \code{P} and parallel to the line joining points \code{A} and \code{B}
+(i.e., in the direction of the vector \code{B}-\code{A}). The line equation is in the form: \eqn{x=x_0 + a t}, \eqn{y=y_0 + b t}, and
+\eqn{z=z_0 + c t} where \eqn{P=(x_0,y_0,z_0)} and \eqn{B-A=(a,b,c)}.}
 }
 \description{
-Returns the equation, x, y, and z coordinates of the line crossing 3D point P and parallel to the line
-joining 3D points A and B (i.e., the line is in the direction of vector B-A)
-with the parameter t being provided in vector t.
+Returns the equation, x-, y-, and z-coordinates of the line crossing 3D point \code{P} and parallel to the line
+joining 3D points \code{A} and \code{B} (i.e., the line is in the direction of vector \code{B}-\code{A})
+with the parameter \code{t} being provided in vector \code{t}.
 }
 \examples{
-A<-c(1,10,3); B<-c(1,1,3);
-#A<-runif(3); B<-runif(3);
-#A<-runif(3,1,100); B<-runif(3,1,100);
-vecs<-rbind(A,B)
-Line3D(A,B,.1)
-Line3D(A,B,.1,dir.vec=F)
+P<-c(1,10,4); A<-c(1,1,3); B<-c(3,9,12)
+#<-runif(3); A<-runif(3); B<-runif(3)
+#P<-runif(3,1,100); A<-runif(3,1,100); B<-runif(3,1,100)
+vecs<-rbind(P,B-A)
+pts<-rbind(P,A,B)
+paraline3D(P,A,B,.1)
 
-tr<-range(vecs);
+tr<-range(pts,vecs);
 tf<-(tr[2]-tr[1])*.1 #how far to go at the lower and upper ends in the x-coordinate
 tsq<-seq(-tf*10-tf,tf*10+tf,l=100)
 
-lnAB3D<-Line3D(A,B,tsq)
-lnAB3D
-summary(lnAB3D)
-plot(lnAB3D)
+pln3D<-paraline3D(P,A,B,tsq)
+pln3D
+summary(pln3D)
+plot(pln3D)
 
-Line3D(A,B,c(.1,.2))
+paraline3D(P,A,B,c(.1,.2))
 
-x<-lnAB3D$x
-y<-lnAB3D$y
-z<-lnAB3D$z
+x<-pln3D$x
+y<-pln3D$y
+z<-pln3D$z
 
 zr<-range(z)
 zf<-(zr[2]-zr[1])*.2
-Bv<-B*tf*5
+Av<-(B-A)*tf*5
 
-Xlim<-range(x)
-Ylim<-range(y)
-Zlim<-range(z)
+Xlim<-range(x,pts[,1])
+Ylim<-range(y,pts[,2])
+Zlim<-range(z,pts[,3])
 
 xd<-Xlim[2]-Xlim[1]
 yd<-Ylim[2]-Ylim[1]
 zd<-Zlim[2]-Zlim[1]
 
-Dr<-A+min(tsq)*B
+Dr<-P+min(tsq)*(B-A)
 
-lines3D(x, y, z, phi = 0, bty = "g",xlim=Xlim+xd*c(-.05,.05),ylim=Ylim+yd*c(-.05,.05),zlim=Zlim+zd*c(-.1,.1),
+plot3D::lines3D(x, y, z, phi = 0, bty = "g",
+xlim=Xlim+xd*c(-.05,.05),ylim=Ylim+yd*c(-.05,.05),zlim=Zlim+zd*c(-.1,.1)+c(-zf,zf),
         pch = 20, cex = 2, ticktype = "detailed")
-arrows3D(Dr[1],Dr[2],Dr[3]+zf,Dr[1]+Bv[1],Dr[2]+Bv[2],Dr[3]+zf+Bv[3], add=T)
-points3D(A[1],A[2],A[3],add=T)
-arrows3D(A[1],A[2],A[3]-2*zf,A[1],A[2],A[3],lty=2, add=T)
-text3D(A[1],A[2],A[3]-2*zf,labels="initial point",add=T)
-text3D(A[1],A[2],A[3]+zf/2,labels=expression(r[0]),add=T)
-arrows3D(Dr[1]+Bv[1]/2,Dr[2]+Bv[2]/2,Dr[3]+3*zf+Bv[3]/2,Dr[1]+Bv[1]/2,Dr[2]+Bv[2]/2,Dr[3]+zf+Bv[3]/2,lty=2, add=T)
-text3D(Dr[1]+Bv[1]/2,Dr[2]+Bv[2]/2,Dr[3]+3*zf+Bv[3]/2,labels="direction vector",add=T)
-text3D(Dr[1]+Bv[1]/2,Dr[2]+Bv[2]/2,Dr[3]+zf+Bv[3]/2,labels="v",add=T)
-text3D(0,0,0,labels="O",add=T)
+plot3D::arrows3D(Dr[1],Dr[2],Dr[3]+zf,Dr[1]+Av[1],Dr[2]+Av[2],Dr[3]+zf+Av[3], add=TRUE)
+plot3D::points3D(pts[,1],pts[,2],pts[,3],add=TRUE)
+plot3D::text3D(pts[,1],pts[,2],pts[,3],labels=c("P","A","B"),add=TRUE)
+plot3D::arrows3D(P[1],P[2],P[3]-2*zf,P[1],P[2],P[3],lty=2, add=TRUE)
+plot3D::text3D(P[1],P[2],P[3]-2*zf,labels="initial point",add=TRUE)
+plot3D::arrows3D(Dr[1]+Av[1]/2,Dr[2]+Av[2]/2,Dr[3]+3*zf+Av[3]/2,Dr[1]+Av[1]/2,
+Dr[2]+Av[2]/2,Dr[3]+zf+Av[3]/2,lty=2, add=TRUE)
+plot3D::text3D(Dr[1]+Av[1]/2,Dr[2]+Av[2]/2,Dr[3]+3*zf+Av[3]/2,labels="direction vector",add=TRUE)
+plot3D::text3D(Dr[1]+Av[1]/2,Dr[2]+Av[2]/2,Dr[3]+zf+Av[3]/2,labels="B-A",add=TRUE)
 
 }
 \seealso{
 \code{\link{Line3D}}, \code{\link{perp.ln2pl}}, and \code{\link{paraline}}
-in the generic stats package
 }

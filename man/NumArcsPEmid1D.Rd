@@ -9,26 +9,29 @@ NumArcsPEmid1D(dat, r, c, int)
 \arguments{
 \item{dat}{A set or vector of 1D points which constitute the vertices of PE-PCD}
 
-\item{r}{A positive real number which serves as the expansion parameter in PE proximity region; must be >= 1}
+\item{r}{A positive real number which serves as the expansion parameter in PE proximity region; must be \eqn{\ge 1}}
 
-\item{c}{A positive real number in (0,1) parameterizing the center inside int=(a,b).
-For the interval, int=(a,b), the parameterized center is Mc=a+c*(b-a)}
+\item{c}{A positive real number in \eqn{(0,1)} parameterizing the center inside \eqn{int=(a,b)}.
+For the interval, \eqn{int=(a,b)}, the parameterized center is \eqn{M_c=a+c(b-a)}}
 
 \item{int}{A vector of two real numbers representing an interval}
 }
 \value{
-Number of arcs for the PE-PCD whose vertices are the 1D data set, dat,
-with expansion parameter, r>=1, and centrality parameter, c in (0,1). PE proximity regions are defined only
-for dat points inside the interval int, i.e. arcs are possible for such points only.
+Number of arcs for the PE-PCD whose vertices are the 1D data set, \code{dat},
+with expansion parameter, \eqn{r \ge 1}, and centrality parameter, \code{c} in \eqn{(0,1)}. PE proximity regions are defined only
+for \code{dat} points inside the interval \code{int}, i.e. arcs are possible for such points only.
 }
 \description{
 Returns the number of arcs of Proportional Edge Proximity Catch Digraphs (PE-PCDs) whose vertices are the
-given 1D numerical data set, dat. PE proximity region NPE(x,r,c) is defined with respect to the interval
-int=(a,b) for this function. PE proximity region is constructed with expansion parameter r>=1 and
-centrality parameter c in (0,1).
-Vertex regions are based on the center associated with the centrality parameter c in (0,1).
-For the interval, int=(a,b), the parameterized center is Mc=a+c*(b-a) and for the number of arcs,
-loops are not allowed so arcs are only possible for points inside the middle interval int for this function.
+given 1D numerical data set, \code{dat}. PE proximity region \eqn{NPE(x,r,c)} is defined with respect to the interval
+\eqn{int=(a,b)} for this function.
+
+PE proximity region is constructed with expansion parameter \eqn{r \ge 1} and
+centrality parameter \code{c} in \eqn{(0,1)}.
+
+Vertex regions are based on the center associated with the centrality parameter \code{c} in \eqn{(0,1)}.
+For the interval, \eqn{int=(a,b)}, the parameterized center is \eqn{M_c=a+c(b-a)} and for the number of arcs,
+loops are not allowed so arcs are only possible for points inside the middle interval \code{int} for this function.
 See also (\insertCite{ceyhan:metrika-2012;textual}{pcds}).
 }
 \examples{
@@ -36,19 +39,26 @@ c<-.4
 r<-2
 a<-0; b<-10; int<-c(a,b)
 
-IndNPEmid1D(7,5,r,c,int)
-IndNPEmid1D(17,17,r,c,int)
-IndNPEmid1D(1,3,r,c,int)
+n<-10
+dat<-runif(n,a,b)
+NumArcsPEmid1D(dat,r,c,int)
 
-IndNPEmid1D(3,5,r,c,int)
-IndNPEmid1D(3,3,r,c,int)
-IndNPEmid1D(4,5,r,c,int)
-IndNPEmid1D(a,5,r,c,int)
+NumArcsPEmid1D(3,r,c,int)
 
-c<-.4
-r<-2
-a<-0; b<-10; int<-c(a,b)
-IndNPEmid1D(7,5,r,c,int)
+NumArcsPEmid1D(dat,r,c=.3,int)
+
+NumArcsPEmid1D(dat,r=1.5,c,int)
+
+n<-20
+dat<-runif(n,a-5,b+5)
+NumArcsPEmid1D(dat,r,c,int)
+
+dat<-runif(n,a+10,b+10)
+NumArcsPEmid1D(dat,r,c,int)
+
+n<-10
+dat<-runif(n,a,b)
+NumArcsPEmid1D(dat,r,c,int)
 
 }
 \references{

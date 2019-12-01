@@ -11,38 +11,42 @@ PEarcdens.tri(Xp, tri, r, M = c(1, 1, 1), tri.cor = TRUE)
 
 \item{tri}{Three 2D points, stacked row-wise, each row representing a vertex of the triangle}
 
-\item{r}{A positive real number which serves as the expansion parameter in PE proximity region; must be >=1}
+\item{r}{A positive real number which serves as the expansion parameter in PE proximity region; must be \eqn{\ge 1}}
 
 \item{M}{A 2D point in Cartesian coordinates or a 3D point in barycentric coordinates
-which serves as a center in the interior of the triangle tri or the circumcenter of tri;
-default is M=c(1,1,1) i.e. the center of mass of tri}
+which serves as a center in the interior of the triangle \code{tri} or the circumcenter of \code{tri};
+default is \eqn{M=(1,1,1)} i.e. the center of mass of \code{tri}}
 
-\item{tri.cor}{A logical argument for computing the arc density for only the points inside the triangle, tri
-(default=TRUE), i.e., if TRUE only the induced digraph with the vertices inside tri are considered in the
+\item{tri.cor}{A logical argument for computing the arc density for only the points inside the triangle, \code{tri}
+(default=TRUE), i.e., if TRUE only the induced digraph with the vertices inside \code{tri} are considered in the
 computation of arc density}
 }
 \value{
 A list of elements
-\item{arc.dens}{Arc density of PE-PCD whose vertices are the 2D numerical data set, Xp;
-PE proximity regions are defined with respect to the triangle tri and M-vertex regions}
+\item{arc.dens}{Arc density of PE-PCD whose vertices are the 2D numerical data set, \code{Xp};
+PE proximity regions are defined with respect to the triangle \code{tri} and \code{M}-vertex regions}
 \item{std.arc.dens}{Arc density standardized by the mean and asymptotic variance of the arc
-density of PE-PCD for uniform data in the triangle tri.}
-\item{caveat}{The warning as "The standardized arc density is only correct when M is the center of mass
+density of PE-PCD for uniform data in the triangle \code{tri}.}
+\item{caveat}{The warning as "The standardized arc density is only correct when \code{M} is the center of mass
 in the current version".}
 }
 \description{
-Returns the arc density of PE-PCD whose vertex set is the given 2D numerical data set, Xp,
-(some of its members are) in the triangle tri. PE proximity regions is defined with respect to tri with
-expansion parameter r>=1 and vertex regions are based on center M=(m1,m2) in Cartesian coordinates or
-M=(alpha,beta,gamma) in barycentric coordinates in the interior of the triangle tri or based on
-circumcenter of tri; default is M=c(1,1,1) i.e. the center of mass of tri.
+Returns the arc density of PE-PCD whose vertex set is the given 2D numerical data set, \code{Xp},
+(some of its members are) in the triangle \code{tri}.
+
+PE proximity regions is defined with respect to \code{tri} with
+expansion parameter \eqn{r \ge 1} and vertex regions are based on center \eqn{M=(m_1,m_2)} in Cartesian coordinates or
+\eqn{M=(\alpha,\beta,\gamma)} in barycentric coordinates in the interior of the triangle \code{tri} or based on
+circumcenter of \code{tri}; default is \eqn{M=(1,1,1)} i.e. the center of mass of \code{tri}.
 The function also provides arc density standardized by the mean and asymptotic variance of the arc density
-of PE-PCD for uniform data in the triangle tri. For the number of arcs, loops are not allowed.
-tri.cor is a logical argument for triangle correction (default is TRUE), if TRUE, only the points
+of PE-PCD for uniform data in the triangle \code{tri}. For the number of arcs, loops are not allowed.
+
+\code{tri.cor} is a logical argument for triangle correction (default is TRUE), if TRUE, only the points
 inside the triangle are considered (i.e., digraph induced by these vertices are considered) in computing
 the arc density, otherwise all points are considered (for the number of vertices in the denominator of arc
 density).
-Caveat: The standardized arc density is only correct when M is the center of mass in the current version.
+
+Caveat: The standardized arc density is only correct when \code{M} is the center of mass in the current version.
 See also (\insertCite{ceyhan:Phd-thesis,ceyhan:arc-density-PE;textual}{pcds}).
 }
 \examples{
@@ -50,8 +54,8 @@ A<-c(1,1); B<-c(2,0); C<-c(1.5,2);
 #A<-runif(2); B<-runif(2); C<-runif(2);
 #A<-runif(2,1,100); B<-runif(2,1,100); C<-runif(2,1,100);
 Tr<-rbind(A,B,C);
-
 n<-20
+
 #set.seed(1)
 dat<-runif.tri(n,Tr)$g
 #dat<-cbind(runif(n,1,2),runif(n,0,2))
@@ -64,20 +68,24 @@ M<-as.numeric(runif.tri(1,Tr)$g)
 #M<-c(1.3,1.3)
 #M<-c(.3,.3)
 
-NumArcsPEtri(dat,Tr,r=1.25,M)
 NumArcsPEtri(dat,Tr,r=1.5,M)
-NumArcsPEtri(dat,Tr,r=2.0,M)
+PEarcdens.tri(dat,Tr,r=1.5,M)
+PEarcdens.tri(dat,Tr,r=1.5,M,tri.cor = FALSE)
 
-NumArcsPEtri(rbind(dat,c(0,2)),Tr,r=1.25,M)
+NumArcsPEtri(dat,Tr,r=1,M)
+PEarcdens.tri(dat,Tr,r=1,M)
+
+NumArcsPEtri(dat,Tr,r=1.5,M)
+PEarcdens.tri(dat,Tr,r=1.5,M)
 
 r<-2
-NumArcsPEtri(dat,Tr,r,M)
+PEarcdens.tri(dat,Tr,r,M)
 
 dat.fr<-data.frame(a=dat)
-NumArcsPEtri(dat.fr,Tr,r,M)
+PEarcdens.tri(dat.fr,Tr,r,M)
 
 dat.fr<-data.frame(a=Tr)
-NumArcsPEtri(dat,dat.fr,r,M)
+PEarcdens.tri(dat,dat.fr,r,M)
 
 }
 \references{

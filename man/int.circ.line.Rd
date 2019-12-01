@@ -7,7 +7,7 @@
 int.circ.line(pt1, pt2, cent, rad)
 }
 \arguments{
-\item{pt1, pt2}{2D points that determine the straight line (i.e., through which the straight line is passing)}
+\item{pt1, pt2}{2D points that determine the straight line (i.e., through which the straight line passes)}
 
 \item{cent}{A 2D point representing the center of the circle}
 
@@ -19,69 +19,61 @@ yields NULL as the output)
 }
 \description{
 Returns the intersection point(s) of a line and a circle. The line is determined by the two points
-pt1 and pt2 and the circle is centered at point cent and has radius rad.
+\code{pt1} and \code{pt2} and the circle is centered at point \code{cent} and has radius \code{rad}.
 If the circle does not intersect the line, the function yields NULL;
 if the circle intersects at only one point, it yields only that point;
 otherwise it yields both intersection points as output.
-When there are two intersection points, they are listed in the order of the x-coordinates of pt1 and pt2;
-and if the x-coordinates of pt1 and pt2 are equal, intersection points are listed in the order of
-y-coordinates of pt1 and pt2.
+When there are two intersection points, they are listed in the order of the x-coordinates of \code{pt1} and \code{pt2};
+and if the x-coordinates of \code{pt1} and \code{pt2} are equal, intersection points are listed in the order of
+y-coordinates of \code{pt1} and \code{pt2}.
 }
 \examples{
-A<-c(.3,.2); B<-c(.6,.3); C<-c(1,1)
-#A<-runif(2); B<-runif(2); C<-runif(2);
-#A<-runif(2,1,100); B<-runif(2,1,100); C<-runif(2,1,100);
-pts<-rbind(A,B,C)
+P1<-c(.3,.2)*100
+P2<-c(.6,.3)*100
+cent<-c(1.1,1.1)*100
+rad<-2*100
 
-Xp<-c(B[1]+max(abs(C[1]-B[1]),abs(A[1]-B[1])),0)
+int.circ.line(P1,P2,cent,rad)
+int.circ.line(P2,P1,cent,rad)
+int.circ.line(P1,P1+c(0,1),cent,rad)
+int.circ.line(P1+c(0,1),P1,cent,rad)
 
-angle.str2end(A,B,C)
-angle.str2end(A,B,A)
+dp2l(cent,P1,P2)
+rad2<-dp2l(cent,P1,P2)$d
+int.circ.line(P1,P2,cent,rad2)
+int.circ.line(P1,P2,cent,rad=.8)
+int.circ.line(P1,P2,cent,rad=.78)
 
-angle.str2end(A,B,C,radian=F)
+#plot of the line and the circle
+A<-c(.3,.2); B<-c(.6,.3); cent<-c(1,1); rad<-2 #dp2l(cent,A,B)$dis, .3
+#A<-runif(2); B<-runif(2); cent<-runif(2); rad<-runif(1)
+#A<-runif(2,1,100); B<-runif(2,1,100); cent<-runif(2,1,100); rad<-runif(2,1,100);
 
-#plot of the line segments
-ang.rad<-angle.str2end(A,B,C,radian=T); ang.rad
-ang.deg<-angle.str2end(A,B,C,radian=F); ang.deg
-ang.deg1<-ang.deg$s; ang.deg1
-ang.deg2<-ang.deg$c; ang.deg2
+IPs<-int.circ.line(A,B,cent,rad)
 
-rad<-min(Dist(A,B),Dist(B,C))
+xr<-range(A[1],B[1],cent[1])
+xf<-(xr[2]-xr[1])*.1 #how far to go at the lower and upper ends in the x-coordinate
+x<-seq(xr[1]-rad-xf,xr[2]+rad+xf,l=100)
+lnAB<-Line(A,B,x)
+y<-lnAB$y
 
-Xlim<-range(pts[,1],Xp[1],B+Xp,B[1]+c(+rad,-rad))
-Ylim<-range(pts[,2],B[2]+c(+rad,-rad))
+Xlim<-range(x,cent[1])
+Ylim<-range(y,A[2],B[2],cent[2]-rad,cent[2]+rad)
 xd<-Xlim[2]-Xlim[1]
 yd<-Ylim[2]-Ylim[1]
 
-#plot for the smaller arc
-plot(pts,pch=1,asp=1,xlab="x",ylab="y",xlim=Xlim+xd*c(-.05,.05),ylim=Ylim+yd*c(-.05,.05))
-L<-rbind(B,B,B); R<-rbind(A,C,B+Xp)
-segments(L[,1], L[,2], R[,1], R[,2], lty=2)
-draw.arc(B[1],B[2],radius=.3*rad,angle1=ang.rad$s[1],angle2=ang.rad$s[2])
-draw.arc(B[1],B[2],radius=.6*rad,angle1=0, angle2=ang.rad$s[1],lty=2,col=2)
-draw.arc(B[1],B[2],radius=.9*rad,angle1=0,angle2=ang.rad$s[2],col=3)
-txt<-rbind(A,B,C)
-text(txt+cbind(rep(xd*.02,nrow(txt)),rep(-xd*.02,nrow(txt))),c("A","B","C"))
-
-text(rbind(B)+.5*rad*c(cos(mean(ang.rad$s)),sin(mean(ang.rad$s))),
-     paste(abs(round(ang.deg1[2]-ang.deg1[1],2))," degrees",sep=""))
-text(rbind(B)+.6*rad*c(cos(ang.rad$s[1]/2),sin(ang.rad$s[1]/2)),paste(round(ang.deg1[1],2)),col=2)
-text(rbind(B)+.9*rad*c(cos(ang.rad$s[2]/2),sin(ang.rad$s[2]/2)),paste(round(ang.deg1[2],2)),col=3)
-
-#plot for the counter-clockwise arc
-plot(pts,pch=1,asp=1,xlab="x",ylab="y",xlim=Xlim+xd*c(-.05,.05),ylim=Ylim+yd*c(-.05,.05))
-L<-rbind(B,B,B); R<-rbind(A,C,B+Xp)
-segments(L[,1], L[,2], R[,1], R[,2], lty=2)
-draw.arc(B[1],B[2],radius=.3*rad,angle1=ang.rad$c[1],angle2=ang.rad$c[2])
-draw.arc(B[1],B[2],radius=.6*rad,angle1=0, angle2=ang.rad$s[1],lty=2,col=2)
-draw.arc(B[1],B[2],radius=.9*rad,angle1=0,angle2=ang.rad$s[2],col=3)
-txt<-pts
-text(txt+cbind(rep(xd*.02,nrow(txt)),rep(-xd*.02,nrow(txt))),c("A","B","C"))
-
-text(rbind(B)+.5*rad*c(cos(mean(ang.rad$c)),sin(mean(ang.rad$c))),
-     paste(abs(round(ang.deg2[2]-ang.deg2[1],2))," degrees",sep=""))
-text(rbind(B)+.6*rad*c(cos(ang.rad$s[1]/2),sin(ang.rad$s[1]/2)),paste(round(ang.deg1[1],2)),col=2)
-text(rbind(B)+.9*rad*c(cos(ang.rad$s[2]/2),sin(ang.rad$s[2]/2)),paste(round(ang.deg1[2],2)),col=3)
+plot(rbind(A,B,cent),pch=1,asp=1,xlab="x",ylab="y",
+xlim=Xlim+xd*c(-.05,.05),ylim=Ylim+yd*c(-.05,.05))
+lines(x,y,lty=1)
+tripack::circles(cent[1],cent[2],rad)
+IP.txt<-c()
+if (!is.null(IPs))
+{
+  for (i in 1:(length(IPs)/2))
+    IP.txt<-c(IP.txt,paste("I",i, sep = ""))
+}
+txt<-rbind(A,B,cent,IPs)
+text(txt+cbind(rep(xd*.03,nrow(txt)),rep(-yd*.03,nrow(txt))),c("A","B","M",IP.txt))
 
 }
 \seealso{

@@ -11,23 +11,24 @@ NumArcsAStri(dat, tri, M = "CC")
 
 \item{tri}{Three 2D points, stacked row-wise, each row representing a vertex of the triangle}
 
-\item{M}{"CC" which stand for circumcenter of the triangle tri or a 2D point in Cartesian coordinates or
-a 3D point in barycentric coordinates which serves as a center in the interior of tri;
-default is M="CC" i.e. the circumcenter of tri}
+\item{M}{"CC" which stands for circumcenter of the triangle \code{tri} or a 2D point in Cartesian coordinates or
+a 3D point in barycentric coordinates which serves as a center in the interior of \code{tri};
+default is \code{M}="CC" i.e. the circumcenter of \code{tri}}
 }
 \value{
 The number of arcs of Arc Slice Proximity Catch Digraphs (AS-PCDs)
 }
 \description{
 Returns the number of arcs of Arc Slice Proximity Catch Digraphs (AS-PCDs)
-whose vertices are the 2D data set, dat. The data points could be inside or outside a general
-triangle tri=T(A,B,C)=(rv=1,rv=2,rv=3), with vertices of tri stacked row-wise.
-AS proximity regions are defined with respect to the triangle tri and vertex regions are
-based on the center M="CC" for circumcenter of tri;
-or M=(m1,m2) in Cartesian coordinates or M=(alpha,beta,gamma) in barycentric coordinates in the
-interior of the triangle tri; default is M="CC" i.e. circumcenter of tri.
+whose vertices are the 2D data set, \code{dat}. The data points could be inside or outside a general
+triangle \eqn{tri=T(A,B,C)=(rv=1,rv=2,rv=3)}, with vertices of \code{tri} stacked row-wise.
+
+AS proximity regions are defined with respect to the triangle \code{tri} and vertex regions are
+based on the center \code{M}="CC" for circumcenter of \code{tri};
+or \eqn{M=(m_1,m_2)} in Cartesian coordinates or \eqn{M=(\alpha,\beta,\gamma)} in barycentric coordinates in the
+interior of the triangle \code{tri}; default is \code{M}="CC" i.e. circumcenter of \code{tri}.
 For the number of arcs, loops are not allowed,
-so arcs are only possible for points inside the triangle, tri.
+so arcs are only possible for points inside the triangle, \code{tri}.
 See also (\insertCite{ceyhan:Phd-thesis,ceyhan:comp-geo-2010,ceyhan:mcap2012;textual}{pcds}).
 }
 \examples{
@@ -36,6 +37,12 @@ A<-c(1,1); B<-c(2,0); C<-c(1.5,2);
 #A<-runif(2,1,100); B<-runif(2,1,100); C<-runif(2,1,100);
 Tr<-rbind(A,B,C);
 
+n<-20
+#set.seed(1)
+dat<-runif.tri(n,Tr)$g
+#dat<-cbind(runif(n,1,2),runif(n,0,2))
+#dat<-cbind(runif(n),runif(n))
+
 M<-as.numeric(runif.tri(1,Tr)$g)
 #M<-c(1.6,1.2)
 #M<-circ.cent.tri(Tr); #M<-"CC"; #M<-"CM"
@@ -43,35 +50,13 @@ M<-as.numeric(runif.tri(1,Tr)$g)
 #M<-c(1.3,1.3)
 #M<-c(.3,.3)
 
-P1<-as.numeric(runif.tri(1,Tr)$g)
-P2<-as.numeric(runif.tri(1,Tr)$g)
-IndNAStri(P1,P2,Tr,M)
+NumArcsAStri(dat,Tr) #with default M="CC"
+NumArcsAStri(dat,Tr,M)
 
-P1<-c(1.3,1.2)
-P2<-c(1.8,.5)
-IndNAStri(P1,P2,Tr,M)
-IndNAStri(P1,P1,Tr,M)
+NumArcsAStri(rbind(dat,c(0,2)),Tr,M)
 
-#or try
-Rv<-rv.triCC(P1,Tr)$rv
-IndNAStri(P1,P2,Tr,M,Rv)
-
-P3<-c(1.6,1.4)
-IndNAStri(P1,P3,Tr,M)
-
-P4<-c(1.5,1.0)
-IndNAStri(P1,P4,Tr,M)
-
-P5<-c(.5,1.0)
-IndNAStri(P1,P5,Tr,M)
-IndNAStri(P5,P5,Tr,M)
-
-#or try
-Rv<-rv.triCC(P5,Tr)$rv
-IndNAStri(P5,P5,Tr,M,Rv)
-
-dat.fr<-data.frame(a=Tr)
-IndNAStri(P1,P2,dat.fr,M)
+dat.fr<-data.frame(a=dat)
+NumArcsAStri(dat.fr,Tr,M)
 
 }
 \references{

@@ -16,73 +16,58 @@ the function checks if a point lies in the closure of the triangle (i.e. interio
 else it checks if the point lies in the interior of the triangle.}
 }
 \value{
-A logical output, if all data points in Dt are inside the triangle, tri, the output is TRUE,
+A logical output, if all data points in \code{Dt} are inside the triangle, \code{tri}, the output is TRUE,
 else it is FALSE.
 }
 \description{
-Checks if all the data points in the 2D data set, Dt, lie in the triangle, tri,
-using the barycentric coordinates, generally denoted as (alpha,beta,gamma).
+Checks if all the data points in the 2D data set, \code{Dt}, lie in the triangle, \code{tri},
+using the barycentric coordinates, generally denoted as \eqn{(\alpha,\beta,\gamma)}.
 If all (normalized or non-normalized) barycentric coordinates of a point are positive then the point is
 inside the triangle, if all are nonnegative with one or more are zero, then the point falls in the boundary.
 If some of the barycentric coordinates are negative, then the point falls outside the triangle.
-boundary is a logical argument (default=FALSE) to include boundary or not, so if it is TRUE,
+
+\code{boundary} is a logical argument (default=FALSE) to include boundary or not, so if it is TRUE,
 the function checks if a point lies in the closure of the triangle (i.e. interior and boundary combined)
 else it checks if the point lies in the interior of the triangle.
 }
 \examples{
-#A<-c(0,0); B<-c(1,0); C<-c(.5,sqrt(3.)/2);
+#A<-c(0,0); B<-c(1,0); C<-c(1/2,sqrt(3)/2);
 A<-c(1,1); B<-c(2,0); C<-c(1.5,2); p<-c(1.4,1.2)
-#A<-runif(2); B<-runif(2); C<-runif(2); p<-runif(2);
-#A<-runif(2,1,100); B<-runif(2,1,100); C<-runif(2,1,100); p<-runif(2,1,100);
+#A<-runif(2); B<-runif(2);  C<-runif(2); p<-runif(2);
+#A<-runif(2,1,100); B<-runif(2,1,100); C<-runif(2,1,100); p<-runif(2,1,100)
 Tr<-rbind(A,B,C)
 
-in.triangle(p,Tr)
-
-p<-c(.4,-.2)
-in.triangle(p,Tr)
+inTriAll(p,Tr)
 
 #for the vertex A
-in.triangle(A,Tr)
-in.triangle(A,Tr,boundary=TRUE)
+inTriAll(A,Tr)
+inTriAll(A,Tr,boundary=TRUE)
 
 #for a point on the edge AB
 D3<-(A+B)/2
-in.triangle(D3,Tr)
-in.triangle(D3,Tr,boundary=TRUE)
+inTriAll(D3,Tr)
+inTriAll(D3,Tr,boundary=TRUE)
 
-#for a NA entry point
-p<-c(NA,.2)
-in.triangle(p,Tr)
+#data set
+n<-10
+dat<-cbind(runif(n),runif(n))
+inTriAll(dat,Tr,boundary=TRUE)
 
-#when triangle is degenerate
-B<-A+2*(C-A);
-Tr<-rbind(A,B,C)
-p<-c(.4,.2)
-in.triangle(p,Tr)
+dat<-runifTe(n)$gen.points
+inTriAll(dat,Tr)
+inTriAll(dat,Tr,boundary=TRUE)
 
-A<-c(1,1); B<-c(2,0); C<-c(1.5,2);
-Tr<-rbind(A,B,C)
-in.triangle(c("a","b"),Tr)
-in.triangle(rbind(p,p),Tr)
+dat<-runif.tri(n,Tr)$g
+inTriAll(dat,Tr)
+inTriAll(dat,Tr,boundary=TRUE)
 
-in.triangle(p,cbind(Tr,Tr))
-
-in.triangle(p,c(1,2,3))
-in.triangle(p,rbind(c("a","b"),B,C))
-
-lis<-list(a=p)
-in.triangle(lis,Tr)
-
-lis<-list(tri=Tr)
-in.triangle(p,lis)
-
-dat.fr<-data.frame(a=p)
-in.triangle(dat.fr,Tr)
+dat.fr<-data.frame(a=dat)
+inTriAll(dat.fr,Tr)
 
 dat.fr<-data.frame(a=Tr)
-in.triangle(p,dat.fr)
+inTriAll(dat,dat.fr)
 
 }
 \seealso{
-\code{\link{in.triangle}} and \code{\link{in.convex.hull}} from the tripack package
+\code{\link{in.triangle}} and \code{\link[tripack]{in.convex.hull}} from the \code{tripack} package
 }

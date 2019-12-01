@@ -2,39 +2,41 @@
 % Please edit documentation in R/PCDFunctions.r
 \name{IndNCStri}
 \alias{IndNCStri}
-\title{The indicator for the presence of arcs between two points for Central Similarity Proximity Catch Digraphs
-(CS-PCDs)}
+\title{The indicator for the presence of an arc from one point to another for Central Similarity Proximity
+Catch Digraphs (CS-PCDs)}
 \usage{
 IndNCStri(pt1, pt2, t, tri, M, re = NULL)
 }
 \arguments{
 \item{pt1}{A 2D point whose CS proximity region is constructed.}
 
-\item{pt2}{A 2D point. The function determines whether pt2 is inside the CS proximity region of
-pt1 or not.}
+\item{pt2}{A 2D point. The function determines whether \code{pt2} is inside the CS proximity region of
+\code{pt1} or not.}
 
 \item{t}{A positive real number which serves as the expansion parameter in CS proximity region}
 
 \item{tri}{Three 2D points, stacked row-wise, each row representing a vertex of the triangle}
 
 \item{M}{A 2D point in Cartesian coordinates or a 3D point in barycentric coordinates
-which serves as a center in the interior of the triangle tri}
+which serves as a center in the interior of the triangle \code{tri}}
 
-\item{re}{Index of the M-edge region containing the point pt, either 1, 2, 3 or NULL (default is NULL)}
+\item{re}{Index of the \code{M}-edge region containing the point \code{pt}, either 1, 2, 3 or NULL (default is NULL)}
 }
 \value{
-I(pt2 is in NCS(pt1,t)) for pt1, that is, returns 1 if pt2 is in NCS(pt1,t), returns 0 otherwise
+I(\code{pt2} is in \eqn{NCS(pt1,t)}) for \code{pt1}, that is, returns 1 if \code{pt2} is in \eqn{NCS(pt1,t)}, returns 0 otherwise
 }
 \description{
-Returns I(pt2 is in NCS(pt1,t)) for points pt1 and pt2, that is, returns 1 if pt2 is in NCS(pt1,t),
-returns 0 otherwise, where NCS(x,t) is the CS proximity region for point x with the expansion parameter t>0.
-CS proximity region is constructed with respect to the triangle tri and
-edge regions are based on the center, M=(m1,m2) in Cartesian coordinates or
-M=(alpha,beta,gamma) in barycentric coordinates in the interior of tri
-or based on the circumcenter of tri.
-re is the index of the edge region pt resides, with default=NULL
-If pt1 and pt2 are distint and either of them are outside tri, it returns 0,
-but if they are identical, then it returns 1 regardless of its location (i.e., it allows loops).
+Returns I(\code{pt2} is in \eqn{NCS(pt1,t)}) for points \code{pt1} and \code{pt2}, that is, returns 1 if \code{pt2} is in \eqn{NCS(pt1,t)},
+returns 0 otherwise, where \eqn{NCS(x,t)} is the CS proximity region for point \eqn{x} with the expansion parameter \eqn{t>0}.
+
+CS proximity region is constructed with respect to the triangle \code{tri} and
+edge regions are based on the center, \eqn{M=(m_1,m_2)} in Cartesian coordinates or
+\eqn{M=(\alpha,\beta,\gamma)} in barycentric coordinates in the interior of \code{tri}
+or based on the circumcenter of \code{tri}.
+\code{re} is the index of the edge region \code{pt} resides, with default=NULL
+
+If \code{pt1} and \code{pt2} are distint and either of them are outside \code{tri}, it returns 0,
+but if they are identical, then it returns 1 regardless of their locations (i.e., it allows loops).
 See also (\insertCite{ceyhan:Phd-thesis,ceyhan:arc-density-CS,ceyhan:test2014;textual}{pcds}).
 }
 \examples{
@@ -54,30 +56,39 @@ n<-10
 #set.seed(1)
 dat<-runif.tri(n,Tr)$g
 
-NCStri(dat[7,],t,Tr,M)
+IndNCStri(dat[1,],dat[2,],t,Tr,M)
 
 P1<-as.numeric(runif.tri(1,Tr)$g)
-#P1<-c(.4,.2)
-NCStri(P1,t,Tr,M)
+P2<-as.numeric(runif.tri(1,Tr)$g)
+IndNCStri(P1,P2,t,Tr,M)
 
+P1<-c(.4,.2)
 P2<-c(1.8,.5)
-NCStri(P2,t,Tr,M)
+IndNCStri(P1,P2,t,Tr,M)
+IndNCStri(P2,P1,t,Tr,M)
+
+IndNCStri(P1,P1,t,Tr,M)
+IndNCStri(P2,P2,t,Tr,M)
 
 P3<-c(1.7,.6)
-NCStri(P3,t,Tr,M)
+IndNCStri(P2,P3,t,Tr,M)
+IndNCStri(P3,P2,t,Tr,M)
 
 #or try
-re<-redges.tri.cent(P2,Tr,M)$re
-NCStri(P2,t,Tr,M,re)
+re<-redges.tri.cent(P1,Tr,M)$re
+IndNCStri(P1,P2,t,Tr,M,re)
+
+P2<-c(1.8,.5)
+P3<-c(1.7,.6)
+IndNCStri(P2,P3,t,Tr,M)
 
 dat.fr<-data.frame(a=Tr)
-NCStri(P2,t,dat.fr,M)
+IndNCStri(P2,P3,t,dat.fr,M)
 
 }
 \references{
 \insertAllCited{}
 }
 \seealso{
-\code{\link{IndNAStri}}, \code{\link{IndNPEtri}}, \code{\link{IndNCStri}}, and
-\code{\link{IndNCSTe}}
+\code{\link{IndNAStri}}, \code{\link{IndNPEtri}}, \code{\link{IndNCStri}}, and \code{\link{IndCSTe}}
 }

@@ -10,77 +10,51 @@ IndNPEend1D(x1, x2, r, int, rv = NULL)
 \arguments{
 \item{x1}{A 1D point whose PE proximity region is constructed}
 
-\item{x2}{A 1D point. The function determines whether x2 is inside the PE proximity region of
-x1 or not.}
+\item{x2}{A 1D point. The function determines whether \code{x2} is inside the PE proximity region of
+\code{x1} or not.}
 
-\item{r}{A positive real number which serves as the expansion parameter in PE proximity region; must be >=1}
+\item{r}{A positive real number which serves as the expansion parameter in PE proximity region; must be \eqn{\ge 1}}
 
 \item{int}{A vector of two real numbers representing an interval}
 
 \item{rv}{Index of the end interval containing the point, either 1, 2 or NULL (default is NULL)}
 }
 \value{
-I(x2 in NPE(x1,r)) for points x1 and x2, that is, returns 1 if x2 is in NPE(x1,r)
-(i.e., if there is an arc from x1 to x2), returns 0 otherwise
+I(\code{x2} in \eqn{NPE(x1,r)}) for points \code{x1} and \code{x2}, that is, returns 1 if \code{x2} is in \eqn{NPE(x1,r)}
+(i.e., if there is an arc from \code{x1} to \code{x2}), returns 0 otherwise
 }
 \description{
-Returns I(x2 in NPE(x1,r)) for points x1 and x2, that is, returns 1 if x2 is in NPE(x1,r), returns 0
-otherwise, where NPE(x,r) is the PE proximity region for point x with expansion parameter r>=1
-for the region outside the interval (a,b).
-rv is the index of the end vertex region x1 resides, with default=NULL,
-and rv=1 for left end interval and rv=2 for the right end interval.
-If x1 and x2 are distint and either of them are inside interval int, it returns 0,
-but if they are identical, then it returns 1 regardless of its location (i.e., it allows loops).
+Returns I(\code{x2} in \eqn{NPE(x1,r)}) for points \code{x1} and \code{x2}, that is, returns 1 if \code{x2} is in \eqn{NPE(x1,r)}, returns 0
+otherwise, where \eqn{NPE(x,r)} is the PE proximity region for point \eqn{x} with expansion parameter \eqn{r \ge 1}
+for the region outside the interval \eqn{(a,b)}.
+\code{rv} is the index of the end vertex region \code{x1} resides, with default=NULL,
+and \eqn{rv=1} for left end interval and \eqn{rv=2} for the right end interval.
+If \code{x1} and \code{x2} are distint and either of them are inside interval \code{int}, it returns 0,
+but if they are identical, then it returns 1 regardless of their locations (i.e., it allows loops).
 See also (\insertCite{ceyhan:metrika-2012;textual}{pcds}).
 }
 \examples{
 a<-0; b<-10; int<-c(a,b)
-#a<-runif(1); b<-runif(1); int<-range(a,b); a<-int[1]; b<-int[2]
+r<-2
 
-rv.end.int(-6,int)
-rv.end.int(16,int)
+IndNPEend1D(15,17,r,int)
+IndNPEend1D(15,15,r,int)
 
-n<-5
-xr<-range(a,b)
-xf<-(xr[2]-xr[1])*.5
-datL<-runif(n,a-xf,a)
-datR<-runif(n,b,b+xf)
-dat<-c(datL,datR)
-rv.end.int(dat[1],int)
+IndNPEend1D(1.5,17,r,int)
 
-Rv<-vector()
-for (i in 1:length(dat))
-  Rv<-c(Rv,rv.end.int(dat[i],int)$rv)
-Rv
+IndNPEend1D(-15,17,r,int)
 
-Xlim<-range(a,b,dat)
-xd<-Xlim[2]-Xlim[1]
+IndNPEend1D(a,17,r,int)
+IndNPEend1D(15,17,r=1.1,int)
 
-plot(cbind(a,0),xlab="",pch=".",xlim=Xlim+xd*c(-.05,.05))
-abline(h=0)
-abline(v=c(a,b),col=1,lty=2)
-points(cbind(dat,0))
-text(cbind(dat,0.1),labels=factor(Rv))
-text(cbind(c(a,b),-0.1),c("rv=1","rv=2"))
-
-jit<-.1
-yjit<-runif(length(dat),-jit,jit)
-
-Xlim<-range(a,b,dat)
-xd<-Xlim[2]-Xlim[1]
-
-plot(cbind(a,0),main="vertex region indices for the points\\n in the end intervals",
-     xlab=" ", ylab=" ",pch=".",xlim=Xlim+xd*c(-.05,.05),ylim=3*range(yjit))
-points(dat, yjit,xlim=Xlim+xd*c(-.05,.05),pch=".",cex=3)
-abline(h=0)
-abline(v=c(a,b),lty=2)
-text(dat,yjit,labels=factor(Rv))
-text(cbind(c(a,b),-.01),c("rv=1","rv=2"))
+a<-0; b<-10; int<-c(a,b)
+r<-2
+IndNPEend1D(15,17,r,int)
 
 }
 \references{
 \insertAllCited{}
 }
 \seealso{
-\code{\link{IndNPEmid1D}}, \code{\link{IndNCSmid1D}}, and \code{\link{ind.NCS.end.1D}}
+\code{\link{IndNPEmid1D}}, \code{\link{IndNCSmid1D}}, and \code{\link{IndNCSend1D}}
 }

@@ -10,67 +10,61 @@ NumArcsPETe(dat, r, M = c(1, 1, 1))
 \arguments{
 \item{dat}{A set of 2D points which constitute the vertices of the PE-PCD}
 
-\item{r}{A positive real number which serves as the expansion parameter for PE proximity region; must be >=1}
+\item{r}{A positive real number which serves as the expansion parameter for PE proximity region; must be \eqn{\ge 1}}
 
 \item{M}{A 2D point in Cartesian coordinates or a 3D point in barycentric coordinates
-which serves as a center in the interior of the standard equilateral triangle Te; default is M=c(1,1,1) i.e.
-the center of mass of Te}
+which serves as a center in the interior of the standard equilateral triangle \eqn{T_e}; default is \eqn{M=(1,1,1)} i.e.
+the center of mass of \eqn{T_e}}
 }
 \value{
-Number of arcs for the PE-PCD with vertices being 2D data set, dat, in Te
-with expansion parameter, r>=1, and M-vertex regions. PE proximity regions are defined only
-for dat points inside Te, i.e. arcs are possible for such points only.
+Number of arcs for the PE-PCD with vertices being 2D data set, \code{dat}, in \eqn{T_e}
+with expansion parameter, \eqn{r \ge 1}, and \code{M}-vertex regions. PE proximity regions are defined only
+for \code{dat} points inside \eqn{T_e}, i.e. arcs are possible for such points only.
 }
 \description{
 Returns the number of arcs of Proportional Edge Proximity Catch Digraphs (PE-PCDs) whose vertices are the
-given 2D numerical data set, dat. PE proximity region NPE(x,r) is defined with respect to the standard
-equilateral triangle Te=T(v=1,v=2,v=3)=T((0,0),(1,0),(1/2,sqrt(3)/2)) with expansion parameter r>=1
-and vertex regions are based on the center M=(m1,m2)
-in Cartesian coordinates or M=(alpha,beta,gamma) in barycentric coordinates in the interior of Te;
-default is M=c(1,1,1) i.e. the center of mass of Te.
+given 2D numerical data set, \code{dat}.
+
+PE proximity region \eqn{NPE(x,r)} is defined with respect to the standard
+equilateral triangle \eqn{T_e=T(v=1,v=2,v=3)=T((0,0),(1,0),(1/2,\sqrt{3}/2))} with expansion parameter \eqn{r \ge 1}
+and vertex regions are based on the center \eqn{M=(m_1,m_2)}
+in Cartesian coordinates or \eqn{M=(\alpha,\beta,\gamma)} in barycentric coordinates in the interior of \eqn{T_e};
+default is \eqn{M=(1,1,1)} i.e. the center of mass of \eqn{T_e}.
 For the number of arcs, loops are not allowed so
-arcs are only possible for points inside Te for this function.
+arcs are only possible for points inside \eqn{T_e} for this function.
 See also (\insertCite{ceyhan:arc-density-PE;textual}{pcds}).
 }
 \examples{
-A<-c(0,0); B<-c(1,0); C<-c(.5,sqrt(3.)/2);
-Te<-rbind(A,B,C)
-n<-10
+A<-c(0,0); B<-c(1,0); C<-c(1/2,sqrt(3)/2);
+n<-20
 
 #set.seed(1)
 dat<-runifTe(n)$gen.points
+#dat<-cbind(runif(n),runif(n))
+#dat<-cbind(runif(n,1,2),runif(n,0,1))
 
-M<-as.numeric(runifTe(1)$g)
-#M<-c(.6,.2)
+M<-c(.6,.2)
 #M<-circ.cent.tri(Te)
 #M<-c(1,1,1) #M<-c(1,2,3) #M<-c(-1,2,3) #barycentric coordinates
 #M<-c(1.3,1.3)
 #M<-c(.3,.3)
 
-IndNPETe(dat[1,],dat[10,],r=2,M)
-IndNPETe(c(0,1),dat[10,],r=2,M)
+NumArcsPETe(dat,r=1.25,M)
+NumArcsPETe(dat,r=1.5,M)
+NumArcsPETe(dat,r=2,M)
 
-IndNPETe(dat[1,],dat[10,],r=1.5,M)
-IndNPETe(dat[1,],dat[5,],r=2,M)
-IndNPETe(dat[1,],dat[5,],r=3,M)
+NumArcsPETe(rbind(dat,c(0,1)),r=2,M)
+NumArcsPETe(c(.2,.3),r=2,M)
 
-IndNPETe(c(1,1),dat[5,],r=3,M)
-IndNPETe(c(1,1),c(1,1),r=3,M)
+NumArcsPETe(dat,r=1.5,M);
 
-#or try
-Rv<-rvTeCM(dat[1,])$rv
-IndNPETe(dat[1,],dat[10,],r=2,M,Rv)
-
-P1<-c(.4,.2)
-P2<-c(.5,.26)
-r<-2
-IndNPETe(P1,P2,r,M)
-
+dat.fr<-data.frame(a=dat)
+NumArcsPETe(dat.fr,r=1.5,M);
 
 }
 \references{
 \insertAllCited{}
 }
 \seealso{
-\code{\link{NumArcsPEtri}}, \code{\link{NumArcsPEMT}}, and \code{\link{NumArcsCSTe}},
+\code{\link{NumArcsPEtri}}, \code{\link{NumArcsPEMT}}, and \code{\link{NumArcsCSTe}}
 }

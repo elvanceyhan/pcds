@@ -4,8 +4,16 @@
 \alias{plotDeltri}
 \title{The scatterplot of points from one class and plot of the Delaunay triangulation of the other class}
 \usage{
-plotDeltri(Xp, Yp, main = "", xlab = "", ylab = "", xlim = NULL,
-  ylim = NULL)
+plotDeltri(
+  Xp,
+  Yp,
+  main = "",
+  xlab = "",
+  ylab = "",
+  xlim = NULL,
+  ylim = NULL,
+  ...
+)
 }
 \arguments{
 \item{Xp}{A set of 2D points whose scatterplot is to be plotted}
@@ -17,57 +25,43 @@ plotDeltri(Xp, Yp, main = "", xlab = "", ylab = "", xlim = NULL,
 \item{xlab, ylab}{Titles for the x and y axes, respectively (default="" for both)}
 
 \item{xlim, ylim}{Numeric vectors of length 2, giving the x- and y-coordinate ranges (default=NULL for both)}
+
+\item{...}{Additional plot parameters}
 }
 \value{
-A scatterplot of Xp points and the Delaunay triangulation of Yp points.
+A scatterplot of \code{Xp} points and the Delaunay triangulation of \code{Yp} points.
 }
 \description{
-Plots the scatter plot of Xp points together with the Delaunay triangles based on the Yp points.
+Plots the scatter plot of \code{Xp} points together with the Delaunay triangles based on the \code{Yp} points.
 Both sets of points are of 2D.
-See (\insertCite{okabe:2000,ceyhan:comp-geo-2010,renka:1996;textual}{pcds}) for more on Delaunay triangulation and the tripack algorithm.
+See (\insertCite{okabe:2000,ceyhan:comp-geo-2010,renka:1996;textual}{pcds}) for more on Delaunay triangulation and the TRIPACK algorithm.
 }
 \examples{
-A<-c(1,1); B<-c(2,0); C<-c(1.5,2);
-#A<-runif(2); B<-runif(2); C<-runif(2);
-#A<-runif(2,1,100); B<-runif(2,1,100); C<-runif(2,1,100);
-Tr<-rbind(A,B,C);
-n<-20
+nx<-100
+ny<-10
 
 #set.seed(1)
-dat<-runif.tri(n,Tr)$g
-#dat<-cbind(runif(n,1,2),runif(n,0,2))
-#dat<-cbind(runif(n),runif(n))
+Xp<-cbind(runif(nx),runif(nx))
+Yp<-cbind(runif(ny),runif(ny))
+plotDeltri(Xp,Yp,xlab="",ylab="",main="X points and Delaunay Triangulation of Y points")
 
-M<-as.numeric(runif.tri(1,Tr)$g)
-#M<-c(1.6,1.0)
-#M<-circ.cent.tri(Tr)
-#M<-c(1,1,1) #M<-c(1,2,3) #M<-c(-1,2,3) #barycentric coordinates
-#M<-c(1.3,1.3)
-#M<-c(.3,.3)
+P<-c(.6,.4)
+plotDeltri(P,Yp,xlab="",ylab="",main="X points and Delaunay Triangulation of Y points")
 
-NumArcsPEtri(dat,Tr,r=1.5,M)
-PEarcdens.tri(dat,Tr,r=1.5,M)
-PEarcdens.tri(dat,Tr,r=1.5,M,tri.cor = F)
+plotDeltri(Xp,Yp,xlab="",ylab="")
 
-NumArcsPEtri(dat,Tr,r=1,M)
-PEarcdens.tri(dat,Tr,r=1,M)
+plotDeltri(Xp,rbind(Yp,Yp),xlab="",ylab="")
 
-NumArcsPEtri(dat,Tr,r=1.5,M)
-PEarcdens.tri(dat,Tr,r=1.5,M)
+dat.fr<-data.frame(a=Xp)
+plotDeltri(dat.fr,Yp,xlab="",ylab="")
 
-r<-2
-PEarcdens.tri(dat,Tr,r,M)
-
-dat.fr<-data.frame(a=dat)
-PEarcdens.tri(dat.fr,Tr,r,M)
-
-dat.fr<-data.frame(a=Tr)
-PEarcdens.tri(dat,dat.fr,r,M)
+dat.fr<-data.frame(a=Yp)
+plotDeltri(Xp,dat.fr,xlab="",ylab="")
 
 }
 \references{
 \insertAllCited{}
 }
 \seealso{
-\code{\link{plot.tri}} in tri.pack package
+\code{\link[tripack]{plot.tri}} in \code{tripack} package
 }

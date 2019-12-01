@@ -5,8 +5,19 @@
 \title{The plot of the arcs of Central Similarity Proximity Catch Digraph (CS-PCD) for a
 2D data set - multiple triangle case}
 \usage{
-plotArcsCSMT(Xp, Yp, t, M = c(1, 1, 1), asp = NA, main = "",
-  xlab = "", ylab = "", xlim = NULL, ylim = NULL)
+plotArcsCSMT(
+  Xp,
+  Yp,
+  t,
+  M = c(1, 1, 1),
+  asp = NA,
+  main = "",
+  xlab = "",
+  ylab = "",
+  xlim = NULL,
+  ylim = NULL,
+  ...
+)
 }
 \arguments{
 \item{Xp}{A set of 2D points which constitute the vertices of the CS-PCD}
@@ -16,7 +27,7 @@ plotArcsCSMT(Xp, Yp, t, M = c(1, 1, 1), asp = NA, main = "",
 \item{t}{A positive real number which serves as the expansion parameter in CS proximity region}
 
 \item{M}{A 3D point in barycentric coordinates which serves as a center in the interior of each Delaunay
-triangle, default for M is c(1,1,1) which is the center of mass of each triangle}
+triangle, default for \eqn{M=(1,1,1)} which is the center of mass of each triangle}
 
 \item{asp}{Numeric, giving the aspect ratio y/x (default is NA), see the official help for asp by typing "? asp"}
 
@@ -25,25 +36,28 @@ triangle, default for M is c(1,1,1) which is the center of mass of each triangle
 \item{xlab, ylab}{Titles for the x and y axes, respectively (default="" for both)}
 
 \item{xlim, ylim}{Numeric vectors of length 2, giving the x- and y-coordinate ranges (default=NULL for both)}
+
+\item{...}{Additional plot parameters}
 }
 \value{
-A plot of the arcs of the CS-PCD whose vertices are the points in data set Xp and the Delaunay
-triangles based on Yp points
+A plot of the arcs of the CS-PCD whose vertices are the points in data set \code{Xp} and the Delaunay
+triangles based on \code{Yp} points
 }
 \description{
 Plots the arcs of Central Similarity Proximity Catch Digraph (CS-PCD) whose vertices are the data
-points in Xp in the multiple triangle case and the Delauany triangles based on Yp points.
-CS proximity regions are defined with respect to the Delaunay triangles based on Yp points with
-expansion parameter t>0 and edge regions in each triangle are based on the center M=(alpha,beta,gamma)
-in barycentric coordinates in the interior of each Delaunay triangle (default for M is c(1,1,1)
+points in \code{Xp} in the multiple triangle case and the Delauany triangles based on \code{Yp} points.
+
+CS proximity regions are defined with respect to the Delaunay triangles based on \code{Yp} points with
+expansion parameter \eqn{t>0} and edge regions in each triangle are based on the center \eqn{M=(\alpha,\beta,\gamma)}
+in barycentric coordinates in the interior of each Delaunay triangle (default for \eqn{M=(1,1,1)}
 which is the center of mass of the triangle). Each Delaunay triangle is first converted to an (unscaled)
-basic triangle so that M will be the same type of center for each Delaunay triangle (this conversion is
-not necessary when M is CM). Convex hull of Yp is partitioned by the Delaunay triangles based on Yp points
+basic triangle so that \code{M} will be the same type of center for each Delaunay triangle (this conversion is
+not necessary when \code{M} is CM). Convex hull of \code{Yp} is partitioned by the Delaunay triangles based on \code{Yp} points
 (i.e., multiple triangles are the set of these Delaunay triangles whose union constitutes the
-convex hull of Yp points). Loops are not allowed so arcs are only possible
-for points inside the convex hull of Yp points.
+convex hull of \code{Yp} points). Loops are not allowed so arcs are only possible
+for points inside the convex hull of \code{Yp} points.
 See (\insertCite{ceyhan:Phd-thesis,ceyhan:arc-density-CS,ceyhan:test2014;textual}{pcds}) more on the CS-PCDs.
-Also see (\insertCite{okabe:2000,ceyhan:comp-geo-2010,renka:1996;textual}{pcds}) for more on Delaunay triangulation and the tripack algorithm.
+Also see (\insertCite{okabe:2000,ceyhan:comp-geo-2010,renka:1996;textual}{pcds}) for more on Delaunay triangulation and the TRIPACK algorithm.
 }
 \examples{
 nx<-100
@@ -53,29 +67,20 @@ ny<-10
 Xp<-cbind(runif(nx,0,1),runif(nx,0,1))
 #Xp<-cbind(runif(nx,0.5,1.5),runif(nx,0,1))
 #Xp<-cbind(runif(nx,1,2),runif(nx,0,1))
+#Xp<-c(.5,.5); Xp<-matrix(Xp,ncol=2)
 Yp<-cbind(runif(ny,0,1),runif(ny,0,1))
-#Xp<-c(.5,.5)
 
 M<-c(1,1,1) #M<-c(1,2,3) #M<-c(-1,2,3) #barycentric coordinates
 #M<-c(1.3,1.3)
 t<-1.5
 #t<-2
 
-IM<-IncMatCSMT(Xp,Yp,t,M)
-IM
-dom.greedy(IM)
-#dom.exact(IM) #takes a very long time for large nx, try smaller nx
-#IndUBdom(IM,3) #takes a very long time for large nx, try smaller nx
+Xlim<-range(Xp[,1],Yp[,1])
+Ylim<-range(Xp[,2],Yp[,2])
+xd<-Xlim[2]-Xlim[1]
+yd<-Ylim[2]-Ylim[1]
 
-IncMatCSMT(Xp,Yp,t,M)
-
-IncMatCSMT(Xp,tbind(Yp,Yp),t,M)
-
-dat.fr<-data.frame(a=Xp)
-IncMatCSMT(dat.fr,Yp,t,M)
-
-dat.fr<-data.frame(a=Yp)
-IncMatCSMT(Xp,dat.fr,t,M)
+plotArcsCSMT(Xp,Yp,t,M,xlab="",ylab="",xlim=Xlim+xd*c(-.05,.05),ylim=Ylim+yd*c(-.05,.05))
 
 }
 \references{

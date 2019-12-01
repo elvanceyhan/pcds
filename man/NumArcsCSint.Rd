@@ -11,21 +11,23 @@ NumArcsCSint(dat, t, c = 0.5, int)
 
 \item{t}{A positive real number which serves as the expansion parameter in CS proximity region}
 
-\item{c}{A positive real number in (0,1) parameterizing the center inside int=(a,b).
-For the interval, int=(a,b), the parameterized center is Mc=a+c*(b-a); default=.5}
+\item{c}{A positive real number in \eqn{(0,1)} parameterizing the center inside \eqn{int=(a,b)}.
+For the interval, \eqn{int=(a,b)}, the parameterized center is \eqn{M_c=a+c(b-a)}; default=.5}
 
 \item{int}{A vector of two real numbers representing an interval}
 }
 \value{
-Number of arcs for the CS-PCD whose vertices are the 1D data set, dat,
-with expansion parameter, t>0, and centrality parameter, c in (0,1).
+Number of arcs for the CS-PCD whose vertices are the 1D data set, \code{dat},
+with expansion parameter, \eqn{t>0}, and centrality parameter, \code{c} in \eqn{(0,1)}.
 }
 \description{
 Returns the number of arcs of Central Similarity Proximity Catch Digraphs (CS-PCDs)
-whose vertices are the 1D data set dat in the one-interval case.
-The data points could be inside or outside the interval is int=(a,b). CS proximity region is constructed
-with an expansion parameter t>0 and a centrality parameter c in (0,1).
-The CS proximity region is constructed for both points inside and outside the interval, hence
+whose vertices are the 1D data set \code{dat} in the one-interval case.
+The data points could be inside or outside the interval is \eqn{int=(a,b)}.
+
+CS proximity region is constructed
+with an expansion parameter \eqn{t>0} and a centrality parameter \code{c} in \eqn{(0,1)}.
+CS proximity region is constructed for both points inside and outside the interval, hence
 the arcs may exist for all points inside or outside the interval.
 See also (\insertCite{ceyhan:revstat-2016;textual}{pcds}).
 }
@@ -33,24 +35,28 @@ See also (\insertCite{ceyhan:revstat-2016;textual}{pcds}).
 c<-.4
 t<-2
 a<-0; b<-10; int<-c(a,b)
-#c<-runif(1)
-#a<-runif(1); b<-runif(1); int<-range(a,b); a<-int[1]; b<-int[2]
 
 n<-10
-xr<-range(a,b)
-xf<-(xr[2]-xr[1])*.1
-dat<-runif(n,a-xf,b+xf)
+dat<-runif(n,a,b)
+NumArcsCSint(dat,t,c,int)
+
+NumArcsCSint(3,t,c,int)
+
+NumArcsCSint(dat,t,c=.3,int)
+
+NumArcsCSint(dat,t=1.5,c,int)
+
+n<-20
+dat<-runif(n,a,b)
 #dat<-runif(n,a-5,b+5)
+#dat<-runif(n,a+5,b+5)
+#dat<-runif(n,a+10,b+10)
 
-plot.regsCSint(7,t,c,int)
+NumArcsCSint(dat,t,c,int)
 
-plot.regsCSint(dat,t,c,int)
-
-plot.regsCSint(17,t,c,int)
-plot.regsCSint(1,t,c,int)
-plot.regsCSint(4,t,c,int)
-
-plot.regsCSint(-7,t,c,int)
+n<-10
+dat<-runif(n,a,b)
+NumArcsCSint(dat,t,c,int)
 
 }
 \references{

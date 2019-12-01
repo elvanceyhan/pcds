@@ -11,25 +11,27 @@ NumArcsPEtri(dat, tri, r, M = c(1, 1, 1))
 
 \item{tri}{Three 2D points, stacked row-wise, each row representing a vertex of the triangle}
 
-\item{r}{A positive real number which serves as the expansion parameter in PE proximity region; must be >=1}
+\item{r}{A positive real number which serves as the expansion parameter in PE proximity region; must be \eqn{\ge 1}}
 
 \item{M}{A 2D point in Cartesian coordinates or a 3D point in barycentric coordinates
-which serves as a center in the interior of the triangle tri or the circumcenter of tri;
-default is M=c(1,1,1) i.e. the center of mass of tri}
+which serves as a center in the interior of the triangle \code{tri} or the circumcenter of \code{tri};
+default is \eqn{M=(1,1,1)} i.e. the center of mass of \code{tri}}
 }
 \value{
-Number of arcs of the PE-PCD with vertices being 2D data set, dat, in tri
-with expansion parameter, r>=1, and center M. PE proximity regions are defined only
-for dat points inside tri, i.e. arcs are possible for such points only.
+Number of arcs of the PE-PCD with vertices being 2D data set, \code{dat}, in \code{tri}
+with expansion parameter, \eqn{r \ge 1}, and center \code{M}. PE proximity regions are defined only
+for \code{dat} points inside \code{tri}, i.e. arcs are possible for such points only.
 }
 \description{
 Returns the number of arcs of Proportional Edge Proximity Catch Digraphs (PE-PCDs) whose vertices are the
-given 2D numerical data set, dat. PE proximity region NPE(x,r) is defined with respect to the triangle, tri
-for this function. PE proximity region is constructed with expansion parameter r>=1 and vertex regions are
-based on the center M=(m1,m2) in Cartesian coordinates or M=(alpha,beta,gamma) in barycentric coordinates
-in the interior of the triangle tri or based on circumcenter of tri; default is M=c(1,1,1) i.e. the center
-of mass of tri. For the number of arcs, loops are not
-allowed so arcs are only possible for points inside the triangle tri for this function.
+given 2D numerical data set, \code{dat}.
+
+PE proximity region \eqn{NPE(x,r)} is defined with respect to the triangle, \code{tri}
+for this function. PE proximity region is constructed with expansion parameter \eqn{r \ge 1} and vertex regions are
+based on the center \eqn{M=(m_1,m_2)} in Cartesian coordinates or \eqn{M=(\alpha,\beta,\gamma)} in barycentric coordinates
+in the interior of the triangle \code{tri} or based on circumcenter of \code{tri}; default is \eqn{M=(1,1,1)} i.e. the center
+of mass of \code{tri}. For the number of arcs, loops are not
+allowed so arcs are only possible for points inside the triangle \code{tri} for this function.
 See also (\insertCite{ceyhan:Phd-thesis,ceyhan:arc-density-PE;textual}{pcds}).
 }
 \examples{
@@ -38,54 +40,33 @@ A<-c(1,1); B<-c(2,0); C<-c(1.5,2);
 #A<-runif(2,1,100); B<-runif(2,1,100); C<-runif(2,1,100);
 Tr<-rbind(A,B,C);
 
+n<-20
+#set.seed(1)
+dat<-runif.tri(n,Tr)$g
+#dat<-cbind(runif(n,1,2),runif(n,0,2))
+#dat<-cbind(runif(n),runif(n))
+
 M<-as.numeric(runif.tri(1,Tr)$g)
-#M<-c(1.6,1.0);
+#M<-c(1.6,1.0)
 #M<-circ.cent.tri(Tr)
 #M<-c(1,1,1) #M<-c(1,2,3) #M<-c(-1,2,3) #barycentric coordinates
 #M<-c(1.3,1.3)
 #M<-c(.3,.3)
-r<-1.5
 
-n<-10
-#set.seed(1)
-dat<-runif.tri(n,Tr)$g
+NumArcsPEtri(dat,Tr,r=1.25,M)
+NumArcsPEtri(dat,Tr,r=1.5,M)
+NumArcsPEtri(dat,Tr,r=2.0,M)
 
-IndNPEtri(dat[1,],dat[2,],r,Tr,M)
+NumArcsPEtri(rbind(dat,c(0,2)),Tr,r=1.25,M)
 
-P1<-as.numeric(runif.tri(1,Tr)$g)
-P2<-as.numeric(runif.tri(1,Tr)$g)
-IndNPEtri(P1,P2,r,Tr,M)
-
-P1<-c(.4,.2)
-P2<-c(1.8,.5)
-IndNPEtri(P1,P2,r,Tr,M)
-IndNPEtri(P2,P1,r,Tr,M)
-IndNPEtri(P1,P1,r,Tr,M)
-
-IndNPEtri(P2,P2,r,Tr,M)
-
-P3<-c(1.7,.6)
-IndNPEtri(P2,P3,r,Tr,M)
-IndNPEtri(P3,P2,r,Tr,M)
-
-M<-c(1.3,1.3)
 r<-2
+NumArcsPEtri(dat,Tr,r,M)
 
-P1<-c(1.4,1.2)
-P2<-c(1.5,1.26)
-IndNPEtri(P1,P2,r,Tr,M)
-IndNPEtri(P2,P1,r,Tr,M)
-
-#or try
-Rv<-rv.tri.cent(P1,Tr,M)$rv
-IndNPEtri(P1,P2,r,Tr,M,Rv)
-
-P2<-c(1.8,.5)
-P3<-c(1.7,.6)
-IndNPEtri(P2,P3,r,Tr,M)
+dat.fr<-data.frame(a=dat)
+NumArcsPEtri(dat.fr,Tr,r,M)
 
 dat.fr<-data.frame(a=Tr)
-IndNPEtri(P2,P3,r,dat.fr,M)
+NumArcsPEtri(dat,dat.fr,r,M)
 
 }
 \references{

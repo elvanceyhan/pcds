@@ -11,25 +11,28 @@ IndNCSint(x1, x2, t, c = 0.5, int)
 \item{x1}{A 1D point for which the proximity region is constructed}
 
 \item{x2}{A 1D point for which it is checked whether it resides in the proximity region
-of x1 or not}
+of \code{x1} or not}
 
 \item{t}{A positive real number which serves as the expansion parameter in CS proximity region}
 
-\item{c}{A positive real number in (0,1) parameterizing the center inside int=(a,b).
-For the interval, int=(a,b), the parameterized center is Mc=a+c*(b-a), and default=.5}
+\item{c}{A positive real number in \eqn{(0,1)} parameterizing the center inside \eqn{int=(a,b)}.
+For the interval, \eqn{int=(a,b)}, the parameterized center is \eqn{M_c=a+c(b-a)}, and default=.5}
 
 \item{int}{A vector of two real numbers representing an interval}
 }
 \value{
-I(x2 in NCS(x1,t,c)) for x2, that is, returns 1 if x2 in NCS(x1,t,c), returns 0 otherwise
+I(\code{x2} in \eqn{NCS(x1,t,c)}) for x2, that is, returns 1 if \code{x2} in \eqn{NCS(x1,t,c)}, returns 0 otherwise
 }
 \description{
-Returns I(x2 in NCS(x1,t,c)) for points x1 and x2, that is, returns 1 if x2 is in NCS(x1,t,c),
-returns 0 otherwise, where NCS(x,t,c) is the CS proximity region for point x with expansion parameter t>0
-and centrality parameter c in (0,1) and CS proximity region is constructed with respect to the
-interval (a,b). This function works whether x1 and x2 are inside or outside the interval int.
+Returns I(\code{x2} in \eqn{NCS(x1,t,c)}) for points \code{x1} and \code{x2}, that is, returns 1 if \code{x2} is in \eqn{NCS(x1,t,c)},
+returns 0 otherwise, where \eqn{NCS(x,t,c)} is the CS proximity region for point \eqn{x} with expansion parameter \eqn{t>0}
+and centrality parameter \code{c} in \eqn{(0,1)}.
+
+ CS proximity region is constructed with respect to the
+interval \eqn{(a,b)}. This function works whether \code{x1} and \code{x2} are inside or outside the interval \code{int}.
+
 Vertex regions for middle intervals are based on the center associated with the centrality parameter
-c in (0,1). If x1 and x2 are identical, then it returns 1 regardless of its location
+\code{c} in \eqn{(0,1)}. If \code{x1} and \code{x2} are identical, then it returns 1 regardless of their locations
 (i.e., loops are allowed in the digraph).
 See also (\insertCite{ceyhan:revstat-2016;textual}{pcds}).
 }
@@ -38,14 +41,23 @@ c<-.4
 t<-2
 a<-0; b<-10; int<-c(a,b)
 
-NCSint(7,t,c,int)
-NCSint(17,t,c,int)
-NCSint(1,t,c,int)
-NCSint(-1,t,c,int)
+IndNCSint(7,5,t,c,int)
+IndNCSint(17,17,t,c,int)
+IndNCSint(15,17,t,c,int)
+IndNCSint(1,3,t,c,int)
 
-NCSint(3,t,c,int)
-NCSint(4,t,c,int)
-NCSint(a,t,c,int)
+IndNCSint(-17,17,t,c,int)
+
+IndNCSint(3,5,t,c,int)
+IndNCSint(3,3,t,c,int)
+IndNCSint(4,5,t,c,int)
+IndNCSint(a,5,t,c,int)
+
+c<-.4
+r<-2
+a<-0; b<-10; int<-c(a,b)
+
+IndNCSint(7,5,t,c,int)
 
 }
 \references{

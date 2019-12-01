@@ -14,52 +14,58 @@ NumArcsCStri(Dt, tri, t, M = c(1, 1, 1))
 \item{t}{A positive real number which serves as the expansion parameter in CS proximity region}
 
 \item{M}{A 2D point in Cartesian coordinates or a 3D point in barycentric coordinates
-which serves as a center in the interior of the triangle tri; default is M=c(1,1,1) i.e.
-the center of mass of tri}
+which serves as a center in the interior of the triangle \code{tri}; default is \eqn{M=(1,1,1)} i.e.
+the center of mass of \code{tri}}
 }
 \value{
-Number of arcs for the CS-PCD with vertices being 2D data set, dat, in tri
-with expansion parameter, t>0, and center of mass CM. CS proximity regions are defined only
-for dat points inside tri, i.e. arcs are possible for such points only.
+Number of arcs for the CS-PCD with vertices being 2D data set, \code{dat}, in \code{tri}
+with expansion parameter, \eqn{t>0}, and center of mass CM. CS proximity regions are defined only
+for \code{Dt} points inside \code{tri}, i.e. arcs are possible for such points only.
 }
 \description{
 Returns the number of arcs of Central Similarity Proximity Catch Digraphs (CS-PCDs) whose vertices are the
-given 2D numerical data set, dat. CS proximity region NCS(x,r) is defined with respect to the triangle, tri  with expansion parameter t>0
-and edge regions are based on the center M=(m1,m2)
-in Cartesian coordinates or M=(alpha,beta,gamma) in barycentric coordinates in the interior of tri;
-default is M=c(1,1,1) i.e. the center of mass of tri.
+given 2D numerical data set, \code{dat}.
+
+CS proximity region NCS(x,r) is defined with respect to the triangle, \code{tri}  with expansion parameter \eqn{t>0}
+and edge regions are based on the center \eqn{M=(m_1,m_2)}
+in Cartesian coordinates or \eqn{M=(\alpha,\beta,\gamma)} in barycentric coordinates in the interior of \code{tri};
+default is \eqn{M=(1,1,1)} i.e. the center of mass of \code{tri}.
 For the number of arcs, loops are not allowed so
-arcs are only possible for points inside tri for this function.
+arcs are only possible for points inside \code{tri} for this function.
 See also (\insertCite{ceyhan:Phd-thesis,ceyhan:arc-density-CS,ceyhan:test2014;textual}{pcds}).
 }
 \examples{
-A<-c(0,0); B<-c(1,0); C<-c(.5,sqrt(3.)/2);
+A<-c(1,1); B<-c(2,0); C<-c(1.5,2);
+#A<-runif(2); B<-runif(2); C<-runif(2);
+#A<-runif(2,1,100); B<-runif(2,1,100); C<-runif(2,1,100);
+Tr<-rbind(A,B,C);
+
 n<-20
-
 #set.seed(1)
-dat<-runifTe(n)$gen.points
+dat<-runif.tri(n,Tr)$g
+#dat<-cbind(runif(n,1,2),runif(n,0,2))
 #dat<-cbind(runif(n),runif(n))
-#dat<-cbind(runif(n,1,2),runif(n,0,1))
 
-M<-as.numeric(runifTe(1)$g)
-#M<-c(.6,.2)
+M<-as.numeric(runif.tri(1,Tr)$g)
+#M<-c(1.6,1.0)
 #M<-c(1,1,1) #M<-c(1,2,3) #M<-c(-1,2,3) #barycentric coordinates
 #M<-c(1.3,1.3)
 #M<-c(.3,.3)
 
-NumArcsCSTe(dat,t=.5,M)
-NumArcsCSTe(dat,t=3,M)
-NumArcsCSTe(dat,t=1.5,M)
+NumArcsCStri(dat,Tr,t=.5,M)
+NumArcsCStri(dat,Tr,t=1,M)
+NumArcsCStri(dat,Tr,t=1.5,M)
 
-NumArcsCSTe(rbind(dat,c(0,1)),t=2,M)
-NumArcsCSTe(c(.4,.2),t=.5,M)
+NumArcsCStri(c(1.4,.2),Tr,t=.5,M)
 
-NumArcsCSTe(dat,t=1.5,M);
-
-NumArcsCSTe(rbind(dat,dat),t=1.5,M)
+t<-.5
+NumArcsCStri(dat,Tr,t,M)
 
 dat.fr<-data.frame(a=dat)
-NumArcsCSTe(dat.fr,t=1.5,M);
+NumArcsCStri(dat.fr,Tr,t,M)
+
+dat.fr<-data.frame(a=Tr)
+NumArcsCStri(dat,dat.fr,t,M)
 
 }
 \references{

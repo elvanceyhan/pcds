@@ -9,41 +9,45 @@ NumArcsPEend1D(dat, r, int)
 \arguments{
 \item{dat}{A vector of 1D points which constitute the vertices of the digraph}
 
-\item{r}{A positive real number which serves as the expansion parameter in PE proximity region; must be >=1}
+\item{r}{A positive real number which serves as the expansion parameter in PE proximity region; must be \eqn{\ge 1}}
 
 \item{int}{A vector of two real numbers representing an interval}
 }
 \value{
-Number of arcs for the PE-PCD with vertices being 1D data set, dat,
-expansion parameter, r>=1, for the end intervals.
+Number of arcs for the PE-PCD with vertices being 1D data set, \code{dat},
+expansion parameter, \eqn{r \ge 1}, for the end intervals.
 }
 \description{
 Returns the number of arcs of Proportional Edge Proximity Catch Digraphs (PE-PCDs) whose
-vertices are a 1D numerical data set, dat, outside the interval int=(a,b).
-PE proximity region is constructed only with expansion parameter r>=1 for points outside the interval (a,b).
+vertices are a 1D numerical data set, \code{dat}, outside the interval \eqn{int=(a,b)}.
+
+PE proximity region is constructed only with expansion parameter \eqn{r \ge 1} for points outside the interval \eqn{(a,b)}.
 End vertex regions are based on the end points of the interval,
-i.e., the corresponding vertex region is an interval as (-Inf,a) or (b,Inf) for the interval (a,b).
+i.e., the corresponding vertex region is an interval as \eqn{(-\infty,a)} or \eqn{(b,\infty)} for the interval \eqn{(a,b)}.
 For the number of arcs, loops are not allowed, so arcs are only possible for points outside
-the interval, int, for this function.
+the interval, \code{int}, for this function.
 See also (\insertCite{ceyhan:metrika-2012;textual}{pcds}).
 }
 \examples{
 a<-0; b<-10; int<-c(a,b)
+
+n<-5
+datL<-runif(n,a-5,a)
+datR<-runif(n,b,b+5)
+dat<-c(datL,datR)
+
 r<-2
+NumArcsPEend1D(dat,r,int)
 
-IndNPEend1D(15,17,r,int)
-IndNPEend1D(15,15,r,int)
+NumArcsPEend1D(dat,r=1.2,int)
+NumArcsPEend1D(dat,r=4,int)
+#NumArcsPEend1D(dat,r=.4,int) # r must be a scalar >= 1
 
-IndNPEend1D(1.5,17,r,int)
+n<-20
+dat2<-runif(n,a-5,b+5)
+NumArcsPEend1D(dat2,r,int)
 
-IndNPEend1D(-15,17,r,int)
-
-IndNPEend1D(a,17,r,int)
-IndNPEend1D(15,17,r=1.1,int)
-
-a<-0; b<-10; int<-c(a,b)
-r<-2
-IndNPEend1D(15,17,r,int)
+NumArcsPEend1D(dat,r,int)
 
 }
 \references{

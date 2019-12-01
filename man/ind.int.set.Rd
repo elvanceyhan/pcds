@@ -7,24 +7,47 @@
 ind.int.set(dat, Yp)
 }
 \arguments{
-\item{dat}{A set of 1D points for which the indices of intervals are to be determined}
+\item{dat}{A set of 1D points for which the indices of intervals are to be determined.}
 
-\item{Yp}{A set of 1D points from which intervals are constructed}
+\item{Yp}{A set of 1D points from which intervals are constructed.}
 }
 \value{
-The vector of indices of the intervals in which points in the 1D data set, dat, reside
+The vector of indices of the intervals in which points in the 1D data set, \code{dat}, reside
 }
 \description{
-Returns the indices of intervals for all the points in 1D data set, Dt, as a vector.
-Intervals are based on Yp and left end interval is labeled as 0, the next interval as 1, and so on.
+Returns the indices of intervals for all the points in 1D data set, \code{dat}, as a vector.
+Intervals are based on \code{Yp} and left end interval is labeled as 0, the next interval as 1, and so on.
 }
 \examples{
-c<-.5
+a<-0; b<-10; int<-c(a,b)
+#a<-runif(1); b<-runif(1); int<-range(a,b); a<-int[1]; b<-int[2]
+nx<-40; ny<-10
 
-Pg2PE1D.asy(c)
+#set.seed(1)
+xr<-range(a,b)
+xf<-(xr[2]-xr[1])*.1
+Xp<-runif(nx,a-xf,b+xf)
+Yp<-runif(ny,a,b)
+#Yp<-runif(ny,a+1,b-1)
 
-Pg2PE1D.asy(c=1/1.5)
-Pg2PE1D(r=1.5,c=1/1.5,n=10)
-Pg2PE1D(r=1.5,c=1/1.5,n=100)
+ind<-ind.int.set(Xp,Yp)
+ind
+
+jit<-.1
+yjit<-runif(nx,-jit,jit)
+
+Xlim<-range(a,b,Xp,Yp)
+xd<-Xlim[2]-Xlim[1]
+
+plot(cbind(a,0), xlab=" ", ylab=" ",xlim=Xlim+xd*c(-.05,.05),ylim=3*c(-jit,jit),pch=".")
+abline(h=0)
+points(Xp, yjit,pch=".",cex=3)
+abline(v=Yp,lty=2)
+text(Xp,yjit,labels=factor(ind))
+
+ind.int.set(3,5)
+ind.int.set(6,5)
+
+ind.int.set(Xp,Yp)
 
 }

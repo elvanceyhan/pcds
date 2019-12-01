@@ -9,7 +9,7 @@ Pg2PEtri(r)
 }
 \arguments{
 \item{r}{A positive real number which serves as the expansion parameter in PE proximity region;
-must be in (1,1.5] to attain non-degenerate asymptotic distribution for the domination number}
+must be in \eqn{(1,1.5]} to attain non-degenerate asymptotic distribution for the domination number}
 }
 \value{
 P(domination number=2) for PE-PCD for uniform data on an triangle as the sample size n
@@ -18,39 +18,30 @@ goes to infinity
 \description{
 Returns P(domination number=2) for PE-PCD for uniform data in a triangle, when the sample size n goes to
 infinity (i.e., asymptotic probability of domination number=2).
-PE proximity regions are contructed with respect to the triangle with the expansion parameter r>=1 and
+
+PE proximity regions are contructed with respect to the triangle with the expansion parameter \eqn{r \ge 1} and
 M-vertex regions where M is the vertex that renders the asymptotic distribution of the domination
-number non-degenerate for the given value of r in (1,1.5].
+number non-degenerate for the given value of \code{r} in \eqn{(1,1.5]}.
 See also (\insertCite{ceyhan:Phd-thesis,ceyhan:masa-2007,ceyhan:dom-num-NPE-Spat2011;textual}{pcds}).
 }
 \examples{
-nx<-100
-ny<-10
-r<-1.5
-#r<-2
+Pg2PEtri(r=1.5)
+Pg2PEtri(r=1.4999999999)
 
-#set.seed(1)
-#Xp<-c(.5,.5)
-Xp<-cbind(runif(nx,0,1),runif(nx,0,1))
-#Xp<-cbind(runif(nx,0.5,1.5),runif(nx,0,1))
-#Xp<-cbind(runif(nx,1,2),runif(nx,0,1))
-Yp<-cbind(runif(ny,0,1),runif(ny,0,1))
+Pg2PEtri(r=1.5) / Pg2PEtri(r=1.4999999999)
 
-PEdomMTnd(Xp,Yp,r)
+rseq<-seq(1.01,1.49999999999,l=100)
+lrseq<-length(rseq)
 
-PEdomMTnd(Xp,Yp,r=1.4)
+pg2<-vector()
+for (i in 1:lrseq)
+{
+  pg2<-c(pg2,Pg2PEtri(rseq[i]))
+}
 
-r<-1.5
-#r<-2
-PEdomMTnd(Xp,Yp,r) #this may be different due to random selection of the center for r in (1,1.5)
-
-PEdomMTnd(Xp,rbind(Yp,Yp),r)
-
-dat.fr<-data.frame(a=Xp)
-PEdomMTnd(dat.fr,Yp,r)
-
-dat.fr<-data.frame(a=Yp)
-PEdomMTnd(Xp,dat.fr,r)
+plot(rseq, pg2,type="l",xlab="r",ylab=expression(paste("P(", gamma, "=2)")),
+     lty=1,xlim=range(rseq)+c(0,.01),ylim=c(0,1))
+points(rbind(c(1.50,Pg2PEtri(1.50))),pch=".",cex=3)
 
 }
 \references{

@@ -5,22 +5,34 @@
 \title{The plot of the arcs of Proportional Edge Proximity Catch Digraphs (PE-PCDs) for 1D data
 (vertices jittered along y-coordinate) - multiple interval case}
 \usage{
-plotArcsPE1D(Xp, Yp, r, c, Jit = 0.1, main = "", xlab = "",
-  ylab = "", xlim = NULL, ylim = NULL, centers = FALSE)
+plotArcsPE1D(
+  Xp,
+  Yp,
+  r,
+  c,
+  Jit = 0.1,
+  main = "",
+  xlab = "",
+  ylab = "",
+  xlim = NULL,
+  ylim = NULL,
+  centers = FALSE,
+  ...
+)
 }
 \arguments{
 \item{Xp}{A vector of 1D points constituting the vertices of the PE-PCD}
 
 \item{Yp}{A vector of 1D points constituting the end points of the intervals}
 
-\item{r}{A positive real number which serves as the expansion parameter in PE proximity region; must be >= 1}
+\item{r}{A positive real number which serves as the expansion parameter in PE proximity region; must be \eqn{\ge 1}}
 
-\item{c}{A positive real number in (0,1) parameterizing the center inside int=(a,b).
-For the interval, int=(a,b), the parameterized center is Mc=a+c*(b-a)}
+\item{c}{A positive real number in \eqn{(0,1)} parameterizing the center inside \eqn{int=(a,b)}.
+For the interval, \eqn{int=(a,b)}, the parameterized center is \eqn{M_c=a+c(b-a)}}
 
 \item{Jit}{A positive real number that determines the amount of jitter along the y-axis, default is .1 and
-Xp points are jittered according to U(-jit,jit) along the y-axis where jit=range of Xp and Yp multiplied by
-Jit.)}
+\code{Xp} points are jittered according to \eqn{U(-Jit,Jit)} along the y-axis where \code{Jit} equals to the range of \code{Xp} and \code{Yp} multiplied by
+\code{Jit}.)}
 
 \item{main}{Title of the main heading of the plot}
 
@@ -30,19 +42,21 @@ Jit.)}
 
 \item{centers}{A logical argument, if TRUE, plot includes the centers of the intervals
 as vertical lines in the plot, else centers of the intervals are not plotted.}
+
+\item{...}{Additional plot parameters}
 }
 \value{
-A plot of the arcs of PE-PCD whose vertices are the 1D data set Xp in which vertices are jittered
+A plot of the arcs of PE-PCD whose vertices are the 1D data set \code{Xp} in which vertices are jittered
 along y-axis for better visualization.
 }
 \description{
-Plots the arcs of PE-PCD whose vertices are the 1D points, Xp. PE proximity regions are constructed with
-expansion parameter r>=1 and centrality parameter c in (0,1) and the intervals are based on Yp points (i.e.
-the intervalization is based on Yp points). That is, data set Xp
-constitutes the vertices of the digraph and Yp determines the end points of the intervals.
-For better visualization, a uniform jitter from U(-jit,jit) (default for jit=.1) is added to
-the y-direction where jit=range of Xp and Yp multiplied by Jit with default for Jit=.1).
-centers is a logical argument, if TRUE, plot includes the centers of the intervals
+Plots the arcs of PE-PCD whose vertices are the 1D points, \code{Xp}. PE proximity regions are constructed with
+expansion parameter \eqn{r \ge 1} and centrality parameter \code{c} in \eqn{(0,1)} and the intervals are based on \code{Yp} points (i.e.
+the intervalization is based on \code{Yp} points). That is, data set \code{Xp}
+constitutes the vertices of the digraph and \code{Yp} determines the end points of the intervals.
+For better visualization, a uniform jitter from \eqn{U(-Jit,Jit)} (default for \eqn{Jit=.1}) is added to
+the y-direction where \code{Jit} equals to the range of \code{Xp} and \code{Yp} multiplied by \code{Jit} with default for \eqn{Jit=.1}).
+\code{centers} is a logical argument, if TRUE, plot includes the centers of the intervals
 as vertical lines in the plot, else centers of the intervals are not plotted.
 See also (\insertCite{ceyhan:metrika-2012;textual}{pcds}).
 }
@@ -62,34 +76,26 @@ Xp<-runif(nx,a-xf,b+xf)
 #Xp<-runif(nx,a+10,b+10)
 Yp<-runif(ny,a,b)
 
-Arcs<-ArcsPE1D(Xp,Yp,r,c)
-Arcs
-summary(Arcs)
-plot(Arcs)
-
-S<-Arcs$S
-E<-Arcs$E
-
-ArcsPE1D(Xp,Yp,r,c)
-ArcsPE1D(Xp,Yp,r=.5,c)
+Xlim=range(Xp,Yp)
+Ylim=c(-.2,.2)
 
 jit<-.1
-yjit<-runif(nx,-jit,jit)
 
-Xlim<-range(a,b,Xp,Yp)
-xd<-Xlim[2]-Xlim[1]
+plotArcsPE1D(Xp,Yp,r,c,jit,xlab="",ylab="",xlim=Xlim,ylim=Ylim)
 
-plot(cbind(a,0),pch=".",main="arcs for points in mid and end intervals ", xlab=" ", ylab=" ",
-     xlim=Xlim+xd*c(-.05,.05),ylim=3*c(-jit,jit))
-abline(h=0,lty=1)
-points(Xp, yjit,pch=".",cex=3)
-abline(v=Yp,lty=2)
-arrows(S, yjit, E, yjit, length = .05, col= 4)
+set.seed(1)
+plotArcsPE1D(Xp,Yp,r=1.5,c=.3,jit,main="r=1.5, c=.3",xlab="",ylab="",centers=TRUE)
+set.seed(1)
+plotArcsPE1D(Xp,Yp,r=2,c=.3,jit,main="r=2, c=.3",xlab="",ylab="",centers=TRUE)
+set.seed(1)
+plotArcsPE1D(Xp,Yp,r=1.5,c=.5,jit,main="r=1.5, c=.5",xlab="",ylab="",centers=TRUE)
+set.seed(1)
+plotArcsPE1D(Xp,Yp,r=2,c=.5,jit,main="r=2, c=.5",xlab="",ylab="",centers=TRUE)
 
 }
 \references{
 \insertAllCited{}
 }
 \seealso{
-\code{\link{plot.CSPCD.1D}}
+\code{\link{plotArcsCS1D}}
 }

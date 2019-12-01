@@ -14,28 +14,29 @@ IndASdomUBtri(Dt, k, tri, M = "CC")
 
 \item{tri}{Three 2D points, stacked row-wise, each row representing a vertex of the triangle}
 
-\item{M}{"CC" which stand for circumcenter of the triangle tri or a 2D point in Cartesian coordinates or
-a 3D point in barycentric coordinates which serves as a center in the interior of tri;
-default is M="CC" i.e. the circumcenter of tri}
+\item{M}{"CC" which stands for circumcenter of the triangle \code{tri} or a 2D point in Cartesian coordinates or
+a 3D point in barycentric coordinates which serves as a center in the interior of \code{tri};
+default is \code{M}="CC" i.e. the circumcenter of \code{tri}}
 }
 \value{
 A list with the elements
 \item{domUB}{The suggested upper bound (to be checked) for the domination number of AS-PCD.
-It is prespecified as k in the function arguments.}
+It is prespecified as \code{k} in the function arguments.}
 \item{IndUBdom}{The indicator for the upper bound for domination number of AS-PCD being the
-specified value k or not. It returns 1 if the upper bound is k, and 0 otherwise.}
-\item{ind.domset}{The vertices (i.e., data points) in the dominating set of size k if it exists,
+specified value \code{k} or not. It returns 1 if the upper bound is \code{k}, and 0 otherwise.}
+\item{ind.domset}{The vertices (i.e., data points) in the dominating set of size \code{k} if it exists,
 otherwise it yields NULL.}
 }
 \description{
-Returns I(domination number of AS-PCD whose vertices are the data points Dt is less than or equal to k),
-that is, returns 1 if the domination number of CS-PCD is less than the prespecified value k, returns 0
-otherwise. It also provides the vertices (i.e. data points) in a dominating set of size k of AS-PCD.
-AS proximity regions are constructed with respect to the triangle tri and
-vertex regions are based on the center M="CC" for circumcenter of tri;
-or M=(m1,m2) in Cartesian coordinates or M=(alpha,beta,gamma) in barycentric coordinates in the
-interior of the triangle tri; default is M="CC" i.e. circumcenter of tri. The vertices of triangle, tri,
-are labeled as 1,2,3 according to the row number the vertex is recorded in tri.
+Returns I(domination number of AS-PCD whose vertices are the data points \code{Dt} is less than or equal to \code{k}),
+that is, returns 1 if the domination number of CS-PCD is less than the prespecified value \code{k}, returns 0
+otherwise. It also provides the vertices (i.e. data points) in a dominating set of size \code{k} of AS-PCD.
+
+AS proximity regions are constructed with respect to the triangle \code{tri} and
+vertex regions are based on the center \code{M}="CC" for circumcenter of \code{tri};
+or \eqn{M=(m_1,m_2)} in Cartesian coordinates or \eqn{M=(\alpha,\beta,\gamma)} in barycentric coordinates in the
+interior of the triangle \code{tri}; default is \code{M}="CC" i.e. circumcenter of \code{tri}. The vertices of \code{tri}angle, \code{tri},
+are labeled as 1,2,3 according to the row number the vertex is recorded in \code{tri}.
 Loops are allowed in the digraph.
 It takes a long time for large number of vertices (i.e., large number of row numbers).
 }
@@ -49,7 +50,7 @@ n<-10
 #set.seed(1)
 dat<-runif.tri(n,Tr)$gen.points
 #dat<-cbind(runif(n),runif(n))
-#dat<-cbind(runif(n,1,2),runif(n,0,1))
+#dat<-cbind(runif(n,1,2),runif(n,0,1,Tr))
 
 M<-as.numeric(runif.tri(1,Tr)$g)
 #M<-c(1.6,1.2)
@@ -58,38 +59,21 @@ M<-as.numeric(runif.tri(1,Tr)$g)
 #M<-c(1.3,1.3)
 #M<-c(.3,.3)
 
-S<-rbind(dat[1,],dat[2,])
-IndNAStri.domset(S,dat,Tr,M)
+IndASdomUBtri(dat,1,Tr)
 
-S<-rbind(dat[1,],dat[2,],dat[3,],dat[5,])
-IndNAStri.domset(S,dat,Tr,M)
+for (k in 1:n)
+  print(c(k,IndASdomUBtri(dat,k,Tr,M)))
 
-S<-rbind(c(.1,.1),c(.3,.4),c(.5,.3))
-IndNAStri.domset(S,dat,Tr,M)
-
-IndNAStri.domset(c(.2,.5),dat,Tr,M)
-IndNAStri.domset(c(.2,.5),c(.2,.5),Tr,M)
-IndNAStri.domset(dat[5,],dat[2,],Tr,M)
-
-S<-rbind(dat[1,],dat[2,],dat[3,],dat[5,],c(.2,.5))
-IndNAStri.domset(S,dat[3,],Tr,M)
-
-IndNAStri.domset(dat,dat,Tr,M)
+IndASdomUBtri(dat,k=4,Tr,M)
 
 P<-c(.4,.2)
-S<-dat[c(1,3,4),]
-IndNAStri.domset(dat,P,Tr,M)
-IndNAStri.domset(S,P,Tr,M)
-IndNAStri.domset(S,dat,Tr,M)
+IndASdomUBtri(P,1,Tr,M)
 
-IndNAStri.domset(rbind(S,S),dat,Tr,M)
+IndASdomUBtri(rbind(dat,dat),k=2,Tr,M)
 
 dat.fr<-data.frame(a=dat)
-IndNAStri.domset(S,dat.fr,Tr,M)
+IndASdomUBtri(dat.fr,1,Tr,M)
 
-}
-\references{
-\insertAllCited{}
 }
 \seealso{
 \code{\link{IndCSdomUBtri}}, \code{\link{IndCSdomUBTe}}, \code{\link{IndUBdom}},

@@ -4,17 +4,27 @@
 \alias{plotArcsAStri}
 \title{The plot of the arcs of Arc Slice Proximity Catch Digraph (AS-PCD) for a 2D data set - one triangle case}
 \usage{
-plotArcsAStri(Xp, tri, M = "CC", asp = NA, main = "", xlab = "",
-  ylab = "", xlim = NULL, ylim = NULL)
+plotArcsAStri(
+  Xp,
+  tri,
+  M = "CC",
+  asp = NA,
+  main = "",
+  xlab = "",
+  ylab = "",
+  xlim = NULL,
+  ylim = NULL,
+  ...
+)
 }
 \arguments{
 \item{Xp}{A set of 2D points which constitute the vertices of the AS-PCD}
 
 \item{tri}{Three 2D points, stacked row-wise, each row representing a vertex of the triangle}
 
-\item{M}{"CC" which stand for circumcenter of the triangle tri or a 2D point in Cartesian coordinates or a 3D point in
-barycentric coordinates which serves as a center in the interior of the triangle Tb;
-default is M="CC" i.e. the circumcenter of tri}
+\item{M}{"CC" which stands for circumcenter of the triangle \code{tri} or a 2D point in Cartesian coordinates or a 3D point in
+barycentric coordinates which serves as a center in the interior of the triangle \eqn{T_b};
+default is \code{M}="CC" i.e. the circumcenter of \code{tri}}
 
 \item{asp}{Numeric, giving the aspect ratio for y axis to x-axis y/x (default is NA),
 see the official help for asp by typing "? asp"}
@@ -24,17 +34,20 @@ see the official help for asp by typing "? asp"}
 \item{xlab, ylab}{Titles for the x and y axes, respectively (default="" for both)}
 
 \item{xlim, ylim}{Numeric vectors of length 2, giving the x- and y-coordinate ranges (default=NULL for both)}
+
+\item{...}{Additional plot parameters}
 }
 \value{
-A plot of the arcs of the AS-PCD for a 2D data set Xp where AS proximity regions
-are defined with respect to the triangle tri; also plots the triangle tri
+A plot of the arcs of the AS-PCD for a 2D data set \code{Xp} where AS proximity regions
+are defined with respect to the triangle \code{tri}; also plots the triangle \code{tri}
 }
 \description{
-Plots the arcs of AS-PCD whose vertices are the data points, Xp and the triangle tri. AS proximity regions
-are constructed with respect to the triangle tri, i.e. only for Xp points inside the triangle tri.
-Vertex regions are based on the center M="CC" for
-circumcenter of tri; or M=(m1,m2) in Cartesian coordinates or M=(alpha,beta,gamma) in barycentric
-coordinates in the interior of the triangle tri; default is M="CC" the circumcenter of tri.
+Plots the arcs of AS-PCD whose vertices are the data points, \code{Xp} and the triangle \code{tri}. AS proximity regions
+are constructed with respect to the triangle \code{tri}, i.e. only for \code{Xp} points inside the triangle \code{tri}.
+
+Vertex regions are based on the center \code{M}="CC" for
+circumcenter of \code{tri}; or \eqn{M=(m_1,m_2)} in Cartesian coordinates or \eqn{M=(\alpha,\beta,\gamma)} in barycentric
+coordinates in the interior of the triangle \code{tri}; default is \code{M}="CC" the circumcenter of \code{tri}.
 See also (\insertCite{ceyhan:Phd-thesis,ceyhan:comp-geo-2010,ceyhan:mcap2012;textual}{pcds}).
 }
 \examples{
@@ -47,32 +60,16 @@ n<-10
 #set.seed(1)
 dat<-runif.tri(n,Tr)$g
 #dat<-cbind(runif(n,1,2),runif(n,0,2))
-#dat<-cbind(runif(n),runif(n))
-#dat<-c(1.4,1)
 
 M<-as.numeric(runif.tri(1,Tr)$g)
 #M<-c(1.6,1.2)
-#M<-circ.cent.tri(Tb); #M<-"CC"; #M<-"CM"
+#M<-circ.cent.tri(Tr); #M<-"CC"; #M<-"CM"
 #M<-c(1,1,1) #M<-c(1,2,3) #M<-c(-1,2,3) #barycentric coordinates
 #M<-c(1.3,1.3)
 #M<-c(.3,.3)
 
-ArcsAStri(dat,Tr,M)
-
-Arcs<-ArcsAStri(dat,Tr,M)
-Arcs
-summary(Arcs)
-plot(Arcs)
-
-S<-Arcs$S
-E<-Arcs$E
-
-Xlim<-range(Tr[,1],dat[,1])
-Ylim<-range(Tr[,2],dat[,2])
-xd<-Xlim[2]-Xlim[1]
-yd<-Ylim[2]-Ylim[1]
-
-if (dimension(M)==3) {M<-bary2cart(M,Tr)} #need to run this when M is given in barycentric coordinates
+if (dimension(M)==3) {M<-bary2cart(M,Tr)}
+#need to run this when M is given in barycentric coordinates
 
 CC<-circ.cent.tri(Tr)
 if (isTRUE(all.equal(M,CC)) || identical(M,"CC"))
@@ -80,28 +77,31 @@ if (isTRUE(all.equal(M,CC)) || identical(M,"CC"))
 D1<-(B+C)/2; D2<-(A+C)/2; D3<-(A+B)/2;
 Ds<-rbind(D1,D2,D3)
 cent.name<-"CC"
-plot(Tr,pch=".",asp=1,xlab="",ylab="",axes=TRUE,xlim=Xlim+xd*c(-.05,.05),ylim=Ylim+yd*c(-.05,.05))
 } else
 {cent<-M
 cent.name<-"M"
 Ds<-cp2e.tri(Tr,M)
 D1<-Ds[1,]; D2<-Ds[2,]; D3<-Ds[3,]
-plot(Tr,pch=".",xlab="",ylab="",axes=TRUE,xlim=Xlim+xd*c(-.05,.05),ylim=Ylim+yd*c(-.05,.05))
 }
-polygon(Tr)
-points(dat,pch=1,col=1)
+
+Xlim<-range(Tr[,1],dat[,1])
+Ylim<-range(Tr[,2],dat[,2])
+xd<-Xlim[2]-Xlim[1]
+yd<-Ylim[2]-Ylim[1]
+
+plotArcsAStri(dat,Tr,M,main="arcs of AS-PCD",xlab="",ylab="",
+xlim=Xlim+xd*c(-.05,.05),ylim=Ylim+yd*c(-.05,.05))
+
+#plotArcsAStri(dat,Tr,M,asp=1,main="arcs of AS-PCD",xlab="",ylab="",
+#xlim=Xlim+xd*c(-.05,.05),ylim=Ylim+yd*c(-.05,.05))
 L<-rbind(cent,cent,cent); R<-Ds
 segments(L[,1], L[,2], R[,1], R[,2], lty=2)
-arrows(S[,1], S[,2], E[,1], E[,2], length = 0.1, col= 4)
 
 txt<-rbind(Tr,cent,Ds)
-xc<-txt[,1]#+c(-.02,.03,.02,.03,.04,-.03,-.01)
-yc<-txt[,2]#+c(.02,.02,.03,.06,.04,.05,-.07)
+xc<-txt[,1]#+c(-.02,.03,.03,.03,.05,-0.03,-.01)
+yc<-txt[,2]#+c(.02,.02,.02,.07,.02,.05,-.06)
 txt.str<-c("A","B","C",cent.name,"D1","D2","D3")
 text(xc,yc,txt.str)
-
-dat.fr<-data.frame(a=dat)
-ArcsAStri(dat.fr,Tr,M)
 
 }
 \references{
@@ -109,5 +109,5 @@ ArcsAStri(dat.fr,Tr,M)
 }
 \seealso{
 \code{\link{plotArcsASMT}}, \code{\link{plotArcsPEtri}}, \code{\link{plotArcsPEMT}},
-\code{\link{plotArcsCStri}}, and \code{\link{plotArcsCSMT}},
+\code{\link{plotArcsCStri}}, and \code{\link{plotArcsCSMT}}
 }

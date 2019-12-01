@@ -11,33 +11,35 @@ NumArcsPEMT(Xp, Yp, r, M = c(1, 1, 1))
 
 \item{Yp}{A set of 2D points which constitute the vertices of the Delaunay triangles}
 
-\item{r}{A positive real number which serves as the expansion parameter in PE proximity region; must be >=1}
+\item{r}{A positive real number which serves as the expansion parameter in PE proximity region; must be \eqn{\ge 1}}
 
 \item{M}{A 3D point in barycentric coordinates which serves as a center in the interior of each Delaunay
-triangle or circumcenter of each Delaunay triangle (for this argument should be set as M="CC"),
-default for M is c(1,1,1) which is the center of mass of each triangle}
+triangle or circumcenter of each Delaunay triangle (for this argument should be set as \code{M}="CC"),
+default for \eqn{M=(1,1,1)} which is the center of mass of each triangle}
 }
 \value{
 A list of elements
 \item{num.arcs}{Total number of arcs in all triangles}
-\item{num.in.conhull}{Number of Xp points in the convex hull of Yp points}
-\item{weight.vec}{The vector of the areas of Delaunay triangles based on Yp points}
+\item{num.in.conhull}{Number of \code{Xp} points in the convex hull of \code{Yp} points}
+\item{weight.vec}{The vector of the areas of Delaunay triangles based on \code{Yp} points}
 }
 \description{
 Returns the number of arcs of Proportional Edge Proximity Catch Digraph (PE-PCD) whose vertices are
-the data points in Xp in the multiple triangle case. PE proximity regions are defined with respect to the
-Delaunay triangles based on Yp points with expansion parameter r>=1 and vertex regions in each triangle
-is based on the center M=(alpha,beta,gamma) in barycentric coordinates in the interior of each
-Delaunay triangle or based on circumcenter of each Delaunay triangle (default for M is c(1,1,1)
+the data points in \code{Xp} in the multiple triangle case.
+
+PE proximity regions are defined with respect to the
+Delaunay triangles based on \code{Yp} points with expansion parameter \eqn{r \ge 1} and vertex regions in each triangle
+is based on the center \eqn{M=(\alpha,\beta,\gamma)} in barycentric coordinates in the interior of each
+Delaunay triangle or based on circumcenter of each Delaunay triangle (default for \eqn{M=(1,1,1)}
 which is the center of mass of the triangle).
-Each Delaunay triangle is first converted to an (unscaled) basic triangle so that M will be the same
-type of center for each Delaunay triangle (this conversion is not necessary when M is CM).
-Convex hull of Yp is partitioned by the Delaunay triangles based on Yp points
+Each Delaunay triangle is first converted to an (unscaled) basic triangle so that \code{M} will be the same
+type of center for each Delaunay triangle (this conversion is not necessary when \code{M} is CM).
+Convex hull of \code{Yp} is partitioned by the Delaunay triangles based on \code{Yp} points
 (i.e., multiple triangles are the set of these Delaunay triangles whose union constitutes the
-convex hull of Yp points). For the number of arcs, loops are not allowed so arcs are only possible
-for points inside the convex hull of Yp points.
+convex hull of \code{Yp} points). For the number of arcs, loops are not allowed so arcs are only possible
+for points inside the convex hull of \code{Yp} points.
 See (\insertCite{ceyhan:Phd-thesis,ceyhan:arc-density-PE;textual}{pcds}) for more on PE-PCDs.
-Also see (\insertCite{okabe:2000,ceyhan:comp-geo-2010,renka:1996;textual}{pcds}) for more on Delaunay triangulation and the tripack algorithm.
+Also see (\insertCite{okabe:2000,ceyhan:comp-geo-2010,renka:1996;textual}{pcds}) for more on Delaunay triangulation and the TRIPACK algorithm.
 }
 \examples{
 nx<-100
@@ -45,21 +47,33 @@ ny<-10
 
 #set.seed(1)
 Xp<-cbind(runif(nx),runif(nx))
+#Xp<-cbind(runif(nx,.5,1.5),runif(nx))
+#Xp<-cbind(runif(nx,1,2),runif(nx))
+#Xp<-c(.5,.5)
 Yp<-cbind(runif(ny),runif(ny))
-plotDeltri(Xp,Yp,xlab="",ylab="",main="X points and Delaunay Triangulation of Y points")
-
-P<-c(.6,.4)
-plotDeltri(P,Yp,xlab="",ylab="",main="X points and Delaunay Triangulation of Y points")
 
 plotDeltri(Xp,Yp,xlab="",ylab="")
 
-plotDeltri(Xp,rbind(Yp,Yp),xlab="",ylab="")
+M<-c(1,1,1) #M<-c(1,2,3) #M<-c(-1,2,3) #barycentric coordinates
+#M<-"CC"
+#M<-c(1.3,1.3)
+
+NumArcsPEMT(Xp,Yp,r=1.25,M)
+NumArcsPEMT(Xp,Yp,r=1.5,M)
+NumArcsPEMT(Xp,Yp,r=2,M)
+
+NumArcsPEMT(c(.4,.2),Yp,r=1.25)
+
+r<-2
+NumArcsPEMT(Xp,Yp,r)
+
+NumArcsPEMT(Xp,rbind(Yp,Yp),r)
 
 dat.fr<-data.frame(a=Xp)
-plotDeltri(dat.fr,Yp,xlab="",ylab="")
+NumArcsPEMT(dat.fr,Yp,r)
 
 dat.fr<-data.frame(a=Yp)
-plotDeltri(Xp,dat.fr,xlab="",ylab="")
+NumArcsPEMT(Xp,dat.fr,r)
 
 }
 \references{

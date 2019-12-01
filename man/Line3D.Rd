@@ -2,9 +2,9 @@
 % Please edit documentation in R/PCDFunctions.r
 \name{Line3D}
 \alias{Line3D}
-\title{An object of class "Lines3D"
+\title{An object of class "Lines3D":
 
-The line crossing 3D point r0 in the direction of vector v (or if v is a point, in direction of v-r0)}
+The line crossing 3D point \code{r0} in the direction of vector \code{v} (or if \code{v} is a point, in direction of \eqn{v-r0})}
 \usage{
 Line3D(r0, v, t, dir.vec = TRUE)
 }
@@ -12,78 +12,89 @@ Line3D(r0, v, t, dir.vec = TRUE)
 \item{r0}{A 3D point through which the straight line passes}
 
 \item{v}{A 3D vector which determines the direction of the straight line (i.e., the straight line would be
-parallel to this vector) if the dir.vec=T, otherwise it is 3D point and v-r0 determines the direction of the
+parallel to this vector) if the \code{dir.vec}=T, otherwise it is 3D point and \eqn{v-r0} determines the direction of the
 the straight line}
 
 \item{t}{A scalar or a vector of scalars representing the parameter of the coordinates of the line
-(for the form: x=x0 + a*t, y=y0 + b*t, and z=z0 + c*t where r0=(x0,y0,z0) and v=(a,b,c) if dir.vec=T, else
-v-r0=(a,b,c))}
+(for the form: \eqn{x=x_0 + a t}, \eqn{y=y_0 + b t}, and \eqn{z=z_0 + c t} where \eqn{r_0=(x_0,y_0,z_0)} and \eqn{v=(a,b,c)} if \code{dir.vec}=T, else
+\eqn{v-r0=(a,b,c)})}
 
-\item{dir.vec}{A logical argument about v, if TRUE v is treated as a vector, else v is treated as a point
-and so the direction vector is taken to be v-r0}
+\item{dir.vec}{A logical argument about \code{v}, if TRUE \code{v} is treated as a vector, else \code{v} is treated as a point
+and so the direction vector is taken to be \eqn{v-r0}}
 }
 \value{
 A list with the elements
-\item{txt}{A description of the line}
-\item{mtxt}{The "main" title for the plot of the line}
+\item{desc}{A description of the line}
+\item{mtitle}{The "main" title for the plot of the line}
 \item{pts}{The input points that determine a line and/or a plane, NULL for this function.}
 \item{pnames}{The names of the input points that determine a line and/or a plane, NULL for this function.}
-\item{vecs}{The point r0 and the vector v (if dir.vec=T) or the point v (if dir.vec=F). The first row is r0
-and the second row is v.}
-\item{vec.names}{The names of the point r0 and the vector v (if dir.vec=T) or the point v (if dir.vec=F).}
+\item{vecs}{The point \code{r0} and the vector \code{v} (if \code{dir.vec}=T) or the point v (if \code{dir.vec}=F). The first row is \code{r0}
+and the second row is \code{v}.}
+\item{vec.names}{The names of the point \code{r0} and the vector \code{v} (if \code{dir.vec}=T) or the point v (if \code{dir.vec}=F).}
 \item{x,y,z}{The x-, y- and z-coordinates of the point(s) of interest on the line.}
 \item{tsq}{The scalar or the vector of the parameter in defining each coordinate of the line for the form:
-x=x0 + a*t, y=y0 + b*t, and z=z0 + c*t where r0=(x0,y0,z0) and v=(a,b,c) if dir.vec=T, else v-r0=(a,b,c).}
-\item{equation}{Equation of the line passing through point r0 in the direction of the vector v (if dir.vec=T)
-else in the direction of v-r0. The line equation is in the form: x=x0 + a*t, y=y0 + b*t, and z=z0 + c*t where
-r0=(x0,y0,z0) and v=(a,b,c) if dir.vec=T, else v-r0=(a,b,c).}
+\eqn{x=x_0 + a t}, \eqn{y=y_0 + b t}, and \eqn{z=z_0 + c t} where \eqn{r_0=(x_0,y_0,z_0)} and \eqn{v=(a,b,c)} if \code{dir.vec}=T, else \eqn{v-r0=(a,b,c)}.}
+\item{equation}{Equation of the line passing through point \code{r0} in the direction of the vector \code{v} (if \code{dir.vec}=T)
+else in the direction of \eqn{v-r0}. The line equation is in the form: \eqn{x=x_0 + a t}, \eqn{y=y_0 + b t}, and \eqn{z=z_0 + c t} where
+\eqn{r_0=(x_0,y_0,z_0)} and \eqn{v=(a,b,c)} if \code{dir.vec}=T, else \eqn{v-r0=(a,b,c)}.}
 }
 \description{
-Returns the equation, x, y, and z coordinates of the line crossing 3D point r0
-in the direction of vector v (of if v is a point, in the direction of v-r0)
-with the parameter t being provided in vector t.
+Returns the equation, x-, y-, and z-coordinates of the line crossing 3D point \code{r0}
+in the direction of vector \code{v} (of if \code{v} is a point, in the direction of \eqn{v-r0})
+with the parameter \code{t} being provided in vector \code{t}.
 }
 \examples{
-nx<-1000
-ny<-10
-r<-1.5
-#r<-2
-#r<-1.25
+A<-c(1,10,3); B<-c(1,1,3);
+#A<-runif(3); B<-runif(3);
+#A<-runif(3,1,100); B<-runif(3,1,100);
+vecs<-rbind(A,B)
+Line3D(A,B,.1)
+Line3D(A,B,.1,dir.vec=FALSE)
 
-#set.seed(1)
-Xp<-cbind(runif(nx,0,1),runif(nx,0,1))
-#Xp<-cbind(runif(nx,.5,1.5),runif(nx))
-#Xp<-cbind(runif(nx,1,2),runif(nx))
-Yp<-cbind(runif(ny,0,1),runif(ny,0,1))
+tr<-range(vecs);
+tf<-(tr[2]-tr[1])*.1 #how far to go at the lower and upper ends in the x-coordinate
+tsq<-seq(-tf*10-tf,tf*10+tf,l=100)
 
-plotDeltri(Xp,Yp,xlab="",ylab="")
+lnAB3D<-Line3D(A,B,tsq)
+lnAB3D
+summary(lnAB3D)
+plot(lnAB3D)
 
-PEdomMTnd(Xp,Yp,r)
+Line3D(A,B,c(.1,.2))
 
-TSDomPENor(Xp,Yp,r)
-TSDomPENor(Xp,Yp,r)
+x<-lnAB3D$x
+y<-lnAB3D$y
+z<-lnAB3D$z
 
-TSDomPENor(Xp,Yp,1.25,ch=TRUE)
+zr<-range(z)
+zf<-(zr[2]-zr[1])*.2
+Bv<-B*tf*5
 
-#or try
-ndt<-NumDelTri(Yp)
-TSDomPENor(Xp,Yp,r,nt=ndt)
-#values might differ due to the random of choice of the three centers M1,M2,M3 for the non-degenerate asymptotic
-#distribution of the domination number
+Xlim<-range(x)
+Ylim<-range(y)
+Zlim<-range(z)
 
-TSDomPENor(Xp,Yp,r)
+xd<-Xlim[2]-Xlim[1]
+yd<-Ylim[2]-Ylim[1]
+zd<-Zlim[2]-Zlim[1]
 
-TSDomPENor(Xp,rbind(Yp,Yp),r)
+Dr<-A+min(tsq)*B
 
-dat.fr<-data.frame(a=Xp)
-TSDomPENor(dat.fr,Yp,r)
+plot3D::lines3D(x, y, z, phi = 0, bty = "g",
+xlim=Xlim+xd*c(-.05,.05),ylim=Ylim+yd*c(-.05,.05),zlim=Zlim+zd*c(-.1,.1),
+        pch = 20, cex = 2, ticktype = "detailed")
+plot3D::arrows3D(Dr[1],Dr[2],Dr[3]+zf,Dr[1]+Bv[1],Dr[2]+Bv[2],Dr[3]+zf+Bv[3], add=TRUE)
+plot3D::points3D(A[1],A[2],A[3],add=TRUE)
+plot3D::arrows3D(A[1],A[2],A[3]-2*zf,A[1],A[2],A[3],lty=2, add=TRUE)
+plot3D::text3D(A[1],A[2],A[3]-2*zf,labels="initial point",add=TRUE)
+plot3D::text3D(A[1],A[2],A[3]+zf/2,labels=expression(r[0]),add=TRUE)
+plot3D::arrows3D(Dr[1]+Bv[1]/2,Dr[2]+Bv[2]/2,Dr[3]+3*zf+Bv[3]/2,
+Dr[1]+Bv[1]/2,Dr[2]+Bv[2]/2,Dr[3]+zf+Bv[3]/2,lty=2, add=TRUE)
+plot3D::text3D(Dr[1]+Bv[1]/2,Dr[2]+Bv[2]/2,Dr[3]+3*zf+Bv[3]/2,
+labels="direction vector",add=TRUE)
+plot3D::text3D(Dr[1]+Bv[1]/2,Dr[2]+Bv[2]/2,Dr[3]+zf+Bv[3]/2,labels="v",add=TRUE)
+plot3D::text3D(0,0,0,labels="O",add=TRUE)
 
-dat.fr<-data.frame(a=Yp)
-TSDomPENor(Xp,dat.fr,r)
-
-}
-\references{
-\insertAllCited{}
 }
 \seealso{
 \code{\link{line}}, \code{\link{paraline3D}}, and \code{\link{Plane}}

@@ -10,30 +10,22 @@ NumDelTri(Yp)
 \item{Yp}{A set of 2D points which constitute the vertices of Delaunay triangles}
 }
 \value{
-Number of Delaunay triangles based on Yp points.
+Number of Delaunay triangles based on \code{Yp} points.
 }
 \description{
-Returns the number of Delaunay triangles based on the 2D set of points Yp.
-See (\insertCite{okabe:2000,renka:1996;textual}{pcds}) for more on Delaunay triangulation and the tripack algorithm.
+Returns the number of Delaunay triangles based on the 2D set of points \code{Yp} .
+See (\insertCite{okabe:2000,renka:1996;textual}{pcds}) for more on Delaunay triangulation and the TRIPACK algorithm.
 }
 \examples{
-Pg2PEtri(r=1.5)
-Pg2PEtri(r=1.4999999999)
+ny<-10
 
-Pg2PEtri(r=1.5) / Pg2PEtri(r=1.4999999999)
+#set.seed(1)
+Yp<-cbind(runif(ny,0,1),runif(ny,0,1))
 
-rseq<-seq(1.01,1.49999999999,l=100)
-lrseq<-length(rseq)
+NumDelTri(Yp)
 
-pg2<-vector()
-for (i in 1:lrseq)
-{
-  pg2<-c(pg2,Pg2PEtri(rseq[i]))
-}
-
-plot(rseq, pg2,type="l",xlab="r",ylab=expression(paste("P(", gamma, "=2)")),
-     lty=1,xlim=range(rseq)+c(0,.01),ylim=c(0,1))
-points(rbind(c(1.50,Pg2PEtri(1.50))),pch=".",cex=3)
+dat.fr<-data.frame(a=Yp)
+NumDelTri(dat.fr)
 
 }
 \references{

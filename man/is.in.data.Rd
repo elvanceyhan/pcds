@@ -7,7 +7,7 @@
 is.in.data(p, Dt)
 }
 \arguments{
-\item{p}{A 2D point for which the function checks membership to the data set Dt}
+\item{p}{A 2D point for which the function checks membership to the data set \code{Dt}}
 
 \item{Dt}{A set of 2D points representing the set of data points}
 }
@@ -15,22 +15,74 @@ is.in.data(p, Dt)
 TRUE if \code{p} belongs to the data set \code{Dt}.
 }
 \description{
-returns TRUE if the point p of any dimension is inside the data set Dt of the same dimension as p;
+returns TRUE if the point \code{p} of any dimension is inside the data set \code{Dt} of the same dimension as \code{p};
 otherwise returns FALSE.
 }
 \examples{
-asyvarPE(1.2)
+n<-10
+dat<-cbind(runif(n),runif(n))
 
-rseq<-seq(1.01,5,by=.05)
-lrseq<-length(rseq)
+P<-dat[7,]
+is.in.data(P,dat)
+is.in.data(P,dat[7,])
 
-avar<-vector()
-for (i in 1:lrseq)
-{
-  avar<-c(avar,asyvarPE(rseq[i]))
-}
+P<-dat[7,]+10^(-7)
+is.in.data(P,dat)
 
-par(mar=c(5,5,4,2))
-plot(rseq, avar,type="l",xlab="r",ylab=expression(paste(sigma^2,"(r)")),lty=1,xlim=range(rseq))
+P<-dat[7,]+10^(-9)
+is.in.data(P,dat)
+
+is.in.data(P,P)
+
+is.in.data(c(2,2),c(2,2))
+
+#is.in.data(P,vector()) #p and Dt must be numeric
+
+###for 1D data
+n<-10
+dat<-runif(n)
+
+P<-dat[7]
+#is.in.data(P,dat) #Both arguments must be of the same dimension
+#this does not work because both entries are treated as vectors of different dimensions
+is.in.data(P,dat[7]) #this works because both entries are treated as 1D vectors
+
+dat<-as.matrix(dat)
+is.in.data(P,dat)
+#this works, because P is a 1D point, and dat is treated as a set of 10 1D points
+
+P<-dat[7]+10^(-7)
+is.in.data(P,dat)
+
+P<-dat[7]+10^(-9)
+is.in.data(P,dat)
+
+is.in.data(P,P)
+
+#is.in.data(P,vector()) #p and Dt must be numeric
+
+###for 3D data
+n<-10
+dat<-cbind(runif(n),runif(n),runif(n))
+
+P<-dat[7,]
+is.in.data(P,dat)
+is.in.data(P,dat[7,])
+
+P<-dat[7,]+10^(-7)
+is.in.data(P,dat)
+
+P<-dat[7,]+10^(-9)
+is.in.data(P,dat)
+
+is.in.data(P,P)
+
+n<-10
+dat<-cbind(runif(n),runif(n))
+P<-dat[7,]
+is.in.data(P,dat)
+
+dat.fr<-data.frame(a=dat)
+is.in.data(P,dat.fr)
 
 }

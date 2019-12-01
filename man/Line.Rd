@@ -2,9 +2,9 @@
 % Please edit documentation in R/PCDFunctions.r
 \name{Line}
 \alias{Line}
-\title{An object of class "Lines"
+\title{An object of class "Lines":
 
-The line joining two distinct 2D points a and b}
+The line joining two distinct 2D points \code{a} and \code{b}}
 \usage{
 Line(a, b, x)
 }
@@ -15,8 +15,8 @@ Line(a, b, x)
 }
 \value{
 A list with the elements
-\item{txt}{A description of the line}
-\item{mtxt}{The "main" title for the plot of the line}
+\item{desc}{A description of the line}
+\item{mtitle}{The "main" title for the plot of the line}
 \item{points}{The input points \code{a} and \code{b} through which the straight line passes
 (stacked row-wise, i.e., row 1 is point \code{a} and row 2 is point \code{b}).}
 \item{x}{The input scalar or vector which constitutes the x-coordinates of the point(s) of interest
@@ -29,23 +29,55 @@ then \code{y} will be a vector of scalars.}
 \item{equation}{Equation of the line passing through points \code{a} and \code{b}}
 }
 \description{
-Returns the equation, slope, intercept, and y coordinates of the line crossing two distinct 2D points a and b
-with x coordinates provided in vector x. This function is different from the line function in the
-standard stats package in R in the sense that Line(a,b,x) fits the line passing through points a and b and
-returns various quantities (see below) for this line and x is the x-coordinates of the points we want to find
-on the Line(a,b,x) while line(a,b) fits the line robustly whose x-coordinates are in a and y-coordinates are
-in b. Line(a,b,x) and line(x,Line(A,B,x)$y) would yield the same straight line (i.e., the line with the same
-coefficients.)
+Returns the \code{equation, slope, intercept}, and y-coordinates of the line crossing two
+distinct 2D points \code{a} and \code{b} with x-coordinates provided in vector \code{x}. This function is
+different from the \code{\link[stats]{line}} function in the standard \code{stats} package in R in the sense that \code{Line(a,b,x)} fits the line passing
+through points \code{a} and \code{b} and returns various quantities (see below) for this line and \code{x} is
+the x-coordinates of the points we want to find on the \code{Line(a,b,x)} while \code{line(a,b)} fits the line robustly
+whose x-coordinates are in \code{a} and y-coordinates are in \code{b}.
+\code{Line(a,b,x)} and \code{line(x,Line(A,B,x)$y)}
+would yield the same straight line (i.e., the line with the same coefficients.)
 }
 \examples{
 A<-c(-1.22,-2.33); B<-c(2.55,3.75)
-slope(A,B)
+#A<-runif(2); B<-runif(2)
+#A<-runif(2,1,100); B<-runif(2,1,100)
+#A<-c(1,1); B<-c(1,2) #lines are vertical
+#A<-c(1,1); B<-c(1,-2) #lines are vertical
+xr<-range(A,B);
+xf<-(xr[2]-xr[1])*.1 #how far to go at the lower and upper ends in the x-coordinate
+x<-seq(xr[1]-xf,xr[2]+xf,l=100)
 
-slope(c(1,2),c(2,3))
-slope(c(1,2),c(1,3))
+lnAB<-Line(A,B,x)
+lnAB
+summary(lnAB)
+plot(lnAB)
+
+line(A,B) #this takes A as the x points and B as the y points and fits the line
+
+y<-lnAB$y
+Xlim<-range(x,A,B)
+if (!is.na(y[1])) {Ylim<-range(y,A,B)} else {Ylim<-range(A,B)}
+xd<-Xlim[2]-Xlim[1]
+yd<-Ylim[2]-Ylim[1]
+pf<-c(xd,-yd)*.025
+
+#plot of the line joining A and B
+plot(rbind(A,B),pch=1,xlab="x",ylab="y",
+xlim=Xlim+xd*c(-.05,.05),ylim=Ylim+yd*c(-.05,.05))
+if (!is.na(y[1])) {lines(x,y,lty=1)} else {abline(v=A[1])}
+text(rbind(A+pf,B+pf),c("A","B"))
+int<-round(lnAB$intercept,2)#intercept
+sl<-round(lnAB$slope,2)  #slope
+text(rbind((A+B)/2+pf*3),ifelse(is.na(int),paste("x=",A[1]),
+ifelse(sl==0,paste("y=",int),
+ifelse(sl==1,ifelse(sign(int)<0,paste("y=x",int),paste("y=x+",int)),
+ifelse(sign(int)<0,paste("y=",sl,"x",int),paste("y=",sl,"x+",int))))))
+
+Line(c(1,2),c(2,3),3)
 
 }
 \seealso{
-\code{\link{slope}}, \code{\link{paraline}}, \code{\link{perpline}}, \code{\link{line}}
+\code{\link{slope}}, \code{\link{paraline}}, \code{\link{perpline}}, \code{\link[stats]{line}}
 in the generic stats package and and \code{\link{Line3D}}
 }

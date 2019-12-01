@@ -11,22 +11,46 @@ PEdom.tetra(Xp, th, r, M = "CM")
 
 \item{th}{Four 3D points, stacked row-wise, each row representing a vertex of the tetrahedron}
 
-\item{r}{A positive real number which serves as the expansion parameter in PE proximity region; must be >= 1}
+\item{r}{A positive real number which serves as the expansion parameter in PE proximity region; must be \eqn{\ge 1}}
 
-\item{M}{The center to be used in the construction of the vertex regions in the tetrahedron, th.
+\item{M}{The center to be used in the construction of the vertex regions in the tetrahedron, \code{th}.
 Currently it only takes "CC" for circumcenter and "CM" for center of mass; default="CM"}
 }
 \value{
 A list with two elements
-\item{dom.num}{Domination number of PE-PCD with vertex set=Xp and expansion parameter r>=1 and center M}
-\item{mds}{A minimum dominating set for PE-PCD with vertex set=Xp and expansion parameter r>=1 and center M}
+\item{dom.num}{Domination number of PE-PCD with vertex set=\code{Xp} and expansion parameter \eqn{r \ge 1} and center \code{M}}
+\item{mds}{A minimum dominating set of PE-PCD with vertex set=\code{Xp} and expansion parameter \eqn{r \ge 1} and center \code{M}}
 }
 \description{
-Returns the domination number of PE-PCD whose vertices are the data points in Xp.
-PE proximity region is defined with respect to the tetrahedron th with expansion parameter r>=1 and
-vertex regions are based on the center M which is circumcenter ("CC") or center of mass ("CM") of th
+Returns the domination number of PE-PCD whose vertices are the data points in \code{Xp}.
+
+PE proximity region is defined with respect to the tetrahedron \code{th} with expansion parameter \eqn{r \ge 1} and
+vertex regions are based on the center \code{M} which is circumcenter ("CC") or center of mass ("CM") of \code{th}
 with default="CM".
 See also (\insertCite{ceyhan:Phd-thesis,ceyhan:comp-geo-2010;textual}{pcds}).
+}
+\examples{
+A<-c(0,0,0); B<-c(1,0,0); C<-c(1/2,sqrt(3)/2,0); D<-c(1/2,sqrt(3)/6,sqrt(6)/3)
+#A<-runif(3); B<-runif(3); C<-runif(3); D<-runif(3)
+#A<-runif(3,1,100); B<-runif(3,1,100); C<-runif(3,1,100); D<-runif(3,1,100)
+tetra<-rbind(A,B,C,D)
+n<-20
+dat<-runif.tetra(n,tetra)$g
+
+M<-"CM"
+#M<-"CC"
+r<-1.25
+
+PEdom.tetra(dat,tetra,r,M)
+
+PEdom.tetra(rbind(dat,c(5,5,5)),tetra,r,M)
+
+P1<-c(.5,.5,.5)
+PEdom.tetra(P1,tetra,r,M)
+
+}
+\references{
+\insertAllCited{}
 }
 \seealso{
 \code{\link{PEdomtri}}

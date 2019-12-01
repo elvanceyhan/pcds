@@ -2,79 +2,94 @@
 % Please edit documentation in R/PCDFunctions.r
 \name{IndNPETeSet}
 \alias{IndNPETeSet}
-\title{The indicator for the presence of an arc from a point in set S to the point pt for Proportional Edge
+\title{The indicator for the presence of an arc from a point in set \code{S} to the point \code{pt} for Proportional Edge
 Proximity Catch Digraphs (PE-PCDs) - standard equilateral triangle case}
 \usage{
 IndNPETeSet(S, pt, r, M = c(1, 1, 1))
 }
 \arguments{
-\item{S}{A set of 2D points. Presence of an arc from a point in S to point pt is checked
+\item{S}{A set of 2D points. Presence of an arc from a point in \code{S} to point \code{pt} is checked
 by the function.}
 
-\item{pt}{A 2D point. Presence of an arc from a point in S to point pt is checked
+\item{pt}{A 2D point. Presence of an arc from a point in \code{S} to point \code{pt} is checked
 by the function.}
 
 \item{r}{A positive real number which serves as the expansion parameter in PE proximity region in the
-standard equilateral triangle Te=T((0,0),(1,0),(1/2,sqrt(3)/2)); must be >=1}
+standard equilateral triangle \eqn{T_e=T((0,0),(1,0),(1/2,\sqrt{3}/2))}; must be \eqn{\ge 1}}
 
 \item{M}{A 2D point in Cartesian coordinates or a 3D point in barycentric coordinates
-which serves as a center in the interior of the standard equilateral triangle Te; default is M=c(1,1,1)
-i.e. the center of mass of Te}
+which serves as a center in the interior of the standard equilateral triangle \eqn{T_e}; default is \eqn{M=(1,1,1)}
+i.e. the center of mass of \eqn{T_e}}
 }
 \value{
-I(pt is in U_{x in S} NPE(x,r)), that is, returns 1 if pt is in S or inside NPE(x,r) for at least
-one x in S, returns 0 otherwise. PE proximity region is constructed with respect to the standard
-equilateral triangle Te=T(A,B,C)=T((0,0),(1,0),(1/2,sqrt(3)/2)) with M-vertex regions
+I(\code{pt} is in U_{x in \code{S}} NPE(x,r)), that is, returns 1 if \code{pt} is in \code{S} or inside \eqn{NPE(x,r)} for at least
+one x in \code{S}, returns 0 otherwise. PE proximity region is constructed with respect to the standard
+equilateral triangle \eqn{T_e=T(A,B,C)=T((0,0),(1,0),(1/2,\sqrt{3}/2))} with \code{M}-vertex regions
 }
 \description{
-Returns I(pt in NPE(x,r) for some x in S), that is, returns 1 if pt is in U_{x in S}NPE(x,r),
-returns 0 otherwise, PE proximity region is constructed with respect to the standard equilateral triangle
-Te=T(A,B,C)=T((0,0),(1,0),(1/2,sqrt(3)/2)) with the expansion parameter r>=1 and vertex regions are based
-on center M=(m1,m2) in Cartesian coordinates or M=(alpha,beta,gamma) in barycentric coordinates in the
-interior of Te; default is M=c(1,1,1) i.e. the center of mass of Te (which is equivalent to the circumcenter
-for Te). Vertices of Te are also labeled as 1, 2, and 3, respectively.
-If pt is not in S and either pt or all points in S are outside Te, it returns 0,
-but if pt is in S, then it always returns 1 regardless of its location (i.e., loops are allowed).
+Returns I(\code{pt} in \eqn{NPE(x,r)} for some x in \code{S}), that is, returns 1 if \code{pt} is in \eqn{\cup_{x in S}NPE(x,r)},
+returns 0 otherwise.
+
+PE proximity region is constructed with respect to the standard equilateral triangle
+\eqn{T_e=T(A,B,C)=T((0,0),(1,0),(1/2,\sqrt{3}/2))} with the expansion parameter \eqn{r \ge 1} and vertex regions are based
+on center \eqn{M=(m_1,m_2)} in Cartesian coordinates or \eqn{M=(\alpha,\beta,\gamma)} in barycentric coordinates in the
+interior of \eqn{T_e}; default is \eqn{M=(1,1,1)} i.e. the center of mass of \eqn{T_e} (which is equivalent to the circumcenter
+for \eqn{T_e}). Vertices of \eqn{T_e} are also labeled as 1, 2, and 3, respectively.
+If \code{pt} is not in \code{S} and either \code{pt} or all points in \code{S} are outside \eqn{T_e}, it returns 0,
+but if \code{pt} is in \code{S}, then it always returns 1 regardless of its location (i.e., loops are allowed).
 }
 \examples{
-A<-c(0,0); B<-c(1,0); C<-c(1/2,sqrt(3)/2)
-#A<-runif(2); B<-runif(2); C<-runif(2);
-#A<-runif(2,1,100); B<-runif(2,1,100); C<-runif(2,1,100);
-Tr<-rbind(A,B,C)
-n<-20
-dat<-runif.tri(n,Tr)$g
+A<-c(0,0); B<-c(1,0); C<-c(1/2,sqrt(3)/2);
+Te<-rbind(A,B,C);
+n<-10
 
-M<-as.numeric(runif.tri(1,Tr)$g)
-#M<-(A+B+C)/3
-#M<-circ.cent.tri(Tr)
+#set.seed(1)
+dat<-runifTe(n)$gen.points
+#dat<-cbind(runif(n),runif(n))
+#dat<-cbind(runif(n,1,2),runif(n,0,1))
+
+M<-as.numeric(runifTe(1)$g)
+#M<-c(.6,.2)
+#M<-circ.cent.tri(Te)
 #M<-c(1,1,1) #M<-c(1,2,3) #M<-c(-1,2,3) #barycentric coordinates
 #M<-c(1.3,1.3)
 #M<-c(.3,.3)
-r<-1.4
+r<-1.5
 
-PEdomtri(dat,Tr,r,M)
-IM<-IncMatPEtri(dat,Tr,r,M)
-dom.greedy(IM)
-dom.exact(IM)
+S<-rbind(dat[1,],dat[2,])
+#S<-c(.5,.5)
+IndNPETeSet(S,dat[3,],r,M)
+IndNPETeSet(S,dat[3,],r=1,M)
+IndNPETeSet(S,dat[3,],r=1.5,M)
 
-gr.gam<-dom.greedy(IM)
-gr.gam
-dat[gr.gam$i,]
+S<-rbind(dat[1,],dat[2,],dat[3,],dat[5,])
+IndNPETeSet(S,dat[3,],r,M)
 
-PEdomtri(rbind(dat,c(5,5)),Tr,r,M)
+IndNPETeSet(S,dat[6,],r,M)
+IndNPETeSet(S,dat[6,],r=1.25,M)
 
-PEdomtri(dat,Tr,r,M=c(.4,.4))
+S<-rbind(c(.1,.1),c(.3,.4),c(.5,.3))
+IndNPETeSet(S,dat[3,],r,M)
 
-PEdomtri(rbind(dat,c(5,5)),Tr,r,M=c(.4,.4))
+IndNPETeSet(c(.2,.5),dat[2,],r,M)
+IndNPETeSet(dat,c(.2,.5),r,M)
+IndNPETeSet(dat,dat[2,],r,M)
+IndNPETeSet(c(.2,.5),c(.2,.5),r,M)
+IndNPETeSet(dat[5,],dat[2,],r,M)
 
-P1<-c(.5,.5)
-PEdomtri(P1,Tr,r,Cent)
+S<-rbind(dat[1,],dat[2,],dat[3,],dat[5,],c(.2,.5))
+IndNPETeSet(S,dat[3,],r,M)
 
-}
-\references{
-\insertAllCited{}
+P<-c(.4,.2)
+S<-dat[c(1,3,4),]
+IndNPETeSet(dat,P,r,M)
+
+IndNPETeSet(rbind(S,S),P,r,M)
+
+dat.fr<-data.frame(a=S)
+IndNPETeSet(dat.fr,P,r,M)
+
 }
 \seealso{
-\code{\link{IndNPEtriSet}}, \code{\link{IndNPETe}}, \code{\link{IndNPEtri}}, and
-\code{\link{IndNCSTeSet}}
+\code{\link{IndNPEtriSet}}, \code{\link{IndNPETe}}, \code{\link{IndNPEtri}}, and \code{\link{IndCSTeSet}}
 }

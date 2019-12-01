@@ -7,16 +7,39 @@
 is.point(p, dim = 2)
 }
 \arguments{
-\item{p}{A vector to be checked to see it is a point of dimension dim or not.}
+\item{p}{A vector to be checked to see it is a point of dimension \code{dim} or not.}
 
-\item{dim}{A positive integer representing the dimension of the argument p.}
+\item{dim}{A positive integer representing the dimension of the argument \code{p}.}
 }
 \value{
 TRUE if \code{p} is a vector of dimension \code{dim}.
 }
 \description{
-Returns TRUE if the arguement \code{p} is a numeric point of dimension \code{dim} (default is \code{dim}=2);
-otherwise returns FALSE
+Returns TRUE if the arguement \code{p} is a numeric point of dimension \code{dim}
+(default is \code{dim}=2); otherwise returns FALSE.
+}
+\examples{
+A<-c(-1.22,-2.33); B<-c(2.55,3.75,4)
+is.point(A)
+is.point(A,2)
+is.point(A,1)
+is.point(A,3)
+
+is.point(B)
+is.point(B,3)
+
+Dt<-rbind(A,B[1:2])
+is.point(Dt)
+is.point(as.vector(Dt),4)
+
+lis<-list(a=A,b=B)
+is.point(lis)
+
+dat.fr<-data.frame(a=A,b=B[1:2])
+is.point(dat.fr)
+
+#is.point(c("a","b"))
+
 }
 \seealso{
 \code{\link{dimension}}

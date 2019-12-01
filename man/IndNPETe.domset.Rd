@@ -2,7 +2,7 @@
 % Please edit documentation in R/PCDFunctions.r
 \name{IndNPETe.domset}
 \alias{IndNPETe.domset}
-\title{The indicator for the set of points S being a dominating set or not for Proportional Edge Proximity
+\title{The indicator for the set of points \code{S} being a dominating set or not for Proportional Edge Proximity
 Catch Digraphs (PE-PCDs) - standard equilateral triangle case}
 \usage{
 IndNPETe.domset(S, Dt, r, M = c(1, 1, 1))
@@ -10,83 +10,80 @@ IndNPETe.domset(S, Dt, r, M = c(1, 1, 1))
 \arguments{
 \item{S}{A set of 2D points whose PE proximity regions are considered}
 
+\item{Dt}{A set of 2D points which constitutes the vertices of the PE-PCD}
+
 \item{r}{A positive real number which serves as the expansion parameter in PE proximity region in the
-standard equilateral triangle Te=T((0,0),(1,0),(1/2,sqrt(3)/2)); must be >=1}
+standard equilateral triangle \eqn{T_e=T((0,0),(1,0),(1/2,\sqrt{3}/2))}; must be \eqn{\ge 1}}
 
 \item{M}{A 2D point in Cartesian coordinates or a 3D point in barycentric coordinates
-which serves as a center in the interior of the standard equilateral triangle Te; default is M=c(1,1,1) i.e.
-the center of mass of Te}
-
-\item{pt}{A 2D point. The function determines whether pt is inside the union of PE proximity
-regions of points in S or not.}
+which serves as a center in the interior of the standard equilateral triangle \eqn{T_e}; default is \eqn{M=(1,1,1)} i.e.
+the center of mass of \eqn{T_e}}
 }
 \value{
-I(S a dominating set for PE-PCD), that is, returns 1 if S is a dominating set for PE-PCD,
-returns 0 otherwise, where PE proximity region is constructed in the standard equilateral triangle Te
+I(\code{S} a dominating set of PE-PCD), that is, returns 1 if \code{S} is a dominating set of PE-PCD,
+returns 0 otherwise, where PE proximity region is constructed in the standard equilateral triangle \eqn{T_e}
 }
 \description{
-Returns I(S a dominating set of PE-PCD whose vertices are the data points Dt), that is,
-returns 1 if S is a dominating set for PE-PCD, returns 0 otherwise. PE proximity region is constructed
-with respect to the standard equilateral triangle Te=T(A,B,C)=T((0,0),(1,0),(1/2,sqrt(3)/2)) with
-expansion parameter r>=1 and vertex regions are based on the center M=(m1,m2)
-in Cartesian coordinates or M=(alpha,beta,gamma) in barycentric coordinates in the interior of Te;
-default is M=c(1,1,1) i.e. the center of mass of Te (which is equivalent to the circumcenter of Te).
-Vertices of Te are also labeled as 1, 2, and 3, respectively.
+Returns I(\code{S} a dominating set of PE-PCD whose vertices are the data points \code{Dt}), that is,
+returns 1 if \code{S} is a dominating set of PE-PCD, returns 0 otherwise.
+
+PE proximity region is constructed
+with respect to the standard equilateral triangle \eqn{T_e=T(A,B,C)=T((0,0),(1,0),(1/2,\sqrt{3}/2))} with
+expansion parameter \eqn{r \ge 1} and vertex regions are based on the center \eqn{M=(m_1,m_2)}
+in Cartesian coordinates or \eqn{M=(\alpha,\beta,\gamma)} in barycentric coordinates in the interior of \eqn{T_e};
+default is \eqn{M=(1,1,1)} i.e. the center of mass of \eqn{T_e} (which is equivalent to the circumcenter of \eqn{T_e}).
+Vertices of \eqn{T_e} are also labeled as 1, 2, and 3, respectively.
 See also (\insertCite{ceyhan:Phd-thesis,ceyhan:masa-2007,ceyhan:dom-num-NPE-Spat2011,ceyhan:mcap2012;textual}{pcds}).
 }
 \examples{
-A<-c(1,1); B<-c(2,0); C<-c(1.5,2);
-#A<-runif(2); B<-runif(2); C<-runif(2);
-#A<-runif(2,1,100); B<-runif(2,1,100); C<-runif(2,1,100);
-Tr<-rbind(A,B,C);
+A<-c(0,0); B<-c(1,0); C<-c(1/2,sqrt(3)/2);
+Te<-rbind(A,B,C);
 n<-10
 
 #set.seed(1)
-dat<-runif.tri(n,Tr)$gen.points
+dat<-runifTe(n)$gen.points
 #dat<-cbind(runif(n),runif(n))
 #dat<-cbind(runif(n,1,2),runif(n,0,1))
 
-M<-as.numeric(runif.tri(1,Tr)$g)
-#M<-c(1.6,1.0)
+M<-as.numeric(runifTe(1)$g)
+#M<-c(.6,.2)
+#M<-circ.cent.tri(Te)
 #M<-c(1,1,1) #M<-c(1,2,3) #M<-c(-1,2,3) #barycentric coordinates
 #M<-c(1.3,1.3)
 #M<-c(.3,.3)
 r<-1.5
 
 S<-rbind(dat[1,],dat[2,])
-#S<-c(1.5,1)
-IndNPEtriSet(S,dat[3,],r,Tr,M)
-IndNPEtriSet(S,dat[3,],r=1,Tr,M)
-IndNPEtriSet(S,dat[3,],r=1.5,Tr,M)
+IndNPETe.domset(S,dat,r,M)
 
 S<-rbind(dat[1,],dat[2,],dat[3,],dat[5,])
-IndNPEtriSet(S,dat[3,],r,Tr,M)
-
-IndNPEtriSet(S,dat[6,],r,Tr,M)
-IndNPEtriSet(S,dat[6,],r=1.25,Tr,M)
+IndNPETe.domset(S,dat,r,M)
 
 S<-rbind(c(.1,.1),c(.3,.4),c(.5,.3))
-IndNPEtriSet(S,dat[3,],r,Tr,M)
+IndNPETe.domset(S,dat,r,M)
 
-IndNPEtriSet(c(.2,.5),dat[2,],r,Tr,M)
-IndNPEtriSet(dat,c(.2,.5),r,Tr,M)
-IndNPEtriSet(dat,dat[2,],r,Tr,M)
-IndNPEtriSet(c(.2,.5),c(.2,.5),r,Tr,M)
-IndNPEtriSet(dat[5,],dat[2,],r,Tr,M)
+IndNPETe.domset(c(.2,.5),dat,r,M)
+IndNPETe.domset(c(.2,.5),c(.2,.5),r,M)
+IndNPETe.domset(dat[5,],dat[2,],r,M)
 
 S<-rbind(dat[1,],dat[2,],dat[3,],dat[5,],c(.2,.5))
-IndNPEtriSet(S,dat[3,],r,Tr,M)
+IndNPETe.domset(S,dat[3,],r,M)
+
+IndNPETe.domset(dat,dat,r,M)
 
 P<-c(.4,.2)
 S<-dat[c(1,3,4),]
-IndNPEtriSet(dat,P,r,Tr,M)
+IndNPETe.domset(dat,P,r,M)
 
-IndNPEtriSet(rbind(S,S),P,r,Tr,M)
+IndNPETe.domset(rbind(S,S),dat,r,M)
 
-dat.fr<-data.frame(a=S)
-IndNPEtriSet(dat.fr,P,r,Tr,M)
+dat.fr<-data.frame(a=dat)
+IndNPETe.domset(S,dat.fr,r,M)
 
 }
+\references{
+\insertAllCited{}
+}
 \seealso{
-\code{\link{IndNPEtri.domset}} and \code{\link{IndNCSTe.domset}}
+\code{\link{IndNPEtri.domset}} and \code{\link{IndCSTe.domset}}
 }

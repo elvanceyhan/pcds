@@ -10,31 +10,33 @@ IndNAStri(pt1, pt2, tri, M = "CC", rv = NULL)
 \arguments{
 \item{pt1}{A 2D point whose AS proximity region is constructed.}
 
-\item{pt2}{A 2D point. The function determines whether pt2 is inside the AS proximity region of
-pt1 or not.}
+\item{pt2}{A 2D point. The function determines whether \code{pt2} is inside the AS proximity region of
+\code{pt1} or not.}
 
 \item{tri}{Three 2D points, stacked row-wise, each row representing a vertex of the triangle}
 
-\item{M}{"CC" which stand for circumcenter of the triangle tri or a 2D point in Cartesian coordinates or
-a 3D point in barycentric coordinates which serves as a center in the interior of tri;
-default is M="CC" i.e. the circumcenter of tri}
+\item{M}{"CC" which stands for circumcenter of the triangle \code{tri} or a 2D point in Cartesian coordinates or
+a 3D point in barycentric coordinates which serves as a center in the interior of \code{tri};
+default is \code{M}="CC" i.e. the circumcenter of \code{tri}}
 
-\item{rv}{The index of the M-vertex region in tri containing the point, either 1, 2, 3 or NULL
+\item{rv}{The index of the \code{M}-vertex region in \code{tri} containing the point, either 1, 2, 3 or NULL
 (default is NULL)}
 }
 \value{
-I(pt2 is in NAS(pt1)) for pt1, that is, returns 1 if pt2 is in NAS(pt1), returns 0 otherwise
+\eqn{I(pt2 \in N_{AS}(pt1))} for \code{pt1}, that is, returns 1 if \code{pt2} is in NAS(\code{pt1}), returns 0 otherwise
 }
 \description{
-Returns I(pt2 is in NAS(pt1)) for points pt1 and pt2, that is, returns 1 if pt2 is in NAS(pt1), returns 0
-otherwise, where NAS(x) is the AS proximity region for point x.
-AS proximity regions are constructed with respect to the triangle, tri=T(A,B,C)=(rv=1,rv=2,rv=3),
-and vertex regions are based on the center M="CC" for circumcenter of tri;
-or M=(m1,m2) in Cartesian coordinates or M=(alpha,beta,gamma) in barycentric coordinates in the
-interior of the triangle tri; default is M="CC" i.e. circumcenter of tri.
-rv is the index of the vertex region pt1 resides, with default=NULL.
-If pt1 and pt2 are distint and either of them are outside tri, the function returns 0,
-but if they are identical, then it returns 1 regardless of its location (i.e., it allows loops).
+Returns \eqn{I(pt2 \in N_{AS}(pt1))} for points \code{pt1} and \code{pt2}, that is, returns 1 if \code{pt2} is in NAS(\code{pt1}), returns 0
+otherwise, where \eqn{N_{AS}(x)} is the AS proximity region for point \eqn{x}.
+
+AS proximity regions are constructed with respect to the triangle, \eqn{tri=T(A,B,C)=(rv=1,rv=2,rv=3)},
+and vertex regions are based on the center \code{M}="CC" for circumcenter of \code{tri};
+or \eqn{M=(m_1,m_2)} in Cartesian coordinates or \eqn{M=(\alpha,\beta,\gamma)} in barycentric coordinates in the
+interior of the triangle \code{tri}; default is \code{M}="CC" i.e. circumcenter of \code{tri}.
+\code{rv} is the index of the vertex region \code{pt1} resides, with default=NULL.
+
+If \code{pt1} and \code{pt2} are distint and either of them are outside \code{tri}, the function returns 0,
+but if they are identical, then it returns 1 regardless of their locations (i.e., it allows loops).
 See also (\insertCite{ceyhan:Phd-thesis,ceyhan:comp-geo-2010,ceyhan:mcap2012;textual}{pcds}).
 }
 \examples{
@@ -51,92 +53,39 @@ M<-as.numeric(runif.tri(1,Tr)$g)
 #M<-c(.3,.3)
 
 P1<-as.numeric(runif.tri(1,Tr)$g)
-#P1<-c(1.3,1.2)
-NAStri(P1,Tr,M)
+P2<-as.numeric(runif.tri(1,Tr)$g)
+IndNAStri(P1,P2,Tr,M)
+
+P1<-c(1.3,1.2)
+P2<-c(1.8,.5)
+IndNAStri(P1,P2,Tr,M)
+IndNAStri(P1,P1,Tr,M)
+
 #or try
 Rv<-rv.triCC(P1,Tr)$rv
-NAStri(P1,Tr,M,Rv)
+IndNAStri(P1,P2,Tr,M,Rv)
 
-NAStri(c(3,5),Tr,M)
+P3<-c(1.6,1.4)
+IndNAStri(P1,P3,Tr,M)
 
-P2<-c(1.5,1.4)
-NAStri(P2,Tr,M)
+P4<-c(1.5,1.0)
+IndNAStri(P1,P4,Tr,M)
 
-P3<-c(1.5,.4)
-NAStri(P3,Tr,M)
+P5<-c(.5,1.0)
+IndNAStri(P1,P5,Tr,M)
+IndNAStri(P5,P5,Tr,M)
 
-if (dimension(M)==3) {M<-bary2cart(M,Tr)} #need to run this when M is given in barycentric coordinates
+#or try
+Rv<-rv.triCC(P5,Tr)$rv
+IndNAStri(P5,P5,Tr,M,Rv)
 
-CC<-circ.cent.tri(Tr) #the circumcenter
-
-if (isTRUE(all.equal(M,CC)) || identical(M,"CC"))
-{cent<-CC
-D1<-(B+C)/2; D2<-(A+C)/2; D3<-(A+B)/2;
-Ds<-rbind(D1,D2,D3)
-cent.name<-"CC"
-rv<-rv.triCC(P1,Tr)$rv
-} else
-{cent<-M
-cent.name<-"M"
-Ds<-cp2e.tri(Tr,M)
-D1<-Ds[1,]; D2<-Ds[2,]; D3<-Ds[3,]
-rv<-rv.tri.cent(P1,Tr,M)$rv
-}
-RV<-Tr[rv,]
-rad<-Dist(P1,RV)
-
-Int.Pts<-NAStri(P1,Tr,M)
-
-#plot of the NAS region
-
-Xlim<-range(Tr[,1],P1[1]+rad,P1[1]-rad)
-Ylim<-range(Tr[,2],P1[2]+rad,P1[2]-rad)
-xd<-Xlim[2]-Xlim[1]
-yd<-Ylim[2]-Ylim[1]
-
-plot(A,pch=".",asp=1,xlab="",ylab="",xlim=Xlim+xd*c(-.05,.05),ylim=Ylim+yd*c(-.05,.05))
-#asp=1 must be the case to have the arc properly placed in the figure
-polygon(Tr)
-points(rbind(Tr,P1,rbind(Int.Pts$L,Int.Pts$R)))
-L<-rbind(cent,cent,cent); R<-Ds
-segments(L[,1], L[,2], R[,1], R[,2], lty=2)
-circles(P1[1],P1[2],rad,lty=2)
-L<-Int.Pts$L; R<-Int.Pts$R
-segments(L[,1], L[,2], R[,1], R[,2], lty=1,col=2)
-Arcs<-Int.Pts$A;
-if(!is.null(Arcs))
-{
-  K<-nrow(Arcs)/2
-  for (i in 1:K)
-  {A1<-Int.Pts$Arc[2*i-1,]; A2<-Int.Pts$Arc[2*i,];
-  angles<-angle.str2end(A1,P1,A2)$c
-
-  test.ang1<-angles[1]+(.01)*(angles[2]-angles[1])
-  test.Pnt<-P1+rad*c(cos(test.ang1),sin(test.ang1))
-  if (!in.triangle(test.Pnt,Tr,boundary = T)$i) {angles<-c(min(angles),max(angles)-2*pi)}
-  draw.arc(P1[1],P1[2],rad,angle1=angles[1],angle2=angles[2],col=2)
-  }
-}
-
-#proximity region with the triangle (i.e., for labeling the vertices of the NAS)
-IP.txt<-intpts<-c()
-if (!is.null(Int.Pts$A))
-{
-  intpts<-unique(round(Int.Pts$A,7)) #this part is for labeling the intersection points of the spherical
-  for (i in 1:(length(intpts)/2))
-    IP.txt<-c(IP.txt,paste("I",i+1, sep = ""))
-}
-txt<-rbind(Tr,P1,cent,intpts)
-txt.str<-c("A","B","C","P1",cent.name,IP.txt)
-text(txt+cbind(rep(xd*.02,nrow(txt)),rep(-xd*.03,nrow(txt))),txt.str)
-
-P1<-c(.3,.2)
-NAStri(P1,Tr,M)
+dat.fr<-data.frame(a=Tr)
+IndNAStri(P1,P2,dat.fr,M)
 
 }
 \references{
 \insertAllCited{}
 }
 \seealso{
-\code{\link{IndNASbastri}}, \code{\link{IndNPEtri}}, and \code{\link{IndNCStri}},
+\code{\link{IndNASbastri}}, \code{\link{IndNPEtri}}, and \code{\link{IndNCStri}}
 }

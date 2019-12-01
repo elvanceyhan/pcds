@@ -10,34 +10,40 @@ IndNPEbastri(pt1, pt2, r, c1, c2, M = c(1, 1, 1), rv = NULL)
 \arguments{
 \item{pt1}{A 2D point whose PE proximity region is constructed.}
 
-\item{pt2}{A 2D point. The function determines whether pt2 is inside the PE proximity region of
-pt1 or not.}
+\item{pt2}{A 2D point. The function determines whether \code{pt2} is inside the PE proximity region of
+\code{pt1} or not.}
+
+\item{r}{A positive real number which serves as the expansion parameter in PE proximity region; must be \eqn{\ge 1}}
 
 \item{c1, c2}{Positive real numbers which constitute the vertex of the basic triangle
-adjacent to the shorter edges; c1 must be in [0,1/2], c2>0 and (1-c1)^2+c2^2 <=1}
+adjacent to the shorter edges; \code{c1} must be in \eqn{[0,1/2]}, \eqn{c_2>0} and \eqn{(1-c_1)^2+c_2^2 \le 1}}
 
 \item{M}{A 2D point in Cartesian coordinates or a 3D point in barycentric coordinates
-which serves as a center in the interior of the basic triangle or circumcenter of Tb;
-default is M=c(1,1,1) i.e. the center of mass of Tb}
+which serves as a center in the interior of the basic triangle or circumcenter of \eqn{T_b};
+default is \eqn{M=(1,1,1)} i.e. the center of mass of \eqn{T_b}}
 
-\item{rv}{The index of the vertex region in Tb containing the point, either 1, 2, 3 or NULL
+\item{rv}{The index of the vertex region in \eqn{T_b} containing the point, either 1, 2, 3 or NULL
 (default is NULL)}
 }
 \value{
-I(pt2 is in NPE(pt1,r)) for points pt1 and pt2, that is, returns 1 if pt2 is in NPE(pt1,r),
+I(\code{pt2} is in \eqn{NPE(pt1,r)}) for points \code{pt1} and \code{pt2}, that is, returns 1 if \code{pt2} is in \eqn{NPE(pt1,r)},
 returns 0 otherwise
 }
 \description{
-Returns I(pt2 is in NPE(pt1,r)) for points pt1 and pt2, that is, returns 1 if pt2 is in NPE(pt1,r),
-returns 0 otherwise, where NPE(x,r) is the PE proximity region for point x with expansion parameter r>=1.
-PE proximity region is defined with respect to the basic triangle Tb=T((0,0),(1,0),(c1,c2))
-where c1 is in [0,1/2], c2>0 and (1-c1)^2+c2^2 <=1
-and vertex regions are based on the center, M=(m1,m2) in Cartesian coordinates or M=(alpha,beta,gamma) in
-barycentric coordinates in the interior of the basic triangle Tb or based on circumcenter of Tb;
-default is M=c(1,1,1) i.e. the center of mass of Tb.
-rv is the index of the vertex region pt1 resides, with default=NULL.
-If pt1 and pt2 are distint and either of them are outside Tb, it returns 0,
-but if they are identical, then it returns 1 regardless of its location (i.e., it allows loops).
+Returns I(\code{pt2} is in \eqn{NPE(pt1,r)}) for points \code{pt1} and \code{pt2}, that is, returns 1 if \code{pt2} is in \eqn{NPE(pt1,r)},
+returns 0 otherwise, where \eqn{NPE(x,r)} is the PE proximity region for point \eqn{x} with expansion parameter \eqn{r \ge 1}.
+
+PE proximity region is defined with respect to the basic triangle \eqn{T_b=T((0,0),(1,0),(c_1,c_2))}
+where \code{c1} is in \eqn{[0,1/2]}, \eqn{c_2>0} and \eqn{(1-c_1)^2+c_2^2 \le 1}.
+
+Vertex regions are based on the center, \eqn{M=(m_1,m_2)} in Cartesian coordinates or \eqn{M=(\alpha,\beta,\gamma)} in
+barycentric coordinates in the interior of the basic triangle \eqn{T_b} or based on circumcenter of \eqn{T_b};
+default is \eqn{M=(1,1,1)} i.e. the center of mass of \eqn{T_b}.
+\code{rv} is the index of the vertex region \code{pt1} resides, with default=NULL.
+
+If \code{pt1} and \code{pt2} are distint and either of them are outside \eqn{T_b}, it returns 0,
+but if they are identical, then it returns 1 regardless of their locations (i.e., it allows loops).
+
 Any given triangle can be mapped to the basic triangle
 by a combination of rigid body motions (i.e., translation, rotation and reflection) and scaling,
 preserving uniformity of the points in the original triangle. Hence basic triangle is useful for simulation
@@ -53,30 +59,41 @@ M<-as.numeric(runif.bastri(1,c1,c2)$g)
 #M<-c(.6,.2)
 #M<-circ.cent.tri(Tb)
 #M<-c(1,1,1) #M<-c(1,2,3) #M<-c(-1,2,3) #barycentric coordinates
+#M<-c(1.3,1.3)
 #M<-c(.3,.3)
 r<-2
 
 P1<-as.numeric(runif.bastri(1,c1,c2)$g)
-#P1<-c(.4,.2)
-NPEbastri(P1,r,c1,c2,M)
+P2<-as.numeric(runif.bastri(1,c1,c2)$g)
+IndNPEbastri(P1,P2,r,c1,c2,M)
 
-P2<-c(1.8,.5)
-NPEbastri(P2,r,c1,c2,M)
-
-P3<-c(1.7,.6)
-NPEbastri(P3,r,c1,c2,M)
-
-M<-c(1.3,1.3)
-r<-2
-
-P1<-c(1.4,1.2)
-P2<-c(1.5,1.26)
-NPEbastri(P1,r,c1,c2,M)
-NPEbastri(P2,r,c1,c2,M)
+P1<-c(.4,.2)
+P2<-c(.5,.26)
+IndNPEbastri(P1,P2,r,c1,c2,M)
+IndNPEbastri(P2,P1,r,c1,c2,M)
+IndNPEbastri(P1,P1,r,c1,c2,M)
 
 #or try
-Rv<-rv.tri.cent(P1,c1,c2,M)$rv
-NPEbastri(P1,r,c1,c2,M,Rv)
+Rv<-rv.bastri.cent(P1,c1,c2,M)$rv
+IndNPEbastri(P1,P2,r,c1,c2,M,Rv)
+
+P1<-c(1.4,.2)
+P2<-c(.5,.26)
+IndNPEbastri(P1,P2,r,c1,c2,M)
+IndNPEbastri(P1,P1,r,c1,c2,M)
+
+#or try
+Rv<-rv.bastri.cent(P1,c1,c2,M)$rv
+IndNPEbastri(P1,P2,r,c1,c2,M,Rv)
+IndNPEbastri(P1,P1,r,c1,c2,M,Rv)
+
+P1<-c(.4,.2)
+P2<-c(1.5,.26)
+IndNPEbastri(P1,P2,r,c1,c2,M)
+
+P1<-c(.4,.2)
+P2<-c(.5,.26)
+IndNPEbastri(P1,P2,r,c1,c2,M)
 
 }
 \references{

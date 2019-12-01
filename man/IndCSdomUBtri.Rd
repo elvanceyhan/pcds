@@ -13,66 +13,69 @@ IndCSdomUBtri(Dt, k, t, tri, M = c(1, 1, 1))
 \item{k}{A positive integer to be tested for an upper bound for the domination number of CS-PCDs}
 
 \item{t}{A positive real number which serves as the expansion parameter in CS proximity region in the
-triangle tri}
+triangle \code{tri}}
 
 \item{tri}{Three 2D points, stacked row-wise, each row representing a vertex of the triangle}
 
 \item{M}{A 2D point in Cartesian coordinates or a 3D point in barycentric coordinates which serves as a
-center in the interior of the triangle tri; default is M=c(1,1,1) i.e. the center of mass of tri}
+center in the interior of the triangle \code{tri}; default is \eqn{M=(1,1,1)} i.e. the center of mass of \code{tri}}
 }
 \value{
 A list with two elements
-\item{domUB}{The upper bound k (to be checked) for the domination number of CS-PCD. It is prespecified
-as k in the function arguments.}
+\item{domUB}{The upper bound \code{k} (to be checked) for the domination number of CS-PCD. It is prespecified
+as \code{k} in the function arguments.}
 \item{IndUBdom}{The indicator for the upper bound for domination number of CS-PCD being the
-specified value k or not. It returns 1 if the upper bound is k, and 0 otherwise.}
-\item{ind.domset}{The vertices (i.e., data points) in the dominating set of size k if it exists,
+specified value \code{k} or not. It returns 1 if the upper bound is \code{k}, and 0 otherwise.}
+\item{ind.domset}{The vertices (i.e., data points) in the dominating set of size \code{k} if it exists,
 otherwise it is NULL.}
 }
 \description{
-Returns I(domination number of CS-PCD whose vertices are the data points Dt is less than or equal to k),
-that is, returns 1 if the domination number of CS-PCD is less than the prespecified value k, returns 0
-otherwise. It also provides the vertices (i.e. data points) in a dominating set of size k of CS-PCD.
-CS proximity region is constructed with respect to the triangle tri=T(A,B,C) with
-expansion parameter t>0 and edge regions are based on the center M=(m1,m2)
-in Cartesian coordinates or M=(alpha,beta,gamma) in barycentric coordinates in the interior of tri;
-default is M=c(1,1,1) i.e. the center of mass of tri.
-Edges of tri, AB, BC, AC, are also labeled as 3, 1, and 2, respectively.
+Returns I(domination number of CS-PCD is less than or equal to \code{k}) where the vertices of the CS-PCD are the data points \code{Dt},
+that is, returns 1 if the domination number of CS-PCD is less than the prespecified value \code{k}, returns 0
+otherwise. It also provides the vertices (i.e. data points) in a dominating set of size \code{k} of CS-PCD.
+
+CS proximity region is constructed with respect to the triangle \eqn{tri=T(A,B,C)} with
+expansion parameter \eqn{t>0} and edge regions are based on the center \eqn{M=(m_1,m_2)}
+in Cartesian coordinates or \eqn{M=(\alpha,\beta,\gamma)} in barycentric coordinates in the interior of \code{tri};
+default is \eqn{M=(1,1,1)} i.e. the center of mass of \code{tri}.
+Edges of \code{tri}, \eqn{AB}, \eqn{BC}, \eqn{AC}, are also labeled as 3, 1, and 2, respectively.
 Loops are allowed in the digraph.
 It takes a long time for large number of vertices (i.e., large number of row numbers).
 See also (\insertCite{ceyhan:mcap2012;textual}{pcds}).
 }
 \examples{
-A<-c(0,0); B<-c(1,0); C<-c(.5,sqrt(3.)/2);
-Te<-rbind(A,B,C);
+A<-c(1,1); B<-c(2,0); C<-c(1.5,2);
+#A<-runif(2); B<-runif(2); C<-runif(2);
+#A<-runif(2,1,100); B<-runif(2,1,100); C<-runif(2,1,100);
+Tr<-rbind(A,B,C);
 n<-10
 
 #set.seed(1)
-dat<-runifTe(n)$gen.points
+dat<-runif.tri(n,Tr)$gen.points
 #dat<-cbind(runif(n),runif(n))
-#dat<-cbind(runif(n,1,2),runif(n,0,1))
+#dat<-cbind(runif(n,1,2),runif(n,0,1,t,Tr))
 
-M<-as.numeric(runifTe(1)$g)
-#M<-c(.6,.2)
+M<-as.numeric(runif.tri(1,Tr)$g)
+#M<-c(1.6,1.0)
 #M<-c(1,1,1) #M<-c(1,2,3) #M<-c(-1,2,3) #barycentric coordinates
 #M<-c(1.3,1.3)
 #M<-c(.3,.3)
 t<-.5
 
-IndCSdomUBTe(dat,1,t,M)
+IndCSdomUBtri(dat,1,t,Tr,M)
 
 for (k in 1:n)
-  print(c(k,IndCSdomUBTe(dat,k,t,M)))
+  print(c(k,IndCSdomUBtri(dat,k,t,Tr,M)))
 
-IndCSdomUBTe(dat,k=4,t,M)
+IndCSdomUBtri(dat,k=4,t,Tr,M)
 
 P<-c(.4,.2)
-IndCSdomUBTe(P,1,t,M)
+IndCSdomUBtri(P,1,t,Tr,M)
 
-IndCSdomUBTe(rbind(dat,dat),3,t,M)
+IndCSdomUBtri(rbind(dat,dat),3,t,Tr,M)
 
 dat.fr<-data.frame(a=dat)
-IndCSdomUBTe(dat.fr,1,t,M)
+IndCSdomUBtri(dat.fr,1,t,Tr,M)
 
 }
 \references{

@@ -11,63 +11,60 @@ NumArcsASMT(Xp, Yp, M = "CC")
 
 \item{Yp}{A set of 2D points which constitute the vertices of the Delaunay triangles}
 
-\item{M}{"CC" which stand for circumcenter of each Delaunay triangle tri or 3D point in barycentric
+\item{M}{"CC" which stands for circumcenter of each Delaunay triangle \code{tri} or 3D point in barycentric
 coordinates which serves as a center in the interior of each Delaunay triangle;
-default is M="CC" i.e. the circumcenter of each triangle}
+default is \code{M}="CC" i.e. the circumcenter of each triangle}
 }
 \value{
 A list with the elements
-\item{num.pts.in.CH}{Number of Xp points in the convex hull of Yp points}
-\item{num.arcs}{Number of arcs in the AS-PCD for the Xp points inside the convex hull of Yp points}
-\item{weight.vec}{The vector of areas of the Delaunay triangles that have at least on Xp points in them}
+\item{num.pts.in.CH}{Number of \code{Xp} points in the convex hull of \code{Yp} points}
+\item{num.arcs}{Number of arcs in the AS-PCD for the \code{Xp} points inside the convex hull of \code{Yp} points}
+\item{weight.vec}{The vector of areas of the Delaunay triangles that have at least on \code{Xp} points in them}
 }
 \description{
 Returns the number of arcs of Arc Slice Proximity Catch Digraph (AS-PCD) whose vertices are
-the data points in Xp in the multiple triangle case. AS proximity regions are defined with respect to the
-Delaunay triangles based on Yp points and vertex regions in each triangle are based on the center M="CC"
-for circumcenter of each Delaunay triangle or M=(alpha,beta,gamma) in barycentric coordinates in the
-interior of each Delaunay triangle; default is M="CC" i.e. circumcenter of each triangle.
-Convex hull of Yp is partitioned by the Delaunay triangles based on Yp points
+the data points in \code{Xp} in the multiple triangle case.
+
+AS proximity regions are defined with respect to the
+Delaunay triangles based on \code{Yp} points and vertex regions in each triangle are based on the center \code{M}="CC"
+for circumcenter of each Delaunay triangle or \eqn{M=(\alpha,\beta,\gamma)} in barycentric coordinates in the
+interior of each Delaunay triangle; default is \code{M}="CC" i.e. circumcenter of each triangle.
+Convex hull of \code{Yp} is partitioned by the Delaunay triangles based on \code{Yp} points
 (i.e., multiple triangles are the set of these Delaunay triangles whose union constitutes
-the convex hull of Yp points).
+the convex hull of \code{Yp} points).
 See (\insertCite{ceyhan:Phd-thesis,ceyhan:comp-geo-2010,ceyhan:mcap2012;textual}{pcds}) for more on AS-PCDs.
 Also see (\insertCite{okabe:2000,ceyhan:comp-geo-2010,renka:1996;textual}{pcds}) for more on Delaunay triangulation
-and the tripack algorithm.
+and the TRIPACK algorithm.
 }
 \examples{
-A<-c(1,1); B<-c(2,0); C<-c(1.5,2);
-#A<-runif(2); B<-runif(2); C<-runif(2);
-#A<-runif(2,1,100); B<-runif(2,1,100); C<-runif(2,1,100);
-Tr<-rbind(A,B,C);
-n<-10
+nx<-100
+ny<-10
 
 #set.seed(1)
-dat<-runif.tri(n,Tr)$gen.points
-#dat<-cbind(runif(n),runif(n))
-#dat<-cbind(runif(n,1,2),runif(n,0,1,Tr))
+Xp<-cbind(runif(nx),runif(nx))
+#Xp<-cbind(runif(nx,.5,1.5),runif(nx))
+#Xp<-cbind(runif(nx,1,2),runif(nx))
+#Xp<-c(.5,.5)
+Yp<-cbind(runif(ny),runif(ny))
 
-M<-as.numeric(runif.tri(1,Tr)$g)
-#M<-c(1.6,1.2)
-#M<-circ.cent.tri(Tr); #M<-"CC"; #M<-"CM"
+plotDeltri(Xp,Yp,xlab="",ylab="")
+
+M<-"CC"
 #M<-c(1,1,1) #M<-c(1,2,3) #M<-c(-1,2,3) #barycentric coordinates
 #M<-c(1.3,1.3)
-#M<-c(.3,.3)
 
-IndASdomUBtri(dat,1,Tr)
+NumArcsASMT(Xp,Yp,M)
 
-for (k in 1:n)
-  print(c(k,IndASdomUBtri(dat,k,Tr,M)))
+NumArcsASMT(c(.4,.2),Yp,M)
 
-IndASdomUBtri(dat,k=4,Tr,M)
+NumArcsASMT(Xp,rbind(Yp,Yp),M)
 
-P<-c(.4,.2)
-IndASdomUBtri(P,1,Tr,M)
+dat.fr<-data.frame(a=Xp)
+NumArcsASMT(dat.fr,Yp,M)
 
-IndASdomUBtri(rbind(dat,dat),Tr,M)
-
-dat.fr<-data.frame(a=dat)
-IndASdomUBtri(dat.fr,1,Tr,M)
-
+}
+\references{
+\insertAllCited{}
 }
 \seealso{
 \code{\link{NumArcsAStri}}, \code{\link{NumArcsPEMT}}, and \code{\link{NumArcsCSMT}}
