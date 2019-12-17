@@ -1224,7 +1224,6 @@ print.summary.Uniform <- function(x, ...)
 
       cat("\n The two vectors containing the coordinates of the nodes on the boundary of the convex hull of Ypnts \n")
       Yp<-x$Support
-      #library(tripack)
       Ydeltri<-tri.mesh(Yp[,1],Yp[,2],duplicate="remove")
       print(convex.hull(Ydeltri))
     }
@@ -1302,7 +1301,7 @@ plot.Uniform<-function (x,asp=NA,xlab="x",ylab="y",zlab="z", ...)
       points(Xdat,pch=1)
     } else
     {
-      DTY<-tri.mesh(Y[,1],Y[,2],duplicate="remove") #Delaunay triangulation based on Y points
+      DTY<-tripack::tri.mesh(Y[,1],Y[,2],duplicate="remove") #Delaunay triangulation based on Y points
       plot.tri(DTY, add=TRUE, do.points = TRUE,pch=16,col="blue")
       points(Xdat,pch=".",cex=3)
     }

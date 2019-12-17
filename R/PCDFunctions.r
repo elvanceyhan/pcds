@@ -4,19 +4,15 @@
 #####AUXILIARY FUNCTIONS#################
 #in all these functions
 #points are vectors, and data sets are either matrices or data frames
-#Contains the ancillary functions used in PCD calculations, such as equation of lines for two points
-#####AUXILIARY FUNCTIONS#################
-#in all these functions
-#points are vectors, and data sets are either matrices or data frames
-
+#'
 #' @import graphics
 #' @import stats
 #' @import plot3D
+# #' @import interp
 #' @import tripack
 #' @importFrom Rdpack reprompt
-#' @importFrom tripack circles tri.mesh plot.tri triangles convex.hull
 #'
-#' @title Check the argument is a point is of a given dimension.
+#' @title Check the argument is a point of a given dimension.
 #'
 #' @description Returns \code{TRUE} if the arguement \code{p} is a numeric point of dimension \code{dim}
 #' (default is \code{dim}=2); otherwise returns \code{FALSE}.
@@ -476,13 +472,13 @@ dp2l<-function(p,a,b)
 #' by using the specified distance measure to compute the distances between the rows of a data matrix
 #' (\insertCite{S-Book:1998;textual}{pcds}),
 #' while \code{Dist} needs two arguments to find the distances between. For two data matrices A and B,
-#' \code{dist(rbind(as.vector(A),as.vector(B)))} and \code{Dist(xm,ym)} yield the same result.
+#' \code{dist(rbind(as.vector(A),as.vector(B)))} and \code{Dist(A,B)} yield the same result.
 #'
 #' @param x,y Vectors, matrices or data frames (both should be of the same type)
 #'
 #' @return Euclidean distance between \code{x} and \code{y}
 #'
-#' @seealso \code{\link[stats]{dist}} from the base package stats
+#' @seealso \code{\link[stats]{dist}} from the base package \code{stats}
 #'
 #' @references
 #' \insertAllCited{}
@@ -535,7 +531,7 @@ Dist<-function(x,y)
 #' from the point to the closest point in the set. \code{x} should be of finite dimension and \code{Y} should
 #' be of finite cardinality and \code{x} and elements of \code{Y} must have the same dimension.
 #'
-#' @param x A vector (i.e., a point in \eqn{\mathbb R^d})
+#' @param x A vector (i.e., a point in \eqn{R^d})
 #' @param Y A set of d-dimensional points
 #'
 #' @return A list of elements
@@ -766,7 +762,7 @@ rseg.disc<-function(n,Y,e,a1=min(Y[,1]),a2=max(Y[,1]),b1=min(Y[,2]),b2=max(Y[,2]
 #'
 #' Generation of points associated (in a radial or circular fashion) with a given set of points
 #'
-#' @description Generates \code{n} 2D points uniformly in \eqn{(a1-e,a1+e)x(a1-e,a1+e) \cap U_i \eqn{B(y_i,e)}} where
+#' @description Generates \code{n} 2D points uniformly in \eqn{(a1-e,a1+e)x(a1-e,a1+e) \cap U_i B(y_i,e)} where
 #' \eqn{Y=(y_1,y_2,...,y_{n_y})} with
 #' \eqn{n_y} being number of \code{Y} points for various values of e under the association pattern
 #' and \eqn{B(y_i,e)} is the ball centered at \eqn{y_i} with radius \code{e}.
@@ -4081,9 +4077,9 @@ rv.bastriCM<-function(p,c1,c2)
 
 #################################################################
 
-#' @title The area of a polygon in \eqn{\mathbb R^2}
+#' @title The area of a polygon in \eqn{R^2}
 #'
-#' @description Returns the area of the polygon, \code{h}, in the real plane \eqn{\mathbb R^2}; the vertices of the polygon \code{h}
+#' @description Returns the area of the polygon, \code{h}, in the real plane \eqn{R^{2}}; the vertices of the polygon \code{h}
 #' must be provided in clockwise or counter-clockwise order, otherwise the function does not yield
 #' the area of the polygon. Also, the polygon could be convex or non-convex.
 #' See (\insertCite{weisstein-area-poly;textual}{pcds}).
@@ -4091,7 +4087,7 @@ rv.bastriCM<-function(p,c1,c2)
 #' @param h n 2D points, stacked row-wise, each row representing a vertex of the polygon, where n is the
 #' number of vertices of the polygon
 #'
-#' @return area of \code{h}
+#' @return area of the polygon \code{h}
 #'
 #' @references
 #' \insertAllCited{}
@@ -5596,7 +5592,7 @@ runifMT<-function(n,Yp,DTmesh=NULL)
     lx<-min(Yp[,1]); rx<-max(Yp[,1])
     ly<-min(Yp[,2]); ry<-max(Yp[,2])
     x1<-runif(1,lx,rx); y1<-runif(1,ly,ry)
-    if (in.convex.hull(DTmesh,x1,y1))
+    if (tripack::in.convex.hull(DTmesh,x1,y1))
     {
       dat<-rbind(dat,c(x1,y1));
       cnt<-cnt+1
@@ -17199,7 +17195,8 @@ PEdom1D<-function(Xp,Yp,r,c=.5)
 #' TSDomPEBin1D(Xp,Yp,int,c=.25)
 #'
 #' @export TSDomPEBin1D
-TSDomPEBin1D<-function(Xp,Yp=NULL,int,c=.5,asy.bin=F,end.int.cor=F,alternative=c("two.sided", "less", "greater"),conf.level = 0.95)
+TSDomPEBin1D<-function(Xp,Yp=NULL,int,c=.5,asy.bin=FALSE,end.int.cor=FALSE,
+                       alternative=c("two.sided", "less", "greater"),conf.level = 0.95)
 {
   alternative <-match.arg(alternative)
   if (length(alternative) > 1 || is.na(alternative))
@@ -34726,7 +34723,7 @@ IndNCStri.domset<-function(S,Dt,t,tri,M=c(1,1,1))
 #' IndCSdomUBTe(dat,1,t,M)
 #'
 #' for (k in 1:n)
-#'   print(c(k,IndCSdomUBTe(dat,k,t,M)))
+#'   print(c(k,IndCSdomUBTe(dat,k,t,M)$IndUBdom))
 #'
 #' IndCSdomUBTe(dat,k=4,t,M)
 #'

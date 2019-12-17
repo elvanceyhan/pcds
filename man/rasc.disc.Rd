@@ -41,7 +41,7 @@ attraction (i.e., \code{Y}) points.}
 \item{ylimit}{The possible range of the y-coordinates of the generated points.}
 }
 \description{
-Generates \code{n} 2D points uniformly in \eqn{(a1-e,a1+e)x(a1-e,a1+e) \cap U_i \eqn{B(y_i,e)}} where
+Generates \code{n} 2D points uniformly in \eqn{(a1-e,a1+e)x(a1-e,a1+e) \cap U_i B(y_i,e)} where
 \eqn{Y=(y_1,y_2,...,y_{n_y})} with
 \eqn{n_y} being number of \code{Y} points for various values of e under the association pattern
 and \eqn{B(y_i,e)} is the ball centered at \eqn{y_i} with radius \code{e}.

@@ -2,7 +2,7 @@
 % Please edit documentation in R/PCDFunctions.r
 \name{area.polygon}
 \alias{area.polygon}
-\title{The area of a polygon in \eqn{\mathbb R^2}}
+\title{The area of a polygon in \eqn{R^2}}
 \usage{
 area.polygon(h)
 }
@@ -11,10 +11,10 @@ area.polygon(h)
 number of vertices of the polygon}
 }
 \value{
-area of \code{h}
+area of the polygon \code{h}
 }
 \description{
-Returns the area of the polygon, \code{h}, in the real plane \eqn{\mathbb R^2}; the vertices of the polygon \code{h}
+Returns the area of the polygon, \code{h}, in the real plane \eqn{R^{2}}; the vertices of the polygon \code{h}
 must be provided in clockwise or counter-clockwise order, otherwise the function does not yield
 the area of the polygon. Also, the polygon could be convex or non-convex.
 See (\insertCite{weisstein-area-poly;textual}{pcds}).

@@ -7,7 +7,7 @@
 dist.pt2set(x, Y)
 }
 \arguments{
-\item{x}{A vector (i.e., a point in \eqn{\mathbb R^d})}
+\item{x}{A vector (i.e., a point in \eqn{R^d})}
 
 \item{Y}{A set of d-dimensional points}
 }

@@ -7,8 +7,8 @@
 A test of segregation/association based on domination number of Proportional Edge Proximity Catch Digraph
 (PE-PCD) for 1D data - Binomial Approximation}
 \usage{
-TSDomPEBin1D(Xp, Yp = NULL, int, c = 0.5, asy.bin = F,
-  end.int.cor = F, alternative = c("two.sided", "less", "greater"),
+TSDomPEBin1D(Xp, Yp = NULL, int, c = 0.5, asy.bin = FALSE,
+  end.int.cor = FALSE, alternative = c("two.sided", "less", "greater"),
   conf.level = 0.95)
 }
 \arguments{

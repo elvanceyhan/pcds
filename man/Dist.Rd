@@ -21,7 +21,7 @@ This function is different from the \code{\link[stats]{dist}} function in the \c
 by using the specified distance measure to compute the distances between the rows of a data matrix
 (\insertCite{S-Book:1998;textual}{pcds}),
 while \code{Dist} needs two arguments to find the distances between. For two data matrices A and B,
-\code{dist(rbind(as.vector(A),as.vector(B)))} and \code{Dist(xm,ym)} yield the same result.
+\code{dist(rbind(as.vector(A),as.vector(B)))} and \code{Dist(A,B)} yield the same result.
 }
 \examples{
 B<-c(1,0); C<-c(1/2,sqrt(3)/2);
@@ -57,5 +57,5 @@ Dist(dat.fr,cbind(B,C))
 \insertAllCited{}
 }
 \seealso{
-\code{\link[stats]{dist}} from the base package stats
+\code{\link[stats]{dist}} from the base package \code{stats}
 }
