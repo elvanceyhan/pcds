@@ -43,15 +43,15 @@ yc<-rbind(A,B,C,D)[,2]+c(.02,.02,.02,.04)
 txt.str<-c("A","B","C","D")
 text(xc,yc,txt.str)
 
-\dontrun{
+dat.fr<-data.frame(a=Tr)
+area.polygon(dat.fr)
+
+\donttest{
 #when the triangle is degenerate
 B<-A+2*(C-A);
 T2<-rbind(A,B,C)
 area.polygon(T2)
 }
-
-dat.fr<-data.frame(a=Tr)
-area.polygon(dat.fr)
 
 }
 \references{

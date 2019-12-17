@@ -41,12 +41,13 @@ and
 \code{IndCSTeRAC} returns I(\code{pt2} is in \eqn{NCS(pt1,t)} for \code{pt1} in RAC (edge region for edge AC, i.e., edge 2) in \eqn{T_e}.
 That is, each function returns 1 if \code{pt2} is in \eqn{NCS(pt1,t)}, returns 0 otherwise.
 
-CS proximity region is defined with respect to Te whose vertices are also labeled as \eqn{T_e=T(v=1,v=2,v=3)}
+CS proximity region is defined with respect to \eqn{T_e} whose vertices are also labeled as \eqn{T_e=T(v=1,v=2,v=3)}
 with expansion parameter \eqn{t>0} and edge regions are based on the center \eqn{M=(m_1,m_2)} in Cartesian coordinates
 or \eqn{M=(\alpha,\beta,\gamma)} in barycentric coordinates in the interior of \eqn{T_e}
 
 If \code{pt1} and \code{pt2} are distint and \code{pt1} is outside the corresponding edge region and \code{pt2} is outside \eqn{T_e}, it returns 0,
 but if they are identical, then it returns 1 regardless of their location (i.e., it allows loops).
+
 See also (\insertCite{ceyhan:Phd-thesis,ceyhan:comp-geo-2010;textual}{pcds}).
 }
 \examples{

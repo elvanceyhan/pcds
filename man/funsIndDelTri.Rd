@@ -18,7 +18,7 @@ determined. It is an argument for \code{ind.Del.tri}}
 
 \item{Yp}{A set of 2D points from which Delaunay triangulation is constructed}
 
-\item{DTmesh}{Delaunay triangles based on \code{Yp}, default is NULL, which is computed via \code{\link[tripack]{tri.mesh}} function
+\item{DTmesh}{Delaunay triangles based on \code{Yp}, default is \code{NULL}, which is computed via \code{\link[tripack]{tri.mesh}} function
 in \code{tripack} package. \code{\link[tripack]{triangles}} function yields a triangulation data structure from the triangulation object
 created by \code{tri.mesh}.}
 
@@ -35,10 +35,11 @@ ind.Del.tri finds the index of the Delaunay triangle in which the given point, \
 
 indices.Del.tri finds the indices of triangles for all the points in data set, \code{dat}, as a vector.
 
-Delaunay triangulation is based on \code{Yp} and \code{DTmesh} are the Delaunay triangles with default NULL.
-The function returns NA for a point not inside the convex hull of \code{Yp}.
-Number of \code{Y} points (i.e., size of \code{Yp}) should be at least three and the points
+Delaunay triangulation is based on \code{Yp} and \code{DTmesh} are the Delaunay triangles with default \code{NULL}.
+The function returns \code{NA} for a point not inside the convex hull of \code{Yp}.
+Number of \code{Yp} points (i.e., size of \code{Yp}) should be at least three and the points
 should be in general position so that Delaunay triangulation is (uniquely) defined.
+
 See (\insertCite{okabe:2000,ceyhan:comp-geo-2010,renka:1996;textual}{pcds}) for more on Delaunay
 triangulation and the TRIPACK algorithm.
 }
@@ -88,8 +89,8 @@ dat.fr<-data.frame(a=Yp)
 ind.Del.tri(c(.25,.25),dat.fr)
 
 #Examples for indices.Del.tri
-nx<-40 #number of X points (target)
-ny<-10 #number of Y points (nontarget)
+#nx is number of X points (target) and ny is number of Y points (nontarget)
+nx<-20; ny<-4; #try also nx<-40; ny<-10 or nx<-1000; ny<-10;
 
 #set.seed(1)
 Yp<-cbind(runif(ny),runif(ny))

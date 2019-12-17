@@ -25,6 +25,7 @@ centrality parameter \code{c} in \eqn{(0,1)} }
 }
 \description{
 Returns the domination number of PE-PCD whose vertices are the 1D data set \code{Xp}.
+
 \code{Yp} determines the end points of the intervals (i.e., partition the real line via intervalization).
 
 PE proximity region is constructed with expansion parameter \eqn{r \ge 1} and centrality parameter \code{c} in \eqn{(0,1)}.
@@ -35,14 +36,15 @@ c<-.4
 r<-2
 #c<-runif(1); r<-rexp(1)+1
 #a<-runif(1); b<-runif(1); int<-range(a,b); a<-int[1]; b<-int[2]
-nx<-40; ny<-10
+#nx is number of X points (target) and ny is number of Y points (nontarget)
+nx<-20; ny<-4; #try also nx<-40; ny<-10 or nx<-1000; ny<-10;
 
 #set.seed(1)
 Xp<-runif(nx,a,b)
 Yp<-runif(ny,a,b)
 
-PlotIntervals(Xp,Yp,main="Xp Points and Intervals Based on Yp Points")
-PlotRegsPEMI(Xp,Yp,r,c,main="PE Proximity Regions for Xp points - Intervalization is by Yp Points")
+plotIntervals(Xp,Yp,main="Xp Points and Intervals Based on Yp Points")
+plotPEregsMI(Xp,Yp,r,c,main="PE Proximity Regions for Xp points - Intervalization is by Yp Points")
 
 PEdom1D(Xp,Yp,r,c)
 

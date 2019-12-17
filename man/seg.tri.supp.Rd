@@ -17,8 +17,9 @@ gives the support for type I segregation for the given \code{delta}
 }
 \description{
 Returns the triangle whose intersection with a general triangle gives the support for
-type I segregation given the \code{delta} (i.e., \eqn{\delta\,100} \% area of a triangle around the vertices is chopped off).
+type I segregation given the \code{delta} (i.e., \eqn{\delta 100} \% area of a triangle around the vertices is chopped off).
 See the plot in the examples.
+
 Caveat: the vertices of this triangle may be outside the triangle, \code{tri}, depending on the value of \code{delta}
 (i.e., for small values of \code{delta})
 }
@@ -39,7 +40,7 @@ yd<-Ylim[2]-Ylim[1]
 
 #par(pty="s")
 plot(Te,pch=".",xlab="",ylab="",
-main="segregation support is the intersection\n of these two triangles"
+main="segregation support is the intersection\\n of these two triangles"
      ,axes=T,xlim=Xlim+xd*c(-.05,.05),ylim=Ylim+yd*c(-.05,.05))
 #points(sixt,pty=2,pch=2,col="red")
 polygon(Te)
@@ -66,7 +67,7 @@ yd<-Ylim[2]-Ylim[1]
 
 #par(pty="s")
 plot(Tr,pch=".",xlab="",ylab="",
-main="segregation support is the intersection\n of these two triangles"
+main="segregation support is the intersection\\n of these two triangles"
      ,axes=T,xlim=Xlim+xd*c(-.05,.05),ylim=Ylim+yd*c(-.05,.05))
 polygon(Tr)
 polygon(Tseg,lty=2)

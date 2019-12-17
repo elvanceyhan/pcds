@@ -27,13 +27,14 @@ basic triangle \eqn{T_b=T(A=(0,0),B=(1,0),C=(c_1,c_2)} where \code{c1} is in \eq
 edge regions based on center of mass \eqn{CM=(A+B+C)/3}.
 
 Edges are labeled as 3 for edge AB, 1 for edge BC, and 2 for edge AC.
-If the point, \code{pt}, is not inside \code{tri}, then the function yields NA as output.
+If the point, \code{pt}, is not inside \code{tri}, then the function yields \code{NA} as output.
 Edge region 1 is the triangle \eqn{T(B,C,CM)}, edge region 2 is \eqn{T(A,C,CM)}, and edge region 3 is \eqn{T(A,B,CM)}.
 
 Any given triangle can be mapped to the basic triangle
 by a combination of rigid body motions (i.e., translation, rotation and reflection) and scaling,
 preserving uniformity of the points in the original triangle. Hence basic triangle is useful for simulation
 studies under the uniformness hypothesis.
+
 See also (\insertCite{ceyhan:Phd-thesis,ceyhan:comp-geo-2010,ceyhan:mcap2012,ceyhan:arc-density-CS;textual}{pcds}).
 }
 \examples{
@@ -61,7 +62,7 @@ re.bastriCM(B,c1,c2)
 re.bastriCM(C,c1,c2)
 re.bastriCM(CM,c1,c2)
 
-n<-20
+n<-10 #try also n<-20
 dat<-runif.bastri(n,c1,c2)$g
 #dat<-cbind(runif(n),runif(n))
 #dat<-cbind(runif(n,1,2),runif(n,0,1))

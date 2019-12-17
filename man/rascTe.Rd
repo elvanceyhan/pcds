@@ -18,13 +18,13 @@ serves as the height of the triangular support regions around the vertices)}
 A list with the elements
 \item{type}{The type of the point pattern}
 \item{mtitle}{The "main" title for the plot of the point pattern}
-\item{parameters}{The attraction parameter of the association pattern, eps,
+\item{parameters}{The attraction parameter of the association pattern, \code{eps},
 where \eqn{\sqrt{3}/3-eps} serves as the height of the triangular support regions around the vertices}
 \item{ref.points}{The input set of points \code{Y};
 reference points, i.e., points with which generated points are associated (i.e., vertices of \eqn{T_e}).}
 \item{gen.points}{The output set of generated points associated with \code{Y} points (i.e., vertices of \eqn{T_e}).}
 \item{tri.Y}{Logical output for triangulation based on \code{Y} points should be implemented or not.
-if TRUE triangulation based on \code{Y} points is to be implemented (default is set to FALSE).}
+if \code{TRUE} triangulation based on \code{Y} points is to be implemented (default is set to \code{FALSE}).}
 \item{desc.pat}{Description of the point pattern.}
 \item{num.points}{The vector of two numbers,
 which are the number of generated points and the number of reference (i.e., \code{Y}) points.}
@@ -35,15 +35,17 @@ vertices of \eqn{T_e} here}
 Generates \code{k} points uniformly in the standard equilateral triangle \eqn{T_e=T((0,0),(1,0),(1/2,\sqrt{3}/2))}
 under the type I association alternative for \code{eps} in \eqn{(0,\sqrt{3}/3=0.5773503]}.
 The allowed triangular regions around the vertices are determined by the parameter \code{eps}.
+
 In the type I association, the triangular support regions around the vertices are determined by
 the parameter \code{eps} where \eqn{\sqrt{3}/3-eps} serves as the height of these triangles
 (see examples for a sample plot.)
+
 See also (\insertCite{ceyhan:arc-density-PE,ceyhan:arc-density-CS,ceyhan:dom-num-NPE-Spat2011;textual}{pcds}).
 }
 \examples{
 A<-c(0,0); B<-c(1,0); C<-c(1/2,sqrt(3)/2);
 Te<-rbind(A,B,C);
-n<-1000
+n<-10 #try also n<-20 #try also n<-100 or 1000
 eps<-.25 #try also .15, .5, .75
 
 #set.seed(1)
@@ -59,7 +61,7 @@ yd<-Ylim[2]-Ylim[1]
 
 dat<-rascTe(n,eps)$gen.points
 plot(Te,pch=".",xlab="",ylab="",
-main="Type I association in the \n standard equilateral triangle",
+main="Type I association in the \\n standard equilateral triangle",
      xlim=Xlim+xd*c(-.01,.01),ylim=Ylim+yd*c(-.01,.01))
 polygon(Te)
 points(dat)

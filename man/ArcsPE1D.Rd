@@ -2,7 +2,7 @@
 % Please edit documentation in R/PCDFunctions.r
 \name{ArcsPE1D}
 \alias{ArcsPE1D}
-\title{An object of class "Digraphs":
+\title{An object of class "PCDs":
 
 The arcs of Proportional Edge Proximity Catch Digraph (PE-PCD) for 1D data - multiple interval case}
 \usage{
@@ -42,7 +42,9 @@ on \code{Yp} points with expansion parameter \eqn{r \ge 1} and centrality parame
 arcs may exist for points in the middle or end intervals.
 It also provides various descriptions and quantities about the arcs of the PE-PCD
 such as number of arcs, arc density, etc.
+
 Equivalent to function \code{\link{ArcsPEMI}}.
+
 See also (\insertCite{ceyhan:metrika-2012;textual}{pcds}).
 }
 \examples{
@@ -51,7 +53,8 @@ c<-.4
 a<-0; b<-10; int<-c(a,b)
 #c<-runif(1)
 #a<-runif(1); b<-runif(1); int<-range(a,b); a<-int[1]; b<-int[2]
-nx<-40; ny<-10
+#nx is number of X points (target) and ny is number of Y points (nontarget)
+nx<-20; ny<-4; #try also nx<-40; ny<-10 or nx<-1000; ny<-10;
 
 #set.seed(1)
 xr<-range(a,b)

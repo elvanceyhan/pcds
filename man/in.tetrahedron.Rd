@@ -11,14 +11,14 @@ in.tetrahedron(p, th, boundary = FALSE)
 
 \item{th}{Four 3D points, stacked row-wise, each row representing a vertex of the tetrahedron}
 
-\item{boundary}{A logical parameter (default=FALSE) to include boundary or not, so if it is TRUE,
+\item{boundary}{A logical parameter (default=\code{FALSE}) to include boundary or not, so if it is \code{TRUE},
 the function checks if the point, \code{p}, lies in the closure of the tetrahedron (i.e. interior and boundary
 combined) else it checks if \code{p} lies in the interior of the tetrahedron.}
 }
 \value{
 A list with two elements
-\item{inside.tetra}{A logical output, if the point, \code{p}, is inside the tetrahedron, \code{th}, it is TRUE,
-else it is FALSE.}
+\item{inside.tetra}{A logical output, if the point, \code{p}, is inside the tetrahedron, \code{th}, it is \code{TRUE},
+else it is \code{FALSE}.}
 \item{barycentric}{The barycentric coordinates of the point \code{p} with respect to the tetrahedron, \code{th}.}
 }
 \description{
@@ -27,11 +27,12 @@ Checks if the point \code{p} lies in the tetrahedron, \code{th}, using the baryc
 point \code{p} is inside the tetrahedron, if all are nonnegative with one or more are zero, then \code{p} falls on the
 boundary. If some of the barycentric coordinates are negative, then \code{p} falls outside the tetrahedron.
 
-\code{boundary} is a logical argument (default=FALSE) to include boundary or not, so if it is TRUE,
+\code{boundary} is a logical argument (default=\code{FALSE}) to include boundary or not, so if it is \code{TRUE},
 the function checks if the point, \code{p}, lies in the closure of the tetrahedron (i.e. interior and boundary
 combined) else it checks if \code{p} lies in the interior of the tetrahedron.
 }
 \examples{
+\donttest{
 A<-c(0,0,0); B<-c(1,0,0); C<-c(1/2,sqrt(3)/2,0); D<-c(1/2,sqrt(3)/6,sqrt(6)/3); P<-c(.1,.1,.1)
 #A<-runif(3); B<-runif(3); C<-runif(3); D<-runif(3); P<-runif(3)
 #A<-runif(3,1,100); B<-runif(3,1,100); C<-runif(3,1,100); D<-runif(3,1,100); P<-runif(3,1,100)
@@ -42,7 +43,7 @@ in.tetrahedron(P,tetra,boundary=FALSE)
 in.tetrahedron(C,tetra,boundary=FALSE)
 in.tetrahedron(C,tetra,boundary=TRUE)
 
-n<-40
+n<-10 #try also n<-40
 Dt<-cbind(runif(n),runif(n,0,sqrt(3)/2),runif(n,0,sqrt(6)/3))
 
 in.tetra<-vector()
@@ -59,7 +60,6 @@ xd<-Xlim[2]-Xlim[1]
 yd<-Ylim[2]-Ylim[1]
 zd<-Zlim[2]-Zlim[1]
 
-#library(plot3D)
 plot3D::scatter3D(Dt[,1],Dt[,2],Dt[,3], phi =40,theta=40, bty = "g", pch = 20, cex = 1,
 ticktype = "detailed", xlim=Xlim+xd*c(-.05,.05),ylim=Ylim+yd*c(-.05,.05),
 zlim=Zlim+zd*c(-.05,.05))
@@ -75,6 +75,7 @@ in.tetrahedron(P,tetra)
 
 dat.fr<-data.frame(a=tetra)
 in.tetrahedron(P,dat.fr)
+}
 
 }
 \seealso{

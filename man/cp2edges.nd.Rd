@@ -28,6 +28,7 @@ in the triangle, \code{tri}. Here M is one of the three centers which gives nond
 of the domination number of PE-PCD for uniform data in \code{tri} for a given expansion parameter \code{r} in \eqn{(1,1.5]}.
 The center label \code{cent} values 1,2,3 correspond to the vertices \eqn{M_1}, \eqn{M_2}, and \eqn{M_3} (i.e., row numbers in the
 output of cent.nondeg(tri,r)); default for \code{cent} is 1. \code{cent} becomes center of mass CM for \eqn{r=1.5}.
+
 See also (\insertCite{ceyhan:Phd-thesis,ceyhan:masa-2007,ceyhan:dom-num-NPE-Spat2011;textual}{pcds}).
 }
 \examples{
@@ -40,13 +41,6 @@ Tr<-rbind(A,B,C);
 r<-1.35
 
 cp2edges.nd(Tr,r,cent=2)
-\dontrun{
-cp2edges.nd(Tr,r,cent=5) #center index, cent, must be 1, 2 or 3
-cp2edges.nd(Tr,r=2,cent=2) #r must be a scalar in (1,1.5]
-
-T2<-rbind(A,A+2*(C-A),C)
-cp2edges.nd(T2,r,cent=2)
-}
 
 Ms<-cent.nondeg(Tr,r)
 
@@ -89,6 +83,14 @@ cp2edges.nd(Tr,r,1)
 
 dat.fr<-data.frame(a=Tr)
 cp2edges.nd(dat.fr,r,1)
+
+\donttest{
+cp2edges.nd(Tr,r,cent=5) #center index, cent, must be 1, 2 or 3
+cp2edges.nd(Tr,r=2,cent=2) #r must be a scalar in (1,1.5]
+
+T2<-rbind(A,A+2*(C-A),C)
+cp2edges.nd(T2,r,cent=2)
+}
 
 }
 \references{

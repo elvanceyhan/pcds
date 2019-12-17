@@ -20,10 +20,13 @@ A list with two elements
 \description{
 Returns the index of the vertex whose region contains point \code{p} in
 the triangle \code{tri}=\eqn{(y_1,y_2,y_3)} with vertex regions are constructed with center of mass \eqn{CM=(y_1+y_2+y_3)/3}
-(see the plots in the example for illustrations). The vertices of triangle, \code{tri}, are labeled as 1,2,3
+(see the plots in the example for illustrations).
+
+The vertices of triangle, \code{tri}, are labeled as 1,2,3
 according to the row number the vertex is recorded in \code{tri}. If the point, \code{p}, is not inside \code{tri}, then the
-function yields NA as output. The corresponding vertex region is the polygon with the vertex, CM, and
+function yields \code{NA} as output. The corresponding vertex region is the polygon with the vertex, CM, and
 midpoints of the edges adjacent to the vertex.
+
 See (\insertCite{ceyhan:Phd-thesis,ceyhan:comp-geo-2010,ceyhan:mcap2012;textual}{pcds})
 }
 \examples{
@@ -40,7 +43,7 @@ rv.triCM(P,Tr)
 P<-c(1.5,1.6)
 rv.triCM(P,Tr)
 
-n<-20
+n<-10 #try also n<-20
 dat<-runif.tri(n,Tr)$g
 #dat<-cbind(runif(n,1,2),runif(n,0,2))
 #dat<-cbind(runif(n),runif(n))

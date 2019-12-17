@@ -27,14 +27,17 @@ whose index is given in re.}
 Returns the indices of the edges whose regions contain the points in data set \code{Dt} in
 a triangle \eqn{tri=T(A,B,C)} and edge regions are based on the center \eqn{M=(m_1,m_2)} in Cartesian coordinates or
 \eqn{M=(\alpha,\beta,\gamma)} in barycentric coordinates in the interior of the triangle \code{tri}
-(see the plots in the example for illustrations). The vertices of the  triangle \code{tri} are labeled as
+(see the plots in the example for illustrations).
+
+The vertices of the  triangle \code{tri} are labeled as
 1=A,2=B, and 3=C also according to the row number the vertex is recorded in \code{tri}
 and the corresponding edges are 1=BC, 2=AC, and 3=AB.
 
-If a point in \code{Dt} is not inside \code{tri}, then the function yields NA as output for that entry.
+If a point in \code{Dt} is not inside \code{tri}, then the function yields \code{NA} as output for that entry.
 The corresponding edge region is the polygon
 with the vertex, \code{M}, and vertices other than the non-adjacent vertex, i.e., edge region 1 is the triangle
 \eqn{T(B,M,C)}, edge region 2 is \eqn{T(A,M,C)} and edge region 3 is \eqn{T(A,B,M)}.
+
 See also (\insertCite{ceyhan:Phd-thesis,ceyhan:comp-geo-2010,ceyhan:mcap2012,ceyhan:arc-density-CS;textual}{pcds}).
 }
 \examples{
@@ -54,7 +57,7 @@ redges.tri.cent(P,Tr,M)
 P<-c(10.5,1.6)
 redges.tri.cent(P,Tr,M)
 
-n<-20
+n<-10 #try also n<-20
 #set.seed(1)
 dat<-runif.tri(n,Tr)$g
 #dat<-cbind(runif(n,1,2),runif(n,0,2))

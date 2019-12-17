@@ -31,7 +31,7 @@ tested for constituting a dominating set of the CS-PCD}
 \item{t}{A positive real number which serves as the expansion parameter in CS proximity region}
 
 \item{ch.data.pnts}{A logical argument for checking whether points \{\eqn{pt1,...,ptk}\} are
-data points in \code{Dt} or not (default is FALSE)}
+data points in \code{Dt} or not (default is \code{FALSE})}
 }
 \value{
 The function GamkCSTe returns \{\code{pt1},...,\code{ptk}\} is a dominating set of the CS-PCD) where
@@ -47,13 +47,16 @@ CS proximity region is constructed with respect to \eqn{T_e=T(A,B,C)=T((0,0),(1,
 with expansion parameter \eqn{t>0} and edge regions are based on center of mass \eqn{CM=(1/2,\sqrt{3}/6)}.
 
 \code{ch.data.pnts} is for checking whether points \code{pt1},...,\code{ptk} are data points in \code{Dt} or not
-(default is FALSE), so by default this function checks whether the points \code{pt1},...,\code{ptk} would be a
+(default is \code{FALSE}), so by default this function checks whether the points \code{pt1},...,\code{ptk} would be a
 dominating set if they actually were in the data set.
+
 See also (\insertCite{ceyhan:Phd-thesis,ceyhan:comp-geo-2010,ceyhan:mcap2012;textual}{pcds}).
 }
 \examples{
 #Examples for Gam2CSTe
 \dontrun{
+#the examples are put inside \dontrun{} to speed the example check,
+#otherwise the below code works fine
 t<-1.5
 n<-10
 
@@ -87,6 +90,8 @@ ind.gam2
 
 #Examples for Gam3CSTe
 \dontrun{
+#the examples are put inside \dontrun{} to speed the example check,
+#otherwise the below code works fine
 t<-1.5
 n<-10
 
@@ -118,6 +123,8 @@ ind.gam3
 
 #Examples for Gam4CSTe
 \dontrun{
+#the examples are put inside \dontrun{} to speed the example check,
+#otherwise the below code works fine
 t<-1.5
 n<-10
 
@@ -150,6 +157,8 @@ ind.gam4
 
 #Examples for Gam5CSTe
 \dontrun{
+#the examples are put inside \dontrun{} to speed the example check,
+#otherwise the below code works fine
 t<-1.5
 n<-10
 
@@ -179,6 +188,8 @@ ind.gam5
 
 #Examples for Gam6CSTe
 \dontrun{
+#the examples are put inside \dontrun{} to speed the example check,
+#otherwise the below code works fine
 t<-1.5
 n<-10
 

@@ -17,7 +17,7 @@ constructed and \code{x2} is the point which the function is checking whether it
 
 \item{int}{A vector of two real numbers representing an interval}
 
-\item{rv}{Index of the end interval containing the point, either 1, 2 or NULL (default is NULL)}
+\item{rv}{Index of the end interval containing the point, either 1, 2 or \code{NULL} (default is \code{NULL})}
 }
 \value{
 I(\code{x2} in \eqn{NCS(x1,t,c)}) for points \code{x1} and \code{x2} that is, returns 1 if \code{x2} is in \eqn{NCS(x1,t,c)},
@@ -30,11 +30,12 @@ parameter \eqn{t>0} and centrality parameter \code{c} in \eqn{(0,1)} for the int
 
 CS proximity regions are defined with respect to the middle interval \code{int} and vertex regions are based
 on the center associated with the centrality parameter \code{c} in \eqn{(0,1)}. For the interval, \eqn{int=(a,b)}, the
-parameterized center is \eqn{M_c=a+c(b-a)} . \code{rv} is the index of the vertex region \code{x1} resides, with default=NULL.
+parameterized center is \eqn{M_c=a+c(b-a)} . \code{rv} is the index of the vertex region \code{x1} resides, with default=\code{NULL}.
 
 If \code{x1} and \code{x2} are distint and either of them are outside interval \code{int}, it returns 0,
 but if they are identical, then it returns 1 regardless of their locations
 (i.e., loops are allowed in the digraph).
+
 See also (\insertCite{ceyhan:revstat-2016;textual}{pcds}).
 }
 \examples{

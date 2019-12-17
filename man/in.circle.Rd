@@ -13,18 +13,19 @@ in.circle(pt, cent, rad, boundary = FALSE)
 
 \item{rad}{A positive real number which serves as the radius of the circle}
 
-\item{boundary}{A logical parameter (default=FALSE) to include boundary or not, so if it is TRUE,
+\item{boundary}{A logical parameter (default=\code{FALSE}) to include boundary or not, so if it is \code{TRUE},
 the function checks if the point, \code{pt}, lies in the closure of the circle (i.e. interior and
 boundary combined) else it checks if \code{pt} lies in the interior of the circle.}
 }
 \value{
-Indicator for the point \code{pt} being inside the circle or not, i.e., returns 1 or TRUE
+Indicator for the point \code{pt} being inside the circle or not, i.e., returns 1 or \code{TRUE}
 if \code{pt} is inside the circle, and 0 otherwise.
 }
 \description{
 Checks if the point \code{pt} lies in the circle with center \code{cent} and radius \code{rad},
-denoted as \code{C(cent,rad)}. So, it returns 1 or TRUE if \code{pt} is inside the circle, and 0 otherwise.
-\code{boundary} is a logical argument (default=FALSE) to include boundary or not, so if it is TRUE,
+denoted as \code{C(cent,rad)}. So, it returns 1 or \code{TRUE} if \code{pt} is inside the circle, and 0 otherwise.
+
+\code{boundary} is a logical argument (default=\code{FALSE}) to include boundary or not, so if it is \code{TRUE},
 the function checks if the point, \code{pt}, lies in the closure of the circle (i.e. interior and
 boundary combined) else it checks if \code{pt} lies in the interior of the circle.
 }

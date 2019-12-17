@@ -20,7 +20,7 @@ A list with the elements
 \item{tess.points}{The vertices of the support of the uniformly generated points, it is the triangle
 \code{tri} for this function}
 \item{gen.points}{The output set of generated points uniformly in the triangle, \code{tri}.}
-\item{out.region}{The outer region which contains the support region, NULL for this function.}
+\item{out.region}{The outer region which contains the support region, \code{NULL} for this function.}
 \item{desc.pat}{Description of the point pattern from which points are to be generated}
 \item{num.points}{The vector of two numbers, which are the number of generated points and the number
 of vertices of the support points (here it is 3).}
@@ -31,7 +31,7 @@ of vertices of the support points (here it is 3).}
 Generates \code{k} points uniformly in a given triangle, \code{tri}
 }
 \examples{
-n<-100
+n<-10 #try also n<-100
 A<-c(1,1); B<-c(2,0); C<-c(1.5,2);
 #A<-runif(2); B<-runif(2); C<-runif(2);
 #A<-runif(2,1,100); B<-runif(2,1,100); C<-runif(2,1,100);

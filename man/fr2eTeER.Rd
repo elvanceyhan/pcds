@@ -13,7 +13,7 @@ fr2eTeER(Dt, ch.all.intri = FALSE)
 \item{Dt}{A set of 2D points, some could be inside and some could be outside standard equilateral triangle \eqn{T_e}}
 
 \item{ch.all.intri}{A logical argument used for checking whether all data points are inside \eqn{T_e}
-(default is FALSE)}
+(default is \code{FALSE})}
 }
 \value{
 A list with the elements
@@ -37,7 +37,8 @@ A list with the elements
 Returns the furthest data points among the data set, \code{Dt}, in each CM-edge region from the edge in the
 standard equilateral triangle \eqn{T_e=T(A=(0,0),B=(1,0),C=(1/2,\sqrt{3}/2))}.
 
-\code{ch.all.intri} is for checking whether all data points are inside \eqn{T_e} (default is FALSE).
+\code{ch.all.intri} is for checking whether all data points are inside \eqn{T_e} (default is \code{FALSE}).
+
 See also (\insertCite{ceyhan:Phd-thesis;textual}{pcds}).
 }
 \examples{

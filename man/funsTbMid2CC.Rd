@@ -53,7 +53,7 @@ c1<-.4; c2<-.6;
 A<-c(0,0); B<-c(1,0); C<-c(c1,c2);  #the vertices of the basic triangle Tb
 Tb<-rbind(A,B,C)
 xfence<-abs(A[1]-B[1])*.25 #how far to go at the lower and upper ends in the x-coordinate
-x<-seq(min(A[1],B[1])-xfence,max(A[1],B[1])+xfence,by=.01)
+x<-seq(min(A[1],B[1])-xfence,max(A[1],B[1])+xfence,by=.1) #try also by=.01
 
 lnD1CC<-lD1CCinTb(x,c1,c2)
 lnD1CC
@@ -65,7 +65,7 @@ CC
 D1<-(B+C)/2; D2<-(A+C)/2; D3<-(A+B)/2; #midpoints of the edges
 Ds<-rbind(D1,D2,D3)
 
-x1<-seq(0,1,by=.01)
+x1<-seq(0,1,by=.1) #try also by=.01
 y1<-lD1CCinTb(x1,c1,c2)$y
 
 Xlim<-range(Tb[,1],x1)
@@ -88,7 +88,7 @@ lines(x1,y1,type="l",lty=2)
 text(.8,.5,"lD1CCinTb")
 
 c1<-.4; c2<-.6;
-x1<-seq(0,1,by=.01)
+x1<-seq(0,1,by=.1) #try also by=.01
 lD1CCinTb(x1,c1,c2)
 }
 
@@ -98,7 +98,7 @@ c1<-.4; c2<-.6;
 A<-c(0,0); B<-c(1,0); C<-c(c1,c2);  #the vertices of the basic triangle Tb
 Tb<-rbind(A,B,C)
 xfence<-abs(A[1]-B[1])*.25 #how far to go at the lower and upper ends in the x-coordinate
-x<-seq(min(A[1],B[1])-xfence,max(A[1],B[1])+xfence,by=.01)
+x<-seq(min(A[1],B[1])-xfence,max(A[1],B[1])+xfence,by=.1) #try also by=.01
 
 lnD2CC<-lD2CCinTb(x,c1,c2)
 lnD2CC
@@ -110,7 +110,7 @@ CC
 D1<-(B+C)/2; D2<-(A+C)/2; D3<-(A+B)/2; #midpoints of the edges
 Ds<-rbind(D1,D2,D3)
 
-x2<-seq(0,1,by=.01)
+x2<-seq(0,1,by=.1) #try also by=.01
 y2<-lD2CCinTb(x2,c1,c2)$y
 
 Xlim<-range(Tb[,1],x1)

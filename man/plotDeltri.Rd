@@ -4,16 +4,8 @@
 \alias{plotDeltri}
 \title{The scatterplot of points from one class and plot of the Delaunay triangulation of the other class}
 \usage{
-plotDeltri(
-  Xp,
-  Yp,
-  main = "",
-  xlab = "",
-  ylab = "",
-  xlim = NULL,
-  ylim = NULL,
-  ...
-)
+plotDeltri(Xp, Yp, main = "", xlab = "", ylab = "", xlim = NULL,
+  ylim = NULL, ...)
 }
 \arguments{
 \item{Xp}{A set of 2D points whose scatterplot is to be plotted}
@@ -24,9 +16,9 @@ plotDeltri(
 
 \item{xlab, ylab}{Titles for the x and y axes, respectively (default="" for both)}
 
-\item{xlim, ylim}{Numeric vectors of length 2, giving the x- and y-coordinate ranges (default=NULL for both)}
+\item{xlim, ylim}{Numeric vectors of length 2, giving the x- and y-coordinate ranges (default=\code{NULL} for both)}
 
-\item{...}{Additional plot parameters}
+\item{\dots}{Additional \code{plot} parameters}
 }
 \value{
 A scatterplot of \code{Xp} points and the Delaunay triangulation of \code{Yp} points.
@@ -34,11 +26,11 @@ A scatterplot of \code{Xp} points and the Delaunay triangulation of \code{Yp} po
 \description{
 Plots the scatter plot of \code{Xp} points together with the Delaunay triangles based on the \code{Yp} points.
 Both sets of points are of 2D.
+
 See (\insertCite{okabe:2000,ceyhan:comp-geo-2010,renka:1996;textual}{pcds}) for more on Delaunay triangulation and the TRIPACK algorithm.
 }
 \examples{
-nx<-100
-ny<-10
+nx<-20; ny<-4; #try also nx<-40; ny<-10 or nx<-1000; ny<-10;
 
 #set.seed(1)
 Xp<-cbind(runif(nx),runif(nx))

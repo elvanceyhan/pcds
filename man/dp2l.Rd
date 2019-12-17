@@ -34,13 +34,13 @@ dp2l((A+B)/2,A,B);
 
 xr<-range(pts[,1])
 xf<-(xr[2]-xr[1])*.25 #how far to go at the lower and upper ends in the x-coordinate
-x<-seq(xr[1]-xf,xr[2]+xf,l=100)
+x<-seq(xr[1]-xf,xr[2]+xf,l=20) #try also l=100
 lnAB<-Line(A,B,x)
 y<-lnAB$y
 int<-lnAB$intercept #intercept
 sl<-lnAB$slope #slope
 
-xsq<-seq(min(A[1],B[1],P[1])-xf,max(A[1],B[1],P[1])+xf,l=100)
+xsq<-seq(min(A[1],B[1],P[1])-xf,max(A[1],B[1],P[1])+xf,l=20) #try also l=100
 pline<-(-1/sl)*(xsq-P[1])+P[2] #line passing thru P and perpendicular to AB
 
 Xlim<-range(pts[,1],x)

@@ -34,7 +34,9 @@ CS proximity region is constructed with
 respect to the triangle \code{tri} with the expansion parameter \eqn{t>0} and edge regions are based
 on the center \eqn{M=(m_1,m_2)} in Cartesian coordinates or \eqn{M=(\alpha,\beta,\gamma)} in barycentric coordinates
 in the interior of the triangle \code{tri}; default is \eqn{M=(1,1,1)} i.e. the center of mass of \code{tri}.
+
 The triangle \code{tri}=\eqn{T(A,B,C)} has edges \eqn{AB}, \eqn{BC}, \eqn{AC} which are also labeled as edges 3, 1, and 2, respectively.
+
 See also (\insertCite{ceyhan:mcap2012;textual}{pcds}).
 }
 \examples{

@@ -16,7 +16,7 @@ a 3D point in barycentric coordinates which serves as a center in the interior o
 default is \code{M}="CC" i.e. the circumcenter of \code{tri}}
 
 \item{tri.cor}{A logical argument for computing the arc density for only the points inside the triangle, \code{tri}
-(default=TRUE), i.e., if TRUE only the induced digraph with the vertices inside \code{tri} are considered in the
+(default=\code{TRUE}), i.e., if \code{TRUE} only the induced digraph with the vertices inside \code{tri} are considered in the
 computation of arc density}
 }
 \value{
@@ -32,10 +32,13 @@ and vertex regions are defined with the center \code{M}="CC" for circumcenter of
 or \eqn{M=(m_1,m_2)} in Cartesian coordinates or \eqn{M=(\alpha,\beta,\gamma)} in barycentric coordinates in the
 interior of the triangle \code{tri}; default is \code{M}="CC" i.e. circumcenter of \code{tri}.
 For the number of arcs, loops are not allowed so arcs are only possible for points inside \code{tri}
-for this function. \code{tri.cor} is a logical argument for triangle correction (default is TRUE),
-if TRUE, only the points inside the triangle are considered (i.e., digraph induced by these vertices
+for this function.
+
+\code{tri.cor} is a logical argument for triangle correction (default is \code{TRUE}),
+if \code{TRUE}, only the points inside the triangle are considered (i.e., digraph induced by these vertices
 are considered) in computing the arc density, otherwise all points are considered
 (for the number of vertices in the denominator of arc density).
+
 See also (\insertCite{ceyhan:Phd-thesis,ceyhan:comp-geo-2010,ceyhan:mcap2012;textual}{pcds}).
 }
 \examples{
@@ -45,7 +48,7 @@ A<-c(1,1); B<-c(2,0); C<-c(1.5,2);
 Tr<-rbind(A,B,C);
 
 #set.seed(1)
-n<-20
+n<-10 #try also n<-20
 dat<-runif.tri(n,Tr)$g
 #dat<-cbind(runif(n,1,2),runif(n,0,2))
 #dat<-cbind(runif(n),runif(n))

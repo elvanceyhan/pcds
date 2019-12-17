@@ -5,17 +5,8 @@
 \title{The indicator for two points being a dominating set for Arc Slice Proximity Catch Digraphs
 (AS-PCDs) - basic triangle case}
 \usage{
-Gam2ASbastri(
-  pt1,
-  pt2,
-  Dt,
-  c1,
-  c2,
-  M = "CC",
-  rv1 = NULL,
-  rv2 = NULL,
-  ch.data.pnts = FALSE
-)
+Gam2ASbastri(pt1, pt2, Dt, c1, c2, M = "CC", rv1 = NULL, rv2 = NULL,
+  ch.data.pnts = FALSE)
 }
 \arguments{
 \item{pt1, pt2}{Two 2D points to be tested for constituting a dominating set of the AS-PCD}
@@ -30,9 +21,10 @@ a 3D point in barycentric coordinates which serves as a center in the interior o
 default is \code{M}="CC" i.e. the circumcenter of \eqn{T_b}}
 
 \item{rv1, rv2}{The indices of the vertices whose regions contains \code{pt1} and \code{pt2}, respectively.
-They take the vertex labels as 1,2,3 as in the row order of the vertices in \eqn{T_b} (default is NULL for both)}
+They take the vertex labels as 1,2,3 as in the row order of the vertices in \eqn{T_b} (default is \code{NULL} for both)}
 
-\item{ch.data.pnts}{A logical argument}
+\item{ch.data.pnts}{A logical argument for checking whether points \code{pt1} and \code{pt2} are data points in \code{Dt} or not
+(default is \code{FALSE})}
 }
 \value{
 I(\{\code{pt1,pt2}\} is a dominating set of the AS-PCD) where the vertices of AS-PCD are the 2D data set \code{Dt}),
@@ -41,6 +33,7 @@ that is, returns 1 if \{\code{pt1,pt2}\} is a dominating set of AS-PCD, returns 
 \description{
 Returns I(\{\code{pt1,pt2}\} is a dominating set of AS-PCD) where vertices of AS-PCD are the 2D
 data set \code{Dt}), that is, returns 1 if \{\code{pt1,pt2}\} is a dominating set of AS-PCD, returns 0 otherwise.
+
 AS proximity regions are defined with respect to the basic triangle \eqn{T_b=T(c(0,0),c(1,0),c(c1,c2))},
 In the basic triangle, \eqn{T_b}, \code{c1} is in \eqn{[0,1/2]}, \eqn{c_2>0} and \eqn{(1-c_1)^2+c_2^2 \le 1}.
 
@@ -49,8 +42,8 @@ Any given triangle can be mapped to the basic triangle by a combination of rigid
 original triangle. Hence basic triangle is useful for simulation
 studies under the uniformness hypothesis.
 
-Point, \code{pt1}, is in the vertex region of vertex \code{rv1} (default is NULL)
-and point, \code{pt2}, is in the vertex region of vertex \code{rv2} (default is NULL); vertices are labeled as 1,2,3
+Point, \code{pt1}, is in the vertex region of vertex \code{rv1} (default is \code{NULL})
+and point, \code{pt2}, is in the vertex region of vertex \code{rv2} (default is \code{NULL}); vertices are labeled as 1,2,3
 in the order they are stacked row-wise.
 
 Vertex regions are based on the center \code{M}="CC" for circumcenter
@@ -58,12 +51,15 @@ of \eqn{T_b}; or \eqn{M=(m_1,m_2)} in Cartesian coordinates or \eqn{M=(\alpha,\b
 interior of \eqn{T_b}; default is \code{M}="CC".
 
 \code{ch.data.pnts} is for checking whether points \code{pt1} and \code{pt2} are data points in \code{Dt} or not
-(default is FALSE), so by default this function checks whether the points \code{pt1} and \code{pt2} would be a
+(default is \code{FALSE}), so by default this function checks whether the points \code{pt1} and \code{pt2} would be a
 dominating set if they actually were in the data set.
+
 See also (\insertCite{ceyhan:Phd-thesis,ceyhan:comp-geo-2010,ceyhan:mcap2012;textual}{pcds}).
 }
 \examples{
 \dontrun{
+#the examples are put inside \dontrun{} to speed the example check,
+#otherwise the below code works fine
 c1<-.4; c2<-.6;
 A<-c(0,0); B<-c(1,0); C<-c(c1,c2);
 Tb<-rbind(A,B,C)

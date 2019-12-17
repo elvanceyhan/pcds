@@ -32,9 +32,11 @@ returns 0 otherwise, CS proximity region is constructed with respect to the stan
 \eqn{T_e=T(A,B,C)=T((0,0),(1,0),(1/2,\sqrt{3}/2))} with the expansion parameter \eqn{t>0} and edge regions are based
 on center \eqn{M=(m_1,m_2)} in Cartesian coordinates or \eqn{M=(\alpha,\beta,\gamma)} in barycentric coordinates in the
 interior of \eqn{T_e}; default is \eqn{M=(1,1,1)} i.e. the center of mass of \eqn{T_e} (which is equivalent to circumcenter of \eqn{T_e}).
+
 Edges of \eqn{T_e}, \eqn{AB}, \eqn{BC}, \eqn{AC}, are also labeled as edges 3, 1, and 2, respectively.
 If \code{pt} is not in \code{S} and either \code{pt} or all points in \code{S} are outside \eqn{T_e}, it returns 0,
 but if \code{pt} is in \code{S}, then it always returns 1 regardless of its location (i.e., loops are allowed).
+
 See also (\insertCite{ceyhan:mcap2012;textual}{pcds}).
 }
 \examples{

@@ -11,22 +11,23 @@ inTriAll(Dt, tri, boundary = FALSE)
 
 \item{tri}{Three 2D points, stacked row-wise, each row representing a vertex of the triangle}
 
-\item{boundary}{A logical parameter (default=FALSE) to include boundary or not, so if it is TRUE,
+\item{boundary}{A logical parameter (default=\code{FALSE}) to include boundary or not, so if it is \code{TRUE},
 the function checks if a point lies in the closure of the triangle (i.e. interior and boundary combined)
 else it checks if the point lies in the interior of the triangle.}
 }
 \value{
-A logical output, if all data points in \code{Dt} are inside the triangle, \code{tri}, the output is TRUE,
-else it is FALSE.
+A logical output, if all data points in \code{Dt} are inside the triangle, \code{tri}, the output is \code{TRUE},
+else it is \code{FALSE}.
 }
 \description{
 Checks if all the data points in the 2D data set, \code{Dt}, lie in the triangle, \code{tri},
 using the barycentric coordinates, generally denoted as \eqn{(\alpha,\beta,\gamma)}.
+
 If all (normalized or non-normalized) barycentric coordinates of a point are positive then the point is
 inside the triangle, if all are nonnegative with one or more are zero, then the point falls in the boundary.
 If some of the barycentric coordinates are negative, then the point falls outside the triangle.
 
-\code{boundary} is a logical argument (default=FALSE) to include boundary or not, so if it is TRUE,
+\code{boundary} is a logical argument (default=\code{FALSE}) to include boundary or not, so if it is \code{TRUE},
 the function checks if a point lies in the closure of the triangle (i.e. interior and boundary combined)
 else it checks if the point lies in the interior of the triangle.
 }

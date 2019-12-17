@@ -16,7 +16,7 @@ IndNCSend1D(x1, x2, t, int, rv = NULL)
 
 \item{int}{A vector of two real numbers representing an interval}
 
-\item{rv}{Index of the end interval containing the point, either 1, 2 or NULL (default=NULL)}
+\item{rv}{Index of the end interval containing the point, either 1, 2 or \code{NULL} (default=\code{NULL})}
 }
 \value{
 I(\code{x2} in \eqn{NCS(x1,t)}) for points \code{x1} and \code{x2}, that is, returns 1 if \code{x2} is in \eqn{NCS(x1,t)}
@@ -26,10 +26,12 @@ I(\code{x2} in \eqn{NCS(x1,t)}) for points \code{x1} and \code{x2}, that is, ret
 Returns I(\code{x2} in \eqn{NCS(x1,t)}) for points \code{x1} and \code{x2}, that is, returns 1 if \code{x2} is in \eqn{NCS(x1,t)}, returns 0
 otherwise, where \eqn{NCS(x,t)} is the CS proximity region for point \eqn{x} with expansion parameter \eqn{t>0}
 for the region outside the interval \eqn{(a,b)}.
-\code{rv} is the index of the end vertex region \code{x1} resides, with default=NULL,
+
+\code{rv} is the index of the end vertex region \code{x1} resides, with default=\code{NULL},
 and \eqn{rv=1} for left end interval and \eqn{rv=2} for the right end interval.
 If \code{x1} and \code{x2} are distint and either of them are inside interval \code{int}, it returns 0,
 but if they are identical, then it returns 1 regardless of their locations (i.e., it allows loops).
+
 See also (\insertCite{ceyhan:revstat-2016;textual}{pcds}).
 }
 \examples{

@@ -19,13 +19,17 @@ for edge \eqn{AB}, 1 for edge \eqn{BC}, and 2 for edge \eqn{AC}.
 \description{
 Returns the edge whose region contains point, \code{pt}, in
 the triangle \eqn{tri=T(A,B,C)} with edge regions based on center of mass \eqn{CM=(A+B+C)/3}.
+
 This function is related to \code{\link{re.triCM}}, but unlike \code{\link{re.triCM}} the related edges are given as vertices \eqn{ABC}
 for \eqn{re=3}, as \eqn{BCA} for \eqn{re=1} and as \eqn{CAB} for \eqn{re=2} where edges are labeled as 3 for edge \eqn{AB}, 1 for edge \eqn{BC},
 and 2 for edge \eqn{AC}. The vertices are given one vertex in each row in the output, e.g., \eqn{ABC} is printed
 as \eqn{rbind(A,B,C)}, where row 1 has the entries of vertex A, row 2 has the entries of vertex B,
 and row 3 has the entries of vertex C.
-If the point, \code{pt}, is not inside \code{tri}, then the function yields NA as output.
+
+If the point, \code{pt}, is not inside \code{tri}, then the function yields \code{NA} as output.
+
 Edge region for BCA is the triangle \eqn{T(B,C,CM)}, edge region CAB is \eqn{T(A,C,CM)}, and edge region ABC is \eqn{T(A,B,CM)}.
+
 See also (\insertCite{ceyhan:Phd-thesis,ceyhan:comp-geo-2010,ceyhan:mcap2012;textual}{pcds}).
 }
 \examples{

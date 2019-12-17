@@ -20,10 +20,10 @@ Gam1PEtetra(p, Dt, r, th, M = "CM", rv = NULL, ch.data.pnt = FALSE)
 Currently it only takes "CC" for circumcenter and "CM" for center of mass; default="CM"}
 
 \item{rv}{Index of the vertex whose region contains point \code{p}, \code{rv} takes the vertex labels as 1,2,3,4 as
-in the row order of the vertices in standard tetrahedron, default is NULL}
+in the row order of the vertices in standard tetrahedron, default is \code{NULL}}
 
 \item{ch.data.pnt}{A logical argument for checking whether point \code{p} is a data point
-in \code{Dt} or not (default is FALSE)}
+in \code{Dt} or not (default is \code{FALSE})}
 }
 \value{
 I(\code{p} is a dominating point of the PE-PCD) where the vertices of the PE-PCD are the 2D data set \code{Dt},
@@ -32,19 +32,24 @@ that is, returns 1 if \code{p} is a dominating point, returns 0 otherwise
 \description{
 Returns I(\code{p} is a dominating point of the PE-PCD) where the vertices of the PE-PCD are the 2D data set \code{Dt} in the tetrahedron \code{th}, that is,
 returns 1 if \code{p} is a dominating point of PE-PCD, returns 0 otherwise.
-Point, \code{p}, is in the vertex region of vertex \code{rv} (default is NULL); vertices are labeled as 1,2,3,4
+
+Point, \code{p}, is in the vertex region of vertex \code{rv} (default is \code{NULL}); vertices are labeled as 1,2,3,4
 in the order they are stacked row-wise in \code{th}.
 
 PE proximity region is constructed with respect to the tetrahedron \code{th} with expansion parameter \eqn{r \ge 1}
 and vertex regions are based on center of mass (M="CM") or circumcenter (M="CC") only.
 and vertex regions are based on center of mass CM (equivalent to circumcenter in this case).
 
-\code{ch.data.pnt} is for checking whether point \code{p} is a data point in \code{Dt} or not (default is FALSE),
+\code{ch.data.pnt} is for checking whether point \code{p} is a data point in \code{Dt} or not (default is \code{FALSE}),
 so by default this function checks whether the point \code{p} would be a dominating point
-if it actually were in the data set. See also (\insertCite{ceyhan:Phd-thesis,ceyhan:comp-geo-2010;textual}{pcds}).
+if it actually were in the data set.
+
+See also (\insertCite{ceyhan:Phd-thesis,ceyhan:comp-geo-2010;textual}{pcds}).
 }
 \examples{
 \dontrun{
+#the examples are put inside \dontrun{} to speed the example check,
+#otherwise the below code works fine
 A<-c(0,0,0); B<-c(1,0,0); C<-c(1/2,sqrt(3)/2,0); D<-c(1/2,sqrt(3)/6,sqrt(6)/3)
 #A<-runif(3); B<-runif(3); C<-runif(3); D<-runif(3)
 #A<-runif(3,1,100); B<-runif(3,1,100); C<-runif(3,1,100); D<-runif(3,1,100)
@@ -88,7 +93,6 @@ xd<-Xlim[2]-Xlim[1]
 yd<-Ylim[2]-Ylim[1]
 zd<-Zlim[2]-Zlim[1]
 
-#library(plot3D)
 plot3D::scatter3D(dat[,1],dat[,2],dat[,3], phi =0,theta=40, bty = "g",
 xlim=Xlim+xd*c(-.05,.05),ylim=Ylim+yd*c(-.05,.05), zlim=Zlim+zd*c(-.05,.05),
          pch = 20, cex = 1, ticktype = "detailed")

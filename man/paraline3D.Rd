@@ -40,6 +40,7 @@ joining 3D points \code{A} and \code{B} (i.e., the line is in the direction of v
 with the parameter \code{t} being provided in vector \code{t}.
 }
 \examples{
+\donttest{
 P<-c(1,10,4); A<-c(1,1,3); B<-c(3,9,12)
 #<-runif(3); A<-runif(3); B<-runif(3)
 #P<-runif(3,1,100); A<-runif(3,1,100); B<-runif(3,1,100)
@@ -49,7 +50,7 @@ paraline3D(P,A,B,.1)
 
 tr<-range(pts,vecs);
 tf<-(tr[2]-tr[1])*.1 #how far to go at the lower and upper ends in the x-coordinate
-tsq<-seq(-tf*10-tf,tf*10+tf,l=100)
+tsq<-seq(-tf*10-tf,tf*10+tf,l=20) #try also l=100
 
 pln3D<-paraline3D(P,A,B,tsq)
 pln3D
@@ -88,6 +89,7 @@ plot3D::arrows3D(Dr[1]+Av[1]/2,Dr[2]+Av[2]/2,Dr[3]+3*zf+Av[3]/2,Dr[1]+Av[1]/2,
 Dr[2]+Av[2]/2,Dr[3]+zf+Av[3]/2,lty=2, add=TRUE)
 plot3D::text3D(Dr[1]+Av[1]/2,Dr[2]+Av[2]/2,Dr[3]+3*zf+Av[3]/2,labels="direction vector",add=TRUE)
 plot3D::text3D(Dr[1]+Av[1]/2,Dr[2]+Av[2]/2,Dr[3]+zf+Av[3]/2,labels="B-A",add=TRUE)
+}
 
 }
 \seealso{

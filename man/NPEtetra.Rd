@@ -16,7 +16,7 @@ NPEtetra(pt, r, th, M = "CM", rv = NULL)
 \item{M}{The center to be used in the construction of the vertex regions in the tetrahedron, \code{th}.
 Currently it only takes "CC" for circumcenter and "CM" for center of mass; default="CM"}
 
-\item{rv}{Index of the vertex region containing the point, either 1, 2, 3, 4 (default is NULL)}
+\item{rv}{Index of the vertex region containing the point, either 1, 2, 3, 4 (default is \code{NULL})}
 }
 \value{
 Vertices of the tetrahedron which constitutes the PE proximity region with expansion parameter
@@ -31,9 +31,9 @@ with expansion parameter \eqn{r \ge 1} and vertex regions based on the center \c
 center of mass ("CM") of \code{th} with default="CM".
 
 Vertex regions are labeled as 1,2,3,4 rowwise for the vertices of the tetrahedron \code{th}.
-\code{rv} is the index of the vertex region \code{pt} resides, with default=NULL.
+\code{rv} is the index of the vertex region \code{pt} resides, with default=\code{NULL}.
+If \code{pt} is outside of \code{th}, it returns \code{NULL} for the proximity region.
 
-If \code{pt} is outside of \code{th}, it returns NULL for the proximity region.
 See also (\insertCite{ceyhan:Phd-thesis,ceyhan:comp-geo-2010;textual}{pcds}).
 }
 \examples{
@@ -41,7 +41,7 @@ A<-c(0,0,0); B<-c(1,0,0); C<-c(1/2,sqrt(3)/2,0); D<-c(1/2,sqrt(3)/6,sqrt(6)/3)
 #A<-runif(3); B<-runif(3); C<-runif(3); D<-runif(3)
 #A<-runif(3,1,100); B<-runif(3,1,100); C<-runif(3,1,100); D<-runif(3,1,100)
 tetra<-rbind(A,B,C,D)
-n<-20
+n<-10 #try also n<-20
 dat<-runif.tetra(n,tetra)$g
 
 M<-"CM"

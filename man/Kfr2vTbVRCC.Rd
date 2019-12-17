@@ -16,7 +16,7 @@ adjacent to the shorter edges; \code{c1} must be in \eqn{[0,1/2]}, \eqn{c_2>0} a
 
 \item{k}{A positive integer}
 
-\item{ch.all.intri}{A logical argument for checking whether all data points are inside \eqn{T_b} (default is FALSE)}
+\item{ch.all.intri}{A logical argument for checking whether all data points are inside \eqn{T_b} (default is \code{FALSE})}
 }
 \value{
 A list with the elements
@@ -46,7 +46,7 @@ Any given triangle can be mapped to the basic triangle by a combination of rigid
 original triangle. Hence basic triangle is useful for simulation
 studies under the uniformness hypothesis.
 
-\code{ch.all.intri} is for checking whether all data points are inside \eqn{T_b} (default is FALSE).
+\code{ch.all.intri} is for checking whether all data points are inside \eqn{T_b} (default is \code{FALSE}).
 In the extrema, \eqn{Ext}, in the output, the first \code{k} entries are the \code{k} furthest points from vertex 1,
 second \code{k} entries are \code{k} furthest points are from vertex 2, and
 last \code{k} entries are the \code{k} furthest points from vertex 3

@@ -10,14 +10,14 @@ rel.six.Te(Pt)
 \item{Pt}{A 2D point.}
 }
 \value{
-rel An integer between 1-6 (inclusive) or NA
+rel An integer between 1-6 (inclusive) or \code{NA}
 }
 \description{
 Returns the region index of the point \code{Pt} for the 6 regions in sandard equilateral triangle
 \eqn{T_e=T((0,0),(1,0),(1/2,\sqrt{3}/2))}, starting with 1 on the first one-sixth of the triangle,
 and numbering follows the counter-clockwise direction (see the plot in the examples).
 These regions are in the inner hexagon which is the Gamma-1 region for CS-PCD with \eqn{t=1}
-if \code{Pt} is not in any of the 6 regions the function returns NA.
+if \code{Pt} is not in any of the 6 regions the function returns \code{NA}.
 }
 \examples{
 \dontrun{
@@ -68,7 +68,7 @@ yc<-txt[,2]+c(.02,.02,.02,0,0,0,0,0,0,0)
 txt.str<-c("A","B","C","CM","1","2","3","4","5","6")
 text(xc,yc,txt.str)
 
-n<-40
+n<-10 #try also n<-40
 dat<-runifTe(n)$gen.points
 #dat<-cbind(runif(n),runif(n))
 #dat<-cbind(runif(n,1,2),runif(n,0,1))
@@ -100,5 +100,5 @@ text(xc,yc,txt.str)
 
 }
 \seealso{
-\code{\link{runif.1_6thTe}}
+\code{\link{runifTe.onesixth}}
 }

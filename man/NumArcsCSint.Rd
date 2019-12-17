@@ -23,12 +23,14 @@ with expansion parameter, \eqn{t>0}, and centrality parameter, \code{c} in \eqn{
 \description{
 Returns the number of arcs of Central Similarity Proximity Catch Digraphs (CS-PCDs)
 whose vertices are the 1D data set \code{dat} in the one-interval case.
+
 The data points could be inside or outside the interval is \eqn{int=(a,b)}.
 
 CS proximity region is constructed
 with an expansion parameter \eqn{t>0} and a centrality parameter \code{c} in \eqn{(0,1)}.
 CS proximity region is constructed for both points inside and outside the interval, hence
 the arcs may exist for all points inside or outside the interval.
+
 See also (\insertCite{ceyhan:revstat-2016;textual}{pcds}).
 }
 \examples{
@@ -46,7 +48,7 @@ NumArcsCSint(dat,t,c=.3,int)
 
 NumArcsCSint(dat,t=1.5,c,int)
 
-n<-20
+n<-10 #try also n<-20
 dat<-runif(n,a,b)
 #dat<-runif(n,a-5,b+5)
 #dat<-runif(n,a+5,b+5)

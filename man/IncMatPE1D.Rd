@@ -29,6 +29,7 @@ Loops are allowed, so the diagonal entries are all equal to 1.
 
 PE proximity region is constructed
 with an expansion parameter \eqn{r \ge 1} and a centrality parameter \code{c} in \eqn{(0,1)}.
+
 See also (\insertCite{ceyhan:metrika-2012;textual}{pcds}).
 }
 \examples{
@@ -61,7 +62,8 @@ IncMatPE1D(Xp,Yp+10,r,c)
 r<-2
 c<-.4
 a<-0; b<-10;
-nx<-40; ny<-10
+#nx is number of X points (target) and ny is number of Y points (nontarget)
+nx<-20; ny<-4; #try also nx<-40; ny<-10 or nx<-1000; ny<-10;
 Xp<-runif(nx,a,b)
 Yp<-runif(ny,a,b)
 IncMatPE1D(Xp,Yp,r,c)

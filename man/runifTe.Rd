@@ -19,7 +19,7 @@ A list with the elements
 \item{tess.points}{The vertices of the support region of the uniformly generated points, it is the
 standard equilateral triangle \eqn{T_e} for this function}
 \item{gen.points}{The output set of generated points uniformly in the standard equilateral triangle \eqn{T_e}.}
-\item{out.region}{The outer region which contains the support region, NULL for this function.}
+\item{out.region}{The outer region which contains the support region, \code{NULL} for this function.}
 \item{desc.pat}{Description of the point pattern from which points are to be generated}
 \item{num.points}{The vector of two numbers, which are the number of generated points and the number
 of vertices of the support points (here it is 3).}
@@ -33,7 +33,7 @@ with vertices \eqn{A=(0,0)}, \eqn{B=(1,0)}, and \eqn{C=(1/2,sqrt{3}/2)}.
 \examples{
 A<-c(0,0); B<-c(1,0); C<-c(1/2,sqrt(3)/2);
 Te<-rbind(A,B,C);
-n<-100
+n<-10 #try also n<-100
 
 #set.seed(1)
 Xdt<-runifTe(n)

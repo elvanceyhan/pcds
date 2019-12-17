@@ -20,7 +20,7 @@ IndNCStri(pt1, pt2, t, tri, M, re = NULL)
 \item{M}{A 2D point in Cartesian coordinates or a 3D point in barycentric coordinates
 which serves as a center in the interior of the triangle \code{tri}}
 
-\item{re}{Index of the \code{M}-edge region containing the point \code{pt}, either 1, 2, 3 or NULL (default is NULL)}
+\item{re}{Index of the \code{M}-edge region containing the point \code{pt}, either 1, 2, 3 or \code{NULL} (default is \code{NULL})}
 }
 \value{
 I(\code{pt2} is in \eqn{NCS(pt1,t)}) for \code{pt1}, that is, returns 1 if \code{pt2} is in \eqn{NCS(pt1,t)}, returns 0 otherwise
@@ -33,10 +33,11 @@ CS proximity region is constructed with respect to the triangle \code{tri} and
 edge regions are based on the center, \eqn{M=(m_1,m_2)} in Cartesian coordinates or
 \eqn{M=(\alpha,\beta,\gamma)} in barycentric coordinates in the interior of \code{tri}
 or based on the circumcenter of \code{tri}.
-\code{re} is the index of the edge region \code{pt} resides, with default=NULL
+\code{re} is the index of the edge region \code{pt} resides, with default=\code{NULL}
 
 If \code{pt1} and \code{pt2} are distint and either of them are outside \code{tri}, it returns 0,
 but if they are identical, then it returns 1 regardless of their locations (i.e., it allows loops).
+
 See also (\insertCite{ceyhan:Phd-thesis,ceyhan:arc-density-CS,ceyhan:test2014;textual}{pcds}).
 }
 \examples{

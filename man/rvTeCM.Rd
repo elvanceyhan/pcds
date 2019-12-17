@@ -19,17 +19,20 @@ with row 1=(0,0), row 2=(1,0), and row 3=(1/2,sqrt(3)/2).}
 \description{
 Returns the index of the vertex whose region contains point \code{p} in standard equilateral triangle
 \eqn{T_e=T((0,0),(1,0),(1/2,\sqrt{3}/2))} with vertex regions are constructed with center of mass CM
-(see the plots in the example for illustrations). The vertices of triangle, \eqn{T_e}, are labeled as 1,2,3
+(see the plots in the example for illustrations).
+
+The vertices of triangle, \eqn{T_e}, are labeled as 1,2,3
 according to the row number the vertex is recorded in \eqn{T_e}. If the point, \code{p}, is not inside \eqn{T_e}, then the
-function yields NA as output. The corresponding vertex region is the polygon with the vertex, CM, and
+function yields \code{NA} as output. The corresponding vertex region is the polygon with the vertex, CM, and
 midpoints of the edges adjacent to the vertex.
+
 See also (\insertCite{ceyhan:Phd-thesis,ceyhan:comp-geo-2010,ceyhan:mcap2012;textual}{pcds}).
 }
 \examples{
 A<-c(0,0); B<-c(1,0); C<-c(1/2,sqrt(3)/2);
 Te<-rbind(A,B,C)
 
-n<-20
+n<-10 #try also n<-20
 #set.seed(1)
 dat<-runifTe(n)$gen.points
 #dat<-cbind(runif(n),runif(n))

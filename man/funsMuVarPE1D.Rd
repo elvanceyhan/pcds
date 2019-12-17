@@ -44,6 +44,7 @@ of the arc density of PE-PCD for a given \code{c} in (0,1/2) and \eqn{r \ge 1}.
 \code{asyvarPE1D} uses auxiliary (internal) functions \code{fvar1} which yields asymptotic variance
 of the arc density of PE-PCD for \code{c} in (1/4,1/2) and \eqn{r \ge 1}; and \code{fvar2} which yields asymptotic variance
 of the arc density of PE-PCD for \code{c} in (0,1/4) and \eqn{r \ge 1}.
+
 See also (\insertCite{ceyhan:metrika-2012;textual}{pcds}).
 }
 \examples{

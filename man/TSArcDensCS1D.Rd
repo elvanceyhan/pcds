@@ -7,14 +7,8 @@
 A test of uniformity of 1D data in a given interval based on Central Similarity Proximity Catch Digraph
 (CS-PCD)}
 \usage{
-TSArcDensCS1D(
-  dat,
-  t,
-  c,
-  int,
-  alternative = c("two.sided", "less", "greater"),
-  conf.level = 0.95
-)
+TSArcDensCS1D(dat, t, c, int, alternative = c("two.sided", "less",
+  "greater"), conf.level = 0.95)
 }
 \arguments{
 \item{dat}{A set or vector of 1D points which constitute the vertices of CS-PCD}
@@ -47,7 +41,9 @@ mean arc density under uniform distribution.}
 \description{
 This is an "htest" (i.e., hypothesis test) function which performs a hypothesis test of uniformity of 1D
 data in one interval based on the normal approximation of the arc density of the CS-PCD with expansion
-parameter \eqn{t>0} and centrality parameter \code{c} in \eqn{(0,1)}. The function  yields the test statistic, \eqn{p}-value for the
+parameter \eqn{t>0} and centrality parameter \code{c} in \eqn{(0,1)}.
+
+The function  yields the test statistic, \eqn{p}-value for the
 corresponding alternative, the confidence interval, estimate and null value for the parameter of interest
 (which is the arc density), and method and name of the data set used.
 
@@ -55,9 +51,11 @@ The null hypothesis is that data is
 uniform in a finite interval (i.e. arc density of CS-PCD equals to its expected value under uniform
 distribution) and \code{alternative} could be two-sided, or left-sided (i.e. data is accumulated around the end
 points) or right-sided (i.e. data is accumulated around the mid point or center \eqn{M_c}).
+
 See also (\insertCite{ceyhan:revstat-2016;textual}{pcds}).
 }
 \examples{
+\donttest{
 c<-.4
 t<-2
 a<-0; b<-10; int<-c(a,b)
@@ -81,10 +79,11 @@ TSArcDensCS1D(dat,t,c,int)
 c<-.4
 t<-.5
 a<-0; b<-10; int<-c(a,b)
-n<-20
+n<-10 #try also n<-20
 dat<-runif(n,a,b)
 
 TSArcDensCS1D(dat,t,c,int)
+}
 
 }
 \references{

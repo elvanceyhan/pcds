@@ -32,11 +32,12 @@ in Cartesian coordinates or \eqn{M=(\alpha,\beta,\gamma)} in barycentric coordin
 default is \eqn{M=(1,1,1)} i.e. the center of mass of \eqn{T_e}.
 For the number of arcs, loops are not allowed so
 arcs are only possible for points inside \eqn{T_e} for this function.
+
 See also (\insertCite{ceyhan:arc-density-PE;textual}{pcds}).
 }
 \examples{
 A<-c(0,0); B<-c(1,0); C<-c(1/2,sqrt(3)/2);
-n<-20
+n<-10 #try also n<-20
 
 #set.seed(1)
 dat<-runifTe(n)$gen.points

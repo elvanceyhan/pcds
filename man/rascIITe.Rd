@@ -12,19 +12,19 @@ rascIITe(k, eps)
 \item{k}{A positive integer representing the number of points to be generated}
 
 \item{eps}{A positive real number representing the parameter of type II association (where \eqn{\sqrt{3}/6-eps}
-is the distance from the interior triangle distance from the interior triangle to Te.)}
+is the distance from the interior triangle distance from the interior triangle to \eqn{T_e}.)}
 }
 \value{
 A list with the elements
 \item{type}{The type of the point pattern}
 \item{mtitle}{The "main" title for the plot of the point pattern}
-\item{parameters}{The attraction parameter, eps, of the association pattern, where \eqn{\sqrt{3}/6-eps}
-is the distance from the interior triangle to Te}
+\item{parameters}{The attraction parameter, \code{eps}, of the association pattern, where \eqn{\sqrt{3}/6-eps}
+is the distance from the interior triangle to \eqn{T_e}}
 \item{ref.points}{The input set of points \code{Y};
 reference points, i.e., points with which generated points are associated (i.e., vertices of \eqn{T_e}).}
 \item{gen.points}{The output set of generated points associated with \code{Y} points (i.e., edges of \eqn{T_e}).}
 \item{tri.Y}{Logical output for triangulation based on \code{Y} points should be implemented or not.
-if TRUE triangulation based on \code{Y} points is to be implemented (default is set to FALSE).}
+if \code{TRUE} triangulation based on \code{Y} points is to be implemented (default is set to \code{FALSE}).}
 \item{desc.pat}{Description of the point pattern}
 \item{num.points}{The vector of two numbers, which are the number of generated points and
 the number of reference (i.e., \code{Y}) points, which is 3 here.}
@@ -33,15 +33,16 @@ vertices of \eqn{T_e} here}
 }
 \description{
 Generates \code{k} points uniformly in the standard equilateral triangle \eqn{T_e=T((0,0),(1,0),(1/2,\sqrt{3}/2))}
-under the type II association alternative for \code{eps} in \eqn{(0,\sqrt{3}/6=0.2886751]}
+under the type II association alternative for \code{eps} in \eqn{(0,\sqrt{3}/6=0.2886751]}.
+
 In the type II association, the annular allowed regions around the edges are determined by
 the parameter \code{eps} where \eqn{\sqrt{3}/6-eps} is the distance from the interior triangle
-(i.e., forbidden region for association) to Te (see examples for a sample plot.)
+(i.e., forbidden region for association) to \eqn{T_e} (see examples for a sample plot.)
 }
 \examples{
 A<-c(0,0); B<-c(1,0); C<-c(1/2,sqrt(3)/2);
 Te<-rbind(A,B,C);
-n<-1000
+n<-10 #try also n<-20 #try also n<-100 or 1000
 eps<-.2 #try also .25, .1
 
 #set.seed(1)
@@ -57,7 +58,7 @@ yd<-Ylim[2]-Ylim[1]
 
 dat<-rascIITe(n,eps)$gen.points
 plot(Te,pch=".",xlab="",ylab="",
-main="Type II association in the \n standard equilateral triangle",
+main="Type II association in the \\n standard equilateral triangle",
      xlim=Xlim+xd*c(-.01,.01),ylim=Ylim+yd*c(-.01,.01))
 polygon(Te)
 points(dat)

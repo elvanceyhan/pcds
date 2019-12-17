@@ -32,7 +32,7 @@ ip
 pts<-rbind(A,B,C,D,ip)
 xr<-range(pts)
 xf<-abs(xr[2]-xr[1])*.1 #how far to go at the lower and upper ends in the x-coordinate
-x<-seq(xr[1]-xf,xr[2]+xf,l=100)
+x<-seq(xr[1]-xf,xr[2]+xf,l=20) #try also l=100
 lnAB<-Line(A,B,x)
 lnCD<-Line(C,D,x)
 
@@ -50,7 +50,7 @@ lines(x,y1,lty=1,col=1)
 lines(x,y2,lty=1,col=2)
 text(rbind(A+pf,B+pf),c("A","B"))
 text(rbind(C+pf,D+pf),c("C","D"))
-text(rbind(ip+pf),c("intersection\n point"))
+text(rbind(ip+pf),c("intersection\\n point"))
 
 int.2lines(c(1,2),c(1,3),C,D)
 

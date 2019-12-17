@@ -20,7 +20,7 @@ A list with the elements
 \item{tess.points}{The vertices of the support of the uniformly generated points, it is the tetrahedron
 \code{th} for this function}
 \item{gen.points}{The output set of generated points uniformly in the tetrahedron, \code{th}.}
-\item{out.region}{The outer region which contains the support region, NULL for this function.}
+\item{out.region}{The outer region which contains the support region, \code{NULL} for this function.}
 \item{desc.pat}{Description of the point pattern from which points are to be generated}
 \item{num.points}{The vector of two numbers, which are the number of generated points and the number
 of vertices of the support points (here it is 4).}
@@ -31,12 +31,13 @@ of vertices of the support points (here it is 4).}
 Generates \code{k} points uniformly in the general tetrahedron \code{th} whose vertices are stacked row-wise
 }
 \examples{
+\donttest{
 A<-sample(1:12,3); B<-sample(1:12,3); C<-sample(1:12,3); D<-sample(1:12,3)
 #A<-runif(3); B<-runif(3); C<-runif(3); D<-runif(3)
 #A<-runif(3,1,100); B<-runif(3,1,100); C<-runif(3,1,100); D<-runif(3,1,100)
 tetra<-rbind(A,B,C,D)
 
-n<-100
+n<-10 #try also n<-100
 
 #set.seed(1)
 Xdt<-runif.tetra(n,tetra)
@@ -58,7 +59,6 @@ xd<-Xlim[2]-Xlim[1]
 yd<-Ylim[2]-Ylim[1]
 zd<-Zlim[2]-Zlim[1]
 
-#library(plot3D)
 plot3D::scatter3D(Dt[,1],Dt[,2],Dt[,3], theta =225, phi = 30, bty = "g",
 xlim=Xlim+xd*c(-.05,.05),ylim=Ylim+yd*c(-.05,.05), zlim=Zlim+zd*c(-.05,.05),
           pch = 20, cex = 1, ticktype = "detailed")
@@ -73,6 +73,7 @@ runif.tetra(n,tetra)
 
 dat.fr<-data.frame(a=tetra)
 runif.tetra(n,dat.fr)
+}
 
 }
 \seealso{

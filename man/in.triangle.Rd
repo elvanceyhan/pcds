@@ -11,25 +11,27 @@ in.triangle(p, tri, boundary = FALSE)
 
 \item{tri}{Three 2D points, stacked row-wise, each row representing a vertex of the triangle}
 
-\item{boundary}{A logical parameter (default=FALSE) to include boundary or not, so if it is TRUE,
+\item{boundary}{A logical parameter (default=\code{FALSE}) to include boundary or not, so if it is \code{TRUE},
 the function checks if the point, \code{p}, lies in the closure of the triangle (i.e. interior and boundary
 combined) else it checks if \code{p} lies in the interior of the triangle.}
 }
 \value{
 A list with two elements
-\item{inside.tri}{A logical output, it is TRUE, if the point, \code{p}, is inside the triangle, \code{tri},
-else it is FALSE.}
+\item{inside.tri}{A logical output, it is \code{TRUE}, if the point, \code{p}, is inside the triangle, \code{tri},
+else it is \code{FALSE}.}
 \item{barycentric}{The barycentric coordinates (alpha, beta, gamma) of the point \code{p} with respect to
 the triangle, \code{tri}.}
 }
 \description{
 Checks if the point \code{p} lies in the triangle, \code{tri}, using the barycentric
-coordinates, generally denoted as \eqn{(\alpha,\beta,\gamma)}. If all (normalized or non-normalized)
+coordinates, generally denoted as \eqn{(\alpha,\beta,\gamma)}.
+
+If all (normalized or non-normalized)
 barycentric coordinates are positive then the point \code{p} is inside the triangle,
 if all are nonnegative with one or more are zero, then \code{p} falls in the boundary. If some of the
 barycentric coordinates are negative, then \code{p} falls outside the triangle.
 
-\code{boundary} is a logical argument (default=FALSE) to include boundary or not, so if it is TRUE,
+\code{boundary} is a logical argument (default=\code{FALSE}) to include boundary or not, so if it is \code{TRUE},
 the function checks if the point, \code{p}, lies in the closure of the triangle (i.e. interior and boundary
 combined) else it checks if \code{p} lies in the interior of the triangle.
 }
@@ -58,7 +60,7 @@ in.triangle(D3,Tr,boundary=TRUE)
 p<-c(NA,.2)
 in.triangle(p,Tr)
 
-\dontrun{
+\donttest{
 #when triangle is degenerate
 B<-A+2*(C-A);
 Tr<-rbind(A,B,C)

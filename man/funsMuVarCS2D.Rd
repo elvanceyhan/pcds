@@ -24,8 +24,10 @@ arc density of CS-PCD for uniform data in any triangle
 \code{muCS2D} returns the mean of the (arc) density of CS-PCD
 and \code{asyvarCS2D} returns the asymptotic variance of the arc density of CS-PCD
 with expansion parameter \eqn{t>0} for 2D uniform data in a triangle.
+
 CS proximity regions are defined with respect to the triangle and
 vertex regions are based on center of mass, CM of the triangle.
+
 See also (\insertCite{ceyhan:Phd-thesis,ceyhan:arc-density-CS;textual}{pcds}).
 }
 \examples{

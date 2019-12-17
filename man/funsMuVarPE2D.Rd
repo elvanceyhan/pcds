@@ -27,6 +27,7 @@ with expansion parameter \eqn{r \ge 1} for 2D uniform data in a triangle.
 
 PE proximity regions are defined with respect to the triangle and
 vertex regions are based on center of mass, CM of the triangle.
+
 See also (\insertCite{ceyhan:arc-density-PE;textual}{pcds}).
 }
 \examples{

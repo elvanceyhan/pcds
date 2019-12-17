@@ -20,6 +20,7 @@ A list with two elements
 Returns the distance from a point \code{p} to the plane passing through points \code{a}, \code{b}, and \code{c} in 3D space.
 }
 \examples{
+\donttest{
 A<-c(1,2,3); B<-c(3,9,12); C<-c(1,1,3); P<-c(5,2,40)
 #A<-runif(3); B<-runif(3); C<-runif(3); P<-runif(3)
 #A<-runif(3,1,100); B<-runif(3,1,100); C<-runif(3,1,100); P<-runif(3,1,100)
@@ -32,12 +33,11 @@ dp2pl(P2,A,B,C);
 
 dp2pl(A,A,B,C);
 
-xseq<-seq(0,10,l=100)
-yseq<-seq(0,10,l=100)
+xseq<-seq(0,10,l=20) #try also l=100
+yseq<-seq(0,10,l=20) #try also l=100
 
 pl.grid<-Plane(A,B,C,xseq,yseq)$z
 
-#library(plot3D)
 plot3D::persp3D(z = pl.grid, x = xseq, y = yseq, theta =225, phi = 30, ticktype = "detailed")
 #plane spanned by points A, B, C
 #add the vertices of the tetrahedron
@@ -53,6 +53,7 @@ phi = 30, expand = 0.5, col = "lightblue",
       ltheta = 120, shade = 0.05, ticktype = "detailed")
 
 dp2pl(P,A,B,C)
+}
 
 }
 \seealso{

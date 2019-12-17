@@ -33,6 +33,7 @@ expansion parameter \eqn{r \ge 1} and vertex regions are based on the center \eq
 in Cartesian coordinates or \eqn{M=(\alpha,\beta,\gamma)} in barycentric coordinates in the interior of \eqn{T_e};
 default is \eqn{M=(1,1,1)} i.e. the center of mass of \eqn{T_e} (which is equivalent to the circumcenter of \eqn{T_e}).
 Vertices of \eqn{T_e} are also labeled as 1, 2, and 3, respectively.
+
 See also (\insertCite{ceyhan:Phd-thesis,ceyhan:masa-2007,ceyhan:dom-num-NPE-Spat2011,ceyhan:mcap2012;textual}{pcds}).
 }
 \examples{

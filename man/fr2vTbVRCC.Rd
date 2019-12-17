@@ -42,7 +42,9 @@ Any given triangle can be mapped to the basic triangle by a combination of rigid
 (i.e., translation, rotation and reflection) and scaling, preserving uniformity of the points in the
 original triangle. Hence basic triangle is useful for simulation
 studies under the uniformness hypothesis.
-\code{ch.all.intri} is for checking whether all data points are inside \eqn{T_b} (default is FALSE).
+
+\code{ch.all.intri} is for checking whether all data points are inside \eqn{T_b} (default is \code{FALSE}).
+
 See also (\insertCite{ceyhan:Phd-thesis,ceyhan:mcap2012;textual}{pcds}).
 }
 \examples{

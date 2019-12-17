@@ -68,6 +68,7 @@ and expansion parameter \eqn{r \ge 1}.
 To compute the probability \eqn{P(\gamma=2)} for PE-PCD in the 1D case,
 we partition the domain \eqn{(r,c)=(1,\infty) \times (0,1)}, and compute the probability for each partition
 set. The sample size (i.e. number of vertices or data points) is a positive integer, \code{n}.
+
 The auxiliary functions are \code{PG2AI, PG2AII, PG2AIII, PG2AIV, PG2A, PG2Asym, PG2BIII, PG2B, PG2B,
 PG2Bsym, PG2CIV, PG2C}, and \code{PG2Csym}, each corresponding to a partition of the domain of \code{r} and \code{c}.
 In particular, in

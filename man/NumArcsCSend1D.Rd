@@ -22,10 +22,12 @@ Returns the number of arcs of Central Similarity Proximity Catch Digraphs (CS-PC
 vertices are a 1D numerical data set, \code{dat}, outside the interval \eqn{int=(a,b)}.
 
 CS proximity region is constructed only with expansion parameter \eqn{t>0} for points outside the interval \eqn{(a,b)}.
+
 End vertex regions are based on the end points of the interval,
 i.e., the corresponding end vertex region is an interval as \eqn{(-\infty,a)} or \eqn{(b,\infty)} for the interval \eqn{(a,b)}.
 For the number of arcs, loops are not allowed, so arcs are only possible for points outside
 the interval, \code{int}, for this function.
+
 See also (\insertCite{ceyhan:revstat-2016;textual}{pcds}).
 }
 \examples{
@@ -45,7 +47,7 @@ NumArcsCSend1D(dat,t=4,int)
 NumArcsCSend1D(dat,t=2,int+5)
 NumArcsCSend1D(dat,t=2,int=c(-5,15))
 
-n<-20
+n<-10 #try also n<-20
 dat2<-runif(n,a-5,b+5)
 NumArcsCSend1D(dat2,t=2,int)
 

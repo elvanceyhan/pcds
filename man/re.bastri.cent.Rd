@@ -31,7 +31,7 @@ the basic triangle \eqn{T_b=T(A=(0,0),B=(1,0),C=(c_1,c_2))} and edge regions bas
 in the interior of the basic triangle \eqn{T_b}.
 
 Edges are labeled as 3 for edge AB, 1 for edge BC, and 2 for edge AC.
-If the point, \code{pt}, is not inside \code{tri}, then the function yields NA as output.
+If the point, \code{pt}, is not inside \code{tri}, then the function yields \code{NA} as output.
 Edge region 1 is the triangle \eqn{T(B,C,M)}, edge region 2 is \eqn{T(A,C,M)}, and edge region 3 is \eqn{T(A,B,M)}.
 In the basic triangle \eqn{T_b} \code{c1} is in \eqn{[0,1/2]}, \eqn{c_2>0} and \eqn{(1-c_1)^2+c_2^2 \le 1}.
 
@@ -39,6 +39,7 @@ Any given triangle can be mapped to the basic triangle by a combination of rigid
 (i.e., translation, rotation and reflection) and scaling, preserving uniformity of the points in the
 original triangle. Hence basic triangle is useful for simulation
 studies under the uniformness hypothesis.
+
 See also (\insertCite{ceyhan:Phd-thesis,ceyhan:comp-geo-2010,ceyhan:mcap2012,ceyhan:arc-density-CS;textual}{pcds}).
 }
 \examples{
@@ -69,7 +70,7 @@ re.bastri.cent(B,c1,c2,M)
 re.bastri.cent(C,c1,c2,M)
 re.bastri.cent(M,c1,c2,M)
 
-n<-20
+n<-10 #try also n<-20
 dat<-runif.bastri(n,c1,c2)$g
 #dat<-cbind(runif(n),runif(n))
 #dat<-cbind(runif(n,1,2),runif(n,0,1))

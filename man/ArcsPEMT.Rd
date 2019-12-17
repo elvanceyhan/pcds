@@ -2,7 +2,7 @@
 % Please edit documentation in R/PCDFunctions.r
 \name{ArcsPEMT}
 \alias{ArcsPEMT}
-\title{An object of class "Digraphs":
+\title{An object of class "PCDs":
 
 The arcs of Proportional Edge Proximity Catch Digraph (PE-PCD) for 2D data - multiple triangle case}
 \usage{
@@ -45,17 +45,19 @@ in the interior of each Delaunay triangle or based on circumcenter of each Delau
 (default for \eqn{M=(1,1,1)} which is the center of mass of the triangle).
 Each Delaunay triangle is first converted to an (unscaled) basic triangle so that \code{M} will be the same
 type of center for each Delaunay triangle (this conversion is not necessary when \code{M} is CM).
+
 Convex hull of \code{Yp} is partitioned by the Delaunay triangles based on \code{Yp} points
 (i.e., multiple triangles are the set of these Delaunay triangles whose union constitutes the
 convex hull of \code{Yp} points). For the number of arcs, loops are not allowed so arcs are only possible
 for points inside the convex hull of \code{Yp} points.
+
 See (\insertCite{ceyhan:Phd-thesis,ceyhan:arc-density-PE,ceyhan:dom-num-NPE-Spat2011;textual}{pcds})
 for more on the PE-PCDs.
 Also see (\insertCite{okabe:2000,ceyhan:comp-geo-2010,renka:1996;textual}{pcds}) for more on Delaunay triangulation and the TRIPACK algorithm.
 }
 \examples{
-nx<-100
-ny<-10
+#nx is number of X points (target) and ny is number of Y points (nontarget)
+nx<-20; ny<-4; #try also nx<-40; ny<-10 or nx<-1000; ny<-10;
 
 #set.seed(1)
 Xp<-cbind(runif(nx,0,1),runif(nx,0,1))

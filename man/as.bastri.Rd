@@ -21,6 +21,7 @@ when converted to the scaled version of the basic triangle}
 Labels the vertices of triangle, \code{tri}, as ABC so that AB is the longest edge, BC is the second longest
 and AC is the shortest edge (the order is as in the basic triangle). The new triangle \eqn{T(A,B,C)} is unscaled,
 i.e., the longest edge AB may not be of unit length.
+
 The basic triangle is \eqn{T_b=T((0,0),(1,0),(c_1,c_2))} where \code{c1} is in \eqn{[0,1/2]}, \eqn{c_2>0} and \eqn{(1-c_1)^2+c_2^2 \le 1}
 
 Any given triangle can be mapped to the basic triangle by a combination of rigid body motions

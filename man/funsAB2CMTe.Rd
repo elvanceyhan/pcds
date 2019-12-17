@@ -46,7 +46,7 @@ with \eqn{A=(0,0)};  \eqn{B=(1,0)}; \eqn{C=(1/2,\sqrt{3}/2)}; x-coordinates are 
 A<-c(0,0); B<-c(1,0); C<-c(1/2,sqrt(3)/2);
 Te<-rbind(A,B,C)
 xfence<-abs(A[1]-B[1])*.25 #how far to go at the lower and upper ends in the x-coordinate
-x<-seq(min(A[1],B[1])-xfence,max(A[1],B[1])+xfence,by=.01)
+x<-seq(min(A[1],B[1])-xfence,max(A[1],B[1])+xfence,by=.1) #try also by=.01
 
 lnACM<-lA_CM.Te(x)
 lnACM
@@ -81,7 +81,7 @@ lA_CM.Te(.25)$y
 A<-c(0,0); B<-c(1,0); C<-c(1/2,sqrt(3)/2);
 Te<-rbind(A,B,C)
 xfence<-abs(A[1]-B[1])*.25 #how far to go at the lower and upper ends in the x-coordinate
-x<-seq(min(A[1],B[1])-xfence,max(A[1],B[1])+xfence,by=.01)
+x<-seq(min(A[1],B[1])-xfence,max(A[1],B[1])+xfence,by=.1) #try also by=.01
 
 lnBCM<-lB_CM.Te(x)
 lnBCM

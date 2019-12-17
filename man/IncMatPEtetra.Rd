@@ -28,9 +28,11 @@ PE proximity regions are constructed with respect to tetrahedron
 th with expansion parameter \eqn{r \ge 1} and vertex regions are based on the center \code{M} which is circumcenter ("CC")
 or center of mass ("CM") of \code{th} with default="CM".
 Loops are allowed, so the diagonal entries are all equal to 1.
+
 See also (\insertCite{ceyhan:Phd-thesis,ceyhan:comp-geo-2010;textual}{pcds}).
 }
 \examples{
+\donttest{
 A<-c(0,0,0); B<-c(1,0,0); C<-c(1/2,sqrt(3)/2,0); D<-c(1/2,sqrt(3)/6,sqrt(6)/3)
 #A<-runif(3); B<-runif(3); C<-runif(3); D<-runif(3)
 #A<-runif(3,1,100); B<-runif(3,1,100); C<-runif(3,1,100); D<-runif(3,1,100)
@@ -61,6 +63,7 @@ IncMatPEtetra(dat.fr,tetra,r,M)
 
 dat.fr<-data.frame(a=tetra)
 IncMatPEtetra(dat,dat.fr,r,M)
+}
 
 }
 \references{

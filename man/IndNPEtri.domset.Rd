@@ -36,6 +36,7 @@ on the center \eqn{M=(m_1,m_2)} in Cartesian coordinates or \eqn{M=(\alpha,\beta
 in the interior of the triangle \code{tri} or based on the circumcenter of \code{tri};
 default is \eqn{M=(1,1,1)} i.e. the center of mass of \code{tri}.
 The triangle \code{tri}=\eqn{T(A,B,C)} has edges \eqn{AB}, \eqn{BC}, \eqn{AC} which are also labeled as edges 3, 1, and 2, respectively.
+
 See also (\insertCite{ceyhan:Phd-thesis,ceyhan:masa-2007,ceyhan:dom-num-NPE-Spat2011,ceyhan:mcap2012;textual}{pcds}).
 }
 \examples{

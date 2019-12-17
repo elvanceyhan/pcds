@@ -21,9 +21,11 @@ with edges are labeled as 3 for edge AB, 1 for edge BC, and 2 for edge AC.}
 Returns the index of the edge whose region contains point, \code{pt}, in
 the standard equilateral triangle \eqn{T_e=T(A=(0,0),B=(1,0),C=(1/2,\sqrt{3}/2))} with edge regions based on
 center of mass \eqn{CM=(A+B+C)/3}.
+
 Edges are labeled as 3 for edge AB, 1 for edge BC, and 2 for edge AC.
-If the point, \code{pt}, is not inside \code{tri}, then the function yields NA as output.
+If the point, \code{pt}, is not inside \code{tri}, then the function yields \code{NA} as output.
 Edge region 1 is the triangle \eqn{T(B,C,M)}, edge region 2 is \eqn{T(A,C,M)}, and edge region 3 is \eqn{T(A,B,M)}.
+
 See also (\insertCite{ceyhan:Phd-thesis,ceyhan:comp-geo-2010,ceyhan:mcap2012,ceyhan:arc-density-CS;textual}{pcds}).
 }
 \examples{
@@ -52,7 +54,7 @@ reTeCM(D3)
 CM<-(A+B+C)/3
 reTeCM(CM)
 
-n<-20
+n<-10 #try also n<-20
 dat<-runifTe(n)$gen.points
 #dat<-cbind(runif(n),runif(n))
 #dat<-cbind(runif(n,1,2),runif(n,0,1))

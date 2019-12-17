@@ -40,6 +40,7 @@ a vector of scalar, constitutes the y-coordinates of the point(s) of interest on
 \description{
 Returns the \code{equation, slope, intercept}, and y-coordinates of the lines joining A and \code{M},
 B and \code{M}, and also C and \code{M}.
+
 \code{lA_M.Te} is the line joining A to the center, \code{M}, \code{lB_M.Te} is the line joining B to \code{M},
 and \code{lC_M.Te} is the line joining C to \code{M}, in the standard equilateral triangle \eqn{T_e=(A,B,C)}
 with \eqn{A=(0,0)};  \eqn{B=(1,0)}; \eqn{C=(1/2,sqrt{3}/2)}; x-coordinates are provided in vector \code{x}
@@ -56,7 +57,7 @@ M<-c(.65,.2)
 #M<-c(.3,.3)
 
 xfence<-abs(A[1]-B[1])*.25 #how far to go at the lower and upper ends in the x-coordinate
-x<-seq(min(A[1],B[1])-xfence,max(A[1],B[1])+xfence,by=.01)
+x<-seq(min(A[1],B[1])-xfence,max(A[1],B[1])+xfence,by=.1) #try also by=.01
 
 lnAM<-lA_M.Te(x,M)
 lnAM
@@ -101,7 +102,7 @@ M<-c(.65,.2)
 #M<-c(.3,.3)
 
 xfence<-abs(A[1]-B[1])*.25 #how far to go at the lower and upper ends in the x-coordinate
-x<-seq(min(A[1],B[1])-xfence,max(A[1],B[1])+xfence,by=.01)
+x<-seq(min(A[1],B[1])-xfence,max(A[1],B[1])+xfence,by=.1) #try also by=.01
 
 lnBM<-lB_M.Te(x,M)
 lnBM
@@ -122,7 +123,7 @@ M<-c(.65,.2)
 #M<-c(.3,.3)
 
 xfence<-abs(A[1]-B[1])*.25 #how far to go at the lower and upper ends in the x-coordinate
-x<-seq(min(A[1],B[1])-xfence,max(A[1],B[1])+xfence,by=.01)
+x<-seq(min(A[1],B[1])-xfence,max(A[1],B[1])+xfence,by=.1) #try also by=.01
 
 lnCM<-lC_M.Te(x,M)
 lnCM

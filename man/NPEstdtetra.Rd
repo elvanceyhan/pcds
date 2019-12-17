@@ -11,7 +11,7 @@ NPEstdtetra(pt, r, rv = NULL)
 
 \item{r}{A positive real number which serves as the expansion parameter in PE proximity region; must be \eqn{\ge 1}}
 
-\item{rv}{Index of the vertex region containing the point, either 1, 2, 3, 4 or NULL (defaut is NULL)}
+\item{rv}{Index of the vertex region containing the point, either 1, 2, 3, 4 or \code{NULL} (defaut is \code{NULL})}
 }
 \value{
 Vertices of the tetrahedron which constitutes the PE proximity region with expansion parameter
@@ -27,16 +27,16 @@ with expansion parameter \eqn{r \ge 1} and vertex regions based on the circumcen
 to the center of mass in the standard regular tetrahedron).
 
 Vertex regions are labeled as 1,2,3,4 rowwise for the vertices of the tetrahedron \eqn{T_h}.
-\code{rv} is the index of the vertex region \code{pt} resides, with default=NULL.
+\code{rv} is the index of the vertex region \code{pt} resides, with default=\code{NULL}.
+If \code{pt} is outside of \eqn{T_h}, it returns \code{NULL} for the proximity region.
 
-If \code{pt} is outside of \eqn{T_h}, it returns NULL for the proximity region.
 See also (\insertCite{ceyhan:Phd-thesis,ceyhan:comp-geo-2010;textual}{pcds}).
 }
 \examples{
 A<-c(0,0,0); B<-c(1,0,0); C<-c(1/2,sqrt(3)/2,0); D<-c(1/2,sqrt(3)/6,sqrt(6)/3)
 tetra<-rbind(A,B,C,D)
 
-n<-20
+n<-10 #try also n<-20
 dat<-runif.stdtetra(n)$g
 r<-1.5
 NPEstdtetra(dat[1,],r)

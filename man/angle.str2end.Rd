@@ -8,7 +8,8 @@ Gives the two pairs of angles in radians or degrees to draw arcs between two vec
 for the \code{\link[plotrix]{draw.arc}} function in the plotrix package.
 The angles are provided with respect to the x-axis in the coordinate system.
 The line segments are \eqn{[ba]} and \eqn{[bc]} when the argument is given as \code{a, b, c} in the function.
-\code{radian} is a logical argument (default=TRUE) which yields the angle in radians if TRUE, and in degrees if FALSE.
+
+\code{radian} is a logical argument (default=\code{TRUE}) which yields the angle in radians if \code{TRUE}, and in degrees if \code{FALSE}.
 The first pair of angles is for drawing arcs in the smaller angle between \eqn{[ba]} and \eqn{[bc]}
 and the second pair of angles is for drawing arcs in the counter-clockwise order from \eqn{[ba]} to \eqn{[bc]}.}
 \usage{
@@ -17,7 +18,7 @@ angle.str2end(a, b, c, radian = TRUE)
 \arguments{
 \item{a, b, c}{Three 2D points which represent the intersecting line segments \eqn{[ba]} and \eqn{[bc]}.}
 
-\item{radian}{A logical argument (default=TRUE). If TRUE, the smaller angle or counter-clockwise angle
+\item{radian}{A logical argument (default=\code{TRUE}). If \code{TRUE}, the smaller angle or counter-clockwise angle
 between the line segments \eqn{[ba]} and \eqn{[bc]} is provided in radians, else it is provided in degrees.}
 }
 \value{
@@ -34,7 +35,8 @@ Gives the two pairs of angles in radians or degrees to draw arcs between two vec
 for the \code{\link[plotrix]{draw.arc}} function in the plotrix package.
 The angles are provided with respect to the x-axis in the coordinate system.
 The line segments are \eqn{[ba]} and \eqn{[bc]} when the argument is given as \code{a, b, c} in the function.
-\code{radian} is a logical argument (default=TRUE) which yields the angle in radians if TRUE, and in degrees if FALSE.
+
+\code{radian} is a logical argument (default=\code{TRUE}) which yields the angle in radians if \code{TRUE}, and in degrees if \code{FALSE}.
 The first pair of angles is for drawing arcs in the smaller angle between \eqn{[ba]} and \eqn{[bc]}
 and the second pair of angles is for drawing arcs in the counter-clockwise order from \eqn{[ba]} to \eqn{[bc]}.
 }

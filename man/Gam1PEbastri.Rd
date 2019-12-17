@@ -5,7 +5,8 @@
 \title{The indicator for a point being a dominating point or not for Proportional Edge Proximity Catch
 Digraphs (PE-PCDs) - basic triangle case}
 \usage{
-Gam1PEbastri(p, Dt, r, c1, c2, M = c(1, 1, 1), rv = NULL, ch.data.pnt = FALSE)
+Gam1PEbastri(p, Dt, r, c1, c2, M = c(1, 1, 1), rv = NULL,
+  ch.data.pnt = FALSE)
 }
 \arguments{
 \item{p}{A 2D point that is to be tested for being a dominating point or not of the PE-PCD}
@@ -25,7 +26,7 @@ default is \eqn{M=(1,1,1)} i.e. the center of mass of \eqn{T_b}}
 in the row order of the vertices in \eqn{T_b}}
 
 \item{ch.data.pnt}{A logical argument for checking whether point \code{p} is a data point in \code{Dt} or not
-(default is FALSE)}
+(default is \code{FALSE})}
 }
 \value{
 I(\code{p} is a dominating point of the PE-PCD) where the vertices of the PE-PCD are the 2D data set \code{Dt},
@@ -47,19 +48,20 @@ Vertex regions are based on center \eqn{M=(m_1,m_2)} in Cartesian
 coordinates or \eqn{M=(\alpha,\beta,\gamma)} in barycentric coordinates in the interior of a basic triangle
 to the edges on the extension of the lines joining \code{M} to the vertices or based on the circumcenter of \eqn{T_b};
 default is \eqn{M=(1,1,1)} i.e. the center of mass of \eqn{T_b}.
-Point, \code{p}, is in the vertex region of vertex \code{rv} (default is NULL); vertices are labeled as 1,2,3
+Point, \code{p}, is in the vertex region of vertex \code{rv} (default is \code{NULL}); vertices are labeled as 1,2,3
 in the order they are stacked row-wise.
 
-\code{ch.data.pnt} is for checking whether point \code{p} is a data point in \code{Dt} or not (default is FALSE),
+\code{ch.data.pnt} is for checking whether point \code{p} is a data point in \code{Dt} or not (default is \code{FALSE}),
 so by default this function checks whether the point \code{p} would be a dominating point
 if it actually were in the data set.
+
 See also (\insertCite{ceyhan:Phd-thesis,ceyhan:dom-num-NPE-Spat2011;textual}{pcds}).
 }
 \examples{
 c1<-.4; c2<-.6;
 A<-c(0,0); B<-c(1,0); C<-c(c1,c2);
 Tb<-rbind(A,B,C)
-n<-20
+n<-10 #try also n<-20
 
 #set.seed(1)
 dat<-runif.bastri(n,c1,c2)$g
@@ -135,12 +137,14 @@ P<-c(.4,.2)
 Gam1PEbastri(P,dat,r,c1,c2,M)
 
 Gam1PEbastri(P,rbind(dat,dat),r,c1,c2,M)
-\dontrun{
+
+dat.fr<-data.frame(a=dat)
+Gam1PEbastri(P,dat.fr,r,c1,c2,M)
+
+\donttest{
 Gam1PEbastri(P,cbind(dat,dat),r,c1,c2,M)
 Gam1PEbastri(P, rbind(c("a","b"),dat),r,c1,c2,M)
 }
-dat.fr<-data.frame(a=dat)
-Gam1PEbastri(P,dat.fr,r,c1,c2,M)
 
 }
 \references{

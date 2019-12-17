@@ -23,7 +23,7 @@ A list with the elements
 \item{tess.points}{The points which constitute the vertices of the triangulation and
 whose convex hull determines the support of the generated points.}
 \item{gen.points}{The output set of generated points uniformly in the convex hull of \code{Yp}}
-\item{out.region}{The outer region which contains the support region, NULL for this function.}
+\item{out.region}{The outer region which contains the support region, \code{NULL} for this function.}
 \item{desc.pat}{Description of the point pattern from which points are to be generated}
 \item{num.points}{The vector of two numbers, which are the number of generated points and
 the number of vertices in the triangulation (i.e., size of \code{Yp}) points.}
@@ -34,13 +34,15 @@ the number of vertices in the triangulation (i.e., size of \code{Yp}) points.}
 Generates \code{n} points uniformly in the Convex Hull of set of points, \code{Yp}. That is, generates
 uniformly in each of the triangles in the Delaunay triangulation of \code{Yp}, i.e., in the multiple
 triangles partitioning the convex hull of \code{Yp}.
-\code{DTmesh} is the Delaunay triangulation of \code{Yp}, default is \code{DTmesh}=NULL.
+
+\code{DTmesh} is the Delaunay triangulation of \code{Yp}, default is \code{DTmesh}=\code{NULL}.
 \code{DTmesh} yields triangulation nodes with neigbours (result of \code{\link[tripack]{tri.mesh}} function from \code{tripack} package).
+
 See (\insertCite{okabe:2000,ceyhan:comp-geo-2010,renka:1996;textual}{pcds}) for more on Delaunay triangulation and the TRIPACK algorithm.
 }
 \examples{
-nx<-1000 #number of X points (target)
-ny<-10 #number of Y points (nontarget)
+#nx is number of X points (target) and ny is number of Y points (nontarget)
+nx<-20; ny<-4; #try also nx<-1000; ny<-10;
 #set.seed(1)
 Yp<-cbind(runif(ny,0,10),runif(ny,0,10))
 

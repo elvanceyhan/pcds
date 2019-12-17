@@ -27,13 +27,14 @@ and vertex regions are based on the circumcenter CC of \eqn{T_b}.
 
 The vertices of the basic triangle \eqn{T_b} are labeled as
 1=(0,0),2=(1,0),and 3=\eqn{(c_1,c_2)} also according to the row number the vertex is recorded in \eqn{T_b}.
-If the point, \code{p}, is not inside \eqn{T_b}, then the function yields NA as output.
+If the point, \code{p}, is not inside \eqn{T_b}, then the function yields \code{NA} as output.
 The corresponding vertex region is the polygon whose interior points are closest to that vertex.
 
 Any given triangle can be mapped to the basic triangle
 by a combination of rigid body motions (i.e., translation, rotation and reflection) and scaling,
 preserving uniformity of the points in the original triangle. Hence basic triangle is useful for simulation
 studies under the uniformness hypothesis.
+
 See also (\insertCite{ceyhan:Phd-thesis,ceyhan:comp-geo-2010,ceyhan:mcap2012;textual}{pcds}).
 }
 \examples{
@@ -85,7 +86,7 @@ txt.str<-c("rv=1","rv=2","rv=3")
 text(xc,yc,txt.str)
 
 ###
-n<-20
+n<-10 #try also n<-20
 dat<-runif.bastri(n,c1,c2)$g
 #dat<-cbind(runif(n),runif(n))
 #dat<-cbind(runif(n,1,2),runif(n,0,1))

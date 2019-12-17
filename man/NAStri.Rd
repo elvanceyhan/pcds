@@ -15,7 +15,7 @@ NAStri(pt, tri, M = "CC", rv = NULL, dec = 4)
 barycentric coordinates which serves as a center in the interior of the triangle \code{tri};
 default is \code{M}="CC" i.e. the circumcenter of \code{tri}}
 
-\item{rv}{Index of the \code{M}-vertex region containing the point \code{pt}, either 1, 2, 3 or NULL (default is NULL)}
+\item{rv}{Index of the \code{M}-vertex region containing the point \code{pt}, either 1, 2, 3 or \code{NULL} (default is \code{NULL})}
 
 \item{dec}{a positive integer the number of decimals (default is 4) to round the barycentric coordinates when checking whether
 the end points fall on the boundary of the triangle \code{tri} or not}
@@ -35,12 +35,13 @@ region for a point in the triangle \eqn{tri=T(A,B,C)=(rv=1,rv=2,rv=3)}.
 Vertex regions are based on the center \code{M}="CC" for circumcenter of \code{tri}; or \eqn{M=(m_1,m_2)} in Cartesian coordinates
 or \eqn{M=(\alpha,\beta,\gamma)} in barycentric coordinates in the interior of the triangle \code{tri};
 default is \code{M}="CC" the circumcenter of \code{tri}. \code{rv} is the index of the vertex region \code{pt1} resides,
-with default=NULL.
+with default=\code{NULL}.
 
-If \code{pt} is outside of \code{tri}, it returns NULL for the proximity region.
+If \code{pt} is outside of \code{tri}, it returns \code{NULL} for the proximity region.
 \code{dec} is the number of decimals (default is 4) to round the barycentric coordinates when checking the points
 fall on the boundary of the triangle \code{tri} or not (so as not to miss the intersection points due to precision
 in the decimals).
+
 See also (\insertCite{ceyhan:Phd-thesis,ceyhan:comp-geo-2010,ceyhan:mcap2012;textual}{pcds}).
 }
 \examples{

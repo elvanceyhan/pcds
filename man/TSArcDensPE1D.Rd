@@ -7,14 +7,8 @@
 A test of uniformity of 1D data in a given interval based on Proportional Edge Proximity Catch Digraph
 (PE-PCD).}
 \usage{
-TSArcDensPE1D(
-  dat,
-  r,
-  c,
-  int,
-  alternative = c("two.sided", "less", "greater"),
-  conf.level = 0.95
-)
+TSArcDensPE1D(dat, r, c, int, alternative = c("two.sided", "less",
+  "greater"), conf.level = 0.95)
 }
 \arguments{
 \item{dat}{A set or vector of 1D points which constitute the vertices of PE-PCD}
@@ -47,20 +41,26 @@ mean arc density under uniform distribution.}
 \description{
 This is an "htest" (i.e., hypothesis test) function which performs a hypothesis test of uniformity of 1D data
 in one interval based on the normal approximation of the arc density of the PE-PCD with expansion parameter \eqn{r \ge 1}
-and centrality parameter \code{c} in \eqn{(0,1)}. The function  yields the test statistic, \eqn{p}-value for the
+and centrality parameter \code{c} in \eqn{(0,1)}.
+
+The function  yields the test statistic, \eqn{p}-value for the
 corresponding alternative, the confidence interval, estimate and null value for the parameter of interest
-(which is the arc density), and method and name of the data set used. The null hypothesis is that data is
+(which is the arc density), and method and name of the data set used.
+
+The null hypothesis is that data is
 uniform in a finite interval (i.e. arc density of PE-PCD equals to its expected value under uniform
 distribution) and \code{alternative} could be two-sided, or left-sided (i.e. data is accumulated around the end
 points) or right-sided (i.e. data is accumulated around the mid point or center \eqn{M_c}).
+
 See also (\insertCite{ceyhan:metrika-2012,ceyhan:revstat-2016;textual}{pcds}).
 }
 \examples{
+\donttest{
 c<-.4
 r<-2
 a<-0; b<-10; int<-c(a,b)
 
-n<-20
+n<-10 #try also n<-20
 dat<-runif(n,a,b)
 
 NumArcsPEint(dat,r,c,int)
@@ -81,9 +81,10 @@ TSArcDensPE1D(dat,r,c,int)
 c<-.4
 r<-2
 a<-0; b<-10; int<-c(a,b)
-n<-20
+n<-10 #try also n<-20
 dat<-runif(n,a,b)
 TSArcDensPE1D(dat,r,c,int)
+}
 
 }
 \references{

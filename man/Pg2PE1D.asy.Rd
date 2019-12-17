@@ -17,7 +17,9 @@ interval \eqn{(a,b)}
 }
 \description{
 Returns the asymptotic P(domination number=2) for PE-PCD whose vertices are a uniform data set in a finite
-interval \eqn{(a,b)}. The PE proximity region \eqn{NPE(x,r,c)} is defined with respect to (a,b) with centrality parameter \code{c}
+interval \eqn{(a,b)}.
+
+The PE proximity region \eqn{NPE(x,r,c)} is defined with respect to (a,b) with centrality parameter \code{c}
 in \eqn{(0,1)} and expansion parameter \eqn{r=1/\max(c,1-c)}.
 }
 \examples{

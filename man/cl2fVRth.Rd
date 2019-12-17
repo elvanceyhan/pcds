@@ -44,13 +44,14 @@ Vertex regions are based on center \code{M} which can be the center
 of mass ("CM") or circumcenter ("CC") of \code{th}.
 }
 \examples{
+\donttest{
 A<-c(0,0,0); B<-c(1,0,0); C<-c(1/2,sqrt(3)/2,0); D<-c(1/2,sqrt(3)/6,sqrt(6)/3)
 #A<-runif(3); B<-runif(3); C<-runif(3); D<-runif(3)
 #A<-runif(3,1,100); B<-runif(3,1,100); C<-runif(3,1,100); D<-runif(3,1,100)
 tetra<-rbind(A,B,C,D)
 Cent<-"CC" #"CM"
 
-n<-20
+n<-10 #try also n<-20
 Dt<-runif.tetra(n,tetra)$g
 #Dt<-cbind(runif(n),runif(n),runif(n))
 
@@ -75,7 +76,6 @@ xd<-Xlim[2]-Xlim[1]
 yd<-Ylim[2]-Ylim[1]
 zd<-Zlim[2]-Zlim[1]
 
-#library(plot3D)
 plot3D::scatter3D(Dt[,1],Dt[,2],Dt[,3], phi =0,theta=40, bty = "g",
 xlim=Xlim+xd*c(-.05,.05),ylim=Ylim+yd*c(-.05,.05), zlim=Zlim+zd*c(-.05,.05),
           pch = 20, cex = 1, ticktype = "detailed")
@@ -102,6 +102,7 @@ cl2fVRth(dat.fr,tetra,Cent)
 
 dat.fr<-data.frame(a=tetra)
 cl2fVRth(Dt,dat.fr,Cent)
+}
 
 }
 \seealso{

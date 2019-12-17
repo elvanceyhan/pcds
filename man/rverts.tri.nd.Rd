@@ -29,11 +29,13 @@ in the triangle \code{tri}}
 Returns the indices of the vertices whose regions contain the points in data set \code{Dt} in
 a triangle \code{tri}=\eqn{(A,B,C)} and vertex regions are based on the center \code{cent} which yields nondegenerate asymptotic
 distribution of the domination number of PE-PCD for uniform data in \code{tri} for expansion parameter \code{r} in \eqn{(1,1.5]}.
+
 Vertices of triangle \code{tri} are labeled as 1,2,3 according to the row number the vertex is recorded
-if a point in \code{Dt} is not inside \code{tri}, then the function yields NA as output for that entry.
+if a point in \code{Dt} is not inside \code{tri}, then the function yields \code{NA} as output for that entry.
 The corresponding vertex region is the polygon with the vertex, \code{cent}, and projection points on the edges.
 The center label \code{cent} values 1,2,3 correspond to the vertices \eqn{M_1}, \eqn{M_2}, and \eqn{M_3}; with default 1
 (see the examples for an illustration).
+
 See also (\insertCite{ceyhan:Phd-thesis,ceyhan:dom-num-NPE-Spat2011,ceyhan:comp-geo-2010,ceyhan:mcap2012;textual}{pcds}).
 }
 \examples{
@@ -53,7 +55,7 @@ rverts.tri.nd(P,Tr,r,cen)
 P<-c(10.5,1.6)
 rverts.tri.nd(P,Tr,r,cen)
 
-n<-20
+n<-10 #try also n<-20
 #set.seed(1)
 dat<-runif.tri(n,Tr)$g
 #dat<-cbind(runif(n,1,2),runif(n,0,2))

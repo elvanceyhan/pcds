@@ -23,10 +23,13 @@ with expansion parameter, \eqn{r \ge 1}, and centrality parameter, \code{c} in \
 \description{
 Returns the number of arcs of Proportional Edge Proximity Catch Digraphs (PE-PCDs)
 whose vertices are the 1D data set \code{dat} in the one-interval case.
+
 The data points could be inside or outside the interval is \eqn{int=(a,b)}. PE proximity region is constructed
 with an expansion parameter \eqn{r \ge 1} and a centrality parameter \code{c} in \eqn{(0,1)}.
+
 The PE proximity region is constructed for both points inside and outside the interval, hence
 the arcs may exist for all points inside or outside the interval.
+
 See also (\insertCite{ceyhan:metrika-2012;textual}{pcds}).
 }
 \examples{
@@ -44,7 +47,7 @@ NumArcsPEint(dat,r,c=.3,int)
 
 NumArcsPEint(dat,r=1.5,c,int)
 
-n<-20
+n<-10 #try also n<-20
 dat<-runif(n,a,b)
 #dat<-runif(n,a-5,b+5)
 #dat<-runif(n,a+5,b+5)

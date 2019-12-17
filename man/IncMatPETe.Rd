@@ -29,6 +29,7 @@ expansion parameter \eqn{r \ge 1} and vertex regions are based on
 the center \eqn{M=(m_1,m_2)} in Cartesian coordinates or \eqn{M=(\alpha,\beta,\gamma)} in barycentric coordinates
 in the interior of \eqn{T_e}; default is \eqn{M=(1,1,1)} i.e. the center of mass of \eqn{T_e}.
 Loops are allowed, so the diagonal entries are all equal to 1.
+
 See also (\insertCite{ceyhan:Phd-thesis,ceyhan:comp-geo-2010,ceyhan:dom-num-NPE-Spat2011;textual}{pcds}).
 }
 \examples{

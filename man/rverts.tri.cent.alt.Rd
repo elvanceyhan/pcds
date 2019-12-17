@@ -39,7 +39,7 @@ rverts.tri.cent.alt(P,Tr,M)
 P<-c(1.5,1.6)
 rverts.tri.cent.alt(P,Tr,M)
 
-n<-20
+n<-10 #try also n<-20
 #set.seed(1)
 dat<-runif.tri(n,Tr)$g
 #dat<-cbind(runif(n),runif(n))

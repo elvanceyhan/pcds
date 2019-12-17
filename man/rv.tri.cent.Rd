@@ -29,9 +29,10 @@ Vertex regions are based on the general center \eqn{M=(m_1,m_2)} in Cartesian co
 \eqn{M=(\alpha,\beta,\gamma)} in barycentric coordinates in the interior of the triangle \code{tri}.
 Vertices of the triangle \code{tri} are labeled according to the row number the vertex is recorded.
 
-If the point, \code{p}, is not inside \code{tri}, then the function yields NA as output.
+If the point, \code{p}, is not inside \code{tri}, then the function yields \code{NA} as output.
 The corresponding vertex region is the polygon with the vertex, \code{M}, and projections from \code{M}
 to the edges on the lines joining vertices and \code{M}. (see the illustration in the examples).
+
 See also (\insertCite{ceyhan:Phd-thesis,ceyhan:comp-geo-2010,ceyhan:mcap2012;textual}{pcds}).
 }
 \examples{
@@ -51,7 +52,7 @@ P<-c(1.5,1.6)
 rv.tri.cent(P,Tr,M)
 #rv.tri.cent(P,Tr,M=c(2,2)) #center is not in the interior of the triangle
 
-n<-20
+n<-10 #try also n<-20
 #set.seed(1)
 dat<-runif.tri(n,Tr)$g
 #dat<-cbind(runif(n,1,2),runif(n,0,2))

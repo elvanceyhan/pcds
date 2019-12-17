@@ -12,11 +12,11 @@ is.in.data(p, Dt)
 \item{Dt}{A set of 2D points representing the set of data points}
 }
 \value{
-TRUE if \code{p} belongs to the data set \code{Dt}.
+\code{TRUE} if \code{p} belongs to the data set \code{Dt}.
 }
 \description{
-returns TRUE if the point \code{p} of any dimension is inside the data set \code{Dt} of the same dimension as \code{p};
-otherwise returns FALSE.
+returns \code{TRUE} if the point \code{p} of any dimension is inside the data set \code{Dt} of the same dimension as \code{p};
+otherwise returns \code{FALSE}.
 }
 \examples{
 n<-10

@@ -16,6 +16,7 @@ circumcenter of the tetrahedron \code{th}
 Returns the circumcenter a given tetrahedron \code{th} with vertices stacked row-wise.
 }
 \examples{
+\donttest{
 A<-c(0,0,0); B<-c(1,0,0); C<-c(1/2,sqrt(3)/2,0); D<-c(1/2,sqrt(3)/6,sqrt(6)/3)
 #A<-runif(3); B<-runif(3); C<-runif(3); D<-runif(3)
 #A<-runif(3,1,100); B<-runif(3,1,100); C<-runif(3,1,100); D<-runif(3,1,100)
@@ -31,7 +32,6 @@ xd<-Xlim[2]-Xlim[1]
 yd<-Ylim[2]-Ylim[1]
 zd<-Zlim[2]-Zlim[1]
 
-#library(plot3D)
 plot3D::scatter3D(tetra[,1],tetra[,2],tetra[,3], phi =0,theta=40, bty = "g",
 xlim=Xlim+xd*c(-.05,.05),ylim=Ylim+yd*c(-.05,.05), zlim=Zlim+zd*c(-.05,.05),
           pch = 20, cex = 1, ticktype = "detailed")
@@ -50,6 +50,7 @@ plot3D::text3D(CC[1],CC[2],CC[3], labels="CC", add=TRUE)
 
 dat.fr<-data.frame(a=tetra)
 circ.cent.tetra(dat.fr)
+}
 
 }
 \seealso{

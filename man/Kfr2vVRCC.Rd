@@ -14,10 +14,10 @@ Kfr2vVRCC(Dt, tri, k, ch.all.intri = FALSE)
 \item{tri}{Three 2D points, stacked row-wise, each row representing a vertex of the triangle}
 
 \item{k}{A positive integer. \code{k} furthest data points in each CC-vertex region are to be found if exists, else
-NA are provided for (some of) the \code{k} furthest points.}
+\code{NA} are provided for (some of) the \code{k} furthest points.}
 
-\item{ch.all.intri}{A logical argument (default=FALSE) to check whether all data points are inside
-the triangle \code{tri}. So if it is TRUE,
+\item{ch.all.intri}{A logical argument (default=\code{FALSE}) to check whether all data points are inside
+the triangle \code{tri}. So if it is \code{TRUE},
 the function checks if all data points are inside the closure of the triangle (i.e. interior and boundary
 combined) else it does not.}
 }
@@ -49,12 +49,14 @@ from vertex 3 to vertex 3.}
 Returns the \code{k} furthest data points among the data set, \code{Dt}, in each CC-vertex region from the vertex in the
 triangle, \eqn{tri=T(A,B,C)}, vertices are stacked row-wise. Vertex region labels/numbers correspond to the
 row number of the vertex in \code{tri}.
-\code{ch.all.intri} is for checking whether all data points are inside \code{tri} (default is FALSE).
-If some of the data points are not inside \code{tri} and \code{ch.all.intri}=TRUE, then the function yields
+
+\code{ch.all.intri} is for checking whether all data points are inside \code{tri} (default is \code{FALSE}).
+If some of the data points are not inside \code{tri} and \code{ch.all.intri}=\code{TRUE}, then the function yields
 an error message.
-If some of the data points are not inside \code{tri} and \code{ch.all.intri}=FALSE, then the function yields
-the closest points to edges among the data points inside \code{tri} (yields NA if there are no data points
+If some of the data points are not inside \code{tri} and \code{ch.all.intri}=\code{FALSE}, then the function yields
+the closest points to edges among the data points inside \code{tri} (yields \code{NA} if there are no data points
 inside \code{tri}).
+
 In the extrema, \eqn{Ext}, in the output, the first \code{k} entries are the \code{k} furthest points from vertex 1,
 second \code{k} entries are \code{k} furthest points are from vertex 2, and
 last \code{k} entries are the \code{k} furthest points from vertex 3.
@@ -65,7 +67,7 @@ A<-c(1,1); B<-c(2,0); C<-c(1.5,2);
 #A<-runif(2); B<-runif(2); C<-runif(2);
 #A<-runif(2,1,100); B<-runif(2,1,100); C<-runif(2,1,100);
 Tr<-rbind(A,B,C);
-n<-20
+n<-10 #try also n<-20
 k<-3
 
 #set.seed(1)

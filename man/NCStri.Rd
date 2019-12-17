@@ -16,7 +16,7 @@ NCStri(pt, t, tri, M, re = NULL)
 \item{M}{A 2D point in Cartesian coordinates or a 3D point in barycentric coordinates
 which serves as a center in the interior of the triangle \code{tri}}
 
-\item{re}{Index of the \code{M}-edge region containing the point \code{pt}, either 1, 2, 3 or NULL (default is NULL)}
+\item{re}{Index of the \code{M}-edge region containing the point \code{pt}, either 1, 2, 3 or \code{NULL} (default is \code{NULL})}
 }
 \value{
 Vertices of the triangular region which constitutes the CS proximity region with expansion parameter
@@ -31,8 +31,9 @@ with expansion parameter \eqn{t>0} and edge regions based on center \eqn{M=(m_1,
 \eqn{M=(\alpha,\beta,\gamma)} in barycentric coordinates in the interior of the triangle \code{tri}.
 
 Edge regions are labeled as 1,2,3 rowwise for the corresponding vertices
-of the triangle \code{tri}. \code{re} is the index of the edge region \code{pt} resides, with default=NULL.
-If \code{pt} is outside of \code{tri}, it returns NULL for the proximity region.
+of the triangle \code{tri}. \code{re} is the index of the edge region \code{pt} resides, with default=\code{NULL}.
+If \code{pt} is outside of \code{tri}, it returns \code{NULL} for the proximity region.
+
 See also (\insertCite{ceyhan:Phd-thesis,ceyhan:comp-geo-2010,ceyhan:arc-density-CS;textual}{pcds}).
 }
 \examples{

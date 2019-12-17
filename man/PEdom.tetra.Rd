@@ -27,14 +27,16 @@ Returns the domination number of PE-PCD whose vertices are the data points in \c
 PE proximity region is defined with respect to the tetrahedron \code{th} with expansion parameter \eqn{r \ge 1} and
 vertex regions are based on the center \code{M} which is circumcenter ("CC") or center of mass ("CM") of \code{th}
 with default="CM".
+
 See also (\insertCite{ceyhan:Phd-thesis,ceyhan:comp-geo-2010;textual}{pcds}).
 }
 \examples{
+\donttest{
 A<-c(0,0,0); B<-c(1,0,0); C<-c(1/2,sqrt(3)/2,0); D<-c(1/2,sqrt(3)/6,sqrt(6)/3)
 #A<-runif(3); B<-runif(3); C<-runif(3); D<-runif(3)
 #A<-runif(3,1,100); B<-runif(3,1,100); C<-runif(3,1,100); D<-runif(3,1,100)
 tetra<-rbind(A,B,C,D)
-n<-20
+n<-10 #try also n<-20
 dat<-runif.tetra(n,tetra)$g
 
 M<-"CM"
@@ -47,6 +49,7 @@ PEdom.tetra(rbind(dat,c(5,5,5)),tetra,r,M)
 
 P1<-c(.5,.5,.5)
 PEdom.tetra(P1,tetra,r,M)
+}
 
 }
 \references{

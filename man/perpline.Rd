@@ -57,7 +57,7 @@ perpline(A,A,B,.45)
 pts<-rbind(A,B,p)
 xr<-range(pts)
 xf<-(xr[2]-xr[1])*.25 #how far to go at the lower and upper ends in the x-coordinate
-x<-seq(xr[1]-xf,xr[2]+xf,l=100)
+x<-seq(xr[1]-xf,xr[2]+xf,l=20) #try also l=100
 
 plnAB<-perpline(p,A,B,x)
 plnAB
@@ -80,7 +80,7 @@ segments(A[1],A[2],B[1],B[2],lty=2)
 if (!is.na(y[1])) {lines(x,y,type="l",lty=1,xlim=Xlim,ylim=Ylim)} else {abline(v=p[1])}
 tx<-p[1]+abs(xr-p[1])/2;
 if (!is.na(y[1])) {ty<-perpline(p,A,B,tx)$y} else {ty=p[2]}
-text(tx,ty,"line perpendicular to AB\n and crossing p")
+text(tx,ty,"line perpendicular to AB\\n and crossing p")
 
 }
 \seealso{

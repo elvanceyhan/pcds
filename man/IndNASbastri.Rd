@@ -20,8 +20,8 @@ IndNASbastri(pt1, pt2, c1, c2, M = "CC", rv = NULL)
 barycentric coordinates which serves as a center in the interior of the triangle \eqn{T_b};
 default is \code{M}="CC" i.e. the circumcenter of \eqn{T_b}}
 
-\item{rv}{The index of the \code{M}-vertex region in \eqn{T_b} containing the point, either 1, 2, 3 or NULL
-(default is NULL)}
+\item{rv}{The index of the \code{M}-vertex region in \eqn{T_b} containing the point, either 1, 2, 3 or \code{NULL}
+(default is \code{NULL})}
 }
 \value{
 \eqn{I(pt2 \in N_{AS}(pt1))} for points \code{pt1} and \code{pt2}, that is, returns 1 if \code{pt2} is in NAS(\code{pt1})
@@ -30,13 +30,14 @@ default is \code{M}="CC" i.e. the circumcenter of \eqn{T_b}}
 \description{
 Returns \eqn{I(pt2 \in N_{AS}(pt1))} for points \code{pt1} and \code{pt2}, that is, returns 1 if \code{pt2} is in NAS(\code{pt1}), returns 0
 otherwise, where \eqn{N_{AS}(x)} is the AS proximity region for point \eqn{x}.
+
 AS proximity region is constructed in the basic triangle \eqn{T_b=T((0,0),(1,0),(c_1,c_2))}
 where \code{c1} is in \eqn{[0,1/2]}, \eqn{c_2>0} and \eqn{(1-c_1)^2+c_2^2 \le 1}.
 
 Vertex regions are based on the center \code{M}="CC" for circumcenter of \eqn{T_b};
 or \eqn{M=(m_1,m_2)} in Cartesian coordinates or \eqn{M=(\alpha,\beta,\gamma)} in barycentric coordinates in the
 interior of \eqn{T_b}; default is \code{M}="CC" i.e. circumcenter of \eqn{T_b}.
-\code{rv} is the index of the vertex region \code{pt1} resides, with default=NULL.
+\code{rv} is the index of the vertex region \code{pt1} resides, with default=\code{NULL}.
 
 If \code{pt1} and \code{pt2} are distint and either of them are outside \eqn{T_b}, the function returns 0,
 but if they are identical, then it returns 1 regardless of their locations (i.e., it allows loops).
@@ -45,6 +46,7 @@ Any given triangle can be mapped to the basic triangle
 by a combination of rigid body motions (i.e., translation, rotation and reflection) and scaling,
 preserving uniformity of the points in the original triangle. Hence basic triangle is useful for simulation
 studies under the uniformness hypothesis.
+
 See also (\insertCite{ceyhan:Phd-thesis,ceyhan:comp-geo-2010,ceyhan:mcap2012;textual}{pcds}).
 }
 \examples{

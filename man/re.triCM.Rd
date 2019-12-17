@@ -22,10 +22,12 @@ with edges are labeled as 3 for edge AB, 1 for edge BC, and 2 for edge AC.}
 \description{
 Returns the index of the edge whose region contains point, \code{pt}, in
 the triangle \eqn{tri=T(A,B,C)} with edge regions based on center of mass \eqn{CM=(A+B+C)/3}.
+
 Edges are labeled as 3 for edge AB, 1 for edge BC, and 2 for edge AC.
-If the point, \code{pt}, is not inside \code{tri}, then the function yields NA as output.
+If the point, \code{pt}, is not inside \code{tri}, then the function yields \code{NA} as output.
 Edge region 1 is the triangle \eqn{T(B,C,CM)}, edge region 2 is \eqn{T(A,C,CM)}, and
 edge region 3 is \eqn{T(A,B,CM)}.
+
 See also (\insertCite{ceyhan:Phd-thesis,ceyhan:comp-geo-2010,ceyhan:mcap2012,ceyhan:arc-density-CS;textual}{pcds}).
 }
 \examples{
@@ -49,7 +51,7 @@ re.triCM(B,Tr)
 re.triCM(C,Tr)
 re.triCM(CM,Tr)
 
-n<-20
+n<-10 #try also n<-20
 dat<-runif.tri(n,Tr)$g
 #dat<-cbind(runif(n,1,2),runif(n,0,2))
 #dat<-cbind(runif(n),runif(n))

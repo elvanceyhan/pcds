@@ -28,13 +28,14 @@ regions are based on the center \code{M}="CC"
 for circumcenter of each Delaunay triangle or \eqn{M=(\alpha,\beta,\gamma)} in barycentric coordinates in the
 interior of each Delaunay triangle; default is \code{M}="CC" i.e. circumcenter of each triangle.
 Loops are allowed, so the diagonal entries are all equal to 1.
+
 See (\insertCite{ceyhan:Phd-thesis,ceyhan:comp-geo-2010,ceyhan:mcap2012;textual}{pcds}) for more on AS-PCDs.
 Also see (\insertCite{okabe:2000,ceyhan:comp-geo-2010,renka:1996;textual}{pcds}) for more on Delaunay triangulation
 and the TRIPACK algorithm.
 }
 \examples{
-nx<-100
-ny<-10
+#nx is number of X points (target) and ny is number of Y points (nontarget)
+nx<-20; ny<-4; #try also nx<-40; ny<-10 or nx<-1000; ny<-10;
 
 #set.seed(1)
 Xp<-cbind(runif(nx,0,1),runif(nx,0,1))

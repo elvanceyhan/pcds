@@ -18,7 +18,7 @@ which serves as a center in the interior of the triangle \code{tri};
 default is \eqn{M=(1,1,1)} i.e. the center of mass of \code{tri}}
 
 \item{tri.cor}{A logical argument for computing the arc density for only the points inside the triangle, \code{tri}
-(default=TRUE), i.e., if TRUE only the induced digraph with the vertices inside \code{tri} are considered in the
+(default=\code{TRUE}), i.e., if \code{TRUE} only the induced digraph with the vertices inside \code{tri} are considered in the
 computation of arc density}
 }
 \value{
@@ -41,19 +41,20 @@ expansion parameter \eqn{t>0} and edge regions are based on center \eqn{M=(m_1,m
 The function also provides arc density standardized by the mean and asymptotic variance of the arc density
 of CS-PCD for uniform data in the triangle \code{tri}. For the number of arcs, loops are not allowed.
 
-\code{tri.cor} is a logical argument for triangle correction (default is TRUE), if TRUE, only the points inside the
+\code{tri.cor} is a logical argument for triangle correction (default is \code{TRUE}), if \code{TRUE}, only the points inside the
 triangle are considered (i.e., digraph induced by these vertices are considered) in computing the arc density,
 otherwise all points are considered (for the number of vertices in the denominator of arc density).
-See (\insertCite{ceyhan:Phd-thesis,ceyhan:arc-density-CS,ceyhan:test2014;textual}{pcds}) for more on CS-PCDs.
 
 Caveat: The standardized arc density is only correct when \code{M} is the center of mass in the current version.
+
+See (\insertCite{ceyhan:Phd-thesis,ceyhan:arc-density-CS,ceyhan:test2014;textual}{pcds}) for more on CS-PCDs.
 }
 \examples{
 A<-c(1,1); B<-c(2,0); C<-c(1.5,2);
 #A<-runif(2); B<-runif(2); C<-runif(2);
 #A<-runif(2,1,100); B<-runif(2,1,100); C<-runif(2,1,100);
 Tr<-rbind(A,B,C);
-n<-20
+n<-10 #try also n<-20
 
 #set.seed(1)
 dat<-runif.tri(n,Tr)$g

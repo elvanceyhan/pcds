@@ -2,7 +2,7 @@
 % Please edit documentation in R/PCDFunctions.r
 \name{ArcsPEtri}
 \alias{ArcsPEtri}
-\title{An object of class "Digraphs":
+\title{An object of class "PCDs":
 
 The arcs of Proportional Edge Proximity Catch Digraph (PE-PCD) for 2D data - one triangle case}
 \usage{
@@ -46,6 +46,7 @@ such as number of arcs, arc density, etc.
 Vertex regions are based on center \eqn{M=(m_1,m_2)}
 in Cartesian coordinates or \eqn{M=(\alpha,\beta,\gamma)} in barycentric coordinates in the interior of
 the triangle \code{tri} or based on the circumcenter of \code{tri}; default is \eqn{M=(1,1,1)} i.e. the center of mass of \code{tri}.
+
 See also (\insertCite{ceyhan:Phd-thesis,ceyhan:arc-density-PE;textual}{pcds}).
 }
 \examples{

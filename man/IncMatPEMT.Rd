@@ -30,17 +30,21 @@ defined with respect to the Delaunay triangles based on \code{Yp} points with ex
 vertex regions in each triangle are based on the center \eqn{M=(\alpha,\beta,\gamma)} in barycentric coordinates
 in the interior of each Delaunay triangle or based on circumcenter of each Delaunay triangle
 (default for \eqn{M=(1,1,1)} which is the center of mass of the triangle).
+
 Each Delaunay triangle is first converted to an (unscaled) basic triangle so that \code{M} will be the same
 type of center for each Delaunay triangle (this conversion is not necessary when \code{M} is CM).
+
 Convex hull of \code{Yp} is partitioned by the Delaunay triangles based on \code{Yp} points
 (i.e., multiple triangles are the set of these Delaunay triangles whose union constitutes the
 convex hull of \code{Yp} points). For the incidence matrix loops are allowed,
 so the diagonal entries are all equal to 1.
+
 See (\insertCite{ceyhan:Phd-thesis,ceyhan:arc-density-PE,ceyhan:dom-num-NPE-Spat2011;textual}{pcds}) for more
 on the PE-PCDs.
 Also see (\insertCite{okabe:2000,ceyhan:comp-geo-2010,renka:1996;textual}{pcds}) for more on Delaunay triangulation and the TRIPACK algorithm.
 }
 \examples{
+\donttest{
 nx<-100
 ny<-10
 
@@ -78,6 +82,7 @@ IncMatPEMT(dat.fr,Yp,r,M)
 
 dat.fr<-data.frame(a=Yp)
 IncMatPEMT(Xp,dat.fr,r,M)
+}
 
 }
 \references{

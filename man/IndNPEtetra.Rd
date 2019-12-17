@@ -20,7 +20,7 @@ IndNPEtetra(pt1, pt2, r, th, M = "CM", rv = NULL)
 \item{M}{The center to be used in the construction of the vertex regions in the tetrahedron, \code{th}.
 Currently it only takes "CC" for circumcenter and "CM" for center of mass; default="CM"}
 
-\item{rv}{Index of the \code{M}-vertex region containing the point, either 1, 2, 3, 4 (defualt is NULL)}
+\item{rv}{Index of the \code{M}-vertex region containing the point, either 1, 2, 3, 4 (defualt is \code{NULL})}
 }
 \value{
 I(\code{pt2} is in \eqn{NPE(pt1,r)}) for \code{pt1}, that is, returns 1 if \code{pt2} is in \eqn{NPE(pt1,r)}, returns 0 otherwise
@@ -32,10 +32,11 @@ returns 0 otherwise, where NPE(x,r) is the PE proximity region for point \eqn{x}
 PE proximity region is constructed with respect to the tetrahedron \code{th} and
 vertex regions are based on the center \code{M} which is circumcenter ("CC") or
 center of mass ("CM") of \code{th} with default="CM".
-\code{rv} is the index of the vertex region \code{pt1} resides, with default=NULL.
+\code{rv} is the index of the vertex region \code{pt1} resides, with default=\code{NULL}.
 
 If \code{pt1} and \code{pt2} are distint and either of them are outside \code{th}, it returns 0,
 but if they are identical, then it returns 1 regardless of their locations (i.e., it allows loops).
+
 See also (\insertCite{ceyhan:Phd-thesis,ceyhan:comp-geo-2010;textual}{pcds}).
 }
 \examples{
@@ -43,7 +44,7 @@ A<-c(0,0,0); B<-c(1,0,0); C<-c(1/2,sqrt(3)/2,0); D<-c(1/2,sqrt(3)/6,sqrt(6)/3)
 #A<-runif(3); B<-runif(3); C<-runif(3); D<-runif(3)
 #A<-runif(3,1,100); B<-runif(3,1,100); C<-runif(3,1,100); D<-runif(3,1,100)
 tetra<-rbind(A,B,C,D)
-n<-20
+n<-10 #try also n<-20
 dat<-runif.tetra(n,tetra)$g
 
 M<-"CM"

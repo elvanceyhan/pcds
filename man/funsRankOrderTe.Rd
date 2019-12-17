@@ -26,7 +26,7 @@ A list with two elements
 \code{rank.d2e.Te} finds the ranks of the distances of points in data, \code{Dt}, to the edges of the standard equilateral triangle
 \eqn{T_e=T((0,0),(1,0),(1/2,\sqrt{3}/2))}
 
-\code{dec} is a logical argument, default is TRUE, so the ranks are for decreasing distances, if FALSE it will be
+\code{dec} is a logical argument, default is \code{TRUE}, so the ranks are for decreasing distances, if \code{FALSE} it will be
 in increasing distances.
 
 \code{order.d2e.Te} finds the orders of the distances of points in data, \code{Dt}, to the edges of \eqn{T_e}. The arguments are

@@ -26,7 +26,7 @@ as \code{k} in the function arguments.}
 \item{IndUBdom}{The indicator for the upper bound for domination number of CS-PCD being the
 specified value \code{k} or not. It returns 1 if the upper bound is \code{k}, and 0 otherwise.}
 \item{ind.domset}{The vertices (i.e., data points) in the dominating set of size \code{k} if it exists,
-otherwise it is NULL.}
+otherwise it is \code{NULL}.}
 }
 \description{
 Returns I(domination number of CS-PCD is less than or equal to \code{k}) where the vertices of the CS-PCD are the data points \code{Dt},
@@ -37,12 +37,15 @@ CS proximity region is constructed with respect to the standard equilateral tria
 expansion parameter \eqn{t>0} and edge regions are based on the center \eqn{M=(m_1,m_2)}
 in Cartesian coordinates or \eqn{M=(\alpha,\beta,\gamma)} in barycentric coordinates in the interior of \eqn{T_e};
 default is \eqn{M=(1,1,1)} i.e. the center of mass of \eqn{T_e} (which is equivalent to the circumcenter of \eqn{T_e}).
+
 Edges of \eqn{T_e}, \eqn{AB}, \eqn{BC}, \eqn{AC}, are also labeled as 3, 1, and 2, respectively.
 Loops are allowed in the digraph.
 It takes a long time for large number of vertices (i.e., large number of row numbers).
+
 See also (\insertCite{ceyhan:mcap2012;textual}{pcds}).
 }
 \examples{
+\donttest{
 A<-c(0,0); B<-c(1,0); C<-c(1/2,sqrt(3)/2);
 Te<-rbind(A,B,C);
 n<-10
@@ -73,6 +76,7 @@ IndCSdomUBTe(rbind(dat,dat),3,t,M)
 
 dat.fr<-data.frame(a=dat)
 IndCSdomUBTe(dat.fr,1,t,M)
+}
 
 }
 \references{

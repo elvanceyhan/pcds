@@ -22,6 +22,7 @@ infinity (i.e., asymptotic probability of domination number=2).
 PE proximity regions are contructed with respect to the triangle with the expansion parameter \eqn{r \ge 1} and
 M-vertex regions where M is the vertex that renders the asymptotic distribution of the domination
 number non-degenerate for the given value of \code{r} in \eqn{(1,1.5]}.
+
 See also (\insertCite{ceyhan:Phd-thesis,ceyhan:masa-2007,ceyhan:dom-num-NPE-Spat2011;textual}{pcds}).
 }
 \examples{
@@ -30,7 +31,7 @@ Pg2PEtri(r=1.4999999999)
 
 Pg2PEtri(r=1.5) / Pg2PEtri(r=1.4999999999)
 
-rseq<-seq(1.01,1.49999999999,l=100)
+rseq<-seq(1.01,1.49999999999,l=20) #try also l=100
 lrseq<-length(rseq)
 
 pg2<-vector()

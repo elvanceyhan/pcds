@@ -33,7 +33,7 @@ Vertices of the basic triangle \eqn{T_b} are labeled according to the row number
 vertex is recorded, i.e., as 1=(0,0), 2=(1,0),and 3=\eqn{(c_1,c_2)}.
 
 
-If the point, \code{p}, is not inside \eqn{T_b}, then the function yields NA as output.
+If the point, \code{p}, is not inside \eqn{T_b}, then the function yields \code{NA} as output.
 The corresponding vertex region is the polygon with the vertex, \code{M}, and projections from \code{M}
 to the edges on the lines joining vertices and \code{M}.
 That is, \eqn{rv=1} has vertices (0,0),D3,M,D2; \eqn{rv=2} has vertices (1,0),D1,M,D3; and
@@ -43,6 +43,7 @@ Any given triangle can be mapped to the basic triangle
 by a combination of rigid body motions (i.e., translation, rotation and reflection) and scaling,
 preserving uniformity of the points in the original triangle. Hence basic triangle is useful for simulation
 studies under the uniformness hypothesis.
+
 See also (\insertCite{ceyhan:Phd-thesis,ceyhan:comp-geo-2010,ceyhan:mcap2012;textual}{pcds}).
 }
 \examples{
@@ -60,7 +61,7 @@ rv.bastri.cent(P,c1,c2,M)
 P<-c(.5,.26)
 rv.bastri.cent(P,c1,c2,M)
 
-n<-20
+n<-10 #try also n<-20
 #set.seed(1)
 dat<-runif.bastri(n,c1,c2)$g
 #dat<-cbind(runif(n),runif(n))

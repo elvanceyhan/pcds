@@ -22,6 +22,7 @@ row \eqn{i} is the projection  point into edge \eqn{i}, for \eqn{i=1,2,3}.
 Returns the projections from a general center \eqn{M=(m_1,m_2)} in Cartesian coordinates or \eqn{M=(\alpha,\beta,\gamma)} in
 barycentric coordinates in the interior of a triangle to the edges on the extension of the lines joining
 \code{M} to the vertices (see the examples for an illustration).
+
 See also (\insertCite{ceyhan:Phd-thesis,ceyhan:comp-geo-2010,ceyhan:mcap2012;textual}{pcds}).
 }
 \examples{

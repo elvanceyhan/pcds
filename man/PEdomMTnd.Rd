@@ -30,16 +30,18 @@ in barycentric coordinates in the interior of each Delaunay triangle or based on
 circumcenter of each Delaunay triangle (default for \eqn{M=(1,1,1)} which is the center M
 where \code{M} is one of the 3 centers that renders the asymptotic distribution of domination number
 to be non-degenerate for a given value of \code{r} in \eqn{(1,1.5)} and \code{M} is center of mass for \eqn{r=1.5}.
+
 Convex hull of \code{Yp} is partitioned by the Delaunay triangles based on \code{Yp} points
 (i.e., multiple triangles are the set of these Delaunay triangles whose union constitutes the
 convex hull of \code{Yp} points). Loops are allowed for the domination number.
+
 See (\insertCite{ceyhan:Phd-thesis,ceyhan:masa-2007,ceyhan:dom-num-NPE-Spat2011,ceyhan:mcap2012;textual}{pcds}) more on the domination number of
 PE-PCDs. Also see (\insertCite{okabe:2000,ceyhan:comp-geo-2010,renka:1996;textual}{pcds}) for more on Delaunay triangulation and
 the TRIPACK algorithm.
 }
 \examples{
-nx<-100
-ny<-10
+#nx is number of X points (target) and ny is number of Y points (nontarget)
+nx<-20; ny<-4; #try also nx<-40; ny<-10 or nx<-1000; ny<-10;
 r<-1.5
 #r<-2
 

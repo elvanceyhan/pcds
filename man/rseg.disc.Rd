@@ -6,15 +6,8 @@
 
 Generation of points segregated (in a radial or circular fashion) from a given set of points}
 \usage{
-rseg.disc(
-  n,
-  Y,
-  e,
-  a1 = min(Y[, 1]),
-  a2 = max(Y[, 1]),
-  b1 = min(Y[, 2]),
-  b2 = max(Y[, 2])
-)
+rseg.disc(n, Y, e, a1 = min(Y[, 1]), a2 = max(Y[, 1]), b1 = min(Y[,
+  2]), b2 = max(Y[, 2]))
 }
 \arguments{
 \item{n}{A positive integer representing the number of points to be generated}
@@ -41,7 +34,7 @@ A list with the elements
 segregated.}
 \item{gen.points}{The output set of generated points segregated from \code{Y} points}
 \item{tri.Y}{Logical output for triangulation based on \code{Y} points should be implemented or not.
-if TRUE triangulation based on \code{Y} points is to be implemented (default is set to FALSE).}
+if \code{TRUE} triangulation based on \code{Y} points is to be implemented (default is set to \code{FALSE}).}
 \item{desc.pat}{Description of the point pattern}
 \item{num.points}{The vector of two numbers, which are the number of generated points and
 the number of reference (i.e., \code{Y}) points.}
@@ -51,6 +44,7 @@ the number of reference (i.e., \code{Y}) points.}
 Generates \code{n} 2D points uniformly in \eqn{(a1-e,a1+e)x(a1-e,a1+e) \setminus B(y_i,e)} where
 \eqn{Y=(y_1,y_2,...,y_{n_y})} with \eqn{n_y} being number of \code{Y} points for various values of \code{e}
 under the segregation pattern and \eqn{B(y_i,e)} is the ball centered at \eqn{y_i} with radius \code{e}.
+
 Positive values of \code{e} yield realizations from the segregation pattern
 and nonpositive values of \code{e} provide a type of complete spatial randomness (CSR),
 \code{e} should not be too large to make the support of generated points empty,
@@ -60,8 +54,7 @@ and nonpositive values of \code{e} provide a type of complete spatial randomness
 \code{b2} is defaulted to the maximum of the y-coordinates of the \code{Y} points.
 }
 \examples{
-nx<-1000;
-ny<-10; #try 1 also
+nx<-20; ny<-4; #try also nx<-1000; ny<-10
 e<-.15;
 #with default bounding box (i.e., unit square)
 Y<-cbind(runif(ny),runif(ny))

@@ -5,16 +5,8 @@
 \title{The indicator for two points constituting a dominating set for Arc Slice Proximity Catch Digraphs
 (AS-PCDs) - one triangle case}
 \usage{
-Gam2AStri(
-  pt1,
-  pt2,
-  Dt,
-  tri,
-  M = "CC",
-  rv1 = NULL,
-  rv2 = NULL,
-  ch.data.pnts = FALSE
-)
+Gam2AStri(pt1, pt2, Dt, tri, M = "CC", rv1 = NULL, rv2 = NULL,
+  ch.data.pnts = FALSE)
 }
 \arguments{
 \item{pt1, pt2}{Two 2D points to be tested for constituting a dominating set of the AS-PCD}
@@ -28,10 +20,10 @@ a 3D point in  barycentric coordinates which serves as a center in the interior 
 default is \code{M}="CC" i.e. the circumcenter of \code{tri}}
 
 \item{rv1, rv2}{The indices of the vertices whose regions contains \code{pt1} and \code{pt2}, respectively.
-They take the vertex labels as 1,2,3 as in the row order of the vertices in \code{tri} (default is NULL for both)}
+They take the vertex labels as 1,2,3 as in the row order of the vertices in \code{tri} (default is \code{NULL} for both)}
 
 \item{ch.data.pnts}{A logical argument for checking whether points \code{pt1} and \code{pt2} are data points in \code{Dt} or not
-(default is FALSE)}
+(default is \code{FALSE})}
 }
 \value{
 I(\{\code{pt1,pt2}\} is a dominating set of the AS-PCD) where vertices of the AS-PCD are the 2D data set \code{Dt}),
@@ -42,8 +34,8 @@ Returns I(\{\code{pt1,pt2}\} is a dominating set of the AS-PCD) where vertices o
 the 2D data set \code{Dt}), that is, returns 1 if \{\code{pt1,pt2}\} is a dominating set of AS-PCD, returns 0 otherwise.
 
 AS proximity regions are defined with respect to the triangle \code{tri}.
-Point, \code{pt1}, is in the region of vertex \code{rv1} (default is NULL)
-and point, \code{pt2}, is in the region of vertex \code{rv2} (default is NULL); vertices (and hence \code{rv1} and \code{rv2})
+Point, \code{pt1}, is in the region of vertex \code{rv1} (default is \code{NULL})
+and point, \code{pt2}, is in the region of vertex \code{rv2} (default is \code{NULL}); vertices (and hence \code{rv1} and \code{rv2})
 are labeled as 1,2,3 in the order they are stacked row-wise in \code{tri}.
 
 Vertex regions are based on
@@ -52,8 +44,9 @@ or \eqn{M=(\alpha,\beta,\gamma)} in barycentric coordinates in the interior of t
 default is \code{M}="CC" the circumcenter of \code{tri}.
 
 \code{ch.data.pnts} is for checking whether points \code{pt1} and \code{pt2} are data
-points in \code{Dt} or not (default is FALSE), so by default this function checks whether the points \code{pt1} and \code{pt2}
+points in \code{Dt} or not (default is \code{FALSE}), so by default this function checks whether the points \code{pt1} and \code{pt2}
 would constitute dominating set if they actually were in the data set.
+
 See also (\insertCite{ceyhan:Phd-thesis,ceyhan:comp-geo-2010,ceyhan:mcap2012;textual}{pcds}).
 }
 \examples{

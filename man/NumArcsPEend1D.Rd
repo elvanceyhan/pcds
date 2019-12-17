@@ -26,6 +26,7 @@ End vertex regions are based on the end points of the interval,
 i.e., the corresponding vertex region is an interval as \eqn{(-\infty,a)} or \eqn{(b,\infty)} for the interval \eqn{(a,b)}.
 For the number of arcs, loops are not allowed, so arcs are only possible for points outside
 the interval, \code{int}, for this function.
+
 See also (\insertCite{ceyhan:metrika-2012;textual}{pcds}).
 }
 \examples{
@@ -43,7 +44,7 @@ NumArcsPEend1D(dat,r=1.2,int)
 NumArcsPEend1D(dat,r=4,int)
 #NumArcsPEend1D(dat,r=.4,int) # r must be a scalar >= 1
 
-n<-20
+n<-10 #try also n<-20
 dat2<-runif(n,a-5,b+5)
 NumArcsPEend1D(dat2,r,int)
 

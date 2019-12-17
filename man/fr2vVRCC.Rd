@@ -13,8 +13,8 @@ fr2vVRCC(Dt, tri, ch.all.intri = FALSE)
 
 \item{tri}{Three 2D points, stacked row-wise, each row representing a vertex of the triangle}
 
-\item{ch.all.intri}{A logical argument (default=FALSE) to check whether all data points are inside
-the triangle \code{tri}. So if it is TRUE,
+\item{ch.all.intri}{A logical argument (default=\code{FALSE}) to check whether all data points are inside
+the triangle \code{tri}. So if it is \code{TRUE},
 the function checks if all data points are inside the closure of the triangle (i.e. interior and boundary
 combined) else it does not.}
 }
@@ -40,19 +40,22 @@ triangle \code{tri}.}
 \description{
 Returns the furthest data points among the data set, \code{Dt}, in each CC-vertex region from the vertex in the
 triangle, \eqn{tri=T(A,B,C)}. Vertex region labels/numbers correspond to the row number of the vertex in \code{tri}.
-\code{ch.all.intri} is for checking whether all data points are inside \code{tri} (default is FALSE).
-If some of the data points are not inside \code{tri} and \code{ch.all.intri}=TRUE, then the function yields
+\code{ch.all.intri} is for checking whether all data points are inside \code{tri} (default is \code{FALSE}).
+
+If some of the data points are not inside \code{tri} and \code{ch.all.intri}=\code{TRUE}, then the function yields
 an error message.
-If some of the data points are not inside \code{tri} and \code{ch.all.intri}=FALSE, then the function yields
-the closest points to edges among the data points inside \code{tri} (yields NA if there are no data points
-inside \code{tri}). See also (\insertCite{ceyhan:Phd-thesis,ceyhan:mcap2012;textual}{pcds}).
+If some of the data points are not inside \code{tri} and \code{ch.all.intri}=\code{FALSE}, then the function yields
+the closest points to edges among the data points inside \code{tri} (yields \code{NA} if there are no data points
+inside \code{tri}).
+
+See also (\insertCite{ceyhan:Phd-thesis,ceyhan:mcap2012;textual}{pcds}).
 }
 \examples{
 A<-c(1,1); B<-c(2,0); C<-c(1.5,2);
 #A<-runif(2); B<-runif(2); C<-runif(2);
 #A<-runif(2,1,100); B<-runif(2,1,100); C<-runif(2,1,100);
 Tr<-rbind(A,B,C);
-n<-20
+n<-10 #try also n<-20
 
 #set.seed(1)
 dat<-runif.tri(n,Tr)$g

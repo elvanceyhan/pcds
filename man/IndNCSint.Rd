@@ -28,12 +28,13 @@ Returns I(\code{x2} in \eqn{NCS(x1,t,c)}) for points \code{x1} and \code{x2}, th
 returns 0 otherwise, where \eqn{NCS(x,t,c)} is the CS proximity region for point \eqn{x} with expansion parameter \eqn{t>0}
 and centrality parameter \code{c} in \eqn{(0,1)}.
 
- CS proximity region is constructed with respect to the
+CS proximity region is constructed with respect to the
 interval \eqn{(a,b)}. This function works whether \code{x1} and \code{x2} are inside or outside the interval \code{int}.
 
 Vertex regions for middle intervals are based on the center associated with the centrality parameter
 \code{c} in \eqn{(0,1)}. If \code{x1} and \code{x2} are identical, then it returns 1 regardless of their locations
 (i.e., loops are allowed in the digraph).
+
 See also (\insertCite{ceyhan:revstat-2016;textual}{pcds}).
 }
 \examples{

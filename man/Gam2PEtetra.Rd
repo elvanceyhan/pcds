@@ -5,17 +5,8 @@
 \title{The indicator for two 3D points constituting a dominating set for Proportional Edge Proximity Catch Digraphs
 (PE-PCDs) - one tetrahedron case}
 \usage{
-Gam2PEtetra(
-  pt1,
-  pt2,
-  Dt,
-  r,
-  th,
-  M = "CM",
-  rv1 = NULL,
-  rv2 = NULL,
-  ch.data.pnts = FALSE
-)
+Gam2PEtetra(pt1, pt2, Dt, r, th, M = "CM", rv1 = NULL, rv2 = NULL,
+  ch.data.pnts = FALSE)
 }
 \arguments{
 \item{pt1, pt2}{Two 3D points to be tested for constituting a dominating set of the PE-PCD}
@@ -30,10 +21,10 @@ Gam2PEtetra(
 Currently it only takes "CC" for circumcenter and "CM" for center of mass; default="CM"}
 
 \item{rv1, rv2}{The indices of the vertices whose regions contains \code{pt1} and \code{pt2}, respectively.
-They take the vertex labels as 1,2,3,4 as in the row order of the vertices in th (default is NULL for both)}
+They take the vertex labels as 1,2,3,4 as in the row order of the vertices in th (default is \code{NULL} for both)}
 
 \item{ch.data.pnts}{A logical argument for checking whether both points \code{pt1} and \code{pt2} are
-data points in \code{Dt} or not (default is FALSE)}
+data points in \code{Dt} or not (default is \code{FALSE})}
 }
 \value{
 I(\{\code{pt1,pt2}\} is a dominating set of the PE-PCD) where the vertices of the PE-PCD are the 3D data set \code{Dt}),
@@ -42,20 +33,24 @@ that is, returns 1 if \{\code{pt1,pt2}\} is a dominating set of PE-PCD, returns 
 \description{
 Returns I(\{\code{pt1,pt2}\} is a dominating set of the PE-PCD) where the vertices of the PE-PCD are the 3D data set \code{Dt} in the tetrahedron \code{th}, that is,
 returns 1 if \{\code{pt1,pt2}\} is a dominating set of PE-PCD, returns 0 otherwise.
-Point, \code{pt1}, is in the region of vertex \code{rv1} (default is NULL) and point, \code{pt2}, is in the region of vertex \code{rv2}
-(default is NULL); vertices (and hence \code{rv1} and \code{rv2}) are labeled as 1,2,3,4 in the order they are stacked
+
+Point, \code{pt1}, is in the region of vertex \code{rv1} (default is \code{NULL}) and point, \code{pt2}, is in the region of vertex \code{rv2}
+(default is \code{NULL}); vertices (and hence \code{rv1} and \code{rv2}) are labeled as 1,2,3,4 in the order they are stacked
 row-wise in \code{th}.
 
 PE proximity region is constructed with respect to the tetrahedron \code{th} with expansion parameter \eqn{r \ge 1}
 and vertex regions are based on center of mass (M="CM") or circumcenter (M="CC") only.
 
-\code{ch.data.pnts} is for checking whether points \code{pt1} and \code{pt2} are both data points in \code{Dt} or not (default is FALSE),
+\code{ch.data.pnts} is for checking whether points \code{pt1} and \code{pt2} are both data points in \code{Dt} or not (default is \code{FALSE}),
 so by default this function checks whether the points \code{pt1} and \code{pt2} would constitute a dominating set
-if they actually were both in the data set. See also
-(\insertCite{ceyhan:Phd-thesis,ceyhan:comp-geo-2010;textual}{pcds}).
+if they actually were both in the data set.
+
+See also (\insertCite{ceyhan:Phd-thesis,ceyhan:comp-geo-2010;textual}{pcds}).
 }
 \examples{
 \dontrun{
+#the examples are put inside \dontrun{} to speed the example check,
+#otherwise the below code works fine
 A<-c(0,0,0); B<-c(1,0,0); C<-c(1/2,sqrt(3)/2,0); D<-c(1/2,sqrt(3)/6,sqrt(6)/3)
 #A<-runif(3); B<-runif(3); C<-runif(3); D<-runif(3)
 #A<-runif(3,1,100); B<-runif(3,1,100); C<-runif(3,1,100); D<-runif(3,1,100)

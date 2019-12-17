@@ -34,6 +34,7 @@ interval \eqn{(a,b)}. This function works whether \code{x1} and \code{x2} are in
 Vertex regions for middle intervals are based on the center associated with the centrality parameter \code{c} in \eqn{(0,1)}.
 If \code{x1} and \code{x2} are identical, then it returns 1 regardless of their locations
 (i.e., loops are allowed in the digraph).
+
 See also (\insertCite{ceyhan:metrika-2012;textual}{pcds}).
 }
 \examples{

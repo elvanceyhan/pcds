@@ -15,12 +15,12 @@ int.circ.line(pt1, pt2, cent, rad)
 }
 \value{
 point(s) of intersection between the circle and the line (if they do not intersect, the function
-yields NULL as the output)
+yields \code{NULL} as the output)
 }
 \description{
 Returns the intersection point(s) of a line and a circle. The line is determined by the two points
 \code{pt1} and \code{pt2} and the circle is centered at point \code{cent} and has radius \code{rad}.
-If the circle does not intersect the line, the function yields NULL;
+If the circle does not intersect the line, the function yields \code{NULL};
 if the circle intersects at only one point, it yields only that point;
 otherwise it yields both intersection points as output.
 When there are two intersection points, they are listed in the order of the x-coordinates of \code{pt1} and \code{pt2};
@@ -53,7 +53,7 @@ IPs<-int.circ.line(A,B,cent,rad)
 
 xr<-range(A[1],B[1],cent[1])
 xf<-(xr[2]-xr[1])*.1 #how far to go at the lower and upper ends in the x-coordinate
-x<-seq(xr[1]-rad-xf,xr[2]+rad+xf,l=100)
+x<-seq(xr[1]-rad-xf,xr[2]+rad+xf,l=20) #try also l=100
 lnAB<-Line(A,B,x)
 y<-lnAB$y
 

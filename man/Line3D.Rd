@@ -19,15 +19,15 @@ the straight line}
 (for the form: \eqn{x=x_0 + a t}, \eqn{y=y_0 + b t}, and \eqn{z=z_0 + c t} where \eqn{r_0=(x_0,y_0,z_0)} and \eqn{v=(a,b,c)} if \code{dir.vec}=T, else
 \eqn{v-r0=(a,b,c)})}
 
-\item{dir.vec}{A logical argument about \code{v}, if TRUE \code{v} is treated as a vector, else \code{v} is treated as a point
+\item{dir.vec}{A logical argument about \code{v}, if \code{TRUE} \code{v} is treated as a vector, else \code{v} is treated as a point
 and so the direction vector is taken to be \eqn{v-r0}}
 }
 \value{
 A list with the elements
 \item{desc}{A description of the line}
 \item{mtitle}{The "main" title for the plot of the line}
-\item{pts}{The input points that determine a line and/or a plane, NULL for this function.}
-\item{pnames}{The names of the input points that determine a line and/or a plane, NULL for this function.}
+\item{pts}{The input points that determine a line and/or a plane, \code{NULL} for this function.}
+\item{pnames}{The names of the input points that determine a line and/or a plane, \code{NULL} for this function.}
 \item{vecs}{The point \code{r0} and the vector \code{v} (if \code{dir.vec}=T) or the point v (if \code{dir.vec}=F). The first row is \code{r0}
 and the second row is \code{v}.}
 \item{vec.names}{The names of the point \code{r0} and the vector \code{v} (if \code{dir.vec}=T) or the point v (if \code{dir.vec}=F).}
@@ -44,6 +44,7 @@ in the direction of vector \code{v} (of if \code{v} is a point, in the direction
 with the parameter \code{t} being provided in vector \code{t}.
 }
 \examples{
+\donttest{
 A<-c(1,10,3); B<-c(1,1,3);
 #A<-runif(3); B<-runif(3);
 #A<-runif(3,1,100); B<-runif(3,1,100);
@@ -53,7 +54,7 @@ Line3D(A,B,.1,dir.vec=FALSE)
 
 tr<-range(vecs);
 tf<-(tr[2]-tr[1])*.1 #how far to go at the lower and upper ends in the x-coordinate
-tsq<-seq(-tf*10-tf,tf*10+tf,l=100)
+tsq<-seq(-tf*10-tf,tf*10+tf,l=20) #try also l=100
 
 lnAB3D<-Line3D(A,B,tsq)
 lnAB3D
@@ -94,6 +95,7 @@ plot3D::text3D(Dr[1]+Bv[1]/2,Dr[2]+Bv[2]/2,Dr[3]+3*zf+Bv[3]/2,
 labels="direction vector",add=TRUE)
 plot3D::text3D(Dr[1]+Bv[1]/2,Dr[2]+Bv[2]/2,Dr[3]+zf+Bv[3]/2,labels="v",add=TRUE)
 plot3D::text3D(0,0,0,labels="O",add=TRUE)
+}
 
 }
 \seealso{

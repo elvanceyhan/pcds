@@ -5,7 +5,8 @@
 \title{The indicator for a point being a dominating point for Proportional Edge Proximity Catch Digraphs (PE-PCDs)
 - one triangle case}
 \usage{
-Gam1PEtri(p, Dt, tri, r, M = c(1, 1, 1), rv = NULL, ch.data.pnt = FALSE)
+Gam1PEtri(p, Dt, tri, r, M = c(1, 1, 1), rv = NULL,
+  ch.data.pnt = FALSE)
 }
 \arguments{
 \item{p}{A 2D point that is to be tested for being a dominating point or not of the PE-PCD}
@@ -24,7 +25,7 @@ default is \eqn{M=(1,1,1)} i.e. the center of mass of \code{tri}}
 in the row order of the vertices in \code{tri}}
 
 \item{ch.data.pnt}{A logical argument for checking whether point \code{p} is a data point
-in \code{Dt} or not (default is FALSE)}
+in \code{Dt} or not (default is \code{FALSE})}
 }
 \value{
 I(\code{p} is a dominating point of the PE-PCD) where the vertices of the PE-PCD are the 2D data set \code{Dt},
@@ -33,7 +34,8 @@ that is, returns 1 if \code{p} is a dominating point, returns 0 otherwise
 \description{
 Returns I(\code{p} is a dominating point of the PE-PCD) where the vertices of the PE-PCD are the 2D data set \code{Dt} in the triangle \code{tri}, that is,
 returns 1 if \code{p} is a dominating point of PE-PCD, returns 0 otherwise.
-Point, \code{p}, is in the vertex region of vertex \code{rv} (default is NULL); vertices are labeled as 1,2,3
+
+Point, \code{p}, is in the vertex region of vertex \code{rv} (default is \code{NULL}); vertices are labeled as 1,2,3
 in the order they are stacked row-wise in \code{tri}.
 
 PE proximity region is constructed with respect to the triangle \code{tri} with expansion parameter \eqn{r \ge 1}
@@ -41,9 +43,10 @@ and vertex regions are based on center \eqn{M=(m_1,m_2)} in Cartesian coordinate
 \eqn{M=(\alpha,\beta,\gamma)} in barycentric coordinates in the interior of the triangle \code{tri}
 or based on the circumcenter of \code{tri}; default is \eqn{M=(1,1,1)} i.e. the center of mass of \code{tri}.
 
-\code{ch.data.pnt} is for checking whether point \code{p} is a data point in \code{Dt} or not (default is FALSE),
+\code{ch.data.pnt} is for checking whether point \code{p} is a data point in \code{Dt} or not (default is \code{FALSE}),
 so by default this function checks whether the point \code{p} would be a dominating point
 if it actually were in the data set.
+
 See also (\insertCite{ceyhan:Phd-thesis,ceyhan:masa-2007,ceyhan:dom-num-NPE-Spat2011,ceyhan:mcap2012;textual}{pcds}).
 }
 \examples{
@@ -51,7 +54,7 @@ A<-c(1,1); B<-c(2,0); C<-c(1.5,2);
 #A<-runif(2); B<-runif(2); C<-runif(2);
 #A<-runif(2,1,100); B<-runif(2,1,100); C<-runif(2,1,100);
 Tr<-rbind(A,B,C);
-n<-20
+n<-10 #try also n<-20
 
 #set.seed(1)
 dat<-runif.tri(n,Tr)$g

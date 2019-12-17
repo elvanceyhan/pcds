@@ -17,7 +17,7 @@ IndNCStri.alt(pt1, pt2, t, tri, re = NULL)
 
 \item{tri}{Three 2D points, stacked row-wise, each row representing a vertex of the triangle}
 
-\item{re}{Index of the CM-edge region containing the point \code{pt}, either 1, 2, 3 or NULL, default=NULL but
+\item{re}{Index of the CM-edge region containing the point \code{pt}, either 1, 2, 3 or \code{NULL}, default=\code{NULL} but
 must be provided (row-wise) as vertices \eqn{(y_1,y_2,y_3)} for \eqn{re=3} as \eqn{(y_2,y_3,y_1)} for
 \eqn{re=1} and as \eqn{(y_1,y_3,y_2)} for \eqn{re=2} for triangle \eqn{T(y_1,y_2,y_3)}}
 }
@@ -29,11 +29,12 @@ Returns I(\code{pt2} is in \eqn{NCS(pt1,t)}) for points \code{pt1} and \code{pt2
 returns 0 otherwise, where \eqn{NCS(x,t)} is the CS proximity region for point \eqn{x} with the expansion parameter \eqn{t>0}.
 
 CS proximity region is constructed with respect to the triangle \code{tri} and edge regions are based on the
-center of mass, CM. \code{re} is the index of the CM-edge region \code{pt} resides, with default=NULL but must be provided as
+center of mass, CM. \code{re} is the index of the CM-edge region \code{pt} resides, with default=\code{NULL} but must be provided as
 vertices \eqn{(y_1,y_2,y_3)} for \eqn{re=3} as rbind(y2,y3,y1) for \eqn{re=1} and as rbind(y1,y3,y2) for \eqn{re=2} for triangle \eqn{T(y_1,y_2,y_3)}.
 
 If \code{pt1} and \code{pt2} are distint and either of them are outside \code{tri}, it returns 0,
 but if they are identical, then it returns 1 regardless of their locations (i.e., it allows loops).
+
 See also (\insertCite{ceyhan:Phd-thesis,ceyhan:arc-density-CS,ceyhan:test2014;textual}{pcds}).
 }
 \examples{

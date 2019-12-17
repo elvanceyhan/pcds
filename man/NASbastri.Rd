@@ -16,7 +16,7 @@ NASbastri(pt, c1, c2, M = "CC", rv = NULL, dec = 4)
 a 3D point in barycentric coordinates which serves as a center in the interior of the triangle \eqn{T_b};
 default is \code{M}="CC" i.e. the circumcenter of \eqn{T_b}}
 
-\item{rv}{The index of the \code{M}-vertex region containing the point, either 1, 2, 3 or NULL (default is NULL)}
+\item{rv}{The index of the \code{M}-vertex region containing the point, either 1, 2, 3 or \code{NULL} (default is \code{NULL})}
 
 \item{dec}{a positive integer the number of decimals (default is 4) to round the barycentric coordinates when checking whether
 the end points fall on the boundary of the triangle \eqn{T_b} or not}
@@ -37,9 +37,9 @@ where \code{c1} is in \eqn{[0,1/2]}, \eqn{c_2>0} and \eqn{(1-c_1)^2+c_2^2 \le 1}
 Vertex regions are based on the center \code{M}="CC" for circumcenter of \eqn{T_b}; or \eqn{M=(m_1,m_2)} in Cartesian
 coordinates or \eqn{M=(\alpha,\beta,\gamma)} in barycentric coordinates in the interior of \eqn{T_b};
 default is \code{M}="CC" the circumcenter of \eqn{T_b}.
-\code{rv} is the index of the vertex region \code{pt} resides, with default=NULL.
+\code{rv} is the index of the vertex region \code{pt} resides, with default=\code{NULL}.
 
-If \code{pt} is outside \eqn{T_b}, it returns NULL for the proximity region.
+If \code{pt} is outside \eqn{T_b}, it returns \code{NULL} for the proximity region.
 \code{dec} is the number of decimals (default is 4) to round the barycentric coordinates when checking whether
 the end points fall on the boundary of the triangle \eqn{T_b} or not (so as not to miss the intersection points
 due to precision in the decimals).
@@ -48,6 +48,7 @@ Any given triangle can be mapped to the basic triangle
 by a combination of rigid body motions (i.e., translation, rotation and reflection) and scaling,
 preserving uniformity of the points in the original triangle. Hence basic triangle is useful for simulation
 studies under the uniformness hypothesis.
+
 See also (\insertCite{ceyhan:Phd-thesis,ceyhan:comp-geo-2010,ceyhan:mcap2012;textual}{pcds}).
 }
 \examples{

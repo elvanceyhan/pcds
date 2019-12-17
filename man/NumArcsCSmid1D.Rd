@@ -32,6 +32,7 @@ centrality parameter \code{c} in \eqn{(0,1)}.
 Vertex regions are based on the center associated with the centrality parameter \code{c} in \eqn{(0,1)}.
 For the interval, \eqn{int=(a,b)}, the parameterized center is \eqn{M_c=a+c(b-a)} and for the number of arcs,
 loops are not allowed so arcs are only possible for points inside the middle interval \code{int} for this function.
+
 See also (\insertCite{ceyhan:revstat-2016;textual}{pcds}).
 }
 \examples{
@@ -50,7 +51,7 @@ NumArcsCSmid1D(dat,t=1.5,c,int)
 NumArcsCSmid1D(dat,t,c,int+5)
 NumArcsCSmid1D(dat,t,c,int+10)
 
-n<-20
+n<-10 #try also n<-20
 dat<-runif(n,a-5,b+5)
 NumArcsCSint(dat,t,c,int)
 

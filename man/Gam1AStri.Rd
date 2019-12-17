@@ -22,7 +22,7 @@ default is \code{M}="CC" i.e. the circumcenter of \code{tri}}
 in the row order of the vertices in \code{tri}}
 
 \item{ch.data.pnt}{A logical argument for checking whether point \code{p} is a data point in \code{Dt} or not
-(default is FALSE)}
+(default is \code{FALSE})}
 }
 \value{
 I(\code{p} is a dominating point of the AS-PCD whose vertices are the 2D data set \code{Dt}),
@@ -31,7 +31,7 @@ that is, returns 1 if \code{p} is a dominating point of the AS-PCD, returns 0 ot
 \description{
 Returns I(\code{p} is a dominating point of the AS-PCD whose vertices are the 2D data set \code{Dt}),
 that is, returns 1 if \code{p} is a dominating point of AS-PCD, returns 0 otherwise.
-Point, \code{p}, is in the region of vertex \code{rv} (default is NULL); vertices are labeled as 1,2,3
+Point, \code{p}, is in the region of vertex \code{rv} (default is \code{NULL}); vertices are labeled as 1,2,3
 in the order they are stacked row-wise in \code{tri}.
 
 AS proximity regions are defined with respect to the
@@ -39,9 +39,10 @@ triangle \code{tri} and vertex regions are based on the center \code{M}="CC" for
 or \eqn{M=(\alpha,\beta,\gamma)} in barycentric coordinates in the interior of the triangle \code{tri};
 default is \code{M}="CC" the circumcenter of \code{tri}.
 
-\code{ch.data.pnt} is for checking whether point \code{p} is a data point in \code{Dt} or not (default is FALSE),
+\code{ch.data.pnt} is for checking whether point \code{p} is a data point in \code{Dt} or not (default is \code{FALSE}),
 so by default this function checks whether the point \code{p} would be a dominating point
 if it actually were in the data set.
+
 See also (\insertCite{ceyhan:Phd-thesis,ceyhan:comp-geo-2010,ceyhan:mcap2012;textual}{pcds}).
 }
 \examples{

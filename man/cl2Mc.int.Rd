@@ -38,10 +38,13 @@ A list with the elements
 \description{
 Returns the closest data points among the data set, \code{Dt}, in each \eqn{M_c}-vertex region
 i.e., finds the closest points from right and left to \eqn{M_c} among points of the 1D data set \code{Dt} which reside in
-in the interval \eqn{int=(a,b)}. \eqn{M_c} is based on the centrality parameter \code{c} in \eqn{(0,1)},
+in the interval \eqn{int=(a,b)}.
+
+\eqn{M_c} is based on the centrality parameter \code{c} in \eqn{(0,1)},
 so that \eqn{100c} \% of the length of interval is to the left of \eqn{M_c} and \eqn{100(1-c)} \% of the length of the interval
 is to the right of \eqn{M_c}. That is, for the interval \eqn{(a,b)}, \eqn{M_c=a+c(b-a)}. If there are no points from Dt to
 the left of \eqn{M_c} in the interval, then it yields NA, and likewise for the right of \eqn{M_c} in the interval.
+
 See also (\insertCite{ceyhan:metrika-2012;textual}{pcds}).
 }
 \examples{
@@ -76,7 +79,7 @@ points(cbind(dat,0))
 points(cbind(c(cMc$Ext),0),pch=4,col=2)
 text(cbind(c(a,b,Mc),-0.1),c("a","b","Mc"))
 
-n<-20
+n<-10 #try also n<-20
 dat<-runif(n,a-5,b+5)
 cl2Mc.int(dat,c(a,b),c)
 

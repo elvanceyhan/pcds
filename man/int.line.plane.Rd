@@ -20,6 +20,7 @@ Returns the point of the intersection of the line determined by the 3D points \c
 by 3D points \code{x3}, \code{x4}, and \code{x5}.
 }
 \examples{
+\donttest{
 L1<-c(2,4,6); L2<-c(1,3,5); A<-c(1,10,3); B<-c(1,1,3); C<-c(3,9,12)
 #L1<-runif(3); L2<-runif(3); A<-runif(3); B<-runif(3); C<-runif(3)
 #L1<-runif(3,1,100); L2<-runif(3,1,100);
@@ -30,7 +31,7 @@ pts<-rbind(L1,L2,A,B,C,Pint)
 
 tr<-max(Dist(L1,L2),Dist(L1,Pint),Dist(L2,Pint))
 tf<-tr*1.1 #how far to go at the lower and upper ends in the x-coordinate
-tsq<-seq(-tf,tf,l=100)
+tsq<-seq(-tf,tf,l=20) #try also l=100
 
 lnAB3D<-Line3D(L1,L2,tsq)
 xl<-lnAB3D$x
@@ -40,8 +41,8 @@ zl<-lnAB3D$z
 xr<-range(pts[,1]); yr<-range(pts[,2])
 xf<-(xr[2]-xr[1])*.1 #how far to go at the lower and upper ends in the x-coordinate
 yf<-(yr[2]-yr[1])*.1 #how far to go at the lower and upper ends in the y-coordinate
-xp<-seq(xr[1]-xf,xr[2]+xf,l=100)
-yp<-seq(yr[1]-yf,yr[2]+yf,l=100)
+xp<-seq(xr[1]-xf,xr[2]+xf,l=20) #try also l=100
+yp<-seq(yr[1]-yf,yr[2]+yf,l=20) #try also l=100
 
 plABC<-Plane(A,B,C,xp,yp)
 z.grid<-plABC$z
@@ -58,7 +59,6 @@ xd<-Xlim[2]-Xlim[1]
 yd<-Ylim[2]-Ylim[1]
 zd<-Zlim[2]-Zlim[1]
 
-#library(plot3D)
 plot3D::persp3D(z = z.grid, x = xp, y = yp, theta =225, phi = 30, ticktype = "detailed"
         ,xlim=Xlim+xd*c(-.05,.05),ylim=Ylim+yd*c(-.05,.05),zlim=Zlim+zd*c(-.1,.1))
         #plane spanned by points A, B, C
@@ -66,6 +66,7 @@ plot3D::persp3D(z = z.grid, x = xp, y = yp, theta =225, phi = 30, ticktype = "de
 plot3D::points3D(pts[,1],pts[,2],pts[,3], pch = ".", col = "black", bty = "f", cex = 5,add=TRUE)
 plot3D::points3D(Pint[1],Pint[2],Pint[3], pch = "*", col = "red", bty = "f", cex = 5,add=TRUE)
 plot3D::lines3D(xl, yl, zl, bty = "g", cex = 2, ticktype = "detailed",add=TRUE)
+}
 
 }
 \seealso{

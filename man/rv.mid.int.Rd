@@ -22,10 +22,11 @@ the vertex index as \eqn{int=(rv=1,rv=2)}.}
 }
 \description{
 Returns the index of the vertex whose region contains point \code{pt} in
-the interval \eqn{int=(a,b)=(vertex\, 1,vertex\, 2)} with (parameterized) center \eqn{M_c} associated with
+the interval \eqn{int=(a,b)=(vertex 1,vertex 2)} with (parameterized) center \eqn{M_c} associated with
 the centrality parameter \code{c} in \eqn{(0,1)}; vertices of interval are labeled as 1 and 2 according to their
-order in the interval \code{int}. If the point, \code{pt}, is not inside \code{int}, then the function yields NA as output.
+order in the interval \code{int}. If the point, \code{pt}, is not inside \code{int}, then the function yields \code{NA} as output.
 The corresponding vertex region is the interval \eqn{(a,b)} as \eqn{(a,M_c)} and \eqn{(M_c,b)} where \eqn{M_c=a+c(b-a)}.
+
 See also (\insertCite{ceyhan:metrika-2012,ceyhan:revstat-2016;textual}{pcds}).
 }
 \examples{
@@ -45,7 +46,7 @@ rv.mid.int(4,c,int)
 rv.mid.int(0,c,int)
 rv.mid.int(-3,c,int)
 
-n<-20
+n<-10 #try also n<-20
 xr<-range(a,b,Mc)
 xf<-(xr[2]-xr[1])*.5
 #dat<-runif(n,a,b)

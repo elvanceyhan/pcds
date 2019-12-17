@@ -20,21 +20,25 @@ A list with two elements
 \description{
 Returns the index of the vertex whose region contains point \code{p} in
 a tetrahedron \eqn{th=T(A,B,C,D)} and vertex regions are based on the center of mass CM=(A+B+C+D)/4 of \code{th}.
-(see the plots in the example for illustrations). The vertices of the tetrahedron \code{th} are labeled as
+(see the plots in the example for illustrations).
+
+The vertices of the tetrahedron \code{th} are labeled as
 1=A, 2=B, 3=C, and 4=C also according to the row number the vertex is recorded in \code{th}.
 
-If the point, \code{p}, is not inside \code{th}, then the function yields NA as output.
+If the point, \code{p}, is not inside \code{th}, then the function yields \code{NA} as output.
 The corresponding vertex region is the simplex with the vertex, CM, and
 midpoints of the edges adjacent to the vertex.
+
 See also (\insertCite{ceyhan:Phd-thesis,ceyhan:comp-geo-2010;textual}{pcds}).
 }
 \examples{
+\donttest{
 A<-c(0,0,0); B<-c(1,0,0); C<-c(1/2,sqrt(3)/2,0); D<-c(1/2,sqrt(3)/6,sqrt(6)/3)
 #A<-runif(3); B<-runif(3); C<-runif(3); D<-runif(3)
 #A<-runif(3,1,100); B<-runif(3,1,100); C<-runif(3,1,100); D<-runif(3,1,100)
 tetra<-rbind(A,B,C,D)
 
-n<-20
+n<-10 #try also n<-20
 #Dt<-runif.stdtetra(n)$g
 Dt<-runif.tetra(n,tetra)$g
 #Dt<-cbind(runif(n),runif(n),runif(n))
@@ -57,7 +61,6 @@ zd<-Zlim[2]-Zlim[1]
 
 CM<-apply(tetra,2,mean)
 
-#library(plot3D)
 plot3D::scatter3D(tetra[,1],tetra[,2],tetra[,3], phi =0,theta=40, bty = "g",
 xlim=Xlim+xd*c(-.05,.05),ylim=Ylim+yd*c(-.05,.05), zlim=Zlim+zd*c(-.05,.05),
           pch = 20, cex = 1, ticktype = "detailed")
@@ -96,6 +99,7 @@ rv.tetraCM(P,tetra)
 
 dat.fr<-data.frame(a=tetra)
 rv.tetraCM(P,dat.fr)
+}
 
 }
 \references{

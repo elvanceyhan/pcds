@@ -38,13 +38,15 @@ Returns the six closest points among the data set, \code{Dt}, in the standard eq
 in regions \eqn{r_1} and \eqn{r_6}, it finds the closest point in each region to the line segment [A,CM]
 in regions \eqn{r_2} and \eqn{r_3}, it finds the closest point in each region to the line segment [B,CM] and
 in regions \eqn{r_4} and \eqn{r_5}, it finds the closest point in each region to the line segment [C,CM]
-where \eqn{CM=(A+B+C)/3} is the center of mass. See the example for this function or example for
-\code{rel.six.Te} function. If there is no data point in region \eqn{r_i}, then it returns "NA NA" for ith row in the extrema.
-\code{ch.all.intri} is for checking whether all data points are in \eqn{T_e} (default is FALSE)
+where \eqn{CM=(A+B+C)/3} is the center of mass.
+
+See the example for this function or example for
+\code{rel.six.Te} function. If there is no data point in region \eqn{r_i}, then it returns "\code{NA} \code{NA}" for ith row in the extrema.
+\code{ch.all.intri} is for checking whether all data points are in \eqn{T_e} (default is \code{FALSE}).
 }
 \examples{
 \dontrun{
-n<-100
+n<-10 #try also n<-100
 dat<-runifTe(n)$gen.points
 #dat<-cbind(runif(n),runif(n))
 #dat<-cbind(runif(n,1,2),runif(n,0,1))

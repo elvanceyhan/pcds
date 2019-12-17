@@ -19,8 +19,8 @@ IndCSTe(pt1, pt2, t, M = c(1, 1, 1), re = NULL)
 which serves as a center in the interior of the standard equilateral triangle \eqn{T_e}; default is \eqn{M=(1,1,1)} i.e.
 the center of mass of \eqn{T_e}}
 
-\item{re}{The index of the edge region in \eqn{T_e} containing the point, either 1, 2, 3 or NULL
-(default is NULL)}
+\item{re}{The index of the edge region in \eqn{T_e} containing the point, either 1, 2, 3 or \code{NULL}
+(default is \code{NULL})}
 }
 \value{
 I(\code{pt2} is in \eqn{NCS(pt1,t)}) for \code{pt1}, that is, returns 1 if \code{pt2} is in \eqn{NCS(pt1,t)}, returns 0 otherwise
@@ -33,10 +33,11 @@ CS proximity region is defined with respect to the standard equilateral triangle
 \eqn{T_e=T(v=1,v=2,v=3)=T((0,0),(1,0),(1/2,\sqrt{3}/2))} and edge regions are based on the center \eqn{M=(m_1,m_2)}
 in Cartesian coordinates or \eqn{M=(\alpha,\beta,\gamma)} in barycentric coordinates in the interior of \eqn{T_e};
 default is \eqn{M=(1,1,1)} i.e. the center of mass of \eqn{T_e}.
-\code{re} is the index of the edge region \code{pt1} resides, with default=NULL.
+\code{re} is the index of the edge region \code{pt1} resides, with default=\code{NULL}.
 
 If \code{pt1} and \code{pt2} are distint and either of them are outside \eqn{T_e}, it returns 0,
 but if they are identical, then it returns 1 regardless of their locations (i.e., it allows loops).
+
 See also (\insertCite{ceyhan:Phd-thesis,ceyhan:arc-density-CS,ceyhan:test2014;textual}{pcds}).
 }
 \examples{

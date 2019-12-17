@@ -10,7 +10,7 @@ angle3pnts(a, b, c, radian = TRUE)
 \item{a, b, c}{Three 2D points which represent the intersecting line segments \eqn{[ba]} and \eqn{[bc]}.
 The smaller angle between these line segments is to be computed.}
 
-\item{radian}{A logical argument (default=TRUE). If TRUE, the (smaller) angle between the line segments
+\item{radian}{A logical argument (default=\code{TRUE}). If \code{TRUE}, the (smaller) angle between the line segments
 \eqn{[ba]} and \eqn{[bc]} is provided in radians, else it is provided in degrees.}
 }
 \value{
@@ -19,7 +19,7 @@ angle in radians or degrees between the line segments \eqn{[ba]} and \eqn{[bc]}
 \description{
 Returns the angle in radians or degrees between two vectors or line segments at the point of
 intersection. The line segments are \eqn{[ba]} and \eqn{[bc]} when the arguments of the function are given as \code{a,b,c}.
-\code{radian} is a logical argument (default=TRUE) which yields the angle in radians if TRUE, and in degrees if FALSE.
+\code{radian} is a logical argument (default=\code{TRUE}) which yields the angle in radians if \code{TRUE}, and in degrees if \code{FALSE}.
 The smaller of the angle between the line segments is provided by the function.
 }
 \examples{
@@ -52,7 +52,6 @@ plot(pts,asp=1,pch=1,xlab="x",ylab="y",
 xlim=Xlim+xd*c(-.05,.05),ylim=Ylim+yd*c(-.05,.05))
 L<-rbind(B,B); R<-rbind(A,C)
 segments(L[,1], L[,2], R[,1], R[,2], lty=2)
-#library(plotrix)
 plotrix::draw.arc(B[1],B[2],radius=xd*.1,deg1=ang1,deg2=ang2)
 txt<-rbind(A,B,C)
 text(txt+cbind(rep(xd*.05,nrow(txt)),rep(-xd*.02,nrow(txt))),c("A","B","C"))

@@ -5,17 +5,8 @@
 \title{The indicator for two points constituting a dominating set for Proportional Edge Proximity Catch Digraphs
 (PE-PCDs) - one triangle case}
 \usage{
-Gam2PEtri(
-  pt1,
-  pt2,
-  Dt,
-  tri,
-  r,
-  M = c(1, 1, 1),
-  rv1 = NULL,
-  rv2 = NULL,
-  ch.data.pnts = FALSE
-)
+Gam2PEtri(pt1, pt2, Dt, tri, r, M = c(1, 1, 1), rv1 = NULL,
+  rv2 = NULL, ch.data.pnts = FALSE)
 }
 \arguments{
 \item{pt1, pt2}{Two 2D points to be tested for constituting a dominating set of the PE-PCD}
@@ -31,10 +22,10 @@ which serves as a center in the interior of the triangle \code{tri} or the circu
 default is \eqn{M=(1,1,1)} i.e. the center of mass of \code{tri}}
 
 \item{rv1, rv2}{The indices of the vertices whose regions contains \code{pt1} and \code{pt2}, respectively.
-They take the vertex labels as 1,2,3 as in the row order of the vertices in \code{tri} (default is NULL for both)}
+They take the vertex labels as 1,2,3 as in the row order of the vertices in \code{tri} (default is \code{NULL} for both)}
 
 \item{ch.data.pnts}{A logical argument for checking whether points \code{pt1} and \code{pt2} are
-data points in \code{Dt} or not (default is FALSE)}
+data points in \code{Dt} or not (default is \code{FALSE})}
 }
 \value{
 I(\{\code{pt1,pt2}\} is a dominating set of the PE-PCD) where the vertices of the PE-PCD are the 2D data set \code{Dt}),
@@ -44,8 +35,9 @@ that is, returns 1 if \{\code{pt1,pt2}\} is a dominating set of PE-PCD, returns 
 Returns I(\{\code{pt1,pt2}\} is a dominating set of the PE-PCD) where the vertices of the PE-PCD
 are the 2D data set \code{Dt}), that is, returns 1 if \{\code{pt1,pt2}\} is a dominating set of PE-PCD,
 returns 0 otherwise.
-Point, \code{pt1}, is in the region of vertex \code{rv1} (default is NULL) and point, \code{pt2}, is in the region of vertex \code{rv2}
-(default is NULL); vertices (and hence \code{rv1} and \code{rv2}) are labeled as 1,2,3 in the order they are stacked
+
+Point, \code{pt1}, is in the region of vertex \code{rv1} (default is \code{NULL}) and point, \code{pt2}, is in the region of vertex \code{rv2}
+(default is \code{NULL}); vertices (and hence \code{rv1} and \code{rv2}) are labeled as 1,2,3 in the order they are stacked
 row-wise in \code{tri}.
 
 PE proximity regions are defined with respect to the triangle \code{tri} and vertex regions
@@ -53,8 +45,9 @@ are based on center \eqn{M=(m_1,m_2)} in Cartesian coordinates or \eqn{M=(\alpha
 in the interior of the triangle \code{tri} or circumcenter of \code{tri}; default is \eqn{M=(1,1,1)} i.e. the center of mass of \code{tri}.
 
 \code{ch.data.pnts} is for checking whether points \code{pt1} and \code{pt2} are data points in \code{Dt} or not
-(default is FALSE), so by default this function checks whether the points \code{pt1} and \code{pt2} would be a
+(default is \code{FALSE}), so by default this function checks whether the points \code{pt1} and \code{pt2} would be a
 dominating set if they actually were in the data set.
+
 See also (\insertCite{ceyhan:Phd-thesis,ceyhan:masa-2007,ceyhan:dom-num-NPE-Spat2011,ceyhan:mcap2012;textual}{pcds}).
 }
 \examples{
@@ -62,7 +55,7 @@ A<-c(1,1); B<-c(2,0); C<-c(1.5,2);
 #A<-runif(2); B<-runif(2); C<-runif(2);
 #A<-runif(2,1,100); B<-runif(2,1,100); C<-runif(2,1,100);
 Tr<-rbind(A,B,C);
-n<-20
+n<-10 #try also n<-20
 
 #set.seed(1)
 dat<-runif.tri(n,Tr)$g

@@ -2,7 +2,7 @@
 % Please edit documentation in R/PCDFunctions.r
 \name{ArcsCStri}
 \alias{ArcsCStri}
-\title{An object of class "Digraphs":
+\title{An object of class "PCDs":
 
 The arcs of Central Similarity Proximity Catch Digraphs (CS-PCD) for 2D data - one triangle case}
 \usage{
@@ -44,6 +44,7 @@ It also provides various descriptions and quantities about the arcs of the CS-PC
 such as number of arcs, arc density, etc. Edge regions are based on center \eqn{M=(m_1,m_2)}
 in Cartesian coordinates or \eqn{M=(\alpha,\beta,\gamma)} in barycentric coordinates in the interior of
 the triangle \code{tri}; default is \eqn{M=(1,1,1)} i.e. the center of mass of \code{tri}.
+
 See also (\insertCite{ceyhan:Phd-thesis,ceyhan:arc-density-CS,ceyhan:test2014;textual}{pcds}).
 }
 \examples{

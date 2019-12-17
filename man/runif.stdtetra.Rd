@@ -19,7 +19,7 @@ A list with the elements
 \item{tess.points}{The vertices of the support region of the uniformly generated points, it is the
 standard regular tetrahedron \eqn{T_h} for this function}
 \item{gen.points}{The output set of generated points uniformly in the standard regular tetrahedron \eqn{T_h}.}
-\item{out.region}{The outer region which contains the support region, NULL for this function.}
+\item{out.region}{The outer region which contains the support region, \code{NULL} for this function.}
 \item{desc.pat}{Description of the point pattern from which points are to be generated}
 \item{num.points}{The vector of two numbers, which are the number of generated points and the number
 of vertices of the support points (here it is 4).}
@@ -28,13 +28,14 @@ of vertices of the support points (here it is 4).}
 }
 \description{
 Generates \code{k} points uniformly in the standard regular tetrahedron
-\eqn{T_h=T((0,0,0),(1,0,0),(1/2,sqrt(3)/2,0),(1/2,\sqrt{3}/6,\sqrt{6}/3))}
+\eqn{T_h=T((0,0,0),(1,0,0),(1/2,sqrt(3)/2,0),(1/2,\sqrt{3}/6,\sqrt{6}/3))}.
 }
 \examples{
+\donttest{
 #T((0,0,0),(1,0,0),(1/2,sqrt(3)/2,0),(1/2,sqrt(3)/6,sqrt(6)/3))
 A<-c(0,0,0); B<-c(1,0,0); C<-c(1/2,sqrt(3)/2,0); D<-c(1/2,sqrt(3)/6,sqrt(6)/3)
 tetra<-rbind(A,B,C,D)
-n<-100
+n<-10 #try also n<-100
 
 #set.seed(1)
 Xdt<-runif.stdtetra(n)
@@ -56,7 +57,6 @@ xd<-Xlim[2]-Xlim[1]
 yd<-Ylim[2]-Ylim[1]
 zd<-Zlim[2]-Zlim[1]
 
-#library(plot3D)
 plot3D::scatter3D(Dt[,1],Dt[,2],Dt[,3],
 phi =20,theta=15, bty = "g", pch = 20, cex = 1, ticktype = "detailed",
 xlim=Xlim+xd*c(-.05,.05),ylim=Ylim+yd*c(-.05,.05), zlim=Zlim+zd*c(-.05,.05))
@@ -67,6 +67,7 @@ plot3D::segments3D(L[,1], L[,2], L[,3], R[,1], R[,2],R[,3], add=TRUE,lwd=2)
 
 plot3D::text3D(tetra[,1]+c(.05,0,0,0),tetra[,2],tetra[,3],
 labels=c("A","B","C","D"), add=TRUE)
+}
 
 }
 \seealso{

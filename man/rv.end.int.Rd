@@ -20,12 +20,14 @@ the vertex index as \eqn{int=(rv=1,rv=2)}.}
 \description{
 Returns the index of the vertex in the interval, \code{int}, whose end interval contains the 1D point \code{pt},
 that is, it finds the index of the vertex for the point, \code{pt}, outside
-the interval \eqn{int=(a,b)=(vertex\, 1,vertex\, 2)};
+the interval \eqn{int=(a,b)=(vertex 1,vertex 2)};
 vertices of interval are labeled as 1 and 2 according to their order in the interval.
-If the point, \code{pt}, is inside \code{int}, then the function yields NA as output.
+
+If the point, \code{pt}, is inside \code{int}, then the function yields \code{NA} as output.
 The corresponding vertex region is an interval as \eqn{(-\infty,a)} or \eqn{(b,\infty)} for the interval \eqn{(a,b)}.
 Then if \code{pt}<a, then \eqn{rv=1} and if \code{pt}>b, then rv=2. Unlike \code{\link{rv.mid.int}}, centrality parameter (i.e., center
 of the interval is not relevant for \code{rv.end.int}.)
+
 See also (\insertCite{ceyhan:metrika-2012,ceyhan:revstat-2016;textual}{pcds}).
 }
 \examples{
@@ -64,7 +66,7 @@ yjit<-runif(length(dat),-jit,jit)
 Xlim<-range(a,b,dat)
 xd<-Xlim[2]-Xlim[1]
 
-plot(cbind(a,0),main="vertex region indices for the points\n in the end intervals",
+plot(cbind(a,0),main="vertex region indices for the points\\n in the end intervals",
      xlab=" ", ylab=" ",pch=".",xlim=Xlim+xd*c(-.05,.05),ylim=3*range(yjit))
 points(dat, yjit,xlim=Xlim+xd*c(-.05,.05),pch=".",cex=3)
 abline(h=0)

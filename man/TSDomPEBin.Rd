@@ -7,15 +7,8 @@
 A test of segregation/association based on domination number of Proportional Edge Proximity Catch Digraph
 (PE-PCD) for 2D data - Binomial Approximation}
 \usage{
-TSDomPEBin(
-  Xp,
-  Yp,
-  r,
-  ch.cor = F,
-  nt = NULL,
-  alternative = c("two.sided", "less", "greater"),
-  conf.level = 0.95
-)
+TSDomPEBin(Xp, Yp, r, ch.cor = F, nt = NULL,
+  alternative = c("two.sided", "less", "greater"), conf.level = 0.95)
 }
 \arguments{
 \item{Xp}{A set of 2D points which constitute the vertices of the PE-PCD}
@@ -25,10 +18,10 @@ TSDomPEBin(
 \item{r}{A positive real number which serves as the expansion parameter in PE proximity region;
 must be in \eqn{(1,1.5]}}
 
-\item{ch.cor}{A logical argument for convex hull correction, default \code{ch.cor}=FALSE,
+\item{ch.cor}{A logical argument for convex hull correction, default \code{ch.cor}=\code{FALSE},
 recommended when both \code{Xp} and \code{Yp} have the same rectangular support}
 
-\item{nt}{Number of Delaunay triangles based on \code{Yp} points, default is NULL}
+\item{nt}{Number of Delaunay triangles based on \code{Yp} points, default is \code{NULL}}
 
 \item{alternative}{Type of the alternative hypothesis in the test, one of "two.sided", "less", "greater".}
 
@@ -54,7 +47,9 @@ randomness (CSR) or uniformity of \code{Xp} points in the convex hull of \code{Y
 of segregation (where \code{Xp} points cluster away from \code{Yp} points i.e. cluster around the centers of the Delaunay
 triangles) and association (where \code{Xp} points cluster around \code{Yp} points) based on the (asymptotic) binomial
 distribution of the domination number of PE-PCD for uniform 2D data
-in the convex hull of \code{Yp} points and yields the test statistic, \eqn{p}-value for the corresponding alternative,
+in the convex hull of \code{Yp} points.
+
+The function yields the test statistic, \eqn{p}-value for the corresponding alternative,
 the confidence interval, estimate and null value for the parameter of interest (which is Pr(Domination
 Number=3)), and method and name of the data set used.
 
@@ -65,18 +60,19 @@ or right-sided (i.e. data is accumulated around the centers of the triangles, or
 
 PE proximity region is constructed with the expansion parameter \eqn{r \ge 1} and M-vertex regions where M
 is a center that yields non-degenerate asymptotic distribution of the domination number.
+
 The test statistic is based on the binomial distribution, when domination number is scaled to have value
 0 and 1 in the one triangle case (i.e., Domination Number - 2 for the one triangle case).
 That is, the test statistic is based on the domination number for \code{Xp} points inside convex hull of \code{Yp} points
-for the PE-PCD and default convex hull correction, \code{ch.cor}, is FALSE
+for the PE-PCD and default convex hull correction, \code{ch.cor}, is \code{FALSE}
 where \code{M} is the center that yields nondegenerate asymptotic distribution for the domination number.
 For this approximation to work, \code{Yp} must be at least 10 (i.e. about 15 or more Delaunay triangles)
 and \code{Xp} must be at least 7 times more than \code{Yp} points.
+
 See also (\insertCite{ceyhan:dom-num-NPE-Spat2011;textual}{pcds}).
 }
 \examples{
-nx<-1000
-ny<-10
+nx<-20; ny<-4 #try also nx<-1000; ny<-10
 r<-1.4
 #r<-1.5
 

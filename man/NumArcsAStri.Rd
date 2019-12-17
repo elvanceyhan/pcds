@@ -29,6 +29,7 @@ or \eqn{M=(m_1,m_2)} in Cartesian coordinates or \eqn{M=(\alpha,\beta,\gamma)} i
 interior of the triangle \code{tri}; default is \code{M}="CC" i.e. circumcenter of \code{tri}.
 For the number of arcs, loops are not allowed,
 so arcs are only possible for points inside the triangle, \code{tri}.
+
 See also (\insertCite{ceyhan:Phd-thesis,ceyhan:comp-geo-2010,ceyhan:mcap2012;textual}{pcds}).
 }
 \examples{
@@ -37,7 +38,7 @@ A<-c(1,1); B<-c(2,0); C<-c(1.5,2);
 #A<-runif(2,1,100); B<-runif(2,1,100); C<-runif(2,1,100);
 Tr<-rbind(A,B,C);
 
-n<-20
+n<-10 #try also n<-20
 #set.seed(1)
 dat<-runif.tri(n,Tr)$g
 #dat<-cbind(runif(n,1,2),runif(n,0,2))

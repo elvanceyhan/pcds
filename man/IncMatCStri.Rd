@@ -30,6 +30,7 @@ with expansion parameter \eqn{t>0} and edge regions are based on the center \eqn
 or \eqn{M=(\alpha,\beta,\gamma)} in barycentric coordinates in the interior of the triangle \code{tri};
 default is \eqn{M=(1,1,1)} i.e. the center of mass of \code{tri}.
 Loops are allowed, so the diagonal entries are all equal to 1.
+
 See also (\insertCite{ceyhan:Phd-thesis,ceyhan:arc-density-CS,ceyhan:test2014;textual}{pcds}).
 }
 \examples{

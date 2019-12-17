@@ -29,10 +29,11 @@ coordinates or \eqn{M=(\alpha,\beta,\gamma)} in barycentric coordinates in the i
 to the edges on the extension of the lines joining \code{M} to the vertices or based on the circumcenter of \code{tri}.
 Vertices of triangle \code{tri} are labeled as 1,2,3 according to the row number the vertex is recorded.
 
-If a point in \code{Dt} is not inside \code{tri}, then the function yields NA as output for that entry.
+If a point in \code{Dt} is not inside \code{tri}, then the function yields \code{NA} as output for that entry.
 The corresponding vertex region is the polygon with the vertex, \code{M}, and
 projection points from \code{M} to the edges crossing the vertex (as the output of cp2e.tri(Tr,M))
 or CC-vertex region. (see the examples for an illustration).
+
 See also (\insertCite{ceyhan:Phd-thesis,ceyhan:dom-num-NPE-Spat2011,ceyhan:comp-geo-2010,ceyhan:mcap2012;textual}{pcds}).
 }
 \examples{
@@ -51,7 +52,7 @@ rverts.tri.cent(P,Tr,M)
 P<-c(1.5,1.6)
 rverts.tri.cent(P,Tr,M)
 
-n<-20
+n<-10 #try also n<-20
 #set.seed(1)
 dat<-runif.tri(n,Tr)$g
 #dat<-cbind(runif(n,1,2),runif(n,0,2))

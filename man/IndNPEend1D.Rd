@@ -17,7 +17,7 @@ IndNPEend1D(x1, x2, r, int, rv = NULL)
 
 \item{int}{A vector of two real numbers representing an interval}
 
-\item{rv}{Index of the end interval containing the point, either 1, 2 or NULL (default is NULL)}
+\item{rv}{Index of the end interval containing the point, either 1, 2 or \code{NULL} (default is \code{NULL})}
 }
 \value{
 I(\code{x2} in \eqn{NPE(x1,r)}) for points \code{x1} and \code{x2}, that is, returns 1 if \code{x2} is in \eqn{NPE(x1,r)}
@@ -27,10 +27,12 @@ I(\code{x2} in \eqn{NPE(x1,r)}) for points \code{x1} and \code{x2}, that is, ret
 Returns I(\code{x2} in \eqn{NPE(x1,r)}) for points \code{x1} and \code{x2}, that is, returns 1 if \code{x2} is in \eqn{NPE(x1,r)}, returns 0
 otherwise, where \eqn{NPE(x,r)} is the PE proximity region for point \eqn{x} with expansion parameter \eqn{r \ge 1}
 for the region outside the interval \eqn{(a,b)}.
-\code{rv} is the index of the end vertex region \code{x1} resides, with default=NULL,
+
+\code{rv} is the index of the end vertex region \code{x1} resides, with default=\code{NULL},
 and \eqn{rv=1} for left end interval and \eqn{rv=2} for the right end interval.
 If \code{x1} and \code{x2} are distint and either of them are inside interval \code{int}, it returns 0,
 but if they are identical, then it returns 1 regardless of their locations (i.e., it allows loops).
+
 See also (\insertCite{ceyhan:metrika-2012;textual}{pcds}).
 }
 \examples{

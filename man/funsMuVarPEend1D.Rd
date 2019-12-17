@@ -25,6 +25,7 @@ arc density of PE-PCD for uniform data in end intervals
 and \code{asyvarPEend1D} returns the asymptotic variance of the arc density of PE-PCD
 for a given expansion parameter \eqn{r \ge 1} for 1D uniform data in the left and right end intervals
 for the interval \eqn{(a,b)}.
+
 See also (\insertCite{ceyhan:metrika-2012;textual}{pcds}).
 }
 \examples{

@@ -6,15 +6,8 @@
 
 Generation of points associated (in a radial or circular fashion) with a given set of points}
 \usage{
-rasc.disc(
-  n,
-  Y,
-  e,
-  a1 = min(Y[, 1]),
-  a2 = max(Y[, 1]),
-  b1 = min(Y[, 2]),
-  b2 = max(Y[, 2])
-)
+rasc.disc(n, Y, e, a1 = min(Y[, 1]), a2 = max(Y[, 1]), b1 = min(Y[,
+  2]), b2 = max(Y[, 2]))
 }
 \arguments{
 \item{n}{A positive integer representing the number of points to be generated}
@@ -40,7 +33,7 @@ A list with the elements
 i.e., points with which generated points are associated.}
 \item{gen.points}{The output set of generated points associated with \code{Y} points}
 \item{tri.Y}{Logical output for triangulation based on \code{Y} points should be implemented or not.
-if TRUE triangulation based on \code{Y} points is to be implemented (default is set to FALSE).}
+if \code{TRUE} triangulation based on \code{Y} points is to be implemented (default is set to \code{FALSE}).}
 \item{desc.pat}{Description of the point pattern}
 \item{num.points}{The vector of two numbers, which are the number of generated points and the number of
 attraction (i.e., \code{Y}) points.}
@@ -52,6 +45,7 @@ Generates \code{n} 2D points uniformly in \eqn{(a1-e,a1+e)x(a1-e,a1+e) \cap U_i 
 \eqn{Y=(y_1,y_2,...,y_{n_y})} with
 \eqn{n_y} being number of \code{Y} points for various values of e under the association pattern
 and \eqn{B(y_i,e)} is the ball centered at \eqn{y_i} with radius \code{e}.
+
 \code{e} must be positive and very large values of e provide patterns close to CSR.
 \code{a1} is defaulted to the minimum of the x-coordinates of the \code{Y} points,
 \code{a2} is defaulted to the maximum of the x-coordinates of the \code{Y} points,
@@ -61,8 +55,7 @@ This function is also very similar to \code{\link{rasc.matern}}, where \code{ras
 while \code{\link{rasc.matern}} does not.
 }
 \examples{
-nx<-1000;
-ny<-10;
+nx<-20; ny<-4; #try also nx<-1000; ny<-10;
 
 e<-.15;
 #with default bounding box (i.e., unit square)

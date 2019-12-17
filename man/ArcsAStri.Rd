@@ -2,7 +2,7 @@
 % Please edit documentation in R/PCDFunctions.r
 \name{ArcsAStri}
 \alias{ArcsAStri}
-\title{An object of class "Digraphs":
+\title{An object of class "PCDs":
 
 The arcs of Arc Slice Proximity Catch Digraph (AS-PCD) for 2D data - one triangle case}
 \usage{
@@ -45,6 +45,7 @@ such as number of arcs, arc density, etc.
 Vertex regions are based on the center \code{M}="CC" for
 circumcenter of \code{tri}; or \eqn{M=(m_1,m_2)} in Cartesian coordinates or \eqn{M=(\alpha,\beta,\gamma)} in barycentric
 coordinates in the interior of the triangle \code{tri}; default is \code{M}="CC" the circumcenter of \code{tri}.
+
 See also (\insertCite{ceyhan:Phd-thesis,ceyhan:comp-geo-2010,ceyhan:mcap2012;textual}{pcds}).
 }
 \examples{

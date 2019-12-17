@@ -34,7 +34,9 @@ PE proximity region is constructed with respect to the standard equilateral tria
 \eqn{T_e=T(A,B,C)=T((0,0),(1,0),(1/2,\sqrt{3}/2))} with the expansion parameter \eqn{r \ge 1} and vertex regions are based
 on center \eqn{M=(m_1,m_2)} in Cartesian coordinates or \eqn{M=(\alpha,\beta,\gamma)} in barycentric coordinates in the
 interior of \eqn{T_e}; default is \eqn{M=(1,1,1)} i.e. the center of mass of \eqn{T_e} (which is equivalent to the circumcenter
-for \eqn{T_e}). Vertices of \eqn{T_e} are also labeled as 1, 2, and 3, respectively.
+for \eqn{T_e}).
+
+Vertices of \eqn{T_e} are also labeled as 1, 2, and 3, respectively.
 If \code{pt} is not in \code{S} and either \code{pt} or all points in \code{S} are outside \eqn{T_e}, it returns 0,
 but if \code{pt} is in \code{S}, then it always returns 1 regardless of its location (i.e., loops are allowed).
 }

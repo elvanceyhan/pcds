@@ -19,10 +19,10 @@ For the interval, \eqn{int=(a,b)}, the parameterized center is \eqn{M_c=a+c(b-a)
 
 \item{int}{A vector of two real numbers representing an interval}
 
-\item{rv}{Index of the vertex region in which the point resides, either 1, 2 or NULL (default is NULL)}
+\item{rv}{Index of the vertex region in which the point resides, either 1, 2 or \code{NULL} (default is \code{NULL})}
 
 \item{ch.data.pnt}{A logical argument for checking whether point \code{p} is a data point
-in \code{Dt} or not (default is FALSE)}
+in \code{Dt} or not (default is \code{FALSE})}
 }
 \value{
 I(\code{p} is a dominating point of CS-PCD) where the vertices of the CS-PCD are the 1D data set \code{Dt}),
@@ -35,9 +35,9 @@ CS proximity region is defined with respect to the interval \code{int} with an e
 and a centrality parameter, \code{c} in \eqn{(0,1)}, so arcs may exist for \code{Dt} points inside the interval \eqn{int=(a,b)}.
 
 Vertex regions are based on the center associated with the centrality parameter \code{c} in \eqn{(0,1)}.
-\code{rv} is the index of the vertex region p resides, with default=NULL.
+\code{rv} is the index of the vertex region p resides, with default=\code{NULL}.
 
-\code{ch.data.pnt} is for checking whether point \code{p} is a data point in \code{Dt} or not (default is FALSE),
+\code{ch.data.pnt} is for checking whether point \code{p} is a data point in \code{Dt} or not (default is \code{FALSE}),
 so by default this function checks whether the point \code{p} would be a dominating point
 if it actually were in the data set.
 }

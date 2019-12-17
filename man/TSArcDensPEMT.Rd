@@ -7,14 +7,8 @@
 A test of segregation/association based on arc density of Proportional Edge Proximity Catch Digraph
 (PE-PCD) for 2D data}
 \usage{
-TSArcDensPEMT(
-  Xp,
-  Yp,
-  r,
-  ch.cor = FALSE,
-  alternative = c("two.sided", "less", "greater"),
-  conf.level = 0.95
-)
+TSArcDensPEMT(Xp, Yp, r, ch.cor = FALSE, alternative = c("two.sided",
+  "less", "greater"), conf.level = 0.95)
 }
 \arguments{
 \item{Xp}{A set of 2D points which constitute the vertices of the PE-PCD}
@@ -23,7 +17,7 @@ TSArcDensPEMT(
 
 \item{r}{A positive real number which serves as the expansion parameter in PE proximity region; must be \eqn{\ge 1}}
 
-\item{ch.cor}{A logical argument for convex hull correction, default \code{ch.cor}=FALSE,
+\item{ch.cor}{A logical argument for convex hull correction, default \code{ch.cor}=\code{FALSE},
 recommended when both \code{Xp} and \code{Yp} have the same rectangular support}
 
 \item{alternative}{Type of the alternative hypothesis in the test, one of "two.sided", "less", "greater".}
@@ -49,7 +43,9 @@ This is an "htest" (i.e., hypothesis test) function which performs a hypothesis 
 randomness (CSR) or uniformity of \code{Xp} points in the convex hull of \code{Yp} points against the alternatives
 of segregation (where \code{Xp} points cluster away from \code{Yp} points) and association (where \code{Xp} points cluster around
 \code{Yp} points) based on the normal approximation of the arc density of the PE-PCD for uniform 2D data
-in the convex hull of \code{Yp} points and yields the test statistic, \eqn{p}-value for the corresponding alternative,
+in the convex hull of \code{Yp} points.
+
+The function yields the test statistic, \eqn{p}-value for the corresponding alternative,
 the confidence interval, estimate and null value for the parameter of interest (which is the arc density),
 and method and name of the data set used.
 
@@ -62,14 +58,16 @@ PE proximity region is constructed with the expansion parameter \eqn{r \ge 1} an
 (i.e., the test is not available for a general center M at this version of the function).
 This test is more appropriate when supports of \code{Xp} and \code{Yp} has a substantial overlap,
 
-\code{ch.cor} is for convex hull correction (default is "no convex hull correction", i.e., \code{ch.cor}=FALSE)
+\code{ch.cor} is for convex hull correction (default is "no convex hull correction", i.e., \code{ch.cor}=\code{FALSE})
 which is recommended when both \code{Xp} and \code{Yp} have the same rectangular support.
+
 See also (\insertCite{ceyhan:Phd-thesis,ceyhan:arc-density-PE;textual}{pcds}) for more on the test based on the arc
 density of PE-PCDs.
 }
 \examples{
-nx<-100
-ny<-10
+\donttest{
+#nx is number of X points (target) and ny is number of Y points (nontarget)
+nx<-20; ny<-4; #try also nx<-40; ny<-10 or nx<-1000; ny<-10;
 
 #set.seed(1)
 Xp<-cbind(runif(nx),runif(nx))
@@ -101,6 +99,7 @@ TSArcDensPEMT(dat.fr,Yp,r)
 
 dat.fr<-data.frame(a=Yp)
 TSArcDensPEMT(Xp,dat.fr,r)
+}
 
 }
 \references{

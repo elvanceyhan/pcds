@@ -27,7 +27,7 @@ A list with the elements
 i.e., points with which generated points are associated.}
 \item{gen.points}{The output set of generated points associated with \code{Y} points.}
 \item{tri.Y}{Logical output for triangulation based on \code{Y} points should be implemented or not.
-if TRUE triangulation based on \code{Y} points is to be implemented (default is set to FALSE).}
+if \code{TRUE} triangulation based on \code{Y} points is to be implemented (default is set to \code{FALSE}).}
 \item{desc.pat}{Description of the point pattern}
 \item{num.points}{The vector of two numbers, which are the number of generated points and the number of
 attraction (i.e., \code{Y}) points.}
@@ -38,6 +38,7 @@ attraction (i.e., \code{Y}) points.}
 Generates \code{n} 2D points uniformly in \eqn{\cup B(y_i,e)} where \eqn{Y=(y_1,y_2,...,y_{n_y})}
 with \eqn{n_y} being number of \code{Y} points for various values of e under the association pattern
 and \eqn{B(y_i,e)} is the ball centered at \eqn{y_i} with radius \code{e}.
+
 The pattern resembles the Matern cluster pattern (see \code{\link[spatstat]{rMatClust}} in the
 \code{spatstat} package for further information (\insertCite{baddeley:2005;textual}{pcds}).
 \code{rMatClust(kappa, scale, mu, win)} in the simplest
@@ -46,16 +47,18 @@ Then each parent point is replaced by a random cluster of
 "offspring" points, the number of points per cluster being Poisson(\code{mu}) distributed, and their positions
 being placed and uniformly inside a disc of radius scale centred on the parent point. The resulting point
 pattern is a realisation of the classical "stationary Matern cluster process" generated inside the
-window \code{win}. The main difference of \code{rasc.matern} and \code{\link[spatstat]{rMatClust}} is that the parent points are \code{Y} points
+window \code{win}.
+
+The main difference of \code{rasc.matern} and \code{\link[spatstat]{rMatClust}} is that the parent points are \code{Y} points
 which are given beforehand and we do not discard them in the end in \code{rasc.matern} and the offspring points
 are the points associated with the reference points, \code{Y};
 \code{e} must be positive and very large values of e provide patterns close to CSR.
+
 This function is also very similar to \code{\link{rasc.disc}}, where \code{\link{rasc.disc}} needs the study window to be specified,
 while \code{rasc.matern} does not.
 }
 \examples{
-nx<-1000;
-ny<-10;
+nx<-20; ny<-4; #try also nx<-1000; ny<-10;
 
 e<-.15;
 #e<-1.1; #closer to CSR than association, as e is large

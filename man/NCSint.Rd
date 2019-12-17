@@ -29,6 +29,7 @@ with expansion parameter \eqn{t>0} and centrality parameter \code{c} in \eqn{(0,
 Vertex regions are based on the (parameterized) center, \eqn{M_c},
 which is \eqn{M_c=a+c(b-a)} for the interval, \eqn{int=(a,b)}.
 The CS proximity region is constructed whether \code{x} is inside or outside the interval \code{int}.
+
 See also (\insertCite{ceyhan:revstat-2016;textual}{pcds}).
 }
 \examples{

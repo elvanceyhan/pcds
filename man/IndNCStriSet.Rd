@@ -35,6 +35,7 @@ CS proximity region is constructed with respect to the triangle \code{tri} with
 the expansion parameter \eqn{t>0} and edge regions are based on the center, \eqn{M=(m_1,m_2)} in Cartesian coordinates
 or \eqn{M=(\alpha,\beta,\gamma)} in barycentric coordinates in the interior of the triangle \code{tri};
 default is \eqn{M=(1,1,1)} i.e. the center of mass of \code{tri}.
+
 Edges of \code{tri}=\eqn{T(A,B,C)}, \eqn{AB}, \eqn{BC}, \eqn{AC}, are also labeled as edges 3, 1, and 2, respectively.
 If \code{pt} is not in \code{S} and either \code{pt} or all points in \code{S} are outside \code{tri}, it returns 0,
 but if \code{pt} is in \code{S}, then it always returns 1 regardless of its location (i.e., loops are allowed).

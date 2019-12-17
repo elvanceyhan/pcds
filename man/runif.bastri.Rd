@@ -21,7 +21,7 @@ A list with the elements
 \item{tess.points}{The vertices of the support of the uniformly generated points, it is the basic triangle
 \eqn{T_b} for this function}
 \item{gen.points}{The output set of generated points uniformly in the basic triangle}
-\item{out.region}{The outer region which contains the support region, NULL for this function.}
+\item{out.region}{The outer region which contains the support region, \code{NULL} for this function.}
 \item{desc.pat}{Description of the point pattern from which points are to be generated}
 \item{num.points}{The vector of two numbers, which are the number of generated points and the number
 of vertices of the support points (here it is 3).}
@@ -42,7 +42,7 @@ Hence basic triangle is useful for simulation studies under the uniformness hypo
 c1<-.4; c2<-.6
 A<-c(0,0); B<-c(1,0); C<-c(c1,c2);
 Tb<-rbind(A,B,C);
-n<-100
+n<-10 #try also n<-100
 
 #set.seed(1)
 runif.bastri(1,c1,c2)

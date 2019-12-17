@@ -22,13 +22,17 @@ in the triangle \code{tri}}
 \description{
 Returns the indices of the edges whose regions contain the points in data set \code{Dt} in
 a triangle \code{tri}=\eqn{(A,B,C)} and edge regions are based on the center of mass CM of \code{tri}.
-(see the plots in the example for illustrations). The vertices of the  triangle \code{tri} are labeled as
+(see the plots in the example for illustrations).
+
+The vertices of the  triangle \code{tri} are labeled as
 1=A,2=B, and 3=C also according to the row number the vertex is recorded in \code{tri}
 and the corresponding edges are 1=BC, 2=AC, and 3=AB.
-If a point in \code{Dt} is not inside \code{tri}, then the function yields NA as output for that entry.
+
+If a point in \code{Dt} is not inside \code{tri}, then the function yields \code{NA} as output for that entry.
 The corresponding edge region is the polygon
 with the vertex, CM, and vertices other than the non-adjacent vertex, i.e., edge region 1 is the triangle
-T(B,CM,C), edge region 2 is T(A,CM,C) and edge region 3 is \eqn{T(A,B,CM)}.
+\eqn{T(B,CM,C)}, edge region 2 is \eqn{T(A,CM,C)} and edge region 3 is \eqn{T(A,B,CM)}.
+
 See also (\insertCite{ceyhan:Phd-thesis,ceyhan:comp-geo-2010,ceyhan:mcap2012,ceyhan:arc-density-CS;textual}{pcds}).
 }
 \examples{
@@ -46,7 +50,7 @@ redges.triCM(P,Tr)
 P<-c(10.5,1.6)
 redges.triCM(P,Tr)
 
-n<-20
+n<-10 #try also n<-20
 #set.seed(1)
 dat<-runif.tri(n,Tr)$g
 #dat<-cbind(runif(n,1,2),runif(n,0,2))

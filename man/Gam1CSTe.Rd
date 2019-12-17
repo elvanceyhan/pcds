@@ -15,7 +15,7 @@ Gam1CSTe(p, Dt, t, ch.data.pnt = FALSE)
 \item{t}{A positive real number which serves as the expansion parameter in CS proximity region}
 
 \item{ch.data.pnt}{A logical argument for checking whether point \code{p} is a data point
-in \code{Dt} or not (default is FALSE)}
+in \code{Dt} or not (default is \code{FALSE})}
 }
 \value{
 I(\code{p} is a dominating point of the CS-PCD) where the vertices of the CS-PCD are the 2D data set \code{Dt},
@@ -26,11 +26,12 @@ Returns I(\code{p} is a dominating point of the CS-PCD) where the vertices of th
 triangle \eqn{T_e=T(A,B,C)=T((0,0),(1,0),(1/2,\sqrt{3}/2))}, that is, returns 1 if \code{p} is a dominating point of CS-PCD,
 returns 0 otherwise.
 
-CS proximity region is constructed with respect to Te with expansion parameter \eqn{t>0}
+CS proximity region is constructed with respect to \eqn{T_e} with expansion parameter \eqn{t>0}
 and edge regions are based on center of mass \eqn{CM=(1/2,\sqrt{3}/6)}.
 
-\code{ch.data.pnt} is for checking whether point \code{p} is a data point in \code{Dt} or not (default is FALSE), so by default this
+\code{ch.data.pnt} is for checking whether point \code{p} is a data point in \code{Dt} or not (default is \code{FALSE}), so by default this
 function checks whether the point \code{p} would be a dominating point if it actually were in the data set.
+
 See also (\insertCite{ceyhan:Phd-thesis,ceyhan:comp-geo-2010,ceyhan:mcap2012;textual}{pcds}).
 }
 \examples{
@@ -38,7 +39,7 @@ A<-c(0,0); B<-c(1,0); C<-c(1/2,sqrt(3)/2);
 CM<-(A+B+C)/3
 Te<-rbind(A,B,C);
 t<-1.5
-n<-20
+n<-10 #try also n<-20
 
 #set.seed(1)
 dat<-runifTe(n)$gen.points

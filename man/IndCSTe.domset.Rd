@@ -32,7 +32,9 @@ with respect to the standard equilateral triangle \eqn{T_e=T(A,B,C)=T((0,0),(1,0
 expansion parameter \eqn{t>0} and edge regions are based on the center \eqn{M=(m_1,m_2)}
 in Cartesian coordinates or \eqn{M=(\alpha,\beta,\gamma)} in barycentric coordinates in the interior of \eqn{T_e};
 default is \eqn{M=(1,1,1)} i.e. the center of mass of \eqn{T_e} (which is equivalent to the circumcenter of \eqn{T_e}).
+
 Edges of \eqn{T_e}, \eqn{AB}, \eqn{BC}, \eqn{AC}, are also labeled as 3, 1, and 2, respectively.
+
 See also (\insertCite{ceyhan:mcap2012;textual}{pcds}).
 }
 \examples{

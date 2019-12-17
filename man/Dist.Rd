@@ -15,6 +15,7 @@ Euclidean distance between \code{x} and \code{y}
 \description{
 Returns the Euclidean distance between \code{x} and \code{y} which can be vectors
 or matrices or data frames of any dimension (\code{x} and \code{y} should be of same dimension).
+
 This function is different from the \code{\link[stats]{dist}} function in the \code{stats} package of the standard R distribution.
 \code{dist} requires its argument to be a data matrix and \code{\link[stats]{dist}} computes and returns the distance matrix computed
 by using the specified distance measure to compute the distances between the rows of a data matrix

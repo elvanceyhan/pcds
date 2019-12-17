@@ -19,6 +19,7 @@ For the interval, \eqn{int=(a,b)}, the parameterized center is \eqn{M_c=a+c(b-a)
 Returns the (parameterized) center, \eqn{M_c}, of the interval, \eqn{int=(a,b)}, parameterized by \code{c} in \eqn{(0,1)}
 so that \eqn{100c} \% of the length of interval is to the left of \eqn{M_c} and \eqn{100(1-c)} \% of the length of the interval
 is to the right of \eqn{M_c}. That is, for the interval, \eqn{int=(a,b)}, the parameterized center is \eqn{M_c=a+c(b-a)}.
+
 See also (\insertCite{ceyhan:metrika-2012,ceyhan:revstat-2016;textual}{pcds}).
 }
 \examples{

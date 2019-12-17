@@ -36,7 +36,8 @@ CC-Vertex Regions".}
 Returns the closest data points among the data set, \code{dat}, to edge \eqn{j} in CC-vertex region \eqn{j} for \eqn{j=1,2,3}
 in the triangle, \eqn{tri=T(A,B,C)}, where CC stands for circumcenter. Vertex labels are A=1, B=2, and C=3,
 and corresponding edge labels are BC=1, AC=2, and AB=3.
-Function yields NA if there are no data points in a CC-vertex region.
+Function yields \code{NA} if there are no data points in a CC-vertex region.
+
 See also (\insertCite{ceyhan:Phd-thesis,ceyhan:comp-geo-2010;textual}{pcds}).
 }
 \examples{
@@ -47,7 +48,7 @@ A<-c(1,1); B<-c(2,0); C<-c(1.5,2);
 #A<-runif(2,1,100); B<-runif(2,1,100); C<-runif(2,1,100);
 Tr<-rbind(A,B,C);
 
-n<-20
+n<-10 #try also n<-20
 #set.seed(1)
 dat<-runif.tri(n,Tr)$g
 #dat<-cbind(runif(n,1,2),runif(n,0,2))

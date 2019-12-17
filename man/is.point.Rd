@@ -12,11 +12,11 @@ is.point(p, dim = 2)
 \item{dim}{A positive integer representing the dimension of the argument \code{p}.}
 }
 \value{
-TRUE if \code{p} is a vector of dimension \code{dim}.
+\code{TRUE} if \code{p} is a vector of dimension \code{dim}.
 }
 \description{
-Returns TRUE if the arguement \code{p} is a numeric point of dimension \code{dim}
-(default is \code{dim}=2); otherwise returns FALSE.
+Returns \code{TRUE} if the arguement \code{p} is a numeric point of dimension \code{dim}
+(default is \code{dim}=2); otherwise returns \code{FALSE}.
 }
 \examples{
 A<-c(-1.22,-2.33); B<-c(2.55,3.75,4)

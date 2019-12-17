@@ -69,7 +69,7 @@ tripack::circles(X[,1],X[,2],Rad$rad,lty=1,lwd=1,col=4)
 
 radii(c(1,2),c(2,3))
 
-\dontrun{
+\donttest{
 ###
 nx<-10
 ny<-5

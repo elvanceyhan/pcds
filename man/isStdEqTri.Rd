@@ -10,7 +10,7 @@ isStdEqTri(tri)
 \item{tri}{Three 2D points, stacked row-wise, each row representing a vertex of the triangle}
 }
 \value{
-TRUE if \code{tri} is a standard equilateral triangle, else FALSE.
+\code{TRUE} if \code{tri} is a standard equilateral triangle, else \code{FALSE}.
 }
 \description{
 Checks whether the triangle, \code{tri}, is the standard equilateral triangle \eqn{T_e=T((0,0),(1,0),(1/2,\sqrt{3}/2))}

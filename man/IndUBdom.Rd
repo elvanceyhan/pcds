@@ -20,7 +20,7 @@ in the function arguments.}
 the specified value \code{k} or not. It returns 1 if the upper bound is \code{k}, and 0 otherwise based on the incidence
 matrix \code{Inc.Mat} of the graph or digraph.}
 \item{ind.domset}{Indices of the rows in the incidence matrix \code{Inc.Mat} that correspond to the vertices in the
-dominating set of size \code{k} if it exists, otherwise it yields NULL.}
+dominating set of size \code{k} if it exists, otherwise it yields \code{NULL}.}
 }
 \description{
 Returns 1 if the domination number is less than or equal to the prespecified value \code{k} and also the indices

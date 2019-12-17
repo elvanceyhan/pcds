@@ -28,9 +28,11 @@ arc density of CS-PCD for uniform data in an interval
 and \code{asyvarCS1D} returns the (asymptotic) variance of the arc density of CS-PCD
 for a given centrality parameter \code{c} in \eqn{(0,1)} and an expansion parameter \eqn{t>0} and 1D uniform data in a
 finite interval \eqn{(a,b)}, i.e. data from \eqn{U(a,b)} distribution.
+
 See also (\insertCite{ceyhan:revstat-2016;textual}{pcds}).
 }
 \examples{
+\donttest{
 #Examples for muCS1D
 muCS1D(1.2,.4)
 muCS1D(1.2,.6)
@@ -51,7 +53,9 @@ for (i in 1:ltseq)
 persp(tseq,cseq,mu.grid, xlab="t", ylab="c", zlab="mu(t,c)",theta = -30,
 phi = 30, expand = 0.5, col = "lightblue", ltheta = 120,
 shade = 0.05, ticktype = "detailed")
+}
 
+\donttest{
 #Examples for asyvarCS1D
 asyvarCS1D(1.2,.8)
 
@@ -71,6 +75,7 @@ for (i in 1:ltseq)
 persp(tseq,cseq,var.grid, xlab="t", ylab="c", zlab="var(t,c)", theta = -30,
 phi = 30, expand = 0.5, col = "lightblue", ltheta = 120,
 shade = 0.05, ticktype = "detailed")
+}
 
 }
 \references{

@@ -25,6 +25,7 @@ arc density of CS-PCD for uniform data in end intervals
 and \code{asyvarCSend1D} returns the asymptotic variance of the arc density of CS-PCD
 for a given expansion parameter \eqn{t>0}  for 1D uniform data in the left and right end intervals
 for the interval \eqn{(a,b)}.
+
 See also (\insertCite{ceyhan:revstat-2016;textual}{pcds}).
 }
 \examples{

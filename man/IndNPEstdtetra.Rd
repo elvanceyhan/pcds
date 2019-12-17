@@ -15,7 +15,7 @@ IndNPEstdtetra(pt1, pt2, r, rv = NULL)
 
 \item{r}{A positive real number which serves as the expansion parameter in PE proximity region; must be \eqn{\ge 1}}
 
-\item{rv}{Index of the vertex region containing the point, either 1, 2, 3, 4 (defualt is NULL)}
+\item{rv}{Index of the vertex region containing the point, either 1, 2, 3, 4 (defualt is \code{NULL})}
 }
 \value{
 I(\code{pt2} is in \eqn{NPE(pt1,r)}) for points \code{pt1} and \code{pt2}, that is, returns 1 if \code{pt2} is in \eqn{NPE(pt1,r)},
@@ -28,17 +28,18 @@ returns 0 otherwise, where \eqn{NPE(x,r)} is the PE proximity region for point \
 PE proximity region is defined with respect to the standard regular tetrahedron
 \eqn{T_h=T(v=1,v=2,v=3,v=4)}=\eqn{T((0,0,0),(1,0,0),(1/2,\sqrt{3}/2,0),(1/2,\sqrt{3}/6,\sqrt{6}/3))} and vertex regions
 are based on the circumcenter (which is equivalent to the center of mass for standard regular tetrahedron)
-of \eqn{T_h}. \code{rv} is the index of the vertex region \code{pt1} resides, with default=NULL.
+of \eqn{T_h}. \code{rv} is the index of the vertex region \code{pt1} resides, with default=\code{NULL}.
 
 If \code{pt1} and \code{pt2} are distint and either of them are outside \eqn{T_h}, it returns 0,
 but if they are identical, then it returns 1 regardless of their locations (i.e., it allows loops).
+
 See also (\insertCite{ceyhan:Phd-thesis,ceyhan:comp-geo-2010;textual}{pcds}).
 }
 \examples{
 A<-c(0,0,0); B<-c(1,0,0); C<-c(1/2,sqrt(3)/2,0); D<-c(1/2,sqrt(3)/6,sqrt(6)/3)
 tetra<-rbind(A,B,C,D)
 
-n<-20
+n<-10 #try also n<-20
 dat<-runif.stdtetra(n)$g
 r<-1.5
 IndNPEstdtetra(dat[1,],dat[1,],r)

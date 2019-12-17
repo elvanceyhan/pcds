@@ -36,6 +36,7 @@ interior of the triangle \code{tri}; default is \code{M}="CC" i.e. circumcenter 
 
 If \code{pt} is not in \code{S} and either \code{pt} or all points in \code{S} are outside \code{tri}, it returns 0,
 but if \code{pt} is in \code{S}, then it always returns 1 (i.e., loops are allowed).
+
 See also (\insertCite{ceyhan:Phd-thesis,ceyhan:comp-geo-2010,ceyhan:mcap2012;textual}{pcds}).
 }
 \examples{
@@ -84,12 +85,14 @@ IndNAStriSet(dat,P,Tr,M)
 IndNAStriSet(S,P,Tr,M)
 
 IndNAStriSet(rbind(S,S),P,Tr,M)
-\dontrun{
+
+dat.fr<-data.frame(a=S)
+IndNAStriSet(dat.fr,P,Tr,M)
+
+\donttest{
 IndNAStriSet(cbind(S,S),P,Tr,M)
 IndNAStriSet(rbind(c("a","b"),S),P,Tr,M)
 }
-dat.fr<-data.frame(a=S)
-IndNAStriSet(dat.fr,P,Tr,M)
 
 }
 \references{

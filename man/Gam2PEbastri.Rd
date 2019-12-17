@@ -5,18 +5,8 @@
 \title{The indicator for two points being a dominating set for Proportional Edge Proximity Catch Digraphs
 (PE-PCDs) - basic triangle case}
 \usage{
-Gam2PEbastri(
-  pt1,
-  pt2,
-  Dt,
-  r,
-  c1,
-  c2,
-  M = c(1, 1, 1),
-  rv1 = NULL,
-  rv2 = NULL,
-  ch.data.pnts = FALSE
-)
+Gam2PEbastri(pt1, pt2, Dt, r, c1, c2, M = c(1, 1, 1), rv1 = NULL,
+  rv2 = NULL, ch.data.pnts = FALSE)
 }
 \arguments{
 \item{pt1, pt2}{Two 2D points to be tested for constituting a dominating set of the PE-PCD}
@@ -33,10 +23,10 @@ which serves as a center in the interior of the basic triangle \eqn{T_b} or the 
 default is \eqn{M=(1,1,1)} i.e. the center of mass of \eqn{T_b}}
 
 \item{rv1, rv2}{The indices of the vertices whose regions contains \code{pt1} and \code{pt2}, respectively.
-They take the vertex labels as 1,2,3 as in the row order of the vertices in \eqn{T_b} (default is NULL for both)}
+They take the vertex labels as 1,2,3 as in the row order of the vertices in \eqn{T_b} (default is \code{NULL} for both)}
 
 \item{ch.data.pnts}{A logical argument for checking whether points \code{pt1} and \code{pt2} are data points in \code{Dt} or not
-(default is FALSE)}
+(default is \code{FALSE})}
 }
 \value{
 I(\{\code{pt1,pt2}\} is a dominating set of the PE-PCD) where the vertices of the PE-PCD are the 2D data set \code{Dt}),
@@ -58,20 +48,21 @@ studies under the uniformness hypothesis.
 Vertex regions are based on center \eqn{M=(m_1,m_2)} in Cartesian
 coordinates or \eqn{M=(\alpha,\beta,\gamma)} in barycentric coordinates in the interior of a basic triangle \eqn{T_b};
 default is \eqn{M=(1,1,1)} i.e. the center of mass of \eqn{T_b}.
-Point, \code{pt1}, is in the vertex region of vertex \code{rv1} (default is NULL);
-and point, \code{pt2}, is in the vertex region of vertex \code{rv2} (default is NULL); vertices are labeled as 1,2,3
+Point, \code{pt1}, is in the vertex region of vertex \code{rv1} (default is \code{NULL});
+and point, \code{pt2}, is in the vertex region of vertex \code{rv2} (default is \code{NULL}); vertices are labeled as 1,2,3
 in the order they are stacked row-wise.
 
-\code{ch.data.pnts} is for checking whether points \code{pt1} and \code{pt2} are both data points in \code{Dt} or not (default is FALSE),
+\code{ch.data.pnts} is for checking whether points \code{pt1} and \code{pt2} are both data points in \code{Dt} or not (default is \code{FALSE}),
 so by default this function checks whether the points \code{pt1} and \code{pt2} would constitute a dominating set
 if they both were actually in the data set.
+
 See also (\insertCite{ceyhan:Phd-thesis,ceyhan:dom-num-NPE-Spat2011;textual}{pcds}).
 }
 \examples{
 c1<-.4; c2<-.6;
 A<-c(0,0); B<-c(1,0); C<-c(c1,c2);
 Tb<-rbind(A,B,C)
-n<-20
+n<-10 #try also n<-20
 
 #set.seed(1)
 dat<-runif.bastri(n,c1,c2)$g
@@ -122,13 +113,14 @@ P2<-c(.6,.2)
 Gam2PEbastri(P1,P2,dat,r,c1,c2,M)
 
 Gam2PEbastri(P1,P2,rbind(dat,dat),r,c1,c2,M)
-\dontrun{
-Gam2PEbastri(P1,P2,cbind(dat,dat),r,c1,c2,M)
-Gam2PEbastri(P1,P2, rbind(c("a","b"),dat),r,c1,c2,M)
-}
 
 dat.fr<-data.frame(a=dat)
 Gam2PEbastri(P1,P2,dat.fr,r,c1,c2,M)
+
+\donttest{
+Gam2PEbastri(P1,P2,cbind(dat,dat),r,c1,c2,M)
+Gam2PEbastri(P1,P2, rbind(c("a","b"),dat),r,c1,c2,M)
+}
 
 }
 \references{

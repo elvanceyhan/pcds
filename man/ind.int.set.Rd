@@ -16,12 +16,14 @@ The vector of indices of the intervals in which points in the 1D data set, \code
 }
 \description{
 Returns the indices of intervals for all the points in 1D data set, \code{dat}, as a vector.
+
 Intervals are based on \code{Yp} and left end interval is labeled as 0, the next interval as 1, and so on.
 }
 \examples{
 a<-0; b<-10; int<-c(a,b)
 #a<-runif(1); b<-runif(1); int<-range(a,b); a<-int[1]; b<-int[2]
-nx<-40; ny<-10
+#nx is number of X points (target) and ny is number of Y points (nontarget)
+nx<-20; ny<-4; #try also nx<-40; ny<-10 or nx<-1000; ny<-10;
 
 #set.seed(1)
 xr<-range(a,b)

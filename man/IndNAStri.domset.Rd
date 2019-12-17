@@ -33,6 +33,7 @@ regions based on the center \code{M}="CC" for circumcenter of \code{tri};
 or \eqn{M=(m_1,m_2)} in Cartesian coordinates or \eqn{M=(\alpha,\beta,\gamma)} in barycentric coordinates in the
 interior of the triangle \code{tri}; default is \code{M}="CC" i.e. circumcenter of \code{tri}
 whose vertices are also labeled as edges 1, 2, and 3, respectively.
+
 See also (\insertCite{ceyhan:Phd-thesis,ceyhan:comp-geo-2010,ceyhan:mcap2012;textual}{pcds}).
 }
 \examples{

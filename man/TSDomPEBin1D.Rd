@@ -7,22 +7,15 @@
 A test of segregation/association based on domination number of Proportional Edge Proximity Catch Digraph
 (PE-PCD) for 1D data - Binomial Approximation}
 \usage{
-TSDomPEBin1D(
-  Xp,
-  Yp = NULL,
-  int,
-  c = 0.5,
-  asy.bin = F,
-  end.int.cor = F,
-  alternative = c("two.sided", "less", "greater"),
-  conf.level = 0.95
-)
+TSDomPEBin1D(Xp, Yp = NULL, int, c = 0.5, asy.bin = F,
+  end.int.cor = F, alternative = c("two.sided", "less", "greater"),
+  conf.level = 0.95)
 }
 \arguments{
 \item{Xp}{A set of 1D points which constitute the vertices of the PE-PCD}
 
-\item{Yp}{A set of 1D points which constitute the end points of the subintervals, default is NULL.
-When \code{Yp}=NULL, the support interval \eqn{(a,b)} is partitioned as \code{Yp}=(b-a)*(0:nint)/nint
+\item{Yp}{A set of 1D points which constitute the end points of the subintervals, default is \code{NULL}.
+When \code{Yp}=\code{NULL}, the support interval \eqn{(a,b)} is partitioned as \code{Yp}=(b-a)*(0:nint)/nint
 where nint=round(sqrt(nx),0) and nx is the number of \code{Xp} points}
 
 \item{int}{Support interval \eqn{(a,b)} with \eqn{a<b}. Uniformness of \code{Xp} points in this interval is tested.}
@@ -31,12 +24,12 @@ where nint=round(sqrt(nx),0) and nx is the number of \code{Xp} points}
 must be in \eqn{(0,1)} (default c=.5)}
 
 \item{asy.bin}{A logical argument for the use of aymptotic probability of success for the binomial distribution,
-default \code{asy.bin}=FALSE. It is an option only when \code{Yp} is not provided. When \code{Yp} is provided or when \code{Yp} is not provided
+default \code{asy.bin}=\code{FALSE}. It is an option only when \code{Yp} is not provided. When \code{Yp} is provided or when \code{Yp} is not provided
 but \code{asy.bin}=T, aymptotic probability of success for the binomial distribution is used. When \code{Yp} is not provided
 and \code{asy.bin}=F, the finite sample aymptotic probability of success for the binomial distribution is used with number
 of trials equals to expected number of \code{Xp} points per subinterval.}
 
-\item{end.int.cor}{A logical argument for end interval correction, default is FALSE,
+\item{end.int.cor}{A logical argument for end interval correction, default is \code{FALSE},
 recommended when both \code{Xp} and \code{Yp} have the same interval support}
 
 \item{alternative}{Type of the alternative hypothesis in the test, one of "two.sided", "less", "greater".}
@@ -60,10 +53,14 @@ Pr(Domination Number=2) and second is the domination number}
 \description{
 This is an "htest" (i.e., hypothesis test) function which performs a hypothesis test of complete spatial
 randomness (CSR) or uniformity of \code{Xp} points within the subintervals based on \code{Yp} points (both residing in the
-interval \eqn{(a,b)}). If \code{Yp}=NULL the support interval \eqn{(a,b)} is partitioned as \code{Yp}=(b-a)*(0:nint)/nint
+interval \eqn{(a,b)}).
+
+If \code{Yp}=NULL the support interval \eqn{(a,b)} is partitioned as \code{Yp}=(b-a)*(0:nint)/nint
 where nint=round(sqrt(nx),0) and nx is number of \code{Xp} points, and the test is for testing the uniformity of \code{Xp}
 points in the interval \eqn{(a,b)}. If \code{Yp} points are given, the test is for testing the spatial interaction between
-\code{Xp} and \code{Yp} points. In either case, the null hypothesis is uniformness of \code{Xp} points on (a,b).
+\code{Xp} and \code{Yp} points.
+
+In either case, the null hypothesis is uniformness of \code{Xp} points on (a,b).
 \code{Yp} determines the end points of the intervals (i.e., partition the real line via intervalization)
 where end points are the order statistics of \code{Yp} points.
 
@@ -79,6 +76,7 @@ Under the null hypothesis of uniformity of \code{Xp} points in the interval base
 (i.e. Pr(Domination Number=2) ) equals to its expected value under the uniform distribution) and
 \code{alternative} could be two-sided, or left-sided (i.e. data is accumulated around the \code{Yp} points, or association)
 or right-sided (i.e. data is accumulated around the centers of the subintervals, or segregation).
+
 PE proximity region is constructed with the expansion parameter \eqn{r \ge 1} and centrality parameter \code{c} which yields
 M-vertex regions. More precisely \eqn{M=a+c(b-a)} for the centrality parameter \code{c} and for a given \code{c} in \eqn{(0,1)}, the
 expansion parameter r is taken to be \eqn{1/\max(c,1-c)} which yields non-degenerate asymptotic distribution of the
@@ -89,8 +87,9 @@ to have value 0 and 1 in the one interval case (i.e., Domination Number - 1 for 
 That is, the test statistic is based on the domination number for \code{Xp} points inside the interval based on \code{Yp} points
 for the PE-PCD . For this approach to work, \code{Xp} must be large for each subinterval, but 5 or more per subinterval
 seems to work fine in practice. Probability of success is chosen in the following way for various parameter choices.
+
 \code{asy.bin} is a logical argument for the use of aymptotic probability of success for the binomial distribution,
-default is \code{asy.bin}=FALSE. It is an option only when \code{Yp} is not provided. When \code{Yp} is provided or when \code{Yp} is not provided
+default is \code{asy.bin}=\code{FALSE}. It is an option only when \code{Yp} is not provided. When \code{Yp} is provided or when \code{Yp} is not provided
 but \code{asy.bin}=T, aymptotic probability of success for the binomial distribution is used. When \code{Yp} is not provided
 and \code{asy.bin}=F, the finite sample aymptotic probability of success for the binomial distribution is used with number
 of trials equals to expected number of \code{Xp} points per subinterval.
@@ -101,15 +100,16 @@ c<-.4
 #a<-runif(1); b<-runif(1); int<-range(a,b); a<-int[1]; b<-int[2]
 #c<-runif(1);
 r<-1/max(c,1-c)
-nx<-40; ny<-10
+#nx is number of X points (target) and ny is number of Y points (nontarget)
+nx<-20; ny<-4; #try also nx<-40; ny<-10 or nx<-1000; ny<-10;
 
 #set.seed(1)
 Xp<-runif(nx,a,b)
 Yp<-runif(ny,a,b)
 PEdom1D(Xp,Yp,r,c)
 
-PlotIntervals(Xp,Yp,xlab="",ylab="")
-PlotRegsPEMI(Xp,Yp,r,c)
+plotIntervals(Xp,Yp,xlab="",ylab="")
+plotPEregsMI(Xp,Yp,r,c)
 
 TSDomPEBin1D(Xp,Yp,int,c,alt="t")
 TSDomPEBin1D(Xp,int=int,c=c,alt="t")

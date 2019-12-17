@@ -29,6 +29,7 @@ Centers are stacked row-wise with row number is corresponding to the vertex
 row number in \code{tri} (see the examples for an illustration). The center labels 1,2,3 correspond
 to the vertices \eqn{M_1}, \eqn{M_2}, and \eqn{M_3} (which are the three centers for \code{r} in \eqn{(1,1.5)} which becomes center of mass
 for \eqn{r=1.5}.).
+
 See also (\insertCite{ceyhan:Phd-thesis,ceyhan:masa-2007,ceyhan:dom-num-NPE-Spat2011,ceyhan:mcap2012;textual}{pcds}).
 }
 \examples{

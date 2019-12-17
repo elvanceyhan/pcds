@@ -2,7 +2,7 @@
 % Please edit documentation in R/PCDFunctions.r
 \name{ArcsPEmid1D}
 \alias{ArcsPEmid1D}
-\title{An object of class "Digraphs":
+\title{An object of class "PCDs":
 
 The arcs of Proportional Edge Proximity Catch Digraph (PE-PCD) for 1D data - middle intervals case}
 \usage{
@@ -44,6 +44,7 @@ It also provides various descriptions and quantities about the arcs of the PE-PC
 such as number of arcs, arc density, etc.
 
 Vertex regions are based on center \eqn{M_c} of each middle interval.
+
 See also (\insertCite{ceyhan:metrika-2012;textual}{pcds}).
 }
 \examples{
@@ -52,7 +53,8 @@ c<-.4
 a<-0; b<-10;
 #c<-runif(1)
 #a<-runif(1); b<-runif(1); int<-range(a,b); a<-int[1]; b<-int[2]
-nx<-40; ny<-10
+#nx is number of X points (target) and ny is number of Y points (nontarget)
+nx<-20; ny<-4; #try also nx<-40; ny<-10 or nx<-1000; ny<-10;
 
 #set.seed(1)
 Xp<-runif(nx,a,b)
@@ -78,7 +80,7 @@ Xlim<-range(Xp,Yp)
 xd<-Xlim[2]-Xlim[1]
 
 plot(cbind(a,0),
-main="arcs of PE-PCD for points (jittered along y-axis)\n in middle intervals ",
+main="arcs of PE-PCD for points (jittered along y-axis)\\n in middle intervals ",
 xlab=" ", ylab=" ", xlim=Xlim+xd*c(-.05,.05),ylim=3*c(-jit,jit),pch=".")
 abline(h=0,lty=1)
 points(Xp, yjit,pch=".",cex=3)
@@ -88,7 +90,8 @@ arrows(S, yjit, E, yjit, length = .05, col= 4)
 r<-2
 c<-.4
 a<-0; b<-10;
-nx<-40; ny<-10
+#nx is number of X points (target) and ny is number of Y points (nontarget)
+nx<-20; ny<-4; #try also nx<-40; ny<-10 or nx<-1000; ny<-10;
 Xp<-runif(nx,a,b)
 Yp<-runif(ny,a,b)
 ArcsPEmid1D(Xp,Yp,r,c)

@@ -12,11 +12,11 @@ Gam1CSTet1(p, Dt, re = NULL, ch.data.pnt = FALSE)
 
 \item{Dt}{A set of 2D points which constitutes the vertices of the CS-PCD}
 
-\item{re}{The index of the edge region in \eqn{T_e} containing the point, either 1, 2, 3 or NULL
-(default is NULL)}
+\item{re}{The index of the edge region in \eqn{T_e} containing the point, either 1, 2, 3 or \code{NULL}
+(default is \code{NULL})}
 
 \item{ch.data.pnt}{A logical argument for checking whether point \code{p} is a data point
-in \code{Dt} or not (default is FALSE)}
+in \code{Dt} or not (default is \code{FALSE})}
 }
 \value{
 I(\code{p} is a dominating point of the CS-PCD) where the vertices of the CS-PCD are the 2D data set \code{Dt},
@@ -25,15 +25,18 @@ that is, returns 1 if \code{p} is a dominating point, returns 0 otherwise
 \description{
 Returns I(\code{p} is a dominating point of the CS-PCD) where the vertices of the CS-PCD are the 2D data set \code{Dt} in the standard equilateral
 triangle \eqn{T_e=T(A,B,C)=T((0,0),(1,0),(1/2,\sqrt{3}/2))}, that is, returns 1 if \code{p} is a dominating point of CS-PCD,
-returns 0 otherwise. Point, \code{p}, is in the edge region of edge re (default is NULL); vertices are labeled as 1,2,3
+returns 0 otherwise.
+
+Point, \code{p}, is in the edge region of edge re (default is \code{NULL}); vertices are labeled as 1,2,3
 in the order they are stacked row-wise in \eqn{T_e}, and the opposite edges are labeled with label of the vertices
 (that is, edge numbering is 1,2,3 for edges AB,BC,AC).
 
-CS proximity region is constructed with respect to Te with expansion parameter \eqn{t=1}
+CS proximity region is constructed with respect to \eqn{T_e} with expansion parameter \eqn{t=1}
 and edge regions are based on center of mass \eqn{CM=(1/2,\sqrt{3}/6)}.
 
-\code{ch.data.pnt} is for checking whether point \code{p} is a data point in \code{Dt} or not (default is FALSE), so by default this
+\code{ch.data.pnt} is for checking whether point \code{p} is a data point in \code{Dt} or not (default is \code{FALSE}), so by default this
 function checks whether the point \code{p} would be a dominating point if it actually were in the data set.
+
 See also (\insertCite{ceyhan:Phd-thesis,ceyhan:comp-geo-2010,ceyhan:mcap2012;textual}{pcds}).
 }
 \examples{

@@ -18,7 +18,7 @@ NPEbastri(pt, r, c1, c2, M = c(1, 1, 1), rv = NULL)
 which serves as a center in the interior of the basic triangle \eqn{T_b} or the circumcenter of \eqn{T_b};
 default is \eqn{M=(1,1,1)} i.e. the center of mass of \eqn{T_b}}
 
-\item{rv}{Index of the \code{M}-vertex region containing the point \code{pt}, either 1, 2, 3 or NULL (default is NULL)}
+\item{rv}{Index of the \code{M}-vertex region containing the point \code{pt}, either 1, 2, 3 or \code{NULL} (default is \code{NULL})}
 }
 \value{
 Vertices of the triangular region which constitutes the PE proximity region with expansion parameter
@@ -34,8 +34,9 @@ Cartesian coordinates or \eqn{M=(\alpha,\beta,\gamma)} in barycentric coordinate
 triangle \eqn{T_b} or based on the circumcenter of \eqn{T_b}; default is \eqn{M=(1,1,1)} i.e. the center of mass of \eqn{T_b}.
 
 Vertex regions are labeled as 1,2,3 rowwise for the vertices
-of the triangle \eqn{T_b}. \code{rv} is the index of the vertex region \code{pt} resides, with default=NULL.
-If \code{pt} is outside of \code{tri}, it returns NULL for the proximity region.
+of the triangle \eqn{T_b}. \code{rv} is the index of the vertex region \code{pt} resides, with default=\code{NULL}.
+If \code{pt} is outside of \code{tri}, it returns \code{NULL} for the proximity region.
+
 See also (\insertCite{ceyhan:Phd-thesis,ceyhan:comp-geo-2010,ceyhan:mcap2012;textual}{pcds}).
 }
 \examples{
@@ -68,7 +69,7 @@ P2<-c(1.5,1.26)
 #NPEbastri(P1,r,c1,c2,M) #center is not the circumcenter or not in the interior of the triangle
 #NPEbastri(P2,r,c1,c2,M)
 
-\dontrun{
+\donttest{
 #or try
 Rv<-rv.bastri.cent(P1,c1,c2,M)$rv
 NPEbastri(P1,r,c1,c2,M,Rv)

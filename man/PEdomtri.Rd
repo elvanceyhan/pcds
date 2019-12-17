@@ -28,6 +28,7 @@ Returns the domination number of PE-PCD whose vertices are the data points in \c
 PE proximity region is defined with respect to the triangle \code{tri} with expansion parameter \eqn{r \ge 1} and
 vertex regions are constructed with center \eqn{M=(m_1,m_2)} in Cartesian coordinates or \eqn{M=(\alpha,\beta,\gamma)} in barycentric coordinates
 in the interior of the triangle \code{tri} or the circumcenter of \code{tri}.
+
 See also (\insertCite{ceyhan:Phd-thesis,ceyhan:masa-2007,ceyhan:dom-num-NPE-Spat2011,ceyhan:mcap2012;textual}{pcds}).
 }
 \examples{
@@ -35,7 +36,7 @@ A<-c(0,0); B<-c(1,0); C<-c(1/2,sqrt(3)/2)
 #A<-runif(2); B<-runif(2); C<-runif(2);
 #A<-runif(2,1,100); B<-runif(2,1,100); C<-runif(2,1,100);
 Tr<-rbind(A,B,C)
-n<-20
+n<-10 #try also n<-20
 dat<-runif.tri(n,Tr)$g
 
 M<-as.numeric(runif.tri(1,Tr)$g)

@@ -21,11 +21,14 @@ in the triangle \code{tri}}
 \description{
 Returns the indices of the vertices whose regions contain the points in data set \code{Dt} in
 a triangle \code{tri}=\eqn{(A,B,C)} and vertex regions are based on the circumcenter CC of \code{tri}.
-(see the plots in the example for illustrations). The vertices of the  triangle \code{tri} are labeled as
+(see the plots in the example for illustrations).
+
+The vertices of the  triangle \code{tri} are labeled as
 1=A,2=B, and 3=C also according to the row number the vertex is recorded in \code{tri}.
-If a point in \code{Dt} is not inside \code{tri}, then the function yields NA as output.
+If a point in \code{Dt} is not inside \code{tri}, then the function yields \code{NA} as output.
 The corresponding vertex region is the polygon whose interior points are closest to that vertex.
 If \code{tri} is equilateral triangle, then CC and CM (center of mass) coincide.
+
 See also (\insertCite{ceyhan:Phd-thesis,ceyhan:comp-geo-2010,ceyhan:mcap2012;textual}{pcds}).
 }
 \examples{
@@ -43,7 +46,7 @@ rverts.triCC(P,Tr)
 P<-c(10.5,1.6)
 rverts.triCC(P,Tr)
 
-n<-20
+n<-10 #try also n<-20
 #set.seed(1)
 dat<-runif.tri(n,Tr)$g
 #dat<-cbind(runif(n,1,2),runif(n,0,1))

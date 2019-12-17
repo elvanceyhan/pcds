@@ -17,7 +17,7 @@ NPEtri(pt, r, tri, M = c(1, 1, 1), rv = NULL)
 which serves as a center in the interior of the triangle \code{tri} or the circumcenter of \code{tri};
 default is \eqn{M=(1,1,1)} i.e. the center of mass of \code{tri}}
 
-\item{rv}{Index of the \code{M}-vertex region containing the point \code{pt}, either 1, 2, 3 or NULL (default is NULL)}
+\item{rv}{Index of the \code{M}-vertex region containing the point \code{pt}, either 1, 2, 3 or \code{NULL} (default is \code{NULL})}
 }
 \value{
 Vertices of the triangular region which constitutes the PE proximity region with expansion parameter
@@ -33,9 +33,9 @@ with expansion parameter \eqn{r \ge 1} and vertex regions based on center \eqn{M
 or based on the circumcenter of \code{tri}; default is \eqn{M=(1,1,1)} i.e. the center of mass of \code{tri}.
 
 Vertex regions are labeled as 1,2,3 rowwise for the vertices
-of the triangle \code{tri}. \code{rv} is the index of the vertex region \code{pt} resides, with default=NULL.
+of the triangle \code{tri}. \code{rv} is the index of the vertex region \code{pt} resides, with default=\code{NULL}.
+If \code{pt} is outside of \code{tri}, it returns \code{NULL} for the proximity region.
 
-If \code{pt} is outside of \code{tri}, it returns NULL for the proximity region.
 See also (\insertCite{ceyhan:Phd-thesis,ceyhan:arc-density-PE,ceyhan:dom-num-NPE-Spat2011;textual}{pcds}).
 }
 \examples{

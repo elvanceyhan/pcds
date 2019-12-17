@@ -23,7 +23,7 @@ default is \code{M}="CC" i.e. the circumcenter of \eqn{T_b}}
 in the row order of the vertices in \eqn{T_b}}
 
 \item{ch.data.pnt}{A logical argument for checking whether point \code{p} is a data point in \code{Dt} or not
-(default is FALSE)}
+(default is \code{FALSE})}
 }
 \value{
 I(\code{p} is a dominating point of the AS-PCD) where the vertices of the AS-PCD are the 2D data set \code{Dt},
@@ -42,12 +42,13 @@ studies under the uniformness hypothesis.
 Vertex regions are based on the center \code{M}="CC" for circumcenter
 of \eqn{T_b}; or \eqn{M=(m_1,m_2)} in Cartesian coordinates or \eqn{M=(\alpha,\beta,\gamma)} in barycentric coordinates in the
 interior of \eqn{T_b}; default is \code{M}="CC".
-Point, \code{p}, is in the vertex region of vertex \code{rv} (default is NULL); vertices are labeled as 1,2,3
+Point, \code{p}, is in the vertex region of vertex \code{rv} (default is \code{NULL}); vertices are labeled as 1,2,3
 in the order they are stacked row-wise.
 
-\code{ch.data.pnt} is for checking whether point \code{p} is a data point in \code{Dt} or not (default is FALSE),
+\code{ch.data.pnt} is for checking whether point \code{p} is a data point in \code{Dt} or not (default is \code{FALSE}),
 so by default this function checks whether the point \code{p} would be a dominating point
 if it actually were in the data set.
+
 See also (\insertCite{ceyhan:Phd-thesis,ceyhan:comp-geo-2010,ceyhan:mcap2012;textual}{pcds}).
 }
 \examples{

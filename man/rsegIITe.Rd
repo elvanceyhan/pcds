@@ -12,19 +12,19 @@ rsegIITe(k, eps)
 \item{k}{A positive integer representing the number of points to be generated}
 
 \item{eps}{A positive real number representing the parameter of type II segregation (which is the
-distance from the interior triangle to Te.)}
+distance from the interior triangle to \eqn{T_e}.)}
 }
 \value{
 A list with the elements
 \item{type}{The type of the point pattern}
 \item{mtitle}{The "main" title for the plot of the point pattern}
 \item{parameters}{The exclusion parameter, \code{eps}, of the segregation pattern, which is the distance
-from the interior triangle to Te}
+from the interior triangle to \eqn{T_e}}
 \item{ref.points}{The input set of points \code{Y};
 reference points, i.e., points from which generated points are segregated (i.e., vertices of \eqn{T_e}).}
 \item{gen.points}{The output set of generated points segregated from \code{Y} points (i.e., vertices of \eqn{T_e}).}
 \item{tri.Y}{Logical output for triangulation based on \code{Y} points should be implemented or not.
-if TRUE triangulation based on \code{Y} points is to be implemented (default is set to FALSE).}
+if \code{TRUE} triangulation based on \code{Y} points is to be implemented (default is set to \code{FALSE}).}
 \item{desc.pat}{Description of the point pattern}
 \item{num.points}{The vector of two numbers, which are the number of generated points and
 the number of reference (i.e., \code{Y}) points, which is 3 here.}
@@ -34,14 +34,15 @@ vertices of \eqn{T_e} here}
 \description{
 Generates \code{k} points uniformly in the standard equilateral triangle \eqn{T_e=T((0,0),(1,0),(1/2,\sqrt{3}/2))}
 under the type II segregation alternative for \code{eps} in \eqn{(0,\sqrt{3}/6=0.2886751]}.
+
 In the type II segregation, the annular forbidden regions around the edges are determined by
 the parameter \code{eps} which is the distance from the interior triangle (i.e., support for the segregation)
-to Te (see examples for a sample plot.)
+to \eqn{T_e} (see examples for a sample plot.)
 }
 \examples{
 A<-c(0,0); B<-c(1,0); C<-c(1/2,sqrt(3)/2);
 Te<-rbind(A,B,C);
-n<-1000
+n<-10 #try also n<-20 #try also n<-100 or 1000
 eps<-.15 #try also .2
 
 #set.seed(1)
@@ -57,7 +58,7 @@ yd<-Ylim[2]-Ylim[1]
 
 dat<-rsegIITe(n,eps)$gen.points
 
-plot(Te,pch=".",xlab="",ylab="",main="Type II segregation in the \n standard equilateral triangle",
+plot(Te,pch=".",xlab="",ylab="",main="Type II segregation in the \\n standard equilateral triangle",
      xlim=Xlim+xd*c(-.01,.01),ylim=Ylim+yd*c(-.01,.01))
 polygon(Te)
 points(dat)

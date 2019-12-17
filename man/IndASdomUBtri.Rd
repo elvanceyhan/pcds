@@ -25,7 +25,7 @@ It is prespecified as \code{k} in the function arguments.}
 \item{IndUBdom}{The indicator for the upper bound for domination number of AS-PCD being the
 specified value \code{k} or not. It returns 1 if the upper bound is \code{k}, and 0 otherwise.}
 \item{ind.domset}{The vertices (i.e., data points) in the dominating set of size \code{k} if it exists,
-otherwise it yields NULL.}
+otherwise it yields \code{NULL}.}
 }
 \description{
 Returns I(domination number of AS-PCD whose vertices are the data points \code{Dt} is less than or equal to \code{k}),
@@ -35,7 +35,9 @@ otherwise. It also provides the vertices (i.e. data points) in a dominating set 
 AS proximity regions are constructed with respect to the triangle \code{tri} and
 vertex regions are based on the center \code{M}="CC" for circumcenter of \code{tri};
 or \eqn{M=(m_1,m_2)} in Cartesian coordinates or \eqn{M=(\alpha,\beta,\gamma)} in barycentric coordinates in the
-interior of the triangle \code{tri}; default is \code{M}="CC" i.e. circumcenter of \code{tri}. The vertices of \code{tri}angle, \code{tri},
+interior of the triangle \code{tri}; default is \code{M}="CC" i.e. circumcenter of \code{tri}.
+
+The vertices of \code{tri}angle, \code{tri},
 are labeled as 1,2,3 according to the row number the vertex is recorded in \code{tri}.
 Loops are allowed in the digraph.
 It takes a long time for large number of vertices (i.e., large number of row numbers).

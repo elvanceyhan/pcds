@@ -33,16 +33,18 @@ Delaunay triangle or based on circumcenter of each Delaunay triangle (default fo
 which is the center of mass of the triangle).
 Each Delaunay triangle is first converted to an (unscaled) basic triangle so that \code{M} will be the same
 type of center for each Delaunay triangle (this conversion is not necessary when \code{M} is CM).
+
 Convex hull of \code{Yp} is partitioned by the Delaunay triangles based on \code{Yp} points
 (i.e., multiple triangles are the set of these Delaunay triangles whose union constitutes the
 convex hull of \code{Yp} points). For the number of arcs, loops are not allowed so arcs are only possible
 for points inside the convex hull of \code{Yp} points.
+
 See (\insertCite{ceyhan:Phd-thesis,ceyhan:arc-density-CS,ceyhan:test2014;textual}{pcds}) for more on CS-PCDs.
 Also see (\insertCite{okabe:2000,ceyhan:comp-geo-2010,renka:1996;textual}{pcds}) for more on Delaunay triangulation and the TRIPACK algorithm.
 }
 \examples{
-nx<-100
-ny<-10
+#nx is number of X points (target) and ny is number of Y points (nontarget)
+nx<-20; ny<-4; #try also nx<-40; ny<-10 or nx<-1000; ny<-10;
 
 #set.seed(1)
 Xp<-cbind(runif(nx),runif(nx))

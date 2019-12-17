@@ -11,8 +11,8 @@ cl2edgesTe(Dt, ch.all.intri = FALSE)
 \arguments{
 \item{Dt}{A set of 2D points representing the set of data points}
 
-\item{ch.all.intri}{A logical argument (default=FALSE) to check whether all data points are inside
-the standard equilateral triangle \eqn{T_e}. So if it is TRUE,
+\item{ch.all.intri}{A logical argument (default=\code{FALSE}) to check whether all data points are inside
+the standard equilateral triangle \eqn{T_e}. So if it is \code{TRUE},
 the function checks if all data points are inside the closure of the triangle (i.e. interior and boundary
 combined) else it does not.}
 }
@@ -28,30 +28,32 @@ A list with the elements
 \item{num.points}{The number of data points, i.e., size of \code{Dt}}
 \item{supp}{Support of the data points, i.e., the standard equilateral triangle \eqn{T_e}}
 \item{cent}{The center point used for construction of edge regions, not required for this extrema,
-hence it is NULL for this function}
-\item{ncent}{Name of the center, \code{cent}, not required for this extrema, hence it is NULL for this function}
-\item{regions}{Edge regions inside the triangle, \eqn{T_e}, not required for this extrema, hence it is NULL
+hence it is \code{NULL} for this function}
+\item{ncent}{Name of the center, \code{cent}, not required for this extrema, hence it is \code{NULL} for this function}
+\item{regions}{Edge regions inside the triangle, \eqn{T_e}, not required for this extrema, hence it is \code{NULL}
 for this function}
-\item{region.names}{Names of the edge regions, not required for this extrema, hence it is NULL
+\item{region.names}{Names of the edge regions, not required for this extrema, hence it is \code{NULL}
 for this function}
 \item{region.centers}{Centers of mass of the edge regions inside \eqn{T_e}, not required for this extrema,
-hence it is NULL for this function}
+hence it is \code{NULL} for this function}
 \item{dist2ref}{Distances from closest points in each edge region to the corresponding edge}
 }
 \description{
 Returns the closest points from the 2D data set, \code{Dt}, to the edges in the
 standard equilateral triangle \eqn{T_e=T(A=(0,0),B=(1,0),C=(1/2,\sqrt{3}/2))}.
 
-\code{ch.all.intri} is for checking whether all data points are inside \eqn{T_e} (default is FALSE).
-If some of the data points are not inside \eqn{T_e} and \code{ch.all.intri}=TRUE, then the function yields
+\code{ch.all.intri} is for checking whether all data points are inside \eqn{T_e} (default is \code{FALSE}).
+
+If some of the data points are not inside \eqn{T_e} and \code{ch.all.intri}=\code{TRUE}, then the function yields
 an error message.
-If some of the data points are not inside \eqn{T_e} and \code{ch.all.intri}=FALSE, then the function yields
-the closest points to edges among the data points inside \eqn{T_e} (yields NA if there are no data points
+If some of the data points are not inside \eqn{T_e} and \code{ch.all.intri}=\code{FALSE}, then the function yields
+the closest points to edges among the data points inside \eqn{T_e} (yields \code{NA} if there are no data points
 inside \eqn{T_e}).
+
 See also (\insertCite{ceyhan:Phd-thesis,ceyhan:arc-density-PE,ceyhan:masa-2007;textual}{pcds}).
 }
 \examples{
-n<-20
+n<-10 #try also n<-20
 dat<-runifTe(n)$gen.points
 #dat<-cbind(runif(n),runif(n))
 #dat<-cbind(runif(n,1,2),runif(n,0,1))

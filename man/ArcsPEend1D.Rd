@@ -2,7 +2,7 @@
 % Please edit documentation in R/PCDFunctions.r
 \name{ArcsPEend1D}
 \alias{ArcsPEend1D}
-\title{An object of class "Digraphs":
+\title{An object of class "PCDs":
 
 The arcs of Proportional Edge Proximity Catch Digraph (PE-PCD) for 1D data - end interval case}
 \usage{
@@ -39,13 +39,15 @@ For this function, PE proximity regions are constructed data points outside the 
 arcs may exist for points only inside end intervals.
 It also provides various descriptions and quantities about the arcs of the PE-PCD
 such as number of arcs, arc density, etc.
+
 See also (\insertCite{ceyhan:metrika-2012;textual}{pcds}).
 }
 \examples{
 r<-2
 a<-0; b<-10;
 #a<-runif(1); b<-runif(1); int<-range(a,b); a<-int[1]; b<-int[2]
-nx<-40; ny<-10
+#nx is number of X points (target) and ny is number of Y points (nontarget)
+nx<-20; ny<-4; #try also nx<-40; ny<-10 or nx<-1000; ny<-10;
 
 #set.seed(1)
 xr<-range(a,b)
@@ -71,7 +73,7 @@ Xlim<-range(a,b,Xp,Yp)
 xd<-Xlim[2]-Xlim[1]
 
 plot(cbind(a,0),pch=".",
-main="arcs of PE-PCDs for points (jittered along y-axis)\n in end intervals ",
+main="arcs of PE-PCDs for points (jittered along y-axis)\\n in end intervals ",
 xlab=" ", ylab=" ", xlim=Xlim+xd*c(-.05,.05),ylim=3*c(-jit,jit))
 abline(h=0,lty=1)
 points(Xp, yjit,pch=".",cex=3)
