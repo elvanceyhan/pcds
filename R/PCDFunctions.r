@@ -34832,8 +34832,8 @@ IndCSdomUBTe<-function(Dt,k,t,M=c(1,1,1))
 #' @examples
 #' \donttest{
 #' A<-c(1,1); B<-c(2,0); C<-c(1.5,2);
-#' #A<-runif(2); B<-runif(2); C<-runif(2);
-#' #A<-runif(2,1,100); B<-runif(2,1,100); C<-runif(2,1,100);
+#' ##A<-runif(2); B<-runif(2); C<-runif(2);
+#' ##A<-runif(2,1,100); B<-runif(2,1,100); C<-runif(2,1,100);
 #' Tr<-rbind(A,B,C);
 #' n<-10
 #'
