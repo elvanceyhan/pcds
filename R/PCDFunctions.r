@@ -34724,6 +34724,7 @@ IndNCStri.domset<-function(S,Dt,t,tri,M=c(1,1,1))
 #'
 #' for (k in 1:n)
 #'   print(c(k,IndCSdomUBTe(dat,k,t,M)$IndUBdom))
+#'   print(c(k,IndCSdomUBTe(dat,k,t,M)$domUB))
 #'
 #' IndCSdomUBTe(dat,k=4,t,M)
 #'
