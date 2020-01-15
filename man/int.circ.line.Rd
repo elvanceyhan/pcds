@@ -65,7 +65,7 @@ yd<-Ylim[2]-Ylim[1]
 plot(rbind(A,B,cent),pch=1,asp=1,xlab="x",ylab="y",
 xlim=Xlim+xd*c(-.05,.05),ylim=Ylim+yd*c(-.05,.05))
 lines(x,y,lty=1)
-tripack::circles(cent[1],cent[2],rad)
+interp::circles(cent[1],cent[2],rad)
 IP.txt<-c()
 if (!is.null(IPs))
 {

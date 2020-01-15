@@ -40,7 +40,7 @@ by three distinct 3D points \code{a}, \code{b}, and \code{c} with x- and y-coord
 respectively.
 }
 \examples{
-\donttest{
+\dontrun{
 A<-c(1,10,3); B<-c(1,1,3); C<-c(3,9,12); P<-c(1,1,0)
 #A<-runif(3); B<-runif(3); C<-runif(3); P<-runif(3)
 #A<-runif(3,1,100); B<-runif(3,1,100); C<-runif(3,1,100); P<-runif(3,1,100)
@@ -77,7 +77,7 @@ Mn.pts<-apply(Pts[1:3,],2,mean)
 plot3D::persp3D(z = pl.grid, x = x, y = y, theta =225, phi = 30, ticktype = "detailed")
 #plane spanned by points A, B, C
 plot3D::persp3D(z = z.grid, x = x, y = y,add=TRUE)
-#plane parallel to the original plane and passing thru point \\code{P}
+#plane parallel to the original plane and passing thru point \code{P}
 
 plot3D::persp3D(z = z.grid, x = x, y = y, theta =225, phi = 30, ticktype = "detailed")
 #plane spanned by points A, B, C

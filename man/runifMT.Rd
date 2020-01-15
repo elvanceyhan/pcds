@@ -14,7 +14,7 @@ of the point set \code{Yp}}
 
 \item{Yp}{A set of 2D points whose convex hull is the support of the uniform points to be generated}
 
-\item{DTmesh}{Triangulation nodes with neigbours (result of \code{\link[tripack]{tri.mesh}} function from \code{tripack} package)}
+\item{DTmesh}{Triangulation nodes with neigbours (result of \code{\link[interp]{tri.mesh}} function from \code{interp} package)}
 }
 \value{
 A list with the elements
@@ -35,10 +35,13 @@ Generates \code{n} points uniformly in the Convex Hull of set of points, \code{Y
 uniformly in each of the triangles in the Delaunay triangulation of \code{Yp}, i.e., in the multiple
 triangles partitioning the convex hull of \code{Yp}.
 
-\code{DTmesh} is the Delaunay triangulation of \code{Yp}, default is \code{DTmesh}=\code{NULL}.
-\code{DTmesh} yields triangulation nodes with neigbours (result of \code{\link[tripack]{tri.mesh}} function from \code{tripack} package).
+If \code{Yp} consists only of 3 points, then the function behaves like the
+function \code{\link{runif.tri}}.
 
-See (\insertCite{okabe:2000,ceyhan:comp-geo-2010,renka:1996;textual}{pcds}) for more on Delaunay triangulation and the TRIPACK algorithm.
+\code{DTmesh} is the Delaunay triangulation of \code{Yp}, default is \code{DTmesh}=\code{NULL}.
+\code{DTmesh} yields triangulation nodes with neigbours (result of \code{\link[interp]{tri.mesh}} function from \code{interp} package).
+
+See (\insertCite{okabe:2000,ceyhan:comp-geo-2010,sinclair:2016;textual}{pcds}) for more on Delaunay triangulation and the corresponding algorithm.
 }
 \examples{
 #nx is number of X points (target) and ny is number of Y points (nontarget)
@@ -53,7 +56,7 @@ plot(Xdt)
 
 dat<-runifMT(nx,Yp)$g #data under CSR in the convex hull of Ypoints
 #or use
-DTY<-tripack::tri.mesh(Yp[,1],Yp[,2],duplicate="remove") #Delaunay triangulation based on Y points
+DTY<-interp::tri.mesh(Yp[,1],Yp[,2],duplicate="remove") #Delaunay triangulation based on Y points
 dat<-runifMT(nx,Yp,DTY)$g #data under CSR in the convex hull of Ypoints
 
 Xlim<-range(Yp[,1])
@@ -63,7 +66,7 @@ yd<-Ylim[2]-Ylim[1]
 
 #plot of the data in the convex hull of Y points together with the Delaunay triangulation
 plot(dat,main=" ", xlab=" ", ylab=" ",xlim=Xlim+xd*c(-.05,.05),ylim=Ylim+yd*c(-.05,.05),type="n")
-tripack::plot.tri(DTY, add=TRUE, do.points = TRUE,pch=16,col="blue")
+interp::plot.triSht(DTY, add=TRUE, do.points = TRUE,pch=16,col="blue")
 points(dat,pch=".",cex=3)
 
 Yp<-rbind(c(.3,.2),c(.4,.5),c(.14,.15))

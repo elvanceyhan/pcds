@@ -4,8 +4,19 @@
 \alias{plotCSregsMT}
 \title{The plot of the Central Similarity (CS) Proximity Regions for a 2D data set - multiple triangle case}
 \usage{
-plotCSregsMT(Xp, Yp, t, M = c(1, 1, 1), asp = NA, main = "",
-  xlab = "", ylab = "", xlim = NULL, ylim = NULL, ...)
+plotCSregsMT(
+  Xp,
+  Yp,
+  t,
+  M = c(1, 1, 1),
+  asp = NA,
+  main = "",
+  xlab = "",
+  ylab = "",
+  xlim = NULL,
+  ylim = NULL,
+  ...
+)
 }
 \arguments{
 \item{Xp}{A set of 2D points for which CS proximity regions are constructed}
@@ -44,7 +55,7 @@ in barycentric coordinates in the interior of each Delaunay triangle
 (default for \eqn{M=(1,1,1)} which is the center of mass of the triangle).
 
 See (\insertCite{ceyhan:Phd-thesis,ceyhan:arc-density-CS,ceyhan:test2014;textual}{pcds}) more on the CS proximity regions.
-Also see (\insertCite{okabe:2000,ceyhan:comp-geo-2010,renka:1996;textual}{pcds}) for more on Delaunay triangulation and the TRIPACK algorithm.
+Also see (\insertCite{okabe:2000,ceyhan:comp-geo-2010,sinclair:2016;textual}{pcds}) for more on Delaunay triangulation and the corresponding algorithm.
 }
 \examples{
 #nx is number of X points (target) and ny is number of Y points (nontarget)
@@ -68,6 +79,8 @@ xd<-Xlim[2]-Xlim[1]
 yd<-Ylim[2]-Ylim[1]
 
 plotCSregsMT(Xp,Yp,t,M,xlab="",ylab="",xlim=Xlim+xd*c(-.05,.05),ylim=Ylim+yd*c(-.05,.05))
+
+plotCSregsMT(Xp,Yp[1:3,],t,M,xlab="",ylab="",xlim=Xlim+xd*c(-.05,.05),ylim=Ylim+yd*c(-.05,.05))
 
 }
 \references{

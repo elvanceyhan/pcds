@@ -37,7 +37,7 @@ convex hull of \code{Yp} points). For the incidence matrix loops are allowed,
 so the diagonal entries are all equal to 1.
 
 See (\insertCite{ceyhan:Phd-thesis,ceyhan:arc-density-CS,ceyhan:test2014;textual}{pcds}) for more on CS-PCDs.
-Also see (\insertCite{okabe:2000,ceyhan:comp-geo-2010,renka:1996;textual}{pcds}) for more on Delaunay triangulation and the TRIPACK algorithm.
+Also see (\insertCite{okabe:2000,ceyhan:comp-geo-2010,sinclair:2016;textual}{pcds}) for more on Delaunay triangulation and the corresponding algorithm.
 }
 \examples{
 #nx is number of X points (target) and ny is number of Y points (nontarget)
@@ -62,6 +62,7 @@ dom.greedy(IM)
 #IndUBdom(IM,3) #takes a very long time for large nx, try smaller nx
 
 IncMatCSMT(Xp,Yp,t,M)
+IncMatCSMT(Xp,Yp[1:3,],t,M)
 
 IncMatCSMT(Xp,rbind(Yp,Yp),t,M)
 

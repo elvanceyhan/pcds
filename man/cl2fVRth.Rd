@@ -44,7 +44,7 @@ Vertex regions are based on center \code{M} which can be the center
 of mass ("CM") or circumcenter ("CC") of \code{th}.
 }
 \examples{
-\donttest{
+\dontrun{
 A<-c(0,0,0); B<-c(1,0,0); C<-c(1/2,sqrt(3)/2,0); D<-c(1/2,sqrt(3)/6,sqrt(6)/3)
 #A<-runif(3); B<-runif(3); C<-runif(3); D<-runif(3)
 #A<-runif(3,1,100); B<-runif(3,1,100); C<-runif(3,1,100); D<-runif(3,1,100)

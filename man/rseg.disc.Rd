@@ -6,8 +6,15 @@
 
 Generation of points segregated (in a radial or circular fashion) from a given set of points}
 \usage{
-rseg.disc(n, Y, e, a1 = min(Y[, 1]), a2 = max(Y[, 1]), b1 = min(Y[,
-  2]), b2 = max(Y[, 2]))
+rseg.disc(
+  n,
+  Y,
+  e,
+  a1 = min(Y[, 1]),
+  a2 = max(Y[, 1]),
+  b1 = min(Y[, 2]),
+  b2 = max(Y[, 2])
+)
 }
 \arguments{
 \item{n}{A positive integer representing the number of points to be generated}

@@ -4,8 +4,19 @@
 \alias{plotPEregsTri}
 \title{The plot of the Proportional Edge (PE) Proximity Regions for a 2D data set - one triangle case}
 \usage{
-plotPEregsTri(Xp, tri, r, M = c(1, 1, 1), asp = NA, main = "",
-  xlab = "", ylab = "", xlim = NULL, ylim = NULL, ...)
+plotPEregsTri(
+  Xp,
+  tri,
+  r,
+  M = c(1, 1, 1),
+  asp = NA,
+  main = "",
+  xlab = "",
+  ylab = "",
+  xlim = NULL,
+  ylim = NULL,
+  ...
+)
 }
 \arguments{
 \item{Xp}{A set of 2D points for which PE proximity regions are constructed}

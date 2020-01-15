@@ -53,7 +53,7 @@ for points inside the convex hull of \code{Yp} points.
 
 See (\insertCite{ceyhan:Phd-thesis,ceyhan:arc-density-PE,ceyhan:dom-num-NPE-Spat2011;textual}{pcds})
 for more on the PE-PCDs.
-Also see (\insertCite{okabe:2000,ceyhan:comp-geo-2010,renka:1996;textual}{pcds}) for more on Delaunay triangulation and the TRIPACK algorithm.
+Also see (\insertCite{okabe:2000,ceyhan:comp-geo-2010,sinclair:2016;textual}{pcds}) for more on Delaunay triangulation and the corresponding algorithm.
 }
 \examples{
 #nx is number of X points (target) and ny is number of Y points (nontarget)
@@ -81,7 +81,7 @@ plot(Arcs)
 
 S<-Arcs$S
 E<-Arcs$E
-DT<-tripack::tri.mesh(Yp[,1],Yp[,2],duplicate="remove")
+DT<-interp::tri.mesh(Yp[,1],Yp[,2],duplicate="remove")
 
 Xlim<-range(Xp[,1],Yp[,1])
 Ylim<-range(Xp[,2],Yp[,2])
@@ -90,10 +90,11 @@ yd<-Ylim[2]-Ylim[1]
 
 plot(Xp,main=" ", xlab=" ", ylab=" ",
 xlim=Xlim+xd*c(-.05,.05),ylim=Ylim+yd*c(-.05,.05),pch=".",cex=3)
-tripack::plot.tri(DT, add=TRUE, do.points = TRUE)
+interp::plot.triSht(DT, add=TRUE, do.points = TRUE)
 arrows(S[,1], S[,2], E[,1], E[,2], length = 0.1, col= 4)
 
 ArcsPEMT(Xp,Yp,r)
+ArcsPEMT(Xp,Yp[1:3,],r)
 
 ArcsPEMT(Xp,rbind(Yp,Yp),r)
 

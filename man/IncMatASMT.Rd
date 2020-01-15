@@ -30,8 +30,8 @@ interior of each Delaunay triangle; default is \code{M}="CC" i.e. circumcenter o
 Loops are allowed, so the diagonal entries are all equal to 1.
 
 See (\insertCite{ceyhan:Phd-thesis,ceyhan:comp-geo-2010,ceyhan:mcap2012;textual}{pcds}) for more on AS-PCDs.
-Also see (\insertCite{okabe:2000,ceyhan:comp-geo-2010,renka:1996;textual}{pcds}) for more on Delaunay triangulation
-and the TRIPACK algorithm.
+Also see (\insertCite{okabe:2000,ceyhan:comp-geo-2010,sinclair:2016;textual}{pcds}) for more on Delaunay triangulation
+and the corresponding algorithm.
 }
 \examples{
 #nx is number of X points (target) and ny is number of Y points (nontarget)
@@ -50,9 +50,10 @@ M<-"CC"
 
 IM<-IncMatASMT(Xp,Yp,M)
 IM
-
 dom.greedy(IM)
 #dom.exact(IM) #this might take a long time for large  nx
+
+IM<-IncMatASMT(Xp,Yp[1:3,],M)
 
 IncMatASMT(Xp,rbind(Yp,Yp))
 

@@ -66,7 +66,7 @@ yjit<-runif(length(dat),-jit,jit)
 Xlim<-range(a,b,dat)
 xd<-Xlim[2]-Xlim[1]
 
-plot(cbind(a,0),main="vertex region indices for the points\\n in the end intervals",
+plot(cbind(a,0),main="vertex region indices for the points\n in the end intervals",
      xlab=" ", ylab=" ",pch=".",xlim=Xlim+xd*c(-.05,.05),ylim=3*range(yjit))
 points(dat, yjit,xlim=Xlim+xd*c(-.05,.05),pch=".",cex=3)
 abline(h=0)

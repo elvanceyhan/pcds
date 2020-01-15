@@ -7,8 +7,14 @@
 A test of uniformity of 1D data in a given interval based on Central Similarity Proximity Catch Digraph
 (CS-PCD)}
 \usage{
-TSArcDensCS1D(dat, t, c, int, alternative = c("two.sided", "less",
-  "greater"), conf.level = 0.95)
+TSArcDensCS1D(
+  dat,
+  t,
+  c,
+  int,
+  alternative = c("two.sided", "less", "greater"),
+  conf.level = 0.95
+)
 }
 \arguments{
 \item{dat}{A set or vector of 1D points which constitute the vertices of CS-PCD}
@@ -55,7 +61,7 @@ points) or right-sided (i.e. data is accumulated around the mid point or center 
 See also (\insertCite{ceyhan:revstat-2016;textual}{pcds}).
 }
 \examples{
-\donttest{
+\dontrun{
 c<-.4
 t<-2
 a<-0; b<-10; int<-c(a,b)

@@ -5,8 +5,7 @@
 \title{The indicator for a point being a dominating point for Proportional Edge Proximity Catch Digraphs (PE-PCDs)
 - one triangle case}
 \usage{
-Gam1PEtri(p, Dt, tri, r, M = c(1, 1, 1), rv = NULL,
-  ch.data.pnt = FALSE)
+Gam1PEtri(p, Dt, tri, r, M = c(1, 1, 1), rv = NULL, ch.data.pnt = FALSE)
 }
 \arguments{
 \item{p}{A 2D point that is to be tested for being a dominating point or not of the PE-PCD}

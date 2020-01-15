@@ -5,7 +5,7 @@
 \title{The indicator for the presence of an arc from one point to another for Central Similarity Proximity
 Catch Digraphs (CS-PCDs)}
 \usage{
-IndNCStri(pt1, pt2, t, tri, M, re = NULL)
+IndNCStri(pt1, pt2, tau, tri, M, re = NULL)
 }
 \arguments{
 \item{pt1}{A 2D point whose CS proximity region is constructed.}
@@ -13,7 +13,7 @@ IndNCStri(pt1, pt2, t, tri, M, re = NULL)
 \item{pt2}{A 2D point. The function determines whether \code{pt2} is inside the CS proximity region of
 \code{pt1} or not.}
 
-\item{t}{A positive real number which serves as the expansion parameter in CS proximity region}
+\item{tau}{A positive real number which serves as the expansion parameter in CS proximity region}
 
 \item{tri}{Three 2D points, stacked row-wise, each row representing a vertex of the triangle}
 
@@ -23,11 +23,11 @@ which serves as a center in the interior of the triangle \code{tri}}
 \item{re}{Index of the \code{M}-edge region containing the point \code{pt}, either 1, 2, 3 or \code{NULL} (default is \code{NULL})}
 }
 \value{
-I(\code{pt2} is in \eqn{NCS(pt1,t)}) for \code{pt1}, that is, returns 1 if \code{pt2} is in \eqn{NCS(pt1,t)}, returns 0 otherwise
+I(\code{pt2} is in \eqn{NCS(pt1,\tau)}) for \code{pt1}, that is, returns 1 if \code{pt2} is in \eqn{NCS(pt1,\tau)}, returns 0 otherwise
 }
 \description{
-Returns I(\code{pt2} is in \eqn{NCS(pt1,t)}) for points \code{pt1} and \code{pt2}, that is, returns 1 if \code{pt2} is in \eqn{NCS(pt1,t)},
-returns 0 otherwise, where \eqn{NCS(x,t)} is the CS proximity region for point \eqn{x} with the expansion parameter \eqn{t>0}.
+Returns I(\code{pt2} is in \eqn{NCS(pt1,t)}) for points \code{pt1} and \code{pt2}, that is, returns 1 if \code{pt2} is in \eqn{NCS(pt1,\tau)},
+returns 0 otherwise, where \eqn{NCS(x,\tau)} is the CS proximity region for point \eqn{x} with the expansion parameter \eqn{\tau>0}.
 
 CS proximity region is constructed with respect to the triangle \code{tri} and
 edge regions are based on the center, \eqn{M=(m_1,m_2)} in Cartesian coordinates or
@@ -45,7 +45,7 @@ A<-c(1,1); B<-c(2,0); C<-c(1.5,2);
 #A<-runif(2); B<-runif(2); C<-runif(2);
 #A<-runif(2,1,100); B<-runif(2,1,100); C<-runif(2,1,100);
 Tr<-rbind(A,B,C);
-t<-1.5
+tau<-1.5
 
 M<-as.numeric(runif.tri(1,Tr)$g)
 #M<-c(1.6,1.2)
@@ -57,34 +57,34 @@ n<-10
 #set.seed(1)
 dat<-runif.tri(n,Tr)$g
 
-IndNCStri(dat[1,],dat[2,],t,Tr,M)
+IndNCStri(dat[1,],dat[2,],tau,Tr,M)
 
 P1<-as.numeric(runif.tri(1,Tr)$g)
 P2<-as.numeric(runif.tri(1,Tr)$g)
-IndNCStri(P1,P2,t,Tr,M)
+IndNCStri(P1,P2,tau,Tr,M)
 
 P1<-c(.4,.2)
 P2<-c(1.8,.5)
-IndNCStri(P1,P2,t,Tr,M)
-IndNCStri(P2,P1,t,Tr,M)
+IndNCStri(P1,P2,tau,Tr,M)
+IndNCStri(P2,P1,tau,Tr,M)
 
-IndNCStri(P1,P1,t,Tr,M)
-IndNCStri(P2,P2,t,Tr,M)
+IndNCStri(P1,P1,tau,Tr,M)
+IndNCStri(P2,P2,tau,Tr,M)
 
 P3<-c(1.7,.6)
-IndNCStri(P2,P3,t,Tr,M)
-IndNCStri(P3,P2,t,Tr,M)
+IndNCStri(P2,P3,tau,Tr,M)
+IndNCStri(P3,P2,tau,Tr,M)
 
 #or try
 re<-redges.tri.cent(P1,Tr,M)$re
-IndNCStri(P1,P2,t,Tr,M,re)
+IndNCStri(P1,P2,tau,Tr,M,re)
 
 P2<-c(1.8,.5)
 P3<-c(1.7,.6)
-IndNCStri(P2,P3,t,Tr,M)
+IndNCStri(P2,P3,tau,Tr,M)
 
 dat.fr<-data.frame(a=Tr)
-IndNCStri(P2,P3,t,dat.fr,M)
+IndNCStri(P2,P3,tau,dat.fr,M)
 
 }
 \references{

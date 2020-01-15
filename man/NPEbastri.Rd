@@ -69,7 +69,7 @@ P2<-c(1.5,1.26)
 #NPEbastri(P1,r,c1,c2,M) #center is not the circumcenter or not in the interior of the triangle
 #NPEbastri(P2,r,c1,c2,M)
 
-\donttest{
+\dontrun{
 #or try
 Rv<-rv.bastri.cent(P1,c1,c2,M)$rv
 NPEbastri(P1,r,c1,c2,M,Rv)

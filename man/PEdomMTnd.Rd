@@ -36,8 +36,8 @@ Convex hull of \code{Yp} is partitioned by the Delaunay triangles based on \code
 convex hull of \code{Yp} points). Loops are allowed for the domination number.
 
 See (\insertCite{ceyhan:Phd-thesis,ceyhan:masa-2007,ceyhan:dom-num-NPE-Spat2011,ceyhan:mcap2012;textual}{pcds}) more on the domination number of
-PE-PCDs. Also see (\insertCite{okabe:2000,ceyhan:comp-geo-2010,renka:1996;textual}{pcds}) for more on Delaunay triangulation and
-the TRIPACK algorithm.
+PE-PCDs. Also see (\insertCite{okabe:2000,ceyhan:comp-geo-2010,sinclair:2016;textual}{pcds}) for more on Delaunay triangulation and
+the corresponding algorithm.
 }
 \examples{
 #nx is number of X points (target) and ny is number of Y points (nontarget)
@@ -59,6 +59,8 @@ PEdomMTnd(Xp,Yp,r=1.4)
 r<-1.5
 #r<-2
 PEdomMTnd(Xp,Yp,r) #this may be different due to random selection of the center for r in (1,1.5)
+
+PEdomMTnd(Xp,Yp[1:3,],r)
 
 PEdomMTnd(Xp,rbind(Yp,Yp),r)
 

@@ -44,7 +44,7 @@ yd<-Ylim[2]-Ylim[1]
 plot(rbind(Y),asp=1,pch=16,col=2,xlab="",ylab="",axes=TRUE,
 xlim=Xlim+xd*c(-.05,.05),ylim=Ylim+yd*c(-.05,.05))
 points(rbind(X))
-tripack::circles(X[,1],X[,2],Rad$rad,lty=1,lwd=1,col=4)
+interp::circles(X[,1],X[,2],Rad$rad,lty=1,lwd=1,col=4)
 
 ###
 nx<-5
@@ -65,11 +65,11 @@ yd<-Ylim[2]-Ylim[1]
 plot(rbind(Y),asp=1,pch=16,col=2,xlab="",ylab="",axes=TRUE,
 xlim=Xlim+xd*c(-.05,.05),ylim=Ylim+yd*c(-.05,.05))
 points(rbind(X))
-tripack::circles(X[,1],X[,2],Rad$rad,lty=1,lwd=1,col=4)
+interp::circles(X[,1],X[,2],Rad$rad,lty=1,lwd=1,col=4)
 
 radii(c(1,2),c(2,3))
 
-\donttest{
+\dontrun{
 ###
 nx<-10
 ny<-5

@@ -4,8 +4,17 @@
 \alias{plotASregsTri}
 \title{The plot of the Arc Slice (AS) Proximity Regions for a 2D data set - one triangle case}
 \usage{
-plotASregsTri(Xp, tri, M = "CC", main = "", xlab = "", ylab = "",
-  xlim = NULL, ylim = NULL, ...)
+plotASregsTri(
+  Xp,
+  tri,
+  M = "CC",
+  main = "",
+  xlab = "",
+  ylab = "",
+  xlim = NULL,
+  ylim = NULL,
+  ...
+)
 }
 \arguments{
 \item{Xp}{A set of 2D points for which AS proximity regions are constructed}

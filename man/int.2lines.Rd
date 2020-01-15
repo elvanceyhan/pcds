@@ -50,7 +50,7 @@ lines(x,y1,lty=1,col=1)
 lines(x,y2,lty=1,col=2)
 text(rbind(A+pf,B+pf),c("A","B"))
 text(rbind(C+pf,D+pf),c("C","D"))
-text(rbind(ip+pf),c("intersection\\n point"))
+text(rbind(ip+pf),c("intersection\n point"))
 
 int.2lines(c(1,2),c(1,3),C,D)
 

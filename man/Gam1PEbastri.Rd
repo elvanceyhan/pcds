@@ -5,8 +5,7 @@
 \title{The indicator for a point being a dominating point or not for Proportional Edge Proximity Catch
 Digraphs (PE-PCDs) - basic triangle case}
 \usage{
-Gam1PEbastri(p, Dt, r, c1, c2, M = c(1, 1, 1), rv = NULL,
-  ch.data.pnt = FALSE)
+Gam1PEbastri(p, Dt, r, c1, c2, M = c(1, 1, 1), rv = NULL, ch.data.pnt = FALSE)
 }
 \arguments{
 \item{p}{A 2D point that is to be tested for being a dominating point or not of the PE-PCD}
@@ -141,7 +140,7 @@ Gam1PEbastri(P,rbind(dat,dat),r,c1,c2,M)
 dat.fr<-data.frame(a=dat)
 Gam1PEbastri(P,dat.fr,r,c1,c2,M)
 
-\donttest{
+\dontrun{
 Gam1PEbastri(P,cbind(dat,dat),r,c1,c2,M)
 Gam1PEbastri(P, rbind(c("a","b"),dat),r,c1,c2,M)
 }

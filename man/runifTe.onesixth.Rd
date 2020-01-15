@@ -57,7 +57,7 @@ xd<-Xlim[2]-Xlim[1]
 yd<-Ylim[2]-Ylim[1]
 
 plot(Te,asp=1,pch=".",xlim=Xlim+xd*c(-.01,.01),ylim=Ylim+yd*c(-.01,.01),xlab=" ",ylab=" ",
-     main="first 1/6th of the \\n standard equilateral triangle")
+     main="first 1/6th of the \n standard equilateral triangle")
 polygon(Te)
 L<-Te; R<-Ds
 segments(L[,1], L[,2], R[,1], R[,2], lty=2)

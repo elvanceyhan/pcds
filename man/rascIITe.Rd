@@ -58,7 +58,7 @@ yd<-Ylim[2]-Ylim[1]
 
 dat<-rascIITe(n,eps)$gen.points
 plot(Te,pch=".",xlab="",ylab="",
-main="Type II association in the \\n standard equilateral triangle",
+main="Type II association in the \n standard equilateral triangle",
      xlim=Xlim+xd*c(-.01,.01),ylim=Ylim+yd*c(-.01,.01))
 polygon(Te)
 points(dat)

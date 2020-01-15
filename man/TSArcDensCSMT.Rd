@@ -7,8 +7,14 @@
 A test of segregation/association based on arc density of Central Similarity Proximity Catch Digraph
 (CS-PCD) for 2D data}
 \usage{
-TSArcDensCSMT(Xp, Yp, t, ch.cor = FALSE, alternative = c("two.sided",
-  "less", "greater"), conf.level = 0.95)
+TSArcDensCSMT(
+  Xp,
+  Yp,
+  t,
+  ch.cor = FALSE,
+  alternative = c("two.sided", "less", "greater"),
+  conf.level = 0.95
+)
 }
 \arguments{
 \item{Xp}{A set of 2D points which constitute the vertices of the CS-PCD}
@@ -65,11 +71,10 @@ which is recommended when both \code{Xp} and \code{Yp} have the same rectangular
 See also (\insertCite{ceyhan:Phd-thesis,ceyhan:arc-density-CS,ceyhan:test2014;textual}{pcds}).
 }
 \examples{
-\donttest{
 #nx is number of X points (target) and ny is number of Y points (nontarget)
-nx<-20; ny<-4; #try also nx<-40; ny<-10 or nx<-1000; ny<-10;
+nx<-40; ny<-4; #try also nx<-40; ny<-10 or nx<-1000; ny<-10;
 
-#set.seed(1)
+set.seed(1)
 Xp<-cbind(runif(nx),runif(nx))
 #Xp<-cbind(runif(nx,0.5,1.5),runif(nx,0,1))
 #Xp<-cbind(runif(nx,1,2),runif(nx,0,1))
@@ -90,11 +95,16 @@ NumArcsCSMT(Xp,Yp,t=1.5)
 TSArcDensCSMT(Xp,Yp,t=1.5)
 TSArcDensCSMT(Xp,Yp,t=1.5,ch=TRUE)
 
-#TSArcDensCSMT(c(.4,.2),Yp,t=.5) #not enough points in the convex hull of non-target points to
-#compute arc density of the target points
-
 t<-2
 TSArcDensCSMT(Xp,Yp,t)
+
+\dontrun{
+TSArcDensCSMT(c(.4,.2),Yp,t=.5) #not enough points in the convex hull of non-target points to
+#compute arc density of the target points
+
+Xp<-runif.tri(nx,Yp[1:3,])$g
+TSArcDensCSMT(Xp,Yp[1:3,],t)
+}
 
 TSArcDensCSMT(Xp,rbind(Yp,Yp),t)
 
@@ -103,7 +113,6 @@ TSArcDensCSMT(dat.fr,Yp,t)
 
 dat.fr<-data.frame(a=Yp)
 TSArcDensCSMT(Xp,dat.fr,t)
-}
 
 }
 \references{

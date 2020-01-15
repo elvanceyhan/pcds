@@ -7,8 +7,14 @@
 A test of uniformity of 1D data in a given interval based on Proportional Edge Proximity Catch Digraph
 (PE-PCD).}
 \usage{
-TSArcDensPE1D(dat, r, c, int, alternative = c("two.sided", "less",
-  "greater"), conf.level = 0.95)
+TSArcDensPE1D(
+  dat,
+  r,
+  c,
+  int,
+  alternative = c("two.sided", "less", "greater"),
+  conf.level = 0.95
+)
 }
 \arguments{
 \item{dat}{A set or vector of 1D points which constitute the vertices of PE-PCD}
@@ -55,7 +61,7 @@ points) or right-sided (i.e. data is accumulated around the mid point or center 
 See also (\insertCite{ceyhan:metrika-2012,ceyhan:revstat-2016;textual}{pcds}).
 }
 \examples{
-\donttest{
+\dontrun{
 c<-.4
 r<-2
 a<-0; b<-10; int<-c(a,b)

@@ -5,7 +5,7 @@
 \title{The indicator for the presence of an arc from a point in set \code{S} to the point \code{pt} for
 Central Similarity Proximity Catch Digraphs (CS-PCDs) - one triangle case}
 \usage{
-IndNCStriSet(S, pt, t, tri, M = c(1, 1, 1))
+IndNCStriSet(S, pt, tau, tri, M = c(1, 1, 1))
 }
 \arguments{
 \item{S}{A set of 2D points. Presence of an arc from a point in \code{S} to point \code{pt} is checked
@@ -14,7 +14,7 @@ by the function.}
 \item{pt}{A 2D point. Presence of an arc from a point in \code{S} to point \code{pt} is checked
 by the function.}
 
-\item{t}{A positive real number which serves as the expansion parameter in CS proximity region
+\item{tau}{A positive real number which serves as the expansion parameter in CS proximity region
 constructed in the triangle \code{tri}}
 
 \item{tri}{Three 2D points, stacked row-wise, each row representing a vertex of the triangle}
@@ -24,11 +24,11 @@ which serves as a center in the interior of the triangle \code{tri};
 default is \eqn{M=(1,1,1)} i.e. the center of mass of \code{tri}}
 }
 \value{
-I(\code{pt} is in \eqn{\cup_{x in S} NCS(x,t)}), that is, returns 1 if \code{pt} is in \code{S} or inside \eqn{NCS(x,t)} for at least
+I(\code{pt} is in \eqn{\cup_{x in S} NCS(x,\tau)}), that is, returns 1 if \code{pt} is in \code{S} or inside \eqn{NCS(x,\tau)} for at least
 one x in \code{S}, returns 0 otherwise where CS proximity region is constructed with respect to the triangle \code{tri}
 }
 \description{
-Returns I(\code{pt} in \eqn{NCS(x,t)} for some x in \code{S}), that is, returns 1 if \code{pt} in \eqn{\cup_{x in S} NCS(x,t)},
+Returns I(\code{pt} in \eqn{NCS(x,\tau)} for some x in \code{S}), that is, returns 1 if \code{pt} in \eqn{\cup_{x in S} NCS(x,\tau)},
 returns 0 otherwise.
 
 CS proximity region is constructed with respect to the triangle \code{tri} with
@@ -59,38 +59,38 @@ M<-as.numeric(runif.tri(1,Tr)$g)
 #M<-c(1,1,1) #M<-c(1,2,3) #M<-c(-1,2,3) #barycentric coordinates
 #M<-c(1.3,1.3)
 #M<-c(.3,.3)
-t<-.5
+tau<-.5
 
-IndNCStriSet(S,dat[3,],t,Tr,M)
-IndNCStriSet(S,dat[3,],t=1,Tr,M)
-IndNCStriSet(S,dat[3,],t=1.5,Tr,M)
+IndNCStriSet(S,dat[3,],tau,Tr,M)
+IndNCStriSet(S,dat[3,],tau=1,Tr,M)
+IndNCStriSet(S,dat[3,],tau=1.5,Tr,M)
 
 S<-rbind(dat[1,],dat[2,],dat[3,],dat[5,])
-IndNCStriSet(S,dat[3,],t,Tr,M)
+IndNCStriSet(S,dat[3,],tau,Tr,M)
 
-IndNCStriSet(S,dat[6,],t,Tr,M)
-IndNCStriSet(S,dat[6,],t=.25,Tr,M)
+IndNCStriSet(S,dat[6,],tau,Tr,M)
+IndNCStriSet(S,dat[6,],tau=.25,Tr,M)
 
 S<-rbind(c(.1,.1),c(.3,.4),c(.5,.3))
-IndNCStriSet(S,dat[3,],t,Tr,M)
+IndNCStriSet(S,dat[3,],tau,Tr,M)
 
-IndNCStriSet(c(.2,.5),dat[2,],t,Tr,M)
-IndNCStriSet(dat,c(.2,.5),t,Tr,M)
-IndNCStriSet(dat,dat[2,],t,Tr,M)
-IndNCStriSet(c(.2,.5),c(.2,.5),t,Tr,M)
-IndNCStriSet(dat[5,],dat[2,],t,Tr,M)
+IndNCStriSet(c(.2,.5),dat[2,],tau,Tr,M)
+IndNCStriSet(dat,c(.2,.5),tau,Tr,M)
+IndNCStriSet(dat,dat[2,],tau,Tr,M)
+IndNCStriSet(c(.2,.5),c(.2,.5),tau,Tr,M)
+IndNCStriSet(dat[5,],dat[2,],tau,Tr,M)
 
 S<-rbind(dat[1,],dat[2,],dat[3,],dat[5,],c(.2,.5))
-IndNCStriSet(S,dat[3,],t,Tr,M)
+IndNCStriSet(S,dat[3,],tau,Tr,M)
 
 P<-c(.4,.2)
 S<-dat[c(1,3,4),]
-IndNCStriSet(dat,P,t,Tr,M)
+IndNCStriSet(dat,P,tau,Tr,M)
 
-IndNCStriSet(rbind(S,S),P,t,Tr,M)
+IndNCStriSet(rbind(S,S),P,tau,Tr,M)
 
 dat.fr<-data.frame(a=S)
-IndNCStriSet(dat.fr,P,t,Tr,M)
+IndNCStriSet(dat.fr,P,tau,Tr,M)
 
 }
 \seealso{

@@ -42,7 +42,7 @@ spanned by 3D points \code{A}, \code{B}, and \code{C} (i.e., the line is in the 
 with the parameter \code{t} being provided in vector \code{t}.
 }
 \examples{
-\donttest{
+\dontrun{
 P<-c(1,1,1); A<-c(1,10,4); B<-c(1,1,3); C<-c(3,9,12)
 #P<-runif(3); A<-runif(3); B<-runif(3); C<-runif(3)
 #P<-runif(3,1,100); A<-runif(3,1,100); B<-runif(3,1,100); C<-runif(3,1,100)

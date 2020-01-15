@@ -4,8 +4,16 @@
 \alias{plotIntervals}
 \title{The plot of the subintervals based on \code{Yp} points together with \code{Xp} points}
 \usage{
-plotIntervals(Xp, Yp, main = "", xlab = "", ylab = "", xlim = NULL,
-  ylim = NULL, ...)
+plotIntervals(
+  Xp,
+  Yp,
+  main = "",
+  xlab = "",
+  ylab = "",
+  xlim = NULL,
+  ylim = NULL,
+  ...
+)
 }
 \arguments{
 \item{Xp}{A set of 1D points whose scatter-plot is provided.}

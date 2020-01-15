@@ -4,8 +4,7 @@
 \alias{plot.Uniform}
 \title{Plot a \code{Uniform} object}
 \usage{
-\method{plot}{Uniform}(x, asp = NA, xlab = "x", ylab = "y",
-  zlab = "z", ...)
+\method{plot}{Uniform}(x, asp = NA, xlab = "x", ylab = "y", zlab = "z", ...)
 }
 \arguments{
 \item{x}{Object of class \code{Uniform}}

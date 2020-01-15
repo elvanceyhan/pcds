@@ -5,8 +5,18 @@
 \title{The plot of the Proportional Edge (PE) Proximity Regions for a 3D data set - standard
 regular tetrahedron case}
 \usage{
-plotPEregsStdTH(Xp, r, main = "", xlab = "", ylab = "", zlab = "",
-  xlim = NULL, ylim = NULL, zlim = NULL, ...)
+plotPEregsStdTH(
+  Xp,
+  r,
+  main = "",
+  xlab = "",
+  ylab = "",
+  zlab = "",
+  xlim = NULL,
+  ylim = NULL,
+  zlim = NULL,
+  ...
+)
 }
 \arguments{
 \item{Xp}{A set of 3D points for which PE proximity regions are constructed}
@@ -40,7 +50,7 @@ regular tetrahedron) of \eqn{T_h}.
 See also (\insertCite{ceyhan:Phd-thesis,ceyhan:comp-geo-2010;textual}{pcds}).
 }
 \examples{
-\donttest{
+\dontrun{
 A<-c(0,0,0); B<-c(1,0,0); C<-c(1/2,sqrt(3)/2,0); D<-c(1/2,sqrt(3)/6,sqrt(6)/3)
 tetra<-rbind(A,B,C,D)
 r<-1.5

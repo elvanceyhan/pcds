@@ -8,8 +8,7 @@
 #' @import graphics
 #' @import stats
 #' @import plot3D
-# #' @import interp
-#' @import tripack
+#' @import interp
 #' @importFrom Rdpack reprompt
 #'
 #' @title Check the argument is a point of a given dimension.
@@ -46,7 +45,7 @@
 #'
 #' #is.point(c("a","b"))
 #'
-#' @export is.point
+#' @export
 is.point<-function(p,dim=2)
 {
   res<-is.numeric(p)==TRUE && is.vector(p)==TRUE && !is.list(p) && length(p)==dim
@@ -1624,7 +1623,7 @@ lA_M.Te<-function(x,M)
     M<-bary2cart(M,Te)
     cname <-"M"
   }
-  if (!in.triangle(M,Te)$inside.tri)
+  if (!in.triangle(M,Te)$in.tri)
   {stop('M must be inside standard equilateral triangle')}
 
   m1<-M[1]
@@ -1699,7 +1698,7 @@ lB_M.Te<-function(x,M)
     M<-bary2cart(M,Te)
     cname <-"M"
   }
-  if (!in.triangle(M,Te)$inside.tri)
+  if (!in.triangle(M,Te)$in.tri)
   {stop('M must be inside standard equilateral triangle')}
 
   m1<-M[1]
@@ -1774,7 +1773,7 @@ lC_M.Te<-function(x,M)
     M<-bary2cart(M,Te)
     cname <-"M"
   }
-  if (!in.triangle(M,Te)$inside.tri)
+  if (!in.triangle(M,Te)$in.tri)
   {stop('M must be inside standard equilateral triangle')}
 
   m1<-M[1];
@@ -2037,7 +2036,7 @@ runif.bastri<-function(k,c1,c2)
 #' if \code{pt} is inside the circle, and 0 otherwise.
 #'
 #' @seealso \code{\link{in.triangle}}, \code{\link{in.tetrahedron}},  and
-#' \code{\link[tripack]{in.convex.hull}} from the \code{tripack} package
+#' \code{\link[interp]{in.convex.hull}} from the \code{interp} package
 #'
 #' @examples
 #' cent<-c(1,1); rad<-1; p<-c(1.4,1.2)
@@ -2097,12 +2096,12 @@ in.circle<-function(pt,cent,rad,boundary=FALSE)
 #' combined) else it checks if \code{p} lies in the interior of the triangle.
 #'
 #' @return A list with two elements
-#' \item{inside.tri}{A logical output, it is \code{TRUE}, if the point, \code{p}, is inside the triangle, \code{tri},
+#' \item{in.tri}{A logical output, it is \code{TRUE}, if the point, \code{p}, is inside the triangle, \code{tri},
 #' else it is \code{FALSE}.}
 #' \item{barycentric}{The barycentric coordinates (alpha, beta, gamma) of the point \code{p} with respect to
 #' the triangle, \code{tri}.}
 #'
-#' @seealso \code{\link{inTriAll}} and \code{\link[tripack]{in.convex.hull}} from the \code{tripack} package
+#' @seealso \code{\link{inTriAll}} and \code{\link[interp]{in.convex.hull}} from the \code{interp} package
 #'
 #' @examples
 #' #A<-c(0,0); B<-c(1,0); C<-c(1/2,sqrt(3)/2);
@@ -2129,7 +2128,7 @@ in.circle<-function(pt,cent,rad,boundary=FALSE)
 #' p<-c(NA,.2)
 #' in.triangle(p,Tr)
 #'
-#' \donttest{
+#' \dontrun{
 #' #when triangle is degenerate
 #' B<-A+2*(C-A);
 #' Tr<-rbind(A,B,C)
@@ -2198,7 +2197,7 @@ in.triangle<-function(p,tri,boundary=FALSE)
     {ind.tri<-ifelse(all(c(alpha,beta,gamma)>=0), TRUE, FALSE)}
   }
   list(
-    inside.tri=ind.tri,
+    in.tri=ind.tri,
     barycentric=c(alpha,beta,gamma)
   )
 } #end of function
@@ -2228,7 +2227,7 @@ in.triangle<-function(p,tri,boundary=FALSE)
 #' @return A logical output, if all data points in \code{Dt} are inside the triangle, \code{tri}, the output is \code{TRUE},
 #' else it is \code{FALSE}.
 #'
-#' @seealso \code{\link{in.triangle}} and \code{\link[tripack]{in.convex.hull}} from the \code{tripack} package
+#' @seealso \code{\link{in.triangle}} and \code{\link[interp]{in.convex.hull}} from the \code{interp} package
 #'
 #' @examples
 #' #A<-c(0,0); B<-c(1,0); C<-c(1/2,sqrt(3)/2);
@@ -2274,7 +2273,7 @@ inTriAll<-function(Dt,tri,boundary=FALSE)
   {stop('Dt must be numeric')}
 
   if (is.point(Dt))
-  { intri<-in.triangle(Dt,tri,boundary)$inside.tri
+  { intri<-in.triangle(Dt,tri,boundary)$in.tri
   } else
   {Dt<-as.matrix(Dt)
   if (ncol(Dt)!=2 )
@@ -2288,7 +2287,7 @@ inTriAll<-function(Dt,tri,boundary=FALSE)
   cnt<-0; i<-1; intri<-TRUE
   while (i<=n & cnt==0)
   { pnt<-Dt[i,]
-  if(!in.triangle(pnt,tri,boundary)$inside.tri)
+  if (!in.triangle(pnt,tri,boundary)$in.tri)
   {cnt<-1; intri<-FALSE}
   else
   {i<-i+1}
@@ -2365,7 +2364,7 @@ runif.tri<-function(k,tri)
   while (ct==0)
   {
     x<-runif(1,x1,x2); y<-runif(1,y1,y2);
-    if (in.triangle(c(x,y),tri)$inside.tri==TRUE)
+    if (in.triangle(c(x,y),tri)$in.tri==TRUE)
     {X[i,]<-c(x,y);
     ct<-1;
     }
@@ -2398,6 +2397,7 @@ runif.tri<-function(k,tri)
   res
 } #end of the function
 #'
+
 #################################################################
 
 #' @title An object of class "Patterns":
@@ -2533,7 +2533,7 @@ rsegTe<-function(k,eps)
   names(npts)<-c("nx","ny")
 
   txt<-"Type I Segregation of One Class from Vertices of the Standard Equilateral Triangle"
-  main.txt<-paste("Type I Segregation in the \n Standard Equilateral Triangle \n with Exclusion Parameter ",ename,"=",eps,sep="")
+  main.txt<-paste("Type I Segregation in the Standard Equilateral Triangle \n with Exclusion Parameter ",ename,"=",eps,sep="")
 
   res<-list(
     type=typ,
@@ -2546,6 +2546,134 @@ rsegTe<-function(k,eps)
     num.points=npts,
     xlimit=range(Y[,1]),
     ylimit=range(Y[,2])
+  )
+
+  class(res)<-"Patterns"
+  res$call <-match.call()
+  res
+} #end of the function
+#'
+
+#################################################################
+
+#' @title An object of class "Patterns":
+#'
+#' Generation of points segregated (in a Type I fashion) from the vertices of a triangle
+#'
+#' @description Generates \code{k} points uniformly in the support for Type I segregation in
+#' a given triangle, \code{tri}.
+#'
+#' \code{delta} is the parameter of segregation (that is, \eqn{\delta 100} \% of the area around each vertex
+#' in the triangle is forbidden for point generation). \code{delta} corresponds to \code{eps} in the
+#' standard equilateral triangle \eqn{T_e} as \eqn{delta=4 eps ^2/3} (see \code{rsegTe}  function).
+#'
+#' See (\insertCite{ceyhan:arc-density-PE,ceyhan:arc-density-CS,ceyhan:dom-num-NPE-Spat2011;textual}{pcds}) for more on
+#' the segregation pattern.
+#'
+#' @param k A positive integer representing the number of points to be generated from the segregation pattern
+#' in the triangle, \code{tri}.
+#' @param tri Three 2D points, stacked row-wise, each row representing a vertex of the triangle
+#' @param delta A positive real number in (0,4/9). \code{delta} is the parameter of segregation (that is,
+#' \eqn{\delta 100} \% area around each vertex in each Delaunay triangle is forbidden for point generation).
+#'
+#' @return A list with the elements
+#' \item{type}{The type of the pattern from which points are to be generated}
+#' \item{mtitle}{The "main" title for the plot of the point pattern}
+#' \item{parameters}{Exclusion parameter, \code{delta}, of the Type I segregation pattern. \code{delta} is in (0,4/9)
+#' \eqn{\delta 100} \% area around each vertex in the triangle \code{tri} is forbidden for point generation.}
+#' \item{ref.points}{The input set of points, i.e., vertices of \code{tri};
+#' reference points, i.e., points from which generated points are segregated.}
+#' \item{gen.points}{The output set of generated points segregated from the vertices of \code{tri}.}
+#' \item{tri.Y}{Logical output, if \code{TRUE} the triangle \code{tri} is also plotted when the
+#' corresponding plot function from the \code{Patterns} object is called.}
+#' \item{desc.pat}{Description of the point pattern}
+#' \item{num.points}{The vector of two numbers, which are the number of generated points
+#' and the number of reference (i.e., vertice of \code{tri}, which is 3 here).}
+#' \item{xlimit,ylimit}{The ranges of the x- and y-coordinates of the reference points, which are the
+#' vertice so the triangle \code{tri}}
+#'
+#' @seealso \code{\link{rasc.tri}}, \code{\link{rsegTe}}, \code{\link{rsegIITe}}, and \code{\link{rsegMT}}
+#'
+#' @references
+#' \insertAllCited{}
+#'
+#' @examples
+#' n<-10 #try also n<-100
+#' A<-c(1,1); B<-c(2,0); C<-c(1.5,2);
+#' #A<-runif(2); B<-runif(2); C<-runif(2);
+#' #A<-runif(2,1,100); B<-runif(2,1,100); C<-runif(2,1,100);
+#' Tr<-rbind(A,B,C)
+#' del<-.4
+#'
+#' Xdt<-rseg.tri(n,Tr,del)
+#' Xdt
+#' summary(Xdt)
+#' plot(Xdt)
+#'
+#' dat<-rseg.tri(n,Tr,del)$g
+#' Xlim<-range(Tr[,1])
+#' Ylim<-range(Tr[,2])
+#' xd<-Xlim[2]-Xlim[1]
+#' yd<-Ylim[2]-Ylim[1]
+#'
+#' plot(Tr,pch=".",xlab="",ylab="",xlim=Xlim+xd*c(-.05,.05),ylim=Ylim+yd*c(-.05,.05))
+#' polygon(Tr)
+#' points(dat)
+#' xc<-Tr[,1]#+c(-.03,.03,0.03)
+#' yc<-Tr[,2]#+c(.02,.02,.02)
+#' txt.str<-c("A","B","C")
+#' text(xc,yc,txt.str)
+#'
+#' dat.fr<-data.frame(a=Tr)
+#' rseg.tri(n,dat.fr,del)
+#'
+#' @export
+rseg.tri<-function(k,tri,delta)
+{
+  tri<-as.matrix(tri)
+  if (!is.numeric(tri) || nrow(tri)!=3 || ncol(tri)!=2)
+  {stop('tri must be numeric and of dimension 3x2')}
+
+  if (!is.point(delta,1) || delta<=0 || delta>=1)
+  {stop('delta must be a scalar in (0,1)')}
+
+  cnt<-1;ind<-0
+  dat<-NULL
+  while (cnt <= k)
+  {
+    pnt<-as.vector(runif.tri(1,tri)$g)
+    seg.tri<-seg.tri.supp(delta,tri)
+    if (in.triangle(pnt,seg.tri,boundary=TRUE)$in.tri)
+    {
+      dat<-rbind(dat,pnt);
+      cnt<-cnt+1
+    }
+  }
+
+  dname <-deparse(substitute(delta))
+
+  param<-delta
+  names(param)<-"exclusion parameter"
+  typ<-paste("Type I Segregation of ",k, " points in the triangle with vertices (",tri[1,1],",",tri[1,2],")",", ",
+             "(",tri[2,1],",",tri[2,2],")"," and ","(",tri[3,1],",",tri[3,2],") with exclusion parameter ",dname, "=",delta,sep="")
+
+  npts<-c(k,3)
+  names(npts)<-c("nx","ny")
+
+  txt<-"Type I Segregation of One Class from Vertices of the Triangle"
+  main.txt<-paste("Type I Segregation in the One-Triangle Case \n with  Exclusion Parameter ",dname,"=",delta,sep="")
+
+  res<-list(
+    type=typ,
+    parameters=param,
+    gen.points=dat, #generated points segregated from Y points (vertices of the triangle, tri)
+    ref.points=tri, #reference points, i.e., points from which generated points are segregated (vertices of the triangle)
+    desc.pat=txt, #description of the pattern
+    mtitle=main.txt,
+    tri.Y=TRUE,
+    num.points=npts,
+    xlimit=range(tri[,1]),
+    ylimit=range(tri[,2])
   )
 
   class(res)<-"Patterns"
@@ -2816,6 +2944,133 @@ rascTe<-function(k,eps)
   res
 } #end of the function
 #'
+
+#################################################################
+
+#' @title An object of class "Patterns":
+#'
+#' Generation of points associated (in a Type I fashion) with the vertices of a triangle
+#'
+#' @description Generates \code{k} points uniformly in the support for Type I association in
+#' a given triangle, \code{tri}.
+#' \code{delta} is the parameter of association (that is, only \eqn{\delta 100} \% area around each vertex in
+#' the triangle is allowed for point generation). \code{delta} corresponds to \code{eps} in the standard equilateral triangle
+#' \eqn{T_e} as \eqn{delta=4eps^2/3} (see \code{rsegTe}  function).
+#'
+#' See (\insertCite{ceyhan:arc-density-PE,ceyhan:arc-density-CS,ceyhan:dom-num-NPE-Spat2011;textual}{pcds}) for more on
+#' the association pattern.
+#'
+#' @param k A positive integer representing the number of points to be generated from the association pattern
+#' in the triangle, \code{tri}.
+#' @param tri Three 2D points, stacked row-wise, each row representing a vertex of the triangle
+#' @param delta A positive real number in (0,4/9). \code{delta} is the parameter of association (that is, only
+#' \eqn{\delta 100} \% area around each vertex in the triangle is allowed for point generation).
+#'
+#' @return A list with the elements
+#' \item{type}{The type of the pattern from which points are to be generated}
+#' \item{mtitle}{The "main" title for the plot of the point pattern}
+#' \item{parameters}{Attraction parameter, \code{delta}, of the Type I association pattern. \code{delta} is in (0,4/9)
+#' only \eqn{\delta 100} \% of the area around each vertex in the triangle \code{tri} is allowed for point generation.}
+#' \item{ref.points}{The input set of points, i.e., vertices of \code{tri};
+#' reference points, i.e., points with which generated points are associated.}
+#' \item{gen.points}{The output set of generated points associated with the vertices of \code{tri}.}
+#' \item{tri.Y}{Logical output, \code{TRUE} if triangulation based on \code{Yp} points should be implemented.}
+#' \item{desc.pat}{Description of the point pattern}
+#' \item{num.points}{The vector of two numbers, which are the number of generated points
+#' and the number of reference (i.e., \code{Yp}) points.}
+#' \item{xlimit,ylimit}{The ranges of the x- and y-coordinates of the reference points, which are the
+#' \code{Yp} points}
+#'
+#' @seealso \code{\link{rseg.tri}}, \code{\link{rascTe}}, \code{\link{rascIITe}}, and \code{\link{rascMT}}
+#'
+#' @references
+#' \insertAllCited{}
+#'
+#' @examples
+#' n<-10 #try also n<-100
+#' A<-c(1,1); B<-c(2,0); C<-c(1.5,2);
+#' #A<-runif(2); B<-runif(2); C<-runif(2);
+#' #A<-runif(2,1,100); B<-runif(2,1,100); C<-runif(2,1,100);
+#' Tr<-rbind(A,B,C)
+#' del<-.4
+#'
+#' Xdt<-rasc.tri(n,Tr,del)
+#' Xdt
+#' summary(Xdt)
+#' plot(Xdt)
+#'
+#' dat<-rasc.tri(n,Tr,del)$g
+#' Xlim<-range(Tr[,1])
+#' Ylim<-range(Tr[,2])
+#' xd<-Xlim[2]-Xlim[1]
+#' yd<-Ylim[2]-Ylim[1]
+#'
+#' plot(Tr,pch=".",xlab="",ylab="",xlim=Xlim+xd*c(-.05,.05),ylim=Ylim+yd*c(-.05,.05))
+#' polygon(Tr)
+#' points(dat)
+#' xc<-Tr[,1]#+c(-.03,.03,0.03)
+#' yc<-Tr[,2]#+c(.02,.02,.02)
+#' txt.str<-c("A","B","C")
+#' text(xc,yc,txt.str)
+#'
+#' dat.fr<-data.frame(a=Tr) #this works fine
+#' rasc.tri(n,dat.fr,del)
+#'
+#' @export
+rasc.tri<-function(k,tri,delta)
+{
+  tri<-as.matrix(tri)
+  if (!is.numeric(tri) || nrow(tri)!=3 || ncol(tri)!=2)
+  {stop('tri must be numeric and of dimension 3x2')}
+
+  if (!is.point(delta,1) || delta<=0 || delta>=1)
+  {stop('delta must be a scalar in (0,1)')}
+
+  cnt<-1;ind<-0
+  dat<-NULL
+  while (cnt <= k)
+  {
+    pnt<-as.vector(runif.tri(1,tri)$g)
+    seg.tri<-seg.tri.supp(delta,tri)
+    if (!in.triangle(pnt,seg.tri)$in.tri)
+    {
+      dat<-rbind(dat,pnt);
+      cnt<-cnt+1
+    }
+  }
+
+  dname <-deparse(substitute(delta))
+
+  param<-delta
+  names(param)<-"attraction parameter"
+  typ<-paste("Type I Association of ",k, " points in the triangle with vertices (",tri[1,1],",",tri[1,2],")",", ",
+             "(",tri[2,1],",",tri[2,2],")"," and ","(",tri[3,1],",",tri[3,2],") with attraction parameter ",dname, "=",delta,sep="")
+
+  npts<-c(k,3)
+  names(npts)<-c("nx","ny")
+
+  txt<-"Type I Association of One Class with Vertices of the Triangle"
+  main.txt<-paste("Type I Association in the One-Triangle Case \n with Attraction Parameter ",dname,"=",delta,sep="")
+
+  res<-list(
+    type=typ,
+    parameters=param,
+    gen.points=dat, #generated points associated with Y points (vertices of the triangle, tri)
+    ref.points=tri, #reference points, i.e., points with which generated points are associated (vertices of the triangle)
+    desc.pat=txt, #description of the pattern
+    mtitle=main.txt,
+    tri.Y=TRUE,
+    num.points=npts,
+    xlimit=range(tri[,1]),
+    ylimit=range(tri[,2])
+  )
+
+  class(res)<-"Patterns"
+  res$call <-match.call()
+  res
+} #end of the function
+#'
+
 
 #################################################################
 
@@ -3184,7 +3439,7 @@ rank.d2e.Te<-function(Dt,dec=TRUE)
   dist.edge<-rep(NA,n)
   for (i in 1:n)
   { pnt<-as.vector(Dt[i,])
-  if (in.triangle(pnt,Te,boundary = TRUE)$inside.tri)
+  if (in.triangle(pnt,Te,boundary = TRUE)$in.tri)
   {
     x<-pnt[1]; y<-pnt[2];
     dist.edge[i]<-min(y,-0.5*y+0.866025404*x,-0.5*y+0.8660254040-0.866025404*x)
@@ -3269,7 +3524,7 @@ order.d2e.Te<-function(Dt,dec=TRUE)
   dist.edge<-rep(NA,n)
   for (i in 1:n)
   {  pnt<-as.vector(Dt[i,])
-  if (in.triangle(pnt,Te,boundary = TRUE)$inside.tri)
+  if (in.triangle(pnt,Te,boundary = TRUE)$in.tri)
   {
     x<-pnt[1]; y<-pnt[2];
     dist.edge[i]<-min(y,-0.5*y+0.866025404*x,-0.5*y+0.8660254040-0.866025404*x)
@@ -3378,7 +3633,7 @@ isStdEqTri<-function(tri)
 #' plot(rbind(Y),asp=1,pch=16,col=2,xlab="",ylab="",axes=TRUE,
 #' xlim=Xlim+xd*c(-.05,.05),ylim=Ylim+yd*c(-.05,.05))
 #' points(rbind(X))
-#' tripack::circles(X[,1],X[,2],Rad$rad,lty=1,lwd=1,col=4)
+#' interp::circles(X[,1],X[,2],Rad$rad,lty=1,lwd=1,col=4)
 #'
 #' ###
 #' nx<-5
@@ -3399,11 +3654,11 @@ isStdEqTri<-function(tri)
 #' plot(rbind(Y),asp=1,pch=16,col=2,xlab="",ylab="",axes=TRUE,
 #' xlim=Xlim+xd*c(-.05,.05),ylim=Ylim+yd*c(-.05,.05))
 #' points(rbind(X))
-#' tripack::circles(X[,1],X[,2],Rad$rad,lty=1,lwd=1,col=4)
+#' interp::circles(X[,1],X[,2],Rad$rad,lty=1,lwd=1,col=4)
 #'
 #' radii(c(1,2),c(2,3))
 #'
-#' \donttest{
+#' \dontrun{
 #' ###
 #' nx<-10
 #' ny<-5
@@ -3508,7 +3763,7 @@ radii<-function(x,y)
 #' plot(rbind(Y),asp=1,pch=16,col=2,xlab="",ylab="",axes=TRUE,
 #' xlim=Xlim+xd*c(-.05,.05),ylim=Ylim+yd*c(-.05,.05))
 #' points(rbind(X))
-#' tripack::circles(X[,1],X[,2],rad,lty=1,lwd=1,col=4)
+#' interp::circles(X[,1],X[,2],rad,lty=1,lwd=1,col=4)
 #'
 #' dat.fr<-data.frame(a=Y)
 #' radii(A,dat.fr)
@@ -3651,7 +3906,7 @@ rv.triCM<-function(p,tri)
   if (round(D0,14)==0)
   {stop('the triangle is degenerate')}
 
-  if(in.triangle(p,tri,boundary=TRUE)$inside.tri==F)
+  if (in.triangle(p,tri,boundary=TRUE)$in.tri==F)
   {rv<-NA
   } else
   {
@@ -3663,11 +3918,11 @@ rv.triCM<-function(p,tri)
     D1<-(y2+y3)/2; D2<-(y1+y3)/2; D3<-(y1+y2)/2;
     x<-p[1]; y<-p[2];
 
-    if(in.triangle(p,rbind(y1,D3,CM),boundary=TRUE)$inside.tri | in.triangle(p,rbind(y1,CM,D2),boundary=TRUE)$inside.tri)
+    if (in.triangle(p,rbind(y1,D3,CM),boundary=TRUE)$in.tri | in.triangle(p,rbind(y1,CM,D2),boundary=TRUE)$in.tri)
     {rv<-1}
     else
     {
-      if(in.triangle(p,rbind(D3,y2,CM),boundary=TRUE)$inside.tri | in.triangle(p,rbind(y2,D1,CM),boundary=TRUE)$inside.tri)
+      if (in.triangle(p,rbind(D3,y2,CM),boundary=TRUE)$in.tri | in.triangle(p,rbind(y2,D1,CM),boundary=TRUE)$in.tri)
       {rv<-2}
       else
       {rv<-3}
@@ -4022,7 +4277,7 @@ rv.bastriCM<-function(p,c1,c2)
   p1<-c(0,0); p2<-c(1,0); p3<-c(c1,c2);
   Tb<-rbind(p1,p2,p3)
 
-  if (in.triangle(p,Tb,boundary = TRUE)$inside.tri==F)
+  if (in.triangle(p,Tb,boundary = TRUE)$in.tri==F)
   {rv<-NA
   } else
   {
@@ -4119,7 +4374,7 @@ rv.bastriCM<-function(p,c1,c2)
 #' dat.fr<-data.frame(a=Tr)
 #' area.polygon(dat.fr)
 #'
-#' \donttest{
+#' \dontrun{
 #' #when the triangle is degenerate
 #' B<-A+2*(C-A);
 #' T2<-rbind(A,B,C)
@@ -4264,16 +4519,16 @@ re.triCM<-function(pt,tri)
   if (round(D0,14)==0)
   {stop('the triangle is degenerate')}
 
-  if (in.triangle(pt,tri,boundary=TRUE)$inside.tri==F)
+  if (in.triangle(pt,tri,boundary=TRUE)$in.tri==F)
   {reled<-NA
   } else
   {
     y1<-tri[1,];y2<-tri[2,]; y3<-tri[3,];
     CM<-(1/3)*(y1+y2+y3);
 
-    if (in.triangle(pt,rbind(y1,y2,CM),boundary = TRUE)$inside.tri)
+    if (in.triangle(pt,rbind(y1,y2,CM),boundary = TRUE)$in.tri)
     {reled<-3
-    } else if (in.triangle(pt,rbind(y2,y3,CM),boundary = TRUE)$inside.tri)
+    } else if (in.triangle(pt,rbind(y2,y3,CM),boundary = TRUE)$in.tri)
     {reled<-1
     } else
     {reled<-2}
@@ -4415,20 +4670,20 @@ re.tri.cent<-function(pt,tri,M)
   if (round(D0,14)==0)
   {stop('the triangle is degenerate')}
 
-  if (in.triangle(M,tri,boundary=FALSE)$inside.tri==F)
+  if (in.triangle(M,tri,boundary=FALSE)$in.tri==F)
   {stop('center is not in the interior of the triangle')}
 
-  if (in.triangle(pt,tri,boundary=TRUE)$inside.tri==F)
+  if (in.triangle(pt,tri,boundary=TRUE)$in.tri==F)
   {reled<-NA
   } else
   {
     y1<-tri[1,];y2<-tri[2,]; y3<-tri[3,];
 
-    if (in.triangle(pt,rbind(y1,y2,M),boundary = TRUE)$inside.tri)
+    if (in.triangle(pt,rbind(y1,y2,M),boundary = TRUE)$in.tri)
       reled<-3
     else
     {
-      if (in.triangle(pt,rbind(y2,y3,M),boundary = TRUE)$inside.tri)
+      if (in.triangle(pt,rbind(y2,y3,M),boundary = TRUE)$in.tri)
         reled<-1
       else reled<-2
     }
@@ -4548,17 +4803,17 @@ re.bastriCM<-function(pt,c1,c2)
   y1<-c(0,0); y2<-c(1,0); y3<-c(c1,c2);
   Tb<-rbind(y1,y2,y3)
 
-  if(in.triangle(pt,Tb,boundary = TRUE)$inside.tri==F)
+  if (in.triangle(pt,Tb,boundary = TRUE)$in.tri==F)
   {reled<-NA
   } else
   {
     CM<-(1/3)*(y1+y2+y3);
 
-    if (in.triangle(pt,rbind(y1,y2,CM),boundary = TRUE)$inside.tri)
+    if (in.triangle(pt,rbind(y1,y2,CM),boundary = TRUE)$in.tri)
       reled<-3
     else
     {
-      if (in.triangle(pt,rbind(y2,y3,CM),boundary = TRUE)$inside.tri)
+      if (in.triangle(pt,rbind(y2,y3,CM),boundary = TRUE)$in.tri)
         reled<-1
       else reled<-2
     }
@@ -4699,19 +4954,19 @@ re.bastri.cent<-function(pt,c1,c2,M)
     M<-bary2cart(M,Tb)
   }
 
-  if (in.triangle(M,Tb,boundary=FALSE)$inside.tri==F)
+  if (in.triangle(M,Tb,boundary=FALSE)$in.tri==F)
   {stop('center is not in the interior of the triangle')}
 
-  if(in.triangle(pt,Tb,boundary = TRUE)$inside.tri==F)
+  if (in.triangle(pt,Tb,boundary = TRUE)$in.tri==F)
   {reled<-NA
   } else
   {
 
-    if (in.triangle(pt,rbind(y1,y2,M),boundary = TRUE)$inside.tri)
+    if (in.triangle(pt,rbind(y1,y2,M),boundary = TRUE)$in.tri)
       reled<-3
     else
     {
-      if (in.triangle(pt,rbind(y2,y3,M),boundary = TRUE)$inside.tri)
+      if (in.triangle(pt,rbind(y2,y3,M),boundary = TRUE)$in.tri)
         reled<-1
       else reled<-2
     }
@@ -4832,7 +5087,7 @@ reTeCM<-function(pt)
 
   A<-c(0,0); B<-c(1,0); C<-c(0.5,sqrt(3)/2);
   Te<-rbind(A,B,C)
-  if (in.triangle(pt,Te,boundary=TRUE)$inside.tri==F)
+  if (in.triangle(pt,Te,boundary=TRUE)$in.tri==F)
   {reled<-NA
   } else
   {
@@ -4968,7 +5223,7 @@ fr2eTeER<-function(Dt,ch.all.intri=FALSE)
   xf<-matrix(NA,nrow=3,ncol=2)
   for (i in 1:n)
   {
-    if (in.triangle(Dt[i,],Te,boundary=TRUE)$inside.tri)
+    if (in.triangle(Dt[i,],Te,boundary=TRUE)$in.tri)
     {
       re<-reTeCM(Dt[i,])$re
       dis<-c((-.5*Dt[i,2]+.8660254040-.8660254040*Dt[i,1]),(-.5*Dt[i,2]+.8660254040*Dt[i,1]),Dt[i,2])
@@ -5145,7 +5400,7 @@ cl2edgesTe<-function(Dt,ch.all.intri=FALSE)
   xc<-matrix(NA,nrow=3,ncol=2)
   for (i in 1:n)
   {
-    if (in.triangle(Dt[i,],Te,boundary=TRUE)$inside.tri)
+    if (in.triangle(Dt[i,],Te,boundary=TRUE)$in.tri)
     {
       dis<-c((-.5*Dt[i,2]+.8660254040-.8660254040*Dt[i,1]),(-.5*Dt[i,2]+.8660254040*Dt[i,1]),Dt[i,2])
       for (j in 1:3)
@@ -5287,7 +5542,7 @@ rel.six.Te<-function(Pt)
   {stop('the argument must be a numeric 2D point')}
 
   A<-c(0,0); B<-c(1,0); C<-c(0.5,sqrt(3)/2); Te<-rbind(A,B,C)
-  if (in.triangle(Pt,Te,boundary = TRUE)$inside.tri==F)
+  if (in.triangle(Pt,Te,boundary = TRUE)$in.tri==F)
   {rel<-NA; return(rel); stop}
 
   rel<-NA
@@ -5515,15 +5770,18 @@ six.ext<-function(Dt,ch.all.intri=FALSE)
 #' uniformly in each of the triangles in the Delaunay triangulation of \code{Yp}, i.e., in the multiple
 #' triangles partitioning the convex hull of \code{Yp}.
 #'
-#' \code{DTmesh} is the Delaunay triangulation of \code{Yp}, default is \code{DTmesh}=\code{NULL}.
-#' \code{DTmesh} yields triangulation nodes with neigbours (result of \code{\link[tripack]{tri.mesh}} function from \code{tripack} package).
+#' If \code{Yp} consists only of 3 points, then the function behaves like the
+#' function \code{\link{runif.tri}}.
 #'
-#' See (\insertCite{okabe:2000,ceyhan:comp-geo-2010,renka:1996;textual}{pcds}) for more on Delaunay triangulation and the TRIPACK algorithm.
+#' \code{DTmesh} is the Delaunay triangulation of \code{Yp}, default is \code{DTmesh}=\code{NULL}.
+#' \code{DTmesh} yields triangulation nodes with neigbours (result of \code{\link[interp]{tri.mesh}} function from \code{interp} package).
+#'
+#' See (\insertCite{okabe:2000,ceyhan:comp-geo-2010,sinclair:2016;textual}{pcds}) for more on Delaunay triangulation and the corresponding algorithm.
 #'
 #' @param n A positive integer representing the number of uniform points to be generated in the convex hull
 #' of the point set \code{Yp}
 #' @param Yp A set of 2D points whose convex hull is the support of the uniform points to be generated
-#' @param DTmesh Triangulation nodes with neigbours (result of \code{\link[tripack]{tri.mesh}} function from \code{tripack} package)
+#' @param DTmesh Triangulation nodes with neigbours (result of \code{\link[interp]{tri.mesh}} function from \code{interp} package)
 #'
 #' @return A list with the elements
 #' \item{type}{The type of the pattern from which points are to be generated}
@@ -5556,7 +5814,7 @@ six.ext<-function(Dt,ch.all.intri=FALSE)
 #'
 #' dat<-runifMT(nx,Yp)$g #data under CSR in the convex hull of Ypoints
 #' #or use
-#' DTY<-tripack::tri.mesh(Yp[,1],Yp[,2],duplicate="remove") #Delaunay triangulation based on Y points
+#' DTY<-interp::tri.mesh(Yp[,1],Yp[,2],duplicate="remove") #Delaunay triangulation based on Y points
 #' dat<-runifMT(nx,Yp,DTY)$g #data under CSR in the convex hull of Ypoints
 #'
 #' Xlim<-range(Yp[,1])
@@ -5566,7 +5824,7 @@ six.ext<-function(Dt,ch.all.intri=FALSE)
 #'
 #' #plot of the data in the convex hull of Y points together with the Delaunay triangulation
 #' plot(dat,main=" ", xlab=" ", ylab=" ",xlim=Xlim+xd*c(-.05,.05),ylim=Ylim+yd*c(-.05,.05),type="n")
-#' tripack::plot.tri(DTY, add=TRUE, do.points = TRUE,pch=16,col="blue")
+#' interp::plot.triSht(DTY, add=TRUE, do.points = TRUE,pch=16,col="blue")
 #' points(dat,pch=".",cex=3)
 #'
 #' Yp<-rbind(c(.3,.2),c(.4,.5),c(.14,.15))
@@ -5582,8 +5840,14 @@ runifMT<-function(n,Yp,DTmesh=NULL)
   if (!is.numeric(Yp) || ncol(Yp)!=2 || nrow(Yp)<3)
   {stop('Yp must be numeric and of dimension kx2 with k>=3')}
 
+  ny<-nrow(Yp)
+  if (ny==3)
+  {
+    res<-runif.tri(n,Yp)
+  } else
+  {
   if (is.null(DTmesh))
-  {DTmesh<-tripack::tri.mesh(Yp[,1],Yp[,2],duplicate="remove")} #Delaunay triangulation
+  {DTmesh<-interp::tri.mesh(Yp[,1],Yp[,2],duplicate="remove")} #Delaunay triangulation
 
   cnt<-1
   dat<-NULL
@@ -5592,7 +5856,7 @@ runifMT<-function(n,Yp,DTmesh=NULL)
     lx<-min(Yp[,1]); rx<-max(Yp[,1])
     ly<-min(Yp[,2]); ry<-max(Yp[,2])
     x1<-runif(1,lx,rx); y1<-runif(1,ly,ry)
-    if (tripack::in.convex.hull(DTmesh,x1,y1))
+    if (interp::in.convex.hull(DTmesh,x1,y1))
     {
       dat<-rbind(dat,c(x1,y1));
       cnt<-cnt+1
@@ -5621,6 +5885,8 @@ runifMT<-function(n,Yp,DTmesh=NULL)
 
   class(res)<-"Uniform"
   res$call <-match.call()
+  }
+
   res
 } #end of the function
 #'
@@ -5644,16 +5910,19 @@ runifMT<-function(n,Yp,DTmesh=NULL)
 #' Number of \code{Yp} points (i.e., size of \code{Yp}) should be at least three and the points
 #' should be in general position so that Delaunay triangulation is (uniquely) defined.
 #'
-#' See (\insertCite{okabe:2000,ceyhan:comp-geo-2010,renka:1996;textual}{pcds}) for more on Delaunay
-#' triangulation and the TRIPACK algorithm.
+#' If the number of \code{Yp} points is 3, then there is only one Delaunay triangle and the indices of all
+#' the points inside this triangle are all 1.
+#'
+#' See (\insertCite{okabe:2000,ceyhan:comp-geo-2010,sinclair:2016;textual}{pcds}) for more on Delaunay
+#' triangulation and the corresponding algorithm.
 #'
 #' @param pt A 2D point; the index of the Delaunay triangle in which \code{pt} resides is to be
 #' determined. It is an argument for \code{ind.Del.tri}
 #' @param dat A set of 2D points representing the set of data points for which the indices of the Delaunay
 #' triangles they reside is to be determined. It is an argument for \code{indices.Del.tri}
 #' @param Yp A set of 2D points from which Delaunay triangulation is constructed
-#' @param DTmesh Delaunay triangles based on \code{Yp}, default is \code{NULL}, which is computed via \code{\link[tripack]{tri.mesh}} function
-#' in \code{tripack} package. \code{\link[tripack]{triangles}} function yields a triangulation data structure from the triangulation object
+#' @param DTmesh Delaunay triangles based on \code{Yp}, default is \code{NULL}, which is computed via \code{\link[interp]{tri.mesh}} function
+#' in \code{interp} package. \code{\link[interp]{triangles}} function yields a triangulation data structure from the triangulation object
 #' created by \code{tri.mesh}.
 #'
 #' @return ind.Del.tri returns the index of the Delaunay triangle in which the given point, \code{pt}, resides
@@ -5679,8 +5948,8 @@ NULL
 #' ind.Del.tri(dat[10,],Yp)
 #'
 #' #or use
-#' DTY<-tripack::tri.mesh(Yp[,1],Yp[,2],duplicate="remove") #Delaunay triangulation
-#' TRY<-tripack::triangles(DTY)[,1:3];
+#' DTY<-interp::tri.mesh(Yp[,1],Yp[,2],duplicate="remove") #Delaunay triangulation
+#' TRY<-interp::triangles(DTY)[,1:3];
 #' ind.Del.tri(dat[10,],Yp,DTY)
 #'
 #' ind.Del.tri(c(.5,.5),Yp)
@@ -5697,12 +5966,12 @@ NULL
 #' xd<-Xlim[2]-Xlim[1]
 #' yd<-Ylim[2]-Ylim[1]
 #'
-#' DTY<-tripack::tri.mesh(Yp[,1],Yp[,2],duplicate="remove") #Delaunay triangulation based on Y points
+#' DTY<-interp::tri.mesh(Yp[,1],Yp[,2],duplicate="remove") #Delaunay triangulation based on Y points
 #'
 #' #plot of the data in the convex hull of Y points together with the Delaunay triangulation
 #'
 #' plot(dat,main=" ", xlab=" ", ylab=" ",xlim=Xlim+xd*c(-.05,.05),ylim=Ylim+yd*c(-.05,.05),type="n")
-#' tripack::plot.tri(DTY, add=TRUE, do.points = TRUE,pch=16,col="blue")
+#' interp::plot.triSht(DTY, add=TRUE, do.points = TRUE,pch=16,col="blue")
 #' points(dat,pch=".",cex=3)
 #' text(dat,labels = factor(ind.DT) )
 #'
@@ -5718,22 +5987,30 @@ ind.Del.tri<-function(pt,Yp,DTmesh=NULL)
   if (!is.point(pt))
   {stop('pt must be a numeric 2D point')}
 
+  ind<-NA;
+  if (nrow(Yp)==3)
+  {
+    if (in.triangle(pt,Yp)$in.tri)
+    {ind<-1}
+  } else
+  {
   Yp<-as.matrix(Yp)
   if (!is.numeric(Yp) || ncol(Yp)!=2 || nrow(Yp)<3)
   {stop('Yp must be numeric and of dimension kx2 with k>=3')}
 
   if (is.null(DTmesh))
-  {DTmesh<-tripack::tri.mesh(Yp[,1],Yp[,2],duplicate="remove") #Delaunay triangulation
+  {DTmesh<-interp::tri.mesh(Yp[,1],Yp[,2],duplicate="remove") #Delaunay triangulation
   }
-  DTr<-matrix(triangles(DTmesh)[,1:3],ncol=3); #the Delaunay triangles
+  DTr<-matrix(interp::triangles(DTmesh)[,1:3],ncol=3); #the Delaunay triangles
 
   nt<-nrow(DTr) #number of Delaunay triangles;
-  ind<-NA;
+
   for (i in 1:nt)
   {
     tri<-Yp[DTr[i,],];
-    if (in.triangle(pt,tri)$inside.tri)
+    if (in.triangle(pt,tri)$in.tri)
     {ind<-i}
+  }
   }
   ind
 } #end of the function
@@ -5754,7 +6031,7 @@ ind.Del.tri<-function(pt,Yp,DTmesh=NULL)
 #' tr.ind
 #'
 #' #or use
-#' DTY<-tripack::tri.mesh(Yp[,1],Yp[,2],duplicate="remove") #Delaunay triangulation based on Y points
+#' DTY<-interp::tri.mesh(Yp[,1],Yp[,2],duplicate="remove") #Delaunay triangulation based on Y points
 #' tr.ind<-indices.Del.tri(dat,Yp,DTY) #indices of the Delaunay triangles
 #' tr.ind
 #'
@@ -5766,7 +6043,7 @@ ind.Del.tri<-function(pt,Yp,DTmesh=NULL)
 #' #plot of the data in the convex hull of Y points together with the Delaunay triangulation
 #' #par(pty="s")
 #' plot(dat,main=" ", xlab=" ", ylab=" ",xlim=Xlim+xd*c(-.05,.05),ylim=Ylim+yd*c(-.05,.05),pch=".")
-#' tripack::plot.tri(DTY, add=TRUE, do.points = TRUE,pch=16,col="blue")
+#' interp::plot.triSht(DTY, add=TRUE, do.points = TRUE,pch=16,col="blue")
 #' text(dat,labels = factor(tr.ind) )
 #'
 #' Yp<-rbind(c(.3,.2),c(.4,.5),c(.14,.15))
@@ -5926,33 +6203,37 @@ seg.tri.supp<-function(delta,tri)
 #'
 #' @description Generates \code{n} points uniformly in the support for Type I segregation in the convex hull of
 #' set of points, \code{Yp}.
+#'
 #' \code{delta} is the parameter of segregation (that is, \eqn{\delta 100} \% of the area around each vertex
 #' in each Delaunay
 #' triangle is forbidden for point generation). \code{delta} corresponds to \code{eps} in the standard equilateral triangle
 #' \eqn{T_e} as \eqn{delta=4 eps ^2/3} (see \code{rsegTe}  function).
 #'
+#' If \code{Yp} consists only of 3 points, then the function behaves like the
+#' function \code{\link{rseg.tri}}.
+#'
 #' \code{DTmesh} must be the Delaunay triangulation of \code{Yp}
 #' and \code{DTr} must be the corresponding Delaunay triangles (both \code{DTmesh} and \code{DTr} are \code{NULL} by default).
-#' If \code{NULL}, \code{DTmesh} is computed via \code{\link[tripack]{tri.mesh}} and \code{DTr} is computed via \code{\link[tripack]{triangles}} function in \code{tripack} package.
+#' If \code{NULL}, \code{DTmesh} is computed via \code{\link[interp]{tri.mesh}} and \code{DTr} is computed via \code{\link[interp]{triangles}} function in \code{interp} package.
 #'
-#' \code{\link[tripack]{tri.mesh}} function yields the triangulation nodes with their neigbours, and creates a triangulation object,
-#' and \code{\link[tripack]{triangles}} function yields a triangulation data structure from the triangulation object created
-#' by \code{\link[tripack]{tri.mesh}} (the first three colums are the vertex indices of the Delaunay triangles.)
+#' \code{\link[interp]{tri.mesh}} function yields the triangulation nodes with their neigbours, and creates a triangulation object,
+#' and \code{\link[interp]{triangles}} function yields a triangulation data structure from the triangulation object created
+#' by \code{\link[interp]{tri.mesh}} (the first three colums are the vertex indices of the Delaunay triangles.)
 #'
 #' See (\insertCite{ceyhan:arc-density-PE,ceyhan:arc-density-CS,ceyhan:dom-num-NPE-Spat2011;textual}{pcds}) for more on
 #' the segregation pattern.
-#' Also see (\insertCite{okabe:2000,ceyhan:comp-geo-2010,renka:1996;textual}{pcds}) for more on Delaunay triangulation and the TRIPACK algorithm.
+#' Also see (\insertCite{okabe:2000,ceyhan:comp-geo-2010,sinclair:2016;textual}{pcds}) for more on Delaunay triangulation and the corresponding algorithm.
 #'
 #' @param n A positive integer representing the number of points to be generated
 #' @param Yp A set of 2D points from which Delaunay triangulation is constructed
 #' @param delta A positive real number in (0,4/9). \code{delta} is the parameter of segregation (that is, \eqn{\delta 100} %
 #' area around each vertex in each Delaunay triangle is forbidden for point generation).
-#' @param DTmesh Delaunay triangulation of \code{Yp}, default is \code{NULL}, which is computed via \code{\link[tripack]{tri.mesh}} function
-#' in \code{tripack} package. \code{\link[tripack]{tri.mesh}} function yields the triangulation nodes with their neigbours, and
+#' @param DTmesh Delaunay triangulation of \code{Yp}, default is \code{NULL}, which is computed via \code{\link[interp]{tri.mesh}} function
+#' in \code{interp} package. \code{\link[interp]{tri.mesh}} function yields the triangulation nodes with their neigbours, and
 #' creates a triangulation object
-#' @param DTr Delaunay triangles based on \code{Yp}, default is \code{NULL}, which is computed via \code{\link[tripack]{tri.mesh}} function
-#' in \code{tripack} package. \code{\link[tripack]{triangles}} function yields a triangulation data structure from the triangulation object created
-#' by \code{\link[tripack]{tri.mesh}}.
+#' @param DTr Delaunay triangles based on \code{Yp}, default is \code{NULL}, which is computed via \code{\link[interp]{tri.mesh}} function
+#' in \code{interp} package. \code{\link[interp]{triangles}} function yields a triangulation data structure from the triangulation object created
+#' by \code{\link[interp]{tri.mesh}}.
 #'
 #' @return A list with the elements
 #' \item{type}{The type of the pattern from which points are to be generated}
@@ -5991,17 +6272,17 @@ seg.tri.supp<-function(delta,tri)
 #' del<-.3 #try .5, .75, .85
 #' dat<-rsegMT(nx,Yp,del) #data under CSR in the convex hull of Ypoints
 #' #or use
-#' DTY<-tripack::tri.mesh(Yp[,1],Yp[,2],duplicate="remove") #Delaunay triangulation based on Y points
+#' DTY<-interp::tri.mesh(Yp[,1],Yp[,2],duplicate="remove") #Delaunay triangulation based on Y points
 #' dat<-rsegMT(nx,Yp,del,DTY) #data under CSR in the convex hull of Ypoints
 #'
 #' #or use
-#' DTY<-tripack::tri.mesh(Yp[,1],Yp[,2],duplicate="remove") #Delaunay triangulation based on Y points
-#' TRY<-tripack::triangles(DTY)[,1:3];
+#' DTY<-interp::tri.mesh(Yp[,1],Yp[,2],duplicate="remove") #Delaunay triangulation based on Y points
+#' TRY<-interp::triangles(DTY)[,1:3];
 #' dat<-rsegMT(nx,Yp,del,DTr=TRY) #data under CSR in the convex hull of Ypoints
 #'
 #' #or use
-#' DTY<-tripack::tri.mesh(Yp[,1],Yp[,2],duplicate="remove") #Delaunay triangulation based on Y points
-#' TRY<-tripack::triangles(DTY)[,1:3];
+#' DTY<-interp::tri.mesh(Yp[,1],Yp[,2],duplicate="remove") #Delaunay triangulation based on Y points
+#' TRY<-interp::triangles(DTY)[,1:3];
 #' dat<-rsegMT(nx,Yp,del,DTY,TRY)$gen.points #data under CSR in the convex hull of Ypoints
 #'
 #' Xlim<-range(Yp[,1])
@@ -6010,11 +6291,11 @@ seg.tri.supp<-function(delta,tri)
 #' yd<-Ylim[2]-Ylim[1]
 #'
 #' #plot of the data in the convex hull of Y points together with the Delaunay triangulation
-#' DTY<-tripack::tri.mesh(Yp[,1],Yp[,2],duplicate="remove") #Delaunay triangulation based on Y points
+#' DTY<-interp::tri.mesh(Yp[,1],Yp[,2],duplicate="remove") #Delaunay triangulation based on Y points
 #'
 #' #par(pty="s")
 #' plot(dat,main=" ", xlab=" ", ylab=" ",xlim=Xlim+xd*c(-.05,.05),ylim=Ylim+yd*c(-.05,.05),type="n")
-#' tripack::plot.tri(DTY, add=TRUE, do.points=TRUE,col="blue")
+#' interp::plot.triSht(DTY, add=TRUE, do.points=TRUE,col="blue")
 #' points(dat,pch=".",cex=3)
 #'
 #' Yp<-rbind(c(.3,.2),c(.4,.5),c(.14,.15))
@@ -6033,60 +6314,67 @@ rsegMT<-function(n,Yp,delta,DTmesh=NULL,DTr=NULL)
   if (!is.point(delta,1) || delta<=0 || delta>=1)
   {stop('delta must be a scalar in (0,1)')}
 
-  if (is.null(DTmesh))
-  {DTmesh<-tri.mesh(Yp[,1],Yp[,2],duplicate="remove") #Delaunay triangulation
-  }
-
-  if (is.null(DTr))
-  {DTr<-matrix(triangles(DTmesh)[,1:3],ncol=3); #the Delaunay triangles
-  }
-
-  DTr<-matrix(DTr,ncol=3)
-
-  cnt<-1;ind<-0
-  dat<-NULL
-  while (cnt <= n)
-  {
-    pnt<-as.vector(runifMT(1,Yp,DTmesh)$g)
-    ind<-ind.Del.tri(pnt,Yp,DTmesh)
-    nodes<-as.numeric(DTr[ind,])
-    tri<-Yp[nodes,]
-    seg.tri<-seg.tri.supp(delta,tri)
-    if (in.triangle(pnt,seg.tri,boundary=TRUE)$inside.tri)
-    {
-      dat<-rbind(dat,pnt);
-      cnt<-cnt+1
-    }
-  }
-  row.names(dat)<-c()
-
-  dname <-deparse(substitute(delta))
-
-  param<-delta
-  names(param)<-"exclusion parameter"
-  typ<-paste("Type I Segregation of ",n, " points from ",ny, " Y points with exclusion parameter ",dname, "=",delta,sep="")
-
   ny<-nrow(Yp)
-  npts<-c(n,ny)
-  names(npts)<-c("nx","ny")
+  if (ny==3)
+  {
+    res<-rseg.tri(n,Yp,delta)
+  } else
+  {
+    if (is.null(DTmesh))
+    {DTmesh<-interp::tri.mesh(Yp[,1],Yp[,2],duplicate="remove") #Delaunay triangulation
+    }
 
-  txt<-"Type I Segregation of One Class from Another"
-  main.txt<-paste("Type I Segregation in the \n Multi-Triangle Case with \n Exclusion Parameter ",dname,"=",delta,sep="")
-  res<-list(
-    type=typ,
-    parameters=param,
-    gen.points=dat, #generated points segregated from Y points (vertices of Y triangles)
-    ref.points=Yp, #reference points, i.e., points from which generated points are segregated (vertices of Y triangles)
-    desc.pat=txt, #description of the pattern
-    mtitle=main.txt,
-    tri.Y=TRUE,
-    num.points=npts,
-    xlimit=range(Yp[,1]),
-    ylimit=range(Yp[,2])
-  )
+    if (is.null(DTr))
+    {DTr<-matrix(interp::triangles(DTmesh)[,1:3],ncol=3); #the Delaunay triangles
+    }
 
-  class(res)<-"Patterns"
-  res$call <-match.call()
+    DTr<-matrix(DTr,ncol=3)
+
+    cnt<-1;ind<-0
+    dat<-NULL
+    while (cnt <= n)
+    {
+      pnt<-as.vector(runifMT(1,Yp,DTmesh)$g)
+      ind<-ind.Del.tri(pnt,Yp,DTmesh)
+      nodes<-as.numeric(DTr[ind,])
+      tri<-Yp[nodes,]
+      seg.tri<-seg.tri.supp(delta,tri)
+      if (in.triangle(pnt,seg.tri,boundary=TRUE)$in.tri)
+      {
+        dat<-rbind(dat,pnt);
+        cnt<-cnt+1
+      }
+    }
+    row.names(dat)<-c()
+    dname <-deparse(substitute(delta))
+
+    param<-delta
+    names(param)<-"exclusion parameter"
+    typ<-paste("Type I Segregation of ",n, " points from ",ny, " Y points with exclusion parameter ",dname, "=",delta,sep="")
+
+    npts<-c(n,ny)
+    names(npts)<-c("nx","ny")
+
+    txt<-"Type I Segregation of One Class from Another"
+    main.txt<-paste("Type I Segregation in the Multi-Triangle Case \n with  Exclusion Parameter ",dname,"=",delta,sep="")
+
+    res<-list(
+      type=typ,
+      parameters=param,
+      gen.points=dat, #generated points segregated from Y points (vertices of Y triangles)
+      ref.points=Yp, #reference points, i.e., points from which generated points are segregated (vertices of Y triangles)
+      desc.pat=txt, #description of the pattern
+      mtitle=main.txt,
+      tri.Y=TRUE,
+      num.points=npts,
+      xlimit=range(Yp[,1]),
+      ylimit=range(Yp[,2])
+    )
+
+    class(res)<-"Patterns"
+    res$call <-match.call()
+  }
+
   res
 } #end of the function
 #'
@@ -6097,33 +6385,38 @@ rsegMT<-function(n,Yp,delta,DTmesh=NULL,DTr=NULL)
 #'
 #' Generation of points associated (in a Type I fashion) with a given set of points
 #'
-#' @description Generates \code{n} points uniformly in the support for Type I segregation in the convex hull of set of points, \code{Yp}.
+#' @description Generates \code{n} points uniformly in the support for Type I association in the convex hull of set of points, \code{Yp}.
 #' \code{delta} is the parameter of association (that is, only \eqn{\delta 100} \% area around each vertex in each Delaunay
-#' triangle is allowed for point generation). \code{delta} corresponds to \code{eps} in the standard equilateral triangle
+#' triangle is allowed for point generation).
+#'
+#' \code{delta} corresponds to \code{eps} in the standard equilateral triangle
 #' \eqn{T_e} as \eqn{delta=4eps^2/3} (see \code{rsegTe}  function).
+#'
+#' If \code{Yp} consists only of 3 points, then the function behaves like the
+#' function \code{\link{rasc.tri}}.
 #'
 #' \code{DTmesh} must be the Delaunay triangulation of \code{Yp}
 #' and \code{DTr} must be the corresponding Delaunay triangles (both \code{DTmesh} and \code{DTr} are \code{NULL} by default).
-#' If \code{NULL}, \code{DTmesh} is computed via \code{\link[tripack]{tri.mesh}} and \code{DTr} is computed via \code{\link[tripack]{triangles}} function in \code{tripack} package.
+#' If \code{NULL}, \code{DTmesh} is computed via \code{\link[interp]{tri.mesh}} and \code{DTr} is computed via \code{\link[interp]{triangles}} function in \code{interp} package.
 #'
-#' \code{\link[tripack]{tri.mesh}} function yields the triangulation nodes with their neigbours, and creates a triangulation object,
-#' and \code{\link[tripack]{triangles}} function yields a triangulation data structure from the triangulation object created
-#' by \code{\link[tripack]{tri.mesh}} (the first three colums are the vertex indices of the Delaunay triangles).
+#' \code{\link[interp]{tri.mesh}} function yields the triangulation nodes with their neigbours, and creates a triangulation object,
+#' and \code{\link[interp]{triangles}} function yields a triangulation data structure from the triangulation object created
+#' by \code{\link[interp]{tri.mesh}} (the first three colums are the vertex indices of the Delaunay triangles).
 #'
 #' See (\insertCite{ceyhan:arc-density-PE,ceyhan:arc-density-CS,ceyhan:dom-num-NPE-Spat2011;textual}{pcds}) for more on the
 #' association pattern.
-#' Also see (\insertCite{okabe:2000,ceyhan:comp-geo-2010,renka:1996;textual}{pcds}) for more on Delaunay triangulation and the TRIPACK algorithm.
+#' Also see (\insertCite{okabe:2000,ceyhan:comp-geo-2010,sinclair:2016;textual}{pcds}) for more on Delaunay triangulation and the corresponding algorithm.
 #'
 #' @param n A positive integer representing the number of points to be generated
 #' @param Yp A set of 2D points from which Delaunay triangulation is constructed
 #' @param delta A positive real number in (0,4/9). \code{delta} is the parameter of association (that is, only
 #' \eqn{\delta 100} \% area around each vertex in each Delaunay triangle is allowed for point generation).
-#' @param DTmesh Delaunay triangulation of \code{Yp}, default is \code{NULL}, which is computed via \code{\link[tripack]{tri.mesh}} function
-#' in \code{tripack} package. \code{\link[tripack]{tri.mesh}} function yields the triangulation nodes with their neigbours, and
+#' @param DTmesh Delaunay triangulation of \code{Yp}, default is \code{NULL}, which is computed via \code{\link[interp]{tri.mesh}} function
+#' in \code{interp} package. \code{\link[interp]{tri.mesh}} function yields the triangulation nodes with their neigbours, and
 #' creates a triangulation object
-#' @param DTr Delaunay triangles based on \code{Yp}, default is \code{NULL}, which is computed via \code{\link[tripack]{tri.mesh}} function
-#' in \code{tripack} package. \code{\link[tripack]{triangles}} function yields a triangulation data structure from the triangulation object created
-#' by \code{\link[tripack]{tri.mesh}}.
+#' @param DTr Delaunay triangles based on \code{Yp}, default is \code{NULL}, which is computed via \code{\link[interp]{tri.mesh}} function
+#' in \code{interp} package. \code{\link[interp]{triangles}} function yields a triangulation data structure from the triangulation object created
+#' by \code{\link[interp]{tri.mesh}}.
 #'
 #' @return A list with the elements
 #' \item{type}{The type of the pattern from which points are to be generated}
@@ -6146,6 +6439,7 @@ rsegMT<-function(n,Yp,delta,DTmesh=NULL,DTr=NULL)
 #' \insertAllCited{}
 #'
 #' @examples
+#' \dontrun{
 #' #nx is number of X points (target) and ny is number of Y points (nontarget)
 #' nx<-20; ny<-4; #try also nx<-40; ny<-10 or nx<-1000; ny<-10;
 #'
@@ -6162,17 +6456,17 @@ rsegMT<-function(n,Yp,delta,DTmesh=NULL,DTr=NULL)
 #' del<-.3 #try .5, .75, .85
 #' dat<-rascMT(nx,Yp,del) #data under CSR in the convex hull of Ypoints
 #' #or use
-#' DTY<-tripack::tri.mesh(Yp[,1],Yp[,2],duplicate="remove") #Delaunay triangulation based on Y points
+#' DTY<-interp::tri.mesh(Yp[,1],Yp[,2],duplicate="remove") #Delaunay triangulation based on Y points
 #' dat<-rascMT(nx,Yp,del,DTY) #data under CSR in the convex hull of Ypoints
 #'
 #' #or use
-#' DTY<-tripack::tri.mesh(Yp[,1],Yp[,2],duplicate="remove") #Delaunay triangulation based on Y points
-#' TRY<-tripack::triangles(DTY)[,1:3];
+#' DTY<-interp::tri.mesh(Yp[,1],Yp[,2],duplicate="remove") #Delaunay triangulation based on Y points
+#' TRY<-interp::triangles(DTY)[,1:3];
 #' dat<-rascMT(nx,Yp,del,DTr=TRY) #data under CSR in the convex hull of Ypoints
 #'
 #' #or use
-#' DTY<-tripack::tri.mesh(Yp[,1],Yp[,2],duplicate="remove") #Delaunay triangulation based on Y points
-#' TRY<-tripack::triangles(DTY)[,1:3];
+#' DTY<-interp::tri.mesh(Yp[,1],Yp[,2],duplicate="remove") #Delaunay triangulation based on Y points
+#' TRY<-interp::triangles(DTY)[,1:3];
 #' dat<-rascMT(nx,Yp,del,DTY,TRY)$g #data under CSR in the convex hull of Ypoints
 #'
 #' Xlim<-range(Yp[,1])
@@ -6181,10 +6475,10 @@ rsegMT<-function(n,Yp,delta,DTmesh=NULL,DTr=NULL)
 #' yd<-Ylim[2]-Ylim[1]
 #'
 #' #plot of the data in the convex hull of Y points together with the Delaunay triangulation
-#' DTY<-tripack::tri.mesh(Yp[,1],Yp[,2],duplicate="remove") #Delaunay triangulation based on Y points
+#' DTY<-interp::tri.mesh(Yp[,1],Yp[,2],duplicate="remove") #Delaunay triangulation based on Y points
 #'
 #' plot(dat,main=" ", xlab=" ", ylab=" ",xlim=Xlim+xd*c(-.05,.05),ylim=Ylim+yd*c(-.05,.05),type="n")
-#' tripack::plot.tri(DTY, add=TRUE, do.points=TRUE,col="blue")
+#' interp::plot.triSht(DTY, add=TRUE, do.points=TRUE,col="blue")
 #' points(dat,pch=".",cex=3)
 #'
 #' Yp<-rbind(c(.3,.2),c(.4,.5),c(.14,.15))
@@ -6192,6 +6486,7 @@ rsegMT<-function(n,Yp,delta,DTmesh=NULL,DTr=NULL)
 #'
 #' dat.fr<-data.frame(a=Yp)
 #' rascMT(nx,dat.fr,del)
+#' }
 #'
 #' @export rascMT
 rascMT<-function(n,Yp,delta,DTmesh=NULL,DTr=NULL)
@@ -6203,61 +6498,69 @@ rascMT<-function(n,Yp,delta,DTmesh=NULL,DTr=NULL)
   if (!is.point(delta,1) || delta<=0 || delta>=1)
   {stop('delta must be a scalar in (0,1)')}
 
-  if (is.null(DTmesh))
-  {DTmesh<-tri.mesh(Yp[,1],Yp[,2],duplicate="remove") #Delaunay triangulation
-  }
-
-  if (is.null(DTr))
-  {DTr<-matrix(triangles(DTmesh)[,1:3],ncol=3); #the Delaunay triangles
-  }
-
-  DTr<-matrix(DTr,ncol=3)
-
-  cnt<-1;ind<-0
-  dat<-NULL
-  while (cnt <= n)
-  {
-    pnt<-as.vector(runifMT(1,Yp,DTmesh)$g)
-    ind<-ind.Del.tri(pnt,Yp,DTmesh)
-    nodes<-as.numeric(DTr[ind,])
-    tri<-Yp[nodes,]
-    seg.tri<-seg.tri.supp(delta,tri)
-    if (!in.triangle(pnt,seg.tri)$inside.tri)
-    {
-      dat<-rbind(dat,pnt);
-      cnt<-cnt+1
-    }
-  }
-  row.names(dat)<-c()
-
-  dname <-deparse(substitute(delta))
-
-  param<-delta
-  names(param)<-"attraction parameter"
-  typ<-paste("Type I Association of ",n, " points with ",ny, " Y points with attraction parameter ",dname, "=",delta,sep="")
-
   ny<-nrow(Yp)
-  npts<-c(n,ny)
-  names(npts)<-c("nx","ny")
+  if (ny==3)
+  {
+    res<-rasc.tri(n,Yp,delta)
+  } else
+  {
+    if (is.null(DTmesh))
+    {DTmesh<-interp::tri.mesh(Yp[,1],Yp[,2],duplicate="remove") #Delaunay triangulation
+    }
 
-  txt<-"Type I Association of One Class with Y points"
-  main.txt<-paste("Type I Association in the \n Multi-Triangle Case with \n Attraction Parameter ",dname,"=",delta,sep="")
+    if (is.null(DTr))
+    {DTr<-matrix(interp::triangles(DTmesh)[,1:3],ncol=3); #the Delaunay triangles
+    }
 
-  res<-list(
-    type=typ,
-    parameters=param,
-    gen.points=dat, #generated points associated Y points (vertices of Y triangles)
-    ref.points=Yp, #reference points, i.e., points with which generated points are associated (vertices of Y triangles)
-    desc.pat=txt, #description of the pattern
-    mtitle=main.txt,
-    tri.Y=TRUE,
-    num.points=npts,
-    xlimit=range(Yp[,1]),
-    ylimit=range(Yp[,2])
-  )
+    DTr<-matrix(DTr,ncol=3)
 
-  class(res)<-"Patterns"
-  res$call <-match.call()
+    cnt<-1;ind<-0
+    dat<-NULL
+    while (cnt <= n)
+    {
+      pnt<-as.vector(runifMT(1,Yp,DTmesh)$g)
+      ind<-ind.Del.tri(pnt,Yp,DTmesh)
+      nodes<-as.numeric(DTr[ind,])
+      tri<-Yp[nodes,]
+      seg.tri<-seg.tri.supp(delta,tri)
+      if (!in.triangle(pnt,seg.tri)$in.tri)
+      {
+        dat<-rbind(dat,pnt);
+        cnt<-cnt+1
+      }
+    }
+    row.names(dat)<-c()
+
+    dname <-deparse(substitute(delta))
+
+    param<-delta
+    names(param)<-"attraction parameter"
+    typ<-paste("Type I Association of ",n, " points with ",ny, " Y points with attraction parameter ",dname, "=",delta,sep="")
+
+    ny<-nrow(Yp)
+    npts<-c(n,ny)
+    names(npts)<-c("nx","ny")
+
+    txt<-"Type I Association of One Class with Y points"
+    main.txt<-paste("Type I Association in the \n Multi-Triangle Case with \n Attraction Parameter ",dname,"=",delta,sep="")
+
+    res<-list(
+      type=typ,
+      parameters=param,
+      gen.points=dat, #generated points associated Y points (vertices of Y triangles)
+      ref.points=Yp, #reference points, i.e., points with which generated points are associated (vertices of Y triangles)
+      desc.pat=txt, #description of the pattern
+      mtitle=main.txt,
+      tri.Y=TRUE,
+      num.points=npts,
+      xlimit=range(Yp[,1]),
+      ylimit=range(Yp[,2])
+    )
+
+    class(res)<-"Patterns"
+    res$call <-match.call()
+  }
+
   res
 } #end of the function
 #'
@@ -7018,7 +7321,7 @@ rv.bastriCC<-function(p,c1,c2)
 
   p1<-c(0,0); p2<-c(1,0); p3<-c(c1,c2);
   Tb<-rbind(p1,p2,p3)
-  if (in.triangle(p,Tb,boundary=TRUE)$inside.tri==F)
+  if (in.triangle(p,Tb,boundary=TRUE)$in.tri==F)
   {rv<-NA
   } else
   {
@@ -7170,7 +7473,7 @@ rv.triCC<-function(p,tri)
   {stop('the triangle is degenerate')}
 
   p1<-tri[1,]; p2<-tri[2,]; p3<-tri[3,]
-  if (in.triangle(p,tri)$inside.tri==F)
+  if (in.triangle(p,tri)$in.tri==F)
   {rv<-NA
   } else
   {  mdt<-max(Dist(p1,p2),Dist(p1,p3),Dist(p2,p3)); #max edge length
@@ -7584,7 +7887,7 @@ angle.str2end<-function(a,b,c,radian=TRUE)
 #' plot(rbind(A,B,cent),pch=1,asp=1,xlab="x",ylab="y",
 #' xlim=Xlim+xd*c(-.05,.05),ylim=Ylim+yd*c(-.05,.05))
 #' lines(x,y,lty=1)
-#' tripack::circles(cent[1],cent[2],rad)
+#' interp::circles(cent[1],cent[2],rad)
 #' IP.txt<-c()
 #' if (!is.null(IPs))
 #' {
@@ -7773,11 +8076,11 @@ int.circ.line<-function(pt1,pt2,cent,rad)
 #' points(rbind(Tb,P1,rbind(Int.Pts$L,Int.Pts$R)))
 #' L<-rbind(cent,cent,cent); R<-Ds
 #' segments(L[,1], L[,2], R[,1], R[,2], lty=2)
-#' tripack::circles(P1[1],P1[2],rad,lty=2)
+#' interp::circles(P1[1],P1[2],rad,lty=2)
 #' L<-Int.Pts$L; R<-Int.Pts$R
 #' segments(L[,1], L[,2], R[,1], R[,2], lty=1,col=2)
 #' Arcs<-Int.Pts$A;
-#' if(!is.null(Arcs))
+#' if (!is.null(Arcs))
 #' {
 #'   K<-nrow(Arcs)/2
 #'   for (i in 1:K)
@@ -7835,7 +8138,7 @@ NASbastri<-function(pt,c1,c2,M="CC",rv=NULL,dec=4)
       M<-bary2cart(M,Tb)
     }
 
-    if (isTRUE(all.equal(M,circ.cent.tri(Tb)))==F & in.triangle(M,Tb,boundary=FALSE)$inside.tri==F)
+    if (isTRUE(all.equal(M,circ.cent.tri(Tb)))==F & in.triangle(M,Tb,boundary=FALSE)$in.tri==F)
     {stop('center is not the circumcenter or not in the interior of the triangle')}
   }
 
@@ -7845,7 +8148,7 @@ NASbastri<-function(pt,c1,c2,M="CC",rv=NULL,dec=4)
   {  if (!is.numeric(rv) || sum(rv==c(1,2,3))!=1)
   {stop('vertex index, rv, must be 1, 2 or 3')}}
 
-  if(!in.triangle(pt,Tb,boundary=TRUE)$inside.tri)
+  if (!in.triangle(pt,Tb,boundary=TRUE)$in.tri)
   {reg<-list(L=NULL, R=NULL, Arc.Slices=NULL); return(reg); stop}
 
   Seg.LPts<-Seg.RPts<-Arc.Pts<-NULL; #segment and arc end points
@@ -7864,7 +8167,7 @@ NASbastri<-function(pt,c1,c2,M="CC",rv=NULL,dec=4)
       if (length(pts1)/2>1)
       {p1<-y1; p2<-pts1[2,]
       cond<-all(round(in.triangle(p2,Tb,boundary = T)$b,dec)>=0);
-      if(cond)
+      if (cond)
       {Seg.LPts<-rbind(Seg.LPts,p1); Seg.RPts<-rbind(Seg.RPts,p2)
       Arc.Pts<-rbind(Arc.Pts,p2)
       } else
@@ -7877,7 +8180,7 @@ NASbastri<-function(pt,c1,c2,M="CC",rv=NULL,dec=4)
       {p1<-pts2[1,]; p2<-pts2[2,];
       cond1<-all(round(in.triangle(p1,Tb,boundary = T)$b,dec)>=0);
       cond2<-all(round(in.triangle(p2,Tb,boundary = T)$b,dec)>=0)
-      if(cond1 && cond2)
+      if (cond1 && cond2)
       {Seg.LPts<-rbind(Seg.LPts,p1); Seg.RPts<-rbind(Seg.RPts,p2)
       Arc.Pts<-rbind(Arc.Pts,p1,p2)
       } else
@@ -7890,7 +8193,7 @@ NASbastri<-function(pt,c1,c2,M="CC",rv=NULL,dec=4)
       if (length(pts3)/2>1)
       {p1<-y1; p2<-pts3[2,]
       cond<-all(round(in.triangle(p2,Tb,boundary = T)$b,dec)>=0);
-      if(cond)
+      if (cond)
       {Seg.LPts<-rbind(Seg.LPts,p1); Seg.RPts<-rbind(Seg.RPts,p2)
       Arc.Pts<-rbind(Arc.Pts,p2)
       } else
@@ -7915,7 +8218,7 @@ NASbastri<-function(pt,c1,c2,M="CC",rv=NULL,dec=4)
         {
           p1<-y2; p2<-pts1[2,]
           cond<-all(round(in.triangle(p2,Tb,boundary = T)$b,dec)>=0);
-          if(cond)
+          if (cond)
           {Seg.LPts<-rbind(Seg.LPts,p1); Seg.RPts<-rbind(Seg.RPts,p2)
           Arc.Pts<-rbind(Arc.Pts,p2)
           } else
@@ -7928,7 +8231,7 @@ NASbastri<-function(pt,c1,c2,M="CC",rv=NULL,dec=4)
         { p1<-pts2[1,]; p2<-pts2[2,];
         cond1<-all(round(in.triangle(p1,Tb,boundary = T)$b,dec)>=0);
         cond2<-all(round(in.triangle(p2,Tb,boundary = T)$b,dec)>=0)
-        if(cond1 && cond2)
+        if (cond1 && cond2)
         {Seg.LPts<-rbind(Seg.LPts,p1); Seg.RPts<-rbind(Seg.RPts,p2)
         Arc.Pts<-rbind(Arc.Pts,p1,p2)
         } else
@@ -7941,7 +8244,7 @@ NASbastri<-function(pt,c1,c2,M="CC",rv=NULL,dec=4)
         if (length(pts3)/2>1)
         {p1<-y2; p2<-pts3[2,]
         cond<-all(round(in.triangle(p2,Tb,boundary = T)$b,dec)>=0);
-        if(cond)
+        if (cond)
         {Seg.LPts<-rbind(Seg.LPts,p1); Seg.RPts<-rbind(Seg.RPts,p2)
         Arc.Pts<-rbind(Arc.Pts,p2)
         } else
@@ -7963,7 +8266,7 @@ NASbastri<-function(pt,c1,c2,M="CC",rv=NULL,dec=4)
         if (length(pts1)/2>1)
         { p1<-y3; p2<-pts1[2,]
         cond<-all(round(in.triangle(p2,Tb,boundary = T)$b,dec)>=0);
-        if(cond)
+        if (cond)
         {Seg.LPts<-rbind(Seg.LPts,p1); Seg.RPts<-rbind(Seg.RPts,p2)
         Arc.Pts<-rbind(Arc.Pts,p2)
         } else
@@ -7977,7 +8280,7 @@ NASbastri<-function(pt,c1,c2,M="CC",rv=NULL,dec=4)
         {p1<-pts2[1,]; p2<-pts2[2,];
         cond1<-all(round(in.triangle(p1,Tb,boundary = T)$b,dec)>=0);
         cond2<-all(round(in.triangle(p2,Tb,boundary = T)$b,dec)>=0)
-        if(cond1 && cond2)
+        if (cond1 && cond2)
         {Seg.LPts<-rbind(Seg.LPts,p1); Seg.RPts<-rbind(Seg.RPts,p2)
         Arc.Pts<-rbind(Arc.Pts,p1,p2)
         } else
@@ -7990,7 +8293,7 @@ NASbastri<-function(pt,c1,c2,M="CC",rv=NULL,dec=4)
         if (length(pts3)/2>1)
         {p1<-y3; p2<-pts3[2,]
         cond<-all(round(in.triangle(p2,Tb,boundary = T)$b,dec)>=0);
-        if(cond)
+        if (cond)
         {Seg.LPts<-rbind(Seg.LPts,p1); Seg.RPts<-rbind(Seg.RPts,p2)
         Arc.Pts<-rbind(Arc.Pts,p2)
         } else
@@ -8138,23 +8441,23 @@ rv.bastri.cent<-function(p,c1,c2,M)
     M<-bary2cart(M,Tb)
   }
 
-  if (in.triangle(M,Tb,boundary=FALSE)$inside.tri==F)
+  if (in.triangle(M,Tb,boundary=FALSE)$in.tri==F)
   {stop('center is not in the interior of the basic triangle')}
 
   a1<-y1[1]; a2<-y1[2]; b1<-y2[1]; b2<-y2[2]; c1<-y3[1]; c2<-y3[2];
 
-  if(in.triangle(p,Tb)$inside.tri==F)
+  if (in.triangle(p,Tb)$in.tri==F)
   {rv<-NA
   } else
   {
     Ms<-cp2e.bastri(c1,c2,M)
     M1<-Ms[1,]; M2<-Ms[2,]; M3<-Ms[3,];
 
-    if(in.triangle(p,rbind(y1,M3,M),boundary=TRUE)$inside.tri | in.triangle(p,rbind(y1,M,M2),boundary=TRUE)$inside.tri)
+    if (in.triangle(p,rbind(y1,M3,M),boundary=TRUE)$in.tri | in.triangle(p,rbind(y1,M,M2),boundary=TRUE)$in.tri)
     {rv<-1}
     else
     {
-      if(in.triangle(p,rbind(M3,y2,M),boundary=TRUE)$inside.tri | in.triangle(p,rbind(y2,M1,M),boundary=TRUE)$inside.tri)
+      if (in.triangle(p,rbind(M3,y2,M),boundary=TRUE)$in.tri | in.triangle(p,rbind(y2,M1,M),boundary=TRUE)$in.tri)
       {rv<-2}
       else
       {rv<-3}
@@ -8261,7 +8564,7 @@ cp2e.bastri<-function(c1,c2,M)
     M<-bary2cart(M,Tb)
   }
 
-  if (in.triangle(M,Tb,boundary=FALSE)$inside.tri==F)
+  if (in.triangle(M,Tb,boundary=FALSE)$in.tri==F)
   {stop('center, M, is not in the interior of the basic triangle')}
 
   m1<-M[1]; m2<-M[2]
@@ -8394,14 +8697,14 @@ IndNASbastri<-function(pt1,pt2,c1,c2,M="CC",rv=NULL)
       M<-bary2cart(M,Tb)
     }
 
-    if (isTRUE(all.equal(M,circ.cent.tri(Tb)))==F & in.triangle(M,Tb,boundary=FALSE)$inside.tri==F)
+    if (isTRUE(all.equal(M,circ.cent.tri(Tb)))==F & in.triangle(M,Tb,boundary=FALSE)$in.tri==F)
     {stop('center is not the circumcenter or not in the interior of the triangle')}
   }
 
   if (identical(pt1,pt2))
   {arc<-1; return(arc); stop}
 
-  if(!in.triangle(pt1,Tb,boundary=TRUE)$inside.tri || !in.triangle(pt2,Tb,boundary=TRUE)$inside.tri)
+  if (!in.triangle(pt1,Tb,boundary=TRUE)$in.tri || !in.triangle(pt2,Tb,boundary=TRUE)$in.tri)
   {arc<-0; return(arc); stop}
 
   if (is.null(rv))
@@ -8531,11 +8834,11 @@ IndNASbastri<-function(pt1,pt2,c1,c2,M="CC",rv=NULL)
 #' points(rbind(Tr,P1,rbind(Int.Pts$L,Int.Pts$R)))
 #' L<-rbind(cent,cent,cent); R<-Ds
 #' segments(L[,1], L[,2], R[,1], R[,2], lty=2)
-#' tripack::circles(P1[1],P1[2],rad,lty=2)
+#' interp::circles(P1[1],P1[2],rad,lty=2)
 #' L<-Int.Pts$L; R<-Int.Pts$R
 #' segments(L[,1], L[,2], R[,1], R[,2], lty=1,col=2)
 #' Arcs<-Int.Pts$A;
-#' if(!is.null(Arcs))
+#' if (!is.null(Arcs))
 #' {
 #'   K<-nrow(Arcs)/2
 #'   for (i in 1:K)
@@ -8593,11 +8896,11 @@ NAStri<-function(pt,tri,M="CC",rv=NULL,dec=4)
       M<-bary2cart(M,tri)
     }
 
-    if (isTRUE(all.equal(M,circ.cent.tri(tri)))==F & in.triangle(M,tri,boundary=FALSE)$inside.tri==F)
+    if (isTRUE(all.equal(M,circ.cent.tri(tri)))==F & in.triangle(M,tri,boundary=FALSE)$in.tri==F)
     {stop('center is not the circumcenter or not in the interior of the triangle')}
   }
 
-  if(!in.triangle(pt,tri,boundary=TRUE)$inside.tri)
+  if (!in.triangle(pt,tri,boundary=TRUE)$in.tri)
   {reg<-list(L=NULL, R=NULL, Arc.Slices=NULL); return(reg); stop}
 
   Tr<-tri[order(tri[,1]),] #order the vertices according to their x axis, so that angles for the
@@ -8627,7 +8930,7 @@ NAStri<-function(pt,tri,M="CC",rv=NULL,dec=4)
       if (length(pts1)/2>1)
       {p1<-y1; p2<-pts1[2,]
       cond<-all(round(in.triangle(p2,tri,boundary = T)$b,dec)>=0);
-      if(cond)
+      if (cond)
       {Seg.LPts<-rbind(Seg.LPts,p1); Seg.RPts<-rbind(Seg.RPts,p2)
       Arc.Pts<-rbind(Arc.Pts,p2)
       } else
@@ -8640,7 +8943,7 @@ NAStri<-function(pt,tri,M="CC",rv=NULL,dec=4)
       {p1<-pts2[1,]; p2<-pts2[2,];
       cond1<-all(round(in.triangle(p1,tri,boundary = T)$b,dec)>=0);
       cond2<-all(round(in.triangle(p2,tri,boundary = T)$b,dec)>=0)
-      if(cond1 && cond2)
+      if (cond1 && cond2)
       {Seg.LPts<-rbind(Seg.LPts,p1); Seg.RPts<-rbind(Seg.RPts,p2)
       Arc.Pts<-rbind(Arc.Pts,p1,p2)
       } else
@@ -8653,7 +8956,7 @@ NAStri<-function(pt,tri,M="CC",rv=NULL,dec=4)
       if (length(pts3)/2>1)
       {p1<-y1; p2<-pts3[2,]
       cond<-all(round(in.triangle(p2,tri,boundary = T)$b,dec)>=0);
-      if(cond)
+      if (cond)
       {Seg.LPts<-rbind(Seg.LPts,p1); Seg.RPts<-rbind(Seg.RPts,p2)
       Arc.Pts<-rbind(Arc.Pts,p2)
       } else
@@ -8678,7 +8981,7 @@ NAStri<-function(pt,tri,M="CC",rv=NULL,dec=4)
         {
           p1<-y2; p2<-pts1[2,]
           cond<-all(round(in.triangle(p2,tri,boundary = T)$b,dec)>=0);
-          if(cond)
+          if (cond)
           {Seg.LPts<-rbind(Seg.LPts,p1); Seg.RPts<-rbind(Seg.RPts,p2)
           Arc.Pts<-rbind(Arc.Pts,p2)
           } else
@@ -8691,7 +8994,7 @@ NAStri<-function(pt,tri,M="CC",rv=NULL,dec=4)
         { p1<-pts2[1,]; p2<-pts2[2,];
         cond1<-all(round(in.triangle(p1,tri,boundary = T)$b,dec)>=0);
         cond2<-all(round(in.triangle(p2,tri,boundary = T)$b,dec)>=0)
-        if(cond1 && cond2)
+        if (cond1 && cond2)
         {Seg.LPts<-rbind(Seg.LPts,p1); Seg.RPts<-rbind(Seg.RPts,p2)
         Arc.Pts<-rbind(Arc.Pts,p1,p2)
         } else
@@ -8704,7 +9007,7 @@ NAStri<-function(pt,tri,M="CC",rv=NULL,dec=4)
         if (length(pts3)/2>1)
         {p1<-y2; p2<-pts3[2,]
         cond<-all(round(in.triangle(p2,tri,boundary = T)$b,dec)>=0);
-        if(cond)
+        if (cond)
         {Seg.LPts<-rbind(Seg.LPts,p1); Seg.RPts<-rbind(Seg.RPts,p2)
         Arc.Pts<-rbind(Arc.Pts,p2)
         } else
@@ -8726,7 +9029,7 @@ NAStri<-function(pt,tri,M="CC",rv=NULL,dec=4)
         if (length(pts1)/2>1)
         { p1<-y3; p2<-pts1[2,]
         cond<-all(round(in.triangle(p2,tri,boundary = T)$b,dec)>=0);
-        if(cond)
+        if (cond)
         {Seg.LPts<-rbind(Seg.LPts,p1); Seg.RPts<-rbind(Seg.RPts,p2)
         Arc.Pts<-rbind(Arc.Pts,p2)
         } else
@@ -8740,7 +9043,7 @@ NAStri<-function(pt,tri,M="CC",rv=NULL,dec=4)
         {p1<-pts2[1,]; p2<-pts2[2,];
         cond1<-all(round(in.triangle(p1,tri,boundary = T)$b,dec)>=0);
         cond2<-all(round(in.triangle(p2,tri,boundary = T)$b,dec)>=0)
-        if(cond1 && cond2)
+        if (cond1 && cond2)
         {Seg.LPts<-rbind(Seg.LPts,p1); Seg.RPts<-rbind(Seg.RPts,p2)
         Arc.Pts<-rbind(Arc.Pts,p1,p2)
         } else
@@ -8753,7 +9056,7 @@ NAStri<-function(pt,tri,M="CC",rv=NULL,dec=4)
         if (length(pts3)/2>1)
         {p1<-y3; p2<-pts3[2,]
         cond<-all(round(in.triangle(p2,tri,boundary = T)$b,dec)>=0);
-        if(cond)
+        if (cond)
         {Seg.LPts<-rbind(Seg.LPts,p1); Seg.RPts<-rbind(Seg.RPts,p2)
         Arc.Pts<-rbind(Arc.Pts,p2)
         } else
@@ -8877,14 +9180,14 @@ IndNAStri<-function(pt1,pt2,tri,M="CC",rv=NULL)
       M<-bary2cart(M,tri)
     }
 
-    if (isTRUE(all.equal(M,circ.cent.tri(tri)))==F & in.triangle(M,tri,boundary=FALSE)$inside.tri==F)
+    if (isTRUE(all.equal(M,circ.cent.tri(tri)))==F & in.triangle(M,tri,boundary=FALSE)$in.tri==F)
     {stop('center is not the circumcenter or not in the interior of the triangle')}
   }
 
   if (identical(pt1,pt2))
   {arc<-1; return(arc); stop}
 
-  if(!in.triangle(pt1,tri,boundary=TRUE)$inside.tri || !in.triangle(pt2,tri,boundary=TRUE)$inside.tri)
+  if (!in.triangle(pt1,tri,boundary=TRUE)$in.tri || !in.triangle(pt2,tri,boundary=TRUE)$in.tri)
   {arc<-0; return(arc); stop}
 
   if (is.null(rv))
@@ -9039,21 +9342,21 @@ rv.tri.cent<-function(p,tri,M)
   y1<-tri[1,]; y2<-tri[2,]; y3<-tri[3,];
   a1<-y1[1]; a2<-y1[2]; b1<-y2[1]; b2<-y2[2]; c1<-y3[1]; c2<-y3[2];
 
-  if(in.triangle(p,tri)$inside.tri==F)
+  if (in.triangle(p,tri)$in.tri==F)
   {rv<-NA
   } else
   {
-    if (in.triangle(M,tri,boundary=FALSE)$inside.tri==F)
+    if (in.triangle(M,tri,boundary=FALSE)$in.tri==F)
     {stop('center is not in the interior of the triangle')}
 
     Ds<-cp2e.tri(tri,M)
     D1<-Ds[1,]; D2<-Ds[2,]; D3<-Ds[3,];
 
-    if(in.triangle(p,rbind(y1,D3,M),boundary=TRUE)$inside.tri | in.triangle(p,rbind(y1,M,D2),boundary=TRUE)$inside.tri)
+    if (in.triangle(p,rbind(y1,D3,M),boundary=TRUE)$in.tri | in.triangle(p,rbind(y1,M,D2),boundary=TRUE)$in.tri)
     {rv<-1}
     else
     {
-      if(in.triangle(p,rbind(D3,y2,M),boundary=TRUE)$inside.tri | in.triangle(p,rbind(y2,D1,M),boundary=TRUE)$inside.tri)
+      if (in.triangle(p,rbind(D3,y2,M),boundary=TRUE)$in.tri | in.triangle(p,rbind(y2,D1,M),boundary=TRUE)$in.tri)
       {rv<-2}
       else
       {rv<-3}
@@ -9160,7 +9463,7 @@ cp2e.tri<-function(tri,M)
   y1<-tri[1,]; y2<-tri[2,]; y3<-tri[3,];
   a1<-y1[1]; a2<-y1[2]; b1<-y2[1]; b2<-y2[2]; c1<-y3[1]; c2<-y3[2];
 
-  if (in.triangle(M,tri,boundary=FALSE)$inside.tri==F)
+  if (in.triangle(M,tri,boundary=FALSE)$in.tri==F)
   {stop('center is not in the interior of the triangle')}
 
   m1<-M[1]; m2<-M[2]
@@ -9274,7 +9577,7 @@ NumArcsAStri<-function(dat,tri,M="CC")
       M<-bary2cart(M,tri)
     }
 
-    if (isTRUE(all.equal(M,circ.cent.tri(tri)))==F & in.triangle(M,tri,boundary=FALSE)$inside.tri==F)
+    if (isTRUE(all.equal(M,circ.cent.tri(tri)))==F & in.triangle(M,tri,boundary=FALSE)$in.tri==F)
     {stop('center is not the circumcenter or not in the interior of the triangle')}
   }
 
@@ -9287,7 +9590,7 @@ NumArcsAStri<-function(dat,tri,M="CC")
   {
     for (i in 1:n)
     { pt1<-dat[i,]
-    if (in.triangle(pt1,tri,boundary=TRUE)$inside.tri)
+    if (in.triangle(pt1,tri,boundary=TRUE)$in.tri)
     { vert<-ifelse(isTRUE(all.equal(M,circ.cent.tri(tri)))==T,rv.triCC(pt1,tri)$rv,rv.tri.cent(pt1,tri,M)$rv) #vertex region for pt
     for (j in (1:n)[-i]) #to avoid loops
     {
@@ -9404,7 +9707,7 @@ ASarcdens.tri<-function(Xp,tri,M="CC",tri.cor=TRUE)
       M<-bary2cart(M,tri)
     }
 
-    if (isTRUE(all.equal(M,circ.cent.tri(tri)))==F & in.triangle(M,tri,boundary=FALSE)$inside.tri==F)
+    if (isTRUE(all.equal(M,circ.cent.tri(tri)))==F & in.triangle(M,tri,boundary=FALSE)$in.tri==F)
     {stop('center is not the circumcenter or not in the interior of the triangle')}
   }
 
@@ -9416,7 +9719,7 @@ ASarcdens.tri<-function(Xp,tri,M="CC",tri.cor=TRUE)
     ind.it<-c()
     for (i in 1:nx)
     {
-      ind.it<-c(ind.it,in.triangle(Xp[i,],tri)$ins)
+      ind.it<-c(ind.it,in.triangle(Xp[i,],tri)$in.tri)
     }
     Xp.it<-Xp[ind.it,] #Xp points inside the triangle
     NinTri<-nrow(Xp.it)
@@ -9523,7 +9826,7 @@ ASarcdens.tri<-function(Xp,tri,M="CC",tri.cor=TRUE)
 #' dat.fr<-data.frame(a=S)
 #' IndNAStriSet(dat.fr,P,Tr,M)
 #'
-#' \donttest{
+#' \dontrun{
 #' IndNAStriSet(cbind(S,S),P,Tr,M)
 #' IndNAStriSet(rbind(c("a","b"),S),P,Tr,M)
 #' }
@@ -9567,7 +9870,7 @@ IndNAStriSet<-function(S,pt,tri,M="CC")
       M<-bary2cart(M,tri)
     }
 
-    if (isTRUE(all.equal(M,circ.cent.tri(tri)))==F & in.triangle(M,tri,boundary=FALSE)$inside.tri==F)
+    if (isTRUE(all.equal(M,circ.cent.tri(tri)))==F & in.triangle(M,tri,boundary=FALSE)$in.tri==F)
     {stop('center is not the circumcenter or not in the interior of the triangle')}
   }
 
@@ -9708,7 +10011,7 @@ IndNAStri.domset<-function(S,Dt,tri,M="CC")
       M<-bary2cart(M,tri)
     }
 
-    if (isTRUE(all.equal(M,circ.cent.tri(tri)))==F & in.triangle(M,tri,boundary=FALSE)$inside.tri==F)
+    if (isTRUE(all.equal(M,circ.cent.tri(tri)))==F & in.triangle(M,tri,boundary=FALSE)$in.tri==F)
     {stop('center is not the circumcenter or not in the interior of the triangle')}
   }
 
@@ -9833,7 +10136,7 @@ IndASdomUBtri<-function(Dt,k,tri,M="CC")
       M<-bary2cart(M,tri)
     }
 
-    if (isTRUE(all.equal(M,circ.cent.tri(tri)))==F & in.triangle(M,tri,boundary=FALSE)$inside.tri==F)
+    if (isTRUE(all.equal(M,circ.cent.tri(tri)))==F & in.triangle(M,tri,boundary=FALSE)$in.tri==F)
     {stop('center is not the circumcenter or not in the interior of the triangle')}
   }
 
@@ -9871,8 +10174,8 @@ IndASdomUBtri<-function(Dt,k,tri,M="CC")
 #' the convex hull of \code{Yp} points).
 #'
 #' See (\insertCite{ceyhan:Phd-thesis,ceyhan:comp-geo-2010,ceyhan:mcap2012;textual}{pcds}) for more on AS-PCDs.
-#' Also see (\insertCite{okabe:2000,ceyhan:comp-geo-2010,renka:1996;textual}{pcds}) for more on Delaunay triangulation
-#' and the TRIPACK algorithm.
+#' Also see (\insertCite{okabe:2000,ceyhan:comp-geo-2010,sinclair:2016;textual}{pcds}) for more on Delaunay triangulation
+#' and the corresponding algorithm.
 #'
 #' @param Xp A set of 2D points which constitute the vertices of the AS-PCD
 #' @param Yp A set of 2D points which constitute the vertices of the Delaunay triangles
@@ -9907,6 +10210,7 @@ IndASdomUBtri<-function(Dt,k,tri,M="CC")
 #' #M<-c(1.3,1.3)
 #'
 #' NumArcsASMT(Xp,Yp,M)
+#' NumArcsASMT(Xp,Yp[1:3,],M)
 #'
 #' NumArcsASMT(c(.4,.2),Yp,M)
 #'
@@ -9933,47 +10237,69 @@ NumArcsASMT<-function(Xp,Yp,M="CC")
   if (ncol(Yp)!=2 || nrow(Yp)<3)
   {stop('Yp must be of dimension kx2 with k>=3')}
 
-  if ((!is.point(M,3) && M!="CC") || !all(M>0))
-  {stop('M must be a numeric 3D point with positive barycentric coordinates or "CC" for circumcenter')}
+  if (nrow(Yp)==3)
+  {
+    Tri.Ind<-indices.Del.tri(Xp,Yp) #returns 1's if the points Xp[i,]'s are inside triangle based on Yp, NA otherwise
 
-  #Delaunay triangulation of Yp points
-  Ytrimesh<-tri.mesh(Yp[,1],Yp[,2],duplicate="remove")
-  Ytri<-matrix(triangles(Ytrimesh)[,1:3],ncol=3); #the vertices of the Delaunay triangles
-  nt<-nrow(Ytri) #number of Delaunay triangles
+    inTri<-which(Tri.Ind==1)
+    NinTri<-length(inTri) #number of points in the triangle
 
-  inCH<-in.convex.hull(Ytrimesh,Xp[,1],Xp[,2])
-  Ninch<-sum(inCH) #number of points in the convex hull
-  if (Ninch==0)
-  {Tot.Arcs<-0;
-  ListW<-NULL
+    if (NinTri==0)
+    {Tot.Arcs<-0;
+    ListW<-vector()
+    } else
+    {
+      Xdt<-matrix(Xp[inTri,],ncol=2)
+      tri<-as.bastri(Yp)$tri #convert the triangle Yp into an unscaled basic triangle, see as.bastri help page
+      ListW<-area.polygon(tri)
+      Tot.Arcs<-NumArcsAStri(Xdt,tri,M) #number of arcs in the triangle Yp
+    }
+    res<-list(num.arcs=Tot.Arcs,
+              num.in.conv.hull=NinTri,
+              weight.vec=ListW)
   } else
   {
-    Xdt<-matrix(Xp[inCH==TRUE,],ncol=2)
+    if ((!is.point(M,3) && M!="CC") || !all(M>0))
+    {stop('M must be a numeric 3D point with positive barycentric coordinates or "CC" for circumcenter')}
 
-    Tri.Ind<-indices.Del.tri(Xdt,Yp,Ytrimesh)
-    #indices of triangles in which the points in the data fall
+    #Delaunay triangulation of Yp points
+    Ytrimesh<-interp::tri.mesh(Yp[,1],Yp[,2],duplicate="remove")
+    Ytri<-matrix(interp::triangles(Ytrimesh)[,1:3],ncol=3); #the vertices of the Delaunay triangles
+    nt<-nrow(Ytri) #number of Delaunay triangles
 
-    #calculation of the total number of arcs
-    TArcs<-List.W<-ni<-arcs<-NULL
-
-    for (i in 1:nt)
+    inCH<-interp::in.convex.hull(Ytrimesh,Xp[,1],Xp[,2])
+    Ninch<-sum(inCH) #number of points in the convex hull
+    if (Ninch==0)
+    {Tot.Arcs<-0;
+    ListW<-NULL
+    } else
     {
-      dati<-Xdt[Tri.Ind==i,] #points in ith Delaunay triangle
-      Tri<-Yp[Ytri[i,],]
-      tri<-as.bastri(Tri)$tri #convert the triangle Tri into an unscaled basic triangle, see as.bastri help page
-      List.W<-c(List.W,area.polygon(tri))
-      ni<-c(ni,length(dati)/2) #number of points in ith Delaunay triangle
+      Xdt<-matrix(Xp[inCH==TRUE,],ncol=2)
+      Tri.Ind<-indices.Del.tri(Xdt,Yp,Ytrimesh)
+      #indices of triangles in which the points in the data fall
 
-      num.arcs<-NumArcsAStri(dati,tri,M) #number of arcs in ith triangle
-      arcs<-c(arcs,num.arcs) #number of arcs in all triangles as a vector
+      #calculation of the total number of arcs
+      List.W<-ni<-arcs<-vector()
+      for (i in 1:nt)
+      {
+        dati<-Xdt[Tri.Ind==i,] #points in ith Delaunay triangle
+        Tri<-Yp[Ytri[i,],]
+        tri<-as.bastri(Tri)$tri #convert the triangle Tri into an unscaled basic triangle, see as.bastri help page
+        List.W<-c(List.W,area.polygon(tri))
+        ni<-c(ni,length(dati)/2) #number of points in ith Delaunay triangle
+
+        num.arcs<-NumArcsAStri(dati,tri,M) #number of arcs in ith triangle
+        arcs<-c(arcs,num.arcs) #number of arcs in all triangles as a vector
+      }
+
+      Tot.Arcs<-sum(arcs) #the total number of arcs in all triangles
+      ListW<-List.W[ni >= 1] #adjusted for triangles with one or more points in them
     }
-
-    Tot.Arcs<-sum(arcs) #the total number of arcs in all triangles
-    ListW<-List.W[ni >= 1] #adjusted for triangles with one or more points in them
+    res<-list(num.pts.in.CH=Ninch,
+              num.arcs=Tot.Arcs,
+              weight.vec=ListW)
   }
-  list(num.pts.in.CH=Ninch,
-       num.arcs=Tot.Arcs,
-       weight.vec=ListW)
+  res
 } #end of the function
 #'
 #################################################################
@@ -9983,7 +10309,7 @@ NumArcsASMT<-function(Xp,Yp,M="CC")
 #' @description Plots the scatter plot of \code{Xp} points together with the Delaunay triangles based on the \code{Yp} points.
 #' Both sets of points are of 2D.
 #'
-#' See (\insertCite{okabe:2000,ceyhan:comp-geo-2010,renka:1996;textual}{pcds}) for more on Delaunay triangulation and the TRIPACK algorithm.
+#' See (\insertCite{okabe:2000,ceyhan:comp-geo-2010,sinclair:2016;textual}{pcds}) for more on Delaunay triangulation and the corresponding algorithm.
 #'
 #' @param Xp A set of 2D points whose scatterplot is to be plotted
 #' @param Yp A set of 2D points which constitute the vertices of the Delaunay triangles
@@ -9994,7 +10320,7 @@ NumArcsASMT<-function(Xp,Yp,M="CC")
 #'
 #' @return A scatterplot of \code{Xp} points and the Delaunay triangulation of \code{Yp} points.
 #'
-#' @seealso \code{\link[tripack]{plot.tri}} in \code{tripack} package
+#' @seealso \code{\link[interp]{plot.triSht}} in \code{interp} package
 #'
 #' @references
 #' \insertAllCited{}
@@ -10011,6 +10337,7 @@ NumArcsASMT<-function(Xp,Yp,M="CC")
 #' plotDeltri(P,Yp,xlab="",ylab="",main="X points and Delaunay Triangulation of Y points")
 #'
 #' plotDeltri(Xp,Yp,xlab="",ylab="")
+#' plotDeltri(Xp,Yp[1:3,],xlab="",ylab="")
 #'
 #' plotDeltri(Xp,rbind(Yp,Yp),xlab="",ylab="")
 #'
@@ -10038,17 +10365,26 @@ plotDeltri<-function(Xp,Yp,main="",xlab="",ylab="",xlim=NULL,ylim=NULL, ...)
   if (ncol(Yp)!=2 || nrow(Yp)<3)
   {stop('Yp must be of dimension kx2 with k>=3')}
 
-  Ytrimesh<-tri.mesh(Yp[,1],Yp[,2],duplicate="remove") #Delaunay triangulation
-
   if (is.null(xlim))
   {xlim<-range(Xp[,1],Yp[,1])}
   if (is.null(ylim))
   {ylim<-range(Xp[,2],Yp[,2])}
 
-  par(mfrow=c(1,1),mar=c(5,5,4,2))
-  plot(Xp[,1],Xp[,2],main=main, xlab=xlab, ylab=ylab,xlim=xlim,ylim=ylim,pch=".",cex=4, ...)
-  plot.tri(Ytrimesh, add=TRUE, do.points = TRUE, ...)
-  par(mfrow=c(1,1))
+  if (nrow(Yp)==3)
+  {
+    par(mfrow=c(1,1),mar=c(5,5,4,2))
+    plot(Xp[,1],Xp[,2],main=main, xlab=xlab, ylab=ylab,xlim=xlim,ylim=ylim,pch=".",cex=4, ...)
+    polygon(Yp,lty=2)
+  } else
+  {
+
+    Ytrimesh<-interp::tri.mesh(Yp[,1],Yp[,2],duplicate="remove") #Delaunay triangulation
+
+    par(mfrow=c(1,1),mar=c(5,5,4,2))
+    plot(Xp[,1],Xp[,2],main=main, xlab=xlab, ylab=ylab,xlim=xlim,ylim=ylim,pch=".",cex=4, ...)
+    interp::plot.triSht(Ytrimesh, add=TRUE, do.points = TRUE, ...)
+    par(mfrow=c(1,1))
+  }
 } #end of the function
 #'
 #################################################################
@@ -10146,7 +10482,7 @@ IncMatAStri<-function(dat,tri,M="CC")
       M<-bary2cart(M,tri)
     }
 
-    if (isTRUE(all.equal(M,circ.cent.tri(tri)))==F & in.triangle(M,tri,boundary=FALSE)$inside.tri==F)
+    if (isTRUE(all.equal(M,circ.cent.tri(tri)))==F & in.triangle(M,tri,boundary=FALSE)$in.tri==F)
     {stop('center is not the circumcenter or not in the interior of the triangle')}
   }
 
@@ -10181,8 +10517,8 @@ IncMatAStri<-function(dat,tri,M="CC")
 #' Loops are allowed, so the diagonal entries are all equal to 1.
 #'
 #' See (\insertCite{ceyhan:Phd-thesis,ceyhan:comp-geo-2010,ceyhan:mcap2012;textual}{pcds}) for more on AS-PCDs.
-#' Also see (\insertCite{okabe:2000,ceyhan:comp-geo-2010,renka:1996;textual}{pcds}) for more on Delaunay triangulation
-#' and the TRIPACK algorithm.
+#' Also see (\insertCite{okabe:2000,ceyhan:comp-geo-2010,sinclair:2016;textual}{pcds}) for more on Delaunay triangulation
+#' and the corresponding algorithm.
 #'
 #' @param Xp A set of 2D points which constitute the vertices of the AS-PCD
 #' @param Yp A set of 2D points which constitute the vertices of the Delaunay triangles
@@ -10215,9 +10551,10 @@ IncMatAStri<-function(dat,tri,M="CC")
 #'
 #' IM<-IncMatASMT(Xp,Yp,M)
 #' IM
-#'
 #' dom.greedy(IM)
 #' #dom.exact(IM) #this might take a long time for large  nx
+#'
+#' IM<-IncMatASMT(Xp,Yp[1:3,],M)
 #'
 #' IncMatASMT(Xp,rbind(Yp,Yp))
 #'
@@ -10242,48 +10579,54 @@ IncMatASMT<-function(Xp,Yp,M="CC")
   if (ncol(Yp)!=2 || nrow(Yp)<3)
   {stop('Yp must be of dimension kx2 with k>=3')}
 
-  if ((!is.point(M,3) && M!="CC") || !all(M>0))
-  {stop('M must be a numeric 3D point with positive barycentric coordinates or "CC" for circumcenter')}
-
-  DTmesh<-tri.mesh(Yp[,1],Yp[,2],duplicate="remove")
-
-  nx<-nrow(Xp)
-  ch<-rep(0,nx)
-  for (i in 1:nx)
-    ch[i]<-in.convex.hull(DTmesh,Xp[i,1],Xp[i,2])
-
-  inc.mat<-matrix(0, nrow=nx, ncol=nx)
-
-  DTr<-matrix(triangles(DTmesh)[,1:3],ncol=3)
-  nt<-nrow(DTr) #number of Delaunay triangles
-
-  if (nx>1)
+  if (nrow(Yp)==3)
   {
-    i.tr<-rep(0,nx) #the vector of indices for the triangles that contain the Xp points
-    for (i in 1:nx)
-      for (j in 1:nt)
-      {
-        tri<-Yp[DTr[j,],]
-        if (in.triangle(Xp[i,],tri,boundary=TRUE)$inside.tri )
-          i.tr[i]<-j
-      }
+    inc.mat<-IncMatAStri(Xp,Yp,M)
+  } else
+  {
+    if ((!is.point(M,3) && M!="CC") || !all(M>0))
+    {stop('M must be a numeric 3D point with positive barycentric coordinates or "CC" for circumcenter')}
 
+    DTmesh<-interp::tri.mesh(Yp[,1],Yp[,2],duplicate="remove")
+
+    nx<-nrow(Xp)
+    ch<-rep(0,nx)
     for (i in 1:nx)
-    {pt1<-Xp[i,]
-    if (i.tr[i]!=0)
+      ch[i]<-interp::in.convex.hull(DTmesh,Xp[i,1],Xp[i,2])
+
+    inc.mat<-matrix(0, nrow=nx, ncol=nx)
+
+    DTr<-matrix(interp::triangles(DTmesh)[,1:3],ncol=3)
+    nt<-nrow(DTr) #number of Delaunay triangles
+
+    if (nx>1)
     {
-      Yi.Tri<-Yp[DTr[i.tr[i],],]
-      Yi.tri<-as.bastri(Yi.Tri)$tri #convert the triangle Yi.Tri into an unscaled basic triangle, see as.bastri help page
-      vert<-ifelse(identical(M,"CC"),rv.triCC(pt1,Yi.tri)$rv,rv.tri.cent(pt1,Yi.tri,M)$rv)  #vertex region for pt
-      for (j in 1:nx )
-      {pt2<-Xp[j,]
-      inc.mat[i,j]<-IndNAStri(pt1,pt2,Yi.tri,M,rv=vert)
+      i.tr<-rep(0,nx) #the vector of indices for the triangles that contain the Xp points
+      for (i in 1:nx)
+        for (j in 1:nt)
+        {
+          tri<-Yp[DTr[j,],]
+          if (in.triangle(Xp[i,],tri,boundary=TRUE)$in.tri )
+            i.tr[i]<-j
+        }
+
+      for (i in 1:nx)
+      {pt1<-Xp[i,]
+      if (i.tr[i]!=0)
+      {
+        Yi.Tri<-Yp[DTr[i.tr[i],],]
+        Yi.tri<-as.bastri(Yi.Tri)$tri #convert the triangle Yi.Tri into an unscaled basic triangle, see as.bastri help page
+        vert<-ifelse(identical(M,"CC"),rv.triCC(pt1,Yi.tri)$rv,rv.tri.cent(pt1,Yi.tri,M)$rv)  #vertex region for pt
+        for (j in 1:nx )
+        {pt2<-Xp[j,]
+        inc.mat[i,j]<-IndNAStri(pt1,pt2,Yi.tri,M,rv=vert)
+        }
+      }
       }
     }
-    }
-  }
 
-  diag(inc.mat)<-1
+    diag(inc.mat)<-1
+  }
   inc.mat
 } #end of the function
 #'
@@ -10423,7 +10766,7 @@ fr2vTbVRCC<-function(Dt,c1,c2,ch.all.intri=FALSE)
   mdt<-rep(0,3); U<-matrix(NA,nrow=3,ncol=2);
   for (i in 1:n)
   {
-    if (in.triangle(Dt[i,],tri,boundary = TRUE)$inside.tri)
+    if (in.triangle(Dt[i,],tri,boundary = TRUE)$in.tri)
     {
       rv<-rv.bastriCC(Dt[i,],c1,c2)$rv;
       if (rv==1)
@@ -10621,7 +10964,7 @@ fr2vVRCC<-function(Dt,tri,ch.all.intri=FALSE)
 
   for (i in 1:n)
   {
-    if (in.triangle(Dt[i,],tri,boundary = TRUE)$inside.tri)
+    if (in.triangle(Dt[i,],tri,boundary = TRUE)$in.tri)
     {rv<-rv.triCC(Dt[i,],tri)$rv;
     if (rv==1)
     {d1<-Dist(Dt[i,],y1);
@@ -11265,7 +11608,7 @@ cl2CC.TbVR<-function(Dt,c1,c2,ch.all.intri=FALSE)
   n<-nrow(Dt)
   for (i in 1:n)
   {
-    if (in.triangle(Dt[i,],Tb,boundary = TRUE)$inside.tri)
+    if (in.triangle(Dt[i,],Tb,boundary = TRUE)$in.tri)
     {
       rv<-rv.bastriCC(Dt[i,],c1,c2)$rv;
       if (rv==1)
@@ -11461,7 +11804,7 @@ cl2CC.VR<-function(Dt,tri,ch.all.intri=FALSE)
   n<-nrow(Dt)
   for (i in 1:n)
   {
-    if (in.triangle(Dt[i,],tri,boundary = TRUE)$inside.tri)
+    if (in.triangle(Dt[i,],tri,boundary = TRUE)$in.tri)
     {rv<-rv.triCC(Dt[i,],tri)$rv;
     if (rv==1)
     {d1<-Dist(Dt[i,],CC);
@@ -11661,7 +12004,7 @@ Gam1ASbastri<-function(p,Dt,c1,c2,M="CC",rv=NULL,ch.data.pnt=FALSE)
   {stop('Dt must be of dimension nx2')}
   }
 
-  if(isTRUE(all.equal(matrix(p,ncol=2),Dt)))
+  if (isTRUE(all.equal(matrix(p,ncol=2),Dt)))
   {dom<-1; return(dom); stop}
 
   if (!is.point(c1,1) || !is.point(c2,1))
@@ -11683,7 +12026,7 @@ Gam1ASbastri<-function(p,Dt,c1,c2,M="CC",rv=NULL,ch.data.pnt=FALSE)
       M<-bary2cart(M,Tb)
     }
 
-    if (isTRUE(all.equal(M,circ.cent.tri(Tb)))==F & in.triangle(M,Tb,boundary=FALSE)$inside.tri==F)
+    if (isTRUE(all.equal(M,circ.cent.tri(Tb)))==F & in.triangle(M,Tb,boundary=FALSE)$in.tri==F)
     {stop('center is not the circumcenter or not in the interior of the triangle')}
   }
 
@@ -11694,7 +12037,7 @@ Gam1ASbastri<-function(p,Dt,c1,c2,M="CC",rv=NULL,ch.data.pnt=FALSE)
   }
 
   A<-c(0,0); B<-c(1,0); C<-c(c1,c2); Tb<-rbind(A,B,C)
-  if(in.triangle(p,Tb,boundary = TRUE)$inside.tri==F)
+  if (in.triangle(p,Tb,boundary = TRUE)$in.tri==F)
   {dom<-0; return(dom); stop}
 
   if (is.null(rv))
@@ -11859,7 +12202,7 @@ Gam1AStri<-function(p,Dt,tri,M="CC",rv=NULL,ch.data.pnt=FALSE)
   {stop('Dt must be of dimension nx2')}
   }
 
-  if(isTRUE(all.equal(matrix(p,ncol=2),Dt)))
+  if (isTRUE(all.equal(matrix(p,ncol=2),Dt)))
   {dom<-1; return(dom); stop}
 
   tri<-as.matrix(tri)
@@ -11884,7 +12227,7 @@ Gam1AStri<-function(p,Dt,tri,M="CC",rv=NULL,ch.data.pnt=FALSE)
       M<-bary2cart(M,tri)
     }
 
-    if (isTRUE(all.equal(M,circ.cent.tri(tri)))==F & in.triangle(M,tri,boundary=FALSE)$inside.tri==F)
+    if (isTRUE(all.equal(M,circ.cent.tri(tri)))==F & in.triangle(M,tri,boundary=FALSE)$in.tri==F)
     {stop('center is not the circumcenter or not in the interior of the triangle')}
   }
 
@@ -11894,7 +12237,7 @@ Gam1AStri<-function(p,Dt,tri,M="CC",rv=NULL,ch.data.pnt=FALSE)
     {stop('p is not a data point in Dt')}
   }
 
-  if(in.triangle(p,tri,boundary = TRUE)$inside.tri==F)
+  if (in.triangle(p,tri,boundary = TRUE)$in.tri==F)
   {dom<-0; return(dom); stop}
 
   if (is.null(rv))
@@ -12155,7 +12498,7 @@ Gam2ASbastri<-function(pt1,pt2,Dt,c1,c2,M="CC",rv1=NULL,rv2=NULL,ch.data.pnts=FA
   {stop('Dt must be of dimension nx2')}
   }
 
-  if(isTRUE(all.equal(matrix(rbind(pt1,pt2),ncol=2),Dt)))
+  if (isTRUE(all.equal(matrix(rbind(pt1,pt2),ncol=2),Dt)))
   {dom<-1; return(dom); stop}
 
   if (!is.point(c1,1) || !is.point(c2,1))
@@ -12179,7 +12522,7 @@ Gam2ASbastri<-function(pt1,pt2,Dt,c1,c2,M="CC",rv1=NULL,rv2=NULL,ch.data.pnts=FA
       M<-bary2cart(M,Tb)
     }
 
-    if (isTRUE(all.equal(M,circ.cent.tri(Tb)))==F & in.triangle(M,Tb,boundary=FALSE)$inside.tri==F)
+    if (isTRUE(all.equal(M,circ.cent.tri(Tb)))==F & in.triangle(M,Tb,boundary=FALSE)$in.tri==F)
     {stop('center is not the circumcenter or not in the interior of the triangle')}
   }
 
@@ -12333,7 +12676,7 @@ Gam2AStri<-function(pt1,pt2,Dt,tri,M="CC",rv1=NULL,rv2=NULL,ch.data.pnts=FALSE)
   {stop('Dt must be of dimension nx2')}
   }
 
-  if(isTRUE(all.equal(matrix(rbind(pt1,pt2),ncol=2),Dt)))
+  if (isTRUE(all.equal(matrix(rbind(pt1,pt2),ncol=2),Dt)))
   {dom<-1; return(dom); stop}
 
   tri<-as.matrix(tri)
@@ -12364,7 +12707,7 @@ Gam2AStri<-function(pt1,pt2,Dt,tri,M="CC",rv1=NULL,rv2=NULL,ch.data.pnts=FALSE)
       M<-bary2cart(M,tri)
     }
 
-    if (isTRUE(all.equal(M,circ.cent.tri(tri)))==F & in.triangle(M,tri,boundary=FALSE)$inside.tri==F)
+    if (isTRUE(all.equal(M,circ.cent.tri(tri)))==F & in.triangle(M,tri,boundary=FALSE)$in.tri==F)
     {stop('center is not the circumcenter or not in the interior of the triangle')}
   }
 
@@ -12545,13 +12888,13 @@ ArcsAStri<-function(Xp,tri,M="CC")
       M<-bary2cart(M,tri)
     }
 
-    if (isTRUE(all.equal(M,circ.cent.tri(tri)))==F & in.triangle(M,tri,boundary=FALSE)$inside.tri==F)
+    if (isTRUE(all.equal(M,circ.cent.tri(tri)))==F & in.triangle(M,tri,boundary=FALSE)$in.tri==F)
     {stop('center is not the circumcenter or not in the interior of the triangle')}
   }
   n<-nrow(Xp)
   in.tri<-rep(0,n)
   for (i in 1:n)
-    in.tri[i]<-in.triangle(Xp[i,],tri,boundary=TRUE)$inside.tri #indices of the Xp points inside the triangle
+    in.tri[i]<-in.triangle(Xp[i,],tri,boundary=TRUE)$in.tri #indices of the Xp points inside the triangle
 
   Xtri<-Xp[in.tri==1,] #the Xp points inside the triangle
   n2<-length(Xtri)/2
@@ -12839,14 +13182,14 @@ plotASregsTri<-function(Xp,tri,M="CC",main="",xlab="",ylab="",xlim=NULL,ylim=NUL
       M<-bary2cart(M,tri)
     }
 
-    if (isTRUE(all.equal(M,circ.cent.tri(tri)))==F & in.triangle(M,tri,boundary=FALSE)$inside.tri==F)
+    if (isTRUE(all.equal(M,circ.cent.tri(tri)))==F & in.triangle(M,tri,boundary=FALSE)$in.tri==F)
     {stop('center is not the circumcenter or not in the interior of the triangle')}
   }
 
   nx<-nrow(Xp)
   in.tri<-rep(0,nx)
   for (i in 1:nx)
-    in.tri[i]<-in.triangle(Xp[i,],tri,boundary=TRUE)$inside.tri #indices of the Xp points inside the triangle
+    in.tri[i]<-in.triangle(Xp[i,],tri,boundary=TRUE)$in.tri #indices of the Xp points inside the triangle
 
   Xtri<-matrix(Xp[in.tri==1,],ncol=2) #the Xp points inside the triangle
   nx2<-nrow(Xtri)
@@ -12875,7 +13218,7 @@ plotASregsTri<-function(Xp,tri,M="CC",main="",xlab="",ylab="",xlim=NULL,ylim=NUL
       L<-Int.Pts$L; R<-Int.Pts$R
       segments(L[,1], L[,2], R[,1], R[,2], lty=1,col=2)
       Arcs<-Int.Pts$A;
-      if(!is.null(Arcs))
+      if (!is.null(Arcs))
       {
         K<-nrow(Arcs)/2
         for (j in 1:K)
@@ -12911,7 +13254,7 @@ plotASregsTri<-function(Xp,tri,M="CC",main="",xlab="",ylab="",xlim=NULL,ylim=NUL
 #' interior of each Delaunay triangle; default is \code{M}="CC" i.e. circumcenter of each triangle.
 #'
 #' See (\insertCite{ceyhan:Phd-thesis,ceyhan:comp-geo-2010,ceyhan:mcap2012;textual}{pcds}) for more on AS PCDs.
-#' Also see (\insertCite{okabe:2000,ceyhan:comp-geo-2010,renka:1996;textual}{pcds}) for more on Delaunay triangulation and the TRIPACK algorithm.
+#' Also see (\insertCite{okabe:2000,ceyhan:comp-geo-2010,sinclair:2016;textual}{pcds}) for more on Delaunay triangulation and the corresponding algorithm.
 #'
 #' @param Xp A set of 2D points which constitute the vertices of the AS-PCD
 #' @param Yp A set of 2D points which constitute the vertices of the Delaunay triangulation. The Delaunay
@@ -12967,7 +13310,7 @@ plotASregsTri<-function(Xp,tri,M="CC",main="",xlab="",ylab="",xlim=NULL,ylim=NUL
 #'
 #' S<-Arcs$S
 #' E<-Arcs$E
-#' DT<-tripack::tri.mesh(Yp[,1],Yp[,2],duplicate="remove")
+#' DT<-interp::tri.mesh(Yp[,1],Yp[,2],duplicate="remove")
 #'
 #' Xlim<-range(Xp[,1],Yp[,1])
 #' Ylim<-range(Xp[,2],Yp[,2])
@@ -12976,8 +13319,10 @@ plotASregsTri<-function(Xp,tri,M="CC",main="",xlab="",ylab="",xlim=NULL,ylim=NUL
 #'
 #' plot(Xp,main=" ", xlab=" ", ylab=" ",xlim=Xlim+xd*c(-.05,.05),
 #' ylim=Ylim+yd*c(-.05,.05),pch=".",cex=3)
-#' tripack::plot.tri(DT, add=TRUE, do.points = TRUE)
+#' interp::plot.triSht(DT, add=TRUE, do.points = TRUE)
 #' arrows(S[,1], S[,2], E[,1], E[,2], length = 0.1, col= 4)
+#'
+#' ArcsASMT(Xp,Yp[1:3,],M)
 #'
 #' ArcsASMT(Xp,rbind(Yp,Yp),M)
 #'
@@ -13002,88 +13347,94 @@ ArcsASMT<-function(Xp,Yp,M="CC")
   if (ncol(Yp)!=2 || nrow(Yp)<3)
   {stop('Yp must be of dimension kx2 with k>=3')}
 
-  if ((!is.point(M,3) && M!="CC") || !all(M>0))
-  {stop('M must be a numeric 3D point with positive barycentric coordinates or "CC" for circumcenter')}
-
-  DTmesh<-tri.mesh(Yp[,1],Yp[,2],duplicate="remove")
-
-  nx<-nrow(Xp)
-  ch<-rep(0,nx)
-  for (i in 1:nx)
-    ch[i]<-in.convex.hull(DTmesh,Xp[i,1],Xp[i,2])
-
-  Xch<-matrix(Xp[ch==1,],ncol=2) #the Xp points inside the convex hull of Yp points
-
-  DTr<-matrix(triangles(DTmesh)[,1:3],ncol=3)
-  nt<-nrow(DTr)
-  nx2<-nrow(Xch) #number of Xp points inside the convex hull of Yp points
-
-  S<-E<-NULL #S is for source and E is for end points for the arcs
-  if (nx2>1)
+  if (nrow(Yp)==3)
   {
-    i.tr<-rep(0,nx2) #the vector of indices for the triangles that contain the Xp points
-    for (i in 1:nx2)
-      for (j in 1:nt)
-      {
-        tri<-Yp[DTr[j,],]
-        if (in.triangle(Xch[i,],tri,boundary=TRUE)$inside.tri )
-          i.tr[i]<-j
-      }
+    res<-ArcsAStri(Xp,Yp,M)
+  } else
+  {
+    if ((!is.point(M,3) && M!="CC") || !all(M>0))
+    {stop('M must be a numeric 3D point with positive barycentric coordinates or "CC" for circumcenter')}
 
-    for (i in 1:nt)
+    DTmesh<-interp::tri.mesh(Yp[,1],Yp[,2],duplicate="remove")
+
+    nx<-nrow(Xp)
+    ch<-rep(0,nx)
+    for (i in 1:nx)
+      ch[i]<-interp::in.convex.hull(DTmesh,Xp[i,1],Xp[i,2])
+
+    Xch<-matrix(Xp[ch==1,],ncol=2) #the Xp points inside the convex hull of Yp points
+
+    DTr<-matrix(interp::triangles(DTmesh)[,1:3],ncol=3)
+    nt<-nrow(DTr)
+    nx2<-nrow(Xch) #number of Xp points inside the convex hull of Yp points
+
+    S<-E<-NULL #S is for source and E is for end points for the arcs
+    if (nx2>1)
     {
-      Xl<-matrix(Xch[i.tr==i,],ncol=2)
-      if (nrow(Xl)>1)
+      i.tr<-rep(0,nx2) #the vector of indices for the triangles that contain the Xp points
+      for (i in 1:nx2)
+        for (j in 1:nt)
+        {
+          tri<-Yp[DTr[j,],]
+          if (in.triangle(Xch[i,],tri,boundary=TRUE)$in.tri )
+            i.tr[i]<-j
+        }
+
+      for (i in 1:nt)
       {
-        Yi.Tri<-Yp[DTr[i,],] #vertices of the ith triangle
-        Yi.tri<-as.bastri(Yi.Tri)$tri #convert the triangle Tri into an unscaled basic triangle, see as.bastri help page
-        nl<-nrow(Xl)
-        ifelse(identical(M,"CC"), rv.ind<-rverts.triCC(Xl,tri=Yi.tri)$rv,
-               rv.ind<-rverts.tri.cent(Xl,tri=Yi.tri,M)$rv) #vertex region for pt
-        for (j in 1:nl)
-        {RV<-rv.ind[j]
-        for (k in (1:nl)[-j]) # to avoid loops
-          if (IndNAStri(Xl[j,],Xl[k,],Yi.tri,M,rv=RV)==1 )
-          {
-            S <-rbind(S,Xl[j,]); E <-rbind(E,Xl[k,]);
+        Xl<-matrix(Xch[i.tr==i,],ncol=2)
+        if (nrow(Xl)>1)
+        {
+          Yi.Tri<-Yp[DTr[i,],] #vertices of the ith triangle
+          Yi.tri<-as.bastri(Yi.Tri)$tri #convert the triangle Tri into an unscaled basic triangle, see as.bastri help page
+          nl<-nrow(Xl)
+          ifelse(identical(M,"CC"), rv.ind<-rverts.triCC(Xl,tri=Yi.tri)$rv,
+                 rv.ind<-rverts.tri.cent(Xl,tri=Yi.tri,M)$rv) #vertex region for pt
+          for (j in 1:nl)
+          {RV<-rv.ind[j]
+          for (k in (1:nl)[-j]) # to avoid loops
+            if (IndNAStri(Xl[j,],Xl[k,],Yi.tri,M,rv=RV)==1 )
+            {
+              S <-rbind(S,Xl[j,]); E <-rbind(E,Xl[k,]);
+            }
           }
         }
       }
     }
+
+    xname <-deparse(substitute(Xp))
+    yname <-deparse(substitute(Yp))
+    cname <-ifelse(identical(M,"CC"),"CC","M")
+
+    param<-ifelse(identical(M,"CC"),"Circumcenter","Center M")
+    names(param)<-NULL
+
+    typ<-paste("Arc Slice Proximity Catch Digraph (AS-PCD) for 2D Points in Multiple Triangles with Center ", cname,sep="")
+
+    main.txt<-paste("Arcs of AS-PCD for Points in One Triangle \n with Center ", cname,sep="")
+
+
+    nvert<-nx2; ny<-nrow(Yp); ntri<-nt; narcs=ifelse(!is.null(S),nrow(S),0);
+    arc.dens<-ifelse(nvert>1,narcs/(nvert*(nvert-1)),NA)
+
+    quantities<-c(nvert,ny,ntri,narcs,arc.dens)
+    names(quantities)<-c("number of vertices", "number of partition points",
+                         "number of triangles","number of arcs", "arc density")
+
+    res<-list(
+      type=typ,
+      parameters=param,
+      tess.points=Yp, tess.name=yname, #tessellation points
+      vertices=Xp, vert.name=xname, #vertices of the digraph
+      S=S,
+      E=E,
+      mtitle=main.txt,
+      quant=quantities
+    )
+
+    class(res)<-"PCDs"
+    res$call <-match.call()
   }
-
-  xname <-deparse(substitute(Xp))
-  yname <-deparse(substitute(Yp))
-  cname <-ifelse(identical(M,"CC"),"CC","M")
-
-  param<-ifelse(identical(M,"CC"),"Circumcenter","Center M")
-  names(param)<-NULL
-
-  typ<-paste("Arc Slice Proximity Catch Digraph (AS-PCD) for 2D Points in Multiple Triangles with Center ", cname,sep="")
-
-  main.txt<-paste("Arcs of AS-PCD for Points in One Triangle \n with Center ", cname,sep="")
-
-
-  nvert<-nx2; ny<-nrow(Yp); ntri<-nt; narcs=ifelse(!is.null(S),nrow(S),0);
-  arc.dens<-ifelse(nvert>1,narcs/(nvert*(nvert-1)),NA)
-
-  quantities<-c(nvert,ny,ntri,narcs,arc.dens)
-  names(quantities)<-c("number of vertices", "number of partition points",
-                       "number of triangles","number of arcs", "arc density")
-
-  res<-list(
-    type=typ,
-    parameters=param,
-    tess.points=Yp, tess.name=yname, #tessellation points
-    vertices=Xp, vert.name=xname, #vertices of the digraph
-    S=S,
-    E=E,
-    mtitle=main.txt,
-    quant=quantities
-  )
-
-  class(res)<-"PCDs"
-  res$call <-match.call()
   res
 } #end of the function
 #'
@@ -13231,7 +13582,7 @@ rverts.tri.cent<-function(Dt,tri,M)
     M<-bary2cart(M,tri)
   }
 
-  if (isTRUE(all.equal(M,circ.cent.tri(tri)))==F & in.triangle(M,tri,boundary=FALSE)$inside.tri==F)
+  if (isTRUE(all.equal(M,circ.cent.tri(tri)))==F & in.triangle(M,tri,boundary=FALSE)$in.tri==F)
   {stop('center is not the circumcenter or not in the interior of the triangle')}
 
   nt<-nrow(Dt)
@@ -13261,14 +13612,14 @@ rverts.tri.cent<-function(Dt,tri,M)
       M32 <- (a1*b2*c2-a1*b2*m2-a2*b1*c2+a2*b1*m2-a2*c1*m2+a2*c2*m1+b2*c1*m2-b2*c2*m1)/(c2*a1-m2*a1-a2*c1+m1*a2-c2*b1+m2*b1+c1*b2-b2*m1);
       D3<-c(M31,M32)
 
-      t.mA<-tri.mesh(c(A[1],D3[1],M[1],D2[1]),c(A[2],D3[2],M[2],D2[2]),duplicate="remove")
-      t.mB<-tri.mesh(c(B[1],D1[1],M[1],D3[1]),c(B[2],D1[2],M[2],D3[2]),duplicate="remove")
-      t.mC<-tri.mesh(c(C[1],D2[1],M[1],D1[1]),c(C[2],D2[2],M[2],D1[2]),duplicate="remove")
+      t.mA<-interp::tri.mesh(c(A[1],D3[1],M[1],D2[1]),c(A[2],D3[2],M[2],D2[2]),duplicate="remove")
+      t.mB<-interp::tri.mesh(c(B[1],D1[1],M[1],D3[1]),c(B[2],D1[2],M[2],D3[2]),duplicate="remove")
+      t.mC<-interp::tri.mesh(c(C[1],D2[1],M[1],D1[1]),c(C[2],D2[2],M[2],D1[2]),duplicate="remove")
 
       ind.set<-rep(NA,nt)
-      ind.vA<-in.convex.hull(t.mA,Dt[,1],Dt[,2])
-      ind.vB<-in.convex.hull(t.mB,Dt[,1],Dt[,2])
-      ind.vC<-in.convex.hull(t.mC,Dt[,1],Dt[,2])
+      ind.vA<-interp::in.convex.hull(t.mA,Dt[,1],Dt[,2])
+      ind.vB<-interp::in.convex.hull(t.mB,Dt[,1],Dt[,2])
+      ind.vC<-interp::in.convex.hull(t.mC,Dt[,1],Dt[,2])
 
       ind.set[ind.vA==TRUE]<-1
       ind.set[ind.vB==TRUE]<-2
@@ -13298,7 +13649,7 @@ rverts.tri.cent<-function(Dt,tri,M)
 #' interior of each Delaunay triangle; default is \code{M}="CC" i.e. circumcenter of each triangle.
 #'
 #' See (\insertCite{ceyhan:Phd-thesis,ceyhan:comp-geo-2010,ceyhan:mcap2012;textual}{pcds}) for more on AS-PCDs.
-#' Also see (\insertCite{okabe:2000,ceyhan:comp-geo-2010,renka:1996;textual}{pcds}) for more on Delaunay triangulation and the TRIPACK algorithm.
+#' Also see (\insertCite{okabe:2000,ceyhan:comp-geo-2010,sinclair:2016;textual}{pcds}) for more on Delaunay triangulation and the corresponding algorithm.
 #'
 #' @param Xp A set of 2D points which constitute the vertices of the AS-PCD
 #' @param Yp A set of 2D points which constitute the vertices of the Delaunay triangulation. The Delaunay
@@ -13340,6 +13691,8 @@ rverts.tri.cent<-function(Dt,tri,M)
 #' plotASarcsMT(Xp,Yp,M,xlab="",ylab="")
 #' plotASarcsMT(Xp,Yp,M,asp=1,xlab="",ylab="")
 #'
+#' plotASarcsMT(Xp,Yp[1:3,],M,xlab="",ylab="")
+#'
 #' Xlim<-range(Xp[,1],Yp[,1])
 #' Ylim<-range(Xp[,2],Yp[,2])
 #' xd<-Xlim[2]-Xlim[1]
@@ -13351,24 +13704,34 @@ rverts.tri.cent<-function(Dt,tri,M)
 #' @export plotASarcsMT
 plotASarcsMT<-function(Xp,Yp,M="CC",asp=NA,main="",xlab="",ylab="",xlim=NULL,ylim=NULL, ...)
 {
-  ArcsAS<-ArcsASMT(Xp,Yp,M)
-  S<-ArcsAS$S
-  E<-ArcsAS$E
+  Yp<-as.matrix(Yp)
+  if (ncol(Yp)!=2 || nrow(Yp)<3)
+  {stop('Yp must be of dimension kx2 with k>=3')}
 
-  DTmesh<-tri.mesh(Yp[,1],Yp[,2],duplicate="remove")
+  if (nrow(Yp)==3)
+  {
+    plotASarcsTri(Xp,Yp,M,asp,main,xlab,ylab,xlim,ylim)
+  } else
+  {
+    ArcsAS<-ArcsASMT(Xp,Yp,M)
+    S<-ArcsAS$S
+    E<-ArcsAS$E
 
-  if (is.null(xlim))
-  {xlim<-range(Yp[,1],Xp[,1])}
-  if (is.null(ylim))
-  {ylim<-range(Yp[,2],Xp[,2])}
+    DTmesh<-interp::tri.mesh(Yp[,1],Yp[,2],duplicate="remove")
 
-  xr<-xlim[2]-xlim[1]
-  yr<-ylim[2]-ylim[1]
+    if (is.null(xlim))
+    {xlim<-range(Yp[,1],Xp[,1])}
+    if (is.null(ylim))
+    {ylim<-range(Yp[,2],Xp[,2])}
 
-  plot(rbind(Xp),asp=asp,main=main, xlab=xlab, ylab=ylab,xlim=xlim+xr*c(-.05,.05),
-       ylim=ylim+yr*c(-.05,.05),pch=".",cex=3, ...)
-  plot.tri(DTmesh, add=TRUE, do.points = TRUE, ...)
-  if (!is.null(S)) {arrows(S[,1], S[,2], E[,1], E[,2], length = 0.1, col= 4)}
+    xr<-xlim[2]-xlim[1]
+    yr<-ylim[2]-ylim[1]
+
+    plot(rbind(Xp),asp=asp,main=main, xlab=xlab, ylab=ylab,xlim=xlim+xr*c(-.05,.05),
+         ylim=ylim+yr*c(-.05,.05),pch=".",cex=3, ...)
+    interp::plot.triSht(DTmesh, add=TRUE, do.points = TRUE, ...)
+    if (!is.null(S)) {arrows(S[,1], S[,2], E[,1], E[,2], length = 0.1, col= 4)}
+  }
 } #end of the function
 #'
 
@@ -13388,7 +13751,7 @@ plotASarcsMT<-function(Xp,Yp,M="CC",asp=NA,main="",xlab="",ylab="",xlim=NULL,yli
 #' interior of each Delaunay triangle; default is \code{M}="CC" i.e. circumcenter of each triangle.
 #'
 #' See (\insertCite{ceyhan:Phd-thesis,ceyhan:comp-geo-2010,ceyhan:mcap2012;textual}{pcds}) for more on AS-PCDs.
-#' Also see (\insertCite{okabe:2000,ceyhan:comp-geo-2010,renka:1996;textual}{pcds}) for more on Delaunay triangulation and the TRIPACK algorithm.
+#' Also see (\insertCite{okabe:2000,ceyhan:comp-geo-2010,sinclair:2016;textual}{pcds}) for more on Delaunay triangulation and the corresponding algorithm.
 #'
 #' @param Xp A set of 2D points for which AS proximity regions are constructed
 #' @param Yp A set of 2D points which constitute the vertices of the Delaunay triangulation. The Delaunay
@@ -13432,10 +13795,12 @@ plotASarcsMT<-function(Xp,Yp,M="CC",asp=NA,main="",xlab="",ylab="",xlim=NULL,yli
 #' yd<-Ylim[2]-Ylim[1]
 #'
 #' plotASregsMT(Xp,Yp,M,xlab="",ylab="",xlim=Xlim+xd*c(-.05,.05),ylim=Ylim+yd*c(-.05,.05))
+#' plotASregsMT(Xp,Yp[1:3,],M,xlab="",ylab="",xlim=Xlim+xd*c(-.05,.05),ylim=Ylim+yd*c(-.05,.05))
 #'
 #' Xp<-c(.5,.5)
 #' Xlim<-Ylim<-range(Xp,Yp)
 #' plotASregsMT(Xp,Yp,M,xlab="",ylab="",xlim=Xlim,ylim=Ylim)
+#'
 #' @export plotASregsMT
 plotASregsMT<-function(Xp,Yp,M="CC",main="",xlab="",ylab="",xlim=NULL,ylim=NULL, ...)
 {
@@ -13454,94 +13819,102 @@ plotASregsMT<-function(Xp,Yp,M="CC",main="",xlab="",ylab="",xlim=NULL,ylim=NULL,
   if (ncol(Yp)!=2 || nrow(Yp)<3)
   {stop('Yp must be of dimension kx2 with k>=3')}
 
-  if ((!is.point(M,3) && M!="CC") || !all(M>0))
-  {stop('M must be a numeric 3D point with positive barycentric coordinates or "CC" for circumcenter')}
-
-  DTmesh<-tri.mesh(Yp[,1],Yp[,2],duplicate="remove")
-
-  nx<-nrow(Xp)
-  ch<-rep(0,nx)
-  for (i in 1:nx)
-    ch[i]<-in.convex.hull(DTmesh,Xp[i,1],Xp[i,2])
-
-  Xch<-matrix(Xp[ch==1,],ncol=2) #the Xp points inside the convex hull of Yp points
-
-  DTr<-matrix(triangles(DTmesh)[,1:3],ncol=3)
-  nt<-nrow(DTr) #number of Delaunay triangles
-  nx2<-nrow(Xch) #number of Xp points inside the convex hull of Yp points
-
-  if (is.null(xlim))
-  {xlim<-range(Yp[,1],Xp[,1])
-  xd<-xlim[2]-xlim[1]
-  xlim<-xlim+xd*c(-.05,.05)}
-  if (is.null(ylim))
-  {ylim<-range(Yp[,2],Xp[,2])
-  yd<-ylim[2]-ylim[1]
-  ylim<-ylim+yd*c(-.05,.05)}
-
-  plot(rbind(Xp),asp=1,main=main, xlab=xlab, ylab=ylab,
-       xlim=xlim,ylim=ylim,pch=".",cex=3, ...)
-
-  if (nx2==0)
+  if (nrow(Yp)==3)
   {
-    for (i in 1:nt)
-    {
-      tri<-Yp[DTr[i,],]  #vertices of the ith triangle
-      polygon(tri,lty=2)
-    }
+    plotASregsTri(Xp,Yp,M,main,xlab,ylab,xlim,ylim)
   } else
   {
-    i.tr<-rep(0,nx2) #the vector of indices for the triangles that contain the Xp points
-    for (i1 in 1:nx2)
-      for (j1 in 1:nt)
-      {
-        Tri<-Yp[DTr[j1,],]
-        if (in.triangle(Xch[i1,],Tri,boundary=TRUE)$inside.tri )
-          i.tr[i1]<-j1
-      }
 
+    if ((!is.point(M,3) && M!="CC") || !all(M>0))
+    {stop('M must be a numeric 3D point with positive barycentric coordinates or "CC" for circumcenter')}
 
-    for (i in 1:nt)
+    DTmesh<-interp::tri.mesh(Yp[,1],Yp[,2],duplicate="remove")
+
+    nx<-nrow(Xp)
+    ch<-rep(0,nx)
+    for (i in 1:nx)
+      ch[i]<-interp::in.convex.hull(DTmesh,Xp[i,1],Xp[i,2])
+
+    Xch<-matrix(Xp[ch==1,],ncol=2) #the Xp points inside the convex hull of Yp points
+
+    DTr<-matrix(interp::triangles(DTmesh)[,1:3],ncol=3)
+    nt<-nrow(DTr) #number of Delaunay triangles
+    nx2<-nrow(Xch) #number of Xp points inside the convex hull of Yp points
+
+    if (is.null(xlim))
+    {xlim<-range(Yp[,1],Xp[,1])
+    xd<-xlim[2]-xlim[1]
+    xlim<-xlim+xd*c(-.05,.05)}
+    if (is.null(ylim))
+    {ylim<-range(Yp[,2],Xp[,2])
+    yd<-ylim[2]-ylim[1]
+    ylim<-ylim+yd*c(-.05,.05)}
+
+    plot(rbind(Xp),asp=1,main=main, xlab=xlab, ylab=ylab,
+         xlim=xlim,ylim=ylim,pch=".",cex=3, ...)
+
+    if (nx2==0)
     {
-      Tri<-Yp[DTr[i,],] #vertices of the ith triangle
-      tri<-as.bastri(Tri)$tri #convert the triangle Tri into an unscaled basic triangle, see as.bastri help page
-
-      polygon(tri,lty=2)
-      Xtri<-matrix(Xch[i.tr==i,],ncol=2) #Xp points inside triangle i
-      ni<-nrow(Xtri)
-      if (ni>=1)
+      for (i in 1:nt)
       {
-        ################
-        for (j in 1:ni)
+        tri<-Yp[DTr[i,],]  #vertices of the ith triangle
+        polygon(tri,lty=2)
+      }
+    } else
+    {
+      i.tr<-rep(0,nx2) #the vector of indices for the triangles that contain the Xp points
+      for (i1 in 1:nx2)
+        for (j1 in 1:nt)
         {
-          P1<-Xtri[j,]
-          rv<-ifelse(identical(M,"CC"), rv.triCC(P1,tri)$rv, rv.tri.cent(P1,tri,M)$rv) #vertex region for P1
-          RV<-tri[rv,]
-          rad<-Dist(P1,RV)
+          Tri<-Yp[DTr[j1,],]
+          if (in.triangle(Xch[i1,],Tri,boundary=TRUE)$in.tri )
+            i.tr[i1]<-j1
+        }
 
-          Int.Pts<-NAStri(P1,tri,M)
-          L<-Int.Pts$L; R<-Int.Pts$R
-          segments(L[,1], L[,2], R[,1], R[,2], lty=1,col=2)
-          Arcs<-Int.Pts$A;
-          if(!is.null(Arcs))
+
+      for (i in 1:nt)
+      {
+        Tri<-Yp[DTr[i,],] #vertices of the ith triangle
+        tri<-as.bastri(Tri)$tri #convert the triangle Tri into an unscaled basic triangle, see as.bastri help page
+
+        polygon(tri,lty=2)
+        Xtri<-matrix(Xch[i.tr==i,],ncol=2) #Xp points inside triangle i
+        ni<-nrow(Xtri)
+        if (ni>=1)
+        {
+          ################
+          for (j in 1:ni)
           {
-            K<-nrow(Arcs)/2
-            for (k in 1:K)
-            {A1<-Arcs[2*k-1,]; A2<-Arcs[2*k,];
-            angles<-angle.str2end(A1,P1,A2)$c
+            P1<-Xtri[j,]
+            rv<-ifelse(identical(M,"CC"), rv.triCC(P1,tri)$rv, rv.tri.cent(P1,tri,M)$rv) #vertex region for P1
+            RV<-tri[rv,]
+            rad<-Dist(P1,RV)
 
-            test.ang1<-angles[1]+(.01)*(angles[2]-angles[1])
-            test.Pnt<-P1+rad*c(cos(test.ang1),sin(test.ang1))
-            if (!in.triangle(test.Pnt,tri,boundary = T)$i) {angles<-c(min(angles),max(angles)-2*pi)}
-            plotrix::draw.arc(P1[1],P1[2],rad,angle1=angles[1],angle2=angles[2],col=2)
+            Int.Pts<-NAStri(P1,tri,M)
+            L<-Int.Pts$L; R<-Int.Pts$R
+            segments(L[,1], L[,2], R[,1], R[,2], lty=1,col=2)
+            Arcs<-Int.Pts$A;
+            if (!is.null(Arcs))
+            {
+              K<-nrow(Arcs)/2
+              for (k in 1:K)
+              {A1<-Arcs[2*k-1,]; A2<-Arcs[2*k,];
+              angles<-angle.str2end(A1,P1,A2)$c
+
+              test.ang1<-angles[1]+(.01)*(angles[2]-angles[1])
+              test.Pnt<-P1+rad*c(cos(test.ang1),sin(test.ang1))
+              if (!in.triangle(test.Pnt,tri,boundary = T)$i) {angles<-c(min(angles),max(angles)-2*pi)}
+              plotrix::draw.arc(P1[1],P1[2],rad,angle1=angles[1],angle2=angles[2],col=2)
+              }
             }
           }
+          ################
         }
-        ################
       }
     }
   }
 } #end of the function
+#'
 #'
 ##################################################################################################################
 ################################PROPORTIONAL EDGE FUNCTIONS#######################################################
@@ -13590,7 +13963,7 @@ centMc<-function(int,c)
 
   y1<-int[1]; y2<-int[2];
   if (y1>=y2)
-  {stop('interval, int, is degenerate or void, left end must be smaller than right end')}
+  {stop('interval is degenerate or void, left end must be smaller than right end')}
 
   if (!is.point(c,1) || c<=0 || c>=1)
   {stop('c must be a scalar in (0,1)')}
@@ -13742,7 +14115,7 @@ rv.mid.int<-function(pt,c,int)
 
   y1<-int[1]; y2<-int[2];
   if (y1>=y2)
-  {stop('interval, int, is degenerate or void, left end must be smaller than right end')}
+  {stop('interval is degenerate or void, left end must be smaller than right end')}
 
   if (pt<y1 || pt>y2)
   {rv<-NA
@@ -13831,13 +14204,13 @@ IndNPEmid1D<-function(x1,x2,r,c,int,rv=NULL)
 
   y1<-int[1]; y2<-int[2];
   if (y1>=y2)
-  {stop('interval, int, is degenerate or void, left end must be smaller than right end')}
+  {stop('interval is degenerate or void, left end must be smaller than right end')}
 
-  if(x1==x2 )
+  if (x1==x2 )
   {arc<-1; return(arc); stop}
 
   y1<-int[1]; y2<-int[2];
-  if(x1<y1 || x1>y2 || x2<y1 || x2>y2 )
+  if (x1<y1 || x1>y2 || x2<y1 || x2>y2 )
   {arc<-0; return(arc); stop}
 
   if (is.null(rv))
@@ -13931,7 +14304,7 @@ NumArcsPEmid1D<-function(dat,r,c,int)
 
   y1<-int[1]; y2<-int[2];
   if (y1>=y2)
-  {stop('interval, int, is degenerate or void, left end must be smaller than right end')}
+  {stop('interval is degenerate or void, left end must be smaller than right end')}
 
   dat<-dat[dat>=y1 & dat<=y2] #data points inside the interval int
   n<-length(dat)
@@ -14059,7 +14432,7 @@ cl2Mc.int<-function(Dt,int,c)
 
   y1<-int[1]; y2<-int[2];
   if (y1>=y2)
-  {stop('interval, int, is degenerate or void, left end must be smaller than right end')}
+  {stop('interval is degenerate or void, left end must be smaller than right end')}
 
   Mc<-y1+c*(y2-y1)
 
@@ -14359,7 +14732,7 @@ asyvarPE1D<-function(r,c)
 #' \insertAllCited{}
 #'
 #' @examples
-#' \donttest{
+#' \dontrun{
 #' c<-.4
 #' r<-2
 #' a<-0; b<-10; int<-c(a,b)
@@ -14411,7 +14784,7 @@ TSArcDensPE1D<-function(dat,r,c,int,alternative=c("two.sided", "less", "greater"
 
   y1<-int[1]; y2<-int[2];
   if (y1>=y2)
-  {stop('interval, int, is degenerate or void, left end must be smaller than right end')}
+  {stop('interval is degenerate or void, left end must be smaller than right end')}
 
   if (!missing(conf.level))
     if (length(conf.level) != 1 || is.na(conf.level) || conf.level < 0 || conf.level > 1)
@@ -14765,7 +15138,7 @@ rv.end.int<-function(pt,int)
   if (y1>=y2)
   {stop('interval is degenerate or void, left end must be smaller than right end')}
 
-  if(pt>y1 & pt<y2)
+  if (pt>y1 & pt<y2)
   {stop('point must be outside the interval')}
 
   rv<-1;
@@ -14845,7 +15218,7 @@ IndNPEend1D<-function(x1,x2,r,int,rv=NULL)
   if (y1>=y2)
   {stop('interval is degenerate or void, left end must be smaller than right end')}
 
-  if(x1==x2 )
+  if (x1==x2 )
   {arc<-1; return(arc); stop}
 
   if ((x1>y1 & x1<y2) || (x2>y1 & x2<y2))
@@ -15490,7 +15863,7 @@ NPEint<-function(x,r,c=.5,int)
 
   y1<-int[1]; y2<-int[2];
   if (y1>y2)
-  {stop('interval, int, is degenerate or void, left end must be smaller than or equal to right end')}
+  {stop('interval is degenerate or void, left end must be smaller than or equal to right end')}
 
   if (x<y1 || x>y2)
   {
@@ -16397,7 +16770,7 @@ plotPEregsMI<-function(Xp,Yp,r,c,Jit=.1,main="",xlab="",ylab="",xlim=NULL,ylim=N
 #' ind.gam1
 #'
 #' domset<-dat[ind.gam1]
-#' if(length(ind.gam1)==0)
+#' if (length(ind.gam1)==0)
 #' {domset<-NA}
 #'
 #' #or try
@@ -17391,7 +17764,7 @@ TSDomPEBin1D<-function(Xp,Yp=NULL,int,c=.5,asy.bin=FALSE,end.int.cor=FALSE,
 #' #NPEbastri(P1,r,c1,c2,M) #center is not the circumcenter or not in the interior of the triangle
 #' #NPEbastri(P2,r,c1,c2,M)
 #'
-#' \donttest{
+#' \dontrun{
 #' #or try
 #' Rv<-rv.bastri.cent(P1,c1,c2,M)$rv
 #' NPEbastri(P1,r,c1,c2,M,Rv)
@@ -17419,10 +17792,10 @@ NPEbastri<-function(pt,r,c1,c2,M=c(1,1,1),rv=NULL)
     M<-bary2cart(M,Tb)
   }
 
-  if (isTRUE(all.equal(M,circ.cent.tri(Tb)))==F & in.triangle(M,Tb,boundary=FALSE)$inside.tri==F)
+  if (isTRUE(all.equal(M,circ.cent.tri(Tb)))==F & in.triangle(M,Tb,boundary=FALSE)$in.tri==F)
   {stop('center is not the circumcenter or not in the interior of the triangle')}
 
-  if(!in.triangle(pt,Tb,boundary=TRUE)$inside.tri)
+  if (!in.triangle(pt,Tb,boundary=TRUE)$in.tri)
   {reg<-NULL; return(reg); stop}
 
   if (is.null(rv))
@@ -17572,13 +17945,13 @@ IndNPEbastri<-function(pt1,pt2,r,c1,c2,M=c(1,1,1),rv=NULL)
     M<-bary2cart(M,Tb)
   }
 
-  if (in.triangle(M,Tb,boundary=FALSE)$inside.tri==F)
+  if (in.triangle(M,Tb,boundary=FALSE)$in.tri==F)
   {stop('center is not in the interior of the triangle')}
 
-  if(identical(pt1,pt2))
+  if (identical(pt1,pt2))
   {arc<-1; return(arc); stop}
 
-  if(!in.triangle(pt1,Tb,boundary=TRUE)$inside.tri || !in.triangle(pt2,Tb,boundary=TRUE)$inside.tri)
+  if (!in.triangle(pt1,Tb,boundary=TRUE)$in.tri || !in.triangle(pt2,Tb,boundary=TRUE)$in.tri)
   {arc<-0; return(arc); stop}
 
   if (is.null(rv))
@@ -17687,7 +18060,7 @@ rvTeCM<-function(pt)
 
   y1<-c(0,0); y2<-c(1,0); y3<-c(1/2,sqrt(3)/2);
   tri<-rbind(y1,y2,y3);
-  if (in.triangle(pt,tri,boundary = TRUE)$inside.tri==F)
+  if (in.triangle(pt,tri,boundary = TRUE)$in.tri==F)
   {rv<-NA
   } else
   {
@@ -17808,21 +18181,21 @@ rvTe.cent<-function(pt,M)
     M<-bary2cart(M,Te)
   }
 
-  if(in.triangle(pt,Te)$inside.tri==F)
+  if (in.triangle(pt,Te)$in.tri==F)
   {rv<-NA
   } else
   {
-    if (in.triangle(M,Te,boundary=FALSE)$inside.tri==F)
+    if (in.triangle(M,Te,boundary=FALSE)$in.tri==F)
     {stop('center is not in the interior of the triangle')}
 
     Ds<-cp2e.tri(Te,M)
     D1<-Ds[1,]; D2<-Ds[2,]; D3<-Ds[3,];
 
-    if(in.triangle(pt,rbind(y1,D3,M),boundary=TRUE)$inside.tri | in.triangle(pt,rbind(y1,M,D2),boundary=TRUE)$inside.tri)
+    if (in.triangle(pt,rbind(y1,D3,M),boundary=TRUE)$in.tri | in.triangle(pt,rbind(y1,M,D2),boundary=TRUE)$in.tri)
     {rv<-1}
     else
     {
-      if(in.triangle(pt,rbind(D3,y2,M),boundary=TRUE)$inside.tri | in.triangle(pt,rbind(y2,D1,M),boundary=TRUE)$inside.tri)
+      if (in.triangle(pt,rbind(D3,y2,M),boundary=TRUE)$in.tri | in.triangle(pt,rbind(y2,D1,M),boundary=TRUE)$in.tri)
       {rv<-2}
       else
       {rv<-3}
@@ -17974,7 +18347,7 @@ cl2eTbVRcent<-function(Dt,c1,c2,M)
     M<-bary2cart(M,Tb)
   }
 
-  if (isTRUE(all.equal(M,circ.cent.tri(Tb)))==F & in.triangle(M,Tb,boundary=FALSE)$inside.tri==F)
+  if (isTRUE(all.equal(M,circ.cent.tri(Tb)))==F & in.triangle(M,Tb,boundary=FALSE)$in.tri==F)
   {stop('center is not the circumcenter or not in the interior of the triangle')}
 
   if (isTRUE(all.equal(M,circ.cent.tri(Tb)))==T)
@@ -17988,7 +18361,7 @@ cl2eTbVRcent<-function(Dt,c1,c2,M)
     D1<-Ds[1,]; D2<-Ds[2,]; D3<-Ds[3,];
     L<-rbind(M,M,M); R<-Ds
 
-    if (in.triangle(M,Tb,boundary=FALSE)$inside.tri==F)
+    if (in.triangle(M,Tb,boundary=FALSE)$in.tri==F)
     {stop('center is not in the interior of the basic triangle')}
 
     mdt<-rep(1,3); #maximum distance from a point in the basic tri to its vertices (which is larger than distances to its edges)
@@ -17997,7 +18370,7 @@ cl2eTbVRcent<-function(Dt,c1,c2,M)
     Dt<-matrix(Dt,ncol=2)
     n<-nrow(Dt)
     for (i in 1:n)
-    {if (in.triangle(Dt[i,],Tb,boundary = TRUE)$inside.tri)
+    {if (in.triangle(Dt[i,],Tb,boundary = TRUE)$in.tri)
     {rv<-rv.bastri.cent(Dt[i,],c1,c2,M)$rv;
     if (rv==1)
     {d1<-dp2l(Dt[i,],y2,y3)$dis;
@@ -18191,7 +18564,7 @@ cl2eVRcent<-function(Dt,tri,M)
     M<-bary2cart(M,tri)
   }
 
-  if (isTRUE(all.equal(M,circ.cent.tri(tri)))==F & in.triangle(M,tri,boundary=FALSE)$inside.tri==F)
+  if (isTRUE(all.equal(M,circ.cent.tri(tri)))==F & in.triangle(M,tri,boundary=FALSE)$in.tri==F)
   {stop('center is not the circumcenter or not in the interior of the triangle')}
 
   y1<-tri[1,]; y2<-tri[2,]; y3<-tri[3,];
@@ -18214,7 +18587,7 @@ cl2eVRcent<-function(Dt,tri,M)
     n<-nrow(Dt);
 
     for (i in 1:n)
-    {if (in.triangle(Dt[i,],tri,boundary = TRUE)$inside.tri)
+    {if (in.triangle(Dt[i,],tri,boundary = TRUE)$in.tri)
     {
       rv<-rv.tri.cent(Dt[i,],tri,M)$rv
       if (rv==1)
@@ -18550,13 +18923,13 @@ IndNPETe<-function(pt1,pt2,r,M=c(1,1,1),rv=NULL)
   A<-c(0,0); B<-c(1,0); C<-c(1/2,sqrt(3)/2);
   Te<-rbind(A,B,C);
 
-  if (in.triangle(M,Te,boundary=FALSE)$inside.tri==F)
+  if (in.triangle(M,Te,boundary=FALSE)$in.tri==F)
   {stop('center is not in the interior of the triangle')}
 
-  if(identical(pt1,pt2))
+  if (identical(pt1,pt2))
   {arc<-1; return(arc); stop}
 
-  if(!in.triangle(pt1,Te,boundary=TRUE)$inside.tri || !in.triangle(pt2,Te,boundary=TRUE)$inside.tri)
+  if (!in.triangle(pt1,Te,boundary=TRUE)$in.tri || !in.triangle(pt2,Te,boundary=TRUE)$in.tri)
   {arc<-0; return(arc); stop}
 
   if (is.null(rv))
@@ -18674,7 +19047,7 @@ NumArcsPETe<-function(dat,r,M=c(1,1,1))
   A<-c(0,0); B<-c(1,0); C<-c(1/2,sqrt(3)/2);
   Te<-rbind(A,B,C);
 
-  if (in.triangle(M,Te,boundary=FALSE)$inside.tri==F)
+  if (in.triangle(M,Te,boundary=FALSE)$in.tri==F)
   {stop('center is not in the interior of the triangle')}
 
   n<-nrow(dat)
@@ -18682,14 +19055,14 @@ NumArcsPETe<-function(dat,r,M=c(1,1,1))
   arcs<-0
   for (i in 1:n)
   {pt1<-dat[i,]
-  if (!in.triangle(pt1,Te,boundary = TRUE)$inside.tri)
+  if (!in.triangle(pt1,Te,boundary = TRUE)$in.tri)
   {arcs<-arcs+0
   } else
   {
     rv<-rvTe.cent(pt1,M)$rv
     for (j in ((1:n)[-i]) )
     {pt2<-dat[j,]
-    if (!in.triangle(pt2,Te,boundary = TRUE)$inside.tri)
+    if (!in.triangle(pt2,Te,boundary = TRUE)$in.tri)
     {arcs<-arcs+0
     } else
     {
@@ -18799,7 +19172,7 @@ IncMatPETe<-function(dat,r,M=c(1,1,1))
     M<-bary2cart(M,Te)
   }
 
-  if (in.triangle(M,Te,boundary=FALSE)$inside.tri==F)
+  if (in.triangle(M,Te,boundary=FALSE)$in.tri==F)
   {stop('center is not in the interior of the triangle')}
 
   n<-nrow(dat)
@@ -19067,7 +19440,7 @@ asyvarPE2D<-function(r)
 #' dat.fr<-data.frame(a=dat)
 #' Gam1PEbastri(P,dat.fr,r,c1,c2,M)
 #'
-#' \donttest{
+#' \dontrun{
 #' Gam1PEbastri(P,cbind(dat,dat),r,c1,c2,M)
 #' Gam1PEbastri(P, rbind(c("a","b"),dat),r,c1,c2,M)
 #' }
@@ -19114,10 +19487,10 @@ Gam1PEbastri<-function(p,Dt,r,c1,c2,M=c(1,1,1),rv=NULL,ch.data.pnt=FALSE)
     M<-bary2cart(M,Tb)
   }
 
-  if (isTRUE(all.equal(M,circ.cent.tri(Tb)))==F & in.triangle(M,Tb,boundary=FALSE)$inside.tri==F)
+  if (isTRUE(all.equal(M,circ.cent.tri(Tb)))==F & in.triangle(M,Tb,boundary=FALSE)$in.tri==F)
   {stop('center is not the circumcenter or not in the interior of the triangle')}
 
-  if(in.triangle(p,Tb)$inside.tri==F)
+  if (in.triangle(p,Tb)$in.tri==F)
   {dom<-0; return(dom); stop} #('point is not inside the triangle')}
 
   n<-nrow(Dt)
@@ -19248,7 +19621,7 @@ Gam1PEbastri<-function(p,Dt,r,c1,c2,M=c(1,1,1),rv=NULL,ch.data.pnt=FALSE)
 #' dat.fr<-data.frame(a=dat)
 #' Gam2PEbastri(P1,P2,dat.fr,r,c1,c2,M)
 #'
-#' \donttest{
+#' \dontrun{
 #' Gam2PEbastri(P1,P2,cbind(dat,dat),r,c1,c2,M)
 #' Gam2PEbastri(P1,P2, rbind(c("a","b"),dat),r,c1,c2,M)
 #' }
@@ -19298,7 +19671,7 @@ Gam2PEbastri<-function(pt1,pt2,Dt,r,c1,c2,M=c(1,1,1),rv1=NULL,rv2=NULL,ch.data.p
     M<-bary2cart(M,Tb)
   }
 
-  if (isTRUE(all.equal(M,circ.cent.tri(Tb)))==F & in.triangle(M,Tb,boundary=FALSE)$inside.tri==F)
+  if (isTRUE(all.equal(M,circ.cent.tri(Tb)))==F & in.triangle(M,Tb,boundary=FALSE)$in.tri==F)
   {stop('center is not the circumcenter or not in the interior of the triangle')}
 
   if (is.null(rv1))
@@ -19448,16 +19821,16 @@ rverts.triCM<-function(Dt,tri)
     CM<-(A+B+C)/3;
     M1<-(A+B)/2; M2<-(B+C)/2; M3<-(A+C)/2
 
-    t.mA<-tri.mesh(c(A[1],M1[1],CM[1],M3[1]),c(A[2],M1[2],CM[2],M3[2]),duplicate="remove")
-    t.mB<-tri.mesh(c(B[1],M2[1],CM[1],M1[1]),c(B[2],M2[2],CM[2],M1[2]),duplicate="remove")
-    t.mC<-tri.mesh(c(C[1],M3[1],CM[1],M2[1]),c(C[2],M3[2],CM[2],M2[2]),duplicate="remove")
+    t.mA<-interp::tri.mesh(c(A[1],M1[1],CM[1],M3[1]),c(A[2],M1[2],CM[2],M3[2]),duplicate="remove")
+    t.mB<-interp::tri.mesh(c(B[1],M2[1],CM[1],M1[1]),c(B[2],M2[2],CM[2],M1[2]),duplicate="remove")
+    t.mC<-interp::tri.mesh(c(C[1],M3[1],CM[1],M2[1]),c(C[2],M3[2],CM[2],M2[2]),duplicate="remove")
     # if (!inTriAll(Dt,tri,boundary=TRUE))
     # {stop('not all points in the data set are in the triangle')}
 
     ind.set<-rep(NA,nt)
-    ind.vA<-in.convex.hull(t.mA,Dt[,1],Dt[,2])
-    ind.vB<-in.convex.hull(t.mB,Dt[,1],Dt[,2])
-    ind.vC<-in.convex.hull(t.mC,Dt[,1],Dt[,2])
+    ind.vA<-interp::in.convex.hull(t.mA,Dt[,1],Dt[,2])
+    ind.vB<-interp::in.convex.hull(t.mB,Dt[,1],Dt[,2])
+    ind.vC<-interp::in.convex.hull(t.mC,Dt[,1],Dt[,2])
 
     ind.set[ind.vA==TRUE]<-1
     ind.set[ind.vB==TRUE]<-2
@@ -19655,7 +20028,7 @@ cent.nondeg<-function(tri,r)
 #' dat.fr<-data.frame(a=Tr)
 #' cp2edges.nd(dat.fr,r,1)
 #'
-#' \donttest{
+#' \dontrun{
 #' cp2edges.nd(Tr,r,cent=5) #center index, cent, must be 1, 2 or 3
 #' cp2edges.nd(Tr,r=2,cent=2) #r must be a scalar in (1,1.5]
 #'
@@ -19853,13 +20226,13 @@ rverts.tri.nd<-function(Dt,tri,r,cent=1)
     Ds<-cp2edges.nd(tri,r,cent)
     D1<-Ds[1,]; D2<-Ds[2,]; D3<-Ds[3,];
 
-    t.mA<-tri.mesh(c(A[1],D3[1],M[1],D2[1]),c(A[2],D3[2],M[2],D2[2]),duplicate="remove")
-    t.mB<-tri.mesh(c(B[1],D1[1],M[1],D3[1]),c(B[2],D1[2],M[2],D3[2]),duplicate="remove")
-    t.mC<-tri.mesh(c(C[1],D2[1],M[1],D1[1]),c(C[2],D2[2],M[2],D1[2]),duplicate="remove")
+    t.mA<-interp::tri.mesh(c(A[1],D3[1],M[1],D2[1]),c(A[2],D3[2],M[2],D2[2]),duplicate="remove")
+    t.mB<-interp::tri.mesh(c(B[1],D1[1],M[1],D3[1]),c(B[2],D1[2],M[2],D3[2]),duplicate="remove")
+    t.mC<-interp::tri.mesh(c(C[1],D2[1],M[1],D1[1]),c(C[2],D2[2],M[2],D1[2]),duplicate="remove")
     ind.set<-rep(NA,nt)
-    ind.vA<-in.convex.hull(t.mA,Dt[,1],Dt[,2])
-    ind.vB<-in.convex.hull(t.mB,Dt[,1],Dt[,2])
-    ind.vC<-in.convex.hull(t.mC,Dt[,1],Dt[,2])
+    ind.vA<-interp::in.convex.hull(t.mA,Dt[,1],Dt[,2])
+    ind.vB<-interp::in.convex.hull(t.mB,Dt[,1],Dt[,2])
+    ind.vC<-interp::in.convex.hull(t.mC,Dt[,1],Dt[,2])
 
     ind.set[ind.vA==TRUE]<-1
     ind.set[ind.vB==TRUE]<-2
@@ -19975,7 +20348,7 @@ rverts.tri.cent.alt<-function(Dt,tri,M)
   if (!is.point(M))
   {stop('M must be a numeric 2D point')}
 
-  if (in.triangle(M,tri,boundary=FALSE)$inside.tri==F)
+  if (in.triangle(M,tri,boundary=FALSE)$in.tri==F)
   {stop('center is not in the interior of the basic triangle')}
 
   nt<-nrow(Dt)
@@ -19986,7 +20359,7 @@ rverts.tri.cent.alt<-function(Dt,tri,M)
   {
     rv<-rep(NA,nt)
     for (i in 1:nt)
-    { if (in.triangle(Dt[i,],tri,boundary=TRUE)$inside.tri)
+    { if (in.triangle(Dt[i,],tri,boundary=TRUE)$in.tri)
       rv[i]<-rv.tri.cent(Dt[i,],tri,M)$rv
     }
   }
@@ -20550,10 +20923,10 @@ NPEtri<-function(pt,r,tri,M=c(1,1,1),rv=NULL)
     M<-bary2cart(M,tri)
   }
 
-  if (isTRUE(all.equal(M,circ.cent.tri(tri)))==F & in.triangle(M,tri,boundary=FALSE)$inside.tri==F)
+  if (isTRUE(all.equal(M,circ.cent.tri(tri)))==F & in.triangle(M,tri,boundary=FALSE)$in.tri==F)
   {stop('center is not the circumcenter or not in the interior of the triangle')}
 
-  if(!in.triangle(pt,tri,boundary=TRUE)$inside.tri)
+  if (!in.triangle(pt,tri,boundary=TRUE)$in.tri)
   {reg<-NULL; return(reg); stop}
 
   if (is.null(rv))
@@ -20716,13 +21089,13 @@ IndNPEtri<-function(pt1,pt2,r,tri,M=c(1,1,1),rv=NULL)
     M<-bary2cart(M,tri)
   }
 
-  if (isTRUE(all.equal(M,circ.cent.tri(tri)))==F & in.triangle(M,tri,boundary=FALSE)$inside.tri==F)
+  if (isTRUE(all.equal(M,circ.cent.tri(tri)))==F & in.triangle(M,tri,boundary=FALSE)$in.tri==F)
   {stop('center is not the circumcenter or not in the interior of the triangle')}
 
   if (identical(pt1,pt2))
   {arc<-1; return(arc); stop}
 
-  if(!in.triangle(pt1,tri,boundary=TRUE)$inside.tri || !in.triangle(pt2,tri,boundary=TRUE)$inside.tri)
+  if (!in.triangle(pt1,tri,boundary=TRUE)$in.tri || !in.triangle(pt2,tri,boundary=TRUE)$in.tri)
   {arc<-0; return(arc); stop}
 
   if (is.null(rv))
@@ -20733,7 +21106,7 @@ IndNPEtri<-function(pt1,pt2,r,tri,M=c(1,1,1),rv=NULL)
 
   pr<-NPEtri(pt1,r,tri,M,rv) #proximity region
 
-  arc<-sum(in.triangle(pt2,pr,boundary=TRUE)$inside.tri)
+  arc<-sum(in.triangle(pt2,pr,boundary=TRUE)$in.tri)
   arc
 } #end of the function
 #'
@@ -20839,7 +21212,7 @@ NumArcsPEtri<-function(dat,tri,r,M=c(1,1,1))
     M<-bary2cart(M,tri)
   }
 
-  if (isTRUE(all.equal(M,circ.cent.tri(tri)))==F & in.triangle(M,tri,boundary=FALSE)$inside.tri==F)
+  if (isTRUE(all.equal(M,circ.cent.tri(tri)))==F & in.triangle(M,tri,boundary=FALSE)$in.tri==F)
   {stop('center is not the circumcenter or not in the interior of the triangle')}
 
   n<-nrow(dat)
@@ -20851,7 +21224,7 @@ NumArcsPEtri<-function(dat,tri,r,M=c(1,1,1))
   {
     for (i in 1:n)
     {
-      if (in.triangle(dat[i,],tri,boundary=TRUE)$inside.tri)
+      if (in.triangle(dat[i,],tri,boundary=TRUE)$in.tri)
       {  vert<-ifelse(isTRUE(all.equal(M,circ.cent.tri(tri)))==T,rv.triCC(dat[i,],tri)$rv,rv.tri.cent(dat[i,],tri,M)$rv)
 
       for (j in (1:n)[-i]) #to avoid loops
@@ -20983,7 +21356,7 @@ PEarcdens.tri<-function(Xp,tri,r,M=c(1,1,1),tri.cor=TRUE)
     M<-bary2cart(M,tri)
   }
 
-  if (isTRUE(all.equal(M,circ.cent.tri(tri)))==F & in.triangle(M,tri,boundary=FALSE)$inside.tri==F)
+  if (isTRUE(all.equal(M,circ.cent.tri(tri)))==F & in.triangle(M,tri,boundary=FALSE)$in.tri==F)
   {stop('center is not the circumcenter or not in the interior of the triangle')}
 
   nx<-nrow(Xp)
@@ -20997,7 +21370,7 @@ PEarcdens.tri<-function(Xp,tri,r,M=c(1,1,1),tri.cor=TRUE)
     ind.it<-c()
     for (i in 1:nx)
     {
-      ind.it<-c(ind.it,in.triangle(Xp[i,],tri)$ins)
+      ind.it<-c(ind.it,in.triangle(Xp[i,],tri)$in.tri)
     }
     Xp.it<-Xp[ind.it,] #Xp points inside the triangle
     NinTri<-nrow(Xp.it)
@@ -21040,7 +21413,7 @@ PEarcdens.tri<-function(Xp,tri,r,M=c(1,1,1),tri.cor=TRUE)
 #' for points inside the convex hull of \code{Yp} points.
 #'
 #' See (\insertCite{ceyhan:Phd-thesis,ceyhan:arc-density-PE;textual}{pcds}) for more on PE-PCDs.
-#' Also see (\insertCite{okabe:2000,ceyhan:comp-geo-2010,renka:1996;textual}{pcds}) for more on Delaunay triangulation and the TRIPACK algorithm.
+#' Also see (\insertCite{okabe:2000,ceyhan:comp-geo-2010,sinclair:2016;textual}{pcds}) for more on Delaunay triangulation and the corresponding algorithm.
 #'
 #' @param Xp A set of 2D points which constitute the vertices of the PE-PCD
 #' @param Yp A set of 2D points which constitute the vertices of the Delaunay triangles
@@ -21084,6 +21457,7 @@ PEarcdens.tri<-function(Xp,tri,r,M=c(1,1,1),tri.cor=TRUE)
 #'
 #' r<-2
 #' NumArcsPEMT(Xp,Yp,r)
+#' NumArcsPEMT(Xp,Yp[1:3,],r)
 #'
 #' NumArcsPEMT(Xp,rbind(Yp,Yp),r)
 #'
@@ -21114,48 +21488,73 @@ NumArcsPEMT<-function(Xp,Yp,r,M=c(1,1,1))
   if (!is.point(r,1) || r<1)
   {stop('r must be a scalar >= 1')}
 
-  if ((!is.point(M,3) && M!="CC") || !all(M>0))
-  {stop('M must be a numeric 3D point with positive barycentric coordinates or "CC" for circumcenter')}
+  if (nrow(Yp)==3)
+  {
+    Tri.Ind<-indices.Del.tri(Xp,Yp) #returns 1's if the points Xp[i,]'s are inside triangle based on Yp, NA otherwise
 
-  #Delaunay triangulation of Yp points
-  Ytrimesh<-tri.mesh(Yp[,1],Yp[,2],duplicate="remove")
-  Ytri<-matrix(triangles(Ytrimesh)[,1:3],ncol=3); #the vertices of the Delaunay triangles
-  nt<-nrow(Ytri) #number of Delaunay triangles
+    inTri<-which(Tri.Ind==1)
+    NinTri<-length(inTri) #number of points in the triangle
 
-  inCH<-in.convex.hull(Ytrimesh,Xp[,1],Xp[,2])
-  Ninch<-sum(inCH) #number of points in the convex hull
-  if (Ninch==0)
-  {Tot.Arcs<-0;
-  ListW<-vector()
+    if (NinTri==0)
+    {Tot.Arcs<-0;
+    ListW<-vector()
+    } else
+    {
+      Xdt<-matrix(Xp[inTri,],ncol=2)
+      tri<-as.bastri(Yp)$tri #convert the triangle Yp into an unscaled basic triangle, see as.bastri help page
+      ListW<-area.polygon(tri)
+      Tot.Arcs<-NumArcsPEtri(Xdt,tri,r,M) #number of arcs in the triangle Yp
+    }
+    res<-list(num.arcs=Tot.Arcs,
+              num.in.conv.hull=NinTri,
+              weight.vec=ListW)
   } else
   {
-    Xdt<-matrix(Xp[inCH==TRUE,],ncol=2)
 
-    Tri.Ind<-indices.Del.tri(Xdt,Yp,Ytrimesh)
-    #indices of triangles in which the points in the data fall
+    if ((!is.point(M,3) && M!="CC") || !all(M>0))
+    {stop('M must be a numeric 3D point with positive barycentric coordinates or "CC" for circumcenter')}
 
-    #calculation of the total number of arcs
-    TArcs<-List.W<-ni<-arcs<-vector()
+    #Delaunay triangulation of Yp points
+    Ytrimesh<-interp::tri.mesh(Yp[,1],Yp[,2],duplicate="remove")
+    Ytri<-matrix(interp::triangles(Ytrimesh)[,1:3],ncol=3); #the vertices of the Delaunay triangles
+    nt<-nrow(Ytri) #number of Delaunay triangles
 
-    for (i in 1:nt)
+    inCH<-interp::in.convex.hull(Ytrimesh,Xp[,1],Xp[,2])
+    Ninch<-sum(inCH) #number of points in the convex hull
+    if (Ninch==0)
+    {Tot.Arcs<-0;
+    ListW<-vector()
+    } else
     {
-      dati<-Xdt[Tri.Ind==i,] #points in ith Delaunay triangle
-      ifelse(nt==1,Tri<-Yp[Ytri,],Tri<-Yp[Ytri[i,],]) #vertices of ith triangle
-      tri<-as.bastri(Tri)$tri #convert the triangle Tri into an unscaled basic triangle, see as.bastri help page
-      List.W<-c(List.W,area.polygon(tri))
-      ni<-c(ni,length(dati)/2) #number of points in ith delaunay triangle
-      ifelse(identical(M,"CC"),cent<-circ.cent.tri(tri),cent<-M)
-      num.arcs<-NumArcsPEtri(dati,tri,r,cent) #number of arcs in ith triangle
-      arcs<-c(arcs,num.arcs) #number of arcs in all triangles as a vector
+      Xdt<-matrix(Xp[inCH==TRUE,],ncol=2)
 
+      Tri.Ind<-indices.Del.tri(Xdt,Yp,Ytrimesh)
+      #indices of triangles in which the points in the data fall
+
+      #calculation of the total number of arcs
+      List.W<-ni<-arcs<-vector()
+
+      for (i in 1:nt)
+      {
+        dati<-Xdt[Tri.Ind==i,] #points in ith Delaunay triangle
+        ifelse(nt==1,Tri<-Yp[Ytri,],Tri<-Yp[Ytri[i,],]) #vertices of ith triangle
+        tri<-as.bastri(Tri)$tri #convert the triangle Tri into an unscaled basic triangle, see as.bastri help page
+        List.W<-c(List.W,area.polygon(tri))
+        ni<-c(ni,length(dati)/2) #number of points in ith delaunay triangle
+        ifelse(identical(M,"CC"),cent<-circ.cent.tri(tri),cent<-M)
+        num.arcs<-NumArcsPEtri(dati,tri,r,cent) #number of arcs in ith triangle
+        arcs<-c(arcs,num.arcs) #number of arcs in all triangles as a vector
+
+      }
+
+      Tot.Arcs<-sum(arcs) #the total number of arcs in all triangles
+      ListW<-List.W[ni >= 1] #adjusted for triangles with one or more points in them
     }
-
-    Tot.Arcs<-sum(arcs) #the total number of arcs in all triangles
-    ListW<-List.W[ni >= 1] #adjusted for triangles with one or more points in them
+    res<-list(num.arcs=Tot.Arcs,
+              num.in.conhull=Ninch,
+              weight.vec=ListW)
   }
-  list(num.arcs=Tot.Arcs,
-       num.in.conhull=Ninch,
-       weight.vec=ListW)
+  res
 } #end of the function
 #'
 
@@ -21218,7 +21617,7 @@ NumArcsPEMT<-function(Xp,Yp,r,M=c(1,1,1))
 #' \insertAllCited{}
 #'
 #' @examples
-#' \donttest{
+# #' \dontrun{
 #' #nx is number of X points (target) and ny is number of Y points (nontarget)
 #' nx<-20; ny<-4; #try also nx<-40; ny<-10 or nx<-1000; ny<-10;
 #'
@@ -21245,6 +21644,10 @@ NumArcsPEMT<-function(Xp,Yp,r,M=c(1,1,1))
 #' r<-2
 #' TSArcDensPEMT(Xp,Yp,r)
 #'
+#' Xp<-runif.tri(nx,Yp[1:3,])$g
+#' TSArcDensPEMT(Xp,Yp[1:3,],r)
+#'
+#'
 #' TSArcDensPEMT(Xp,rbind(Yp,Yp),r)
 #'
 #' dat.fr<-data.frame(a=Xp)
@@ -21252,7 +21655,7 @@ NumArcsPEMT<-function(Xp,Yp,r,M=c(1,1,1))
 #'
 #' dat.fr<-data.frame(a=Yp)
 #' TSArcDensPEMT(Xp,dat.fr,r)
-#' }
+# #' }
 #'
 #' @export TSArcDensPEMT
 TSArcDensPEMT<-function(Xp,Yp,r,ch.cor=FALSE,alternative = c("two.sided", "less", "greater"), conf.level = 0.95)
@@ -21464,7 +21867,7 @@ IncMatPEtri<-function(dat,tri,r,M=c(1,1,1))
     M<-bary2cart(M,tri)
   }
 
-  if (isTRUE(all.equal(M,circ.cent.tri(tri)))==F & in.triangle(M,tri,boundary=FALSE)$inside.tri==F)
+  if (isTRUE(all.equal(M,circ.cent.tri(tri)))==F & in.triangle(M,tri,boundary=FALSE)$in.tri==F)
   {stop('center is not the circumcenter or not in the interior of the triangle')}
 
   n<-nrow(dat)
@@ -21649,10 +22052,10 @@ Gam1PEtri<-function(p,Dt,tri,r,M=c(1,1,1),rv=NULL,ch.data.pnt=FALSE)
     M<-bary2cart(M,tri)
   }
 
-  if (isTRUE(all.equal(M,circ.cent.tri(tri)))==F & in.triangle(M,tri,boundary=FALSE)$inside.tri==F)
+  if (isTRUE(all.equal(M,circ.cent.tri(tri)))==F & in.triangle(M,tri,boundary=FALSE)$in.tri==F)
   {stop('center is not the circumcenter or not in the interior of the triangle')}
 
-  if(in.triangle(p,tri)$inside.tri==F)
+  if (in.triangle(p,tri)$in.tri==F)
   {dom<-0; return(dom); stop}
 
   if (is.null(rv))
@@ -21827,7 +22230,7 @@ Gam2PEtri<-function(pt1,pt2,Dt,tri,r,M=c(1,1,1),rv1=NULL,rv2=NULL,ch.data.pnts=F
     M<-bary2cart(M,tri)
   }
 
-  if (isTRUE(all.equal(M,circ.cent.tri(tri)))==F & in.triangle(M,tri,boundary=FALSE)$inside.tri==F)
+  if (isTRUE(all.equal(M,circ.cent.tri(tri)))==F & in.triangle(M,tri,boundary=FALSE)$in.tri==F)
   {stop('center is not the circumcenter or not in the interior of the triangle')}
 
   if (identical(pt1,pt2))
@@ -21947,7 +22350,7 @@ PEdomtri<-function(Xp,tri,r,M=c(1,1,1))
   ind.tri<-c()
   for (i in 1:n)
   {
-    if(in.triangle(Xp[i,],tri,boundary = T)$i)
+    if (in.triangle(Xp[i,],tri,boundary = T)$i)
       ind.tri<-c(ind.tri,i)
   }
 
@@ -21955,14 +22358,17 @@ PEdomtri<-function(Xp,tri,r,M=c(1,1,1))
 
   ntri<-nrow(Xtri) #number of points inside the triangle
   if (ntri==0)
-  {gam<-0; return(gam); stop}
+  {gam<-0;
+  res<-list(dom.num=gam, #domination number
+            mds=vector()) #a minimum dominating set
+  return(res); stop}
 
   if (dimension(M)==3)
   {
     M<-bary2cart(M,tri)
   }
 
-  if (isTRUE(all.equal(M,circ.cent.tri(tri)))==F & in.triangle(M,tri,boundary=FALSE)$inside.tri==F)
+  if (isTRUE(all.equal(M,circ.cent.tri(tri)))==F & in.triangle(M,tri,boundary=FALSE)$in.tri==F)
   {stop('center is not the circumcenter or not in the interior of the triangle')}
 
   Cl2e<-cl2eVRcent(Xtri,tri,M)$Ext
@@ -22119,7 +22525,7 @@ IndNPETeSet<-function(S,pt,r,M=c(1,1,1))
   A<-c(0,0); B<-c(1,0); C<-c(1/2,sqrt(3)/2);
   Te<-rbind(A,B,C);
 
-  if (in.triangle(M,Te,boundary=FALSE)$inside.tri==F)
+  if (in.triangle(M,Te,boundary=FALSE)$in.tri==F)
   {stop('center is not in the interior of the triangle')}
 
   k<-nrow(S);
@@ -22257,7 +22663,7 @@ IndNPEtriSet<-function(S,pt,r,tri,M=c(1,1,1))
     M<-bary2cart(M,tri)
   }
 
-  if (isTRUE(all.equal(M,circ.cent.tri(tri)))==F & in.triangle(M,tri,boundary=FALSE)$inside.tri==F)
+  if (isTRUE(all.equal(M,circ.cent.tri(tri)))==F & in.triangle(M,tri,boundary=FALSE)$in.tri==F)
   {stop('center is not the circumcenter or not in the interior of the triangle')}
 
   k<-nrow(S);
@@ -22386,7 +22792,7 @@ IndNPETe.domset<-function(S,Dt,r,M=c(1,1,1))
   A<-c(0,0); B<-c(1,0); C<-c(1/2,sqrt(3)/2);
   Te<-rbind(A,B,C);
 
-  if (in.triangle(M,Te,boundary=FALSE)$inside.tri==F)
+  if (in.triangle(M,Te,boundary=FALSE)$in.tri==F)
   {stop('center is not in the interior of the triangle')}
 
   k<-nrow(S);
@@ -22529,7 +22935,7 @@ IndNPEtri.domset<-function(S,Dt,r,tri,M=c(1,1,1))
     M<-bary2cart(M,tri)
   }
 
-  if (isTRUE(all.equal(M,circ.cent.tri(tri)))==F & in.triangle(M,tri,boundary=FALSE)$inside.tri==F)
+  if (isTRUE(all.equal(M,circ.cent.tri(tri)))==F & in.triangle(M,tri,boundary=FALSE)$in.tri==F)
   {stop('center is not the circumcenter or not in the interior of the triangle')}
 
   k<-nrow(S);
@@ -22690,14 +23096,14 @@ ArcsPEtri<-function(Xp,tri,r,M=c(1,1,1))
     M<-bary2cart(M,tri)
   }
 
-  if (isTRUE(all.equal(M,circ.cent.tri(tri)))==F & in.triangle(M,tri,boundary=FALSE)$inside.tri==F)
+  if (isTRUE(all.equal(M,circ.cent.tri(tri)))==F & in.triangle(M,tri,boundary=FALSE)$in.tri==F)
   {stop('center is not the circumcenter or not in the interior of the triangle')}
 
   n<-nrow(Xp)
 
   in.tri<-rep(0,n)
   for (i in 1:n)
-    in.tri[i]<-in.triangle(Xp[i,],tri,boundary=TRUE)$inside.tri #indices the Xp points inside the triangle
+    in.tri[i]<-in.triangle(Xp[i,],tri,boundary=TRUE)$in.tri #indices the Xp points inside the triangle
 
   Xtri<-Xp[in.tri==1,] #the Xp points inside the triangle
   n2<-length(Xtri)/2
@@ -22977,14 +23383,14 @@ plotPEregsTri<-function(Xp,tri,r,M=c(1,1,1),asp=NA,main="",xlab="",ylab="",xlim=
     M<-bary2cart(M,tri)
   }
 
-  if (isTRUE(all.equal(M,circ.cent.tri(tri)))==F & in.triangle(M,tri,boundary=FALSE)$inside.tri==F)
+  if (isTRUE(all.equal(M,circ.cent.tri(tri)))==F & in.triangle(M,tri,boundary=FALSE)$in.tri==F)
   {stop('center is not the circumcenter or not in the interior of the triangle')}
 
   n<-nrow(Xp)
 
   in.tri<-rep(0,n)
   for (i in 1:n)
-    in.tri[i]<-in.triangle(Xp[i,],tri,boundary=TRUE)$inside.tri #indices of the Xp points inside the triangle
+    in.tri[i]<-in.triangle(Xp[i,],tri,boundary=TRUE)$in.tri #indices of the Xp points inside the triangle
 
   Xtri<-matrix(Xp[in.tri==1,],ncol=2) #the Xp points inside the triangle
   nt<-length(Xtri)/2 #number of Xp points inside the triangle
@@ -23038,7 +23444,7 @@ plotPEregsTri<-function(Xp,tri,r,M=c(1,1,1),asp=NA,main="",xlab="",ylab="",xlim=
 #'
 #' See (\insertCite{ceyhan:Phd-thesis,ceyhan:arc-density-PE,ceyhan:dom-num-NPE-Spat2011;textual}{pcds})
 #' for more on the PE-PCDs.
-#' Also see (\insertCite{okabe:2000,ceyhan:comp-geo-2010,renka:1996;textual}{pcds}) for more on Delaunay triangulation and the TRIPACK algorithm.
+#' Also see (\insertCite{okabe:2000,ceyhan:comp-geo-2010,sinclair:2016;textual}{pcds}) for more on Delaunay triangulation and the corresponding algorithm.
 #'
 #' @param Xp A set of 2D points which constitute the vertices of the PE-PCD
 #' @param Yp A set of 2D points which constitute the vertices of the Delaunay triangles
@@ -23092,7 +23498,7 @@ plotPEregsTri<-function(Xp,tri,r,M=c(1,1,1),asp=NA,main="",xlab="",ylab="",xlim=
 #'
 #' S<-Arcs$S
 #' E<-Arcs$E
-#' DT<-tripack::tri.mesh(Yp[,1],Yp[,2],duplicate="remove")
+#' DT<-interp::tri.mesh(Yp[,1],Yp[,2],duplicate="remove")
 #'
 #' Xlim<-range(Xp[,1],Yp[,1])
 #' Ylim<-range(Xp[,2],Yp[,2])
@@ -23101,10 +23507,11 @@ plotPEregsTri<-function(Xp,tri,r,M=c(1,1,1),asp=NA,main="",xlab="",ylab="",xlim=
 #'
 #' plot(Xp,main=" ", xlab=" ", ylab=" ",
 #' xlim=Xlim+xd*c(-.05,.05),ylim=Ylim+yd*c(-.05,.05),pch=".",cex=3)
-#' tripack::plot.tri(DT, add=TRUE, do.points = TRUE)
+#' interp::plot.triSht(DT, add=TRUE, do.points = TRUE)
 #' arrows(S[,1], S[,2], E[,1], E[,2], length = 0.1, col= 4)
 #'
 #' ArcsPEMT(Xp,Yp,r)
+#' ArcsPEMT(Xp,Yp[1:3,],r)
 #'
 #' ArcsPEMT(Xp,rbind(Yp,Yp),r)
 #'
@@ -23135,89 +23542,97 @@ ArcsPEMT<-function(Xp,Yp,r,M=c(1,1,1))
   if (!is.point(r,1) || r<1)
   {stop('r must be a scalar >= 1')}
 
-  if ((!is.point(M,3) && M!="CC") || !all(M>0))
-  {stop('M must be a numeric 3D point with positive barycentric coordinates or "CC" for circumcenter')}
-
-  DTmesh<-tri.mesh(Yp[,1],Yp[,2],duplicate="remove")
-
-  nx<-nrow(Xp)
-  ch<-rep(0,nx)
-  for (i in 1:nx)
-    ch[i]<-in.convex.hull(DTmesh,Xp[i,1],Xp[i,2])
-
-  Xch<-matrix(Xp[ch==1,],ncol=2) #the Xp points inside the convex hull of Yp
-
-  DTr<-matrix(triangles(DTmesh)[,1:3],ncol=3)
-  nt<-nrow(DTr)
-  nx2<-nrow(Xch)
-
-  S<-E<-NULL #S is for source and E is for end points for the arcs
-  if (nx2>1)
+  if (nrow(Yp)==3)
   {
-    i.tr<-rep(0,nx2) #the vector of indices for the triangles that contain the Xp points
-    for (i in 1:nx2)
-      for (j in 1:nt)
-      {
-        tri<-Yp[DTr[j,],]
-        if (in.triangle(Xch[i,],tri,boundary=TRUE)$inside.tri )
-          i.tr[i]<-j
-      }
+    res<-ArcsPEtri(Xp,Yp,r,M)
+  } else
+  {
 
-    for (i in 1:nt)
+    if ((!is.point(M,3) && M!="CC") || !all(M>0))
+    {stop('M must be a numeric 3D point with positive barycentric coordinates or "CC" for circumcenter')}
+
+    DTmesh<-interp::tri.mesh(Yp[,1],Yp[,2],duplicate="remove")
+
+    nx<-nrow(Xp)
+    ch<-rep(0,nx)
+    for (i in 1:nx)
+      ch[i]<-interp::in.convex.hull(DTmesh,Xp[i,1],Xp[i,2])
+
+    Xch<-matrix(Xp[ch==1,],ncol=2) #the Xp points inside the convex hull of Yp
+
+    DTr<-matrix(interp::triangles(DTmesh)[,1:3],ncol=3)
+    nt<-nrow(DTr)
+    nx2<-nrow(Xch)
+
+    S<-E<-NULL #S is for source and E is for end points for the arcs
+    if (nx2>1)
     {
-      Xl<-matrix(Xch[i.tr==i,],ncol=2)
-      if (nrow(Xl)>1)
-      {
-        Yi.Tri<-Yp[DTr[i,],] #vertices of the ith triangle
-        Yi.tri<-as.bastri(Yi.Tri)$tri #convert the triangle Yi.Tri into an unscaled basic triangle, see as.bastri help page
-        nl<-nrow(Xl)
-        ifelse(identical(M,"CC"), {rv.ind<-rverts.triCC(Xl,Yi.tri)$rv; cent<-circ.cent.tri(Yi.tri)},
-               {rv.ind<-rverts.tri.cent(Xl,Yi.tri,M)$rv; cent<-M})
+      i.tr<-rep(0,nx2) #the vector of indices for the triangles that contain the Xp points
+      for (i in 1:nx2)
+        for (j in 1:nt)
+        {
+          tri<-Yp[DTr[j,],]
+          if (in.triangle(Xch[i,],tri,boundary=TRUE)$in.tri )
+            i.tr[i]<-j
+        }
 
-        for (j in 1:nl)
-        {RV<-rv.ind[j]
-        for (k in (1:nl)[-j]) # to avoid loops
-          if (IndNPEtri(Xl[j,],Xl[k,],r,Yi.tri,cent,rv=RV)==1 )
-          {
-            S <-rbind(S,Xl[j,]); E <-rbind(E,Xl[k,]);
+      for (i in 1:nt)
+      {
+        Xl<-matrix(Xch[i.tr==i,],ncol=2)
+        if (nrow(Xl)>1)
+        {
+          Yi.Tri<-Yp[DTr[i,],] #vertices of the ith triangle
+          Yi.tri<-as.bastri(Yi.Tri)$tri #convert the triangle Yi.Tri into an unscaled basic triangle, see as.bastri help page
+          nl<-nrow(Xl)
+          ifelse(identical(M,"CC"), {rv.ind<-rverts.triCC(Xl,Yi.tri)$rv; cent<-circ.cent.tri(Yi.tri)},
+                 {rv.ind<-rverts.tri.cent(Xl,Yi.tri,M)$rv; cent<-M})
+
+          for (j in 1:nl)
+          {RV<-rv.ind[j]
+          for (k in (1:nl)[-j]) # to avoid loops
+            if (IndNPEtri(Xl[j,],Xl[k,],r,Yi.tri,cent,rv=RV)==1 )
+            {
+              S <-rbind(S,Xl[j,]); E <-rbind(E,Xl[k,]);
+            }
           }
         }
       }
     }
+
+    xname <-deparse(substitute(Xp))
+    yname <-deparse(substitute(Yp))
+    rname <-deparse(substitute(r))
+
+    param<-r
+    names(param)<-"expansion parameter"
+    typ<-paste("Proportional Edge Proximity Catch Digraph (PE-PCD) for 2D points in Multiple Triangles with Expansion parameter ", rname, "=",r," and Center M",sep="")
+    main.txt<-paste("Arcs of PE-PCD for Points in Multiple Triangles\n with ", rname, "=",r," and Center M",sep="")
+
+    nvert<-nx2; ny<-nrow(Yp); ntri<-nt; narcs=ifelse(!is.null(S),nrow(S),0);
+    arc.dens<-ifelse(nvert>1,narcs/(nvert*(nvert-1)),NA)
+
+    quantities<-c(nvert,ny,ntri,narcs,arc.dens)
+    names(quantities)<-c("number of vertices", "number of partition points",
+                         "number of triangles","number of arcs", "arc density")
+
+    res<-list(
+      type=typ,
+      parameters=param,
+      tess.points=Yp, tess.name=yname, #tessellation points
+      vertices=Xp, vert.name=xname, #vertices of the digraph
+      S=S,
+      E=E,
+      mtitle=main.txt,
+      quant=quantities
+    )
+
+    class(res)<-"PCDs"
+    res$call <-match.call()
   }
-
-  xname <-deparse(substitute(Xp))
-  yname <-deparse(substitute(Yp))
-  rname <-deparse(substitute(r))
-
-  param<-r
-  names(param)<-"expansion parameter"
-  typ<-paste("Proportional Edge Proximity Catch Digraph (PE-PCD) for 2D points in Multiple Triangles with Expansion parameter ", rname, "=",r," and Center M",sep="")
-  main.txt<-paste("Arcs of PE-PCD for Points in Multiple Triangles\n with ", rname, "=",r," and Center M",sep="")
-
-  nvert<-nx2; ny<-nrow(Yp); ntri<-nt; narcs=ifelse(!is.null(S),nrow(S),0);
-  arc.dens<-ifelse(nvert>1,narcs/(nvert*(nvert-1)),NA)
-
-  quantities<-c(nvert,ny,ntri,narcs,arc.dens)
-  names(quantities)<-c("number of vertices", "number of partition points",
-                       "number of triangles","number of arcs", "arc density")
-
-  res<-list(
-    type=typ,
-    parameters=param,
-    tess.points=Yp, tess.name=yname, #tessellation points
-    vertices=Xp, vert.name=xname, #vertices of the digraph
-    S=S,
-    E=E,
-    mtitle=main.txt,
-    quant=quantities
-  )
-
-  class(res)<-"PCDs"
-  res$call <-match.call()
   res
 } #end of the function
 #'
+
 #################################################################
 
 #' @title Incidence matrix for Proportional Edge Proximity Catch Digraphs (PE-PCDs) - multiple triangle case
@@ -23241,7 +23656,7 @@ ArcsPEMT<-function(Xp,Yp,r,M=c(1,1,1))
 #'
 #' See (\insertCite{ceyhan:Phd-thesis,ceyhan:arc-density-PE,ceyhan:dom-num-NPE-Spat2011;textual}{pcds}) for more
 #' on the PE-PCDs.
-#' Also see (\insertCite{okabe:2000,ceyhan:comp-geo-2010,renka:1996;textual}{pcds}) for more on Delaunay triangulation and the TRIPACK algorithm.
+#' Also see (\insertCite{okabe:2000,ceyhan:comp-geo-2010,sinclair:2016;textual}{pcds}) for more on Delaunay triangulation and the corresponding algorithm.
 #'
 #' @param Xp A set of 2D points which constitute the vertices of the PE-PCD
 #' @param Yp A set of 2D points which constitute the vertices of the Delaunay triangles
@@ -23259,9 +23674,7 @@ ArcsPEMT<-function(Xp,Yp,r,M=c(1,1,1))
 #' \insertAllCited{}
 #'
 #' @examples
-#' \donttest{
-#' nx<-100
-#' ny<-10
+#' nx<-20; ny<-4; #try also nx<-40; ny<-10 or nx<-1000; ny<-10;
 #'
 #' #set.seed(1)
 #' Xp<-cbind(runif(nx,0,1),runif(nx,0,1))
@@ -23289,6 +23702,7 @@ ArcsPEMT<-function(Xp,Yp,r,M=c(1,1,1))
 #' plot(Arcs)
 #'
 #' IncMatPEMT(Xp,Yp,r,M)
+#' IncMatPEMT(Xp,Yp[1:3,],r,M)
 #'
 #' IncMatPEMT(Xp,rbind(Yp,Yp),r,M)
 #'
@@ -23297,7 +23711,6 @@ ArcsPEMT<-function(Xp,Yp,r,M=c(1,1,1))
 #'
 #' dat.fr<-data.frame(a=Yp)
 #' IncMatPEMT(Xp,dat.fr,r,M)
-#' }
 #'
 #' @export IncMatPEMT
 IncMatPEMT<-function(Xp,Yp,r,M=c(1,1,1))
@@ -23320,50 +23733,57 @@ IncMatPEMT<-function(Xp,Yp,r,M=c(1,1,1))
   if (!is.point(r,1) || r<1)
   {stop('r must be a scalar >= 1')}
 
-  if ((!is.point(M,3) && M!="CC") || !all(M>0))
-  {stop('M must be a numeric 3D point with positive barycentric coordinates or "CC" for circumcenter')}
-
-  DTmesh<-tri.mesh(Yp[,1],Yp[,2],duplicate="remove")
-
-  nx<-nrow(Xp)
-  ch<-rep(0,nx)
-  for (i in 1:nx)
-    ch[i]<-in.convex.hull(DTmesh,Xp[i,1],Xp[i,2])
-
-  inc.mat<-matrix(0, nrow=nx, ncol=nx)
-
-  DTr<-matrix(triangles(DTmesh)[,1:3],ncol=3)
-  nt<-nrow(DTr) #number of Delaunay triangles
-
-  if (nx>1)
+  if (nrow(Yp)==3)
   {
-    i.tr<-rep(0,nx) #the vector of indices for the triangles that contain the Xp points
-    for (i in 1:nx)
-      for (j in 1:nt)
-      {
-        tri<-Yp[DTr[j,],]
-        if (in.triangle(Xp[i,],tri,boundary=TRUE)$inside.tri )
-          i.tr[i]<-j
-      }
+    inc.mat<-IncMatPEtri(Xp,Yp,r,M)
+  } else
+  {
 
+    if ((!is.point(M,3) && M!="CC") || !all(M>0))
+    {stop('M must be a numeric 3D point with positive barycentric coordinates or "CC" for circumcenter')}
+
+    DTmesh<-interp::tri.mesh(Yp[,1],Yp[,2],duplicate="remove")
+
+    nx<-nrow(Xp)
+    ch<-rep(0,nx)
     for (i in 1:nx)
-    {pt1<-Xp[i,]
-    if (i.tr[i]!=0)
+      ch[i]<-interp::in.convex.hull(DTmesh,Xp[i,1],Xp[i,2])
+
+    inc.mat<-matrix(0, nrow=nx, ncol=nx)
+
+    DTr<-matrix(interp::triangles(DTmesh)[,1:3],ncol=3)
+    nt<-nrow(DTr) #number of Delaunay triangles
+
+    if (nx>1)
     {
-      Yi.Tri<-Yp[DTr[i.tr[i],],] #vertices of the ith triangle
-      Yi.tri<-as.bastri(Yi.Tri)$tri #convert the triangle Yi.Tri into an unscaled basic triangle, see as.bastri help page
-      ifelse(identical(M,"CC"),{vert<-rv.triCC(pt1,Yi.tri)$rv; cent<-circ.cent.tri(Yi.tri)},
-             {vert<-rv.tri.cent(pt1,Yi.tri,M)$rv; cent<-M})
+      i.tr<-rep(0,nx) #the vector of indices for the triangles that contain the Xp points
+      for (i in 1:nx)
+        for (j in 1:nt)
+        {
+          tri<-Yp[DTr[j,],]
+          if (in.triangle(Xp[i,],tri,boundary=TRUE)$in.tri )
+            i.tr[i]<-j
+        }
 
-      for (j in 1:nx )
-      {pt2<-Xp[j,]
-      inc.mat[i,j]<-IndNPEtri(pt1,pt2,r,Yi.tri,cent,rv=vert)
+      for (i in 1:nx)
+      {pt1<-Xp[i,]
+      if (i.tr[i]!=0)
+      {
+        Yi.Tri<-Yp[DTr[i.tr[i],],] #vertices of the ith triangle
+        Yi.tri<-as.bastri(Yi.Tri)$tri #convert the triangle Yi.Tri into an unscaled basic triangle, see as.bastri help page
+        ifelse(identical(M,"CC"),{vert<-rv.triCC(pt1,Yi.tri)$rv; cent<-circ.cent.tri(Yi.tri)},
+               {vert<-rv.tri.cent(pt1,Yi.tri,M)$rv; cent<-M})
+
+        for (j in 1:nx )
+        {pt2<-Xp[j,]
+        inc.mat[i,j]<-IndNPEtri(pt1,pt2,r,Yi.tri,cent,rv=vert)
+        }
+      }
       }
     }
-    }
-  }
 
-  diag(inc.mat)<-1
+    diag(inc.mat)<-1
+  }
   inc.mat
 } #end of the function
 #'
@@ -23374,7 +23794,7 @@ IncMatPEMT<-function(Xp,Yp,r,M=c(1,1,1))
 #'
 #' @description Given two 2D data sets, \code{Xp} and \code{Yp}, it returns the \code{Xp} points inside the convex hull of \code{Yp} points.
 #'
-#' See (\insertCite{okabe:2000,ceyhan:comp-geo-2010,renka:1996;textual}{pcds}) for more on Delaunay triangulation and the TRIPACK algorithm.
+#' See (\insertCite{okabe:2000,ceyhan:comp-geo-2010,sinclair:2016;textual}{pcds}) for more on Delaunay triangulation and the corresponding algorithm.
 #'
 #' @param Xp A set of 2D points which constitute the data set
 #' @param Yp A set of 2D points which constitute the vertices of the Delaunay triangles
@@ -23396,7 +23816,7 @@ IncMatPEMT<-function(Xp,Yp,r,M=c(1,1,1))
 #' #Xp<-cbind(runif(nx,1,2),runif(nx,0,1))
 #' Yp<-cbind(runif(ny,0,1),runif(ny,0,1))
 #'
-#' DT<-tripack::tri.mesh(Yp[,1],Yp[,2],duplicate="remove")
+#' DT<-interp::tri.mesh(Yp[,1],Yp[,2],duplicate="remove")
 #'
 #' Xlim<-range(Xp[,1],Yp[,1])
 #' Ylim<-range(Xp[,2],Yp[,2])
@@ -23407,10 +23827,11 @@ IncMatPEMT<-function(Xp,Yp,r,M=c(1,1,1))
 #'
 #' plot(Xp,main=" ", xlab=" ", ylab=" ",
 #' xlim=Xlim+xd*c(-.05,.05),ylim=Ylim+yd*c(-.05,.05),pch=".",cex=3)
-#' tripack::convex.hull(DT,plot.it = TRUE, add = TRUE) # or try polygon(Yp[ch$i,])
+#' interp::convex.hull(DT,plot.it = TRUE, add = TRUE) # or try polygon(Yp[ch$i,])
 #' points(Xch,pch=4,col="red")
 #'
 #' XinCHY(Xp,Yp)
+#' XinCHY(Xp,Yp[1:3,])
 #'
 #' XinCHY(Xp,rbind(Yp,Yp))
 #'
@@ -23438,15 +23859,25 @@ XinCHY<-function(Xp,Yp)
   if (ncol(Yp)!=2 || nrow(Yp)<3)
   {stop('Yp must be of dimension kx2 with k>=3')}
 
-  DT<-tri.mesh(Yp[,1],Yp[,2],duplicate="remove")
-
   nx<-nrow(Xp)
 
-  ch<-rep(0,nx)
-  for (i in 1:nx)
-    ch[i]<-in.convex.hull(DT,Xp[i,1],Xp[i,2])
+  if (nrow(Yp)==3)
+  {
+    ch<-rep(0,nx)
+    for (i in 1:nx)
+    {ch[i]<-in.triangle(Xp[i,],Yp,boundary = TRUE)$in.tri}
 
-  Xch<-Xp[ch==1,] #the Xp points inside the convex hull of Yp
+    Xch<-Xp[ch==1,] #the Xp points inside the convex hull of Yp
+  } else
+  {
+    DT<-interp::tri.mesh(Yp[,1],Yp[,2],duplicate="remove")
+
+    ch<-rep(0,nx)
+    for (i in 1:nx)
+    {ch[i]<-interp::in.convex.hull(DT,Xp[i,1],Xp[i,2])}
+
+    Xch<-Xp[ch==1,] #the Xp points inside the convex hull of Yp
+  }
   Xch
 } #end of the function
 #'
@@ -23473,7 +23904,7 @@ XinCHY<-function(Xp,Yp)
 #'
 #' See (\insertCite{ceyhan:Phd-thesis,ceyhan:arc-density-PE,ceyhan:dom-num-NPE-Spat2011;textual}{pcds}) for more
 #' on the PE-PCDs.
-#' Also see (\insertCite{okabe:2000,ceyhan:comp-geo-2010,renka:1996;textual}{pcds}) for more on Delaunay triangulation and the TRIPACK algorithm.
+#' Also see (\insertCite{okabe:2000,ceyhan:comp-geo-2010,sinclair:2016;textual}{pcds}) for more on Delaunay triangulation and the corresponding algorithm.
 #'
 #' @param Xp A set of 2D points which constitute the vertices of the PE-PCD
 #' @param Yp A set of 2D points which constitute the vertices of the Delaunay triangles
@@ -23519,20 +23950,32 @@ XinCHY<-function(Xp,Yp)
 #'
 #' plotPEarcsMT(Xp,Yp,r,M,xlab="",ylab="",xlim=Xlim+xd*c(-.05,.05),ylim=Ylim+yd*c(-.05,.05))
 #'
+#' plotPEarcsMT(Xp,Yp[1:3,],r,M,xlab="",ylab="",xlim=Xlim+xd*c(-.05,.05),ylim=Ylim+yd*c(-.05,.05))
+#'
 #' @export plotPEarcsMT
 plotPEarcsMT<-function(Xp,Yp,r,M=c(1,1,1),asp=NA,main="",xlab="",ylab="",xlim=NULL,ylim=NULL, ...)
 {
-  ArcsPE<-ArcsPEMT(Xp,Yp,r,M)
-  S<-ArcsPE$S
-  E<-ArcsPE$E
+  Yp<-as.matrix(Yp)
+  if (ncol(Yp)!=2 || nrow(Yp)<3)
+  {stop('Yp must be of dimension kx2 with k>=3')}
 
-  DTmesh<-tri.mesh(Yp[,1],Yp[,2],duplicate="remove")
+  if (nrow(Yp)==3)
+  {
+    plotPEarcsTri(Xp,Yp,r,M,asp,main,xlab,ylab,xlim,ylim)
+  } else
+  {
+    ArcsPE<-ArcsPEMT(Xp,Yp,r,M)
+    S<-ArcsPE$S
+    E<-ArcsPE$E
 
-  Xch<-XinCHY(Xp,Yp)
+    DTmesh<-interp::tri.mesh(Yp[,1],Yp[,2],duplicate="remove")
 
-  plot(rbind(Xp),asp=asp,main=main, xlab=xlab, ylab=ylab,xlim=xlim,ylim=ylim,pch=".",cex=3, ...)
-  plot.tri(DTmesh, add=TRUE, do.points = TRUE)
-  if (!is.null(S)) {arrows(S[,1], S[,2], E[,1], E[,2], length = 0.1, col= 4)}
+    Xch<-XinCHY(Xp,Yp)
+
+    plot(rbind(Xp),asp=asp,main=main, xlab=xlab, ylab=ylab,xlim=xlim,ylim=ylim,pch=".",cex=3, ...)
+    interp::plot.triSht(DTmesh, add=TRUE, do.points = TRUE)
+    if (!is.null(S)) {arrows(S[,1], S[,2], E[,1], E[,2], length = 0.1, col= 4)}
+  }
 } #end of the function
 #'
 
@@ -23553,7 +23996,7 @@ plotPEarcsMT<-function(Xp,Yp,r,M=c(1,1,1),asp=NA,main="",xlab="",ylab="",xlim=NU
 #'
 #' See (\insertCite{ceyhan:Phd-thesis,ceyhan:arc-density-PE,ceyhan:dom-num-NPE-Spat2011;textual}{pcds}) for more
 #' on the PE proximity regions.
-#' Also see (\insertCite{okabe:2000,ceyhan:comp-geo-2010,renka:1996;textual}{pcds}) for more on Delaunay triangulation and the TRIPACK algorithm.
+#' Also see (\insertCite{okabe:2000,ceyhan:comp-geo-2010,sinclair:2016;textual}{pcds}) for more on Delaunay triangulation and the corresponding algorithm.
 #'
 #' @param Xp A set of 2D points for which PE proximity regions are constructed
 #' @param Yp A set of 2D points which constitute the vertices of the Delaunay triangles
@@ -23598,6 +24041,8 @@ plotPEarcsMT<-function(Xp,Yp,r,M=c(1,1,1),asp=NA,main="",xlab="",ylab="",xlim=NU
 #'
 #' plotPEregsMT(Xp,Yp,r,M,xlab="",ylab="",xlim=Xlim+xd*c(-.05,.05),ylim=Ylim+yd*c(-.05,.05))
 #'
+#' plotPEregsMT(Xp,Yp[1:3,],r,M,xlab="",ylab="",xlim=Xlim+xd*c(-.05,.05),ylim=Ylim+yd*c(-.05,.05))
+#'
 #' @export plotPEregsMT
 plotPEregsMT<-function(Xp,Yp,r,M=c(1,1,1),asp=NA,main="",xlab="",ylab="",xlim=NULL,ylim=NULL, ...)
 {
@@ -23619,73 +24064,80 @@ plotPEregsMT<-function(Xp,Yp,r,M=c(1,1,1),asp=NA,main="",xlab="",ylab="",xlim=NU
   if (!is.point(r,1) || r<1)
   {stop('r must be a scalar >= 1')}
 
-  if ((!is.point(M,3) && M!="CC") || !all(M>0))
-  {stop('M must be a numeric 3D point with positive barycentric coordinates or "CC" for circumcenter')}
-
-  DTmesh<-tri.mesh(Yp[,1],Yp[,2],duplicate="remove")
-
-  nx<-nrow(Xp)
-  ch<-rep(0,nx)
-  for (i in 1:nx)
-    ch[i]<-in.convex.hull(DTmesh,Xp[i,1],Xp[i,2])
-
-  Xch<-matrix(Xp[ch==1,],ncol=2) #the Xp points inside the convex hull of Yp points
-
-  DTr<-matrix(triangles(DTmesh)[,1:3],ncol=3)
-  nt<-nrow(DTr) #number of Delaunay triangles
-  nx2<-nrow(Xch) #number of Xp points inside the convex hull of Yp points
-
-  if (nx2>=1)
+  if (nrow(Yp)==3)
   {
-    i.tr<-rep(0,nx2) #the vector of indices for the triangles that contain the Xp points
-    for (i1 in 1:nx2)
-      for (j1 in 1:nt)
-      {
-        Tri<-Yp[DTr[j1,],]
-        if (in.triangle(Xch[i1,],Tri,boundary=TRUE)$inside.tri )
-          i.tr[i1]<-j1
-      }
-  }
-
-  Xlim<-xlim; Ylim<-ylim
-  if (is.null(xlim))
-  {xlim<-range(Yp[,1],Xp[,1])
-  xr<-xlim[2]-xlim[1]
-  Xlim<-xlim+xr*c(-.05,.05)
-  }
-  if (is.null(ylim))
-  {ylim<-range(Yp[,2],Xp[,2])
-  yr<-ylim[2]-ylim[1]
-  Ylim<-ylim+yr*c(-.05,.05)
-  }
-
-  plot(rbind(Xp),asp=asp,main=main, xlab=xlab, ylab=ylab,
-       xlim=Xlim,ylim=Ylim,pch=".",cex=3, ...)
-
-  for (i in 1:nt)
+    plotPEregsTri(Xp,Yp,r,M,asp,main,xlab,ylab,xlim,ylim)
+  } else
   {
-    Tri<-Yp[DTr[i,],]  #vertices of the ith triangle
-    tri<-as.bastri(Tri)$tri #convert the triangle Tri into an unscaled basic triangle, see as.bastri help page
 
-    polygon(tri,lty=2)
+    if ((!is.point(M,3) && M!="CC") || !all(M>0))
+    {stop('M must be a numeric 3D point with positive barycentric coordinates or "CC" for circumcenter')}
+
+    DTmesh<-interp::tri.mesh(Yp[,1],Yp[,2],duplicate="remove")
+
+    nx<-nrow(Xp)
+    ch<-rep(0,nx)
+    for (i in 1:nx)
+      ch[i]<-interp::in.convex.hull(DTmesh,Xp[i,1],Xp[i,2])
+
+    Xch<-matrix(Xp[ch==1,],ncol=2) #the Xp points inside the convex hull of Yp points
+
+    DTr<-matrix(interp::triangles(DTmesh)[,1:3],ncol=3)
+    nt<-nrow(DTr) #number of Delaunay triangles
+    nx2<-nrow(Xch) #number of Xp points inside the convex hull of Yp points
+
     if (nx2>=1)
     {
-      Xtri<-matrix(Xch[i.tr==i,],ncol=2) #Xp points inside triangle i
-      ni<-nrow(Xtri)
-      if (ni>=1)
-      {
-        ################
-        for (j in 1:ni)
+      i.tr<-rep(0,nx2) #the vector of indices for the triangles that contain the Xp points
+      for (i1 in 1:nx2)
+        for (j1 in 1:nt)
         {
-          P1<-Xtri[j,]
-          ifelse(identical(M,"CC"),{RV<-rv.triCC(P1,tri)$rv; cent<-circ.cent.tri(tri)},
-                 {RV<-rv.tri.cent(P1,tri,M)$rv; cent<-M})
-
-          pr<-NPEtri(P1,r,tri,cent,rv=RV)
-          polygon(pr,border="blue")
-
+          Tri<-Yp[DTr[j1,],]
+          if (in.triangle(Xch[i1,],Tri,boundary=TRUE)$in.tri )
+            i.tr[i1]<-j1
         }
-        ################
+    }
+
+    Xlim<-xlim; Ylim<-ylim
+    if (is.null(xlim))
+    {xlim<-range(Yp[,1],Xp[,1])
+    xr<-xlim[2]-xlim[1]
+    Xlim<-xlim+xr*c(-.05,.05)
+    }
+    if (is.null(ylim))
+    {ylim<-range(Yp[,2],Xp[,2])
+    yr<-ylim[2]-ylim[1]
+    Ylim<-ylim+yr*c(-.05,.05)
+    }
+
+    plot(rbind(Xp),asp=asp,main=main, xlab=xlab, ylab=ylab,
+         xlim=Xlim,ylim=Ylim,pch=".",cex=3, ...)
+
+    for (i in 1:nt)
+    {
+      Tri<-Yp[DTr[i,],]  #vertices of the ith triangle
+      tri<-as.bastri(Tri)$tri #convert the triangle Tri into an unscaled basic triangle, see as.bastri help page
+
+      polygon(tri,lty=2)
+      if (nx2>=1)
+      {
+        Xtri<-matrix(Xch[i.tr==i,],ncol=2) #Xp points inside triangle i
+        ni<-nrow(Xtri)
+        if (ni>=1)
+        {
+          ################
+          for (j in 1:ni)
+          {
+            P1<-Xtri[j,]
+            ifelse(identical(M,"CC"),{RV<-rv.triCC(P1,tri)$rv; cent<-circ.cent.tri(tri)},
+                   {RV<-rv.tri.cent(P1,tri,M)$rv; cent<-M})
+
+            pr<-NPEtri(P1,r,tri,cent,rv=RV)
+            polygon(pr,border="blue")
+
+          }
+          ################
+        }
       }
     }
   }
@@ -23711,8 +24163,8 @@ plotPEregsMT<-function(Xp,Yp,r,M=c(1,1,1),asp=NA,main="",xlab="",ylab="",xlim=NU
 #' convex hull of \code{Yp} points). Loops are allowed for the domination number.
 #'
 #' See (\insertCite{ceyhan:Phd-thesis,ceyhan:masa-2007,ceyhan:dom-num-NPE-Spat2011,ceyhan:mcap2012;textual}{pcds}) for more on the domination number of
-#' PE-PCDs. Also see (\insertCite{okabe:2000,ceyhan:comp-geo-2010,renka:1996;textual}{pcds}) for more on Delaunay triangulation and
-#' the TRIPACK algorithm.
+#' PE-PCDs. Also see (\insertCite{okabe:2000,ceyhan:comp-geo-2010,sinclair:2016;textual}{pcds}) for more on Delaunay triangulation and
+#' the corresponding algorithm.
 #'
 #' @param Xp A set of 2D points which constitute the vertices of the PE-PCD
 #' @param Yp A set of 2D points which constitute the vertices of the Delaunay triangles
@@ -23758,6 +24210,7 @@ plotPEregsMT<-function(Xp,Yp,r,M=c(1,1,1),asp=NA,main="",xlab="",ylab="",xlim=NU
 #' PEdomMT(Xp,Yp,r,M) #this may be different due to random selection of the center for r in (1,1.5)
 #'
 #' PEdomMT(Xp,Yp,r,M)
+#' PEdomMT(Xp,Yp[1:3,],r,M)
 #'
 #' PEdomMT(Xp,rbind(Yp,Yp),r,M)
 #'
@@ -23788,78 +24241,86 @@ PEdomMT<-function(Xp,Yp,r,M=c(1,1,1))
   if (!is.point(r,1) || r<1)
   {stop('r must be a scalar >= 1')}
 
-  if ((!is.point(M,3) && M!="CC") || !all(M>0))
-  {stop('M must be a numeric 3D point with positive barycentric coordinates or "CC" for circumcenter')}
-
-  n<-nrow(Xp) #number of Xp points
-  m<-nrow(Yp) #number of Yp points
-
-  Ytrimesh<-tri.mesh(Yp[,1],Yp[,2],duplicate="remove") #Delaunay triangulation
-  Ytri<-matrix(triangles(Ytrimesh)[,1:3],ncol=3); #the Delaunay triangles
-  nt<-nrow(Ytri) #number of Delaunay triangles
-  inCH<-in.convex.hull(Ytrimesh,Xp[,1],Xp[,2]) #logical indices for Xp points in convex hull of Yp points
-  Xch<-matrix(Xp[inCH==TRUE,],ncol=2)
-
-  gam<-rep(0,nt);  mds<-c()
-  if (nrow(Xch)>=1)
+  if(nrow(Yp)==3)
   {
-    Tri.Ind<-indices.Del.tri(Xch,Yp,Ytrimesh) #indices of triangles in which the points in the data fall
+    res<-PEdomtri(Xp,Yp,r,M)
+  } else
+  {
 
-    #calculation of the domination number
-    for (i in 1:nt)
+    if ((!is.point(M,3) && M!="CC") || !all(M>0))
+    {stop('M must be a numeric 3D point with positive barycentric coordinates or "CC" for circumcenter')}
+
+    n<-nrow(Xp) #number of Xp points
+    m<-nrow(Yp) #number of Yp points
+
+    Ytrimesh<-interp::tri.mesh(Yp[,1],Yp[,2],duplicate="remove") #Delaunay triangulation
+    Ytri<-matrix(interp::triangles(Ytrimesh)[,1:3],ncol=3); #the Delaunay triangles
+    nt<-nrow(Ytri) #number of Delaunay triangles
+    inCH<-interp::in.convex.hull(Ytrimesh,Xp[,1],Xp[,2]) #logical indices for Xp points in convex hull of Yp points
+    Xch<-matrix(Xp[inCH==TRUE,],ncol=2)
+
+    gam<-rep(0,nt);  mds<-c()
+    if (nrow(Xch)>=1)
     {
-      dati<-matrix(Xch[Tri.Ind==i,],ncol=2) #points in ith Delaunay triangle
-      ni<-nrow(dati) #number of points in ith triangle
-      if (ni==0)
+      Tri.Ind<-indices.Del.tri(Xch,Yp,Ytrimesh) #indices of triangles in which the points in the data fall
+
+      #calculation of the domination number
+      for (i in 1:nt)
       {
-        gam[i]<-0
-      } else
-      {
-        Yi.Tri<-Yp[Ytri[i,],] #vertices of ith triangle
-        Yi.tri<-as.bastri(Yi.Tri)$tri
-        ifelse(identical(M,"CC"), {cent<-circ.cent.tri(Yi.tri); Clvert<-cl2eVRCC(dati,Yi.tri)$Ext},
-               {cent<-M; Clvert<-cl2eVRcent(dati,Yi.tri,cent)$Ext})
-        #closest points to edges in the respective vertex regions
-
-        #Gamma=1 piece
-        cnt<-0; j<-1;
-        while (j<=3 & cnt==0)
+        dati<-matrix(Xch[Tri.Ind==i,],ncol=2) #points in ith Delaunay triangle
+        ni<-nrow(dati) #number of points in ith triangle
+        if (ni==0)
         {
-          if (Gam1PEtri(Clvert[j,],dati,Yi.tri,r,cent,rv=j)==1)
-          {gam[i]<-1; cnt<-1; mds<-rbind(mds,Clvert[j,])
-          } else
-          {j<-j+1}
-        }
-
-        #Gamma=2 piece
-        if (cnt==0)
-        { k<-1; cnt2<-0;
-        while (k<=2 & cnt2==0)
-        {l<-k+1;
-        while (l<=3 & cnt2==0)
+          gam[i]<-0
+        } else
         {
-          if (Gam2PEtri(Clvert[k,],Clvert[l,],dati,Yi.tri,r,cent,rv1=k,rv2=l)==1)
-          {gam[i]<-2;cnt2<-1; mds<-rbind(mds,Clvert[c(k,l),])
-          } else {l<-l+1};
-        }
-        k<-k+1;
-        }
-        }
+          Yi.Tri<-Yp[Ytri[i,],] #vertices of ith triangle
+          Yi.tri<-as.bastri(Yi.Tri)$tri
+          ifelse(identical(M,"CC"), {cent<-circ.cent.tri(Yi.tri); Clvert<-cl2eVRCC(dati,Yi.tri)$Ext},
+                 {cent<-M; Clvert<-cl2eVRcent(dati,Yi.tri,cent)$Ext})
+          #closest points to edges in the respective vertex regions
 
-        if (cnt==0 && cnt2==0)
-        {gam[i]<-3; mds<-rbind(mds,Clvert)}
+          #Gamma=1 piece
+          cnt<-0; j<-1;
+          while (j<=3 & cnt==0)
+          {
+            if (Gam1PEtri(Clvert[j,],dati,Yi.tri,r,cent,rv=j)==1)
+            {gam[i]<-1; cnt<-1; mds<-rbind(mds,Clvert[j,])
+            } else
+            {j<-j+1}
+          }
+
+          #Gamma=2 piece
+          if (cnt==0)
+          { k<-1; cnt2<-0;
+          while (k<=2 & cnt2==0)
+          {l<-k+1;
+          while (l<=3 & cnt2==0)
+          {
+            if (Gam2PEtri(Clvert[k,],Clvert[l,],dati,Yi.tri,r,cent,rv1=k,rv2=l)==1)
+            {gam[i]<-2;cnt2<-1; mds<-rbind(mds,Clvert[c(k,l),])
+            } else {l<-l+1};
+          }
+          k<-k+1;
+          }
+          }
+
+          if (cnt==0 && cnt2==0)
+          {gam[i]<-3; mds<-rbind(mds,Clvert)}
+
+        }
 
       }
-
     }
+
+    Gam<-sum(gam) #domination number for the entire digraph
+    row.names(mds)<-c()
+
+    res<-list(dom.num=Gam, #domination number
+              mds=mds #a minimum dominating set
+    )
   }
-
-  Gam<-sum(gam) #domination number for the entire digraph
-  row.names(mds)<-c()
-
-  list(dom.num=Gam, #domination number
-       mds=mds #a minimum dominating set
-  )
+  res
 } #end of the function
 #'
 
@@ -23883,8 +24344,8 @@ PEdomMT<-function(Xp,Yp,r,M=c(1,1,1))
 #' convex hull of \code{Yp} points). Loops are allowed for the domination number.
 #'
 #' See (\insertCite{ceyhan:Phd-thesis,ceyhan:masa-2007,ceyhan:dom-num-NPE-Spat2011,ceyhan:mcap2012;textual}{pcds}) more on the domination number of
-#' PE-PCDs. Also see (\insertCite{okabe:2000,ceyhan:comp-geo-2010,renka:1996;textual}{pcds}) for more on Delaunay triangulation and
-#' the TRIPACK algorithm.
+#' PE-PCDs. Also see (\insertCite{okabe:2000,ceyhan:comp-geo-2010,sinclair:2016;textual}{pcds}) for more on Delaunay triangulation and
+#' the corresponding algorithm.
 #'
 #' @param Xp A set of 2D points which constitute the vertices of the PE-PCD
 #' @param Yp A set of 2D points which constitute the vertices of the Delaunay triangles
@@ -23921,6 +24382,8 @@ PEdomMT<-function(Xp,Yp,r,M=c(1,1,1))
 #' #r<-2
 #' PEdomMTnd(Xp,Yp,r) #this may be different due to random selection of the center for r in (1,1.5)
 #'
+#' PEdomMTnd(Xp,Yp[1:3,],r)
+#'
 #' PEdomMTnd(Xp,rbind(Yp,Yp),r)
 #'
 #' dat.fr<-data.frame(a=Xp)
@@ -23950,79 +24413,79 @@ PEdomMTnd<-function(Xp,Yp,r)
   if (!is.point(r,1) || r<1)
   {stop('r must be a scalar >= 1')}
 
-  n<-nrow(Xp) #number of Xp points
-  m<-nrow(Yp) #number of Yp points
-
-  Ytrimesh<-tri.mesh(Yp[,1],Yp[,2],duplicate="remove") #Delaunay triangulation
-  Ytri<-matrix(triangles(Ytrimesh)[,1:3],ncol=3); #the Delaunay triangles
-  nt<-nrow(Ytri) #number of Delaunay triangles
-  inCH<-in.convex.hull(Ytrimesh,Xp[,1],Xp[,2]) #logical indices for Xp points in convex hull of Yp points
-  Xch<-matrix(Xp[inCH==TRUE,],ncol=2)
-
-  gam<-rep(0,nt);  mds<-c()
-  if (nrow(Xch)>=1)
+  if(nrow(Yp)==3)
+  { rcent<-sample(1:3,1) #random center selection from M1,M2,M3
+  cent.nd<-cent.nondeg(Yp,r)[rcent,]
+  res<-PEdomtri(Xp,Yp,r,cent.nd)
+  } else
   {
-    Tri.Ind<-indices.Del.tri(Xch,Yp,Ytrimesh) #indices of triangles in which the points in the data fall
+    Ytrimesh<-interp::tri.mesh(Yp[,1],Yp[,2],duplicate="remove") #Delaunay triangulation
+    Ytri<-matrix(interp::triangles(Ytrimesh)[,1:3],ncol=3); #the Delaunay triangles
+    nt<-nrow(Ytri) #number of Delaunay triangles
+    inCH<-interp::in.convex.hull(Ytrimesh,Xp[,1],Xp[,2]) #logical indices for Xp points in convex hull of Yp points
+    Xch<-matrix(Xp[inCH==TRUE,],ncol=2)
 
-    #calculation of the domination number
-    for (i in 1:nt)
+    gam<-rep(0,nt);  mds<-c()
+    if (nrow(Xch)>=1)
     {
-      dati<-matrix(Xch[Tri.Ind==i,],ncol=2) #points in ith Delaunay triangle
-      ni<-nrow(dati) #number of points in ith triangle
-      if (ni==0)
+      Tri.Ind<-indices.Del.tri(Xch,Yp,Ytrimesh) #indices of triangles in which the points in the data fall
+
+      #calculation of the domination number
+      for (i in 1:nt)
       {
-        gam[i]<-0
-      } else
-      {
-        Yi.tri<-Yp[Ytri[i,],] #vertices of ith triangle
-        if (r==1.5)
-        {Centi<-apply(Yi.tri,2,mean); # center of mass of ith triangle
-        Clvert<-cl2eVRCM(dati,Yi.tri)$Ext #for r=1.5
-        } else {
+        dati<-matrix(Xch[Tri.Ind==i,],ncol=2) #points in ith Delaunay triangle
+        ni<-nrow(dati) #number of points in ith triangle
+        if (ni==0)
+        {
+          gam[i]<-0
+        } else
+        {
+          Yi.tri<-Yp[Ytri[i,],] #vertices of ith triangle
           rcent<-sample(1:3,1) #random center selection from M1,M2,M3
           Centi<-cent.nondeg(Yi.tri,r)[rcent,]
           Clvert<-cl2eVRcent(dati,Yi.tri,Centi)$Ext  #for general r
-        }
 
-        #Gamma=1 piece
-        cnt<-0; j<-1;
-        while (j<=3 & cnt==0)
-        {
-          if (Gam1PEtri(Clvert[j,],dati,Yi.tri,r,Centi,rv=j)==1)
-          {gam[i]<-1; cnt<-1; mds<-rbind(mds,Clvert[j,])
-          } else
-          {j<-j+1}
-        }
+          #Gamma=1 piece
+          cnt<-0; j<-1;
+          while (j<=3 & cnt==0)
+          {
+            if (Gam1PEtri(Clvert[j,],dati,Yi.tri,r,Centi,rv=j)==1)
+            {gam[i]<-1; cnt<-1; mds<-rbind(mds,Clvert[j,])
+            } else
+            {j<-j+1}
+          }
 
-        #Gamma=2 piece
-        if (cnt==0)
-        { k<-1; cnt2<-0;
-        while (k<=2 & cnt2==0)
-        {l<-k+1;
-        while (l<=3 & cnt2==0)
-        {
-          if (Gam2PEtri(Clvert[k,],Clvert[l,],dati,Yi.tri,r,Centi,rv1=k,rv2=l)==1)
-          {gam[i]<-2;cnt2<-1; mds<-rbind(mds,Clvert[c(k,l),])
-          } else {l<-l+1};
-        }
-        k<-k+1;
-        }
-        }
+          #Gamma=2 piece
+          if (cnt==0)
+          { k<-1; cnt2<-0;
+          while (k<=2 & cnt2==0)
+          {l<-k+1;
+          while (l<=3 & cnt2==0)
+          {
+            if (Gam2PEtri(Clvert[k,],Clvert[l,],dati,Yi.tri,r,Centi,rv1=k,rv2=l)==1)
+            {gam[i]<-2;cnt2<-1; mds<-rbind(mds,Clvert[c(k,l),])
+            } else {l<-l+1};
+          }
+          k<-k+1;
+          }
+          }
 
-        if (cnt==0 && cnt2==0)
-        {gam[i]<-3; mds<-rbind(mds,Clvert)}
+          if (cnt==0 && cnt2==0)
+          {gam[i]<-3; mds<-rbind(mds,Clvert)}
+
+        }
 
       }
-
     }
+
+    Gam<-sum(gam) #domination number for the entire digraph
+    row.names(mds)<-c()
+
+    res<-list(dom.num=Gam, #domination number
+              mds=mds #a minimum dominating set
+    )
   }
-
-  Gam<-sum(gam) #domination number for the entire digraph
-  row.names(mds)<-c()
-
-  list(dom.num=Gam, #domination number
-       mds=mds #a minimum dominating set
-  )
+  res
 } #end of the function
 #'
 
@@ -24089,7 +24552,7 @@ Pg2PEtri<-function(r)
 #' @title Number of Delaunay triangles based on a 2D data set
 #'
 #' @description Returns the number of Delaunay triangles based on the 2D set of points \code{Yp} .
-#' See (\insertCite{okabe:2000,renka:1996;textual}{pcds}) for more on Delaunay triangulation and the TRIPACK algorithm.
+#' See (\insertCite{okabe:2000,sinclair:2016;textual}{pcds}) for more on Delaunay triangulation and the corresponding algorithm.
 #'
 #' @param Yp A set of 2D points which constitute the vertices of Delaunay triangles
 #'
@@ -24107,6 +24570,7 @@ Pg2PEtri<-function(r)
 #' Yp<-cbind(runif(ny,0,1),runif(ny,0,1))
 #'
 #' NumDelTri(Yp)
+#' NumDelTri(Yp[1:3,])
 #'
 #' dat.fr<-data.frame(a=Yp)
 #' NumDelTri(dat.fr)
@@ -24121,9 +24585,19 @@ NumDelTri<-function(Yp)
   if (ncol(Yp)!=2 || nrow(Yp)<3)
   {stop('the argument must be of dimension kx2 with k>=3')}
 
-  Ytrimesh<-tri.mesh(Yp[,1],Yp[,2],duplicate="remove") #Delaunay triangulation
-  Ytri<-matrix(triangles(Ytrimesh)[,1:3],ncol=3); #the Delaunay triangles
-  nt<-nrow(Ytri) #number of Delaunay triangles
+  if (nrow(Yp)==3)
+  {
+    vec1<-rep(1,3);
+    D0<-det(matrix(cbind(Yp,vec1),ncol=3))
+    if (round(D0,14)==0)
+    {stop('the Delaunay triangle is degenerate')}
+    nt<-1
+  } else
+  {
+    Ytrimesh<-interp::tri.mesh(Yp[,1],Yp[,2],duplicate="remove") #Delaunay triangulation
+    Ytri<-matrix(interp::triangles(Ytrimesh)[,1:3],ncol=3); #the Delaunay triangles
+    nt<-nrow(Ytri) #number of Delaunay triangles
+  }
   nt
 } #end of the function
 #'
@@ -24219,6 +24693,7 @@ NumDelTri<-function(Yp)
 #' #for the non-degenerate asymptotic distribution of the domination number
 #'
 #' TSDomPEBin(Xp,Yp,r)
+#' TSDomPEBin(Xp,Yp[1:3,],r)
 #'
 #' TSDomPEBin(Xp,rbind(Yp,Yp),r)
 #'
@@ -24277,9 +24752,9 @@ TSDomPEBin<-function(Xp,Yp,r,ch.cor=F,nt=NULL,alternative=c("two.sided", "less",
   {
     nx<-nrow(Xp) #number of Xp points
     ny<-nrow(Yp) #number of Yp points
-    Ytrimesh<-tri.mesh(Yp[,1],Yp[,2],duplicate="remove") #Delaunay triangulation
+    Ytrimesh<-interp::tri.mesh(Yp[,1],Yp[,2],duplicate="remove") #Delaunay triangulation
 
-    inCH<-in.convex.hull(Ytrimesh,Xp[,1],Xp[,2]) #logical indices for Xp points in convex hull of Yp points
+    inCH<-interp::in.convex.hull(Ytrimesh,Xp[,1],Xp[,2]) #logical indices for Xp points in convex hull of Yp points
 
     outch<-nx-sum(inCH)
     prop.out<-outch/nx #observed proportion of points outside convex hull
@@ -24441,6 +24916,7 @@ TSDomPEBin<-function(Xp,Yp,r,ch.cor=F,nt=NULL,alternative=c("two.sided", "less",
 #' #for the non-degenerate asymptotic distribution of the domination number
 #'
 #' TSDomPENor(Xp,Yp,r)
+#' TSDomPENor(Xp,Yp[1:3,],r)
 #'
 #' TSDomPENor(Xp,rbind(Yp,Yp),r)
 #'
@@ -24499,9 +24975,9 @@ TSDomPENor<-function(Xp,Yp,r,ch.cor=F,nt=NULL,alternative=c("two.sided", "less",
   {
     n<-nrow(Xp) #number of Xp points
     m<-nrow(Yp) #number of Yp points
-    Ytrimesh<-tri.mesh(Yp[,1],Yp[,2],duplicate="remove") #Delaunay triangulation
+    Ytrimesh<-interp::tri.mesh(Yp[,1],Yp[,2],duplicate="remove") #Delaunay triangulation
 
-    inCH<-in.convex.hull(Ytrimesh,Xp[,1],Xp[,2]) #logical indices for Xp points in convex hull of Yp points
+    inCH<-interp::in.convex.hull(Ytrimesh,Xp[,1],Xp[,2]) #logical indices for Xp points in convex hull of Yp points
 
     outch<-n-sum(inCH)
     prop.out<-outch/n #observed proportion of points outside convex hull
@@ -24555,6 +25031,7 @@ TSDomPENor<-function(Xp,Yp,r,ch.cor=F,nt=NULL,alternative=c("two.sided", "less",
   return(rval)
 } #end of the function
 #'
+
 #################################################################
 #Functions for NPE in R^3
 #################################################################
@@ -24595,7 +25072,7 @@ TSDomPENor<-function(Xp,Yp,r,ch.cor=F,nt=NULL,alternative=c("two.sided", "less",
 #' @seealso \code{\link{line}}, \code{\link{paraline3D}}, and \code{\link{Plane}}
 #'
 #' @examples
-#' \donttest{
+#' \dontrun{
 #' A<-c(1,10,3); B<-c(1,1,3);
 #' #A<-runif(3); B<-runif(3);
 #' #A<-runif(3,1,100); B<-runif(3,1,100);
@@ -24736,7 +25213,7 @@ Line3D<-function(r0,v,t,dir.vec=TRUE)
 #' @seealso \code{\link{Line3D}}, \code{\link{perp.ln2pl}}, and \code{\link{paraline}}
 #'
 #' @examples
-#' \donttest{
+#' \dontrun{
 #' P<-c(1,10,4); A<-c(1,1,3); B<-c(3,9,12)
 #' #<-runif(3); A<-runif(3); B<-runif(3)
 #' #P<-runif(3,1,100); A<-runif(3,1,100); B<-runif(3,1,100)
@@ -24877,7 +25354,7 @@ paraline3D<-function(P,A,B,t)
 #' @seealso \code{\link{Line3D}}, \code{\link{paraline3D}} and \code{\link{perpline}}
 #'
 #' @examples
-#' \donttest{
+#' \dontrun{
 #' P<-c(1,1,1); A<-c(1,10,4); B<-c(1,1,3); C<-c(3,9,12)
 #' #P<-runif(3); A<-runif(3); B<-runif(3); C<-runif(3)
 #' #P<-runif(3,1,100); A<-runif(3,1,100); B<-runif(3,1,100); C<-runif(3,1,100)
@@ -25011,7 +25488,7 @@ perp.ln2pl<-function(P,A,B,C,t)
 #' @seealso \code{\link{int.2lines}} and \code{\link{int.circ.line}}
 #'
 #' @examples
-#' \donttest{
+#' \dontrun{
 #' L1<-c(2,4,6); L2<-c(1,3,5); A<-c(1,10,3); B<-c(1,1,3); C<-c(3,9,12)
 #' #L1<-runif(3); L2<-runif(3); A<-runif(3); B<-runif(3); C<-runif(3)
 #' #L1<-runif(3,1,100); L2<-runif(3,1,100);
@@ -25122,7 +25599,7 @@ int.line.plane<-function(x1,x2,x3,x4,x5)
 #' @seealso \code{\link{paraplane}}
 #'
 #' @examples
-#' \donttest{
+#' \dontrun{
 #' A<-c(1,10,3); B<-c(1,1,3); C<-c(3,9,12)
 #' #A<-runif(3); B<-runif(3); C<-runif(3)
 #' #A<-runif(3,1,100); B<-runif(3,1,100); C<-runif(3,1,100)
@@ -25244,7 +25721,7 @@ Plane<-function(a,b,c,x,y)
 #' @seealso \code{\link{dp2l}}, \code{\link{dist.pt2set}}  and \code{\link{Dist}}
 #'
 #' @examples
-#' \donttest{
+#' \dontrun{
 #' A<-c(1,2,3); B<-c(3,9,12); C<-c(1,1,3); P<-c(5,2,40)
 #' #A<-runif(3); B<-runif(3); C<-runif(3); P<-runif(3)
 #' #A<-runif(3,1,100); B<-runif(3,1,100); C<-runif(3,1,100); P<-runif(3,1,100)
@@ -25345,7 +25822,7 @@ dp2pl<-function(p,a,b,c)
 #' @seealso \code{\link{runif.tetra}}, \code{\link{runif.tri}} and \code{\link{runifMT}}
 #'
 #' @examples
-#' \donttest{
+#' \dontrun{
 #' #T((0,0,0),(1,0,0),(1/2,sqrt(3)/2,0),(1/2,sqrt(3)/6,sqrt(6)/3))
 #' A<-c(0,0,0); B<-c(1,0,0); C<-c(1/2,sqrt(3)/2,0); D<-c(1/2,sqrt(3)/6,sqrt(6)/3)
 #' tetra<-rbind(A,B,C,D)
@@ -25466,7 +25943,7 @@ runif.stdtetra<-function(k)
 #' @seealso \code{\link{Plane}}
 #'
 #' @examples
-#' \donttest{
+#' \dontrun{
 #' A<-c(1,10,3); B<-c(1,1,3); C<-c(3,9,12); P<-c(1,1,0)
 #' #A<-runif(3); B<-runif(3); C<-runif(3); P<-runif(3)
 #' #A<-runif(3,1,100); B<-runif(3,1,100); C<-runif(3,1,100); P<-runif(3,1,100)
@@ -25602,14 +26079,14 @@ paraplane<-function(p,a,b,c,x,y)
 #' combined) else it checks if \code{p} lies in the interior of the tetrahedron.
 #'
 #' @return A list with two elements
-#' \item{inside.tetra}{A logical output, if the point, \code{p}, is inside the tetrahedron, \code{th}, it is \code{TRUE},
+#' \item{in.tetra}{A logical output, if the point, \code{p}, is inside the tetrahedron, \code{th}, it is \code{TRUE},
 #' else it is \code{FALSE}.}
 #' \item{barycentric}{The barycentric coordinates of the point \code{p} with respect to the tetrahedron, \code{th}.}
 #'
 #' @seealso \code{\link{in.triangle}}
 #'
 #' @examples
-#' \donttest{
+#' \dontrun{
 #' A<-c(0,0,0); B<-c(1,0,0); C<-c(1/2,sqrt(3)/2,0); D<-c(1/2,sqrt(3)/6,sqrt(6)/3); P<-c(.1,.1,.1)
 #' #A<-runif(3); B<-runif(3); C<-runif(3); D<-runif(3); P<-runif(3)
 #' #A<-runif(3,1,100); B<-runif(3,1,100); C<-runif(3,1,100); D<-runif(3,1,100); P<-runif(3,1,100)
@@ -25625,7 +26102,7 @@ paraplane<-function(p,a,b,c,x,y)
 #'
 #' in.tetra<-vector()
 #' for (i in 1:n)
-#' {in.tetra<-c(in.tetra,in.tetrahedron(Dt[i,],tetra,boundary=TRUE)$inside.tetra) }
+#' {in.tetra<-c(in.tetra,in.tetrahedron(Dt[i,],tetra,boundary=TRUE)$in.tetra) }
 #'
 #' in.tetra
 #' Dt.tet<-Dt[in.tetra,]
@@ -25689,7 +26166,7 @@ in.tetrahedron<-function(p,th,boundary=FALSE)
   }
 
   list(
-    inside.tetra=ind.tetra,
+    in.tetra=ind.tetra,
     barycentric=c(b1,b2,b3,b4)
   )
 }
@@ -25722,7 +26199,7 @@ in.tetrahedron<-function(p,th,boundary=FALSE)
 #' @seealso \code{\link{runif.stdtetra}} and \code{\link{runif.tri}}
 #'
 #' @examples
-#' \donttest{
+#' \dontrun{
 #' A<-sample(1:12,3); B<-sample(1:12,3); C<-sample(1:12,3); D<-sample(1:12,3)
 #' #A<-runif(3); B<-runif(3); C<-runif(3); D<-runif(3)
 #' #A<-runif(3,1,100); B<-runif(3,1,100); C<-runif(3,1,100); D<-runif(3,1,100)
@@ -25787,7 +26264,7 @@ runif.tetra<-function(k,th)
     y<-runif(1,min(th[,2]),max(th[,2]));
     z<-runif(1,min(th[,3]),max(th[,3]))
     p<-c(x,y,z)
-    if (in.tetrahedron(p,th)$inside.tetra)
+    if (in.tetrahedron(p,th)$in.tetra)
     {X[i,]<-p;
     ct<-1;
     }
@@ -25835,7 +26312,7 @@ runif.tetra<-function(k,th)
 #' @seealso \code{\link{circ.cent.tri}}
 #'
 #' @examples
-#' \donttest{
+#' \dontrun{
 #' A<-c(0,0,0); B<-c(1,0,0); C<-c(1/2,sqrt(3)/2,0); D<-c(1/2,sqrt(3)/6,sqrt(6)/3)
 #' #A<-runif(3); B<-runif(3); C<-runif(3); D<-runif(3)
 #' #A<-runif(3,1,100); B<-runif(3,1,100); C<-runif(3,1,100); D<-runif(3,1,100)
@@ -25881,7 +26358,7 @@ circ.cent.tetra<-function(th)
   vec1<-rep(1,4);
   D0<-det(matrix(cbind(th,vec1),ncol=4))
   if (round(D0,14)==0)
-  {stop('the thhedron is degenerate')}
+  {stop('the tetrahedron is degenerate')}
 
   A<-th[1,]; B<-th[2,]; C<-th[3,]; D<-th[4,];
   a1<-A[1]; a2<-A[2]; a3<-A[3];
@@ -25928,7 +26405,7 @@ circ.cent.tetra<-function(th)
 #' \insertAllCited{}
 #'
 #' @examples
-#' \donttest{
+#' \dontrun{
 #' A<-c(0,0,0); B<-c(1,0,0); C<-c(1/2,sqrt(3)/2,0); D<-c(1/2,sqrt(3)/6,sqrt(6)/3)
 #' #A<-runif(3); B<-runif(3); C<-runif(3); D<-runif(3)
 #' #A<-runif(3,1,100); B<-runif(3,1,100); C<-runif(3,1,100); D<-runif(3,1,100)
@@ -26013,7 +26490,7 @@ rv.tetraCC<-function(p,th)
   if (round(D0,14)==0)
   {stop('the tetrahedron is degenerate')}
 
-  if (!in.tetrahedron(p,th,boundary=TRUE)$inside.tetra)
+  if (!in.tetrahedron(p,th,boundary=TRUE)$in.tetra)
   {rv<-NA
   } else
   {
@@ -26065,7 +26542,7 @@ rv.tetraCC<-function(p,th)
 #' \insertAllCited{}
 #'
 #' @examples
-#' \donttest{
+#' \dontrun{
 #' A<-c(0,0,0); B<-c(1,0,0); C<-c(1/2,sqrt(3)/2,0); D<-c(1/2,sqrt(3)/6,sqrt(6)/3)
 #' #A<-runif(3); B<-runif(3); C<-runif(3); D<-runif(3)
 #' #A<-runif(3,1,100); B<-runif(3,1,100); C<-runif(3,1,100); D<-runif(3,1,100)
@@ -26149,7 +26626,7 @@ rv.tetraCM<-function(p,th)
   if (round(D0,14)==0)
   {stop('the tetrahedron is degenerate')}
 
-  if (!in.tetrahedron(p,th,boundary=TRUE)$inside.tetra)
+  if (!in.tetrahedron(p,th,boundary=TRUE)$in.tetra)
   {rv<-NA
   } else
   {
@@ -26215,7 +26692,7 @@ rv.tetraCM<-function(p,th)
 #' @seealso \code{\link{fr2vVRCC}}, \code{\link{fr2eTeER}}, \code{\link{Kfr2vTbVRCC}} and \code{\link{Kfr2vVRCC}}
 #'
 #' @examples
-#' \donttest{
+#' \dontrun{
 #' A<-c(0,0,0); B<-c(1,0,0); C<-c(1/2,sqrt(3)/2,0); D<-c(1/2,sqrt(3)/6,sqrt(6)/3)
 #' #A<-runif(3); B<-runif(3); C<-runif(3); D<-runif(3)
 #' #A<-runif(3,1,100); B<-runif(3,1,100); C<-runif(3,1,100); D<-runif(3,1,100)
@@ -26438,7 +26915,7 @@ NPEstdtetra<-function(pt,r,rv=NULL)
   A<-c(0,0,0); B<-c(1,0,0); C<-c(1/2,sqrt(3)/2,0); D<-c(1/2,sqrt(3)/6,sqrt(6)/3)
   th<-rbind(A,B,C,D) #standard regular tetrahedron
 
-  if(!in.tetrahedron(pt,th,boundary=TRUE)$inside.tetra)
+  if (!in.tetrahedron(pt,th,boundary=TRUE)$in.tetra)
   {reg<-NULL; return(reg); stop}
 
   if (is.null(rv))
@@ -26559,7 +27036,7 @@ IndNPEstdtetra<-function(pt1,pt2,r,rv=NULL)
   A<-c(0,0,0); B<-c(1,0,0); C<-c(1/2,sqrt(3)/2,0); D<-c(1/2,sqrt(3)/6,sqrt(6)/3)
   th<-rbind(A,B,C,D) #standard regular tetrahedron
 
-  if(!in.tetrahedron(pt1,th,boundary=TRUE)$inside.tetra || !in.tetrahedron(pt2,th,boundary=TRUE)$inside.tetra)
+  if (!in.tetrahedron(pt1,th,boundary=TRUE)$in.tetra || !in.tetrahedron(pt2,th,boundary=TRUE)$in.tetra)
   {arc<-0
   } else
   {
@@ -26631,7 +27108,7 @@ IndNPEstdtetra<-function(pt1,pt2,r,rv=NULL)
 #' \insertAllCited{}
 #'
 #' @examples
-#' \donttest{
+#' \dontrun{
 #' A<-c(0,0,0); B<-c(1,0,0); C<-c(1/2,sqrt(3)/2,0); D<-c(1/2,sqrt(3)/6,sqrt(6)/3)
 #' tetra<-rbind(A,B,C,D)
 #' r<-1.5
@@ -26680,7 +27157,7 @@ plotPEregsStdTH<-function(Xp,r,main="",xlab="",ylab="",zlab="",xlim=NULL,ylim=NU
 
   in.tetra<-rep(0,n)
   for (i in 1:n)
-    in.tetra[i]<-in.tetrahedron(Xp[i,],th,boundary=TRUE)$inside.tetra #indices of the Xp points inside the tetrahedron
+    in.tetra[i]<-in.tetrahedron(Xp[i,],th,boundary=TRUE)$in.tetra #indices of the Xp points inside the tetrahedron
 
   Xtetra<-matrix(Xp[in.tetra==1,],ncol=3) #the Xp points inside the tetrahedron
   nt<-length(Xtetra)/3 #number of Xp points inside the tetrahedron
@@ -26697,8 +27174,8 @@ plotPEregsStdTH<-function(Xp,r,main="",xlab="",ylab="",zlab="",xlim=NULL,ylim=NU
   zr<-zlim[2]-zlim[1]
 
   plot3D::scatter3D(Xp[,1],Xp[,2],Xp[,3], phi =0,theta=40, bty = "g",xlab=xlab, ylab=ylab, zlab=zlab,
-            xlim=xlim+xr*c(-.05,.05), ylim=ylim+yr*c(-.05,.05), zlim=zlim+zr*c(-.05,.05),
-            pch = 20, cex = 1, ticktype = "detailed", ...)
+                    xlim=xlim+xr*c(-.05,.05), ylim=ylim+yr*c(-.05,.05), zlim=zlim+zr*c(-.05,.05),
+                    pch = 20, cex = 1, ticktype = "detailed", ...)
   #add the vertices of the tetrahedron
   plot3D::points3D(th[,1],th[,2],th[,3], add = TRUE)
   L<-rbind(A,A,A,B,B,C); R<-rbind(B,C,D,C,D,D)
@@ -26797,7 +27274,7 @@ NPEtetra<-function(pt,r,th,M="CM",rv=NULL)
   if (length(M) > 1 || sum(M==c("CM","CC"))==0)
     stop("M must be one of \"CC\", \"CM\"")
 
-  if(!in.tetrahedron(pt,th,boundary=TRUE)$inside.tetra)
+  if (!in.tetrahedron(pt,th,boundary=TRUE)$in.tetra)
   {reg<-NULL; return(reg); stop}
 
   Rv<-rv
@@ -26911,7 +27388,7 @@ IndNPEtetra<-function(pt1,pt2,r,th,M="CM",rv=NULL)
   if (length(M) > 1 || sum(M==c("CM","CC"))==0)
     stop("M must be one of \"CC\", \"CM\"")
 
-  if(!in.tetrahedron(pt1,th,boundary=TRUE)$inside.tetra || !in.tetrahedron(pt2,th,boundary=TRUE)$inside.tetra)
+  if (!in.tetrahedron(pt1,th,boundary=TRUE)$in.tetra || !in.tetrahedron(pt2,th,boundary=TRUE)$in.tetra)
   {arc<-0
   } else
   {
@@ -26957,7 +27434,7 @@ IndNPEtetra<-function(pt1,pt2,r,th,M="CM",rv=NULL)
 #' \insertAllCited{}
 #'
 #' @examples
-#' \donttest{
+#' \dontrun{
 #' A<-c(0,0,0); B<-c(1,0,0); C<-c(1/2,sqrt(3)/2,0); D<-c(1/2,sqrt(3)/6,sqrt(6)/3)
 #' #A<-runif(3); B<-runif(3); C<-runif(3); D<-runif(3)
 #' #A<-runif(3,1,100); B<-runif(3,1,100); C<-runif(3,1,100); D<-runif(3,1,100)
@@ -27072,7 +27549,7 @@ IncMatPEtetra<-function(dat,th,r,M="CM")
 #' \insertAllCited{}
 #'
 #' @examples
-#' \donttest{
+#' \dontrun{
 #' A<-c(0,0,0); B<-c(1,0,0); C<-c(1/2,sqrt(3)/2,0); D<-c(1/2,sqrt(3)/6,sqrt(6)/3)
 #' #A<-runif(3); B<-runif(3); C<-runif(3); D<-runif(3)
 #' #A<-runif(3,1,100); B<-runif(3,1,100); C<-runif(3,1,100); D<-runif(3,1,100)
@@ -27135,7 +27612,7 @@ plotPEregsTH<-function(Xp,r,th,M="CM",main="",xlab="",ylab="",zlab="",xlim=NULL,
 
   in.tetra<-rep(0,n)
   for (i in 1:n)
-    in.tetra[i]<-in.tetrahedron(Xp[i,],th,boundary=TRUE)$inside.tetra #indices of the Xp points inside the tetrahedron
+    in.tetra[i]<-in.tetrahedron(Xp[i,],th,boundary=TRUE)$in.tetra #indices of the Xp points inside the tetrahedron
 
   Xtetra<-matrix(Xp[in.tetra==1,],ncol=3) #the Xp points inside the tetrahedron
   nt<-length(Xtetra)/3 #number of Xp points inside the tetrahedron
@@ -27152,8 +27629,8 @@ plotPEregsTH<-function(Xp,r,th,M="CM",main="",xlab="",ylab="",zlab="",xlim=NULL,
   zr<-zlim[2]-zlim[1]
 
   plot3D::scatter3D(Xp[,1],Xp[,2],Xp[,3], phi =0,theta=40, bty = "g",xlab=xlab, ylab=ylab, zlab=zlab,
-            xlim=xlim+xr*c(-.05,.05), ylim=ylim+yr*c(-.05,.05), zlim=zlim+zr*c(-.05,.05),
-            pch = 20, cex = 1, ticktype = "detailed", ...)
+                    xlim=xlim+xr*c(-.05,.05), ylim=ylim+yr*c(-.05,.05), zlim=zlim+zr*c(-.05,.05),
+                    pch = 20, cex = 1, ticktype = "detailed", ...)
   #add the vertices of the tetrahedron
   plot3D::points3D(th[,1],th[,2],th[,3], add = TRUE)
   A<-th[1,]; B<-th[2,]; C<-th[3,]; D<-th[4,]
@@ -27302,7 +27779,7 @@ Gam1PEstdTetra<-function(p,Dt,r,rv=NULL,ch.data.pnt=FALSE)
 
   A<-c(0,0,0); B<-c(1,0,0); C<-c(1/2,sqrt(3)/2,0); D<-c(1/2,sqrt(3)/6,sqrt(6)/3)
   th<-rbind(A,B,C,D) #standard regular tetrahedron
-  if(in.tetrahedron(p,th)$inside.tetra==F)
+  if (in.tetrahedron(p,th)$in.tetra==F)
   {dom<-0; return(dom); stop}
 
   if (is.null(rv))
@@ -27737,7 +28214,7 @@ Gam1PEtetra<-function(p,Dt,r,th,M="CM",rv=NULL,ch.data.pnt=FALSE)
   if (identical(matrix(p,ncol=3),matrix(Dt,ncol=3)))
   {dom<-1;return(dom);stop}
 
-  if(in.tetrahedron(p,th)$inside.tetra==F)
+  if (in.tetrahedron(p,th)$in.tetra==F)
   {dom<-0; return(dom); stop}
 
   if (is.null(rv))
@@ -28085,7 +28562,7 @@ Gam3PEtetra<-function(pt1,pt2,pt3,Dt,r,th,M="CM",rv1=NULL,rv2=NULL,rv3=NULL,ch.d
 #' \insertAllCited{}
 #'
 #' @examples
-#' \donttest{
+#' \dontrun{
 #' A<-c(0,0,0); B<-c(1,0,0); C<-c(1/2,sqrt(3)/2,0); D<-c(1/2,sqrt(3)/6,sqrt(6)/3)
 #' #A<-runif(3); B<-runif(3); C<-runif(3); D<-runif(3)
 #' #A<-runif(3,1,100); B<-runif(3,1,100); C<-runif(3,1,100); D<-runif(3,1,100)
@@ -28139,7 +28616,7 @@ PEdom.tetra<-function(Xp,th,r,M="CM")
   ind.th<-mds<-c()
   for (i in 1:n)
   {
-    if(in.tetrahedron(Xp[i,],th,boundary = T)$i)
+    if (in.tetrahedron(Xp[i,],th,boundary = T)$i)
       ind.th<-c(ind.th,i)
   }
 
@@ -28302,11 +28779,11 @@ IndNCSmid1D<-function(x1,x2,t,c,int,rv=NULL)
   if (y1>=y2)
   {stop('interval is degenerate or void, left end must be smaller than right end')}
 
-  if(x1==x2 )
+  if (x1==x2 )
   {arc<-1; return(arc); stop}
 
   y1<-int[1]; y2<-int[2];
-  if(x1<y1 || x1>y2 || x2<y1 || x2>y2 )
+  if (x1<y1 || x1>y2 || x2<y1 || x2>y2 )
   {arc<-0; return(arc); stop}
 
   if (is.null(rv))
@@ -28468,7 +28945,7 @@ NULL
 #' \insertAllCited{}
 #'
 #' @examples
-#' \donttest{
+#' \dontrun{
 #' #Examples for muCS1D
 #' muCS1D(1.2,.4)
 #' muCS1D(1.2,.6)
@@ -28513,7 +28990,7 @@ muCS1D<-function(t,c)
 #' @rdname funsMuVarCS1D
 #'
 #' @examples
-#' \donttest{
+#' \dontrun{
 #' #Examples for asyvarCS1D
 #' asyvarCS1D(1.2,.8)
 #'
@@ -28604,7 +29081,7 @@ asyvarCS1D<-function(t,c)
 #' \insertAllCited{}
 #'
 #' @examples
-#' \donttest{
+#' \dontrun{
 #' c<-.4
 #' t<-2
 #' a<-0; b<-10; int<-c(a,b)
@@ -28987,7 +29464,7 @@ IndNCSend1D<-function(x1,x2,t,int,rv=NULL)
   if (y1>=y2)
   {stop('interval is degenerate or void, left end must be smaller than right end')}
 
-  if(x1==x2 )
+  if (x1==x2 )
   {arc<-1; return(arc); stop}
 
   if ((x1>y1 & x1<y2) || (x2>y1 & x2<y2))
@@ -29653,7 +30130,7 @@ NCSint<-function(x,t,c=.5,int)
 
   y1<-int[1]; y2<-int[2];
   if (y1>y2)
-  {stop('interval, int, is degenerate or void, left end must be smaller than or equal to right end')}
+  {stop('interval is degenerate or void, left end must be smaller than or equal to right end')}
 
   if (x<y1 || x>y2)
   {
@@ -30494,7 +30971,7 @@ plotCSregsMI<-function(Xp,Yp,t,c,Jit=.1,main="",xlab="",ylab="",xlim=NULL,ylim=N
 #' ind.gam1
 #'
 #' domset<-dat[ind.gam1]
-#' if(length(ind.gam1)==0)
+#' if (length(ind.gam1)==0)
 #' {domset<-NA}
 #'
 #' #or try
@@ -30719,7 +31196,7 @@ IndCS.Te.onesixth<-function(pt1,pt2)
   A<-c(0,0); B<-c(1,0); C<-c(1/2,sqrt(3)/2);
   CM<-(A+B+C)/3; D3<-(A+B)/2;
   tri<-rbind(A,D3,CM)
-  if (!in.triangle(pt1,tri, boundary = TRUE)$inside.tri || !in.triangle(pt2,rbind(A,B,C), boundary = TRUE)$inside.tri)
+  if (!in.triangle(pt1,tri, boundary = TRUE)$in.tri || !in.triangle(pt2,rbind(A,B,C), boundary = TRUE)$in.tri)
   {arc<-0; return(arc); stop}
 
   x<-c(pt1[1],pt2[1]); y<-c(pt1[2],pt2[2]);
@@ -31063,30 +31540,33 @@ redges.triCM<-function(Dt,tri)
   if (round(D0,14)==0)
   {stop('the triangle is degenerate')}
 
-  nt<-nrow(Dt)
-
   A<-tri[1,]; B<-tri[2,]; C<-tri[3,]
   CM<-(A+B+C)/3;
+  tri.ABM<-rbind(A,B,CM)
+  tri.BCM<-rbind(B,C,CM)
+  tri.ACM<-rbind(A,C,CM)
 
-  t.mAB<-tri.mesh(c(A[1],B[1],CM[1]),c(A[2],B[2],CM[2]),duplicate="remove")
-  t.mBC<-tri.mesh(c(B[1],C[1],CM[1]),c(B[2],C[2],CM[2]),duplicate="remove")
-  t.mCA<-tri.mesh(c(C[1],A[1],CM[1]),c(C[2],A[2],CM[2]),duplicate="remove")
-
+  nt<-nrow(Dt)
   if (nt>=1)
   {
     ind.set<-rep(NA,nt)
-    ind.eAB<-in.convex.hull(t.mAB,Dt[,1],Dt[,2])
-    ind.eBC<-in.convex.hull(t.mBC,Dt[,1],Dt[,2])
-    ind.eCA<-in.convex.hull(t.mCA,Dt[,1],Dt[,2])
-
-    ind.set[ind.eAB==TRUE]<-1
-    ind.set[ind.eBC==TRUE]<-2
-    ind.set[ind.eCA==TRUE]<-3
+    for (i in 1:nt)
+    {
+      if (in.triangle(Dt[i,],tri.ABM,boundary = TRUE)$in.tri)
+      {
+        ind.set[i]<-1
+      } else if (in.triangle(Dt[i,],tri.BCM,boundary = TRUE)$in.tri)
+      {
+        ind.set[i]<-2
+      } else if (in.triangle(Dt[i,],tri.ACM,boundary = TRUE)$in.tri)
+      {
+        ind.set[i]<-3
+      }
+    }
   } else
   {
     {ind.set<-NA}
   }
-  ind.set
   row.names(tri)<-c("A","B","C") #vertex labelling
   edge.desc<-"Edge labels are AB=1, BC=2, and AC=3"
 
@@ -31234,31 +31714,36 @@ redges.tri.cent<-function(Dt,tri,M)
     M<-bary2cart(M,tri)
   }
 
-  if (in.triangle(M,tri,boundary=FALSE)$inside.tri==F)
+  if (in.triangle(M,tri,boundary=FALSE)$in.tri==F)
   {stop('center is not in the interior of the triangle')}
 
-  nt<-nrow(Dt)
-
   A<-tri[1,]; B<-tri[2,]; C<-tri[3,]
+  tri.ABM<-rbind(A,B,M)
+  tri.BCM<-rbind(B,C,M)
+  tri.ACM<-rbind(A,C,M)
 
-  t.mAB<-tri.mesh(c(A[1],B[1],M[1]),c(A[2],B[2],M[2]),duplicate="remove")
-  t.mBC<-tri.mesh(c(B[1],C[1],M[1]),c(B[2],C[2],M[2]),duplicate="remove")
-  t.mCA<-tri.mesh(c(C[1],A[1],M[1]),c(C[2],A[2],M[2]),duplicate="remove")
-
+  nt<-nrow(Dt)
   if (nt>=1)
   {
     ind.set<-rep(NA,nt)
-    ind.eAB<-in.convex.hull(t.mAB,Dt[,1],Dt[,2])
-    ind.eBC<-in.convex.hull(t.mBC,Dt[,1],Dt[,2])
-    ind.eCA<-in.convex.hull(t.mCA,Dt[,1],Dt[,2])
-
-    ind.set[ind.eAB==TRUE]<-1
-    ind.set[ind.eBC==TRUE]<-2
-    ind.set[ind.eCA==TRUE]<-3
+    for (i in 1:nt)
+    {
+      if (in.triangle(Dt[i,],tri.ABM,boundary = TRUE)$in.tri)
+      {
+        ind.set[i]<-1
+      } else if (in.triangle(Dt[i,],tri.BCM,boundary = TRUE)$in.tri)
+      {
+        ind.set[i]<-2
+      } else if (in.triangle(Dt[i,],tri.ACM,boundary = TRUE)$in.tri)
+      {
+        ind.set[i]<-3
+      }
+    }
   } else
   {
     {ind.set<-NA}
   }
+
   ind.set
   row.names(tri)<-c("A","B","C") #vertex labelling
   edge.desc<-"Edge labels are AB=1, BC=2, and AC=3"
@@ -31287,14 +31772,14 @@ redges.tri.cent<-function(Dt,tri,M)
 #' See also (\insertCite{ceyhan:Phd-thesis,ceyhan:comp-geo-2010,ceyhan:arc-density-CS;textual}{pcds}).
 #'
 #' @param pt A 2D point whose CS proximity region is to be computed
-#' @param t A positive real number which serves as the expansion parameter in CS proximity region
+#' @param tau A positive real number which serves as the expansion parameter in CS proximity region
 #' @param tri Three 2D points, stacked row-wise, each row representing a vertex of the triangle
 #' @param M A 2D point in Cartesian coordinates or a 3D point in barycentric coordinates
 #' which serves as a center in the interior of the triangle \code{tri}
 #' @param re Index of the \code{M}-edge region containing the point \code{pt}, either 1, 2, 3 or \code{NULL} (default is \code{NULL})
 #'
 #' @return Vertices of the triangular region which constitutes the CS proximity region with expansion parameter
-#' \eqn{t>0} and center \code{M} for a point \code{pt}
+#' \eqn{\tau>0} and center \code{M} for a point \code{pt}
 #'
 #' @seealso \code{\link{NPEtri}}, \code{\link{NAStri}}, and  \code{\link{IndNCStri}}
 #'
@@ -31306,7 +31791,7 @@ redges.tri.cent<-function(Dt,tri,M)
 #' #A<-runif(2); B<-runif(2); C<-runif(2);
 #' #A<-runif(2,1,100); B<-runif(2,1,100); C<-runif(2,1,100);
 #' Tr<-rbind(A,B,C);
-#' t<-1.5
+#' tau<-1.5
 #'
 #' M<-as.numeric(runif.tri(1,Tr)$g)
 #' #M<-c(1.6,1.2)
@@ -31318,33 +31803,33 @@ redges.tri.cent<-function(Dt,tri,M)
 #' #set.seed(1)
 #' dat<-runif.tri(n,Tr)$g
 #'
-#' NCStri(dat[7,],t,Tr,M)
+#' NCStri(dat[7,],tau,Tr,M)
 #'
 #' P1<-as.numeric(runif.tri(1,Tr)$g)
 #' #P1<-c(.4,.2)
-#' NCStri(P1,t,Tr,M)
+#' NCStri(P1,tau,Tr,M)
 #'
 #' P2<-c(1.8,.5)
-#' NCStri(P2,t,Tr,M)
+#' NCStri(P2,tau,Tr,M)
 #'
 #' P3<-c(1.7,.6)
-#' NCStri(P3,t,Tr,M)
+#' NCStri(P3,tau,Tr,M)
 #'
 #' #or try
 #' re<-redges.tri.cent(P2,Tr,M)$re
-#' NCStri(P2,t,Tr,M,re)
+#' NCStri(P2,tau,Tr,M,re)
 #'
 #' dat.fr<-data.frame(a=Tr)
-#' NCStri(P2,t,dat.fr,M)
+#' NCStri(P2,tau,dat.fr,M)
 #'
 #' @export NCStri
-NCStri<-function(pt,t,tri,M,re=NULL)
+NCStri<-function(pt,tau,tri,M,re=NULL)
 {
   if (!is.point(pt) )
   {stop('pt must be a numeric 2D point')}
 
-  if (!is.point(t,1) || t<=0)
-  {stop('t must be a scalar greater than 0')}
+  if (!is.point(tau,1) || tau<=0)
+  {stop('tau must be a scalar greater than 0')}
 
   tri<-as.matrix(tri)
   if (!is.numeric(tri) || nrow(tri)!=3 || ncol(tri)!=2)
@@ -31363,10 +31848,10 @@ NCStri<-function(pt,t,tri,M,re=NULL)
     M<-bary2cart(M,tri)
   }
 
-  if (in.triangle(M,tri,boundary=FALSE)$inside.tri==F)
+  if (in.triangle(M,tri,boundary=FALSE)$in.tri==F)
   {stop('center is not in the interior of the triangle')}
 
-  if(!in.triangle(pt,tri,boundary=TRUE)$inside.tri)
+  if (!in.triangle(pt,tri,boundary=TRUE)$in.tri)
   {reg<-NULL; return(reg); stop}
 
   if (is.null(re))
@@ -31378,12 +31863,12 @@ NCStri<-function(pt,t,tri,M,re=NULL)
   A<-tri[1,]; B<-tri[2,]; C<-tri[3,];
 
   if (re==1)
-  {d1<-t*dp2l(pt,B,C)$d; d2<-dp2l(M,B,C)$d;
+  {d1<-tau*dp2l(pt,B,C)$d; d2<-dp2l(M,B,C)$d;
   sr<-d1/d2;
   tri.shr<-sr*(tri-t(replicate(3,M)))
   reg<-tri.shr+t(replicate(3,pt))
   A1<-reg[1,]; B1<-reg[2,]; C1<-reg[3,];
-  if (t>1)
+  if (tau>1)
   {G1<-int.2lines(A1,B1,B,C);
   H1<-int.2lines(A1,C1,B,C);
   if (in.triangle(A1,tri,boundary = T)$i)
@@ -31400,12 +31885,12 @@ NCStri<-function(pt,t,tri,M,re=NULL)
   }
   } else if (re==2)
   {
-    d1<-t*dp2l(pt,A,C)$d; d2<-dp2l(M,A,C)$d;
+    d1<-tau*dp2l(pt,A,C)$d; d2<-dp2l(M,A,C)$d;
     sr<-d1/d2;
     tri.shr<-sr*(tri-t(replicate(3,M)))
     reg<-tri.shr+t(replicate(3,pt))
     A1<-reg[1,]; B1<-reg[2,]; C1<-reg[3,];
-    if (t>1)
+    if (tau>1)
     {G1<-int.2lines(A1,B1,A,C);
     H1<-int.2lines(B1,C1,A,C);
     if (in.triangle(B1,tri,boundary = T)$i)
@@ -31422,12 +31907,12 @@ NCStri<-function(pt,t,tri,M,re=NULL)
     }
   } else
   {
-    d1<-t*dp2l(pt,A,B)$d; d2<-dp2l(M,A,B)$d;
+    d1<-tau*dp2l(pt,A,B)$d; d2<-dp2l(M,A,B)$d;
     sr<-d1/d2;
     tri.shr<-sr*(tri-t(replicate(3,M)))
     reg<-tri.shr+t(replicate(3,pt))
     A1<-reg[1,]; B1<-reg[2,]; C1<-reg[3,];
-    if (t>1)
+    if (tau>1)
     {G1<-int.2lines(A1,C1,A,B);
     H1<-int.2lines(B1,C1,A,B);
     if (in.triangle(C1,tri,boundary = T)$i)
@@ -31453,8 +31938,8 @@ NCStri<-function(pt,t,tri,M,re=NULL)
 #' @title The indicator for the presence of an arc from one point to another for Central Similarity Proximity
 #' Catch Digraphs (CS-PCDs)
 #'
-#' @description Returns I(\code{pt2} is in \eqn{NCS(pt1,t)}) for points \code{pt1} and \code{pt2}, that is, returns 1 if \code{pt2} is in \eqn{NCS(pt1,t)},
-#' returns 0 otherwise, where \eqn{NCS(x,t)} is the CS proximity region for point \eqn{x} with the expansion parameter \eqn{t>0}.
+#' @description Returns I(\code{pt2} is in \eqn{NCS(pt1,t)}) for points \code{pt1} and \code{pt2}, that is, returns 1 if \code{pt2} is in \eqn{NCS(pt1,\tau)},
+#' returns 0 otherwise, where \eqn{NCS(x,\tau)} is the CS proximity region for point \eqn{x} with the expansion parameter \eqn{\tau>0}.
 #'
 #' CS proximity region is constructed with respect to the triangle \code{tri} and
 #' edge regions are based on the center, \eqn{M=(m_1,m_2)} in Cartesian coordinates or
@@ -31470,13 +31955,13 @@ NCStri<-function(pt,t,tri,M,re=NULL)
 #' @param pt1 A 2D point whose CS proximity region is constructed.
 #' @param pt2 A 2D point. The function determines whether \code{pt2} is inside the CS proximity region of
 #' \code{pt1} or not.
-#' @param t A positive real number which serves as the expansion parameter in CS proximity region
+#' @param tau A positive real number which serves as the expansion parameter in CS proximity region
 #' @param tri Three 2D points, stacked row-wise, each row representing a vertex of the triangle
 #' @param M A 2D point in Cartesian coordinates or a 3D point in barycentric coordinates
 #' which serves as a center in the interior of the triangle \code{tri}
 #' @param re Index of the \code{M}-edge region containing the point \code{pt}, either 1, 2, 3 or \code{NULL} (default is \code{NULL})
 #'
-#' @return I(\code{pt2} is in \eqn{NCS(pt1,t)}) for \code{pt1}, that is, returns 1 if \code{pt2} is in \eqn{NCS(pt1,t)}, returns 0 otherwise
+#' @return I(\code{pt2} is in \eqn{NCS(pt1,\tau)}) for \code{pt1}, that is, returns 1 if \code{pt2} is in \eqn{NCS(pt1,\tau)}, returns 0 otherwise
 #'
 #' @seealso \code{\link{IndNAStri}}, \code{\link{IndNPEtri}}, \code{\link{IndNCStri}}, and \code{\link{IndCSTe}}
 #'
@@ -31488,7 +31973,7 @@ NCStri<-function(pt,t,tri,M,re=NULL)
 #' #A<-runif(2); B<-runif(2); C<-runif(2);
 #' #A<-runif(2,1,100); B<-runif(2,1,100); C<-runif(2,1,100);
 #' Tr<-rbind(A,B,C);
-#' t<-1.5
+#' tau<-1.5
 #'
 #' M<-as.numeric(runif.tri(1,Tr)$g)
 #' #M<-c(1.6,1.2)
@@ -31500,43 +31985,43 @@ NCStri<-function(pt,t,tri,M,re=NULL)
 #' #set.seed(1)
 #' dat<-runif.tri(n,Tr)$g
 #'
-#' IndNCStri(dat[1,],dat[2,],t,Tr,M)
+#' IndNCStri(dat[1,],dat[2,],tau,Tr,M)
 #'
 #' P1<-as.numeric(runif.tri(1,Tr)$g)
 #' P2<-as.numeric(runif.tri(1,Tr)$g)
-#' IndNCStri(P1,P2,t,Tr,M)
+#' IndNCStri(P1,P2,tau,Tr,M)
 #'
 #' P1<-c(.4,.2)
 #' P2<-c(1.8,.5)
-#' IndNCStri(P1,P2,t,Tr,M)
-#' IndNCStri(P2,P1,t,Tr,M)
+#' IndNCStri(P1,P2,tau,Tr,M)
+#' IndNCStri(P2,P1,tau,Tr,M)
 #'
-#' IndNCStri(P1,P1,t,Tr,M)
-#' IndNCStri(P2,P2,t,Tr,M)
+#' IndNCStri(P1,P1,tau,Tr,M)
+#' IndNCStri(P2,P2,tau,Tr,M)
 #'
 #' P3<-c(1.7,.6)
-#' IndNCStri(P2,P3,t,Tr,M)
-#' IndNCStri(P3,P2,t,Tr,M)
+#' IndNCStri(P2,P3,tau,Tr,M)
+#' IndNCStri(P3,P2,tau,Tr,M)
 #'
 #' #or try
 #' re<-redges.tri.cent(P1,Tr,M)$re
-#' IndNCStri(P1,P2,t,Tr,M,re)
+#' IndNCStri(P1,P2,tau,Tr,M,re)
 #'
 #' P2<-c(1.8,.5)
 #' P3<-c(1.7,.6)
-#' IndNCStri(P2,P3,t,Tr,M)
+#' IndNCStri(P2,P3,tau,Tr,M)
 #'
 #' dat.fr<-data.frame(a=Tr)
-#' IndNCStri(P2,P3,t,dat.fr,M)
+#' IndNCStri(P2,P3,tau,dat.fr,M)
 #'
 #' @export IndNCStri
-IndNCStri<-function(pt1,pt2,t,tri,M,re=NULL)
+IndNCStri<-function(pt1,pt2,tau,tri,M,re=NULL)
 {
   if (!is.point(pt1) || !is.point(pt2) )
   {stop('pt1 and pt2 must both be numeric 2D points')}
 
-  if (!is.point(t,1) || t<=0)
-  {stop('t must be a scalar greater than 0')}
+  if (!is.point(tau,1) || tau<=0)
+  {stop('tau must be a scalar greater than 0')}
 
   tri<-as.matrix(tri)
   if (!is.numeric(tri) || nrow(tri)!=3 || ncol(tri)!=2)
@@ -31555,43 +32040,44 @@ IndNCStri<-function(pt1,pt2,t,tri,M,re=NULL)
     M<-bary2cart(M,tri)
   }
 
-  if (in.triangle(M,tri,boundary=FALSE)$inside.tri==F)
+  if (in.triangle(M,tri,boundary=FALSE)$in.tri==F)
   {stop('center is not in the interior of the triangle')}
 
   if (identical(pt1,pt2))
   {arc<-1; return(arc); stop}
 
-  if(!in.triangle(pt1,tri,boundary=TRUE)$inside.tri || !in.triangle(pt2,tri,boundary=TRUE)$inside.tri)
+  if (!in.triangle(pt1,tri,boundary=TRUE)$in.tri || !in.triangle(pt2,tri,boundary=TRUE)$in.tri)
   {arc<-0; return(arc); stop}
 
   if (is.null(re))
-  {re<-redges.tri.cent(pt1,tri,M)$re #edge region for pt1
-  } else
-  {  if (!is.numeric(re) || sum(re==c(1,2,3))!=1)
-  {stop('edge index, re, must be 1, 2 or 3')}}
+  {rel.ed<-redges.tri.cent(pt1,tri,M)$re #edge region for pt1
+  } else if (!is.numeric(re) || sum(re==c(1,2,3))!=1)
+  {stop('edge index, re, must be 1, 2 or 3')
+    } else
+    {rel.ed<-re}
 
   A<-tri[1,]; B<-tri[2,]; C<-tri[3,];
 
-  if (re==1)
-  {d1<-t*dp2l(pt1,B,C)$d; d2<-dp2l(M,B,C)$d;
+  if (rel.ed==1)
+  {d1<-tau*dp2l(pt1,B,C)$d; d2<-dp2l(M,B,C)$d;
   sr<-d1/d2;
   tri.shr<-sr*(tri-t(replicate(3,M)))
   reg<-tri.shr+t(replicate(3,pt1))
-  } else if (re==2)
+  } else if (rel.ed==2)
   {
-    d1<-t*dp2l(pt1,A,C)$d; d2<-dp2l(M,A,C)$d;
+    d1<-tau*dp2l(pt1,A,C)$d; d2<-dp2l(M,A,C)$d;
     sr<-d1/d2;
     tri.shr<-sr*(tri-t(replicate(3,M)))
     reg<-tri.shr+t(replicate(3,pt1))
   } else
   {
-    d1<-t*dp2l(pt1,A,B)$d; d2<-dp2l(M,A,B)$d;
+    d1<-tau*dp2l(pt1,A,B)$d; d2<-dp2l(M,A,B)$d;
     sr<-d1/d2;
     tri.shr<-sr*(tri-t(replicate(3,M)))
     reg<-tri.shr+t(replicate(3,pt1))
   }
 
-  arc<-sum(in.triangle(pt2,reg,boundary=TRUE)$inside.tri)
+  arc<-sum(in.triangle(pt2,reg,boundary=TRUE)$in.tri)
   arc
 } #end of the function
 #'
@@ -31662,7 +32148,7 @@ IndCSTeRABt1<-function(pt1,pt2)
   A<-c(0,0); B<-c(1,0); C<-c(1/2,sqrt(3)/2);
   CM<-(A+B+C)/3;
   tri<-rbind(A,B,CM); Te<-rbind(A,B,C)
-  if (!in.triangle(pt1,tri, boundary = TRUE)$inside.tri || !in.triangle(pt2,Te, boundary = TRUE)$inside.tri)
+  if (!in.triangle(pt1,tri, boundary = TRUE)$in.tri || !in.triangle(pt2,Te, boundary = TRUE)$in.tri)
   {arc<-0; return(arc); stop}
 
   x<-c(pt1[1],pt2[1]); y<-c(pt1[2],pt2[2]);
@@ -31709,7 +32195,7 @@ IndCSTeRBCt1<-function(pt1,pt2)
   A<-c(0,0); B<-c(1,0); C<-c(1/2,sqrt(3)/2);
   CM<-(A+B+C)/3;
   tri<-rbind(B,C,CM); Te<-rbind(A,B,C)
-  if (!in.triangle(pt1,tri, boundary = TRUE)$inside.tri || !in.triangle(pt2,Te, boundary = TRUE)$inside.tri)
+  if (!in.triangle(pt1,tri, boundary = TRUE)$in.tri || !in.triangle(pt2,Te, boundary = TRUE)$in.tri)
   {arc<-0; return(arc); stop}
 
   x<-c(pt1[1],pt2[1]); y<-c(pt1[2],pt2[2]);
@@ -31752,7 +32238,7 @@ IndCSTeRACt1<-function(pt1,pt2)
   A<-c(0,0); B<-c(1,0); C<-c(1/2,sqrt(3)/2);
   CM<-(A+B+C)/3;
   tri<-rbind(A,C,CM); Te<-rbind(A,B,C)
-  if (!in.triangle(pt1,tri, boundary = TRUE)$inside.tri || !in.triangle(pt2,Te, boundary = TRUE)$inside.tri)
+  if (!in.triangle(pt1,tri, boundary = TRUE)$in.tri || !in.triangle(pt2,Te, boundary = TRUE)$in.tri)
   {arc<-0; return(arc); stop}
 
   x<-c(pt1[1],pt2[1]); y<-c(pt1[2],pt2[2]);
@@ -31816,7 +32302,7 @@ IndCSTet1<-function(pt1,pt2)
 
   A<-c(0,0); B<-c(1,0); C<-c(1/2,sqrt(3)/2);
   Te<-rbind(A,B,C)
-  if (!in.triangle(pt1,Te, boundary = TRUE)$inside.tri || !in.triangle(pt2,Te, boundary = TRUE)$inside.tri)
+  if (!in.triangle(pt1,Te, boundary = TRUE)$in.tri || !in.triangle(pt2,Te, boundary = TRUE)$in.tri)
   {arc<-0; return(arc); stop}
 
   x<-c(pt1[1],pt2[1]);y<-c(pt1[2],pt2[2]);
@@ -31924,14 +32410,14 @@ IndCSTeRAB<-function(pt1,pt2,t,M)
     M<-bary2cart(M,Te)
   }
 
-  if (in.triangle(M,Te,boundary=FALSE)$inside.tri==F)
+  if (in.triangle(M,Te,boundary=FALSE)$in.tri==F)
   {stop('center is not in the interior of the triangle')}
 
   if (identical(pt1,pt2))
   {arc<-1; return(arc); stop}
 
   tri<-rbind(A,B,M)
-  if (!in.triangle(pt1,tri, boundary = TRUE)$inside.tri || !in.triangle(pt2,Te, boundary = TRUE)$inside.tri)
+  if (!in.triangle(pt1,tri, boundary = TRUE)$in.tri || !in.triangle(pt2,Te, boundary = TRUE)$in.tri)
   {arc<-0; return(arc); stop}
 
   arc<-0
@@ -31963,7 +32449,7 @@ IndCSTeRAB<-function(pt1,pt2,t,M)
   } else
   {
     reg<-NCStri(pt1,t,Te,M,re=3)
-    if(in.triangle(pt2,reg,boundary = T)$inside.tri==T)
+    if (in.triangle(pt2,reg,boundary = T)$in.tri==T)
       arc<-1
   }
   arc
@@ -32019,14 +32505,14 @@ IndCSTeRBC<-function(pt1,pt2,t,M)
     M<-bary2cart(M,Te)
   }
 
-  if (in.triangle(M,Te,boundary=FALSE)$inside.tri==F)
+  if (in.triangle(M,Te,boundary=FALSE)$in.tri==F)
   {stop('center is not in the interior of the triangle')}
 
   if (identical(pt1,pt2))
   {arc<-1; return(arc); stop}
 
   tri<-rbind(B,C,M);
-  if (!in.triangle(pt1,tri, boundary = TRUE)$inside.tri || !in.triangle(pt2,Te, boundary = TRUE)$inside.tri)
+  if (!in.triangle(pt1,tri, boundary = TRUE)$in.tri || !in.triangle(pt2,Te, boundary = TRUE)$in.tri)
   {arc<-0; return(arc); stop}
 
   arc<-0
@@ -32058,7 +32544,7 @@ IndCSTeRBC<-function(pt1,pt2,t,M)
   } else
   {
     reg<-NCStri(pt1,t,Te,M,re=1)
-    if(in.triangle(pt2,reg,boundary = T)$inside.tri==T)
+    if (in.triangle(pt2,reg,boundary = T)$in.tri==T)
       arc<-1
   }
   arc
@@ -32114,14 +32600,14 @@ IndCSTeRAC<-function(pt1,pt2,t,M)
     M<-bary2cart(M,Te)
   }
 
-  if (in.triangle(M,Te,boundary=FALSE)$inside.tri==F)
+  if (in.triangle(M,Te,boundary=FALSE)$in.tri==F)
   {stop('center is not in the interior of the triangle')}
 
   if (identical(pt1,pt2))
   {arc<-1; return(arc); stop}
 
   tri<-rbind(A,C,M);
-  if (!in.triangle(pt1,tri, boundary = TRUE)$inside.tri || !in.triangle(pt2,Te, boundary = TRUE)$inside.tri)
+  if (!in.triangle(pt1,tri, boundary = TRUE)$in.tri || !in.triangle(pt2,Te, boundary = TRUE)$in.tri)
   {arc<-0; return(arc); stop}
 
   arc<-0
@@ -32153,7 +32639,7 @@ IndCSTeRAC<-function(pt1,pt2,t,M)
   } else
   {
     reg<-NCStri(pt1,t,Te,M,re=2)
-    if(in.triangle(pt2,reg,boundary = T)$inside.tri==T)
+    if (in.triangle(pt2,reg,boundary = T)$in.tri==T)
       arc<-1
   }
   arc
@@ -32246,13 +32732,13 @@ IndCSTe<-function(pt1,pt2,t,M=c(1,1,1),re=NULL)
   A<-c(0,0); B<-c(1,0); C<-c(1/2,sqrt(3)/2);
   Te<-rbind(A,B,C);
 
-  if (in.triangle(M,Te,boundary=FALSE)$inside.tri==F)
+  if (in.triangle(M,Te,boundary=FALSE)$in.tri==F)
   {stop('center is not in the interior of the triangle')}
 
   if (identical(pt1,pt2))
   {arc<-1; return(arc); stop}
 
-  if (!in.triangle(pt1,Te, boundary = TRUE)$inside.tri || !in.triangle(pt2,Te, boundary = TRUE)$inside.tri)
+  if (!in.triangle(pt1,Te, boundary = TRUE)$in.tri || !in.triangle(pt2,Te, boundary = TRUE)$in.tri)
   {arc<-0; return(arc); stop}
 
   if (is.null(re))
@@ -32370,7 +32856,7 @@ IncMatCSTe<-function(dat,t,M=c(1,1,1))
     M<-bary2cart(M,Te)
   }
 
-  if (in.triangle(M,Te,boundary=FALSE)$inside.tri==F)
+  if (in.triangle(M,Te,boundary=FALSE)$in.tri==F)
   {stop('center is not in the interior of the triangle')}
 
   n<-nrow(dat)
@@ -32477,7 +32963,7 @@ NumArcsCSTe<-function(dat,t,M=c(1,1,1))
     M<-bary2cart(M,Te)
   }
 
-  if (in.triangle(M,Te,boundary=FALSE)$inside.tri==F)
+  if (in.triangle(M,Te,boundary=FALSE)$in.tri==F)
   {stop('center is not in the interior of the triangle')}
 
   n<-nrow(dat)
@@ -32485,13 +32971,13 @@ NumArcsCSTe<-function(dat,t,M=c(1,1,1))
   arcs<-0
   for (i in 1:n)
   {pt1<-dat[i,]
-  if (!in.triangle(pt1,Te,boundary = TRUE)$inside.tri)
+  if (!in.triangle(pt1,Te,boundary = TRUE)$in.tri)
   {arcs<-arcs+0
   } else
   {
     for (j in ((1:n)[-i]) )
     {pt2<-dat[j,]
-    if (!in.triangle(pt2,Te,boundary = TRUE)$inside.tri)
+    if (!in.triangle(pt2,Te,boundary = TRUE)$in.tri)
     {arcs<-arcs+0
     } else
     {
@@ -32604,7 +33090,7 @@ NumArcsCStri<-function(Dt,tri,t,M=c(1,1,1))
     M<-bary2cart(M,tri)
   }
 
-  if (in.triangle(M,tri,boundary=FALSE)$inside.tri==F)
+  if (in.triangle(M,tri,boundary=FALSE)$in.tri==F)
   {stop('center is not in the interior of the triangle')}
 
   n<-nrow(Dt)
@@ -32616,12 +33102,12 @@ NumArcsCStri<-function(Dt,tri,t,M=c(1,1,1))
   } else
   {
     for (i in 1:n)
-    {
-      if (in.triangle(as.numeric(Dt[i,]),tri,boundary=TRUE)$inside.tri)
-      {   edge<-redges.tri.cent(Dt[i,],tri,M)$re
-      for (j in (1:n)[-i])
-      {
-        arcs<-arcs+IndNCStri(as.numeric(Dt[i,]),as.numeric(Dt[j,]),t,tri,M,edge)
+    { dati<-as.numeric(Dt[i,])
+      if (in.triangle(dati,tri,boundary=TRUE)$in.tri)
+      {   edgei<-redges.tri.cent(dati,tri,M)$re
+      for (j in (1:n)[-i]) #to avoid loops
+      { datj<-as.numeric(Dt[j,])
+        arcs<-arcs+IndNCStri(dati,datj,t,tri,M,re=edgei)
       }
       }
     }
@@ -32651,7 +33137,7 @@ NumArcsCStri<-function(Dt,tri,t,M=c(1,1,1))
 #' for points inside the convex hull of \code{Yp} points.
 #'
 #' See (\insertCite{ceyhan:Phd-thesis,ceyhan:arc-density-CS,ceyhan:test2014;textual}{pcds}) for more on CS-PCDs.
-#' Also see (\insertCite{okabe:2000,ceyhan:comp-geo-2010,renka:1996;textual}{pcds}) for more on Delaunay triangulation and the TRIPACK algorithm.
+#' Also see (\insertCite{okabe:2000,ceyhan:comp-geo-2010,sinclair:2016;textual}{pcds}) for more on Delaunay triangulation and the corresponding algorithm.
 #'
 #' @param Xp A set of 2D points which constitute the vertices of the CS-PCD
 #' @param Yp A set of 2D points which constitute the vertices of the Delaunay triangles
@@ -32694,6 +33180,7 @@ NumArcsCStri<-function(Dt,tri,t,M=c(1,1,1))
 #'
 #' t<-2
 #' NumArcsCSMT(Xp,Yp,t,M)
+#' NumArcsCSMT(Xp,Yp[1:3,],t,M)
 #'
 #' NumArcsCSMT(Xp,rbind(Yp,Yp),t,M)
 #'
@@ -32724,45 +33211,72 @@ NumArcsCSMT<-function(Xp,Yp,t,M=c(1,1,1))
   if (!is.point(t,1) || t<=0)
   {stop('t must be a scalar greater than 0')}
 
-  if (!is.point(M,3) || !all(M>0))
-  {stop('M must be a numeric 3D point with positive barycentric coordinates')}
+  if (nrow(Yp)==3)
+  {
+    Tri.Ind<-indices.Del.tri(Xp,Yp) #returns 1's if the points Xp[i,]'s are inside triangle based on Yp, NA otherwise
 
-  #Delaunay triangulation of Yp points
-  Ytrimesh<-tri.mesh(Yp[,1],Yp[,2],duplicate="remove")
-  Ytri<-matrix(triangles(Ytrimesh)[,1:3],ncol=3); #the vertices of the Delaunay triangles
-  nt<-nrow(Ytri) #number of Delaunay triangles
+    inTri<-which(Tri.Ind==1)
+    NinTri<-length(inTri) #number of points in the triangle
 
-  inCH<-in.convex.hull(Ytrimesh,Xp[,1],Xp[,2])
-  Ninch<-sum(inCH) #number of points in the convex hull
-
-  if (Ninch==0)
-  {Tot.Arcs<-0;
-  ListW<-vector()
+    if (NinTri==0)
+    {Tot.Arcs<-0;
+    ListW<-vector()
+    } else
+    {
+      Xdt<-matrix(Xp[inTri,],ncol=2)
+      tri<-as.bastri(Yp)$tri #convert the triangle Yp into an unscaled basic triangle, see as.bastri help page
+      ListW<-area.polygon(tri)
+      Tot.Arcs<-NumArcsCStri(Xdt,tri,t,M) #number of arcs in the triangle Yp
+    }
+    res<-list(num.arcs=Tot.Arcs,
+              num.in.conv.hull=NinTri,
+              weight.vec=ListW)
   } else
   {
-    Xdt<-matrix(Xp[inCH==TRUE,],ncol=2)
-    Tri.Ind<-indices.Del.tri(Xdt,Yp,Ytrimesh) #indices of triangles in which the points in the data fall
 
-    #calculation of the total number of arcs
-    TArcs<-List.W<-ni<-arcs<-vector()
-    for (i in 1:nt)
+    if (!is.point(M,3) || !all(M>0))
+    {stop('M must be a numeric 3D point with positive barycentric coordinates')}
+
+    #Delaunay triangulation of Yp points
+    Ytrimesh<-interp::tri.mesh(Yp[,1],Yp[,2],duplicate="remove")
+    Ytri<-matrix(interp::triangles(Ytrimesh)[,1:3],ncol=3); #the vertices of the Delaunay triangles
+    nt<-nrow(Ytri) #number of Delaunay triangles
+
+    inCH<-interp::in.convex.hull(Ytrimesh,Xp[,1],Xp[,2])
+    Ninch<-sum(inCH) #number of points in the convex hull
+
+    if (Ninch==0)
+    {Tot.Arcs<-0;
+    ListW<-vector()
+    } else
     {
-      dati<-Xdt[Tri.Ind==i,] #points in ith Delaunay triangle
-      ifelse(nt==1,Tri<-Yp[Ytri,],Tri<-Yp[Ytri[i,],]) #vertices of ith triangle
-      tri<-as.bastri(Tri)$tri #convert the triangle Tri into an unscaled basic triangle, see as.bastri help page
-      List.W<-c(List.W,area.polygon(tri))
-      ni<-c(ni,length(dati)/2) #number of points in ith delaunay triangle
+      Xdt<-matrix(Xp[inCH==TRUE,],ncol=2)
+      Tri.Ind<-indices.Del.tri(Xdt,Yp,Ytrimesh) #indices of triangles in which the points in the data fall
 
-      num.arcs<-NumArcsCStri(dati,tri,t,M) #number of arcs in ith triangle
-      arcs<-c(arcs,num.arcs) #number of arcs in all triangles as a vector
+      #calculation of the total number of arcs
+      List.W<-ni<-arcs<-vector()
+      for (i in 1:nt)
+      {
+        dati<-Xdt[Tri.Ind==i,] #points in ith Delaunay triangle
+        Tri<-Yp[Ytri[i,],] #vertices of ith triangle
+        tri<-as.bastri(Tri)$tri #convert the triangle Tri into an unscaled basic triangle, see as.bastri help page
+        List.W<-c(List.W,area.polygon(tri))
+        ni<-c(ni,length(dati)/2) #number of points in ith delaunay triangle
+
+        num.arcs<-NumArcsCStri(dati,tri,t,M) #number of arcs in ith triangle
+        arcs<-c(arcs,num.arcs) #number of arcs in all triangles as a vector
+      }
+
+      Tot.Arcs<-sum(arcs) #the total number of arcs in all triangles
+      ListW<-List.W[ni >= 1] #adjusted for triangles with one or more points in them
     }
 
-    Tot.Arcs<-sum(arcs) #the total number of arcs in all triangles
-    ListW<-List.W[ni >= 1] #adjusted for triangles with one or more points in them
+    res<-list(num.arcs=Tot.Arcs,
+              num.in.conv.hull=Ninch,
+              weight.vec=ListW)
   }
-  list(num.arcs=Tot.Arcs,
-       num.in.conhull=Ninch,
-       weight.vec=ListW)
+
+  res
 } #end of the function
 #'
 
@@ -32825,11 +33339,10 @@ NumArcsCSMT<-function(Xp,Yp,t,M=c(1,1,1))
 #' \insertAllCited{}
 #'
 #' @examples
-#' \donttest{
 #' #nx is number of X points (target) and ny is number of Y points (nontarget)
-#' nx<-20; ny<-4; #try also nx<-40; ny<-10 or nx<-1000; ny<-10;
+#' nx<-40; ny<-4; #try also nx<-40; ny<-10 or nx<-1000; ny<-10;
 #'
-#' #set.seed(1)
+#' set.seed(1)
 #' Xp<-cbind(runif(nx),runif(nx))
 #' #Xp<-cbind(runif(nx,0.5,1.5),runif(nx,0,1))
 #' #Xp<-cbind(runif(nx,1,2),runif(nx,0,1))
@@ -32850,11 +33363,16 @@ NumArcsCSMT<-function(Xp,Yp,t,M=c(1,1,1))
 #' TSArcDensCSMT(Xp,Yp,t=1.5)
 #' TSArcDensCSMT(Xp,Yp,t=1.5,ch=TRUE)
 #'
-#' #TSArcDensCSMT(c(.4,.2),Yp,t=.5) #not enough points in the convex hull of non-target points to
-#' #compute arc density of the target points
-#'
 #' t<-2
 #' TSArcDensCSMT(Xp,Yp,t)
+#'
+#' \dontrun{
+#' TSArcDensCSMT(c(.4,.2),Yp,t=.5) #not enough points in the convex hull of non-target points to
+#' #compute arc density of the target points
+#'
+#' Xp<-runif.tri(nx,Yp[1:3,])$g
+#' TSArcDensCSMT(Xp,Yp[1:3,],t)
+#' }
 #'
 #' TSArcDensCSMT(Xp,rbind(Yp,Yp),t)
 #'
@@ -32863,7 +33381,6 @@ NumArcsCSMT<-function(Xp,Yp,t,M=c(1,1,1))
 #'
 #' dat.fr<-data.frame(a=Yp)
 #' TSArcDensCSMT(Xp,dat.fr,t)
-#' }
 #'
 #' @export TSArcDensCSMT
 TSArcDensCSMT<-function(Xp,Yp,t,ch.cor=FALSE,alternative = c("two.sided", "less", "greater"),conf.level = 0.95)
@@ -32969,6 +33486,7 @@ TSArcDensCSMT<-function(Xp,Yp,t,ch.cor=FALSE,alternative = c("two.sided", "less"
   return(rval)
 } #end of the function
 #'
+
 #################################################################
 
 #' @title An object of class "PCDs":
@@ -33111,7 +33629,7 @@ ArcsCStri<-function(Xp,tri,t,M=c(1,1,1))
     M<-bary2cart(M,tri)
   }
 
-  if (in.triangle(M,tri,boundary=FALSE)$inside.tri==F)
+  if (in.triangle(M,tri,boundary=FALSE)$in.tri==F)
   {stop('center is not in the interior of the triangle')}
 
 
@@ -33119,7 +33637,7 @@ ArcsCStri<-function(Xp,tri,t,M=c(1,1,1))
 
   in.tri<-rep(0,n)
   for (i in 1:n)
-    in.tri[i]<-in.triangle(Xp[i,],tri,boundary=TRUE)$inside.tri #indices the Xp points inside the triangle
+    in.tri[i]<-in.triangle(Xp[i,],tri,boundary=TRUE)$in.tri #indices the Xp points inside the triangle
 
   Xtri<-Xp[in.tri==1,] #the Xp points inside the triangle
   n2<-length(Xtri)/2
@@ -33279,7 +33797,7 @@ IncMatCStri<-function(dat,tri,t,M=c(1,1,1))
     M<-bary2cart(M,tri)
   }
 
-  if (isTRUE(all.equal(M,circ.cent.tri(tri)))==F & in.triangle(M,tri,boundary=FALSE)$inside.tri==F)
+  if (isTRUE(all.equal(M,circ.cent.tri(tri)))==F & in.triangle(M,tri,boundary=FALSE)$in.tri==F)
   {stop('center is not the circumcenter or not in the interior of the triangle')}
 
   n<-nrow(dat)
@@ -33516,14 +34034,14 @@ plotCSregsTri<-function(Xp,tri,t,M=c(1,1,1),asp=NA,main="",xlab="",ylab="",xlim=
     M<-bary2cart(M,tri)
   }
 
-  if (in.triangle(M,tri,boundary=FALSE)$inside.tri==F)
+  if (in.triangle(M,tri,boundary=FALSE)$in.tri==F)
   {stop('center is not in the interior of the triangle')}
 
   n<-nrow(Xp)
 
   in.tri<-rep(0,n)
   for (i in 1:n)
-    in.tri[i]<-in.triangle(Xp[i,],tri,boundary=TRUE)$inside.tri #indices of the Xp points inside the triangle
+    in.tri[i]<-in.triangle(Xp[i,],tri,boundary=TRUE)$in.tri #indices of the Xp points inside the triangle
 
   Xtri<-matrix(Xp[in.tri==1,],ncol=2) #the Xp points inside the triangle
   nt<-length(Xtri)/2 #number of Xp points inside the triangle
@@ -33563,7 +34081,7 @@ plotCSregsTri<-function(Xp,tri,t,M=c(1,1,1),asp=NA,main="",xlab="",ylab="",xlim=
 #' (CS-PCD) whose vertices are the data points in \code{Xp} in the multiple triangle case.
 #'
 #' CS proximity regions are
-#' defined with respect to the Delaunay triangles based on \code{Yp} points with expansion parameter \eqn{t>0} and
+#' defined with respect to the Delaunay triangles based on \code{Yp} points with expansion parameter \eqn{\tau>0} and
 #' edge regions in each triangle are based on the center \eqn{M=(\alpha,\beta,\gamma)} in barycentric coordinates
 #' in the interior of each Delaunay triangle (default for \eqn{M=(1,1,1)} which is the center of mass of
 #' the triangle). Each Delaunay triangle is first converted to an (unscaled) basic triangle so that
@@ -33575,11 +34093,11 @@ plotCSregsTri<-function(Xp,tri,t,M=c(1,1,1),asp=NA,main="",xlab="",ylab="",xlim=
 #' for points inside the convex hull of \code{Yp} points.
 #'
 #' See (\insertCite{ceyhan:Phd-thesis,ceyhan:arc-density-CS,ceyhan:test2014;textual}{pcds}) for more on CS-PCDs.
-#' Also see (\insertCite{okabe:2000,ceyhan:comp-geo-2010,renka:1996;textual}{pcds}) for more on Delaunay triangulation and the TRIPACK algorithm.
+#' Also see (\insertCite{okabe:2000,ceyhan:comp-geo-2010,sinclair:2016;textual}{pcds}) for more on Delaunay triangulation and the corresponding algorithm.
 #'
 #' @param Xp A set of 2D points which constitute the vertices of the CS-PCD
 #' @param Yp A set of 2D points which constitute the vertices of the Delaunay triangles
-#' @param t A positive real number which serves as the expansion parameter in CS proximity region
+#' @param tau A positive real number which serves as the expansion parameter in CS proximity region
 #' @param M A 3D point in barycentric coordinates which serves as a center in the interior of each Delaunay
 #' triangle, default for \eqn{M=(1,1,1)} which is the center of mass of each triangle
 #'
@@ -33616,19 +34134,19 @@ plotCSregsTri<-function(Xp,tri,t,M=c(1,1,1),asp=NA,main="",xlab="",ylab="",xlim=
 #' M<-c(1,1,1) #M<-c(1,2,3) #M<-c(-1,2,3) #barycentric coordinates
 #' #M<-c(1.3,1.3)
 #' #M<-c(.3,.3)
-#' t<-1.5
-#' #t<-2
+#' tau<-1.5
+#' #tau<-2
 #'
-#' ArcsCSMT(Xp,Yp,t,M)
+#' ArcsCSMT(Xp,Yp,tau,M)
 #'
-#' Arcs<-ArcsCSMT(Xp,Yp,t,M)
+#' Arcs<-ArcsCSMT(Xp,Yp,tau,M)
 #' Arcs
 #' summary(Arcs)
 #' plot(Arcs)
 #'
 #' S<-Arcs$S
 #' E<-Arcs$E
-#' DT<-tripack::tri.mesh(Yp[,1],Yp[,2],duplicate="remove")
+#' DT<-interp::tri.mesh(Yp[,1],Yp[,2],duplicate="remove")
 #'
 #' Xlim<-range(Xp[,1],Yp[,1])
 #' Ylim<-range(Xp[,2],Yp[,2])
@@ -33637,21 +34155,22 @@ plotCSregsTri<-function(Xp,tri,t,M=c(1,1,1),asp=NA,main="",xlab="",ylab="",xlim=
 #'
 #' plot(Xp,main=" ", xlab=" ", ylab=" ",
 #' xlim=Xlim+xd*c(-.05,.05),ylim=Ylim+yd*c(-.05,.05),pch=".",cex=3)
-#' tripack::plot.tri(DT, add=TRUE, do.points = TRUE)
+#' interp::plot.triSht(DT, add=TRUE, do.points = TRUE)
 #' arrows(S[,1], S[,2], E[,1], E[,2], length = 0.1, col= 4)
 #'
-#' ArcsCSMT(Xp,Yp,t,M)
+#' ArcsCSMT(Xp,Yp,tau,M)
+#' ArcsCSMT(Xp,Yp[1:3,],tau,M)
 #'
-#' ArcsCSMT(Xp,rbind(Yp,Yp),t,M)
+#' ArcsCSMT(Xp,rbind(Yp,Yp),tau,M)
 #'
 #' dat.fr<-data.frame(a=Xp)
-#' ArcsCSMT(dat.fr,Yp,t,M)
+#' ArcsCSMT(dat.fr,Yp,tau,M)
 #'
 #' dat.fr<-data.frame(a=Yp)
-#' ArcsCSMT(Xp,dat.fr,t,M)
+#' ArcsCSMT(Xp,dat.fr,tau,M)
 #'
 #' @export ArcsCSMT
-ArcsCSMT<-function(Xp,Yp,t,M=c(1,1,1))
+ArcsCSMT<-function(Xp,Yp,tau,M=c(1,1,1))
 {
   if (!is.numeric(as.matrix(Xp)) || !is.numeric(as.matrix(Yp)))
   {stop('Xp and Yp must be numeric')}
@@ -33668,91 +34187,99 @@ ArcsCSMT<-function(Xp,Yp,t,M=c(1,1,1))
   if (ncol(Yp)!=2 || nrow(Yp)<3)
   {stop('Yp must be of dimension kx2 with k>=3')}
 
-  if (!is.point(t,1) || t<=0)
-  {stop('t must be a scalar greater than 0')}
+  if (!is.point(tau,1) || tau<=0)
+  {stop('tau must be a scalar greater than 0')}
 
-  if (!is.point(M,3) || !all(M>0))
-  {stop('M must be a numeric 3D point with positive barycentric coordinates')}
-
-  DTmesh<-tri.mesh(Yp[,1],Yp[,2],duplicate="remove")
-
-  nx<-nrow(Xp)
-  ch<-rep(0,nx)
-  for (i in 1:nx)
-    ch[i]<-in.convex.hull(DTmesh,Xp[i,1],Xp[i,2])
-
-  Xch<-matrix(Xp[ch==1,],ncol=2) #the Xp points inside the convex hull of Yp
-
-  DTr<-matrix(triangles(DTmesh)[,1:3],ncol=3)
-  nt<-nrow(DTr)
-  nx2<-nrow(Xch)
-
-  S<-E<-NULL #S is for source and E is for end points for the arcs
-  if (nx2>1)
+  if (nrow(Yp)==3)
   {
-    i.tr<-rep(0,nx2) #the vector of indices for the triangles that contain the Xp points
-    for (i in 1:nx2)
-      for (j in 1:nt)
-      {
-        tri<-Yp[DTr[j,],]
-        if (in.triangle(Xch[i,],tri,boundary=TRUE)$inside.tri )
-          i.tr[i]<-j
-      }
+    res<-ArcsCStri(Xp,Yp,tau,M)
+  } else
+  {
 
-    for (i in 1:nt)
+    if (!is.point(M,3) || !all(M>0))
+    {stop('M must be a numeric 3D point with positive barycentric coordinates')}
+
+    DTmesh<-interp::tri.mesh(Yp[,1],Yp[,2],duplicate="remove")
+
+    nx<-nrow(Xp)
+    ch<-rep(0,nx)
+    for (i in 1:nx)
+      ch[i]<-interp::in.convex.hull(DTmesh,Xp[i,1],Xp[i,2])
+
+    Xch<-matrix(Xp[ch==1,],ncol=2) #the Xp points inside the convex hull of Yp
+
+    DTr<-matrix(interp::triangles(DTmesh)[,1:3],ncol=3)
+    nt<-nrow(DTr)
+    nx2<-nrow(Xch)
+
+    S<-E<-NULL #S is for source and E is for end points for the arcs
+    if (nx2>1)
     {
-      Xl<-matrix(Xch[i.tr==i,],ncol=2)
-      if (nrow(Xl)>1)
-      {
-        Yi.Tri<-Yp[DTr[i,],] #vertices of the ith triangle
-        Yi.tri<-as.bastri(Yi.Tri)$tri #convert the triangle Yi.Tri into an unscaled basic triangle, see as.bastri help page
+      i.tr<-rep(0,nx2) #the vector of indices for the triangles that contain the Xp points
+      for (i in 1:nx2)
+        for (j in 1:nt)
+        {
+          tri<-Yp[DTr[j,],]
+          if (in.triangle(Xch[i,],tri,boundary=TRUE)$in.tri )
+            i.tr[i]<-j
+        }
 
-        nl<-nrow(Xl)
-        re.ind<-redges.tri.cent(Xl,Yi.tri,M)$re
-        for (j in 1:nl)
-        {RE<-re.ind[j]
-        for (k in (1:nl)[-j]) #to avoid loops
-          if (IndNCStri(Xl[j,],Xl[k,],t,Yi.tri,M,re=RE)==1 )
-          {
-            S <-rbind(S,Xl[j,]); E <-rbind(E,Xl[k,]);
+      for (i in 1:nt)
+      {
+        Xl<-matrix(Xch[i.tr==i,],ncol=2)
+        if (nrow(Xl)>1)
+        {
+          Yi.Tri<-Yp[DTr[i,],] #vertices of the ith triangle
+          Yi.tri<-as.bastri(Yi.Tri)$tri #convert the triangle Yi.Tri into an unscaled basic triangle, see as.bastri help page
+
+          nl<-nrow(Xl)
+          re.ind<-redges.tri.cent(Xl,Yi.tri,M)$re
+          for (j in 1:nl)
+          {RE<-re.ind[j]
+          for (k in (1:nl)[-j]) #to avoid loops
+            if (IndNCStri(Xl[j,],Xl[k,],tau,Yi.tri,M,re=RE)==1 )
+            {
+              S <-rbind(S,Xl[j,]); E <-rbind(E,Xl[k,]);
+            }
           }
         }
       }
     }
+
+    xname <-deparse(substitute(Xp))
+    yname <-deparse(substitute(Yp))
+    tname <-deparse(substitute(tau))
+
+    param<-tau
+    names(param)<-"expansion parameter"
+    typ<-paste("Central Similarity Proximity Catch Digraph (CS-PCD) for 2D Points in the Multiple Triangles with Expansion Parameter ", tname, "=",tau," and Center M",sep="")
+
+    main.txt<-paste("Arcs of CS-PCD for Points in Multiple Triangles\n with ", tname, "=",tau," and Center M",sep="")
+
+    nvert<-nx2; ny<-nrow(Yp); ntri<-nt; narcs=ifelse(!is.null(S),nrow(S),0);
+    arc.dens<-ifelse(nvert>1,narcs/(nvert*(nvert-1)),NA)
+
+    quantities<-c(nvert,ny,ntri,narcs,arc.dens)
+    names(quantities)<-c("number of vertices", "number of partition points",
+                         "number of triangles","number of arcs", "arc density")
+
+    res<-list(
+      type=typ,
+      parameters=param,
+      tess.points=Yp, tess.name=yname, #tessellation points
+      vertices=Xp, vert.name=xname, #vertices of the digraph
+      S=S,
+      E=E,
+      mtitle=main.txt,
+      quant=quantities
+    )
+
+    class(res)<-"PCDs"
+    res$call <-match.call()
   }
-
-  xname <-deparse(substitute(Xp))
-  yname <-deparse(substitute(Yp))
-  tname <-deparse(substitute(t))
-
-  param<-t
-  names(param)<-"expansion parameter"
-  typ<-paste("Central Similarity Proximity Catch Digraph (CS-PCD) for 2D Points in the Multiple Triangles with Expansion Parameter ", tname, "=",t," and Center M",sep="")
-
-  main.txt<-paste("Arcs of CS-PCD for Points in Multiple Triangles\n with ", tname, "=",t," and Center M",sep="")
-
-  nvert<-nx2; ny<-nrow(Yp); ntri<-nt; narcs=ifelse(!is.null(S),nrow(S),0);
-  arc.dens<-ifelse(nvert>1,narcs/(nvert*(nvert-1)),NA)
-
-  quantities<-c(nvert,ny,ntri,narcs,arc.dens)
-  names(quantities)<-c("number of vertices", "number of partition points",
-                       "number of triangles","number of arcs", "arc density")
-
-  res<-list(
-    type=typ,
-    parameters=param,
-    tess.points=Yp, tess.name=yname, #tessellation points
-    vertices=Xp, vert.name=xname, #vertices of the digraph
-    S=S,
-    E=E,
-    mtitle=main.txt,
-    quant=quantities
-  )
-
-  class(res)<-"PCDs"
-  res$call <-match.call()
   res
 } #end of the function
+#'
 #'
 
 #################################################################
@@ -33775,7 +34302,7 @@ ArcsCSMT<-function(Xp,Yp,t,M=c(1,1,1))
 #' so the diagonal entries are all equal to 1.
 #'
 #' See (\insertCite{ceyhan:Phd-thesis,ceyhan:arc-density-CS,ceyhan:test2014;textual}{pcds}) for more on CS-PCDs.
-#' Also see (\insertCite{okabe:2000,ceyhan:comp-geo-2010,renka:1996;textual}{pcds}) for more on Delaunay triangulation and the TRIPACK algorithm.
+#' Also see (\insertCite{okabe:2000,ceyhan:comp-geo-2010,sinclair:2016;textual}{pcds}) for more on Delaunay triangulation and the corresponding algorithm.
 #'
 #' @param Xp A set of 2D points which constitute the vertices of the CS-PCD
 #' @param Yp A set of 2D points which constitute the vertices of the Delaunay triangles
@@ -33815,6 +34342,7 @@ ArcsCSMT<-function(Xp,Yp,t,M=c(1,1,1))
 #' #IndUBdom(IM,3) #takes a very long time for large nx, try smaller nx
 #'
 #' IncMatCSMT(Xp,Yp,t,M)
+#' IncMatCSMT(Xp,Yp[1:3,],t,M)
 #'
 #' IncMatCSMT(Xp,rbind(Yp,Yp),t,M)
 #'
@@ -33845,49 +34373,55 @@ IncMatCSMT<-function(Xp,Yp,t,M=c(1,1,1))
   if (!is.point(t,1) || t<=0)
   {stop('t must be a scalar greater than 0')}
 
-  if (!is.point(M,3) || !all(M>0))
-  {stop('M must be a numeric 3D point with positive barycentric coordinates')}
-
-
-  DTmesh<-tri.mesh(Yp[,1],Yp[,2],duplicate="remove")
-
-  nx<-nrow(Xp)
-  ch<-rep(0,nx)
-  for (i in 1:nx)
-    ch[i]<-in.convex.hull(DTmesh,Xp[i,1],Xp[i,2])
-
-  inc.mat<-matrix(0, nrow=nx, ncol=nx)
-
-  DTr<-matrix(triangles(DTmesh)[,1:3],ncol=3)
-  nt<-nrow(DTr) #number of Delaunay triangles
-
-  if (nx>1)
+  if (nrow(Yp)==3)
   {
-    i.tr<-rep(0,nx) #the vector of indices for the triangles that contain the Xp points
-    for (i in 1:nx)
-      for (j in 1:nt)
-      {
-        tri<-Yp[DTr[j,],]
-        if (in.triangle(Xp[i,],tri,boundary=TRUE)$inside.tri )
-          i.tr[i]<-j
-      }
+    inc.mat<-IncMatCStri(Xp,Yp,t,M)
+  } else
+  {
+    if (!is.point(M,3) || !all(M>0))
+    {stop('M must be a numeric 3D point with positive barycentric coordinates')}
 
+
+    DTmesh<-interp::tri.mesh(Yp[,1],Yp[,2],duplicate="remove")
+
+    nx<-nrow(Xp)
+    ch<-rep(0,nx)
     for (i in 1:nx)
-    {pt1<-Xp[i,]
-    if (i.tr[i]!=0)
+      ch[i]<-interp::in.convex.hull(DTmesh,Xp[i,1],Xp[i,2])
+
+    inc.mat<-matrix(0, nrow=nx, ncol=nx)
+
+    DTr<-matrix(interp::triangles(DTmesh)[,1:3],ncol=3)
+    nt<-nrow(DTr) #number of Delaunay triangles
+
+    if (nx>1)
     {
-      Yi.Tri<-Yp[DTr[i.tr[i],],] #vertices of the ith triangle
-      Yi.tri<-as.bastri(Yi.Tri)$tri #convert the triangle Yi.Tri into an unscaled basic triangle, see as.bastri help page
+      i.tr<-rep(0,nx) #the vector of indices for the triangles that contain the Xp points
+      for (i in 1:nx)
+        for (j in 1:nt)
+        {
+          tri<-Yp[DTr[j,],]
+          if (in.triangle(Xp[i,],tri,boundary=TRUE)$in.tri )
+            i.tr[i]<-j
+        }
 
-      edge<-re.tri.cent(pt1,Yi.tri,M)$re
-      for (j in 1:nx )
-      {pt2<-Xp[j,]
-      inc.mat[i,j]<-IndNCStri(pt1,pt2,t,Yi.tri,M,re=edge)
+      for (i in 1:nx)
+      {pt1<-Xp[i,]
+      if (i.tr[i]!=0)
+      {
+        Yi.Tri<-Yp[DTr[i.tr[i],],] #vertices of the ith triangle
+        Yi.tri<-as.bastri(Yi.Tri)$tri #convert the triangle Yi.Tri into an unscaled basic triangle, see as.bastri help page
+
+        edge<-re.tri.cent(pt1,Yi.tri,M)$re
+        for (j in 1:nx )
+        {pt2<-Xp[j,]
+        inc.mat[i,j]<-IndNCStri(pt1,pt2,t,Yi.tri,M,re=edge)
+        }
+      }
       }
     }
-    }
+    diag(inc.mat)<-1
   }
-  diag(inc.mat)<-1
   inc.mat
 } #end of the function
 #'
@@ -33901,7 +34435,7 @@ IncMatCSMT<-function(Xp,Yp,t,M=c(1,1,1))
 #' points in \code{Xp} in the multiple triangle case and the Delauany triangles based on \code{Yp} points.
 #'
 #' CS proximity regions are defined with respect to the Delaunay triangles based on \code{Yp} points with
-#' expansion parameter \eqn{t>0} and edge regions in each triangle are based on the center \eqn{M=(\alpha,\beta,\gamma)}
+#' expansion parameter \eqn{\tau>0} and edge regions in each triangle are based on the center \eqn{M=(\alpha,\beta,\gamma)}
 #' in barycentric coordinates in the interior of each Delaunay triangle (default for \eqn{M=(1,1,1)}
 #' which is the center of mass of the triangle). Each Delaunay triangle is first converted to an (unscaled)
 #' basic triangle so that \code{M} will be the same type of center for each Delaunay triangle (this conversion is
@@ -33913,11 +34447,11 @@ IncMatCSMT<-function(Xp,Yp,t,M=c(1,1,1))
 #' for points inside the convex hull of \code{Yp} points.
 #'
 #' See (\insertCite{ceyhan:Phd-thesis,ceyhan:arc-density-CS,ceyhan:test2014;textual}{pcds}) more on the CS-PCDs.
-#' Also see (\insertCite{okabe:2000,ceyhan:comp-geo-2010,renka:1996;textual}{pcds}) for more on Delaunay triangulation and the TRIPACK algorithm.
+#' Also see (\insertCite{okabe:2000,ceyhan:comp-geo-2010,sinclair:2016;textual}{pcds}) for more on Delaunay triangulation and the corresponding algorithm.
 #'
 #' @param Xp A set of 2D points which constitute the vertices of the CS-PCD
 #' @param Yp A set of 2D points which constitute the vertices of the Delaunay triangles
-#' @param t A positive real number which serves as the expansion parameter in CS proximity region
+#' @param tau A positive real number which serves as the expansion parameter in CS proximity region
 #' @param M A 3D point in barycentric coordinates which serves as a center in the interior of each Delaunay
 #' triangle, default for \eqn{M=(1,1,1)} which is the center of mass of each triangle
 #' @param asp a numeric value, giving the aspect ratio y/x (default is \code{NA}), see the official help for \code{asp} by typing "? asp"
@@ -33947,30 +34481,42 @@ IncMatCSMT<-function(Xp,Yp,t,M=c(1,1,1))
 #'
 #' M<-c(1,1,1) #M<-c(1,2,3) #M<-c(-1,2,3) #barycentric coordinates
 #' #M<-c(1.3,1.3)
-#' t<-1.5
-#' #t<-2
+#' tau<-1.5
+#' #tau<-2
 #'
 #' Xlim<-range(Xp[,1],Yp[,1])
 #' Ylim<-range(Xp[,2],Yp[,2])
 #' xd<-Xlim[2]-Xlim[1]
 #' yd<-Ylim[2]-Ylim[1]
 #'
-#' plotCSarcsMT(Xp,Yp,t,M,xlab="",ylab="",xlim=Xlim+xd*c(-.05,.05),ylim=Ylim+yd*c(-.05,.05))
+#' plotCSarcsMT(Xp,Yp,tau,M,xlab="",ylab="",xlim=Xlim+xd*c(-.05,.05),ylim=Ylim+yd*c(-.05,.05))
+#'
+#' plotCSarcsMT(Xp,Yp[1:3,],tau,M,xlab="",ylab="",xlim=Xlim+xd*c(-.05,.05),ylim=Ylim+yd*c(-.05,.05))
 #'
 #' @export plotCSarcsMT
-plotCSarcsMT<-function(Xp,Yp,t,M=c(1,1,1),asp=NA,main="",xlab="",ylab="",xlim=NULL,ylim=NULL, ...)
+plotCSarcsMT<-function(Xp,Yp,tau,M=c(1,1,1),asp=NA,main="",xlab="",ylab="",xlim=NULL,ylim=NULL, ...)
 {
-  ArcsCS<-ArcsCSMT(Xp,Yp,t,M)
-  S<-ArcsCS$S
-  E<-ArcsCS$E
+  Yp<-as.matrix(Yp)
+  if (ncol(Yp)!=2 || nrow(Yp)<3)
+  {stop('Yp must be of dimension kx2 with k>=3')}
 
-  DTmesh<-tri.mesh(Yp[,1],Yp[,2],duplicate="remove")
+  if (nrow(Yp)==3)
+  {
+    plotCSarcsTri(Xp,Yp,tau,M,asp,main,xlab,ylab,xlim,ylim)
+  } else
+  {
+    ArcsCS<-ArcsCSMT(Xp,Yp,tau,M)
+    S<-ArcsCS$S
+    E<-ArcsCS$E
 
-  Xch<-XinCHY(Xp,Yp)
+    DTmesh<-interp::tri.mesh(Yp[,1],Yp[,2],duplicate="remove")
 
-  plot(rbind(Xp),asp=asp,main=main, xlab=xlab, ylab=ylab,xlim=xlim,ylim=ylim,pch=".",cex=3, ...)
-  plot.tri(DTmesh, add=TRUE, do.points = TRUE)
-  if (!is.null(S)) {arrows(S[,1], S[,2], E[,1], E[,2], length = 0.1, col= 4)}
+    Xch<-XinCHY(Xp,Yp)
+
+    plot(rbind(Xp),asp=asp,main=main, xlab=xlab, ylab=ylab,xlim=xlim,ylim=ylim,pch=".",cex=3, ...)
+    interp::plot.triSht(DTmesh, add=TRUE, do.points = TRUE)
+    if (!is.null(S)) {arrows(S[,1], S[,2], E[,1], E[,2], length = 0.1, col= 4)}
+  }
 } #end of the function
 #'
 
@@ -33989,7 +34535,7 @@ plotCSarcsMT<-function(Xp,Yp,t,M=c(1,1,1),asp=NA,main="",xlab="",ylab="",xlim=NU
 #' (default for \eqn{M=(1,1,1)} which is the center of mass of the triangle).
 #'
 #' See (\insertCite{ceyhan:Phd-thesis,ceyhan:arc-density-CS,ceyhan:test2014;textual}{pcds}) more on the CS proximity regions.
-#' Also see (\insertCite{okabe:2000,ceyhan:comp-geo-2010,renka:1996;textual}{pcds}) for more on Delaunay triangulation and the TRIPACK algorithm.
+#' Also see (\insertCite{okabe:2000,ceyhan:comp-geo-2010,sinclair:2016;textual}{pcds}) for more on Delaunay triangulation and the corresponding algorithm.
 #'
 #' @param Xp A set of 2D points for which CS proximity regions are constructed
 #' @param Yp A set of 2D points which constitute the vertices of the Delaunay triangles
@@ -34034,6 +34580,8 @@ plotCSarcsMT<-function(Xp,Yp,t,M=c(1,1,1),asp=NA,main="",xlab="",ylab="",xlim=NU
 #'
 #' plotCSregsMT(Xp,Yp,t,M,xlab="",ylab="",xlim=Xlim+xd*c(-.05,.05),ylim=Ylim+yd*c(-.05,.05))
 #'
+#' plotCSregsMT(Xp,Yp[1:3,],t,M,xlab="",ylab="",xlim=Xlim+xd*c(-.05,.05),ylim=Ylim+yd*c(-.05,.05))
+#'
 #' @export plotCSregsMT
 plotCSregsMT<-function(Xp,Yp,t,M=c(1,1,1),asp=NA,main="",xlab="",ylab="",xlim=NULL,ylim=NULL, ...)
 {
@@ -34055,19 +34603,25 @@ plotCSregsMT<-function(Xp,Yp,t,M=c(1,1,1),asp=NA,main="",xlab="",ylab="",xlim=NU
   if (!is.point(t,1) || t<=0)
   {stop('t must be a scalar greater than 0')}
 
+  if (nrow(Yp)==3)
+  {
+    plotCSregsTri(Xp,Yp,t,M,asp,main,xlab,ylab,xlim,ylim)
+  } else
+  {
+
   if (!is.point(M,3) || !all(M>0))
   {stop('M must be a numeric 3D point with positive barycentric coordinates')}
 
-  DTmesh<-tri.mesh(Yp[,1],Yp[,2],duplicate="remove")
+  DTmesh<-interp::tri.mesh(Yp[,1],Yp[,2],duplicate="remove")
 
   nx<-nrow(Xp)
   ch<-rep(0,nx)
   for (i in 1:nx)
-    ch[i]<-in.convex.hull(DTmesh,Xp[i,1],Xp[i,2])
+    ch[i]<-interp::in.convex.hull(DTmesh,Xp[i,1],Xp[i,2])
 
   Xch<-matrix(Xp[ch==1,],ncol=2) #the Xp points inside the convex hull of Yp points
 
-  DTr<-matrix(triangles(DTmesh)[,1:3],ncol=3)
+  DTr<-matrix(interp::triangles(DTmesh)[,1:3],ncol=3)
   nt<-nrow(DTr) #number of Delaunay triangles
   nx2<-nrow(Xch) #number of Xp points inside the convex hull of Yp points
 
@@ -34078,7 +34632,7 @@ plotCSregsMT<-function(Xp,Yp,t,M=c(1,1,1),asp=NA,main="",xlab="",ylab="",xlim=NU
       for (j1 in 1:nt)
       {
         Tri<-Yp[DTr[j1,],]
-        if (in.triangle(Xch[i1,],Tri,boundary=TRUE)$inside.tri )
+        if (in.triangle(Xch[i1,],Tri,boundary=TRUE)$in.tri )
           i.tr[i1]<-j1
       }
   }
@@ -34123,8 +34677,10 @@ plotCSregsMT<-function(Xp,Yp,t,M=c(1,1,1),asp=NA,main="",xlab="",ylab="",xlim=NU
       }
     }
   }
+  }
 } #end of the function
 #'
+
 #################################################################
 #domination number functions for NCS
 #################################################################
@@ -34253,7 +34809,7 @@ IndCSTeSet<-function(S,pt,t,M=c(1,1,1))
 #' @title The indicator for the presence of an arc from a point in set \code{S} to the point \code{pt} for
 #' Central Similarity Proximity Catch Digraphs (CS-PCDs) - one triangle case
 #'
-#' @description Returns I(\code{pt} in \eqn{NCS(x,t)} for some x in \code{S}), that is, returns 1 if \code{pt} in \eqn{\cup_{x in S} NCS(x,t)},
+#' @description Returns I(\code{pt} in \eqn{NCS(x,\tau)} for some x in \code{S}), that is, returns 1 if \code{pt} in \eqn{\cup_{x in S} NCS(x,\tau)},
 #' returns 0 otherwise.
 #'
 #' CS proximity region is constructed with respect to the triangle \code{tri} with
@@ -34269,14 +34825,14 @@ IndCSTeSet<-function(S,pt,t,M=c(1,1,1))
 #' by the function.
 #' @param pt A 2D point. Presence of an arc from a point in \code{S} to point \code{pt} is checked
 #' by the function.
-#' @param t A positive real number which serves as the expansion parameter in CS proximity region
+#' @param tau A positive real number which serves as the expansion parameter in CS proximity region
 #' constructed in the triangle \code{tri}
 #' @param tri Three 2D points, stacked row-wise, each row representing a vertex of the triangle
 #' @param M A 2D point in Cartesian coordinates or a 3D point in barycentric coordinates
 #' which serves as a center in the interior of the triangle \code{tri};
 #' default is \eqn{M=(1,1,1)} i.e. the center of mass of \code{tri}
 #'
-#' @return I(\code{pt} is in \eqn{\cup_{x in S} NCS(x,t)}), that is, returns 1 if \code{pt} is in \code{S} or inside \eqn{NCS(x,t)} for at least
+#' @return I(\code{pt} is in \eqn{\cup_{x in S} NCS(x,\tau)}), that is, returns 1 if \code{pt} is in \code{S} or inside \eqn{NCS(x,\tau)} for at least
 #' one x in \code{S}, returns 0 otherwise where CS proximity region is constructed with respect to the triangle \code{tri}
 #'
 #' @seealso \code{\link{IndCSTeSet}}, \code{\link{IndNCStri}}, \code{\link{IndCSTe}}, \code{\link{IndNAStriSet}}, and \code{\link{IndNPEtriSet}}
@@ -34300,41 +34856,41 @@ IndCSTeSet<-function(S,pt,t,M=c(1,1,1))
 #' #M<-c(1,1,1) #M<-c(1,2,3) #M<-c(-1,2,3) #barycentric coordinates
 #' #M<-c(1.3,1.3)
 #' #M<-c(.3,.3)
-#' t<-.5
+#' tau<-.5
 #'
-#' IndNCStriSet(S,dat[3,],t,Tr,M)
-#' IndNCStriSet(S,dat[3,],t=1,Tr,M)
-#' IndNCStriSet(S,dat[3,],t=1.5,Tr,M)
+#' IndNCStriSet(S,dat[3,],tau,Tr,M)
+#' IndNCStriSet(S,dat[3,],tau=1,Tr,M)
+#' IndNCStriSet(S,dat[3,],tau=1.5,Tr,M)
 #'
 #' S<-rbind(dat[1,],dat[2,],dat[3,],dat[5,])
-#' IndNCStriSet(S,dat[3,],t,Tr,M)
+#' IndNCStriSet(S,dat[3,],tau,Tr,M)
 #'
-#' IndNCStriSet(S,dat[6,],t,Tr,M)
-#' IndNCStriSet(S,dat[6,],t=.25,Tr,M)
+#' IndNCStriSet(S,dat[6,],tau,Tr,M)
+#' IndNCStriSet(S,dat[6,],tau=.25,Tr,M)
 #'
 #' S<-rbind(c(.1,.1),c(.3,.4),c(.5,.3))
-#' IndNCStriSet(S,dat[3,],t,Tr,M)
+#' IndNCStriSet(S,dat[3,],tau,Tr,M)
 #'
-#' IndNCStriSet(c(.2,.5),dat[2,],t,Tr,M)
-#' IndNCStriSet(dat,c(.2,.5),t,Tr,M)
-#' IndNCStriSet(dat,dat[2,],t,Tr,M)
-#' IndNCStriSet(c(.2,.5),c(.2,.5),t,Tr,M)
-#' IndNCStriSet(dat[5,],dat[2,],t,Tr,M)
+#' IndNCStriSet(c(.2,.5),dat[2,],tau,Tr,M)
+#' IndNCStriSet(dat,c(.2,.5),tau,Tr,M)
+#' IndNCStriSet(dat,dat[2,],tau,Tr,M)
+#' IndNCStriSet(c(.2,.5),c(.2,.5),tau,Tr,M)
+#' IndNCStriSet(dat[5,],dat[2,],tau,Tr,M)
 #'
 #' S<-rbind(dat[1,],dat[2,],dat[3,],dat[5,],c(.2,.5))
-#' IndNCStriSet(S,dat[3,],t,Tr,M)
+#' IndNCStriSet(S,dat[3,],tau,Tr,M)
 #'
 #' P<-c(.4,.2)
 #' S<-dat[c(1,3,4),]
-#' IndNCStriSet(dat,P,t,Tr,M)
+#' IndNCStriSet(dat,P,tau,Tr,M)
 #'
-#' IndNCStriSet(rbind(S,S),P,t,Tr,M)
+#' IndNCStriSet(rbind(S,S),P,tau,Tr,M)
 #'
 #' dat.fr<-data.frame(a=S)
-#' IndNCStriSet(dat.fr,P,t,Tr,M)
+#' IndNCStriSet(dat.fr,P,tau,Tr,M)
 #'
 #' @export IndNCStriSet
-IndNCStriSet<-function(S,pt,t,tri,M=c(1,1,1))
+IndNCStriSet<-function(S,pt,tau,tri,M=c(1,1,1))
 {
   if (!is.point(pt))
   {stop('pt must be a numeric 2D point')}
@@ -34350,8 +34906,8 @@ IndNCStriSet<-function(S,pt,t,tri,M=c(1,1,1))
   {stop('S must be of dimension nx2')}
   }
 
-  if (!is.point(t,1) || t<=0)
-  {stop('t must be a scalar greater than 0')}
+  if (!is.point(tau,1) || tau<=0)
+  {stop('tau must be a scalar greater than 0')}
 
   tri<-as.matrix(tri)
   if (!is.numeric(tri) || nrow(tri)!=3 || ncol(tri)!=2)
@@ -34370,14 +34926,14 @@ IndNCStriSet<-function(S,pt,t,tri,M=c(1,1,1))
     M<-bary2cart(M,tri)
   }
 
-  if (in.triangle(M,tri,boundary=FALSE)$inside.tri==F)
+  if (in.triangle(M,tri,boundary=FALSE)$in.tri==F)
   {stop('center is not in the interior of the triangle')}
 
   k<-nrow(S);
   dom<-0; i<-1;
   while (dom ==0 && i<= k)
   {
-    if (IndNCStri(S[i,],pt,t,tri,M)==1)
+    if (IndNCStri(S[i,],pt,tau,tri,M)==1)
     {dom<-1};
     i<-i+1;
   }
@@ -34501,7 +35057,7 @@ IndCSTe.domset<-function(S,Dt,t,M=c(1,1,1))
   A<-c(0,0); B<-c(1,0); C<-c(1/2,sqrt(3)/2);
   Te<-rbind(A,B,C);
 
-  if (in.triangle(M,Te,boundary=FALSE)$inside.tri==F)
+  if (in.triangle(M,Te,boundary=FALSE)$in.tri==F)
   {stop('center is not in the interior of the triangle')}
 
   k<-nrow(S);
@@ -34527,7 +35083,7 @@ IndCSTe.domset<-function(S,Dt,t,M=c(1,1,1))
 #' returns 1 if \code{S} is a dominating set of CS-PCD, returns 0 otherwise.
 #'
 #' CS proximity region is constructed with
-#' respect to the triangle \code{tri} with the expansion parameter \eqn{t>0} and edge regions are based
+#' respect to the triangle \code{tri} with the expansion parameter \eqn{\tau>0} and edge regions are based
 #' on the center \eqn{M=(m_1,m_2)} in Cartesian coordinates or \eqn{M=(\alpha,\beta,\gamma)} in barycentric coordinates
 #' in the interior of the triangle \code{tri}; default is \eqn{M=(1,1,1)} i.e. the center of mass of \code{tri}.
 #'
@@ -34537,7 +35093,7 @@ IndCSTe.domset<-function(S,Dt,t,M=c(1,1,1))
 #'
 #' @param S A set of 2D points which is to be tested for being a dominating set for the CS-PCDs
 #' @param Dt A set of 2D points which constitute the vertices of the CS-PCD
-#' @param t A positive real number which serves as the expansion parameter in CS proximity region
+#' @param tau A positive real number which serves as the expansion parameter in CS proximity region
 #' constructed in the triangle \code{tri}
 #' @param tri Three 2D points, stacked row-wise, each row representing a vertex of the triangle
 #' @param M A 2D point in Cartesian coordinates or a 3D point in barycentric coordinates
@@ -34570,39 +35126,39 @@ IndCSTe.domset<-function(S,Dt,t,M=c(1,1,1))
 #' #M<-c(1,1,1) #M<-c(1,2,3) #M<-c(-1,2,3) #barycentric coordinates
 #' #M<-c(1.3,1.3)
 #' #M<-c(.3,.3)
-#' t<-.5
+#' tau<-.5
 #'
 #' S<-rbind(dat[1,],dat[2,])
-#' IndNCStri.domset(S,dat,t,Tr,M)
+#' IndNCStri.domset(S,dat,tau,Tr,M)
 #'
 #' S<-rbind(dat[1,],dat[2,],dat[3,],dat[5,])
-#' IndNCStri.domset(S,dat,t,Tr,M)
+#' IndNCStri.domset(S,dat,tau,Tr,M)
 #'
 #' S<-rbind(c(.1,.1),c(.3,.4),c(.5,.3))
-#' IndNCStri.domset(S,dat,t,Tr,M)
+#' IndNCStri.domset(S,dat,tau,Tr,M)
 #'
-#' IndNCStri.domset(c(.2,.5),dat,t,Tr,M)
-#' IndNCStri.domset(c(.2,.5),c(.2,.5),t,Tr,M)
-#' IndNCStri.domset(dat[5,],dat[2,],t,Tr,M)
+#' IndNCStri.domset(c(.2,.5),dat,tau,Tr,M)
+#' IndNCStri.domset(c(.2,.5),c(.2,.5),tau,Tr,M)
+#' IndNCStri.domset(dat[5,],dat[2,],tau,Tr,M)
 #'
 #' S<-rbind(dat[1,],dat[2,],dat[3,],dat[5,],c(.2,.5))
-#' IndNCStri.domset(S,dat[3,],t,Tr,M)
+#' IndNCStri.domset(S,dat[3,],tau,Tr,M)
 #'
-#' IndNCStri.domset(dat,dat,t,Tr,M)
+#' IndNCStri.domset(dat,dat,tau,Tr,M)
 #'
 #' P<-c(.4,.2)
 #' S<-dat[c(1,3,4),]
-#' IndNCStri.domset(dat,P,t,Tr,M)
-#' IndNCStri.domset(S,P,t,Tr,M)
-#' IndNCStri.domset(S,dat,t,Tr,M)
+#' IndNCStri.domset(dat,P,tau,Tr,M)
+#' IndNCStri.domset(S,P,tau,Tr,M)
+#' IndNCStri.domset(S,dat,tau,Tr,M)
 #'
-#' IndNCStri.domset(rbind(S,S),dat,t,Tr,M)
+#' IndNCStri.domset(rbind(S,S),dat,tau,Tr,M)
 #'
 #' dat.fr<-data.frame(a=dat)
-#' IndNCStri.domset(S,dat.fr,t,Tr,M)
+#' IndNCStri.domset(S,dat.fr,tau,Tr,M)
 #'
 #' @export IndNCStri.domset
-IndNCStri.domset<-function(S,Dt,t,tri,M=c(1,1,1))
+IndNCStri.domset<-function(S,Dt,tau,tri,M=c(1,1,1))
 {
   if (!is.numeric(as.matrix(S)) || !is.numeric(as.matrix(Dt)))
   {stop('Both arguments must be numeric')}
@@ -34623,8 +35179,8 @@ IndNCStri.domset<-function(S,Dt,t,tri,M=c(1,1,1))
   {stop('Dt must be of dimension nx2')}
   }
 
-  if (!is.point(t,1) || t<=0)
-  {stop('t must be a scalar greater than 0')}
+  if (!is.point(tau,1) || tau<=0)
+  {stop('tau must be a scalar greater than 0')}
 
   tri<-as.matrix(tri)
   if (!is.numeric(tri) || nrow(tri)!=3 || ncol(tri)!=2)
@@ -34643,7 +35199,7 @@ IndNCStri.domset<-function(S,Dt,t,tri,M=c(1,1,1))
     M<-bary2cart(M,tri)
   }
 
-  if (isTRUE(all.equal(M,circ.cent.tri(tri)))==F & in.triangle(M,tri,boundary=FALSE)$inside.tri==F)
+  if (isTRUE(all.equal(M,circ.cent.tri(tri)))==F & in.triangle(M,tri,boundary=FALSE)$in.tri==F)
   {stop('center is not the circumcenter or not in the interior of the triangle')}
 
   k<-nrow(S);
@@ -34652,7 +35208,7 @@ IndNCStri.domset<-function(S,Dt,t,tri,M=c(1,1,1))
   dom<-1; i<-1;
   while (dom ==1 && i<= n)
   {
-    if (IndNCStriSet(S,Dt[i,],t,tri,M)==0) #this is where tri is used
+    if (IndNCStriSet(S,Dt[i,],tau,tri,M)==0) #this is where tri is used
     {dom<-0};
     i<-i+1;
   }
@@ -34703,7 +35259,7 @@ IndNCStri.domset<-function(S,Dt,t,tri,M=c(1,1,1))
 #' \insertAllCited{}
 #'
 #' @examples
-#' \donttest{
+#' \dontrun{
 #' A<-c(0,0); B<-c(1,0); C<-c(1/2,sqrt(3)/2);
 #' Te<-rbind(A,B,C);
 #' n<-10
@@ -34765,7 +35321,7 @@ IndCSdomUBTe<-function(Dt,k,t,M=c(1,1,1))
   A<-c(0,0); B<-c(1,0); C<-c(1/2,sqrt(3)/2);
   Te<-rbind(A,B,C);
 
-  if (in.triangle(M,Te,boundary=FALSE)$inside.tri==F)
+  if (in.triangle(M,Te,boundary=FALSE)$in.tri==F)
   {stop('center is not in the interior of the triangle')}
 
   n<-nrow(Dt);
@@ -34830,7 +35386,7 @@ IndCSdomUBTe<-function(Dt,k,t,M=c(1,1,1))
 #' \insertAllCited{}
 #'
 #' @examples
-#' \donttest{
+#' \dontrun{
 #' A<-c(1,1); B<-c(2,0); C<-c(1.5,2);
 #' #A<-runif(2); B<-runif(2); C<-runif(2);
 #' #A<-runif(2,1,100); B<-runif(2,1,100); C<-runif(2,1,100);
@@ -34899,7 +35455,7 @@ IndCSdomUBtri<-function(Dt,k,t,tri,M=c(1,1,1))
     M<-bary2cart(M,tri)
   }
 
-  if (in.triangle(M,tri,boundary=FALSE)$inside.tri==F)
+  if (in.triangle(M,tri,boundary=FALSE)$in.tri==F)
   {stop('center is not in the interior of the triangle')}
 
   n<-nrow(Dt);
@@ -35023,7 +35579,7 @@ Gam1CSTet1<-function(p,Dt,re=NULL,ch.data.pnt=FALSE)
 
   A<-c(0,0); B<-c(1,0); C<-c(1/2,sqrt(3)/2);
   Te<-rbind(A,B,C)
-  if (!in.triangle(p,Te, boundary = TRUE)$inside.tri)
+  if (!in.triangle(p,Te, boundary = TRUE)$in.tri)
   {dom<-0; return(dom); stop}
 
   if (is.null(re))
@@ -35645,7 +36201,7 @@ redge.triCM<-function(pt,tri)
 
   y1<-tri[1,]; y2<-tri[2,]; y3<-tri[3,];
 
-  if (in.triangle(pt,tri)$inside.tri==F)
+  if (in.triangle(pt,tri)$in.tri==F)
   {reled<-NA;return(reled);stop('point is not inside the triangle')}
 
   CM<-1/3*(y1+y2+y3);
@@ -35763,7 +36319,7 @@ IndNCStri.alt<-function(pt1,pt2,t,tri,re=NULL)
   if (identical(pt1,pt2))
   {arc<-1; return(arc); stop}
 
-  if(!in.triangle(pt1,tri,boundary=TRUE)$inside.tri || !in.triangle(pt2,tri,boundary=TRUE)$inside.tri)
+  if (!in.triangle(pt1,tri,boundary=TRUE)$in.tri || !in.triangle(pt2,tri,boundary=TRUE)$in.tri)
   {arc<-0; return(arc); stop}
 
   if (is.null(re))
@@ -35911,7 +36467,7 @@ CSarcdens.tri<-function(Xp,tri,t,M=c(1,1,1),tri.cor=TRUE)
     M<-bary2cart(M,tri)
   }
 
-  if (isTRUE(all.equal(M,circ.cent.tri(tri)))==F & in.triangle(M,tri,boundary=FALSE)$inside.tri==F)
+  if (isTRUE(all.equal(M,circ.cent.tri(tri)))==F & in.triangle(M,tri,boundary=FALSE)$in.tri==F)
   {stop('center is not the circumcenter or not in the interior of the triangle')}
 
   nx<-nrow(Xp)
@@ -35925,7 +36481,7 @@ CSarcdens.tri<-function(Xp,tri,t,M=c(1,1,1),tri.cor=TRUE)
     ind.it<-c()
     for (i in 1:nx)
     {
-      ind.it<-c(ind.it,in.triangle(Xp[i,],tri)$ins)
+      ind.it<-c(ind.it,in.triangle(Xp[i,],tri)$in.tri)
     }
     Xp.it<-Xp[ind.it,] #Xp points inside the triangle
     NinTri<-nrow(Xp.it)

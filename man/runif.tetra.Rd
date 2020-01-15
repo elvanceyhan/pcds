@@ -31,7 +31,7 @@ of vertices of the support points (here it is 4).}
 Generates \code{k} points uniformly in the general tetrahedron \code{th} whose vertices are stacked row-wise
 }
 \examples{
-\donttest{
+\dontrun{
 A<-sample(1:12,3); B<-sample(1:12,3); C<-sample(1:12,3); D<-sample(1:12,3)
 #A<-runif(3); B<-runif(3); C<-runif(3); D<-runif(3)
 #A<-runif(3,1,100); B<-runif(3,1,100); C<-runif(3,1,100); D<-runif(3,1,100)

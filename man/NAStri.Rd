@@ -108,11 +108,11 @@ polygon(Tr)
 points(rbind(Tr,P1,rbind(Int.Pts$L,Int.Pts$R)))
 L<-rbind(cent,cent,cent); R<-Ds
 segments(L[,1], L[,2], R[,1], R[,2], lty=2)
-tripack::circles(P1[1],P1[2],rad,lty=2)
+interp::circles(P1[1],P1[2],rad,lty=2)
 L<-Int.Pts$L; R<-Int.Pts$R
 segments(L[,1], L[,2], R[,1], R[,2], lty=1,col=2)
 Arcs<-Int.Pts$A;
-if(!is.null(Arcs))
+if (!is.null(Arcs))
 {
   K<-nrow(Arcs)/2
   for (i in 1:K)

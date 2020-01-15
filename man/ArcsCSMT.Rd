@@ -6,14 +6,14 @@
 
 The arcs of Central Similarity Proximity Catch Digraph (CS-PCD) for 2D data - multiple triangle case}
 \usage{
-ArcsCSMT(Xp, Yp, t, M = c(1, 1, 1))
+ArcsCSMT(Xp, Yp, tau, M = c(1, 1, 1))
 }
 \arguments{
 \item{Xp}{A set of 2D points which constitute the vertices of the CS-PCD}
 
 \item{Yp}{A set of 2D points which constitute the vertices of the Delaunay triangles}
 
-\item{t}{A positive real number which serves as the expansion parameter in CS proximity region}
+\item{tau}{A positive real number which serves as the expansion parameter in CS proximity region}
 
 \item{M}{A 3D point in barycentric coordinates which serves as a center in the interior of each Delaunay
 triangle, default for \eqn{M=(1,1,1)} which is the center of mass of each triangle}
@@ -38,7 +38,7 @@ Returns arcs as tails (or sources) and heads (or arrow ends) of Central Similari
 (CS-PCD) whose vertices are the data points in \code{Xp} in the multiple triangle case.
 
 CS proximity regions are
-defined with respect to the Delaunay triangles based on \code{Yp} points with expansion parameter \eqn{t>0} and
+defined with respect to the Delaunay triangles based on \code{Yp} points with expansion parameter \eqn{\tau>0} and
 edge regions in each triangle are based on the center \eqn{M=(\alpha,\beta,\gamma)} in barycentric coordinates
 in the interior of each Delaunay triangle (default for \eqn{M=(1,1,1)} which is the center of mass of
 the triangle). Each Delaunay triangle is first converted to an (unscaled) basic triangle so that
@@ -50,7 +50,7 @@ convex hull of \code{Yp} points). For the number of arcs, loops are not allowed 
 for points inside the convex hull of \code{Yp} points.
 
 See (\insertCite{ceyhan:Phd-thesis,ceyhan:arc-density-CS,ceyhan:test2014;textual}{pcds}) for more on CS-PCDs.
-Also see (\insertCite{okabe:2000,ceyhan:comp-geo-2010,renka:1996;textual}{pcds}) for more on Delaunay triangulation and the TRIPACK algorithm.
+Also see (\insertCite{okabe:2000,ceyhan:comp-geo-2010,sinclair:2016;textual}{pcds}) for more on Delaunay triangulation and the corresponding algorithm.
 }
 \examples{
 #nx is number of X points (target) and ny is number of Y points (nontarget)
@@ -66,19 +66,19 @@ Yp<-cbind(runif(ny,0,1),runif(ny,0,1))
 M<-c(1,1,1) #M<-c(1,2,3) #M<-c(-1,2,3) #barycentric coordinates
 #M<-c(1.3,1.3)
 #M<-c(.3,.3)
-t<-1.5
-#t<-2
+tau<-1.5
+#tau<-2
 
-ArcsCSMT(Xp,Yp,t,M)
+ArcsCSMT(Xp,Yp,tau,M)
 
-Arcs<-ArcsCSMT(Xp,Yp,t,M)
+Arcs<-ArcsCSMT(Xp,Yp,tau,M)
 Arcs
 summary(Arcs)
 plot(Arcs)
 
 S<-Arcs$S
 E<-Arcs$E
-DT<-tripack::tri.mesh(Yp[,1],Yp[,2],duplicate="remove")
+DT<-interp::tri.mesh(Yp[,1],Yp[,2],duplicate="remove")
 
 Xlim<-range(Xp[,1],Yp[,1])
 Ylim<-range(Xp[,2],Yp[,2])
@@ -87,18 +87,19 @@ yd<-Ylim[2]-Ylim[1]
 
 plot(Xp,main=" ", xlab=" ", ylab=" ",
 xlim=Xlim+xd*c(-.05,.05),ylim=Ylim+yd*c(-.05,.05),pch=".",cex=3)
-tripack::plot.tri(DT, add=TRUE, do.points = TRUE)
+interp::plot.triSht(DT, add=TRUE, do.points = TRUE)
 arrows(S[,1], S[,2], E[,1], E[,2], length = 0.1, col= 4)
 
-ArcsCSMT(Xp,Yp,t,M)
+ArcsCSMT(Xp,Yp,tau,M)
+ArcsCSMT(Xp,Yp[1:3,],tau,M)
 
-ArcsCSMT(Xp,rbind(Yp,Yp),t,M)
+ArcsCSMT(Xp,rbind(Yp,Yp),tau,M)
 
 dat.fr<-data.frame(a=Xp)
-ArcsCSMT(dat.fr,Yp,t,M)
+ArcsCSMT(dat.fr,Yp,tau,M)
 
 dat.fr<-data.frame(a=Yp)
-ArcsCSMT(Xp,dat.fr,t,M)
+ArcsCSMT(Xp,dat.fr,tau,M)
 
 }
 \references{

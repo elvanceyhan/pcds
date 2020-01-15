@@ -5,8 +5,20 @@
 \title{The plot of the arcs of Proportional Edge Proximity Catch Digraphs (PE-PCDs) for 1D data
 (vertices jittered along y-coordinate) - multiple interval case}
 \usage{
-plotPEarcs1D(Xp, Yp, r, c, Jit = 0.1, main = "", xlab = "",
-  ylab = "", xlim = NULL, ylim = NULL, centers = FALSE, ...)
+plotPEarcs1D(
+  Xp,
+  Yp,
+  r,
+  c,
+  Jit = 0.1,
+  main = "",
+  xlab = "",
+  ylab = "",
+  xlim = NULL,
+  ylim = NULL,
+  centers = FALSE,
+  ...
+)
 }
 \arguments{
 \item{Xp}{A vector of 1D points constituting the vertices of the PE-PCD}

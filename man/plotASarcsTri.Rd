@@ -4,8 +4,18 @@
 \alias{plotASarcsTri}
 \title{The plot of the arcs of Arc Slice Proximity Catch Digraph (AS-PCD) for a 2D data set - one triangle case}
 \usage{
-plotASarcsTri(Xp, tri, M = "CC", asp = NA, main = "", xlab = "",
-  ylab = "", xlim = NULL, ylim = NULL, ...)
+plotASarcsTri(
+  Xp,
+  tri,
+  M = "CC",
+  asp = NA,
+  main = "",
+  xlab = "",
+  ylab = "",
+  xlim = NULL,
+  ylim = NULL,
+  ...
+)
 }
 \arguments{
 \item{Xp}{A set of 2D points which constitute the vertices of the AS-PCD}

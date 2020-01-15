@@ -5,14 +5,14 @@
 \title{The indicator for the set of points \code{S} being a dominating set or not for Central Similarity Proximity
 Catch Digraphs (CS-PCDs) - one triangle case}
 \usage{
-IndNCStri.domset(S, Dt, t, tri, M = c(1, 1, 1))
+IndNCStri.domset(S, Dt, tau, tri, M = c(1, 1, 1))
 }
 \arguments{
 \item{S}{A set of 2D points which is to be tested for being a dominating set for the CS-PCDs}
 
 \item{Dt}{A set of 2D points which constitute the vertices of the CS-PCD}
 
-\item{t}{A positive real number which serves as the expansion parameter in CS proximity region
+\item{tau}{A positive real number which serves as the expansion parameter in CS proximity region
 constructed in the triangle \code{tri}}
 
 \item{tri}{Three 2D points, stacked row-wise, each row representing a vertex of the triangle}
@@ -31,7 +31,7 @@ Returns I(\code{S} a dominating set of CS-PCD whose vertices are the data set \c
 returns 1 if \code{S} is a dominating set of CS-PCD, returns 0 otherwise.
 
 CS proximity region is constructed with
-respect to the triangle \code{tri} with the expansion parameter \eqn{t>0} and edge regions are based
+respect to the triangle \code{tri} with the expansion parameter \eqn{\tau>0} and edge regions are based
 on the center \eqn{M=(m_1,m_2)} in Cartesian coordinates or \eqn{M=(\alpha,\beta,\gamma)} in barycentric coordinates
 in the interior of the triangle \code{tri}; default is \eqn{M=(1,1,1)} i.e. the center of mass of \code{tri}.
 
@@ -56,36 +56,36 @@ M<-as.numeric(runif.tri(1,Tr)$g)
 #M<-c(1,1,1) #M<-c(1,2,3) #M<-c(-1,2,3) #barycentric coordinates
 #M<-c(1.3,1.3)
 #M<-c(.3,.3)
-t<-.5
+tau<-.5
 
 S<-rbind(dat[1,],dat[2,])
-IndNCStri.domset(S,dat,t,Tr,M)
+IndNCStri.domset(S,dat,tau,Tr,M)
 
 S<-rbind(dat[1,],dat[2,],dat[3,],dat[5,])
-IndNCStri.domset(S,dat,t,Tr,M)
+IndNCStri.domset(S,dat,tau,Tr,M)
 
 S<-rbind(c(.1,.1),c(.3,.4),c(.5,.3))
-IndNCStri.domset(S,dat,t,Tr,M)
+IndNCStri.domset(S,dat,tau,Tr,M)
 
-IndNCStri.domset(c(.2,.5),dat,t,Tr,M)
-IndNCStri.domset(c(.2,.5),c(.2,.5),t,Tr,M)
-IndNCStri.domset(dat[5,],dat[2,],t,Tr,M)
+IndNCStri.domset(c(.2,.5),dat,tau,Tr,M)
+IndNCStri.domset(c(.2,.5),c(.2,.5),tau,Tr,M)
+IndNCStri.domset(dat[5,],dat[2,],tau,Tr,M)
 
 S<-rbind(dat[1,],dat[2,],dat[3,],dat[5,],c(.2,.5))
-IndNCStri.domset(S,dat[3,],t,Tr,M)
+IndNCStri.domset(S,dat[3,],tau,Tr,M)
 
-IndNCStri.domset(dat,dat,t,Tr,M)
+IndNCStri.domset(dat,dat,tau,Tr,M)
 
 P<-c(.4,.2)
 S<-dat[c(1,3,4),]
-IndNCStri.domset(dat,P,t,Tr,M)
-IndNCStri.domset(S,P,t,Tr,M)
-IndNCStri.domset(S,dat,t,Tr,M)
+IndNCStri.domset(dat,P,tau,Tr,M)
+IndNCStri.domset(S,P,tau,Tr,M)
+IndNCStri.domset(S,dat,tau,Tr,M)
 
-IndNCStri.domset(rbind(S,S),dat,t,Tr,M)
+IndNCStri.domset(rbind(S,S),dat,tau,Tr,M)
 
 dat.fr<-data.frame(a=dat)
-IndNCStri.domset(S,dat.fr,t,Tr,M)
+IndNCStri.domset(S,dat.fr,tau,Tr,M)
 
 }
 \references{

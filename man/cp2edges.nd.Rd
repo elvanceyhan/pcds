@@ -84,7 +84,7 @@ cp2edges.nd(Tr,r,1)
 dat.fr<-data.frame(a=Tr)
 cp2edges.nd(dat.fr,r,1)
 
-\donttest{
+\dontrun{
 cp2edges.nd(Tr,r,cent=5) #center index, cent, must be 1, 2 or 3
 cp2edges.nd(Tr,r=2,cent=2) #r must be a scalar in (1,1.5]
 

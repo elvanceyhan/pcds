@@ -46,7 +46,7 @@ text(xc,yc,txt.str)
 dat.fr<-data.frame(a=Tr)
 area.polygon(dat.fr)
 
-\donttest{
+\dontrun{
 #when the triangle is degenerate
 B<-A+2*(C-A);
 T2<-rbind(A,B,C)

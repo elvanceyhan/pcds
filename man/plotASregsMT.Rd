@@ -4,8 +4,17 @@
 \alias{plotASregsMT}
 \title{The plot of the Arc Slice (AS) Proximity Regions for a 2D data set - multiple triangle case}
 \usage{
-plotASregsMT(Xp, Yp, M = "CC", main = "", xlab = "", ylab = "",
-  xlim = NULL, ylim = NULL, ...)
+plotASregsMT(
+  Xp,
+  Yp,
+  M = "CC",
+  main = "",
+  xlab = "",
+  ylab = "",
+  xlim = NULL,
+  ylim = NULL,
+  ...
+)
 }
 \arguments{
 \item{Xp}{A set of 2D points for which AS proximity regions are constructed}
@@ -42,7 +51,7 @@ for circumcenter of each Delaunay triangle or \eqn{M=(\alpha,\beta,\gamma)} in b
 interior of each Delaunay triangle; default is \code{M}="CC" i.e. circumcenter of each triangle.
 
 See (\insertCite{ceyhan:Phd-thesis,ceyhan:comp-geo-2010,ceyhan:mcap2012;textual}{pcds}) for more on AS-PCDs.
-Also see (\insertCite{okabe:2000,ceyhan:comp-geo-2010,renka:1996;textual}{pcds}) for more on Delaunay triangulation and the TRIPACK algorithm.
+Also see (\insertCite{okabe:2000,ceyhan:comp-geo-2010,sinclair:2016;textual}{pcds}) for more on Delaunay triangulation and the corresponding algorithm.
 }
 \examples{
 nx<-10
@@ -66,10 +75,12 @@ xd<-Xlim[2]-Xlim[1]
 yd<-Ylim[2]-Ylim[1]
 
 plotASregsMT(Xp,Yp,M,xlab="",ylab="",xlim=Xlim+xd*c(-.05,.05),ylim=Ylim+yd*c(-.05,.05))
+plotASregsMT(Xp,Yp[1:3,],M,xlab="",ylab="",xlim=Xlim+xd*c(-.05,.05),ylim=Ylim+yd*c(-.05,.05))
 
 Xp<-c(.5,.5)
 Xlim<-Ylim<-range(Xp,Yp)
 plotASregsMT(Xp,Yp,M,xlab="",ylab="",xlim=Xlim,ylim=Ylim)
+
 }
 \references{
 \insertAllCited{}

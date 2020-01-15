@@ -5,8 +5,7 @@
 \title{The indicator for two 3D points constituting a dominating set for Proportional Edge Proximity Catch Digraphs
 (PE-PCDs) - standard regular tetrahedron case}
 \usage{
-Gam2PEstdTetra(pt1, pt2, Dt, r, rv1 = NULL, rv2 = NULL,
-  ch.data.pnts = FALSE)
+Gam2PEstdTetra(pt1, pt2, Dt, r, rv1 = NULL, rv2 = NULL, ch.data.pnts = FALSE)
 }
 \arguments{
 \item{pt1, pt2}{Two 3D points to be tested for constituting a dominating set of the PE-PCD}

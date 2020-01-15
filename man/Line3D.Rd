@@ -44,7 +44,7 @@ in the direction of vector \code{v} (of if \code{v} is a point, in the direction
 with the parameter \code{t} being provided in vector \code{t}.
 }
 \examples{
-\donttest{
+\dontrun{
 A<-c(1,10,3); B<-c(1,1,3);
 #A<-runif(3); B<-runif(3);
 #A<-runif(3,1,100); B<-runif(3,1,100);

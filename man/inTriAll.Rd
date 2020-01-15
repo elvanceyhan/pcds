@@ -70,5 +70,5 @@ inTriAll(dat,dat.fr)
 
 }
 \seealso{
-\code{\link{in.triangle}} and \code{\link[tripack]{in.convex.hull}} from the \code{tripack} package
+\code{\link{in.triangle}} and \code{\link[interp]{in.convex.hull}} from the \code{interp} package
 }

@@ -5,8 +5,19 @@
 \title{The plot of the arcs of Central Similarity Proximity Catch Digraph (CS-PCD) for a
 2D data set - one triangle case}
 \usage{
-plotCSarcsTri(Xp, tri, t, M = c(1, 1, 1), asp = NA, main = "",
-  xlab = "", ylab = "", xlim = NULL, ylim = NULL, ...)
+plotCSarcsTri(
+  Xp,
+  tri,
+  t,
+  M = c(1, 1, 1),
+  asp = NA,
+  main = "",
+  xlab = "",
+  ylab = "",
+  xlim = NULL,
+  ylim = NULL,
+  ...
+)
 }
 \arguments{
 \item{Xp}{A set of 2D points which constitute the vertices of the CS-PCD}

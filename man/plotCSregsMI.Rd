@@ -5,8 +5,20 @@
 \title{The plot of the Central Similarity (CS) Proximity Regions (vertices jittered along y-coordinate)
 - multiple interval case}
 \usage{
-plotCSregsMI(Xp, Yp, t, c, Jit = 0.1, main = "", xlab = "",
-  ylab = "", xlim = NULL, ylim = NULL, centers = FALSE, ...)
+plotCSregsMI(
+  Xp,
+  Yp,
+  t,
+  c,
+  Jit = 0.1,
+  main = "",
+  xlab = "",
+  ylab = "",
+  xlim = NULL,
+  ylim = NULL,
+  centers = FALSE,
+  ...
+)
 }
 \arguments{
 \item{Xp}{A set of 1D points for which CS proximity regions are plotted}

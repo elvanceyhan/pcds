@@ -1074,8 +1074,8 @@ plot.Patterns<-function (x, asp=NA,xlab="x",ylab="y",...)
   {polygon(Y)
   } else if (x$tri.Y==TRUE && NY>3)
   {
-    DTY<-tri.mesh(Y[,1],Y[,2],duplicate="remove") #Delaunay triangulation based on Y points
-    plot.tri(DTY, add=TRUE, do.points=TRUE,col="blue")
+    DTY<-interp::tri.mesh(Y[,1],Y[,2],duplicate="remove") #Delaunay triangulation based on Y points
+    interp::plot.triSht(DTY, add=TRUE, do.points=TRUE,col="blue")
   }
 } #end of the function
 #'
@@ -1224,7 +1224,7 @@ print.summary.Uniform <- function(x, ...)
 
       cat("\n The two vectors containing the coordinates of the nodes on the boundary of the convex hull of Ypnts \n")
       Yp<-x$Support
-      Ydeltri<-tri.mesh(Yp[,1],Yp[,2],duplicate="remove")
+      Ydeltri<-interp::tri.mesh(Yp[,1],Yp[,2],duplicate="remove")
       print(convex.hull(Ydeltri))
     }
   } else if (Dimn==3)
@@ -1301,8 +1301,8 @@ plot.Uniform<-function (x,asp=NA,xlab="x",ylab="y",zlab="z", ...)
       points(Xdat,pch=1)
     } else
     {
-      DTY<-tripack::tri.mesh(Y[,1],Y[,2],duplicate="remove") #Delaunay triangulation based on Y points
-      plot.tri(DTY, add=TRUE, do.points = TRUE,pch=16,col="blue")
+      DTY<-interp::tri.mesh(Y[,1],Y[,2],duplicate="remove") #Delaunay triangulation based on Y points
+      interp::plot.triSht(DTY, add=TRUE, do.points = TRUE,pch=16,col="blue")
       points(Xdat,pch=".",cex=3)
     }
   } else if (Dimn==3)
@@ -1777,7 +1777,7 @@ plot.PCDs<-function (x, Jit=0.1, ...)
   if (!is.null(S)) {arrows(S[,1], S[,2], E[,1], E[,2], length = 0.1, col= 4)}
   } else if (dimn==2 && nrow(Yp)>3)
   {
-    DT<-tri.mesh(Yp[,1],Yp[,2],duplicate="remove")
+    DT<-interp::tri.mesh(Yp[,1],Yp[,2],duplicate="remove")
 
     Xlim<-range(Xp[,1],Yp[,1])
     Ylim<-range(Xp[,2],Yp[,2])
@@ -1786,7 +1786,7 @@ plot.PCDs<-function (x, Jit=0.1, ...)
 
     plot(Xp,main=x$mtitle, xlab=" ", ylab=" ",
          xlim=Xlim+xd*c(-.05,.05),ylim=Ylim+yd*c(-.05,.05),pch=".",cex=3, ...)
-    plot.tri(DT, add=TRUE, do.points = TRUE)
+    interp::plot.triSht(DT, add=TRUE, do.points = TRUE)
     if (!is.null(S)) {arrows(S[,1], S[,2], E[,1], E[,2], length = 0.1, col= 4)}
   } else
   {stop('Currently only digraphs with vertices of dimension 1 or 2 are plotted.')}

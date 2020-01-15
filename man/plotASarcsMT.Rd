@@ -5,8 +5,18 @@
 \title{The plot of the arcs of Arc Slice Proximity Catch Digraph (AS-PCD) for a 2D data set -
 multiple triangle case}
 \usage{
-plotASarcsMT(Xp, Yp, M = "CC", asp = NA, main = "", xlab = "",
-  ylab = "", xlim = NULL, ylim = NULL, ...)
+plotASarcsMT(
+  Xp,
+  Yp,
+  M = "CC",
+  asp = NA,
+  main = "",
+  xlab = "",
+  ylab = "",
+  xlim = NULL,
+  ylim = NULL,
+  ...
+)
 }
 \arguments{
 \item{Xp}{A set of 2D points which constitute the vertices of the AS-PCD}
@@ -46,7 +56,7 @@ for circumcenter of each Delaunay triangle or \eqn{M=(\alpha,\beta,\gamma)} in b
 interior of each Delaunay triangle; default is \code{M}="CC" i.e. circumcenter of each triangle.
 
 See (\insertCite{ceyhan:Phd-thesis,ceyhan:comp-geo-2010,ceyhan:mcap2012;textual}{pcds}) for more on AS-PCDs.
-Also see (\insertCite{okabe:2000,ceyhan:comp-geo-2010,renka:1996;textual}{pcds}) for more on Delaunay triangulation and the TRIPACK algorithm.
+Also see (\insertCite{okabe:2000,ceyhan:comp-geo-2010,sinclair:2016;textual}{pcds}) for more on Delaunay triangulation and the corresponding algorithm.
 }
 \examples{
 #nx is number of X points (target) and ny is number of Y points (nontarget)
@@ -64,6 +74,8 @@ M<-c(1,1,1) #M<-c(1,2,3) #M<-c(-1,2,3) #barycentric coordinates
 
 plotASarcsMT(Xp,Yp,M,xlab="",ylab="")
 plotASarcsMT(Xp,Yp,M,asp=1,xlab="",ylab="")
+
+plotASarcsMT(Xp,Yp[1:3,],M,xlab="",ylab="")
 
 Xlim<-range(Xp[,1],Yp[,1])
 Ylim<-range(Xp[,2],Yp[,2])

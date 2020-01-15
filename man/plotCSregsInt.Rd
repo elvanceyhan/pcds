@@ -5,9 +5,20 @@
 \title{The plot of the Central Similarity (CS) Proximity Regions for a general interval
 (vertices jittered along y-coordinate) - one interval case}
 \usage{
-plotCSregsInt(dat, t, c = 0.5, int, Jit = 0.1, main = "",
-  xlab = "", ylab = "", xlim = NULL, ylim = NULL,
-  centers = FALSE, ...)
+plotCSregsInt(
+  dat,
+  t,
+  c = 0.5,
+  int,
+  Jit = 0.1,
+  main = "",
+  xlab = "",
+  ylab = "",
+  xlim = NULL,
+  ylim = NULL,
+  centers = FALSE,
+  ...
+)
 }
 \arguments{
 \item{dat}{A set of 1D points for which CS proximity regions are to be constructed}

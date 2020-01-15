@@ -80,7 +80,7 @@ Xlim<-range(Xp,Yp)
 xd<-Xlim[2]-Xlim[1]
 
 plot(cbind(a,0),
-main="arcs of PE-PCD for points (jittered along y-axis)\\n in middle intervals ",
+main="arcs of PE-PCD for points (jittered along y-axis)\n in middle intervals ",
 xlab=" ", ylab=" ", xlim=Xlim+xd*c(-.05,.05),ylim=3*c(-jit,jit),pch=".")
 abline(h=0,lty=1)
 points(Xp, yjit,pch=".",cex=3)

@@ -5,8 +5,19 @@
 \title{The indicator for three 3D points constituting a dominating set for Proportional Edge Proximity Catch Digraphs
 (PE-PCDs) - one tetrahedron case}
 \usage{
-Gam3PEtetra(pt1, pt2, pt3, Dt, r, th, M = "CM", rv1 = NULL,
-  rv2 = NULL, rv3 = NULL, ch.data.pnts = FALSE)
+Gam3PEtetra(
+  pt1,
+  pt2,
+  pt3,
+  Dt,
+  r,
+  th,
+  M = "CM",
+  rv1 = NULL,
+  rv2 = NULL,
+  rv3 = NULL,
+  ch.data.pnts = FALSE
+)
 }
 \arguments{
 \item{pt1, pt2, pt3}{Three 3D points to be tested for constituting a dominating set of the PE-PCD}

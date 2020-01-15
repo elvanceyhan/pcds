@@ -4,12 +4,12 @@
 \alias{NCStri}
 \title{The vertices of the Central Similarity (CS) Proximity Region in a general triangle}
 \usage{
-NCStri(pt, t, tri, M, re = NULL)
+NCStri(pt, tau, tri, M, re = NULL)
 }
 \arguments{
 \item{pt}{A 2D point whose CS proximity region is to be computed}
 
-\item{t}{A positive real number which serves as the expansion parameter in CS proximity region}
+\item{tau}{A positive real number which serves as the expansion parameter in CS proximity region}
 
 \item{tri}{Three 2D points, stacked row-wise, each row representing a vertex of the triangle}
 
@@ -20,7 +20,7 @@ which serves as a center in the interior of the triangle \code{tri}}
 }
 \value{
 Vertices of the triangular region which constitutes the CS proximity region with expansion parameter
-\eqn{t>0} and center \code{M} for a point \code{pt}
+\eqn{\tau>0} and center \code{M} for a point \code{pt}
 }
 \description{
 Returns the vertices of the CS proximity region (which is itself a triangle) for a point in the
@@ -41,7 +41,7 @@ A<-c(1,1); B<-c(2,0); C<-c(1.5,2);
 #A<-runif(2); B<-runif(2); C<-runif(2);
 #A<-runif(2,1,100); B<-runif(2,1,100); C<-runif(2,1,100);
 Tr<-rbind(A,B,C);
-t<-1.5
+tau<-1.5
 
 M<-as.numeric(runif.tri(1,Tr)$g)
 #M<-c(1.6,1.2)
@@ -53,24 +53,24 @@ n<-10
 #set.seed(1)
 dat<-runif.tri(n,Tr)$g
 
-NCStri(dat[7,],t,Tr,M)
+NCStri(dat[7,],tau,Tr,M)
 
 P1<-as.numeric(runif.tri(1,Tr)$g)
 #P1<-c(.4,.2)
-NCStri(P1,t,Tr,M)
+NCStri(P1,tau,Tr,M)
 
 P2<-c(1.8,.5)
-NCStri(P2,t,Tr,M)
+NCStri(P2,tau,Tr,M)
 
 P3<-c(1.7,.6)
-NCStri(P3,t,Tr,M)
+NCStri(P3,tau,Tr,M)
 
 #or try
 re<-redges.tri.cent(P2,Tr,M)$re
-NCStri(P2,t,Tr,M,re)
+NCStri(P2,tau,Tr,M,re)
 
 dat.fr<-data.frame(a=Tr)
-NCStri(P2,t,dat.fr,M)
+NCStri(P2,tau,dat.fr,M)
 
 }
 \references{

@@ -4,8 +4,16 @@
 \alias{plotDeltri}
 \title{The scatterplot of points from one class and plot of the Delaunay triangulation of the other class}
 \usage{
-plotDeltri(Xp, Yp, main = "", xlab = "", ylab = "", xlim = NULL,
-  ylim = NULL, ...)
+plotDeltri(
+  Xp,
+  Yp,
+  main = "",
+  xlab = "",
+  ylab = "",
+  xlim = NULL,
+  ylim = NULL,
+  ...
+)
 }
 \arguments{
 \item{Xp}{A set of 2D points whose scatterplot is to be plotted}
@@ -27,7 +35,7 @@ A scatterplot of \code{Xp} points and the Delaunay triangulation of \code{Yp} po
 Plots the scatter plot of \code{Xp} points together with the Delaunay triangles based on the \code{Yp} points.
 Both sets of points are of 2D.
 
-See (\insertCite{okabe:2000,ceyhan:comp-geo-2010,renka:1996;textual}{pcds}) for more on Delaunay triangulation and the TRIPACK algorithm.
+See (\insertCite{okabe:2000,ceyhan:comp-geo-2010,sinclair:2016;textual}{pcds}) for more on Delaunay triangulation and the corresponding algorithm.
 }
 \examples{
 nx<-20; ny<-4; #try also nx<-40; ny<-10 or nx<-1000; ny<-10;
@@ -41,6 +49,7 @@ P<-c(.6,.4)
 plotDeltri(P,Yp,xlab="",ylab="",main="X points and Delaunay Triangulation of Y points")
 
 plotDeltri(Xp,Yp,xlab="",ylab="")
+plotDeltri(Xp,Yp[1:3,],xlab="",ylab="")
 
 plotDeltri(Xp,rbind(Yp,Yp),xlab="",ylab="")
 
@@ -55,5 +64,5 @@ plotDeltri(Xp,dat.fr,xlab="",ylab="")
 \insertAllCited{}
 }
 \seealso{
-\code{\link[tripack]{plot.tri}} in \code{tripack} package
+\code{\link[interp]{plot.triSht}} in \code{interp} package
 }

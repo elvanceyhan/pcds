@@ -75,7 +75,7 @@ Xlim<-range(a,b,Xp,Yp)
 xd<-Xlim[2]-Xlim[1]
 
 plot(cbind(a,0),pch=".",
-main="arcs of CS-PCD with vertices (jittered along y-axis)\\n in end intervals ",
+main="arcs of CS-PCD with vertices (jittered along y-axis)\n in end intervals ",
      xlab=" ", ylab=" ",xlim=Xlim+xd*c(-.05,.05),ylim=3*c(-jit,jit))
 abline(h=0,lty=1)
 points(Xp, yjit,pch=".",cex=3)

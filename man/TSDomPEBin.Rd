@@ -7,8 +7,15 @@
 A test of segregation/association based on domination number of Proportional Edge Proximity Catch Digraph
 (PE-PCD) for 2D data - Binomial Approximation}
 \usage{
-TSDomPEBin(Xp, Yp, r, ch.cor = F, nt = NULL,
-  alternative = c("two.sided", "less", "greater"), conf.level = 0.95)
+TSDomPEBin(
+  Xp,
+  Yp,
+  r,
+  ch.cor = F,
+  nt = NULL,
+  alternative = c("two.sided", "less", "greater"),
+  conf.level = 0.95
+)
 }
 \arguments{
 \item{Xp}{A set of 2D points which constitute the vertices of the PE-PCD}
@@ -98,6 +105,7 @@ TSDomPEBin(Xp,Yp,r,nt=ndt)
 #for the non-degenerate asymptotic distribution of the domination number
 
 TSDomPEBin(Xp,Yp,r)
+TSDomPEBin(Xp,Yp[1:3,],r)
 
 TSDomPEBin(Xp,rbind(Yp,Yp),r)
 

@@ -47,7 +47,7 @@ See also (\insertCite{ceyhan:mcap2012;textual}{pcds}).
 Caveat: It takes a long time for large number of vertices (i.e., large number of row numbers).
 }
 \examples{
-\donttest{
+\dontrun{
 A<-c(1,1); B<-c(2,0); C<-c(1.5,2);
 #A<-runif(2); B<-runif(2); C<-runif(2);
 #A<-runif(2,1,100); B<-runif(2,1,100); C<-runif(2,1,100);

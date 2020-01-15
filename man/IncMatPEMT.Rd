@@ -41,12 +41,10 @@ so the diagonal entries are all equal to 1.
 
 See (\insertCite{ceyhan:Phd-thesis,ceyhan:arc-density-PE,ceyhan:dom-num-NPE-Spat2011;textual}{pcds}) for more
 on the PE-PCDs.
-Also see (\insertCite{okabe:2000,ceyhan:comp-geo-2010,renka:1996;textual}{pcds}) for more on Delaunay triangulation and the TRIPACK algorithm.
+Also see (\insertCite{okabe:2000,ceyhan:comp-geo-2010,sinclair:2016;textual}{pcds}) for more on Delaunay triangulation and the corresponding algorithm.
 }
 \examples{
-\donttest{
-nx<-100
-ny<-10
+nx<-20; ny<-4; #try also nx<-40; ny<-10 or nx<-1000; ny<-10;
 
 #set.seed(1)
 Xp<-cbind(runif(nx,0,1),runif(nx,0,1))
@@ -74,6 +72,7 @@ summary(Arcs)
 plot(Arcs)
 
 IncMatPEMT(Xp,Yp,r,M)
+IncMatPEMT(Xp,Yp[1:3,],r,M)
 
 IncMatPEMT(Xp,rbind(Yp,Yp),r,M)
 
@@ -82,7 +81,6 @@ IncMatPEMT(dat.fr,Yp,r,M)
 
 dat.fr<-data.frame(a=Yp)
 IncMatPEMT(Xp,dat.fr,r,M)
-}
 
 }
 \references{

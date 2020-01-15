@@ -7,8 +7,14 @@
 A test of segregation/association based on arc density of Proportional Edge Proximity Catch Digraph
 (PE-PCD) for 2D data}
 \usage{
-TSArcDensPEMT(Xp, Yp, r, ch.cor = FALSE, alternative = c("two.sided",
-  "less", "greater"), conf.level = 0.95)
+TSArcDensPEMT(
+  Xp,
+  Yp,
+  r,
+  ch.cor = FALSE,
+  alternative = c("two.sided", "less", "greater"),
+  conf.level = 0.95
+)
 }
 \arguments{
 \item{Xp}{A set of 2D points which constitute the vertices of the PE-PCD}
@@ -65,7 +71,6 @@ See also (\insertCite{ceyhan:Phd-thesis,ceyhan:arc-density-PE;textual}{pcds}) fo
 density of PE-PCDs.
 }
 \examples{
-\donttest{
 #nx is number of X points (target) and ny is number of Y points (nontarget)
 nx<-20; ny<-4; #try also nx<-40; ny<-10 or nx<-1000; ny<-10;
 
@@ -92,6 +97,10 @@ TSArcDensPEMT(Xp,Yp,r=2,ch=TRUE)
 r<-2
 TSArcDensPEMT(Xp,Yp,r)
 
+Xp<-runif.tri(nx,Yp[1:3,])$g
+TSArcDensPEMT(Xp,Yp[1:3,],r)
+
+
 TSArcDensPEMT(Xp,rbind(Yp,Yp),r)
 
 dat.fr<-data.frame(a=Xp)
@@ -99,7 +108,6 @@ TSArcDensPEMT(dat.fr,Yp,r)
 
 dat.fr<-data.frame(a=Yp)
 TSArcDensPEMT(Xp,dat.fr,r)
-}
 
 }
 \references{

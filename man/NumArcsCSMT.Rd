@@ -40,7 +40,7 @@ convex hull of \code{Yp} points). For the number of arcs, loops are not allowed 
 for points inside the convex hull of \code{Yp} points.
 
 See (\insertCite{ceyhan:Phd-thesis,ceyhan:arc-density-CS,ceyhan:test2014;textual}{pcds}) for more on CS-PCDs.
-Also see (\insertCite{okabe:2000,ceyhan:comp-geo-2010,renka:1996;textual}{pcds}) for more on Delaunay triangulation and the TRIPACK algorithm.
+Also see (\insertCite{okabe:2000,ceyhan:comp-geo-2010,sinclair:2016;textual}{pcds}) for more on Delaunay triangulation and the corresponding algorithm.
 }
 \examples{
 #nx is number of X points (target) and ny is number of Y points (nontarget)
@@ -66,6 +66,7 @@ NumArcsCSMT(c(.4,.2),Yp[1:3,],t=.5,M)
 
 t<-2
 NumArcsCSMT(Xp,Yp,t,M)
+NumArcsCSMT(Xp,Yp[1:3,],t,M)
 
 NumArcsCSMT(Xp,rbind(Yp,Yp),t,M)
 

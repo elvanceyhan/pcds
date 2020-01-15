@@ -5,8 +5,20 @@
 \title{The plot of the Proportional Edge (PE) Proximity Regions (vertices jittered along y-coordinate)
 - multiple interval case}
 \usage{
-plotPEregsMI(Xp, Yp, r, c, Jit = 0.1, main = "", xlab = "",
-  ylab = "", xlim = NULL, ylim = NULL, centers = FALSE, ...)
+plotPEregsMI(
+  Xp,
+  Yp,
+  r,
+  c,
+  Jit = 0.1,
+  main = "",
+  xlab = "",
+  ylab = "",
+  xlim = NULL,
+  ylim = NULL,
+  centers = FALSE,
+  ...
+)
 }
 \arguments{
 \item{Xp}{A set of 1D points for which PE proximity regions are plotted}

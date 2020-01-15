@@ -17,7 +17,7 @@ combined) else it checks if \code{p} lies in the interior of the triangle.}
 }
 \value{
 A list with two elements
-\item{inside.tri}{A logical output, it is \code{TRUE}, if the point, \code{p}, is inside the triangle, \code{tri},
+\item{in.tri}{A logical output, it is \code{TRUE}, if the point, \code{p}, is inside the triangle, \code{tri},
 else it is \code{FALSE}.}
 \item{barycentric}{The barycentric coordinates (alpha, beta, gamma) of the point \code{p} with respect to
 the triangle, \code{tri}.}
@@ -60,7 +60,7 @@ in.triangle(D3,Tr,boundary=TRUE)
 p<-c(NA,.2)
 in.triangle(p,Tr)
 
-\donttest{
+\dontrun{
 #when triangle is degenerate
 B<-A+2*(C-A);
 Tr<-rbind(A,B,C)
@@ -92,5 +92,5 @@ in.triangle(p,dat.fr)
 
 }
 \seealso{
-\code{\link{inTriAll}} and \code{\link[tripack]{in.convex.hull}} from the \code{tripack} package
+\code{\link{inTriAll}} and \code{\link[interp]{in.convex.hull}} from the \code{interp} package
 }

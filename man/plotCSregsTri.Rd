@@ -7,8 +7,19 @@
 Plots the points in and outside of the triangle \code{tri} and also the CS proximity regions which are also
 triangular for points inside the triangle \code{tri} with edge regions are based on the center of mass CM.}
 \usage{
-plotCSregsTri(Xp, tri, t, M = c(1, 1, 1), asp = NA, main = "",
-  xlab = "", ylab = "", xlim = NULL, ylim = NULL, ...)
+plotCSregsTri(
+  Xp,
+  tri,
+  t,
+  M = c(1, 1, 1),
+  asp = NA,
+  main = "",
+  xlab = "",
+  ylab = "",
+  xlim = NULL,
+  ylim = NULL,
+  ...
+)
 }
 \arguments{
 \item{Xp}{A set of 2D points for which CS proximity regions are constructed}

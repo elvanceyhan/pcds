@@ -35,8 +35,8 @@ Convex hull of \code{Yp} is partitioned by the Delaunay triangles based on \code
 the convex hull of \code{Yp} points).
 
 See (\insertCite{ceyhan:Phd-thesis,ceyhan:comp-geo-2010,ceyhan:mcap2012;textual}{pcds}) for more on AS-PCDs.
-Also see (\insertCite{okabe:2000,ceyhan:comp-geo-2010,renka:1996;textual}{pcds}) for more on Delaunay triangulation
-and the TRIPACK algorithm.
+Also see (\insertCite{okabe:2000,ceyhan:comp-geo-2010,sinclair:2016;textual}{pcds}) for more on Delaunay triangulation
+and the corresponding algorithm.
 }
 \examples{
 nx<-20; ny<-4; #try also nx<-40; ny<-10 or nx<-1000; ny<-10;
@@ -55,6 +55,7 @@ M<-"CC"
 #M<-c(1.3,1.3)
 
 NumArcsASMT(Xp,Yp,M)
+NumArcsASMT(Xp,Yp[1:3,],M)
 
 NumArcsASMT(c(.4,.2),Yp,M)
 

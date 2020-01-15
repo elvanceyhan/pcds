@@ -65,7 +65,7 @@ ind.gam1<-which(gam.vec==1)
 ind.gam1
 
 domset<-dat[ind.gam1]
-if(length(ind.gam1)==0)
+if (length(ind.gam1)==0)
 {domset<-NA}
 
 #or try

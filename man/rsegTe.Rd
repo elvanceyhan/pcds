@@ -61,7 +61,7 @@ yd<-Ylim[2]-Ylim[1]
 dat<-rsegTe(n,eps)$gen.points
 
 plot(Te,asp=1,pch=".",xlab="",ylab="",
-main="Type I segregation in the \\n standard equilateral triangle",
+main="Type I segregation in the \n standard equilateral triangle",
      xlim=Xlim+xd*c(-.01,.01),ylim=Ylim+yd*c(-.01,.01))
 polygon(Te)
 points(dat)

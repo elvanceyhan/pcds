@@ -16,13 +16,13 @@ rascMT(n, Yp, delta, DTmesh = NULL, DTr = NULL)
 \item{delta}{A positive real number in (0,4/9). \code{delta} is the parameter of association (that is, only
 \eqn{\delta 100} \% area around each vertex in each Delaunay triangle is allowed for point generation).}
 
-\item{DTmesh}{Delaunay triangulation of \code{Yp}, default is \code{NULL}, which is computed via \code{\link[tripack]{tri.mesh}} function
-in \code{tripack} package. \code{\link[tripack]{tri.mesh}} function yields the triangulation nodes with their neigbours, and
+\item{DTmesh}{Delaunay triangulation of \code{Yp}, default is \code{NULL}, which is computed via \code{\link[interp]{tri.mesh}} function
+in \code{interp} package. \code{\link[interp]{tri.mesh}} function yields the triangulation nodes with their neigbours, and
 creates a triangulation object}
 
-\item{DTr}{Delaunay triangles based on \code{Yp}, default is \code{NULL}, which is computed via \code{\link[tripack]{tri.mesh}} function
-in \code{tripack} package. \code{\link[tripack]{triangles}} function yields a triangulation data structure from the triangulation object created
-by \code{\link[tripack]{tri.mesh}}.}
+\item{DTr}{Delaunay triangles based on \code{Yp}, default is \code{NULL}, which is computed via \code{\link[interp]{tri.mesh}} function
+in \code{interp} package. \code{\link[interp]{triangles}} function yields a triangulation data structure from the triangulation object created
+by \code{\link[interp]{tri.mesh}}.}
 }
 \value{
 A list with the elements
@@ -41,24 +41,30 @@ and the number of reference (i.e., \code{Yp}) points.}
 \code{Yp} points}
 }
 \description{
-Generates \code{n} points uniformly in the support for Type I segregation in the convex hull of set of points, \code{Yp}.
+Generates \code{n} points uniformly in the support for Type I association in the convex hull of set of points, \code{Yp}.
 \code{delta} is the parameter of association (that is, only \eqn{\delta 100} \% area around each vertex in each Delaunay
-triangle is allowed for point generation). \code{delta} corresponds to \code{eps} in the standard equilateral triangle
+triangle is allowed for point generation).
+
+\code{delta} corresponds to \code{eps} in the standard equilateral triangle
 \eqn{T_e} as \eqn{delta=4eps^2/3} (see \code{rsegTe}  function).
+
+If \code{Yp} consists only of 3 points, then the function behaves like the
+function \code{\link{rasc.tri}}.
 
 \code{DTmesh} must be the Delaunay triangulation of \code{Yp}
 and \code{DTr} must be the corresponding Delaunay triangles (both \code{DTmesh} and \code{DTr} are \code{NULL} by default).
-If \code{NULL}, \code{DTmesh} is computed via \code{\link[tripack]{tri.mesh}} and \code{DTr} is computed via \code{\link[tripack]{triangles}} function in \code{tripack} package.
+If \code{NULL}, \code{DTmesh} is computed via \code{\link[interp]{tri.mesh}} and \code{DTr} is computed via \code{\link[interp]{triangles}} function in \code{interp} package.
 
-\code{\link[tripack]{tri.mesh}} function yields the triangulation nodes with their neigbours, and creates a triangulation object,
-and \code{\link[tripack]{triangles}} function yields a triangulation data structure from the triangulation object created
-by \code{\link[tripack]{tri.mesh}} (the first three colums are the vertex indices of the Delaunay triangles).
+\code{\link[interp]{tri.mesh}} function yields the triangulation nodes with their neigbours, and creates a triangulation object,
+and \code{\link[interp]{triangles}} function yields a triangulation data structure from the triangulation object created
+by \code{\link[interp]{tri.mesh}} (the first three colums are the vertex indices of the Delaunay triangles).
 
 See (\insertCite{ceyhan:arc-density-PE,ceyhan:arc-density-CS,ceyhan:dom-num-NPE-Spat2011;textual}{pcds}) for more on the
 association pattern.
-Also see (\insertCite{okabe:2000,ceyhan:comp-geo-2010,renka:1996;textual}{pcds}) for more on Delaunay triangulation and the TRIPACK algorithm.
+Also see (\insertCite{okabe:2000,ceyhan:comp-geo-2010,sinclair:2016;textual}{pcds}) for more on Delaunay triangulation and the corresponding algorithm.
 }
 \examples{
+\dontrun{
 #nx is number of X points (target) and ny is number of Y points (nontarget)
 nx<-20; ny<-4; #try also nx<-40; ny<-10 or nx<-1000; ny<-10;
 
@@ -75,17 +81,17 @@ Yp<-cbind(runif(ny),runif(ny))
 del<-.3 #try .5, .75, .85
 dat<-rascMT(nx,Yp,del) #data under CSR in the convex hull of Ypoints
 #or use
-DTY<-tripack::tri.mesh(Yp[,1],Yp[,2],duplicate="remove") #Delaunay triangulation based on Y points
+DTY<-interp::tri.mesh(Yp[,1],Yp[,2],duplicate="remove") #Delaunay triangulation based on Y points
 dat<-rascMT(nx,Yp,del,DTY) #data under CSR in the convex hull of Ypoints
 
 #or use
-DTY<-tripack::tri.mesh(Yp[,1],Yp[,2],duplicate="remove") #Delaunay triangulation based on Y points
-TRY<-tripack::triangles(DTY)[,1:3];
+DTY<-interp::tri.mesh(Yp[,1],Yp[,2],duplicate="remove") #Delaunay triangulation based on Y points
+TRY<-interp::triangles(DTY)[,1:3];
 dat<-rascMT(nx,Yp,del,DTr=TRY) #data under CSR in the convex hull of Ypoints
 
 #or use
-DTY<-tripack::tri.mesh(Yp[,1],Yp[,2],duplicate="remove") #Delaunay triangulation based on Y points
-TRY<-tripack::triangles(DTY)[,1:3];
+DTY<-interp::tri.mesh(Yp[,1],Yp[,2],duplicate="remove") #Delaunay triangulation based on Y points
+TRY<-interp::triangles(DTY)[,1:3];
 dat<-rascMT(nx,Yp,del,DTY,TRY)$g #data under CSR in the convex hull of Ypoints
 
 Xlim<-range(Yp[,1])
@@ -94,10 +100,10 @@ xd<-Xlim[2]-Xlim[1]
 yd<-Ylim[2]-Ylim[1]
 
 #plot of the data in the convex hull of Y points together with the Delaunay triangulation
-DTY<-tripack::tri.mesh(Yp[,1],Yp[,2],duplicate="remove") #Delaunay triangulation based on Y points
+DTY<-interp::tri.mesh(Yp[,1],Yp[,2],duplicate="remove") #Delaunay triangulation based on Y points
 
 plot(dat,main=" ", xlab=" ", ylab=" ",xlim=Xlim+xd*c(-.05,.05),ylim=Ylim+yd*c(-.05,.05),type="n")
-tripack::plot.tri(DTY, add=TRUE, do.points=TRUE,col="blue")
+interp::plot.triSht(DTY, add=TRUE, do.points=TRUE,col="blue")
 points(dat,pch=".",cex=3)
 
 Yp<-rbind(c(.3,.2),c(.4,.5),c(.14,.15))
@@ -105,6 +111,7 @@ rascMT(nx,Yp,del)
 
 dat.fr<-data.frame(a=Yp)
 rascMT(nx,dat.fr,del)
+}
 
 }
 \references{

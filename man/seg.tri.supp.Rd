@@ -40,7 +40,7 @@ yd<-Ylim[2]-Ylim[1]
 
 #par(pty="s")
 plot(Te,pch=".",xlab="",ylab="",
-main="segregation support is the intersection\\n of these two triangles"
+main="segregation support is the intersection\n of these two triangles"
      ,axes=T,xlim=Xlim+xd*c(-.05,.05),ylim=Ylim+yd*c(-.05,.05))
 #points(sixt,pty=2,pch=2,col="red")
 polygon(Te)
@@ -67,7 +67,7 @@ yd<-Ylim[2]-Ylim[1]
 
 #par(pty="s")
 plot(Tr,pch=".",xlab="",ylab="",
-main="segregation support is the intersection\\n of these two triangles"
+main="segregation support is the intersection\n of these two triangles"
      ,axes=T,xlim=Xlim+xd*c(-.05,.05),ylim=Ylim+yd*c(-.05,.05))
 polygon(Tr)
 polygon(Tseg,lty=2)

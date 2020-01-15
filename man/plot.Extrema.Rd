@@ -4,8 +4,7 @@
 \alias{plot.Extrema}
 \title{Plot an \code{Extrema} object}
 \usage{
-\method{plot}{Extrema}(x, asp = NA, xlab = " ", ylab = " ",
-  zlab = "", ...)
+\method{plot}{Extrema}(x, asp = NA, xlab = " ", ylab = " ", zlab = "", ...)
 }
 \arguments{
 \item{x}{Object of class \code{Extrema}}

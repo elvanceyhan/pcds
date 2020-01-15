@@ -49,5 +49,5 @@ in.circle(p,cent,rad)
 }
 \seealso{
 \code{\link{in.triangle}}, \code{\link{in.tetrahedron}},  and
-\code{\link[tripack]{in.convex.hull}} from the \code{tripack} package
+\code{\link[interp]{in.convex.hull}} from the \code{interp} package
 }

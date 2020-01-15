@@ -5,8 +5,17 @@
 \title{The indicator for two points being a dominating set for Arc Slice Proximity Catch Digraphs
 (AS-PCDs) - basic triangle case}
 \usage{
-Gam2ASbastri(pt1, pt2, Dt, c1, c2, M = "CC", rv1 = NULL, rv2 = NULL,
-  ch.data.pnts = FALSE)
+Gam2ASbastri(
+  pt1,
+  pt2,
+  Dt,
+  c1,
+  c2,
+  M = "CC",
+  rv1 = NULL,
+  rv2 = NULL,
+  ch.data.pnts = FALSE
+)
 }
 \arguments{
 \item{pt1, pt2}{Two 2D points to be tested for constituting a dominating set of the AS-PCD}

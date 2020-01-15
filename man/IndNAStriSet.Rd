@@ -89,7 +89,7 @@ IndNAStriSet(rbind(S,S),P,Tr,M)
 dat.fr<-data.frame(a=S)
 IndNAStriSet(dat.fr,P,Tr,M)
 
-\donttest{
+\dontrun{
 IndNAStriSet(cbind(S,S),P,Tr,M)
 IndNAStriSet(rbind(c("a","b"),S),P,Tr,M)
 }

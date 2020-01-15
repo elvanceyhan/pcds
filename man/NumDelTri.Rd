@@ -14,7 +14,7 @@ Number of Delaunay triangles based on \code{Yp} points.
 }
 \description{
 Returns the number of Delaunay triangles based on the 2D set of points \code{Yp} .
-See (\insertCite{okabe:2000,renka:1996;textual}{pcds}) for more on Delaunay triangulation and the TRIPACK algorithm.
+See (\insertCite{okabe:2000,sinclair:2016;textual}{pcds}) for more on Delaunay triangulation and the corresponding algorithm.
 }
 \examples{
 ny<-10
@@ -23,6 +23,7 @@ ny<-10
 Yp<-cbind(runif(ny,0,1),runif(ny,0,1))
 
 NumDelTri(Yp)
+NumDelTri(Yp[1:3,])
 
 dat.fr<-data.frame(a=Yp)
 NumDelTri(dat.fr)
