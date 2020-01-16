@@ -6,7 +6,7 @@
 #' The 734 mapped stems included 156 Carolina ashes (Fraxinus caroliniana),
 #' 215 Water tupelos (Nyssa aquatica), 205 Swamp tupelos (Nyssa sylvatica), 98 Bald cypresses (Taxodium distichum)
 #' and 60 stems from 8 additional three species (labeled as Others (OT)).
-#' The plots were set up by Bill Good and their spatial patterns described in \insertCite{good:1982;textual}{pcds},
+#' The plots were set up by Bill Good and their spatial patterns described in (\insertCite{good:1982;textual}{pcds}),
 #' the plots have been maintained and resampled by Rebecca Sharitz and her colleagues of the Savannah River
 #' Ecology Laboratory. The data and some of its description are borrowed from the swamp data entry in the dixon
 #' package in the CRAN repository.
@@ -29,7 +29,7 @@
 #' @references
 #' \insertAllCited{}
 #'
-#' @source \href{https://pdixon.stat.iastate.edu/datasets/goodplot1.txt}{Prof Philip Dixon's website}
+#' @source \href{https://pdixon.stat.iastate.edu/datasets/goodplot1.txt}{Prof. Philip Dixon's website}
 #'
 #' @examples
 #' data(swamptrees)
