@@ -15,7 +15,7 @@
 #'
 #' \strong{Details:}
 #' \describe{
-#'   \item{x,y}{x and y (Cartesian) coordinates of the trees}
+#'   \item{x,y}{x and y (i.e., Cartesian) coordinates of the trees}
 #'   \item{live}{a categorical variable that indicates the tree is alive (labeled as 1) or dead (labeled as 0)}
 #'   \item{sp}{species label of the trees:
 #'
