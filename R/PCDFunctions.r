@@ -2036,7 +2036,7 @@ runif.bastri<-function(k,c1,c2)
 #' if \code{pt} is inside the circle, and 0 otherwise.
 #'
 #' @seealso \code{\link{in.triangle}}, \code{\link{in.tetrahedron}},  and
-#' \code{\link[interp]{in.convex.hull}} from the \code{interp} package
+#' \code{\link[interp]{on.convex.hull}} from the \code{interp} package for documentation for \code{in.convex.hull}
 #'
 #' @examples
 #' cent<-c(1,1); rad<-1; p<-c(1.4,1.2)
@@ -2101,7 +2101,7 @@ in.circle<-function(pt,cent,rad,boundary=FALSE)
 #' \item{barycentric}{The barycentric coordinates (alpha, beta, gamma) of the point \code{p} with respect to
 #' the triangle, \code{tri}.}
 #'
-#' @seealso \code{\link{inTriAll}} and \code{\link[interp]{in.convex.hull}} from the \code{interp} package
+#' @seealso \code{\link{inTriAll}} and \code{\link[interp]{on.convex.hull}} from the \code{interp} package for documentation for \code{in.convex.hull}
 #'
 #' @examples
 #' #A<-c(0,0); B<-c(1,0); C<-c(1/2,sqrt(3)/2);
@@ -2227,7 +2227,7 @@ in.triangle<-function(p,tri,boundary=FALSE)
 #' @return A logical output, if all data points in \code{Dt} are inside the triangle, \code{tri}, the output is \code{TRUE},
 #' else it is \code{FALSE}.
 #'
-#' @seealso \code{\link{in.triangle}} and \code{\link[interp]{in.convex.hull}} from the \code{interp} package
+#' @seealso \code{\link{in.triangle}} and \code{\link[interp]{on.convex.hull}} from the \code{interp} package for documentation for \code{in.convex.hull}
 #'
 #' @examples
 #' #A<-c(0,0); B<-c(1,0); C<-c(1/2,sqrt(3)/2);

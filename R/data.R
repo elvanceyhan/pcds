@@ -13,21 +13,19 @@
 #'
 #' See also (\insertCite{good:1982,jones:1994,dixon:NNCTEco2002;textual}{pcds}).
 #'
-#' \strong{Details:}
-#' \describe{
-#'   \item{x,y}{x and y (i.e., Cartesian) coordinates of the trees}
-#'   \item{live}{a categorical variable that indicates the tree is alive (labeled as 1) or dead (labeled as 0)}
-#'   \item{sp}{species label of the trees:
-#'
-#' \itemize{
-#'  \item{"FX"}{Carolina ash (Fraxinus caroliniana)}
-#'  \item{"NS"}{Swamp tupelo (Nyssa sylvatica)}
-#'  \item{"NX"}{Water tupelo (Nyssa aquatica)}
-#'  \item{"TD"}{Bald cypress (Taxodium distichum)}
-#'  \item{"OT"}{Other species}
+#' @details
+#' Text describing the variable (i.e., column) names in the data set.
+#' * x,y:  x and y (i.e., Cartesian) coordinates of the trees
+#' * live: a categorical variable that indicates the tree is alive (labeled as 1) or dead (labeled as 0)
+#' * sp: species label of the trees:
+#'   \itemize{
+#'   \item{FX: }{Carolina ash (Fraxinus caroliniana)}
+#'   \item{NS: }{Swamp tupelo (Nyssa sylvatica)}
+#'   \item{NX: }{Water tupelo (Nyssa aquatica)}
+#'   \item{TD: }{Bald cypress (Taxodium distichum)}
+#'   \item{OT: }{Other species}
 #'    }
-#'   }
-#'  }
+#' @md
 #'
 #' @references
 #' \insertAllCited{}

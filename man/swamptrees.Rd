@@ -6,7 +6,7 @@
 \title{Tree Species in a Swamp Forest}
 \format{A data frame with 734 rows and 4 variables}
 \source{
-\href{https://pdixon.stat.iastate.edu/datasets/goodplot1.txt}{Prof Philip Dixon's website}
+\href{https://pdixon.stat.iastate.edu/datasets/goodplot1.txt}{Prof. Philip Dixon's website}
 }
 \usage{
 data(swamptrees)
@@ -18,25 +18,27 @@ The data come from a one-hectar (200-by-50m) plot in the Savannah River Site.
 The 734 mapped stems included 156 Carolina ashes (Fraxinus caroliniana),
 215 Water tupelos (Nyssa aquatica), 205 Swamp tupelos (Nyssa sylvatica), 98 Bald cypresses (Taxodium distichum)
 and 60 stems from 8 additional three species (labeled as Others (OT)).
-The plots were set up by Bill Good and their spatial patterns described in \insertCite{good:1982;textual}{pcds},
+The plots were set up by Bill Good and their spatial patterns described in (\insertCite{good:1982;textual}{pcds}),
 the plots have been maintained and resampled by Rebecca Sharitz and her colleagues of the Savannah River
 Ecology Laboratory. The data and some of its description are borrowed from the swamp data entry in the dixon
 package in the CRAN repository.
 
 See also (\insertCite{good:1982,jones:1994,dixon:NNCTEco2002;textual}{pcds}).
-
-\strong{Details:}
-\describe{
-  \item{x,y}{x and y (Cartesian) coordinates of the trees}
-  \item{live}{a categorical variable that indicates the tree is alive (labeled as 1) or dead (labeled as 0)}
-  \item{sp}{species label of the trees:
-
-  FX	 Carolina ash (Fraxinus caroliniana)
-  NS	 Swamp tupelo (Nyssa sylvatica)
-  NX	 Water tupelo (Nyssa aquatica)
-  TD	 Bald cypress (Taxodium distichum)
-  OT	 Other species}
-  }
+}
+\details{
+Text describing the variable (i.e., column) names in the data set.
+\itemize{
+\item x,y:  x and y (i.e., Cartesian) coordinates of the trees
+\item live: a categorical variable that indicates the tree is alive (labeled as 1) or dead (labeled as 0)
+\item sp: species label of the trees:
+\itemize{
+\item{FX: }{Carolina ash (Fraxinus caroliniana)}
+\item{NS: }{Swamp tupelo (Nyssa sylvatica)}
+\item{NX: }{Water tupelo (Nyssa aquatica)}
+\item{TD: }{Bald cypress (Taxodium distichum)}
+\item{OT: }{Other species}
+}
+}
 }
 \examples{
 data(swamptrees)

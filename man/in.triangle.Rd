@@ -92,5 +92,5 @@ in.triangle(p,dat.fr)
 
 }
 \seealso{
-\code{\link{inTriAll}} and \code{\link[interp]{in.convex.hull}} from the \code{interp} package
+\code{\link{inTriAll}} and \code{\link[interp]{on.convex.hull}} from the \code{interp} package for documentation for \code{in.convex.hull}
 }
