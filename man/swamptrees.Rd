@@ -6,7 +6,7 @@
 \title{Tree Species in a Swamp Forest}
 \format{A data frame with 734 rows and 4 variables}
 \source{
-\href{https://pdixon.stat.iastate.edu/datasets/goodplot1.txt}{Dixon's website}
+\href{https://pdixon.stat.iastate.edu/datasets/goodplot1.txt}{Prof Philip Dixon's website}
 }
 \usage{
 data(swamptrees)
@@ -18,18 +18,20 @@ The data come from a one-hectar (200-by-50m) plot in the Savannah River Site.
 The 734 mapped stems included 156 Carolina ashes (Fraxinus caroliniana),
 215 Water tupelos (Nyssa aquatica), 205 Swamp tupelos (Nyssa sylvatica), 98 Bald cypresses (Taxodium distichum)
 and 60 stems from 8 additional three species (labeled as Others (OT)).
-The plots were set up by Bill Good and their spatial patterns described in Good and Whipple(1982),
+The plots were set up by Bill Good and their spatial patterns described in \insertCite{good:1982;textual}{pcds},
 the plots have been maintained and resampled by Rebecca Sharitz and her colleagues of the Savannah River
 Ecology Laboratory. The data and some of its description are borrowed from the swamp data entry in the dixon
 package in the CRAN repository.
-}
-\details{
+
+See also (\insertCite{good:1982,jones:1994,dixon:NNCTEco2002;textual}{pcds}).
+
+\strong{Details:}
 \describe{
   \item{x,y}{x and y (Cartesian) coordinates of the trees}
   \item{live}{a categorical variable that indicates the tree is alive (labeled as 1) or dead (labeled as 0)}
   \item{sp}{species label of the trees:
 
-FX	 Carolina ash (Fraxinus caroliniana)
+  FX	 Carolina ash (Fraxinus caroliniana)
   NS	 Swamp tupelo (Nyssa sylvatica)
   NX	 Water tupelo (Nyssa aquatica)
   TD	 Bald cypress (Taxodium distichum)
@@ -43,16 +45,6 @@ xlab="",ylab="",main="Swamp Trees")
 
 }
 \references{
-Dixon, P.M. 2002.
-Nearest-neighbor contingency table analysis of spatial segregation for several species.
-Ecoscience, 9(2): 142-151.
-
-Good, , B. J. & Whipple, S.A. 1982.
-Tree spatial patterns: South Carolina bottomland and swamp forest.
-Bulletin of the Torrey Botanical Club, 109: 529-536.
-
-Jones et al. 1994.
-Tree population dynamics in seven South Carolina mixed-species forests.
-Bulletin of the Torrey Botanical Club, 121:360-368.
+\insertAllCited{}
 }
 \keyword{datasets}
