@@ -24,7 +24,7 @@
 #'  \item{"NS"}{Swamp tupelo (Nyssa sylvatica)}
 #'  \item{"NX"}{Water tupelo (Nyssa aquatica)}
 #'  \item{"TD"}{Bald cypress (Taxodium distichum)}
-#'  \item{"TD"}{OT	 Other species}
+#'  \item{"OT"}{Other species}
 #'    }
 #'   }
 #'  }
