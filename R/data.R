@@ -19,12 +19,15 @@
 #'   \item{live}{a categorical variable that indicates the tree is alive (labeled as 1) or dead (labeled as 0)}
 #'   \item{sp}{species label of the trees:
 #'
-#'   FX	 Carolina ash (Fraxinus caroliniana)
-#'   NS	 Swamp tupelo (Nyssa sylvatica)
-#'   NX	 Water tupelo (Nyssa aquatica)
-#'   TD	 Bald cypress (Taxodium distichum)
-#'   OT	 Other species}
+#' \itemize{
+#'  \item{"FX"}{Carolina ash (Fraxinus caroliniana)}
+#'  \item{"NS"}{Swamp tupelo (Nyssa sylvatica)}
+#'  \item{"NX"}{Water tupelo (Nyssa aquatica)}
+#'  \item{"TD"}{Bald cypress (Taxodium distichum)}
+#'  \item{"TD"}{OT	 Other species}
+#'    }
 #'   }
+#'  }
 #'
 #' @references
 #' \insertAllCited{}
