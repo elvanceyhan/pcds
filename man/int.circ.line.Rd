@@ -46,6 +46,7 @@ int.circ.line(P1,P2,cent,rad=.78)
 
 #plot of the line and the circle
 A<-c(.3,.2); B<-c(.6,.3); cent<-c(1,1); rad<-2 #dp2l(cent,A,B)$dis, .3
+#try also the following
 #A<-runif(2); B<-runif(2); cent<-runif(2); rad<-runif(1)
 #A<-runif(2,1,100); B<-runif(2,1,100); cent<-runif(2,1,100); rad<-runif(2,1,100);
 

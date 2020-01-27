@@ -72,6 +72,7 @@ summary(Xdt)
 plot(Xdt,asp=1)
 
 e<-.15;
+#try also the following
 #e<--.1; #this provides a CSR realization
 #e<-.15;
 
@@ -91,9 +92,8 @@ points(Xdt)
 a1<-0; a2<-10;
 b1<-0; b2<-5;
 e<-1.5;
-#e<-1.5;
 Y<-cbind(runif(ny,a1,a2),runif(ny,b1,b2))
-#Y<-cbind(runif(ny,a1,a2/2),runif(ny,b1,b2/2))
+#try also #Y<-cbind(runif(ny,a1,a2/2),runif(ny,b1,b2/2))
 
 Xdt<-rseg.disc(nx,Y,e,a1,a2,b1,b2)$gen.points
 Xlim<-range(Xdt[,1],Y[,1]); Ylim<-range(Xdt[,2],Y[,2])

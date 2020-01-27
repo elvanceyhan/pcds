@@ -38,8 +38,9 @@ c<-.4
 a<-0; b<-10;
 nx<-10; ny<-4
 
-#set.seed(1)
+set.seed(1)
 Xp<-runif(nx,a,b)
+#try also the following
 #Xp<-runif(nx,a-5,b+5)
 #Xp<-runif(nx,a+5,b+5)
 #Xp<-runif(nx,a+10,b+10)
@@ -48,7 +49,9 @@ Yp<-runif(ny,a,b)
 IM<-IncMatCS1D(Xp,Yp,t,c)
 IM
 dom.greedy(IM)
-#dom.exact(IM) #might take a long time depending on nx
+\donttest{
+dom.exact(IM) #might take a long time depending on nx
+}
 IndUBdom(IM,5)
 
 Arcs<-ArcsCSMI(Xp,Yp,t,c)
@@ -63,6 +66,7 @@ c<-.4
 a<-0; b<-10;
 #nx is number of X points (target) and ny is number of Y points (nontarget)
 nx<-20; ny<-4; #try also nx<-40; ny<-10 or nx<-1000; ny<-10;
+
 Xp<-runif(nx,a,b)
 Yp<-runif(ny,a,b)
 

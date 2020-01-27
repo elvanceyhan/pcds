@@ -33,7 +33,7 @@ The first 1/6th of the standard equilateral triangle is the triangle with vertic
 \eqn{A=(0,0)};  (1/2,0); \eqn{C=(1/2,\sqrt{3}/6)}.
 }
 \examples{
-\dontrun{
+\donttest{
 A<-c(0,0); B<-c(1,0); C<-c(1/2,sqrt(3)/2);
 Te<-rbind(A,B,C);
 CM<-(A+B+C)/3;
@@ -42,7 +42,7 @@ Ds<-rbind(D1,D2,D3)
 nx<-100 #try also nx<-100
 
 #data generation step
-#set.seed(1)
+set.seed(1)
 Xdt<-runifTe.onesixth(nx)
 Xdt
 summary(Xdt)

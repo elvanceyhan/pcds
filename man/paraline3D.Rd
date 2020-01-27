@@ -40,10 +40,12 @@ joining 3D points \code{A} and \code{B} (i.e., the line is in the direction of v
 with the parameter \code{t} being provided in vector \code{t}.
 }
 \examples{
-\dontrun{
+\donttest{
 P<-c(1,10,4); A<-c(1,1,3); B<-c(3,9,12)
-#<-runif(3); A<-runif(3); B<-runif(3)
+#try also the following
+#P<-runif(3); A<-runif(3); B<-runif(3)
 #P<-runif(3,1,100); A<-runif(3,1,100); B<-runif(3,1,100)
+
 vecs<-rbind(P,B-A)
 pts<-rbind(P,A,B)
 paraline3D(P,A,B,.1)

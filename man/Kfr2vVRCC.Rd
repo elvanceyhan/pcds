@@ -64,14 +64,17 @@ If data size does not allow, NA's are inserted for some or all of the \code{k} f
 }
 \examples{
 A<-c(1,1); B<-c(2,0); C<-c(1.5,2);
+#try also the following
 #A<-runif(2); B<-runif(2); C<-runif(2);
 #A<-runif(2,1,100); B<-runif(2,1,100); C<-runif(2,1,100);
+
 Tr<-rbind(A,B,C);
 n<-10 #try also n<-20
 k<-3
 
-#set.seed(1)
+set.seed(1)
 dat<-runif.tri(n,Tr)$g
+#try also the following
 #dat<-cbind(runif(n),runif(n))
 #dat<-cbind(runif(n,1,2),runif(n,0,2))
 
@@ -84,8 +87,7 @@ Kfr2vVRCC(dat[1:k,],Tr,k)
 Kfr2vVRCC(dat[1,],Tr,k)
 
 dat2<-rbind(dat,c(.2,.4))
-Kfr2vVRCC(dat2,Tr,k)
-# Kfr2vVRCC(dat2,Tr,k,ch.all.intri = TRUE)
+Kfr2vVRCC(dat2,Tr,k) #try also # Kfr2vVRCC(dat2,Tr,k,ch.all.intri = TRUE)
 
 kf2v<-Kfr2vVRCC(dat,Tr,k)
 

@@ -18,7 +18,7 @@ or not.
 }
 \examples{
 A<-c(0,0); B<-c(1,0); C<-c(1/2,sqrt(3)/2);
-Te<-rbind(A,B,C) #+10^(-16)
+Te<-rbind(A,B,C) #try adding +10^(-16) to each vertex
 isStdEqTri(Te)
 
 isStdEqTri(Te)

@@ -16,10 +16,12 @@ circumcenter of the tetrahedron \code{th}
 Returns the circumcenter a given tetrahedron \code{th} with vertices stacked row-wise.
 }
 \examples{
-\dontrun{
+\donttest{
 A<-c(0,0,0); B<-c(1,0,0); C<-c(1/2,sqrt(3)/2,0); D<-c(1/2,sqrt(3)/6,sqrt(6)/3)
+#try also the following
 #A<-runif(3); B<-runif(3); C<-runif(3); D<-runif(3)
 #A<-runif(3,1,100); B<-runif(3,1,100); C<-runif(3,1,100); D<-runif(3,1,100)
+
 tetra<-rbind(A,B,C,D)
 
 CC<-circ.cent.tetra(tetra)

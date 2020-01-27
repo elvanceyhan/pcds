@@ -151,29 +151,53 @@ for any (\code{r,c}) in its domain.
 }
 \examples{
 #Examples for the auxiliary functions
-#PG2AI(2.25,.45,10)
+\donttest{
+PG2AI(2.25,.45,10)
+}
 
-#PG2AII(2.2,.4,10)
+\donttest{
+PG2AII(2.2,.4,10)
+}
 
-#PG2AIII(1.2,.25,10)
+\donttest{
+PG2AIII(1.2,.25,10)
+}
 
-#PG2AIV(1.2,.25,10)
+\donttest{
+PG2AIV(1.2,.25,10)
+}
 
-#PG2A(1.2,.25,10)
+\donttest{
+PG2A(1.2,.25,10)
+}
 
-#PG2Asym(1.2,.75,10)
+\donttest{
+PG2Asym(1.2,.75,10)
+}
 
-#PG2BIII(1.5,.45,10)
+\donttest{
+PG2BIII(1.5,.45,10)
+}
 
-#PG2B(1.5,.30,10)
+\donttest{
+PG2B(1.5,.30,10)
+}
 
-#PG2Bsym(1.5,.70,10)
+\donttest{
+PG2Bsym(1.5,.70,10)
+}
 
-#PG2CIV(1.5,.2,10)
+\donttest{
+PG2CIV(1.5,.2,10)
+}
 
-#PG2C(1.5,.2,10)
+\donttest{
+PG2C(1.5,.2,10)
+}
 
-#PG2Csym(1.5,.8,10)
+\donttest{
+PG2Csym(1.5,.8,10)
+}
 
 #Examples for the main function Pg2PE1D
 r<-2

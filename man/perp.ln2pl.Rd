@@ -42,12 +42,15 @@ spanned by 3D points \code{A}, \code{B}, and \code{C} (i.e., the line is in the 
 with the parameter \code{t} being provided in vector \code{t}.
 }
 \examples{
-\dontrun{
+\donttest{
 P<-c(1,1,1); A<-c(1,10,4); B<-c(1,1,3); C<-c(3,9,12)
+#try also the following
 #P<-runif(3); A<-runif(3); B<-runif(3); C<-runif(3)
 #P<-runif(3,1,100); A<-runif(3,1,100); B<-runif(3,1,100); C<-runif(3,1,100)
+
 cf<-as.numeric(Plane(A,B,C,1,1)$coeff)
-a<-cf[1]; b<-cf[2]; c<--1;
+a<-cf[1]; b<-cf[2]; c<- -1;
+
 vecs<-rbind(A,c(a,b,c))
 pts<-rbind(P,A,B,C)
 perp.ln2pl(P,A,B,C,.1)

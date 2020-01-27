@@ -50,14 +50,13 @@ regular tetrahedron) of \eqn{T_h}.
 See also (\insertCite{ceyhan:Phd-thesis,ceyhan:comp-geo-2010;textual}{pcds}).
 }
 \examples{
-\dontrun{
+\donttest{
 A<-c(0,0,0); B<-c(1,0,0); C<-c(1/2,sqrt(3)/2,0); D<-c(1/2,sqrt(3)/6,sqrt(6)/3)
 tetra<-rbind(A,B,C,D)
 r<-1.5
 
 n<-10 #try also n<-20
-dat<-runif.stdtetra(n)$g
-#dat[,1]<-dat[,1]+1
+dat<-runif.stdtetra(n)$g #try also #dat[,1]<-dat[,1]+1
 
 plotPEregsStdTH(dat[1,],r)
 
@@ -71,8 +70,6 @@ plotPEregsStdTH(dat[1:3,],r)
 
 P1<-c(.1,.1,.1)
 plotPEregsStdTH(rbind(P1,P1),r)
-
-#plotPEregsStdTH(c("a","b","c"),r) #Xp must be numeric
 }
 
 }

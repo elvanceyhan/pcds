@@ -60,18 +60,17 @@ if they actually were all in the data set.
 See also (\insertCite{ceyhan:Phd-thesis,ceyhan:comp-geo-2010;textual}{pcds}).
 }
 \examples{
-\dontrun{
-#the examples are put inside \dontrun{} to speed the example check,
-#otherwise the below code works fine
+\donttest{
 A<-c(0,0,0); B<-c(1,0,0); C<-c(1/2,sqrt(3)/2,0); D<-c(1/2,sqrt(3)/6,sqrt(6)/3)
+#try also the following
 #A<-runif(3); B<-runif(3); C<-runif(3); D<-runif(3)
 #A<-runif(3,1,100); B<-runif(3,1,100); C<-runif(3,1,100); D<-runif(3,1,100)
+
 tetra<-rbind(A,B,C,D)
 n<-20
 dat<-runif.tetra(n,tetra)$g
 
-M<-"CM";
-#M<-"CC";
+M<-"CM"; #try also #M<-"CC";
 r<-1.25
 
 Gam3PEtetra(dat[1,],dat[2,],dat[3,],dat,r,tetra,M)
@@ -79,7 +78,8 @@ Gam3PEtetra(dat[1,],dat[2,],dat[3,],dat,r,tetra,M)
 Gam3PEtetra(dat[1,],dat[2,],dat[2,],dat,r,tetra,M)
 
 Gam3PEtetra(dat[1,],c(1,1,1),dat[3,],dat,r,tetra,M)
-#Gam3PEtetra(dat[1,],c(1,1,1),dat[3,],dat,r,tetra,M,ch.data.pnts = TRUE)
+
+Gam3PEtetra(dat[1,],c(1,1,1),dat[3,],dat,r,tetra,M,ch.data.pnts = TRUE)
 #not all points, pt1, pt2 and pts, are data points in Dt
 
 Gam3PEtetra(c(-1,1,1),c(1,1,1),c(1,1,-1),rbind(c(-1,1,1),c(1,1,1),c(1,1,-1)),r,tetra,M)

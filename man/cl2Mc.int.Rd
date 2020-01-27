@@ -50,14 +50,18 @@ See also (\insertCite{ceyhan:metrika-2012;textual}{pcds}).
 \examples{
 c<-.4
 a<-0; b<-10; int<-c(a,b)
+#try also the following
 #c<-runif(1)
 #a<-runif(1); b<-runif(1); int<-range(a,b); a<-int[1]; b<-int[2]
+
 Mc<-centMc(int,c)
 
 nx<-10
 xr<-range(a,b,Mc)
 xf<-(xr[2]-xr[1])*.5
+
 dat<-runif(nx,a,b)
+#try also the following
 #dat<-runif(n,a-xf,b+xf)
 #dat<-runif(nx,a,b)+10
 

@@ -24,11 +24,11 @@ Caveat: the vertices of this triangle may be outside the triangle, \code{tri}, d
 (i.e., for small values of \code{delta})
 }
 \examples{
-\dontrun{
+\donttest{
 #for the standard equilateral triangle
 A<-c(0,0); B<-c(1,0); C<-c(1/2,sqrt(3)/2);
 Te<-rbind(A,B,C);
-delta<-.3 #also try .5,.75,.85
+delta<-.3 #try also .5,.75,.85
 seg.tri.supp(delta,Te)
 
 Tseg<-seg.tri.supp(delta,Te)
@@ -38,11 +38,10 @@ Ylim<-range(Te[,2],Tseg[,2])
 xd<-Xlim[2]-Xlim[1]
 yd<-Ylim[2]-Ylim[1]
 
-#par(pty="s")
+par(pty="s")
 plot(Te,pch=".",xlab="",ylab="",
 main="segregation support is the intersection\n of these two triangles"
      ,axes=T,xlim=Xlim+xd*c(-.05,.05),ylim=Ylim+yd*c(-.05,.05))
-#points(sixt,pty=2,pch=2,col="red")
 polygon(Te)
 polygon(Tseg,lty=2)
 
@@ -51,13 +50,16 @@ xc<-txt[,1]+c(-.03,.03,.03,.05,.04,-.04)
 yc<-txt[,2]+c(.02,.02,.04,-.03,0,0)
 txt.str<-c("A","B","C","T1","T2","T3")
 text(xc,yc,txt.str)
+par(pty="m")
 
 #for a general triangle
 A<-c(1,1); B<-c(2,0); C<-c(1.5,2);
+#try also the following
 #A<-runif(2); B<-runif(2); C<-runif(2)
 #A<-runif(2,1,100); B<-runif(2,1,100); C<-runif(2,1,100);
+
 Tr<-rbind(A,B,C);
-delta<-.3 #also try .5,.75,.85
+delta<-.3 #try also .5,.75,.85
 Tseg<-seg.tri.supp(delta,Tr)
 
 Xlim<-range(Tr[,1],Tseg[,1])
@@ -65,7 +67,7 @@ Ylim<-range(Tr[,2],Tseg[,2])
 xd<-Xlim[2]-Xlim[1]
 yd<-Ylim[2]-Ylim[1]
 
-#par(pty="s")
+par(pty="s")
 plot(Tr,pch=".",xlab="",ylab="",
 main="segregation support is the intersection\n of these two triangles"
      ,axes=T,xlim=Xlim+xd*c(-.05,.05),ylim=Ylim+yd*c(-.05,.05))
@@ -73,10 +75,11 @@ polygon(Tr)
 polygon(Tseg,lty=2)
 
 txt<-rbind(Tr,Tseg)
-xc<-txt[,1]#+c(-.03,.03,.03,.06,.04,-.04)
-yc<-txt[,2]#+c(.02,.02,.04,-.03,0,0)
+xc<-txt[,1]
+yc<-txt[,2]
 txt.str<-c("A","B","C","T1","T2","T3")
 text(xc,yc,txt.str)
+par(pty="m")
 
 dat.fr<-data.frame(a=Tr)
 seg.tri.supp(delta,dat.fr)

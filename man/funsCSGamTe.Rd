@@ -54,14 +54,13 @@ See also (\insertCite{ceyhan:Phd-thesis,ceyhan:comp-geo-2010,ceyhan:mcap2012;tex
 }
 \examples{
 #Examples for Gam2CSTe
-\dontrun{
-#the examples are put inside \dontrun{} to speed the example check,
-#otherwise the below code works fine
+\donttest{
 t<-1.5
 n<-10
 
-#set.seed(1)
+set.seed(1)
 dat<-runifTe(n)$gen.points
+#try also the following
 #dat<-cbind(runif(n),runif(n))
 #dat<-cbind(runif(n,1,2),runif(n,0,1))
 
@@ -89,14 +88,13 @@ ind.gam2
 }
 
 #Examples for Gam3CSTe
-\dontrun{
-#the examples are put inside \dontrun{} to speed the example check,
-#otherwise the below code works fine
+\donttest{
 t<-1.5
 n<-10
 
-#set.seed(1)
+set.seed(1)
 dat<-runifTe(n)$gen.points
+#try also the following
 #dat<-cbind(runif(n),runif(n))
 #dat<-cbind(runif(n,1,2),runif(n,0,1))
 
@@ -105,7 +103,8 @@ Gam3CSTe(dat[1,],dat[2,],dat[3,],dat,t)
 Gam3CSTe(dat[1,],dat[3,],dat[4,],dat,t)
 
 Gam3CSTe(c(.2,.2),dat[2,],dat[3,],dat,t)
-#Gam3CSTe(c(.2,.2),dat[2,],dat[3,],dat,t,ch.data.pnts = TRUE)
+
+Gam3CSTe(c(.2,.2),dat[2,],dat[3,],dat,t,ch.data.pnts = TRUE)
 #not all points, pt1, pt2, and pt3, are data points in Dt
 
 Gam3CSTe(c(.2,.2),c(.2,.3),c(.2,.4),rbind(c(.2,.2),c(.2,.3),c(.2,.4)),t)
@@ -122,14 +121,13 @@ ind.gam3
 }
 
 #Examples for Gam4CSTe
-\dontrun{
-#the examples are put inside \dontrun{} to speed the example check,
-#otherwise the below code works fine
+\donttest{
 t<-1.5
 n<-10
 
-#set.seed(1)
+set.seed(1)
 dat<-runifTe(n)$gen.points
+#try also the following
 #dat<-cbind(runif(n),runif(n))
 #dat<-cbind(runif(n,1,2),runif(n,0,1))
 
@@ -156,14 +154,13 @@ ind.gam4
 }
 
 #Examples for Gam5CSTe
-\dontrun{
-#the examples are put inside \dontrun{} to speed the example check,
-#otherwise the below code works fine
+\donttest{
 t<-1.5
 n<-10
 
-#set.seed(1)
+set.seed(1)
 dat<-runifTe(n)$gen.points
+#try also the following
 #dat<-cbind(runif(n),runif(n))
 #dat<-cbind(runif(n,1,2),runif(n,0,1))
 
@@ -187,14 +184,13 @@ ind.gam5
 }
 
 #Examples for Gam6CSTe
-\dontrun{
-#the examples are put inside \dontrun{} to speed the example check,
-#otherwise the below code works fine
+\donttest{
 t<-1.5
 n<-10
 
-#set.seed(1)
+set.seed(1)
 dat<-runifTe(n)$gen.points
+#try also the following
 #dat<-cbind(runif(n),runif(n))
 #dat<-cbind(runif(n,1,2),runif(n,0,1))
 

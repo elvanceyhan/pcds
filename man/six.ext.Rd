@@ -45,9 +45,10 @@ See the example for this function or example for
 \code{ch.all.intri} is for checking whether all data points are in \eqn{T_e} (default is \code{FALSE}).
 }
 \examples{
-\dontrun{
+\donttest{
 n<-10 #try also n<-100
 dat<-runifTe(n)$gen.points
+#try also the following
 #dat<-cbind(runif(n),runif(n))
 #dat<-cbind(runif(n,1,2),runif(n,0,1))
 

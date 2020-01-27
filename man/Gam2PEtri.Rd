@@ -61,32 +61,38 @@ See also (\insertCite{ceyhan:Phd-thesis,ceyhan:masa-2007,ceyhan:dom-num-NPE-Spat
 }
 \examples{
 A<-c(1,1); B<-c(2,0); C<-c(1.5,2);
+#try also the following
 #A<-runif(2); B<-runif(2); C<-runif(2);
 #A<-runif(2,1,100); B<-runif(2,1,100); C<-runif(2,1,100);
+
 Tr<-rbind(A,B,C);
 n<-10 #try also n<-20
 
-#set.seed(1)
+set.seed(1)
 dat<-runif.tri(n,Tr)$g
+#try also the following
 #dat<-cbind(runif(n,1,2),runif(n,0,2))
 #dat<-cbind(runif(n),runif(n))
 
 M<-as.numeric(runif.tri(1,Tr)$g)
+#try also the following
 #M<-c(1.6,1.0)
 #M<-circ.cent.tri(Tr)
 #M<-c(1,1,1) #M<-c(1,2,3) #M<-c(-1,2,3) #barycentric coordinates
 #M<-c(1.3,1.3)
 #M<-c(.3,.3)
-r<-1.5
-#r<-2
+
+r<-1.5 #try also #r<-2
 
 Gam2PEtri(dat[1,],dat[2,],dat,Tr,r,M)
 Gam2PEtri(dat[1,],dat[4,],dat,Tr,r,M)
 Gam2PEtri(dat[4,],dat[4,],dat,Tr,r,M)
 
 Gam2PEtri(dat[1,],c(1,2),dat,Tr,r,M)
-#Gam2PEtri(dat[1,],c(1,2),dat,Tr,r,M,ch.data.pnts = TRUE)
+\donttest{
+Gam2PEtri(dat[1,],c(1,2),dat,Tr,r,M,ch.data.pnts = TRUE)
 #not both points, pt1 and pt2, are data points in Dt
+}
 
 Gam2PEtri(c(1,2),c(1,3),rbind(c(1,2),c(1,3)),Tr,r,M)
 

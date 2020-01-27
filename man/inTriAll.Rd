@@ -32,10 +32,11 @@ the function checks if a point lies in the closure of the triangle (i.e. interio
 else it checks if the point lies in the interior of the triangle.
 }
 \examples{
-#A<-c(0,0); B<-c(1,0); C<-c(1/2,sqrt(3)/2);
 A<-c(1,1); B<-c(2,0); C<-c(1.5,2); p<-c(1.4,1.2)
+#try also the following
 #A<-runif(2); B<-runif(2);  C<-runif(2); p<-runif(2);
 #A<-runif(2,1,100); B<-runif(2,1,100); C<-runif(2,1,100); p<-runif(2,1,100)
+
 Tr<-rbind(A,B,C)
 
 inTriAll(p,Tr)

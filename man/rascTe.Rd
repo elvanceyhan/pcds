@@ -48,7 +48,7 @@ Te<-rbind(A,B,C);
 n<-10 #try also n<-20 #try also n<-100 or 1000
 eps<-.25 #try also .15, .5, .75
 
-#set.seed(1)
+set.seed(1)
 Xdt<-rascTe(n,eps)
 Xdt
 summary(Xdt)
@@ -66,7 +66,7 @@ main="Type I association in the \n standard equilateral triangle",
 polygon(Te)
 points(dat)
 
-# The support for the Type I association alternative
+#The support for the Type I association alternative
 sr<-(sqrt(3)/3-eps)/(sqrt(3)/2)
 C1<-C+sr*(A-C); C2<-C+sr*(B-C)
 A1<-A+sr*(B-A); A2<-A+sr*(C-A)
@@ -87,7 +87,7 @@ if (sr<=.5)
   polygon(rbind(B,B1,B2),col=5,border=NA)
   polygon(rbind(C,C1,C2),col=5,border=NA)
 }
-#points(dat)
+points(dat)
 
 }
 \references{

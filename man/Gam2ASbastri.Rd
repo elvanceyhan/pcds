@@ -66,20 +66,20 @@ dominating set if they actually were in the data set.
 See also (\insertCite{ceyhan:Phd-thesis,ceyhan:comp-geo-2010,ceyhan:mcap2012;textual}{pcds}).
 }
 \examples{
-\dontrun{
-#the examples are put inside \dontrun{} to speed the example check,
-#otherwise the below code works fine
+\donttest{
 c1<-.4; c2<-.6;
 A<-c(0,0); B<-c(1,0); C<-c(c1,c2);
 Tb<-rbind(A,B,C)
 n<-20
 
-#set.seed(1)
+set.seed(1)
 dat<-runif.bastri(n,c1,c2)$g
+#try also the following
 #dat<-cbind(runif(n),runif(n))
 #dat<-cbind(runif(n,1,2),runif(n,0,2))
 
 M<-as.numeric(runif.bastri(1,c1,c2)$g)
+#try also the following
 #M<-c(.6,.2)
 #M<-circ.cent.tri(Tb); #M<-"CC"; #M<-"CM"
 #M<-c(1,1,1) #M<-c(1,2,3) #M<-c(-1,2,3) #barycentric coordinates

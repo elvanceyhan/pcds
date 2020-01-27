@@ -42,7 +42,7 @@ Ylim<-range(Tb[,2])
 xd<-Xlim[2]-Xlim[1]
 yd<-Ylim[2]-Ylim[1]
 
-#par(pty="s")
+par(pty="s")
 plot(A,pch=".",asp=1,xlab="",ylab="",axes=TRUE,xlim=Xlim+xd*c(-.05,.05),ylim=Ylim+yd*c(-.05,.05))
 polygon(Tb)
 points(rbind(CC))
@@ -54,6 +54,7 @@ xc<-txt[,1]+c(-.03,.04,.03,.06,.06,-.03,0)
 yc<-txt[,2]+c(.02,.02,.03,-.03,.02,.04,-.03)
 txt.str<-c("A","B","C","CC","D1","D2","D3")
 text(xc,yc,txt.str)
+par(pty="m")
 
 #for an obtuse triangle
 c1<-.4; c2<-.3;
@@ -70,7 +71,7 @@ Ylim<-range(Tb[,2],CC[2])
 xd<-Xlim[2]-Xlim[1]
 yd<-Ylim[2]-Ylim[1]
 
-#par(pty="s")
+par(pty="s")
 plot(A,pch=".",asp=1,xlab="",ylab="",axes=TRUE,xlim=Xlim+xd*c(-.05,.05),ylim=Ylim+yd*c(-.05,.05))
 polygon(Tb)
 points(rbind(CC))
@@ -82,6 +83,7 @@ xc<-txt[,1]+c(-.03,.03,.03,.07,.07,-.05,0)
 yc<-txt[,2]+c(.02,.02,.04,-.03,.03,.04,.06)
 txt.str<-c("A","B","C","CC","D1","D2","D3")
 text(xc,yc,txt.str)
+par(pty="m")
 
 }
 \references{

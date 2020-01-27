@@ -42,15 +42,12 @@ if it actually were in the data set.
 See also (\insertCite{ceyhan:Phd-thesis,ceyhan:comp-geo-2010;textual}{pcds}).
 }
 \examples{
-\dontrun{
-#the examples are put inside \dontrun{} to speed the example check,
-#otherwise the below code works fine
+\donttest{
 A<-c(0,0,0); B<-c(1,0,0); C<-c(1/2,sqrt(3)/2,0); D<-c(1/2,sqrt(3)/6,sqrt(6)/3)
 tetra<-rbind(A,B,C,D)
 
 n<-20
-dat<-runif.stdtetra(n)$g
-#dat<-cbind(runif(n),runif(n),runif(n))
+dat<-runif.stdtetra(n)$g #try also #dat<-cbind(runif(n),runif(n),runif(n))
 r<-1.5
 
 P<-c(.4,.1,.2)
@@ -67,7 +64,8 @@ Gam1PEstdTetra(dat[1,],dat,r,rv=RV)
 
 Gam1PEstdTetra(c(-1,-1,-1),dat,r)
 Gam1PEstdTetra(c(-1,-1,-1),c(-1,-1,-1),r)
-#Gam1PEstdTetra(c(-1,-1,-1),dat,r,ch.data.pnt = TRUE) # p is not a data point
+
+Gam1PEstdTetra(c(-1,-1,-1),dat,r,ch.data.pnt = TRUE) # p is not a data point
 
 gam.vec<-vector()
 for (i in 1:n)

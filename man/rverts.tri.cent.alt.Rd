@@ -25,7 +25,7 @@ A list with two elements
 An alternative function to the function \code{\link{rverts.tri.cent}}
 }
 \examples{
-\dontrun{
+\donttest{
 A<-c(1,1); B<-c(2,0); C<-c(1.5,2);
 Tr<-rbind(A,B,C);
 M<-c(1.6,1.0)
@@ -40,13 +40,13 @@ P<-c(1.5,1.6)
 rverts.tri.cent.alt(P,Tr,M)
 
 n<-10 #try also n<-20
-#set.seed(1)
+set.seed(1)
 dat<-runif.tri(n,Tr)$g
+#try also the following
 #dat<-cbind(runif(n),runif(n))
 #dat<-cbind(runif(n,1,2),runif(n,0,2))
 
-M<-c(1.6,1.0)
-#M<-c(1.3,1.3)
+M<-c(1.6,1.0) #try also #M<-c(1.3,1.3)
 
 rv<-rverts.tri.cent.alt(dat,Tr,M)
 rv

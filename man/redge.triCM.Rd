@@ -33,13 +33,15 @@ Edge region for BCA is the triangle \eqn{T(B,C,CM)}, edge region CAB is \eqn{T(A
 See also (\insertCite{ceyhan:Phd-thesis,ceyhan:comp-geo-2010,ceyhan:mcap2012;textual}{pcds}).
 }
 \examples{
-\dontrun{
+\donttest{
 A<-c(1,1); B<-c(2,0); C<-c(1.5,2);
+#try also the following
 #A<-runif(2); B<-runif(2); C<-runif(2);
 #A<-runif(2,1,100); B<-runif(2,1,100); C<-runif(2,1,100);
+
 Tr<-rbind(A,B,C);
-#P<-c(.4,.2)
-P<-as.numeric(runif.tri(1,Tr)$g)
+
+P<-c(.4,.2) #try also P<-as.numeric(runif.tri(1,Tr)$g)
 redge.triCM(P,Tr)
 
 P<-c(.8,.2)
@@ -64,8 +66,8 @@ L<-Tr; R<-matrix(rep(CM,3),ncol=2,byrow=TRUE)
 segments(L[,1], L[,2], R[,1], R[,2], lty=2)
 
 txt<-rbind(Tr,CM,p1,p2,p3)
-xc<-txt[,1]#+c(-.02,.02,.02,.05,0,0,0)
-yc<-txt[,2]#+c(.02,.02,.02,.02,0,0,0)
+xc<-txt[,1]
+yc<-txt[,2]
 txt.str<-c("A","B","C","CM","re=y1y2y3","re=y2y3y1","re=y3y1y2")
 text(xc,yc,txt.str)
 }

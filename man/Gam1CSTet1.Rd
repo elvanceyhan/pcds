@@ -40,21 +40,23 @@ function checks whether the point \code{p} would be a dominating point if it act
 See also (\insertCite{ceyhan:Phd-thesis,ceyhan:comp-geo-2010,ceyhan:mcap2012;textual}{pcds}).
 }
 \examples{
-\dontrun{
+\donttest{
 A<-c(0,0); B<-c(1,0); C<-c(1/2,sqrt(3)/2);
 CM<-(A+B+C)/3
 Te<-rbind(A,B,C);
 n<-20
 
-#set.seed(1)
+set.seed(1)
 dat<-runifTe(n)$gen.points
+#try also the following
 #dat<-cbind(runif(n),runif(n))
 #dat<-cbind(runif(n,1,2),runif(n,0,1))
 
 Gam1CSTet1(dat[3,],dat)
 
 Gam1CSTet1(c(1,2),dat)
-#Gam1CSTet1(c(1,2),dat,ch.data.pnt = TRUE) #p is not a data point
+
+Gam1CSTet1(c(1,2),dat,ch.data.pnt = TRUE) #p is not a data point
 
 Gam1CSTet1(c(1,2),c(1,2))
 Gam1CSTet1(c(1,2),c(1,2),ch.data.pnt = TRUE)

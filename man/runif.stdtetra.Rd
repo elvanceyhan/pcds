@@ -31,24 +31,24 @@ Generates \code{k} points uniformly in the standard regular tetrahedron
 \eqn{T_h=T((0,0,0),(1,0,0),(1/2,sqrt(3)/2,0),(1/2,\sqrt{3}/6,\sqrt{6}/3))}.
 }
 \examples{
-\dontrun{
-#T((0,0,0),(1,0,0),(1/2,sqrt(3)/2,0),(1/2,sqrt(3)/6,sqrt(6)/3))
+\donttest{
 A<-c(0,0,0); B<-c(1,0,0); C<-c(1/2,sqrt(3)/2,0); D<-c(1/2,sqrt(3)/6,sqrt(6)/3)
 tetra<-rbind(A,B,C,D)
 n<-10 #try also n<-100
 
-#set.seed(1)
+set.seed(1)
 Xdt<-runif.stdtetra(n)
 Xdt
 summary(Xdt)
 plot(Xdt)
 
 Dt<-runif.stdtetra(n)$g
-#library(scatterplot3d)
-#s3d<-scatterscatterplot3d(Dt, highlight.3d=TRUE,xlab="x",ylab="y",zlab="z",
-#              col.axis="blue", col.grid="lightblue",
-#               main="3D Scatterplot of the data", pch=20)
-#s3d$points3d(tetra,pch=20,col="blue")
+
+#need to install scatterplot3d package and call "library(scatterplot3d)"
+s3d<-scatterscatterplot3d(Dt, highlight.3d=TRUE,xlab="x",ylab="y",zlab="z",
+              col.axis="blue", col.grid="lightblue",
+               main="3D Scatterplot of the data", pch=20)
+s3d$points3d(tetra,pch=20,col="blue")
 
 Xlim<-range(tetra[,1])
 Ylim<-range(tetra[,2])

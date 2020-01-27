@@ -36,16 +36,21 @@ is.in.data(P,P)
 
 is.in.data(c(2,2),c(2,2))
 
-#is.in.data(P,vector()) #p and Dt must be numeric
+\donttest{
+is.in.data(P,vector()) #p and Dt must be numeric
+}
 
-###for 1D data
+#for 1D data
 n<-10
 dat<-runif(n)
 
+\donttest{
 P<-dat[7]
-#is.in.data(P,dat) #Both arguments must be of the same dimension
+is.in.data(P,dat) #Both arguments must be of the same dimension
 #this does not work because both entries are treated as vectors of different dimensions
 is.in.data(P,dat[7]) #this works because both entries are treated as 1D vectors
+
+is.in.data(P,vector()) #p and Dt must be numeric
 
 dat<-as.matrix(dat)
 is.in.data(P,dat)
@@ -56,12 +61,11 @@ is.in.data(P,dat)
 
 P<-dat[7]+10^(-9)
 is.in.data(P,dat)
+}
 
 is.in.data(P,P)
 
-#is.in.data(P,vector()) #p and Dt must be numeric
-
-###for 3D data
+#for 3D data
 n<-10
 dat<-cbind(runif(n),runif(n),runif(n))
 

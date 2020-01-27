@@ -47,11 +47,12 @@ with \eqn{A=(0,0)};  \eqn{B=(1,0)}; \eqn{C=(1/2,sqrt{3}/2)}; x-coordinates are p
 }
 \examples{
 #Examples for lA_M.Te
-\dontrun{
+\donttest{
 A<-c(0,0); B<-c(1,0); C<-c(1/2,sqrt(3)/2);
 Te<-rbind(A,B,C)
 
 M<-c(.65,.2)
+#try also the following
 #M<-c(1,1,1) #M<-c(1,2,3) #M<-c(-1,2,3) #barycentric coordinates
 #M<-c(1.3,1.3)
 #M<-c(.3,.3)
@@ -92,11 +93,12 @@ lA_M.Te(.25,M)
 }
 
 #Examples for lB_M.Te
-\dontrun{
+\donttest{
 A<-c(0,0); B<-c(1,0); C<-c(1/2,sqrt(3)/2);
 Te<-rbind(A,B,C)
 
 M<-c(.65,.2)
+#try also the following
 #M<-c(1,1,1) #M<-c(1,2,3) #M<-c(-1,2,3) #barycentric coordinates
 #M<-c(1.3,1.3)
 #M<-c(.3,.3)
@@ -113,11 +115,12 @@ lB_M.Te(.25,M)
 }
 
 #Examples for lC_M.Te
-\dontrun{
+\donttest{
 A<-c(0,0); B<-c(1,0); C<-c(1/2,sqrt(3)/2);
 Te<-rbind(A,B,C)
 
 M<-c(.65,.2)
+#try also the following
 #M<-c(1,1,1) #M<-c(1,2,3) #M<-c(-1,2,3) #barycentric coordinates
 #M<-c(1.3,1.3)
 #M<-c(.3,.3)

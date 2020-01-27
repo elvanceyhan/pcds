@@ -59,6 +59,7 @@ for (i in 1:lrseq)
 par(mar=c(5,5,4,2))
 plot(rseq, var.end,type="l",
 xlab="r",ylab=expression(paste(sigma^2,"(r)")),lty=1,xlim=range(rseq))
+par(mar=c(5.1, 4.1, 4.1, 2.1))
 
 }
 \references{

@@ -33,10 +33,12 @@ See also (\insertCite{ceyhan:Phd-thesis,ceyhan:masa-2007,ceyhan:dom-num-NPE-Spat
 }
 \examples{
 A<-c(1,1); B<-c(2,0); C<-c(1.5,2);
+#try also the following
 #c1<-.4; c2<-.6; A<-c(0,0); B<-c(1,0); C<-c(c1,c2);
 #A<-c(0,0); B<-c(1,0); C<-c(1/2,sqrt(3)/2);
-A<-runif(2); B<-runif(2); C<-runif(2);
+#A<-runif(2); B<-runif(2); C<-runif(2);
 #A<-runif(2,1,100); B<-runif(2,1,100); C<-runif(2,1,100);
+
 Tr<-rbind(A,B,C);
 r<-1.35
 
@@ -44,8 +46,9 @@ cp2edges.nd(Tr,r,cent=2)
 
 Ms<-cent.nondeg(Tr,r)
 
-#Ds<-cp2edges.nd(T,r,cent=1)
-Ds<-cp2edges.nd(Tr,r,cent=2)
+Ds<-cp2edges.nd(Tr,r,cent=1)
+#try also the following
+#Ds<-cp2edges.nd(Tr,r,cent=2)
 #Ds<-cp2edges.nd(T,r,cent=3)
 D1<-Ds[1,]; D2<-Ds[2,]; D3<-Ds[3,]
 
@@ -59,14 +62,14 @@ polygon(Tr)
 points(Ms,pch=".",col=1)
 polygon(Ms,lty=2)
 
-xc<-Tr[,1]#+c(-.02,.03,.02)
-yc<-Tr[,2]#+c(.02,.02,.03)
+xc<-Tr[,1]
+yc<-Tr[,2]
 txt.str<-c("A","B","C")
 text(xc,yc,txt.str)
 
 txt<-Ms
-xc<-txt[,1]#+c(-.03,.04,.01)
-yc<-txt[,2]#+c(.02,.02,.06)
+xc<-txt[,1]
+yc<-txt[,2]
 txt.str<-c("M1","M2","M3")
 text(xc,yc,txt.str)
 
@@ -74,8 +77,8 @@ points(Ds,pch=4,col=2)
 L<-Tr; R<-Ds
 segments(L[,1], L[,2], R[,1], R[,2], lty=2,col=2)
 txt<-Ds
-xc<-txt[,1]#+c(.05,-.03,0)
-yc<-txt[,2]#+c(03,.06,-.07)
+xc<-txt[,1]
+yc<-txt[,2]
 txt.str<-c("D1","D2","D3")
 text(xc,yc,txt.str)
 
@@ -84,7 +87,7 @@ cp2edges.nd(Tr,r,1)
 dat.fr<-data.frame(a=Tr)
 cp2edges.nd(dat.fr,r,1)
 
-\dontrun{
+\donttest{
 cp2edges.nd(Tr,r,cent=5) #center index, cent, must be 1, 2 or 3
 cp2edges.nd(Tr,r=2,cent=2) #r must be a scalar in (1,1.5]
 

@@ -44,16 +44,17 @@ Vertex regions are based on center \code{M} which can be the center
 of mass ("CM") or circumcenter ("CC") of \code{th}.
 }
 \examples{
-\dontrun{
+\donttest{
 A<-c(0,0,0); B<-c(1,0,0); C<-c(1/2,sqrt(3)/2,0); D<-c(1/2,sqrt(3)/6,sqrt(6)/3)
+#try also the following
 #A<-runif(3); B<-runif(3); C<-runif(3); D<-runif(3)
 #A<-runif(3,1,100); B<-runif(3,1,100); C<-runif(3,1,100); D<-runif(3,1,100)
+
 tetra<-rbind(A,B,C,D)
-Cent<-"CC" #"CM"
+Cent<-"CC" #try also "CM"
 
 n<-10 #try also n<-20
-Dt<-runif.tetra(n,tetra)$g
-#Dt<-cbind(runif(n),runif(n),runif(n))
+Dt<-runif.tetra(n,tetra)$g #try also #' #Dt<-cbind(runif(n),runif(n),runif(n))
 
 Ext<-cl2fVRth(Dt,tetra,Cent)
 Ext
@@ -87,7 +88,7 @@ plot3D::points3D(clf[,1],clf[,2],clf[,3], pch=4,col="red", add=TRUE)
 
 plot3D::text3D(tetra[,1],tetra[,2],tetra[,3], labels=c("A","B","C","D"), add=TRUE)
 
-#Cnt<-apply(tetra,2,mean) #for center of mass
+#for center of mass use #Cent<-apply(tetra,2,mean)
 D1<-(A+B)/2; D2<-(A+C)/2; D3<-(A+D)/2; D4<-(B+C)/2; D5<-(B+D)/2; D6<-(C+D)/2;
 L<-rbind(D1,D2,D3,D4,D5,D6); R<-rbind(M,M,M,M,M,M)
 plot3D::segments3D(L[,1], L[,2], L[,3], R[,1], R[,2],R[,3], add=TRUE,lty=2)

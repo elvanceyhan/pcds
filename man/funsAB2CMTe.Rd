@@ -41,7 +41,7 @@ and \code{lB_CM.Te} is the line joining B to the center of mass, CM, in the stan
 with \eqn{A=(0,0)};  \eqn{B=(1,0)}; \eqn{C=(1/2,\sqrt{3}/2)}; x-coordinates are provided in vector \code{x}.
 }
 \examples{
-\dontrun{
+\donttest{
 #Examples for lA_CM.Te
 A<-c(0,0); B<-c(1,0); C<-c(1/2,sqrt(3)/2);
 Te<-rbind(A,B,C)
@@ -76,7 +76,7 @@ text(xc,yc,txt.str)
 lA_CM.Te(.25)$y
 }
 
-\dontrun{
+\donttest{
 #Examples for lB_CM.Te
 A<-c(0,0); B<-c(1,0); C<-c(1/2,sqrt(3)/2);
 Te<-rbind(A,B,C)

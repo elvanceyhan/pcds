@@ -38,8 +38,7 @@ studies under the uniformness hypothesis.
 See also (\insertCite{ceyhan:Phd-thesis,ceyhan:comp-geo-2010,ceyhan:mcap2012;textual}{pcds}).
 }
 \examples{
-c1<-.4; c2<-.6;
-#c1<-.5; c2<-.5;
+c1<-.4; c2<-.6; #try also #c1<-.5; c2<-.5;
 
 P<-c(.3,.2)
 rv.bastriCC(P,c1,c2)
@@ -85,9 +84,9 @@ yc<-txt[,2]
 txt.str<-c("rv=1","rv=2","rv=3")
 text(xc,yc,txt.str)
 
-###
 n<-10 #try also n<-20
 dat<-runif.bastri(n,c1,c2)$g
+#try also the following
 #dat<-cbind(runif(n),runif(n))
 #dat<-cbind(runif(n,1,2),runif(n,0,1))
 

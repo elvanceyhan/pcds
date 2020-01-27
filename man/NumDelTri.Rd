@@ -19,7 +19,7 @@ See (\insertCite{okabe:2000,sinclair:2016;textual}{pcds}) for more on Delaunay t
 \examples{
 ny<-10
 
-#set.seed(1)
+set.seed(1)
 Yp<-cbind(runif(ny,0,1),runif(ny,0,1))
 
 NumDelTri(Yp)

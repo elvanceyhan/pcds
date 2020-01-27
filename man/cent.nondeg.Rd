@@ -34,10 +34,12 @@ See also (\insertCite{ceyhan:Phd-thesis,ceyhan:masa-2007,ceyhan:dom-num-NPE-Spat
 }
 \examples{
 A<-c(1,1); B<-c(2,0); C<-c(1.5,2);
+#try also the following
 #c1<-.4; c2<-.6; A<-c(0,0); B<-c(1,0); C<-c(c1,c2);
 #A<-c(0,0); B<-c(1,0); C<-c(1/2,sqrt(3)/2);
 #A<-runif(2); B<-runif(2); C<-runif(2);
 #A<-runif(2,1,100); B<-runif(2,1,100); C<-runif(2,1,100);
+
 Tr<-rbind(A,B,C);
 r<-1.35
 
@@ -54,13 +56,13 @@ polygon(Tr)
 points(Ms,pch=".",col=1)
 polygon(Ms,lty=2)
 
-xc<-Tr[,1]#+c(-.02,.02,.02)
-yc<-Tr[,2]#+c(.02,.02,.03)
+xc<-Tr[,1]
+yc<-Tr[,2]
 txt.str<-c("A","B","C")
 text(xc,yc,txt.str)
 
-xc<-Ms[,1]#+c(-.04,.04,.03)
-yc<-Ms[,2]#+c(.02,.02,.05)
+xc<-Ms[,1]
+yc<-Ms[,2]
 txt.str<-c("M1","M2","M3")
 text(xc,yc,txt.str)
 

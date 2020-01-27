@@ -46,8 +46,10 @@ the association pattern.
 \examples{
 n<-10 #try also n<-100
 A<-c(1,1); B<-c(2,0); C<-c(1.5,2);
+#try also the following
 #A<-runif(2); B<-runif(2); C<-runif(2);
 #A<-runif(2,1,100); B<-runif(2,1,100); C<-runif(2,1,100);
+
 Tr<-rbind(A,B,C)
 del<-.4
 
@@ -65,8 +67,8 @@ yd<-Ylim[2]-Ylim[1]
 plot(Tr,pch=".",xlab="",ylab="",xlim=Xlim+xd*c(-.05,.05),ylim=Ylim+yd*c(-.05,.05))
 polygon(Tr)
 points(dat)
-xc<-Tr[,1]#+c(-.03,.03,0.03)
-yc<-Tr[,2]#+c(.02,.02,.02)
+xc<-Tr[,1]
+yc<-Tr[,2]
 txt.str<-c("A","B","C")
 text(xc,yc,txt.str)
 

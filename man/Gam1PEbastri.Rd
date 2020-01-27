@@ -62,17 +62,20 @@ A<-c(0,0); B<-c(1,0); C<-c(c1,c2);
 Tb<-rbind(A,B,C)
 n<-10 #try also n<-20
 
-#set.seed(1)
+set.seed(1)
 dat<-runif.bastri(n,c1,c2)$g
+#try also the following
 #dat<-cbind(runif(n),runif(n))
 #dat<-cbind(runif(n,1,2),runif(n,0,1))
 
 M<-as.numeric(runif.bastri(1,c1,c2)$g)
+#try also the following
 #M<-c(.6,.3)
 #M<-circ.cent.tri(Tb)
 #M<-c(1,1,1) #M<-c(1,2,3) #M<-c(-1,2,3) #barycentric coordinates
 #M<-c(1.3,1.3)
 #M<-c(.3,.3)
+
 r<-2
 
 P<-c(.4,.2)
@@ -92,7 +95,9 @@ Gam1PEbastri(dat[1,],dat,r,c1,c2,M,Rv)
 Gam1PEbastri(c(2,1),dat,r,c1,c2,M)
 
 Gam1PEbastri(c(.2,.1),dat,r,c1,c2,M)
-#Gam1PEbastri(c(.2,.1),dat,r,c1,c2,M,ch.data.pnt=TRUE) #point p is not a data point in Dt
+\donttest{
+Gam1PEbastri(c(.2,.1),dat,r,c1,c2,M,ch.data.pnt=TRUE) #point p is not a data point in Dt
+}
 
 gam.vec<-vector()
 for (i in 1:n)
@@ -140,7 +145,7 @@ Gam1PEbastri(P,rbind(dat,dat),r,c1,c2,M)
 dat.fr<-data.frame(a=dat)
 Gam1PEbastri(P,dat.fr,r,c1,c2,M)
 
-\dontrun{
+\donttest{
 Gam1PEbastri(P,cbind(dat,dat),r,c1,c2,M)
 Gam1PEbastri(P, rbind(c("a","b"),dat),r,c1,c2,M)
 }

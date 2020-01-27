@@ -46,7 +46,7 @@ See (\insertCite{okabe:2000,ceyhan:comp-geo-2010,sinclair:2016;textual}{pcds}) f
 \examples{
 #nx is number of X points (target) and ny is number of Y points (nontarget)
 nx<-20; ny<-4; #try also nx<-1000; ny<-10;
-#set.seed(1)
+set.seed(1)
 Yp<-cbind(runif(ny,0,10),runif(ny,0,10))
 
 Xdt<-runifMT(nx,Yp) #data under CSR in the convex hull of Ypoints

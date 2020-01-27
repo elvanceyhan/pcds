@@ -62,12 +62,14 @@ P<-c(.5,.26)
 rv.bastri.cent(P,c1,c2,M)
 
 n<-10 #try also n<-20
-#set.seed(1)
+set.seed(1)
 dat<-runif.bastri(n,c1,c2)$g
+#try also the following
 #dat<-cbind(runif(n),runif(n))
 #dat<-cbind(runif(n,1,2),runif(n,0,1))
 
 M<-as.numeric(runif.bastri(1,c1,c2)$g)
+#try also the following
 #M<-c(.6,.2)
 #M<-c(1,1,1) #M<-c(1,2,3) #M<-c(-1,2,3) #barycentric coordinates
 #M<-c(1.3,1.3)

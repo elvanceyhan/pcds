@@ -48,10 +48,12 @@ x-coordinates are provided in vector \code{x}.
 }
 \examples{
 #Examples for lD1CCinTb
-\dontrun{
+\donttest{
 c1<-.4; c2<-.6;
 A<-c(0,0); B<-c(1,0); C<-c(c1,c2);  #the vertices of the basic triangle Tb
+
 Tb<-rbind(A,B,C)
+
 xfence<-abs(A[1]-B[1])*.25 #how far to go at the lower and upper ends in the x-coordinate
 x<-seq(min(A[1],B[1])-xfence,max(A[1],B[1])+xfence,by=.1) #try also by=.01
 
@@ -93,10 +95,12 @@ lD1CCinTb(x1,c1,c2)
 }
 
 #Examples for lD2CCinTb
-\dontrun{
+\donttest{
 c1<-.4; c2<-.6;
 A<-c(0,0); B<-c(1,0); C<-c(c1,c2);  #the vertices of the basic triangle Tb
+
 Tb<-rbind(A,B,C)
+
 xfence<-abs(A[1]-B[1])*.25 #how far to go at the lower and upper ends in the x-coordinate
 x<-seq(min(A[1],B[1])-xfence,max(A[1],B[1])+xfence,by=.1) #try also by=.01
 

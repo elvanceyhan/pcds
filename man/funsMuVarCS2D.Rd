@@ -59,6 +59,7 @@ for (i in 1:ltseq)
 
 par(mar=c(5,5,4,2))
 plot(tseq, asyvar,type="l",xlab="t",ylab=expression(paste(sigma^2,"(t)")),lty=1,xlim=range(tseq))
+par(mar=c(5.1, 4.1, 4.1, 2.1))
 
 }
 \references{

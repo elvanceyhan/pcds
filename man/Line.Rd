@@ -43,10 +43,12 @@ would yield the same straight line (i.e., the line with the same coefficients.)
 }
 \examples{
 A<-c(-1.22,-2.33); B<-c(2.55,3.75)
+#try also below choices for A and B
 #A<-runif(2); B<-runif(2)
 #A<-runif(2,1,100); B<-runif(2,1,100)
 #A<-c(1,1); B<-c(1,2) #lines are vertical
 #A<-c(1,1); B<-c(1,-2) #lines are vertical
+
 xr<-range(A,B);
 xf<-(xr[2]-xr[1])*.1 #how far to go at the lower and upper ends in the x-coordinate
 x<-seq(xr[1]-xf,xr[2]+xf,l=20) #try also l=100

@@ -62,8 +62,9 @@ Also see (\insertCite{okabe:2000,ceyhan:comp-geo-2010,sinclair:2016;textual}{pcd
 #nx is number of X points (target) and ny is number of Y points (nontarget)
 nx<-20; ny<-4; #try also nx<-40; ny<-10 or nx<-1000; ny<-10;
 
-#set.seed(1)
+set.seed(1)
 Xp<-cbind(runif(nx,0,1),runif(nx,0,1))
+#try also the following
 #Xp<-cbind(runif(nx,0.5,1.5),runif(nx,0,1))
 #Xp<-cbind(runif(nx,1,2),runif(nx,0,1))
 #Xp<-c(.5,.5); Xp<-matrix(Xp,ncol=2)
@@ -74,11 +75,13 @@ Ylim<-range(Xp[,2],Yp[,2])
 xd<-Xlim[2]-Xlim[1]
 yd<-Ylim[2]-Ylim[1]
 
-M<-c(1,1,1) #M<-c(1,2,3) #M<-c(-1,2,3) #barycentric coordinates
+M<-c(1,1,1)
+#try also the following
+#M<-c(1,2,3) #M<-c(-1,2,3) #barycentric coordinates
 #M<-"CC"
 #M<-c(1.3,1.3)
-r<-1.5
-#r<-2
+
+r<-1.5 #try also #r<-2
 
 plotPEregsMT(Xp,Yp,r,M,xlab="",ylab="",xlim=Xlim+xd*c(-.05,.05),ylim=Ylim+yd*c(-.05,.05))
 

@@ -18,9 +18,11 @@ See (\insertCite{weisstein-tri-centers,ceyhan:comp-geo-2010;textual}{pcds}) for 
 }
 \examples{
 A<-c(1,1); B<-c(2,0); C<-c(1.5,2);
+#try also the following
 #A<-runif(2); B<-runif(2); C<-runif(2);
 #A<-runif(2,1,100); B<-runif(2,1,100); C<-runif(2,1,100);
-Tr<-rbind(A,B,C);  #the vertices of the triangle T
+
+Tr<-rbind(A,B,C);  #the vertices of the triangle Tr
 
 CC<-circ.cent.tri(Tr) #the circumcenter
 CC
@@ -33,7 +35,7 @@ Ylim<-range(Tr[,2],CC[2])
 xd<-Xlim[2]-Xlim[1]
 yd<-Ylim[2]-Ylim[1]
 
-#par(pty="s")
+par(pty="s")
 plot(A,asp=1,pch=".",xlab="",ylab="",axes=TRUE,xlim=Xlim+xd*c(-.05,.05),ylim=Ylim+yd*c(-.05,.05))
 polygon(Tr)
 points(rbind(CC))
@@ -41,12 +43,11 @@ L<-matrix(rep(CC,3),ncol=2,byrow=TRUE); R<-Ds
 segments(L[,1], L[,2], R[,1], R[,2], lty=2)
 
 txt<-rbind(Tr,CC,Ds)
-xc<-txt[,1]#+c(-.08,.08,.08,.12,-.09,-.1,-.09)
-yc<-txt[,2]#+c(.02,-.02,.03,-.06,.02,.06,-.04)
+xc<-txt[,1]
+yc<-txt[,2]
 txt.str<-c("A","B","C","CC","D1","D2","D3")
 text(xc,yc,txt.str)
-
-##
+par(pty="m")
 
 A<-c(0,0); B<-c(1,0); C<-c(1/2,sqrt(3)/2);
 Te<-rbind(A,B,C);  #the vertices of the triangle T

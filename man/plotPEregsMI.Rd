@@ -69,15 +69,19 @@ See also (\insertCite{ceyhan:metrika-2012;textual}{pcds}).
 r<-2
 c<-.4
 a<-0; b<-10;
+#try also the following
 #c<-runif(1)
 #a<-runif(1); b<-runif(1); int<-range(a,b); a<-int[1]; b<-int[2]
+
 #nx is number of X points (target) and ny is number of Y points (nontarget)
 nx<-20; ny<-4; #try also nx<-40; ny<-10 or nx<-1000; ny<-10;
 
-#set.seed(1)
+set.seed(1)
 xr<-range(a,b)
 xf<-(xr[2]-xr[1])*.1
+
 Xp<-runif(nx,a-xf,b+xf)
+#try also the following
 #Xp<-runif(nx,a-5,b+5)
 #Xp<-runif(nx,a+5,b+5)
 #Xp<-runif(nx,a+10,b+10)

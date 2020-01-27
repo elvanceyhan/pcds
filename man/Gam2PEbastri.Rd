@@ -74,25 +74,30 @@ A<-c(0,0); B<-c(1,0); C<-c(c1,c2);
 Tb<-rbind(A,B,C)
 n<-10 #try also n<-20
 
-#set.seed(1)
+set.seed(1)
 dat<-runif.bastri(n,c1,c2)$g
+#try also the following
 #dat<-cbind(runif(n),runif(n))
 #dat<-cbind(runif(n,1,2),runif(n,0,1))
 
 M<-as.numeric(runif.bastri(1,c1,c2)$g)
+#try also the following
 #M<-c(.6,.3)
 #M<-circ.cent.tri(Tb)
 #M<-c(1,1,1) #M<-c(1,2,3) #M<-c(-1,2,3) #barycentric coordinates
 #M<-c(1.3,1.3)
 #M<-c(.3,.3)
+
 r<-2
 
 Gam2PEbastri(dat[1,],dat[2,],dat,r,c1,c2,M)
 Gam2PEbastri(c(1,1),dat[2,],dat,r,c1,c2,M)
 
 Gam2PEbastri(c(1,2),dat[2,],dat,r,c1,c2,M)
-#Gam2PEbastri(c(1,2),dat[2,],dat,r,c1,c2,M,ch.data.pnts = TRUE)
+\donttest{
+Gam2PEbastri(c(1,2),dat[2,],dat,r,c1,c2,M,ch.data.pnts = TRUE)
 #not both points are data points in Dt
+}
 
 
 Gam2PEbastri(c(1,2),c(1,3),rbind(c(1,2),c(1,3)),r,c1,c2,M)
@@ -127,7 +132,7 @@ Gam2PEbastri(P1,P2,rbind(dat,dat),r,c1,c2,M)
 dat.fr<-data.frame(a=dat)
 Gam2PEbastri(P1,P2,dat.fr,r,c1,c2,M)
 
-\dontrun{
+\donttest{
 Gam2PEbastri(P1,P2,cbind(dat,dat),r,c1,c2,M)
 Gam2PEbastri(P1,P2, rbind(c("a","b"),dat),r,c1,c2,M)
 }

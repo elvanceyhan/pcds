@@ -57,26 +57,26 @@ if they actually were both in the data set.
 See also (\insertCite{ceyhan:Phd-thesis,ceyhan:comp-geo-2010;textual}{pcds}).
 }
 \examples{
-\dontrun{
-#the examples are put inside \dontrun{} to speed the example check,
-#otherwise the below code works fine
+\donttest{
 A<-c(0,0,0); B<-c(1,0,0); C<-c(1/2,sqrt(3)/2,0); D<-c(1/2,sqrt(3)/6,sqrt(6)/3)
+#try also the following
 #A<-runif(3); B<-runif(3); C<-runif(3); D<-runif(3)
 #A<-runif(3,1,100); B<-runif(3,1,100); C<-runif(3,1,100); D<-runif(3,1,100)
+
 tetra<-rbind(A,B,C,D)
 n<-20
-dat<-runif.tetra(n,tetra)$g
-#dat<-cbind(runif(n),runif(n),runif(n))
 
-M<-"CM";
-#M<-"CC";
+dat<-runif.tetra(n,tetra)$g #try also #dat<-cbind(runif(n),runif(n),runif(n))
+
+M<-"CM"; #try also #M<-"CC";
 r<-1.5
 
 Gam2PEtetra(dat[1,],dat[2,],dat,r,tetra,M)
 Gam2PEtetra(dat[1,],dat[1,],dat,r,tetra,M)
 
 Gam2PEtetra(c(-1,-1,-1),dat[2,],dat,r,tetra,M)
-#Gam2PEtetra(c(-1,-1,-1),dat[2,],dat,r,tetra,M,ch.data.pnts = TRUE)
+
+Gam2PEtetra(c(-1,-1,-1),dat[2,],dat,r,tetra,M,ch.data.pnts = TRUE)
 #not both points, pt1 and pt2, are data points in Dt
 
 Gam2PEtetra(c(-1,-1,-1),c(-1,-1,-2),rbind(c(-1,-1,-1),c(-1,-1,-2)),r,tetra,M)
@@ -86,11 +86,9 @@ for (i in 1:(n-1))
  for (j in (i+1):n)
  {if (Gam2PEtetra(dat[i,],dat[j,],dat,r,tetra,M)==1)
  {ind.gam2<-rbind(ind.gam2,c(i,j))
- } #else
-   #{ind.gamn2<-rbind(ind.gamn2,c(i,j))}
+ }
  }
 ind.gam2
-#ind.gamn2
 
 #or try
 rv1<-rv.tetraCC(dat[1,],tetra)$rv;rv2<-rv.tetraCC(dat[2,],tetra)$rv

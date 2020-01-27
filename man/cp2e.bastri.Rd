@@ -37,6 +37,7 @@ A<-c(0,0); B<-c(1,0); C<-c(c1,c2);
 Tb<-rbind(A,B,C);
 
 M<-as.numeric(runif.bastri(1,c1,c2)$g)
+#try also the following
 #M<-c(.6,.2)
 #M<-c(1,1,1) #M<-c(1,2,3) #M<-c(-1,2,3) #barycentric coordinates
 #M<-c(1.3,1.3)

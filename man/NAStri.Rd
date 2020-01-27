@@ -46,20 +46,22 @@ See also (\insertCite{ceyhan:Phd-thesis,ceyhan:comp-geo-2010,ceyhan:mcap2012;tex
 }
 \examples{
 A<-c(1,1); B<-c(2,0); C<-c(1.5,2);
+#try also the following
 #A<-runif(2); B<-runif(2); C<-runif(2);
 #A<-runif(2,1,100); B<-runif(2,1,100); C<-runif(2,1,100);
 Tr<-rbind(A,B,C);
 
 M<-as.numeric(runif.tri(1,Tr)$g)
+#try also the following
 #M<-c(1.6,1.2)
 #M<-circ.cent.tri(Tr); #M<-"CC"; #M<-"CM"
 #M<-c(1,1,1) #M<-c(1,2,3) #M<-c(-1,2,3) #barycentric coordinates
 #M<-c(1.3,1.3)
 #M<-c(.3,.3)
 
-P1<-as.numeric(runif.tri(1,Tr)$g)
-#P1<-c(1.3,1.2)
+P1<-as.numeric(runif.tri(1,Tr)$g) #try also #P1<-c(1.3,1.2)
 NAStri(P1,Tr,M)
+
 #or try
 Rv<-rv.triCC(P1,Tr)$rv
 NAStri(P1,Tr,M,Rv)
@@ -96,7 +98,6 @@ rad<-Dist(P1,RV)
 Int.Pts<-NAStri(P1,Tr,M)
 
 #plot of the NAS region
-
 Xlim<-range(Tr[,1],P1[1]+rad,P1[1]-rad)
 Ylim<-range(Tr[,2],P1[2]+rad,P1[2]-rad)
 xd<-Xlim[2]-Xlim[1]

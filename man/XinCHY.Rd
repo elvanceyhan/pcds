@@ -23,8 +23,9 @@ See (\insertCite{okabe:2000,ceyhan:comp-geo-2010,sinclair:2016;textual}{pcds}) f
 #nx is number of X points (target) and ny is number of Y points (nontarget)
 nx<-20; ny<-4; #try also nx<-40; ny<-10 or nx<-1000; ny<-10;
 
-#set.seed(1)
+set.seed(1)
 Xp<-cbind(runif(nx,0,1),runif(nx,0,1))
+#try also the following
 #Xp<-cbind(runif(nx,0.5,1.5),runif(nx,0,1))
 #Xp<-cbind(runif(nx,1,2),runif(nx,0,1))
 Yp<-cbind(runif(ny,0,1),runif(ny,0,1))

@@ -42,7 +42,9 @@ NumArcsPEend1D(dat,r,int)
 
 NumArcsPEend1D(dat,r=1.2,int)
 NumArcsPEend1D(dat,r=4,int)
-#NumArcsPEend1D(dat,r=.4,int) # r must be a scalar >= 1
+\donttest{
+NumArcsPEend1D(dat,r=.4,int) # r must be a scalar >= 1
+}
 
 n<-10 #try also n<-20
 dat2<-runif(n,a-5,b+5)

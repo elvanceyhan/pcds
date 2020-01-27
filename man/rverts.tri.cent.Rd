@@ -38,8 +38,10 @@ See also (\insertCite{ceyhan:Phd-thesis,ceyhan:dom-num-NPE-Spat2011,ceyhan:comp-
 }
 \examples{
 A<-c(1,1); B<-c(2,0); C<-c(1.5,2);
+#try also the following
 #A<-runif(2); B<-runif(2); C<-runif(2);
 #A<-runif(2,1,100); B<-runif(2,1,100); C<-runif(2,1,100);
+
 Tr<-rbind(A,B,C);
 M<-c(1.6,1.0)
 
@@ -53,12 +55,14 @@ P<-c(1.5,1.6)
 rverts.tri.cent(P,Tr,M)
 
 n<-10 #try also n<-20
-#set.seed(1)
+set.seed(1)
 dat<-runif.tri(n,Tr)$g
+#try also the following
 #dat<-cbind(runif(n,1,2),runif(n,0,2))
 #dat<-cbind(runif(n),runif(n))
 
 M<-as.numeric(runif.tri(1,Tr)$g)
+#try also the following
 #M<-c(1.6,1.0)
 #M<-circ.cent.tri(Tr)
 #M<-c(1,1,1) #M<-c(1,2,3) #M<-c(-1,2,3) #barycentric coordinates
@@ -89,14 +93,14 @@ points(dat,pch=".",col=1)
 L<-rbind(M,M,M); R<-Ds
 segments(L[,1], L[,2], R[,1], R[,2], lty=2)
 
-xc<-Tr[,1]#+c(-.03,.05,.05)
-yc<-Tr[,2]#+c(-.06,.02,.05)
+xc<-Tr[,1]
+yc<-Tr[,2]
 txt.str<-c("rv=1","rv=2","rv=3")
 text(xc,yc,txt.str)
 
 txt<-rbind(M,Ds)
-xc<-txt[,1]#+c(.02,.04,-.03,0)
-yc<-txt[,2]#+c(.07,.04,.05,-.07)
+xc<-txt[,1]
+yc<-txt[,2]
 txt.str<-c("M","D1","D2","D3")
 text(xc,yc,txt.str)
 

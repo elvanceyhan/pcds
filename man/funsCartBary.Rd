@@ -34,7 +34,7 @@ For information on barycentric coordinates, see (\insertCite{weisstein-barycentr
 #Examples for cart2bary
 c1<-.4; c2<-.6
 A<-c(0,0); B<-c(1,0); C<-c(c1,c2);
-
+#try also the following
 #A<-runif(2); B<-runif(2); C<-runif(2)
 #A<-runif(2,1,100); B<-runif(2,1,100); C<-runif(2,1,100);
 
@@ -55,7 +55,6 @@ cart2bary(P,Tr)
 CM<-(A+B+C)/3
 cart2bary(CM,Tr)
 
-####
 A<-c(1,1); B<-c(2,0); C<-c(1.5,2);
 Tr<-rbind(A,B,C);
 cart2bary(c(1.4,1.2),Tr)
@@ -64,17 +63,16 @@ cart2bary(c(.8,.2),Tr)
 
 cart2bary(c(1.5,1.61),Tr)
 
-#cart2bary(c(1.5,1.61),rbind(Tr,Tr))
-
 dat.fr<-data.frame(a=Tr)
 cart2bary(c(.8,.2),dat.fr)
 
 #Examples for bary2cart
 c1<-.4; c2<-.6
 A<-c(0,0); B<-c(1,0); C<-c(c1,c2);
-
+#try also the following
 #A<-runif(2); B<-runif(2); C<-runif(2)
 #A<-runif(2,1,100); B<-runif(2,1,100); C<-runif(2,1,100);
+
 Tr<-rbind(A,B,C)
 
 bary2cart(c(.3,.2,.5),Tr)
@@ -91,7 +89,6 @@ bary2cart(P,Tr)
 CM<-(A+B+C)/3; CM
 bary2cart(c(1,1,1),Tr)
 
-####
 A<-c(1,1); B<-c(2,0); C<-c(1.5,2);
 Tr<-rbind(A,B,C);
 bary2cart(c(1.4,1.2,1),Tr)

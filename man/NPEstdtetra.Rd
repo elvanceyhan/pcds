@@ -53,7 +53,6 @@ NPEstdtetra(dat[1,],r,rv=RV)
 
 NPEstdtetra(c(-1,-1,-1),r,rv=NULL)
 
-
 P1<-c(.1,.1,.1)
 P2<-c(.5,.5,.5)
 NPEstdtetra(P1,r)

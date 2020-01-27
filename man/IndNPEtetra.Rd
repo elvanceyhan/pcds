@@ -41,14 +41,16 @@ See also (\insertCite{ceyhan:Phd-thesis,ceyhan:comp-geo-2010;textual}{pcds}).
 }
 \examples{
 A<-c(0,0,0); B<-c(1,0,0); C<-c(1/2,sqrt(3)/2,0); D<-c(1/2,sqrt(3)/6,sqrt(6)/3)
+#try also the following
 #A<-runif(3); B<-runif(3); C<-runif(3); D<-runif(3)
 #A<-runif(3,1,100); B<-runif(3,1,100); C<-runif(3,1,100); D<-runif(3,1,100)
+
 tetra<-rbind(A,B,C,D)
 n<-10 #try also n<-20
+
 dat<-runif.tetra(n,tetra)$g
 
-M<-"CM"
-#M<-"CC"
+M<-"CM" #try also #M<-"CC"
 r<-1.5
 
 IndNPEtetra(dat[1,],dat[2,],r,tetra) #uses the default M="CM"

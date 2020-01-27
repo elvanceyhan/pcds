@@ -46,6 +46,7 @@ x-coordinates are provided in vector \code{x}.
 }
 \examples{
 A<-c(1.1,1.2); B<-c(2.3,3.4); p<-c(.51,2.5)
+#try also the following
 #A<-runif(2); B<-runif(2); p<-runif(2)
 #A<-runif(2,1,100); B<-runif(2,1,100); p<-runif(2,1,100);
 #A<-c(1,2); B<-c(2,2) #lines are horizontal

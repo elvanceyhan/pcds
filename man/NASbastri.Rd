@@ -57,16 +57,17 @@ A<-c(0,0); B<-c(1,0); C<-c(c1,c2);
 Tb<-rbind(A,B,C)
 
 M<-as.numeric(runif.bastri(1,c1,c2)$g)
+#try also the following
 #M<-c(.6,.2)
 #M<-circ.cent.tri(Tb); #M<-"CC"; #M<-"CM"
 #M<-c(1,1,1) #M<-c(1,2,3) #M<-c(-1,2,3) #barycentric coordinates
 #M<-c(1.3,1.3)
 #M<-c(.3,.3)
 
-P1<-as.numeric(runif.bastri(1,c1,c2)$g);
-#P1<-c(.3,.2)
+P1<-as.numeric(runif.bastri(1,c1,c2)$g);  #try also #P1<-c(.3,.2)
 NASbastri(P1,c1,c2) #default with M="CC"
 NASbastri(P1,c1,c2,M)
+
 #or try
 Rv<-rv.bastriCC(P1,c1,c2)$rv
 NASbastri(P1,c1,c2,M,Rv)
@@ -84,8 +85,10 @@ if (dimension(M)==3) {M<-bary2cart(M,Tr)}
 
 #plot of the NAS region
 P1<-as.numeric(runif.bastri(1,c1,c2)$g);
+#try also the following
 #P1<-c(.13,.081) #P1<-c(.2,.1) #P1<-c(.4,.1) #P1<-c(.55,.1) #P1<-c(.6,.1) #P1<-c(.5,.3)
 #M<-as.numeric(runif.bastri(1,c1,c2)$g); P1<-as.numeric(runif.bastri(1,c1,c2)$g);
+
 CC<-circ.cent.bastri(c1,c2)
 
 if (isTRUE(all.equal(M,CC)) || identical(M,"CC"))
@@ -127,9 +130,6 @@ if (!is.null(Arcs))
   {A1<-Arcs[2*i-1,]; A2<-Arcs[2*i,];
   angles<-angle.str2end(A1,P1,A2)$c
 
-  #test.ang1<-angles[1]+(.01)*(angles[2]-angles[1])
-  #test.Pnt<-P1+rad*c(cos(test.ang1),sin(test.ang1))
-  #if (!in.triangle(test.Pnt,Tb,boundary = T)$i) {angles<-c(min(angles),max(angles)-2*pi)}
   plotrix::draw.arc(P1[1],P1[2],rad,angle1=angles[1],angle2=angles[2],col=2)
   }
 }

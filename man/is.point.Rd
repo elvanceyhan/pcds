@@ -38,7 +38,9 @@ is.point(lis)
 dat.fr<-data.frame(a=A,b=B[1:2])
 is.point(dat.fr)
 
-#is.point(c("a","b"))
+\donttest{
+is.point(c("a","b"))
+}
 
 }
 \seealso{

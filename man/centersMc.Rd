@@ -25,14 +25,12 @@ See also (\insertCite{ceyhan:metrika-2012,ceyhan:revstat-2016;textual}{pcds}).
 }
 \examples{
 n<-10
-c<-.4
-#c<-runif(1)
+c<-.4 #try also #c<-runif(1)
 x<-runif(n)
 centersMc(x,c)
 
 n<-10
-c<-.3
-#c<-runif(1)
+c<-.3 #try also #c<-runif(1)
 x<-runif(n,0,10)
 centersMc(x,c)
 

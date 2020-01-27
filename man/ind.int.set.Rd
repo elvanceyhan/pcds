@@ -21,16 +21,17 @@ Intervals are based on \code{Yp} and left end interval is labeled as 0, the next
 }
 \examples{
 a<-0; b<-10; int<-c(a,b)
+#try also the following
 #a<-runif(1); b<-runif(1); int<-range(a,b); a<-int[1]; b<-int[2]
+
 #nx is number of X points (target) and ny is number of Y points (nontarget)
 nx<-20; ny<-4; #try also nx<-40; ny<-10 or nx<-1000; ny<-10;
 
-#set.seed(1)
+set.seed(1)
 xr<-range(a,b)
 xf<-(xr[2]-xr[1])*.1
 Xp<-runif(nx,a-xf,b+xf)
-Yp<-runif(ny,a,b)
-#Yp<-runif(ny,a+1,b-1)
+Yp<-runif(ny,a,b) #try also #Yp<-runif(ny,a+1,b-1)
 
 ind<-ind.int.set(Xp,Yp)
 ind

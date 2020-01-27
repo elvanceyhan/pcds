@@ -34,11 +34,11 @@ as in \code{rank.d2e.Te}.
 }
 \examples{
 #Examples for rank.d2e.Te
-\dontrun{
+\donttest{
 n<-20
-#set.seed(1)
+set.seed(1)
 dat<-runifTe(n)$gen.points
-#dat<-cbind(runif(n),runif(n))
+#try also #dat<-cbind(runif(n),runif(n))
 
 dec.dist<-rank.d2e.Te(dat)
 dec.dist
@@ -60,7 +60,6 @@ polygon(Te)
 points(dat,pch=".")
 text(dat,labels = factor(dec.dist.rank) )
 
-###
 inc.dist<-rank.d2e.Te(dat,dec = FALSE)
 inc.dist
 inc.dist.rank<-inc.dist[[2]] #the rank of distances to the edges in increasing order
@@ -80,11 +79,11 @@ rank.d2e.Te(dat.fr)
 }
 
 #Examples for order.d2e.Te
-\dontrun{
+\donttest{
 n<-20
-#set.seed(1)
+set.seed(1)
 dat<-runifTe(n)$gen.points
-#dat<-cbind(runif(n),runif(n))
+#try also #dat<-cbind(runif(n),runif(n))
 
 dec.dist<-order.d2e.Te(dat)
 dec.dist
@@ -108,7 +107,6 @@ polygon(Te)
 points(dat,pch=".")
 text(dat[dec.dist.order,],labels = factor(1:n) )
 
-###
 inc.dist<-order.d2e.Te(dat,dec = FALSE)
 inc.dist
 inc.dist.order<-inc.dist[[2]] #the order of distances to the edges in increasing order

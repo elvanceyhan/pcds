@@ -42,8 +42,10 @@ and the second pair of angles is for drawing arcs in the counter-clockwise order
 }
 \examples{
 A<-c(.3,.2); B<-c(.6,.3); C<-c(1,1)
+#try also the following
 #A<-runif(2); B<-runif(2); C<-runif(2);
 #A<-runif(2,1,100); B<-runif(2,1,100); C<-runif(2,1,100);
+
 pts<-rbind(A,B,C)
 
 Xp<-c(B[1]+max(abs(C[1]-B[1]),abs(A[1]-B[1])),0)

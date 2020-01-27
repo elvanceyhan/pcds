@@ -44,11 +44,14 @@ in the direction of vector \code{v} (of if \code{v} is a point, in the direction
 with the parameter \code{t} being provided in vector \code{t}.
 }
 \examples{
-\dontrun{
+\donttest{
 A<-c(1,10,3); B<-c(1,1,3);
+#try also the following
 #A<-runif(3); B<-runif(3);
 #A<-runif(3,1,100); B<-runif(3,1,100);
+
 vecs<-rbind(A,B)
+
 Line3D(A,B,.1)
 Line3D(A,B,.1,dir.vec=FALSE)
 

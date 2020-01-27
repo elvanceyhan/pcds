@@ -32,7 +32,7 @@ finite interval \eqn{(a,b)}, i.e. data from \eqn{U(a,b)} distribution.
 See also (\insertCite{ceyhan:revstat-2016;textual}{pcds}).
 }
 \examples{
-\dontrun{
+\donttest{
 #Examples for muCS1D
 muCS1D(1.2,.4)
 muCS1D(1.2,.6)
@@ -55,7 +55,7 @@ phi = 30, expand = 0.5, col = "lightblue", ltheta = 120,
 shade = 0.05, ticktype = "detailed")
 }
 
-\dontrun{
+\donttest{
 #Examples for asyvarCS1D
 asyvarCS1D(1.2,.8)
 

@@ -74,8 +74,9 @@ density of PE-PCDs.
 #nx is number of X points (target) and ny is number of Y points (nontarget)
 nx<-20; ny<-4; #try also nx<-40; ny<-10 or nx<-1000; ny<-10;
 
-#set.seed(1)
+set.seed(1)
 Xp<-cbind(runif(nx),runif(nx))
+#try also the following
 #Xp<-cbind(runif(nx,.5,1.5),runif(nx))
 #Xp<-cbind(runif(nx,1,2),runif(nx))
 Yp<-cbind(runif(ny),runif(ny))

@@ -46,7 +46,6 @@ xlim=Xlim+xd*c(-.05,.05),ylim=Ylim+yd*c(-.05,.05))
 points(rbind(X))
 interp::circles(X[,1],X[,2],Rad$rad,lty=1,lwd=1,col=4)
 
-###
 nx<-5
 ny<-1
 X<-cbind(runif(nx),runif(nx))
@@ -69,8 +68,7 @@ interp::circles(X[,1],X[,2],Rad$rad,lty=1,lwd=1,col=4)
 
 radii(c(1,2),c(2,3))
 
-\dontrun{
-###
+\donttest{
 nx<-10
 ny<-5
 X<-runif(nx)
@@ -81,7 +79,7 @@ X<-as.matrix(X)
 Y<-as.matrix(Y)
 radii(X,Y) #this works as X and Y are treated as 1D data sets
 }
-###
+
 nx<-10
 ny<-5
 X<-cbind(runif(nx),runif(nx),runif(nx))

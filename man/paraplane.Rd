@@ -40,8 +40,9 @@ by three distinct 3D points \code{a}, \code{b}, and \code{c} with x- and y-coord
 respectively.
 }
 \examples{
-\dontrun{
+\donttest{
 A<-c(1,10,3); B<-c(1,1,3); C<-c(3,9,12); P<-c(1,1,0)
+#try also the following
 #A<-runif(3); B<-runif(3); C<-runif(3); P<-runif(3)
 #A<-runif(3,1,100); B<-runif(3,1,100); C<-runif(3,1,100); P<-runif(3,1,100)
 

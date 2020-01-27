@@ -41,14 +41,15 @@ in the basic triangle \eqn{T_b=T(A=(0,0),B=(1,0),C=(c_1,c_2))}=(vertex 1,vertex 
 See also (\insertCite{ceyhan:Phd-thesis,ceyhan:mcap2012;textual}{pcds}).
 }
 \examples{
-\dontrun{
+\donttest{
 c1<-.4; c2<-.6;
 A<-c(0,0); B<-c(1,0); C<-c(c1,c2);
 Tb<-rbind(A,B,C)
 n<-20
 
-#set.seed(1)
+set.seed(1)
 dat<-runif.bastri(n,c1,c2)$g
+#try also the following
 #dat<-cbind(runif(n),runif(n))
 #dat<-cbind(runif(n,1,2),runif(n,0,1))
 

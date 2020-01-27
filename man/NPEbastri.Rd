@@ -45,14 +45,15 @@ A<-c(0,0); B<-c(1,0); C<-c(c1,c2);
 Tb<-rbind(A,B,C);
 
 M<-as.numeric(runif.bastri(1,c1,c2)$g)
+#try also the following
 #M<-c(.6,.2)
 #M<-circ.cent.tri(Tb)
 #M<-c(1,1,1) #M<-c(1,2,3) #M<-c(-1,2,3) #barycentric coordinates
 #M<-c(.3,.3)
+
 r<-2
 
-P1<-as.numeric(runif.bastri(1,c1,c2)$g)
-#P1<-c(.4,.2)
+P1<-as.numeric(runif.bastri(1,c1,c2)$g) #try also #P1<-c(.4,.2)
 NPEbastri(P1,r,c1,c2,M)
 
 P2<-c(1.8,.5)
@@ -64,12 +65,12 @@ NPEbastri(P3,r,c1,c2,M)
 M<-c(1.3,1.3)
 r<-2
 
+\donttest{
 P1<-c(1.4,1.2)
 P2<-c(1.5,1.26)
-#NPEbastri(P1,r,c1,c2,M) #center is not the circumcenter or not in the interior of the triangle
-#NPEbastri(P2,r,c1,c2,M)
+NPEbastri(P1,r,c1,c2,M) #center is not the circumcenter or not in the interior of the triangle
+NPEbastri(P2,r,c1,c2,M)
 
-\dontrun{
 #or try
 Rv<-rv.bastri.cent(P1,c1,c2,M)$rv
 NPEbastri(P1,r,c1,c2,M,Rv)

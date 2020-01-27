@@ -61,7 +61,7 @@ points) or right-sided (i.e. data is accumulated around the mid point or center 
 See also (\insertCite{ceyhan:revstat-2016;textual}{pcds}).
 }
 \examples{
-\dontrun{
+\donttest{
 c<-.4
 t<-2
 a<-0; b<-10; int<-c(a,b)

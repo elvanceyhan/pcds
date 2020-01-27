@@ -25,8 +25,10 @@ See also (\insertCite{ceyhan:metrika-2012,ceyhan:revstat-2016;textual}{pcds}).
 \examples{
 c<-.4
 a<-0; b<-10; int<-c(a,b)
+#try also the following
 #c<-runif(1)
 #a<-runif(1,0,5); b<-runif(1,5,10); int<-c(a,b)
+
 int
 centMc(int,c)
 

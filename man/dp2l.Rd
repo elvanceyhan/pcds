@@ -22,8 +22,10 @@ Returns the distance from a point \code{p} to the line joining points \code{a} a
 }
 \examples{
 A<-c(1,2); B<-c(2,3); P<-c(3,1.5)
+#try also the following
 #A<-runif(2); B<-runif(2); P<-runif(2)
 #A<-runif(2,1,100); B<-runif(2,1,100); P<-runif(2,1,100);
+
 dpl<-dp2l(P,A,B);
 dpl
 C<-dpl$cl2p

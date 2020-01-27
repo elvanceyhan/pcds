@@ -35,7 +35,7 @@
 #' @examples
 #' data(swamptrees)
 #' plot(swamptrees$x,swamptrees$y, col=as.numeric(swamptrees$sp),pch=19,
-#' xlab="",ylab="",main="Swamp Trees")
+#' xlab='',ylab='',main='Swamp Trees')
 #'
 #' @docType data
 #' @keywords datasets

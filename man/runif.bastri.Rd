@@ -44,7 +44,7 @@ A<-c(0,0); B<-c(1,0); C<-c(c1,c2);
 Tb<-rbind(A,B,C);
 n<-10 #try also n<-100
 
-#set.seed(1)
+set.seed(1)
 runif.bastri(1,c1,c2)
 Xdt<-runif.bastri(n,c1,c2)
 Xdt
@@ -61,10 +61,6 @@ yd<-Ylim[2]-Ylim[1]
 plot(Tb,xlab="",ylab="",xlim=Xlim+xd*c(-.01,.01),ylim=Ylim+yd*c(-.01,.01),type="n")
 polygon(Tb)
 points(dat)
-
-#runif.bastri(n,.6,.6)
-#runif.bastri(1,c(.2,.4),.6)
-#runif.bastri(1,"a",.6)
 
 }
 \references{

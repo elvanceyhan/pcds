@@ -45,7 +45,7 @@ Te<-rbind(A,B,C);
 n<-10 #try also n<-20 #try also n<-100 or 1000
 eps<-.2 #try also .25, .1
 
-#set.seed(1)
+set.seed(1)
 Xdt<-rascIITe(n,eps)
 Xdt
 summary(Xdt)
@@ -63,7 +63,7 @@ main="Type II association in the \n standard equilateral triangle",
 polygon(Te)
 points(dat)
 
-# The support for the Type II association alternative
+#The support for the Type II association alternative
 A1<-c(1/2-eps*sqrt(3),sqrt(3)/6-eps); B1<-c(1/2+eps*sqrt(3),sqrt(3)/6-eps);
 C1<-c(1/2,sqrt(3)/6+2*eps);
 supp<-rbind(A1,B1,C1)
@@ -72,7 +72,7 @@ plot(Te,asp=1,pch=".",xlab="",ylab="",main="Support of the Type II Association",
 xlim=Xlim+xd*c(-.01,.01),ylim=Ylim+yd*c(-.01,.01))
 polygon(Te,col=5)
 polygon(supp,col=0)
-#points(dat)
+points(dat)
 
 }
 \seealso{

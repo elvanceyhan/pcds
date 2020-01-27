@@ -76,6 +76,7 @@ nx<-40; ny<-4; #try also nx<-40; ny<-10 or nx<-1000; ny<-10;
 
 set.seed(1)
 Xp<-cbind(runif(nx),runif(nx))
+#try also the following
 #Xp<-cbind(runif(nx,0.5,1.5),runif(nx,0,1))
 #Xp<-cbind(runif(nx,1,2),runif(nx,0,1))
 Yp<-cbind(runif(ny),runif(ny))
@@ -98,7 +99,7 @@ TSArcDensCSMT(Xp,Yp,t=1.5,ch=TRUE)
 t<-2
 TSArcDensCSMT(Xp,Yp,t)
 
-\dontrun{
+\donttest{
 TSArcDensCSMT(c(.4,.2),Yp,t=.5) #not enough points in the convex hull of non-target points to
 #compute arc density of the target points
 

@@ -36,10 +36,10 @@ set.
 See also (\insertCite{ceyhan:Phd-thesis;textual}{pcds}).
 }
 \examples{
-\dontrun{
+\donttest{
 n<-5
 
-#set.seed(1)
+set.seed(1)
 dat<-rbind(runifTe.onesixth(n)$gen.points,runifTe(n)$gen.points)
 
 Gam1CS.Te.onesixth(dat[1,],dat[2,])

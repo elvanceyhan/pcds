@@ -46,8 +46,9 @@ Also see (\insertCite{okabe:2000,ceyhan:comp-geo-2010,sinclair:2016;textual}{pcd
 \examples{
 nx<-20; ny<-4; #try also nx<-40; ny<-10 or nx<-1000; ny<-10;
 
-#set.seed(1)
+set.seed(1)
 Xp<-cbind(runif(nx),runif(nx))
+#try also the following
 #Xp<-cbind(runif(nx,.5,1.5),runif(nx))
 #Xp<-cbind(runif(nx,1,2),runif(nx))
 #Xp<-c(.5,.5)
@@ -55,7 +56,9 @@ Yp<-cbind(runif(ny),runif(ny))
 
 plotDeltri(Xp,Yp,xlab="",ylab="")
 
-M<-c(1,1,1) #M<-c(1,2,3) #M<-c(-1,2,3) #barycentric coordinates
+M<-c(1,1,1)
+#try also the following
+#M<-c(1,2,3) #M<-c(-1,2,3) #barycentric coordinates
 #M<-"CC"
 #M<-c(1.3,1.3)
 

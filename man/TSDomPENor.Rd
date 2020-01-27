@@ -81,12 +81,11 @@ See also (\insertCite{ceyhan:dom-num-NPE-Spat2011;textual}{pcds}).
 }
 \examples{
 nx<-20; ny<-4 #try also nx<-1000; ny<-10
-r<-1.5
-#r<-2
-#r<-1.25
+r<-1.5 #try also #r<-2 #r<-1.25
 
-#set.seed(1)
+set.seed(1)
 Xp<-cbind(runif(nx,0,1),runif(nx,0,1))
+#try also the following
 #Xp<-cbind(runif(nx,.5,1.5),runif(nx))
 #Xp<-cbind(runif(nx,1,2),runif(nx))
 Yp<-cbind(runif(ny,0,1),runif(ny,0,1))

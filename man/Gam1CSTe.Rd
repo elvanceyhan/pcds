@@ -41,15 +41,19 @@ Te<-rbind(A,B,C);
 t<-1.5
 n<-10 #try also n<-20
 
-#set.seed(1)
+set.seed(1)
 dat<-runifTe(n)$gen.points
+#try also the following
 #dat<-cbind(runif(n),runif(n))
 #dat<-cbind(runif(n,1,2),runif(n,0,1))
 
 Gam1CSTe(dat[3,],dat,t)
 
 Gam1CSTe(c(1,2),dat,t)
-#Gam1CSTe(c(1,2),dat,t,ch.data.pnt = TRUE) #p is not a data point
+
+\donttest{
+Gam1CSTe(c(1,2),dat,t,ch.data.pnt = TRUE) #p is not a data point
+}
 
 Gam1CSTe(c(1,2),c(1,2),t)
 Gam1CSTe(c(1,2),c(1,2),t,ch.data.pnt = TRUE)

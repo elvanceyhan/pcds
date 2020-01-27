@@ -84,8 +84,7 @@ plot(Y,asp=1,xlab="x",ylab="y",main="association of two classes",
 points(Xdt)
 
 e<-.25; #pattern is very close to CSR!
-
-#e<-.1;
+#try also #e<-.1;
 
 #with default bounding box (i.e., unit square)
 Y<-cbind(runif(ny),runif(ny))
@@ -104,11 +103,12 @@ points(Xdt)
 a1<-0; a2<-10;
 b1<-0; b2<-5;
 e<-1.1;
-
+#try also the following
 #e<-5; #pattern very close to CSR!
 #e<-1.5; #negative d is not recommended for association
+
 Y<-cbind(runif(ny,a1,a2),runif(ny,b1,b2))
-#Y<-cbind(runif(ny,a1,a2/2),runif(ny,b1,b2/2))
+#try also #Y<-cbind(runif(ny,a1,a2/2),runif(ny,b1,b2/2))
 
 Xdt<-rasc.disc(nx,Y,e,a1,a2,b1,b2)$gen.points
 Xlim<-range(Xdt[,1],Y[,1]);

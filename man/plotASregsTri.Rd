@@ -50,17 +50,21 @@ See also (\insertCite{ceyhan:Phd-thesis,ceyhan:comp-geo-2010,ceyhan:mcap2012;tex
 }
 \examples{
 A<-c(1,1); B<-c(2,0); C<-c(1.5,2);
+#try also the following
 #A<-runif(2); B<-runif(2); C<-runif(2);
 #A<-runif(2,1,100); B<-runif(2,1,100); C<-runif(2,1,100);
+
 Tr<-rbind(A,B,C);
 n<-1
 
-#set.seed(1)
+set.seed(1)
 dat<-runif.tri(n,Tr)$g
+#try also the following
 #dat<-cbind(runif(n,1,2),runif(n,0,2))
 #dat<-cbind(runif(n,0,1),runif(n,0,2))
 
 M<-as.numeric(runif.tri(1,Tr)$g)
+#try also the following
 #M<-c(1.6,1.2); #dat<-c(1.61,1.19)
 #M<-circ.cent.tri(Tr); #M<-"CC"; #M<-"CM"
 #M<-c(1,1,1) #M<-c(1,2,3) #M<-c(-1,2,3) #barycentric coordinates
@@ -76,8 +80,7 @@ yd<-Ylim[2]-Ylim[1]
 plotASregsTri(dat,Tr,M,main="Proximity Regions for AS-PCD",
 xlab="",ylab="",xlim=Xlim+xd*c(-.05,.05),ylim=Ylim+yd*c(-.05,.05))
 
-#plotASarcsTri(dat,Tr,main="arcs of AS-PCD",
-#xlab="",ylab="",xlim=Xlim+c(-.05,.05),ylim=Ylim)
+plotASarcsTri(dat,Tr,main="arcs of AS-PCD", xlab="",ylab="",xlim=Xlim+c(-.05,.05),ylim=Ylim)
 
 if (dimension(M)==3) {M<-bary2cart(M,Tr)}
 #need to run this when M is given in barycentric coordinates
@@ -100,8 +103,8 @@ L<-rbind(cent,cent,cent); R<-Ds
 segments(L[,1], L[,2], R[,1], R[,2], lty=2)
 
 txt<-rbind(Tr,cent,Ds)
-xc<-txt[,1]#+c(-.02,.03,.03,.03,.05,-0.03,-.01)
-yc<-txt[,2]#+c(.02,.02,.02,.07,.02,.05,-.06)
+xc<-txt[,1]
+yc<-txt[,2]
 txt.str<-c("A","B","C",cent.name,"D1","D2","D3")
 text(xc,yc,txt.str)
 

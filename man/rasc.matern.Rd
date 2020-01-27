@@ -61,8 +61,10 @@ while \code{rasc.matern} does not.
 nx<-20; ny<-4; #try also nx<-1000; ny<-10;
 
 e<-.15;
+#try also the following
 #e<-1.1; #closer to CSR than association, as e is large
 #e<--.15; #not possible, gives error
+
 #Y points uniform in unit square
 Y<-cbind(runif(ny),runif(ny))
 
@@ -81,13 +83,13 @@ plot(Y,asp=1,xlab="x",ylab="y",main="Association of two classes",
      xlim=Xlim+xd*c(-.01,.01),ylim=Ylim+yd*c(-.01,.01),pch=16,col=2,lwd=2)
 points(Xdt)
 
-#Y points uniform in a rectangle
 a1<-0; a2<-10;
 b1<-0; b2<-5;
 e<-1.1;
 
+#Y points uniform in a rectangle
 Y<-cbind(runif(ny,a1,a2),runif(ny,b1,b2))
-#Y<-cbind(runif(ny,a1,a2/2),runif(ny,b1,b2/2))
+#try also #Y<-cbind(runif(ny,a1,a2/2),runif(ny,b1,b2/2))
 
 Xdt<-rasc.matern(nx,Y,e)$gen.points
 Xlim<-range(Xdt[,1],Y[,1]);

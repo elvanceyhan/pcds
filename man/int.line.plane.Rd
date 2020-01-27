@@ -20,11 +20,13 @@ Returns the point of the intersection of the line determined by the 3D points \c
 by 3D points \code{x3}, \code{x4}, and \code{x5}.
 }
 \examples{
-\dontrun{
+\donttest{
 L1<-c(2,4,6); L2<-c(1,3,5); A<-c(1,10,3); B<-c(1,1,3); C<-c(3,9,12)
+#try also the following
 #L1<-runif(3); L2<-runif(3); A<-runif(3); B<-runif(3); C<-runif(3)
 #L1<-runif(3,1,100); L2<-runif(3,1,100);
 #A<-runif(3,1,100); B<-runif(3,1,100); C<-runif(3,1,100)
+
 Pint<-int.line.plane(L1,L2,A,B,C)
 Pint
 pts<-rbind(L1,L2,A,B,C,Pint)

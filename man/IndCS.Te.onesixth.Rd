@@ -28,10 +28,10 @@ If \code{pt1} and \code{pt2} are distint and \code{pt1} is outside of \eqn{T(A,D
 but if they are identical, then it returns 1 regardless of their locations (i.e., it allows loops).
 }
 \examples{
-\dontrun{
+\donttest{
 n<-5
 
-#set.seed(1)
+set.seed(1)
 dat<-rbind(runifTe.onesixth(n)$gen.points,runifTe(n)$gen.points)
 
 IndCS.Te.onesixth(dat[1,],dat[2,])
@@ -40,7 +40,7 @@ IndCS.Te.onesixth(dat[1,],dat[9,])
 IndCS.Te.onesixth(c(.2,.5),dat[2,])
 IndCS.Te.onesixth(c(.2,.5),c(.2,.5))
 
-#set.seed(1)
+set.seed(1)
 dat<-runifTe(10)$gen.points
 
 IndCS.Te.onesixth(dat[1,],dat[2,])

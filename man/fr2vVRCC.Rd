@@ -52,13 +52,16 @@ See also (\insertCite{ceyhan:Phd-thesis,ceyhan:mcap2012;textual}{pcds}).
 }
 \examples{
 A<-c(1,1); B<-c(2,0); C<-c(1.5,2);
+#try also the following
 #A<-runif(2); B<-runif(2); C<-runif(2);
 #A<-runif(2,1,100); B<-runif(2,1,100); C<-runif(2,1,100);
+
 Tr<-rbind(A,B,C);
 n<-10 #try also n<-20
 
-#set.seed(1)
+set.seed(1)
 dat<-runif.tri(n,Tr)$g
+#try also the following
 #dat<-cbind(runif(n),runif(n))
 #dat<-cbind(runif(n,1,2),runif(n,0,2))
 
@@ -71,7 +74,9 @@ fr2vVRCC(dat[1,],Tr)
 
 dat2<-rbind(dat,c(.2,.4))
 fr2vVRCC(dat2,Tr)
-#fr2vVRCC(dat2,Tr,ch.all.intri = TRUE) #not all points in the data set are in the triangle
+\donttest{
+fr2vVRCC(dat2,Tr,ch.all.intri = TRUE) #not all points in the data set are in the triangle
+}
 
 f2v<-fr2vVRCC(dat,Tr)
 

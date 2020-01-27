@@ -21,14 +21,15 @@ See (\insertCite{weisstein-area-poly;textual}{pcds}).
 }
 \examples{
 A<-c(0,0); B<-c(1,0); C<-c(0.5,.8);
+#try also the following
 #A<-runif(2); B<-runif(2); C<-runif(2)
 #A<-runif(2,1,100); B<-runif(2,1,100); C<-runif(2,1,100);
+
 Tr<-rbind(A,B,C);
 area.polygon(Tr)
 
 A<-c(0,0); B<-c(1,0); C<-c(.7,.6); D<-c(0.3,.8);
-h1<-rbind(A,B,C,D); #h1<-rbind(A,B,D,C); #h1<-rbind(A,C,B,D)
-#h1<-rbind(A,D,C,B);
+h1<-rbind(A,B,C,D); #try also #h1<-rbind(A,B,D,C); #h1<-rbind(A,C,B,D) #h1<-rbind(A,D,C,B);
 area.polygon(h1)
 
 Xlim<-range(h1[,1])
@@ -46,7 +47,7 @@ text(xc,yc,txt.str)
 dat.fr<-data.frame(a=Tr)
 area.polygon(dat.fr)
 
-\dontrun{
+\donttest{
 #when the triangle is degenerate
 B<-A+2*(C-A);
 T2<-rbind(A,B,C)

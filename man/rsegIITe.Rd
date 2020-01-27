@@ -45,7 +45,7 @@ Te<-rbind(A,B,C);
 n<-10 #try also n<-20 #try also n<-100 or 1000
 eps<-.15 #try also .2
 
-#set.seed(1)
+set.seed(1)
 Xdt<-rsegIITe(n,eps)
 Xdt
 summary(Xdt)
@@ -62,7 +62,8 @@ plot(Te,pch=".",xlab="",ylab="",main="Type II segregation in the \n standard equ
      xlim=Xlim+xd*c(-.01,.01),ylim=Ylim+yd*c(-.01,.01))
 polygon(Te)
 points(dat)
-# The support for the Type II segregation alternative
+
+#The support for the Type II segregation alternative
 C1<-c(1/2,sqrt(3)/2-2*eps);
 A1<-c(eps*sqrt(3),eps); B1<-c(1-eps*sqrt(3),eps);
 supp<-rbind(A1,B1,C1)
@@ -71,7 +72,7 @@ plot(Te,asp=1,pch=".",xlab="",ylab="",main="Support of the Type II Segregation",
      xlim=Xlim+xd*c(-.01,.01),ylim=Ylim+yd*c(-.01,.01))
   polygon(Te)
   polygon(supp,col=5)
-#points(dat)
+points(dat)
 
 }
 \seealso{

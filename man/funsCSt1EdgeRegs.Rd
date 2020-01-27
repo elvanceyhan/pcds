@@ -41,12 +41,12 @@ CS proximity region for point \eqn{x} with expansion parameter \eqn{t=1}.
 }
 \examples{
 #Examples for IndCSTeRABt1
-\dontrun{
+\donttest{
 A<-c(0,0); B<-c(1,0); C<-c(1/2,sqrt(3)/2);
 CM<-(A+B+C)/3
 T3<-rbind(A,B,CM);
 
-#set.seed(1)
+set.seed(1)
 dat3<-runif.tri(10,T3)$g
 dat<-runifTe(10)$gen.points
 
@@ -60,12 +60,12 @@ IndCSTeRABt1(c(.2,.5),c(.2,.5))
 }
 
 #Examples for IndCSTeRBCt1
-\dontrun{
+\donttest{
 A<-c(0,0); B<-c(1,0); C<-c(1/2,sqrt(3)/2);
 CM<-(A+B+C)/3
 T1<-rbind(B,C,CM);
 
-#set.seed(1)
+set.seed(1)
 dat1<-runif.tri(10,T1)$g
 dat<-runifTe(10)$gen.points
 
@@ -79,12 +79,12 @@ IndCSTeRBCt1(c(.2,.5),c(.2,.5))
 }
 
 #Examples for IndCSTeRACt1
-\dontrun{
+\donttest{
 A<-c(0,0); B<-c(1,0); C<-c(1/2,sqrt(3)/2);
 CM<-(A+B+C)/3
 T2<-rbind(A,C,CM);
 
-#set.seed(1)
+set.seed(1)
 dat2<-runif.tri(10,T2)$g
 dat<-runifTe(10)$gen.points
 

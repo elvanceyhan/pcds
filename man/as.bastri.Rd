@@ -30,7 +30,7 @@ original triangle. Hence basic triangle is useful for simulation
 studies under the uniformness hypothesis.
 }
 \examples{
-\dontrun{
+\donttest{
 c1<-.4; c2<-.6
 A<-c(0,0); B<-c(1,0); C<-c(c1,c2);
 
@@ -47,7 +47,7 @@ as.bastri(rbind(A,C,B))
 as.bastri(rbind(B,A,C))
 
 A<-runif(2); B<-runif(2); C<-runif(2)
-#A<-runif(2,1,100); B<-runif(2,1,100); C<-runif(2,1,100);
+#try also #A<-runif(2,1,100); B<-runif(2,1,100); C<-runif(2,1,100);
 as.bastri(rbind(A,B,C))
 
 dat.fr<-data.frame(a=rbind(A,B,C))

@@ -50,29 +50,35 @@ See also (\insertCite{ceyhan:Phd-thesis,ceyhan:masa-2007,ceyhan:dom-num-NPE-Spat
 }
 \examples{
 A<-c(1,1); B<-c(2,0); C<-c(1.5,2);
+#try also the following
 #A<-runif(2); B<-runif(2); C<-runif(2);
 #A<-runif(2,1,100); B<-runif(2,1,100); C<-runif(2,1,100);
+
 Tr<-rbind(A,B,C);
 n<-10 #try also n<-20
 
-#set.seed(1)
+set.seed(1)
 dat<-runif.tri(n,Tr)$g
+#try also the following
 #dat<-cbind(runif(n,1,2),runif(n,0,2))
 #dat<-cbind(runif(n),runif(n))
 
 M<-as.numeric(runif.tri(1,Tr)$g)
+#try also the following
 #M<-c(1.6,1.0)
 #M<-circ.cent.tri(Tr)
 #M<-c(1,1,1) #M<-c(1,2,3) #M<-c(-1,2,3) #barycentric coordinates
 #M<-c(1.3,1.3)
 #M<-c(.3,.3)
-#r<-1.5
-r<-2
+
+r<-1.5 #try also r<-2
 
 Gam1PEtri(c(1.4,1),c(1.4,1),Tr,r,M)
 Gam1PEtri(dat[1,],dat,Tr,r,M)
 Gam1PEtri(c(1,2),dat,Tr,r,M)
-#Gam1PEtri(c(1,2),dat,Tr,r,M,ch.data.pnt = TRUE) #p is not a data point
+\donttest{
+Gam1PEtri(c(1,2),dat,Tr,r,M,ch.data.pnt = TRUE) #p is not a data point
+}
 
 Gam1PEtri(c(1,2),c(1,2),Tr,r,M)
 Gam1PEtri(c(1,2),c(1,2),Tr,r,M,ch.data.pnt = TRUE)
@@ -108,8 +114,8 @@ points(rbind(dat[ind.gam1,]),pch=4,col=2)
 #rbind is to insert the points correctly if there is only one dominating point
 
 txt<-rbind(Tr,M,Ds)
-xc<-txt[,1]#+c(-.02,.03,.02,-.02,.04,-.03,.0)
-yc<-txt[,2]#+c(.02,.02,.05,-.03,.04,.06,-.07)
+xc<-txt[,1]
+yc<-txt[,2]
 txt.str<-c("A","B","C","M","D1","D2","D3")
 text(xc,yc,txt.str)
 

@@ -46,7 +46,7 @@ Te<-rbind(A,B,C);
 n<-10 #try also n<-20 #try also n<-100 or 1000
 eps<-.3 #try also .15, .5, .75
 
-#set.seed(1)
+set.seed(1)
 Xdt<-rsegTe(n,eps)
 Xdt
 summary(Xdt)
@@ -57,7 +57,7 @@ Ylim<-range(Te[,2])
 xd<-Xlim[2]-Xlim[1]
 yd<-Ylim[2]-Ylim[1]
 
-#set.seed(1)
+set.seed(1)
 dat<-rsegTe(n,eps)$gen.points
 
 plot(Te,asp=1,pch=".",xlab="",ylab="",
@@ -66,7 +66,7 @@ main="Type I segregation in the \n standard equilateral triangle",
 polygon(Te)
 points(dat)
 
-# The support for the Type I segregation alternative
+#The support for the Type I segregation alternative
 sr<-eps/(sqrt(3)/2)
 C1<-C+sr*(A-C); C2<-C+sr*(B-C)
 A1<-A+sr*(B-A); A2<-A+sr*(C-A)
@@ -86,7 +86,7 @@ if (sr<=.5)
   polygon(rbind(B,B1,B2),col=0,border=NA)
   polygon(rbind(C,C1,C2),col=0,border=NA)
 }
-#points(dat)
+points(dat)
 
 }
 \references{

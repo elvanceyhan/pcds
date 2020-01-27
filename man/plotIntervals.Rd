@@ -38,11 +38,13 @@ points.
 }
 \examples{
 a<-0; b<-10;
+#try also the following
 #a<-runif(1); b<-runif(1); int<-range(a,b); a<-int[1]; b<-int[2]
+
 #nx is number of X points (target) and ny is number of Y points (nontarget)
 nx<-20; ny<-4; #try also nx<-40; ny<-10 or nx<-1000; ny<-10;
 
-#set.seed(1)
+set.seed(1)
 Xp<-runif(nx,a,b)
 Yp<-runif(ny,a,b)
 

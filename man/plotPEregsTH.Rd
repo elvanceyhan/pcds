@@ -54,17 +54,18 @@ only for points inside the tetrahedron \code{th}.
 See also (\insertCite{ceyhan:Phd-thesis,ceyhan:comp-geo-2010;textual}{pcds}).
 }
 \examples{
-\dontrun{
+\donttest{
 A<-c(0,0,0); B<-c(1,0,0); C<-c(1/2,sqrt(3)/2,0); D<-c(1/2,sqrt(3)/6,sqrt(6)/3)
+#try also the following
 #A<-runif(3); B<-runif(3); C<-runif(3); D<-runif(3)
 #A<-runif(3,1,100); B<-runif(3,1,100); C<-runif(3,1,100); D<-runif(3,1,100)
+
 tetra<-rbind(A,B,C,D)
 n<-10 #try also n<-20
-dat<-runif.tetra(n,tetra)$g
-#dat[,1]<-dat[,1]+1
 
-M<-"CM"
-#M<-"CC"
+dat<-runif.tetra(n,tetra)$g #try also #dat[,1]<-dat[,1]+1
+
+M<-"CM" #try also #M<-"CC"
 r<-1.5
 
 plotPEregsTH(dat[1,],r,tetra) #uses the default M="CM"
@@ -80,8 +81,6 @@ plotPEregsTH(dat[1:3,],r,tetra,M)
 
 P1<-c(.1,.1,.1)
 plotPEregsTH(rbind(P1,P1),r,tetra,M)
-
-#plotPEregsTH(c("a","b","c"),r,tetra,M) #Xp must be numeric
 }
 
 }

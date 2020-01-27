@@ -54,7 +54,8 @@ ny<-10 #number of Y points (nontarget)
 Yp<-cbind(runif(ny),runif(ny))
 
 dat<-runifMT(nx,Yp)$g #data under CSR in the convex hull of Ypoints
-#dat<-cbind(runif(nx),runif(nx))
+#try also #dat<-cbind(runif(nx),runif(nx))
+
 ind.Del.tri(dat[10,],Yp)
 
 #or use
@@ -79,7 +80,6 @@ yd<-Ylim[2]-Ylim[1]
 DTY<-interp::tri.mesh(Yp[,1],Yp[,2],duplicate="remove") #Delaunay triangulation based on Y points
 
 #plot of the data in the convex hull of Y points together with the Delaunay triangulation
-
 plot(dat,main=" ", xlab=" ", ylab=" ",xlim=Xlim+xd*c(-.05,.05),ylim=Ylim+yd*c(-.05,.05),type="n")
 interp::plot.triSht(DTY, add=TRUE, do.points = TRUE,pch=16,col="blue")
 points(dat,pch=".",cex=3)
@@ -95,10 +95,10 @@ ind.Del.tri(c(.25,.25),dat.fr)
 #nx is number of X points (target) and ny is number of Y points (nontarget)
 nx<-20; ny<-4; #try also nx<-40; ny<-10 or nx<-1000; ny<-10;
 
-#set.seed(1)
+set.seed(1)
 Yp<-cbind(runif(ny),runif(ny))
 dat<-runifMT(nx,Yp)$g #data under CSR in the convex hull of Ypoints
-#dat<-cbind(runif(nx),runif(nx))
+#try also #dat<-cbind(runif(nx),runif(nx))
 
 tr.ind<-indices.Del.tri(dat,Yp) #indices of the Delaunay triangles
 tr.ind
@@ -114,10 +114,11 @@ xd<-Xlim[2]-Xlim[1]
 yd<-Ylim[2]-Ylim[1]
 
 #plot of the data in the convex hull of Y points together with the Delaunay triangulation
-#par(pty="s")
+par(pty="s")
 plot(dat,main=" ", xlab=" ", ylab=" ",xlim=Xlim+xd*c(-.05,.05),ylim=Ylim+yd*c(-.05,.05),pch=".")
 interp::plot.triSht(DTY, add=TRUE, do.points = TRUE,pch=16,col="blue")
 text(dat,labels = factor(tr.ind) )
+par(pty="m")
 
 Yp<-rbind(c(.3,.2),c(.4,.5),c(.14,.15))
 indices.Del.tri(c(.25,.25),Yp)
