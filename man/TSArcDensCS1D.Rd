@@ -85,7 +85,7 @@ TSArcDensCS1D(dat,t,c,int)
 c<-.4
 t<-.5
 a<-0; b<-10; int<-c(a,b)
-n<-10 #try also n<-20
+n<-10  #try also n<-20
 dat<-runif(n,a,b)
 
 TSArcDensCS1D(dat,t,c,int)

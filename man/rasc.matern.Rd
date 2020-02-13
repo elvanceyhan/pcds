@@ -58,12 +58,9 @@ This function is also very similar to \code{\link{rasc.disc}}, where \code{\link
 while \code{rasc.matern} does not.
 }
 \examples{
-nx<-20; ny<-4; #try also nx<-1000; ny<-10;
+nx<-20; ny<-4;  #try also nx<-1000; ny<-10;
 
-e<-.15;
-#try also the following
-#e<-1.1; #closer to CSR than association, as e is large
-#e<--.15; #not possible, gives error
+e<-.15;  #try also e<-1.1; #closer to CSR than association, as e is large
 
 #Y points uniform in unit square
 Y<-cbind(runif(ny),runif(ny))
@@ -89,7 +86,7 @@ e<-1.1;
 
 #Y points uniform in a rectangle
 Y<-cbind(runif(ny,a1,a2),runif(ny,b1,b2))
-#try also #Y<-cbind(runif(ny,a1,a2/2),runif(ny,b1,b2/2))
+#try also Y<-cbind(runif(ny,a1,a2/2),runif(ny,b1,b2/2))
 
 Xdt<-rasc.matern(nx,Y,e)$gen.points
 Xlim<-range(Xdt[,1],Y[,1]);

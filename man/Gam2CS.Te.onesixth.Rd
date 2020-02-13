@@ -45,7 +45,6 @@ Gam2CS.Te.onesixth(dat[1,],dat[2,],dat)
 Gam2CS.Te.onesixth(dat[1,],dat[3,],dat)
 Gam2CS.Te.onesixth(c(.2,.2),dat[2,],dat)
 
-Gam2CS.Te.onesixth(c(.2,.2),dat[2,],dat,ch.data.pnts = TRUE)
 Gam2CS.Te.onesixth(c(.2,.1),c(.3,.1),rbind(c(.2,.1),c(.3,.1)))
 Gam2CS.Te.onesixth(c(1.2,1.1),c(1.3,1.1),rbind(c(1.2,1.1),c(1.3,1.1)))
 
@@ -57,6 +56,18 @@ for (i in 1:(n-1))
    ind.gam2<-rbind(ind.gam2,c(i,j))}
 
 ind.gam2
+
+P1<-c(.2,.1)
+P2<-c(.3,.1)
+Gam2CS.Te.onesixth(P1,c(.4,.2),dat)
+
+dat.fr<-data.frame(a=dat)
+Gam2CS.Te.onesixth(c(.4,.2),P2,dat.fr)
+}
+
+\dontrun{
+Gam2CS.Te.onesixth(c(.2,.2),dat[2,],dat,ch.data.pnts = TRUE)
+#gives an error message since not both points are data points in Dt
 }
 
 }

@@ -48,15 +48,10 @@ n<-20
 
 set.seed(1)
 dat<-runifTe(n)$gen.points
-#try also the following
-#dat<-cbind(runif(n),runif(n))
-#dat<-cbind(runif(n,1,2),runif(n,0,1))
 
 Gam1CSTet1(dat[3,],dat)
 
 Gam1CSTet1(c(1,2),dat)
-
-Gam1CSTet1(c(1,2),dat,ch.data.pnt = TRUE) #p is not a data point
 
 Gam1CSTet1(c(1,2),c(1,2))
 Gam1CSTet1(c(1,2),c(1,2),ch.data.pnt = TRUE)
@@ -86,6 +81,17 @@ xc<-txt[,1]+c(-.02,.02,.01,.05)
 yc<-txt[,2]+c(.02,.02,.03,.02)
 txt.str<-c("A","B","C","CM")
 text(xc,yc,txt.str)
+
+P<-c(.4,.2)
+Gam1CSTe(P,dat,t)
+
+dat.fr<-data.frame(a=dat)
+Gam1CSTe(P,dat.fr,t)
+}
+
+\dontrun{
+Gam1CSTet1(c(1,2),dat,ch.data.pnt = TRUE)
+#gives an error message since p is not a data point
 }
 
 }

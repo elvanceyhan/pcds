@@ -46,9 +46,6 @@ with the parameter \code{t} being provided in vector \code{t}.
 \examples{
 \donttest{
 A<-c(1,10,3); B<-c(1,1,3);
-#try also the following
-#A<-runif(3); B<-runif(3);
-#A<-runif(3,1,100); B<-runif(3,1,100);
 
 vecs<-rbind(A,B)
 
@@ -57,7 +54,7 @@ Line3D(A,B,.1,dir.vec=FALSE)
 
 tr<-range(vecs);
 tf<-(tr[2]-tr[1])*.1 #how far to go at the lower and upper ends in the x-coordinate
-tsq<-seq(-tf*10-tf,tf*10+tf,l=20) #try also l=100
+tsq<-seq(-tf*10-tf,tf*10+tf,l=20)  #try also l=100
 
 lnAB3D<-Line3D(A,B,tsq)
 lnAB3D

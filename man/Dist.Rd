@@ -41,17 +41,6 @@ dist(rbind(as.vector(xm),as.vector(ym)))
 
 Dist(xm,xm)
 
-\donttest{
-xm<-matrix(x,ncol=2)
-ym<-matrix(y,ncol=1)
-Dist(xm,ym) #gives error, since vectors are not of the same dimension
-Dist(B,xm)
-Dist(B,x) #gives error, since vectors are not of the same dimension
-
-dat.fr<-data.frame(b=B,c=C)
-Dist(B,dat.fr)
-}
-
 dat.fr<-data.frame(b=B,c=C)
 Dist(dat.fr,dat.fr)
 Dist(dat.fr,cbind(B,C))

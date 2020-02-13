@@ -48,12 +48,7 @@ n<-10
 set.seed(1)
 dat<-runifTe(n)$gen.points
 
-M<-as.numeric(runifTe(1)$g)
-#try also the following
-#M<-c(.6,.2)
-#M<-c(1,1,1) #M<-c(1,2,3) #M<-c(-1,2,3) #barycentric coordinates
-#M<-c(1.3,1.3)
-#M<-c(.3,.3)
+M<-as.numeric(runifTe(1)$g)  #try also M<-c(.6,.2)
 
 t<-1
 

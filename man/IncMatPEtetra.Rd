@@ -34,24 +34,20 @@ See also (\insertCite{ceyhan:Phd-thesis,ceyhan:comp-geo-2010;textual}{pcds}).
 \examples{
 \donttest{
 A<-c(0,0,0); B<-c(1,0,0); C<-c(1/2,sqrt(3)/2,0); D<-c(1/2,sqrt(3)/6,sqrt(6)/3)
-#try also the following
-#A<-runif(3); B<-runif(3); C<-runif(3); D<-runif(3)
-#A<-runif(3,1,100); B<-runif(3,1,100); C<-runif(3,1,100); D<-runif(3,1,100)
-
 tetra<-rbind(A,B,C,D)
 n<-10
 
-dat<-runif.tetra(n,tetra)$g #try also #dat<-c(.5,.5,.5)
+dat<-runif.tetra(n,tetra)$g  #try also dat<-c(.5,.5,.5)
 
-M<-"CM" #try also #M<-"CC"
+M<-"CM"  #try also M<-"CC"
 r<-1.5
 
-IM<-IncMatPEtetra(dat,tetra,r=1.25)#uses the default M="CM"
+IM<-IncMatPEtetra(dat,tetra,r=1.25)  #uses the default M="CM"
 IM<-IncMatPEtetra(dat,tetra,r=1.25,M)
 IM
 dom.greedy(IM)
 IndUBdom(IM,3)
-dom.exact(IM) #this might take a long time for large n
+dom.exact(IM)  #this might take a long time for large n
 
 IncMatPEtetra(dat,tetra,r=1.5)
 IncMatPEtetra(dat,tetra,r=2)

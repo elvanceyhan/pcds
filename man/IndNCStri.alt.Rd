@@ -40,10 +40,6 @@ See also (\insertCite{ceyhan:Phd-thesis,ceyhan:arc-density-CS,ceyhan:test2014;te
 \examples{
 \donttest{
 A<-c(1,1); B<-c(2,0); C<-c(1.6,2);
-#try also the following
-#A<-runif(2); B<-runif(2); C<-runif(2);
-#A<-runif(2,1,100); B<-runif(2,1,100); C<-runif(2,1,100);
-
 Tr<-rbind(A,B,C);
 t<-1.5
 
@@ -72,6 +68,12 @@ IndNCStri.alt(P3,P2,t,Tr)
 re<-redges.triCM(P1,Tr)$re
 IndNCStri(P1,P2,t,Tr,M=c(1,1,1),re)
 IndNCStri.alt(P1,P2,t,Tr,re)
+
+P2<-c(1.85,.5); P3<-c(1.7,.6)
+IndNCStri.alt(P2,P3,t,Tr)
+
+dat.fr<-data.frame(a=Tr)
+IndNCStri.alt(P2,P3,t,dat.fr)
 }
 
 }

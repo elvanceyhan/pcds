@@ -37,20 +37,12 @@ See also (\insertCite{ceyhan:arc-density-PE;textual}{pcds}).
 }
 \examples{
 A<-c(0,0); B<-c(1,0); C<-c(1/2,sqrt(3)/2);
-n<-10 #try also n<-20
+n<-10  #try also n<-20
 
 set.seed(1)
 dat<-runifTe(n)$gen.points
-#try also the following
-#dat<-cbind(runif(n),runif(n))
-#dat<-cbind(runif(n,1,2),runif(n,0,1))
 
-M<-c(.6,.2)
-#try also the following
-#M<-circ.cent.tri(Te)
-#M<-c(1,1,1) #M<-c(1,2,3) #M<-c(-1,2,3) #barycentric coordinates
-#M<-c(1.3,1.3)
-#M<-c(.3,.3)
+M<-c(.6,.2)  #try also M<-c(1,1,1)
 
 NumArcsPETe(dat,r=1.25,M)
 NumArcsPETe(dat,r=1.5,M)

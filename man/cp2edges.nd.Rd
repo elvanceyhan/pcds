@@ -33,12 +33,6 @@ See also (\insertCite{ceyhan:Phd-thesis,ceyhan:masa-2007,ceyhan:dom-num-NPE-Spat
 }
 \examples{
 A<-c(1,1); B<-c(2,0); C<-c(1.5,2);
-#try also the following
-#c1<-.4; c2<-.6; A<-c(0,0); B<-c(1,0); C<-c(c1,c2);
-#A<-c(0,0); B<-c(1,0); C<-c(1/2,sqrt(3)/2);
-#A<-runif(2); B<-runif(2); C<-runif(2);
-#A<-runif(2,1,100); B<-runif(2,1,100); C<-runif(2,1,100);
-
 Tr<-rbind(A,B,C);
 r<-1.35
 
@@ -47,9 +41,6 @@ cp2edges.nd(Tr,r,cent=2)
 Ms<-cent.nondeg(Tr,r)
 
 Ds<-cp2edges.nd(Tr,r,cent=1)
-#try also the following
-#Ds<-cp2edges.nd(Tr,r,cent=2)
-#Ds<-cp2edges.nd(T,r,cent=3)
 D1<-Ds[1,]; D2<-Ds[2,]; D3<-Ds[3,]
 
 Xlim<-range(Tr[,1])
@@ -87,12 +78,15 @@ cp2edges.nd(Tr,r,1)
 dat.fr<-data.frame(a=Tr)
 cp2edges.nd(dat.fr,r,1)
 
-\donttest{
-cp2edges.nd(Tr,r,cent=5) #center index, cent, must be 1, 2 or 3
-cp2edges.nd(Tr,r=2,cent=2) #r must be a scalar in (1,1.5]
+\dontrun{
+cp2edges.nd(Tr,r,cent=5)
+#gives an error message since center index, cent, must be 1, 2 or 3
+cp2edges.nd(Tr,r=2,cent=2)
+#gives an error message since r must be a scalar in (1,1.5]
 
 T2<-rbind(A,A+2*(C-A),C)
 cp2edges.nd(T2,r,cent=2)
+#gives an error message since the triangle is degenerate
 }
 
 }

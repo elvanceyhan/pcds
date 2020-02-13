@@ -42,9 +42,6 @@ respectively.
 \examples{
 \donttest{
 A<-c(1,10,3); B<-c(1,1,3); C<-c(3,9,12); P<-c(1,1,0)
-#try also the following
-#A<-runif(3); B<-runif(3); C<-runif(3); P<-runif(3)
-#A<-runif(3,1,100); B<-runif(3,1,100); C<-runif(3,1,100); P<-runif(3,1,100)
 
 Plane(A,B,C,.1,.2)
 
@@ -55,8 +52,8 @@ paraplane(P,A,B,C,0,0)
 xr<-range(pts[,1]); yr<-range(pts[,2])
 xf<-(xr[2]-xr[1])*.25 #how far to go at the lower and upper ends in the x-coordinate
 yf<-(yr[2]-yr[1])*.25 #how far to go at the lower and upper ends in the y-coordinate
-x<-seq(xr[1]-xf,xr[2]+xf,l=20) #try also l=100
-y<-seq(yr[1]-yf,yr[2]+yf,l=20) #try also l=100
+x<-seq(xr[1]-xf,xr[2]+xf,l=20)  #try also l=100
+y<-seq(yr[1]-yf,yr[2]+yf,l=20)  #try also l=100
 
 plP2ABC<-paraplane(P,A,B,C,x,y)
 plP2ABC

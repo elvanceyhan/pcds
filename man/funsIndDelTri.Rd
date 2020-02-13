@@ -54,12 +54,12 @@ ny<-10 #number of Y points (nontarget)
 Yp<-cbind(runif(ny),runif(ny))
 
 dat<-runifMT(nx,Yp)$g #data under CSR in the convex hull of Ypoints
-#try also #dat<-cbind(runif(nx),runif(nx))
+#try also dat<-cbind(runif(nx),runif(nx))
 
 ind.Del.tri(dat[10,],Yp)
 
 #or use
-DTY<-interp::tri.mesh(Yp[,1],Yp[,2],duplicate="remove") #Delaunay triangulation
+DTY<-interp::tri.mesh(Yp[,1],Yp[,2],duplicate="remove")  #Delaunay triangulation
 TRY<-interp::triangles(DTY)[,1:3];
 ind.Del.tri(dat[10,],Yp,DTY)
 
@@ -77,7 +77,7 @@ Ylim<-range(Yp[,2],dat[,2])
 xd<-Xlim[2]-Xlim[1]
 yd<-Ylim[2]-Ylim[1]
 
-DTY<-interp::tri.mesh(Yp[,1],Yp[,2],duplicate="remove") #Delaunay triangulation based on Y points
+DTY<-interp::tri.mesh(Yp[,1],Yp[,2],duplicate="remove")  #Delaunay triangulation based on Y points
 
 #plot of the data in the convex hull of Y points together with the Delaunay triangulation
 plot(dat,main=" ", xlab=" ", ylab=" ",xlim=Xlim+xd*c(-.05,.05),ylim=Ylim+yd*c(-.05,.05),type="n")
@@ -93,19 +93,19 @@ ind.Del.tri(c(.25,.25),dat.fr)
 
 #Examples for indices.Del.tri
 #nx is number of X points (target) and ny is number of Y points (nontarget)
-nx<-20; ny<-4; #try also nx<-40; ny<-10 or nx<-1000; ny<-10;
+nx<-20; ny<-4;  #try also nx<-40; ny<-10 or nx<-1000; ny<-10;
 
 set.seed(1)
 Yp<-cbind(runif(ny),runif(ny))
 dat<-runifMT(nx,Yp)$g #data under CSR in the convex hull of Ypoints
-#try also #dat<-cbind(runif(nx),runif(nx))
+#try also dat<-cbind(runif(nx),runif(nx))
 
-tr.ind<-indices.Del.tri(dat,Yp) #indices of the Delaunay triangles
+tr.ind<-indices.Del.tri(dat,Yp)  #indices of the Delaunay triangles
 tr.ind
 
 #or use
-DTY<-interp::tri.mesh(Yp[,1],Yp[,2],duplicate="remove") #Delaunay triangulation based on Y points
-tr.ind<-indices.Del.tri(dat,Yp,DTY) #indices of the Delaunay triangles
+DTY<-interp::tri.mesh(Yp[,1],Yp[,2],duplicate="remove")  #Delaunay triangulation based on Y points
+tr.ind<-indices.Del.tri(dat,Yp,DTY)  #indices of the Delaunay triangles
 tr.ind
 
 Xlim<-range(Yp[,1],dat[,1])
@@ -114,11 +114,13 @@ xd<-Xlim[2]-Xlim[1]
 yd<-Ylim[2]-Ylim[1]
 
 #plot of the data in the convex hull of Y points together with the Delaunay triangulation
+
+oldpar <- par(mfrow = c(1,2))
 par(pty="s")
 plot(dat,main=" ", xlab=" ", ylab=" ",xlim=Xlim+xd*c(-.05,.05),ylim=Ylim+yd*c(-.05,.05),pch=".")
 interp::plot.triSht(DTY, add=TRUE, do.points = TRUE,pch=16,col="blue")
 text(dat,labels = factor(tr.ind) )
-par(pty="m")
+par(oldpar)
 
 Yp<-rbind(c(.3,.2),c(.4,.5),c(.14,.15))
 indices.Del.tri(c(.25,.25),Yp)

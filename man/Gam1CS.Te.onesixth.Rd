@@ -38,7 +38,6 @@ See also (\insertCite{ceyhan:Phd-thesis;textual}{pcds}).
 \examples{
 \donttest{
 n<-5
-
 set.seed(1)
 dat<-rbind(runifTe.onesixth(n)$gen.points,runifTe(n)$gen.points)
 
@@ -50,8 +49,6 @@ Gam1CS.Te.onesixth(dat[2,],dat)
 Gam1CS.Te.onesixth(dat[9,],dat)
 
 Gam1CS.Te.onesixth(c(.49,.49),dat)
-
-Gam1CS.Te.onesixth(c(.49,.49),dat,ch.data.pnt = TRUE)
 
 n<-nrow(dat)
 gam.vec<-vector()
@@ -89,6 +86,16 @@ text(xc,yc,txt.str)
 
 Gam1CS.Te.onesixth(c(.4,.1),c(.4,.1))
 Gam1CS.Te.onesixth(c(.49,.19),c(.4,.1))
+
+Gam1CS.Te.onesixth(c(.4,.2),dat)
+
+dat.fr<-data.frame(a=dat)
+Gam1CS.Te.onesixth(c(.4,.2),dat.fr)
+}
+
+\dontrun{
+Gam1CS.Te.onesixth(c(.49,.49),dat,ch.data.pnt = TRUE)
+#gives an error message since point, p, is not a data point in Dt
 }
 
 }

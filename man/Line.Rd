@@ -43,22 +43,17 @@ would yield the same straight line (i.e., the line with the same coefficients.)
 }
 \examples{
 A<-c(-1.22,-2.33); B<-c(2.55,3.75)
-#try also below choices for A and B
-#A<-runif(2); B<-runif(2)
-#A<-runif(2,1,100); B<-runif(2,1,100)
-#A<-c(1,1); B<-c(1,2) #lines are vertical
-#A<-c(1,1); B<-c(1,-2) #lines are vertical
 
 xr<-range(A,B);
 xf<-(xr[2]-xr[1])*.1 #how far to go at the lower and upper ends in the x-coordinate
-x<-seq(xr[1]-xf,xr[2]+xf,l=20) #try also l=100
+x<-seq(xr[1]-xf,xr[2]+xf,l=20)  #try also l=100
 
 lnAB<-Line(A,B,x)
 lnAB
 summary(lnAB)
 plot(lnAB)
 
-line(A,B) #this takes A as the x points and B as the y points and fits the line
+line(A,B)  #this takes A as the x points and B as the y points and fits the line
 
 y<-lnAB$y
 Xlim<-range(x,A,B)
@@ -72,7 +67,7 @@ plot(rbind(A,B),pch=1,xlab="x",ylab="y",
 xlim=Xlim+xd*c(-.05,.05),ylim=Ylim+yd*c(-.05,.05))
 if (!is.na(y[1])) {lines(x,y,lty=1)} else {abline(v=A[1])}
 text(rbind(A+pf,B+pf),c("A","B"))
-int<-round(lnAB$intercept,2)#intercept
+int<-round(lnAB$intercept,2)  #intercept
 sl<-round(lnAB$slope,2)  #slope
 text(rbind((A+B)/2+pf*3),ifelse(is.na(int),paste("x=",A[1]),
 ifelse(sl==0,paste("y=",int),

@@ -61,7 +61,7 @@ and nonpositive values of \code{e} provide a type of complete spatial randomness
 \code{b2} is defaulted to the maximum of the y-coordinates of the \code{Y} points.
 }
 \examples{
-nx<-20; ny<-4; #try also nx<-1000; ny<-10
+nx<-20; ny<-4;  #try also nx<-1000; ny<-10
 e<-.15;
 #with default bounding box (i.e., unit square)
 Y<-cbind(runif(ny),runif(ny))
@@ -71,10 +71,7 @@ Xdt
 summary(Xdt)
 plot(Xdt,asp=1)
 
-e<-.15;
-#try also the following
-#e<--.1; #this provides a CSR realization
-#e<-.15;
+e<-.15;  #try also e<- -.1; #this provides a CSR realization
 
 #with default bounding box (i.e., unit square)
 Y<-cbind(runif(ny),runif(ny))
@@ -93,7 +90,7 @@ a1<-0; a2<-10;
 b1<-0; b2<-5;
 e<-1.5;
 Y<-cbind(runif(ny,a1,a2),runif(ny,b1,b2))
-#try also #Y<-cbind(runif(ny,a1,a2/2),runif(ny,b1,b2/2))
+#try also Y<-cbind(runif(ny,a1,a2/2),runif(ny,b1,b2/2))
 
 Xdt<-rseg.disc(nx,Y,e,a1,a2,b1,b2)$gen.points
 Xlim<-range(Xdt[,1],Y[,1]); Ylim<-range(Xdt[,2],Y[,2])

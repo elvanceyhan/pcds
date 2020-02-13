@@ -60,9 +60,6 @@ n<-10
 
 set.seed(1)
 dat<-runifTe(n)$gen.points
-#try also the following
-#dat<-cbind(runif(n),runif(n))
-#dat<-cbind(runif(n,1,2),runif(n,0,1))
 
 Gam2CSTe(dat[1,],dat[2,],dat,t)
 Gam2CSTe(dat[1,],dat[1,],dat,t)
@@ -70,10 +67,8 @@ Gam2CSTe(dat[1,],dat[1,],dat,t)
 Gam2CSTe(dat[1,],dat[3,],dat,t)
 
 Gam2CSTe(c(.2,.2),dat[2,],dat,t)
-Gam2CSTe(c(.2,.2),dat[2,],dat,t,ch.data.pnts = TRUE)
 
 Gam2CSTe(c(.2,.2),c(.2,.3),dat,t)
-Gam2CSTe(c(.2,.2),c(.2,.3),dat,t,ch.data.pnts = TRUE)
 
 Gam2CSTe(c(.2,.2),c(.2,.3),rbind(c(.2,.2),c(.2,.3)),t)
 Gam2CSTe(c(1.2,1.2),c(1.2,1.3),rbind(c(1.2,1.2),c(1.2,1.3)),t)
@@ -85,6 +80,19 @@ for (i in 1:(n-1))
    ind.gam2<-rbind(ind.gam2,c(i,j))}
 
 ind.gam2
+
+P1<-c(.4,.2); P2<-c(.6,.4)
+Gam2CSTe(P1,P2,dat,t)
+
+dat.fr<-data.frame(a=dat)
+Gam2CSTe(P1,P2,dat.fr,t)
+}
+
+\dontrun{
+Gam2CSTe(c(.2,.2),dat[2,],dat,t,ch.data.pnts = TRUE)
+#gives an error message since not both points are data points in Dt
+Gam2CSTe(c(.2,.2),c(.2,.3),dat,t,ch.data.pnts = TRUE)
+#gives an error message since not both points are data points in Dt
 }
 
 #Examples for Gam3CSTe
@@ -94,18 +102,12 @@ n<-10
 
 set.seed(1)
 dat<-runifTe(n)$gen.points
-#try also the following
-#dat<-cbind(runif(n),runif(n))
-#dat<-cbind(runif(n,1,2),runif(n,0,1))
 
 Gam3CSTe(dat[1,],dat[2,],dat[3,],dat,t)
 
 Gam3CSTe(dat[1,],dat[3,],dat[4,],dat,t)
 
 Gam3CSTe(c(.2,.2),dat[2,],dat[3,],dat,t)
-
-Gam3CSTe(c(.2,.2),dat[2,],dat[3,],dat,t,ch.data.pnts = TRUE)
-#not all points, pt1, pt2, and pt3, are data points in Dt
 
 Gam3CSTe(c(.2,.2),c(.2,.3),c(.2,.4),rbind(c(.2,.2),c(.2,.3),c(.2,.4)),t)
 Gam3CSTe(c(1.2,1.2),c(1.2,1.3),c(1.2,1.4),rbind(c(1.2,1.2),c(1.2,1.3),c(1.2,1.4)),t)
@@ -118,6 +120,17 @@ for (i in 1:(n-2))
      ind.gam3<-rbind(ind.gam3,c(i,j,k))}
 
 ind.gam3
+
+P1<-c(.4,.2); P2<-c(.6,.4); P3<-c(.5,.1)
+Gam3CSTe(P1,P2,P3,dat,t)
+
+dat.fr<-data.frame(a=dat)
+Gam3CSTe(P1,P2,P3,dat.fr,t)
+}
+
+\dontrun{
+Gam3CSTe(c(.2,.2),dat[2,],dat[3,],dat,t,ch.data.pnts = TRUE)
+#gives an error message since not all points, pt1, pt2, and pt3, are data points in Dt
 }
 
 #Examples for Gam4CSTe
@@ -127,16 +140,12 @@ n<-10
 
 set.seed(1)
 dat<-runifTe(n)$gen.points
-#try also the following
-#dat<-cbind(runif(n),runif(n))
-#dat<-cbind(runif(n,1,2),runif(n,0,1))
 
 Gam4CSTe(dat[1,],dat[2,],dat[3,],dat[4,],dat,t)
 
 Gam4CSTe(dat[1,],dat[3,],dat[4,],dat[5,],dat,t)
 
 Gam4CSTe(c(.2,.2),dat[2,],dat[3,],dat[4,],dat,t)
-Gam4CSTe(c(.2,.2),dat[2,],dat[3,],dat[4,],dat,t,ch.data.pnts = TRUE)
 
 Gam4CSTe(c(.2,.2),c(.2,.3),c(.2,.4),c(.2,.5),rbind(c(.2,.2),c(.2,.3),c(.2,.4),c(.2,.5)) ,t)
 Gam4CSTe(c(1.2,1.2),c(1.2,1.3),c(1.2,1.4),c(1.2,1.5),
@@ -151,6 +160,17 @@ for (i in 1:(n-3))
        ind.gam4<-rbind(ind.gam4,c(i,j,k,l))}
 
 ind.gam4
+
+P1<-c(.4,.2); P2<-c(.6,.4); P3<-c(.5,.1); P4<-c(.5,.29)
+Gam4CSTe(P1,P2,P3,P4,dat,t)
+
+dat.fr<-data.frame(a=dat)
+Gam4CSTe(P1,P2,P3,P4,dat.fr,t)
+}
+
+\dontrun{
+Gam4CSTe(c(.2,.2),dat[2,],dat[3,],dat[4,],dat,t,ch.data.pnts = TRUE)
+#gives an error message since not all points are data points in Dt
 }
 
 #Examples for Gam5CSTe
@@ -160,16 +180,12 @@ n<-10
 
 set.seed(1)
 dat<-runifTe(n)$gen.points
-#try also the following
-#dat<-cbind(runif(n),runif(n))
-#dat<-cbind(runif(n,1,2),runif(n,0,1))
 
 Gam5CSTe(dat[1,],dat[2,],dat[3,],dat[4,],dat[5,],dat,t)
 
 Gam5CSTe(dat[1,],dat[3,],dat[4,],dat[5,],dat[6,],dat,t)
 
 Gam5CSTe(c(.2,.2),dat[2,],dat[3,],dat[4,],dat[5,],dat,t)
-Gam5CSTe(c(.2,.2),dat[2,],dat[3,],dat[4,],dat[5,],dat,t,ch.data.pnts = TRUE)
 
 ind.gam5<-vector()
 for (i1 in 1:(n-4))
@@ -181,6 +197,17 @@ for (i1 in 1:(n-4))
          ind.gam5<-rbind(ind.gam5,c(i1,i2,i3,i4,i5))}
 
 ind.gam5
+
+P1<-c(.4,.2); P2<-c(.6,.4); P3<-c(.5,.1); P4<-c(.5,.29); P5<-c(.3,.3)
+Gam5CSTe(P1,P2,P3,P4,P5,dat,t)
+
+dat.fr<-data.frame(a=dat)
+Gam5CSTe(P1,P2,P3,P4,P5,dat.fr,t)
+}
+
+\dontrun{
+Gam5CSTe(c(.2,.2),dat[2,],dat[3,],dat[4,],dat[5,],dat,t,ch.data.pnts = TRUE)
+#gives an error message since not all points are data points in Dt
 }
 
 #Examples for Gam6CSTe
@@ -190,16 +217,12 @@ n<-10
 
 set.seed(1)
 dat<-runifTe(n)$gen.points
-#try also the following
-#dat<-cbind(runif(n),runif(n))
-#dat<-cbind(runif(n,1,2),runif(n,0,1))
 
 Gam6CSTe(dat[1,],dat[2,],dat[3,],dat[4,],dat[5,],dat[6,],dat,t)
 
 Gam6CSTe(dat[1,],dat[3,],dat[4,],dat[5,],dat[6,],dat[7,],dat,t)
 
 Gam6CSTe(c(.2,.2),dat[2,],dat[3,],dat[4,],dat[5,],dat[6,],dat,t)
-Gam6CSTe(c(.2,.2),dat[2,],dat[3,],dat[4,],dat[5,],dat[6,],dat,t,ch.data.pnts = TRUE)
 
 ind.gam6<-vector()
 for (i1 in 1:(n-5))
@@ -212,6 +235,17 @@ for (i1 in 1:(n-5))
            ind.gam6<-rbind(ind.gam6,c(i1,i2,i3,i4,i5,i6))}
 
 ind.gam6
+
+P1<-c(.4,.2); P2<-c(.6,.4); P3<-c(.5,.1); P4<-c(.5,.29); P5<-c(.3,.3); P6<-c(.4,.4)
+Gam6CSTe(P1,P2,P3,P4,P5,P6,dat,t)
+
+dat.fr<-data.frame(a=dat)
+Gam6CSTe(P1,P2,P3,P4,P5,P6,dat.fr,t)
+}
+
+\dontrun{
+Gam6CSTe(c(.2,.2),dat[2,],dat[3,],dat[4,],dat[5,],dat[6,],dat,t,ch.data.pnts = TRUE)
+#gives an error message since not all points are data points in Dt
 }
 
 }

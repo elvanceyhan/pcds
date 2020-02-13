@@ -32,8 +32,6 @@ See also (\insertCite{ceyhan:metrika-2012,ceyhan:revstat-2016;textual}{pcds}).
 }
 \examples{
 a<-0; b<-10; int<-c(a,b)
-#try also the following
-#a<-runif(1); b<-runif(1); int<-range(a,b); a<-int[1]; b<-int[2]
 
 rv.end.int(-6,int)
 rv.end.int(16,int)

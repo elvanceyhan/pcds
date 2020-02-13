@@ -42,8 +42,8 @@ the parameter \code{eps} where \eqn{\sqrt{3}/6-eps} is the distance from the int
 \examples{
 A<-c(0,0); B<-c(1,0); C<-c(1/2,sqrt(3)/2);
 Te<-rbind(A,B,C);
-n<-10 #try also n<-20 #try also n<-100 or 1000
-eps<-.2 #try also .25, .1
+n<-10  #try also n<-20 or n<-100 or 1000
+eps<-.2  #try also .25, .1
 
 set.seed(1)
 Xdt<-rascIITe(n,eps)

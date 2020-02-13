@@ -34,22 +34,19 @@ dist.pt2set(c(1,2),X2)
 dist.pt2set(C,C)
 dist.pt2set(B,C)
 
-\donttest{
+\dontrun{
 x<-runif(1)
 y<-runif(10)
-dist.pt2set(x,y) #this does not work because both entries are treated as vectors
+dist.pt2set(x,y)
+#this does not work because both entries are treated as vectors
 }
 
 x<-runif(1)
 y<-as.matrix(runif(10))
-dist.pt2set(x,y) #this works, because x is a 1D point, and y is treated as a set of 10 1D points
+dist.pt2set(x,y)  #this works, because x is a 1D point, and y is treated as a set of 10 1D points
 
 dat.fr<-data.frame(b=B,c=C)
 dist.pt2set(A,dat.fr)
-
-\donttest{
-dist.pt2set(dat.fr,dat.fr)  #this does not work since first entry must be a vector
-}
 
 }
 \seealso{

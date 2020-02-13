@@ -33,10 +33,6 @@ See also (\insertCite{ceyhan:Phd-thesis,ceyhan:comp-geo-2010,ceyhan:mcap2012;tex
 }
 \examples{
 A<-c(1,1); B<-c(2,0); C<-c(1.5,2);
-#try also the following
-#A<-runif(2); B<-runif(2); C<-runif(2);
-#A<-runif(2,1,100); B<-runif(2,1,100); C<-runif(2,1,100);
-
 Tr<-rbind(A,B,C);
 
 P<-c(.4,.2)
@@ -48,12 +44,9 @@ rverts.triCC(P,Tr)
 P<-c(10.5,1.6)
 rverts.triCC(P,Tr)
 
-n<-10 #try also n<-20
+n<-10  #try also n<-20
 set.seed(1)
 dat<-runif.tri(n,Tr)$g
-#try also the following
-#dat<-cbind(runif(n,1,2),runif(n,0,1))
-#dat<-cbind(runif(n),runif(n))
 
 rverts.triCC(dat,Tr)
 rverts.triCC(rbind(dat,c(2,2)),Tr)
@@ -82,8 +75,8 @@ txt.str<-c("rv=1","rv=2","rv=3")
 text(xc,yc,txt.str)
 
 txt<-rbind(CC,Ds)
-xc<-txt[,1]
-yc<-txt[,2]
+xc<-txt[,1]+c(.04,.04,-.03,0)
+yc<-txt[,2]+c(-.07,.04,.06,-.08)
 txt.str<-c("CC","D1","D2","D3")
 text(xc,yc,txt.str)
 

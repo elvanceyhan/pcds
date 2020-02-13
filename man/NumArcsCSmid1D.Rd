@@ -51,7 +51,7 @@ NumArcsCSmid1D(dat,t=1.5,c,int)
 NumArcsCSmid1D(dat,t,c,int+5)
 NumArcsCSmid1D(dat,t,c,int+10)
 
-n<-10 #try also n<-20
+n<-10  #try also n<-20
 dat<-runif(n,a-5,b+5)
 NumArcsCSint(dat,t,c,int)
 

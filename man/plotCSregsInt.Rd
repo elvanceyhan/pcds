@@ -64,14 +64,11 @@ See also (\insertCite{ceyhan:revstat-2016;textual}{pcds}).
 c<-.4
 t<-2
 a<-0; b<-10; int<-c(a,b)
-#try also the following
-#c<-runif(1)
-#a<-runif(1); b<-runif(1); int<-range(a,b); a<-int[1]; b<-int[2]
 
 n<-10
 xr<-range(a,b)
 xf<-(xr[2]-xr[1])*.1
-dat<-runif(n,a-xf,b+xf) #try also #dat<-runif(n,a-5,b+5)
+dat<-runif(n,a-xf,b+xf)  #try also dat<-runif(n,a-5,b+5)
 
 plotCSregsInt(7,t,c,int)
 

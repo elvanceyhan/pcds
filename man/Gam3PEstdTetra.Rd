@@ -59,7 +59,7 @@ A<-c(0,0,0); B<-c(1,0,0); C<-c(1/2,sqrt(3)/2,0); D<-c(1/2,sqrt(3)/6,sqrt(6)/3)
 tetra<-rbind(A,B,C,D)
 
 n<-20
-dat<-runif.stdtetra(n)$g #try also #dat<-cbind(runif(n),runif(n),runif(n))
+dat<-runif.stdtetra(n)$g  #try also dat<-cbind(runif(n),runif(n),runif(n))
 r<-1.25
 
 Gam3PEstdTetra(dat[1,],dat[2,],dat[3,],dat,r)
@@ -67,9 +67,6 @@ Gam3PEstdTetra(dat[1,],dat[2,],dat[3,],dat,r)
 Gam3PEstdTetra(dat[1,],dat[2,],dat[2,],dat,r)
 
 Gam3PEstdTetra(dat[1,],c(1,1,1),dat[3,],dat,r)
-
-Gam3PEstdTetra(dat[1,],c(1,1,1),dat[3,],dat,r,ch.data.pnts = TRUE)
-#not all points, pt1, pt2 and pt3, are data points in Dt
 
 Gam3PEstdTetra(c(-1,1,1),c(1,1,1),c(1,1,-1),rbind(c(-1,1,1),c(1,1,1),c(1,1,-1)),r)
 
@@ -94,6 +91,19 @@ Gam3PEstdTetra(dat[1,],dat[2,],dat[3,],dat,r,rv1)
 #or try
 rv2<-rv.tetraCC(dat[2,],tetra)$rv
 Gam3PEstdTetra(dat[1,],dat[2,],dat[3,],dat,r,rv2=rv2)
+
+P1<-c(.1,.1,.1)
+P2<-c(.3,.3,.3)
+P3<-c(.4,.1,.2)
+Gam3PEstdTetra(P1,P2,P3,dat,r)
+
+dat.fr<-data.frame(a=dat)
+Gam3PEstdTetra(P1,P2,P3,dat.fr,r)
+}
+
+\dontrun{
+Gam3PEstdTetra(dat[1,],c(1,1,1),dat[3,],dat,r,ch.data.pnts = TRUE)
+#gives an error message since not all points, pt1, pt2 and pt3, are data points in Dt
 }
 
 }

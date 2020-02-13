@@ -44,9 +44,6 @@ with the parameter \code{t} being provided in vector \code{t}.
 \examples{
 \donttest{
 P<-c(1,1,1); A<-c(1,10,4); B<-c(1,1,3); C<-c(3,9,12)
-#try also the following
-#P<-runif(3); A<-runif(3); B<-runif(3); C<-runif(3)
-#P<-runif(3,1,100); A<-runif(3,1,100); B<-runif(3,1,100); C<-runif(3,1,100)
 
 cf<-as.numeric(Plane(A,B,C,1,1)$coeff)
 a<-cf[1]; b<-cf[2]; c<- -1;
@@ -57,7 +54,7 @@ perp.ln2pl(P,A,B,C,.1)
 
 tr<-range(pts,vecs);
 tf<-(tr[2]-tr[1])*.1 #how far to go at the lower and upper ends in the x-coordinate
-tsq<-seq(-tf*10-tf,tf*10+tf,l=20) #try also l=100
+tsq<-seq(-tf*10-tf,tf*10+tf,l=20)  #try also l=100
 
 pln2pl<-perp.ln2pl(P,A,B,C,tsq)
 pln2pl
@@ -80,8 +77,8 @@ pts2<-rbind(A,B,C)
 xr<-range(pts2[,1],xc); yr<-range(pts2[,2],yc)
 xf<-(xr[2]-xr[1])*.1 #how far to go at the lower and upper ends in the x-coordinate
 yf<-(yr[2]-yr[1])*.1 #how far to go at the lower and upper ends in the y-coordinate
-xs<-seq(xr[1]-xf,xr[2]+xf,l=20) #try also l=100
-ys<-seq(yr[1]-yf,yr[2]+yf,l=20) #try also l=100
+xs<-seq(xr[1]-xf,xr[2]+xf,l=20)  #try also l=100
+ys<-seq(yr[1]-yf,yr[2]+yf,l=20)  #try also l=100
 
 plABC<-Plane(A,B,C,xs,ys)
 z.grid<-plABC$z

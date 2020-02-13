@@ -21,13 +21,10 @@ See (\insertCite{okabe:2000,ceyhan:comp-geo-2010,sinclair:2016;textual}{pcds}) f
 }
 \examples{
 #nx is number of X points (target) and ny is number of Y points (nontarget)
-nx<-20; ny<-4; #try also nx<-40; ny<-10 or nx<-1000; ny<-10;
+nx<-20; ny<-4;  #try also nx<-40; ny<-10 or nx<-1000; ny<-10;
 
 set.seed(1)
 Xp<-cbind(runif(nx,0,1),runif(nx,0,1))
-#try also the following
-#Xp<-cbind(runif(nx,0.5,1.5),runif(nx,0,1))
-#Xp<-cbind(runif(nx,1,2),runif(nx,0,1))
 Yp<-cbind(runif(ny,0,1),runif(ny,0,1))
 
 DT<-interp::tri.mesh(Yp[,1],Yp[,2],duplicate="remove")
@@ -41,7 +38,7 @@ Xch<-XinCHY(Xp,Yp)
 
 plot(Xp,main=" ", xlab=" ", ylab=" ",
 xlim=Xlim+xd*c(-.05,.05),ylim=Ylim+yd*c(-.05,.05),pch=".",cex=3)
-interp::convex.hull(DT,plot.it = TRUE, add = TRUE) # or try polygon(Yp[ch$i,])
+interp::convex.hull(DT,plot.it = TRUE, add = TRUE)  # or try polygon(Yp[ch$i,])
 points(Xch,pch=4,col="red")
 
 XinCHY(Xp,Yp)

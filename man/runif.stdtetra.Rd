@@ -34,7 +34,7 @@ Generates \code{k} points uniformly in the standard regular tetrahedron
 \donttest{
 A<-c(0,0,0); B<-c(1,0,0); C<-c(1/2,sqrt(3)/2,0); D<-c(1/2,sqrt(3)/6,sqrt(6)/3)
 tetra<-rbind(A,B,C,D)
-n<-10 #try also n<-100
+n<-10  #try also n<-100
 
 set.seed(1)
 Xdt<-runif.stdtetra(n)
@@ -43,12 +43,6 @@ summary(Xdt)
 plot(Xdt)
 
 Dt<-runif.stdtetra(n)$g
-
-#need to install scatterplot3d package and call "library(scatterplot3d)"
-s3d<-scatterscatterplot3d(Dt, highlight.3d=TRUE,xlab="x",ylab="y",zlab="z",
-              col.axis="blue", col.grid="lightblue",
-               main="3D Scatterplot of the data", pch=20)
-s3d$points3d(tetra,pch=20,col="blue")
 
 Xlim<-range(tetra[,1])
 Ylim<-range(tetra[,2])
@@ -67,6 +61,14 @@ plot3D::segments3D(L[,1], L[,2], L[,3], R[,1], R[,2],R[,3], add=TRUE,lwd=2)
 
 plot3D::text3D(tetra[,1]+c(.05,0,0,0),tetra[,2],tetra[,3],
 labels=c("A","B","C","D"), add=TRUE)
+}
+
+\dontrun{
+#need to install scatterplot3d package and call "library(scatterplot3d)"
+s3d<-scatterplot3d(Dt, highlight.3d=TRUE,xlab="x",ylab="y",zlab="z",
+              col.axis="blue", col.grid="lightblue",
+               main="3D Scatterplot of the data", pch=20)
+s3d$points3d(tetra,pch=20,col="blue")
 }
 
 }

@@ -68,17 +68,19 @@ interp::circles(X[,1],X[,2],Rad$rad,lty=1,lwd=1,col=4)
 
 radii(c(1,2),c(2,3))
 
-\donttest{
+\dontrun{
 nx<-10
 ny<-5
 X<-runif(nx)
 Y<-runif(ny)
-radii(X,Y) #this does not work, as X and Y are treated as vectors (i.e. points)
+radii(X,Y)  #this does not work, as X and Y are treated as vectors (i.e. points)
+}
 
+nx<-10
+ny<-5
 X<-as.matrix(X)
 Y<-as.matrix(Y)
-radii(X,Y) #this works as X and Y are treated as 1D data sets
-}
+radii(X,Y)  #this works as X and Y are treated as 1D data sets
 
 nx<-10
 ny<-5

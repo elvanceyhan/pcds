@@ -45,8 +45,8 @@ See also (\insertCite{ceyhan:arc-density-PE,ceyhan:arc-density-CS,ceyhan:dom-num
 \examples{
 A<-c(0,0); B<-c(1,0); C<-c(1/2,sqrt(3)/2);
 Te<-rbind(A,B,C);
-n<-10 #try also n<-20 #try also n<-100 or 1000
-eps<-.25 #try also .15, .5, .75
+n<-10  #try also n<-20 or n<-100 or 1000
+eps<-.25  #try also .15, .5, .75
 
 set.seed(1)
 Xdt<-rascTe(n,eps)

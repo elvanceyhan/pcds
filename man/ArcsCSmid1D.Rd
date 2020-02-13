@@ -51,18 +51,12 @@ See also (\insertCite{ceyhan:revstat-2016;textual}{pcds}).
 t<-1.5
 c<-.4
 a<-0; b<-10
-#try also the following
-#c<-runif(1)
-#a<-runif(1); b<-runif(1); int<-range(a,b); a<-int[1]; b<-int[2]
 
 #nx is number of X points (target) and ny is number of Y points (nontarget)
-nx<-20; ny<-4; #try also nx<-40; ny<-10 or nx<-1000; ny<-10;
+nx<-20; ny<-4;  #try also nx<-40; ny<-10 or nx<-1000; ny<-10;
 
 set.seed(1)
 Xp<-runif(nx,a,b)
-#try also the following
-#Xp<-runif(nx,a+5,b+5)
-#Xp<-runif(nx,a+10,b+10)
 Yp<-runif(ny,a,b)
 
 ArcsCSmid1D(Xp,Yp,t,c)
@@ -93,7 +87,7 @@ arrows(S, yjit, E, yjit, length = .05, col= 4)
 t<-.5
 c<-.4
 a<-0; b<-10;
-nx<-20; ny<-4; #try also nx<-40; ny<-10 or nx<-1000; ny<-10;
+nx<-20; ny<-4;  #try also nx<-40; ny<-10 or nx<-1000; ny<-10;
 Xp<-runif(nx,a,b)
 Yp<-runif(ny,a,b)
 

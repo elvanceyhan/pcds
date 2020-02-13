@@ -42,27 +42,15 @@ but if \code{pt} is in \code{S}, then it always returns 1 regardless of its loca
 }
 \examples{
 A<-c(1,1); B<-c(2,0); C<-c(1.5,2);
-#try also the following
-#A<-runif(2); B<-runif(2); C<-runif(2);
-#A<-runif(2,1,100); B<-runif(2,1,100); C<-runif(2,1,100);
-
 Tr<-rbind(A,B,C);
 n<-10
 
 set.seed(1)
 dat<-runif.tri(n,Tr)$gen.points
-#try also the following
-#dat<-cbind(runif(n),runif(n))
-#dat<-cbind(runif(n,1,2),runif(n,0,1))
 
-S<-rbind(dat[1,],dat[2,]) #try also #S<-c(1.5,1)
+S<-rbind(dat[1,],dat[2,])  #try also S<-c(1.5,1)
 
-M<-as.numeric(runif.tri(1,Tr)$g)
-#try also the following
-#M<-c(1.6,1.0)
-#M<-c(1,1,1) #M<-c(1,2,3) #M<-c(-1,2,3) #barycentric coordinates
-#M<-c(1.3,1.3)
-#M<-c(.3,.3)
+M<-as.numeric(runif.tri(1,Tr)$g)  #try also M<-c(1.6,1.0)
 
 tau<-.5
 

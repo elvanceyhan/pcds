@@ -52,20 +52,14 @@ studies under the uniformness hypothesis.
 See also (\insertCite{ceyhan:Phd-thesis,ceyhan:comp-geo-2010,ceyhan:mcap2012;textual}{pcds}).
 }
 \examples{
-c1<-.4; c2<-.6 #c1<-.2; c2<-.2;
+c1<-.4; c2<-.6  #try also c1<-.2; c2<-.2;
 A<-c(0,0); B<-c(1,0); C<-c(c1,c2);
 Tb<-rbind(A,B,C)
 
-M<-as.numeric(runif.bastri(1,c1,c2)$g)
-#try also the following
-#M<-c(.6,.2)
-#M<-circ.cent.tri(Tb); #M<-"CC"; #M<-"CM"
-#M<-c(1,1,1) #M<-c(1,2,3) #M<-c(-1,2,3) #barycentric coordinates
-#M<-c(1.3,1.3)
-#M<-c(.3,.3)
+M<-as.numeric(runif.bastri(1,c1,c2)$g)  #try also M<-c(.6,.2)
 
-P1<-as.numeric(runif.bastri(1,c1,c2)$g);  #try also #P1<-c(.3,.2)
-NASbastri(P1,c1,c2) #default with M="CC"
+P1<-as.numeric(runif.bastri(1,c1,c2)$g);  #try also P1<-c(.3,.2)
+NASbastri(P1,c1,c2)  #default with M="CC"
 NASbastri(P1,c1,c2,M)
 
 #or try
@@ -85,10 +79,6 @@ if (dimension(M)==3) {M<-bary2cart(M,Tr)}
 
 #plot of the NAS region
 P1<-as.numeric(runif.bastri(1,c1,c2)$g);
-#try also the following
-#P1<-c(.13,.081) #P1<-c(.2,.1) #P1<-c(.4,.1) #P1<-c(.55,.1) #P1<-c(.6,.1) #P1<-c(.5,.3)
-#M<-as.numeric(runif.bastri(1,c1,c2)$g); P1<-as.numeric(runif.bastri(1,c1,c2)$g);
-
 CC<-circ.cent.bastri(c1,c2)
 
 if (isTRUE(all.equal(M,CC)) || identical(M,"CC"))

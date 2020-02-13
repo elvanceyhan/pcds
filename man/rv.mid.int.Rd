@@ -32,9 +32,6 @@ See also (\insertCite{ceyhan:metrika-2012,ceyhan:revstat-2016;textual}{pcds}).
 \examples{
 c<-.4
 a<-0; b<-10; int<-c(a,b)
-#try also the following
-#c<-runif(1)
-#a<-runif(1); b<-runif(1); int<-range(a,b); a<-int[1]; b<-int[2]
 
 Mc<-centMc(int,c)
 
@@ -48,13 +45,10 @@ rv.mid.int(4,c,int)
 rv.mid.int(0,c,int)
 rv.mid.int(-3,c,int)
 
-n<-10 #try also n<-20
+n<-10  #try also n<-20
 xr<-range(a,b,Mc)
 xf<-(xr[2]-xr[1])*.5
 dat<-runif(n,a,b)
-#try also the following
-#dat<-runif(n,a-xf,b+xf)
-#dat<-runif(n,a+10,b+10)
 
 Rv<-vector()
 for (i in 1:n)

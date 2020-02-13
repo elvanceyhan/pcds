@@ -56,9 +56,6 @@ n<-20
 
 set.seed(1)
 dat<-runif.bastri(n,c1,c2)$g
-#try also the following
-#dat<-cbind(runif(n),runif(n))
-#dat<-cbind(runif(n,1,2),runif(n,0,1))
 
 Ext<-fr2vTbVRCC(dat,c1,c2)
 Ext
@@ -72,7 +69,7 @@ fr2vTbVRCC(dat2,c1,c2)
 
 f2v<-fr2vTbVRCC(dat,c1,c2)
 
-CC<-circ.cent.bastri(c1,c2) #the circumcenter
+CC<-circ.cent.bastri(c1,c2)  #the circumcenter
 D1<-(B+C)/2; D2<-(A+C)/2; D3<-(A+B)/2;
 Ds<-rbind(D1,D2,D3)
 

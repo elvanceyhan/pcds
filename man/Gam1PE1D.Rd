@@ -45,9 +45,6 @@ if it actually were in the data set.
 r<-2
 c<-.4
 a<-0; b<-10; int<-c(a,b)
-#try also the following
-#c<-runif(1)
-#a<-runif(1); b<-runif(1); int<-range(a,b); a<-int[1]; b<-int[2]
 
 Mc<-centMc(int,c)
 
@@ -57,9 +54,6 @@ set.seed(1)
 dat<-runif(n,a,b)
 
 Gam1PE1D(dat[5],dat,r,c,int)
-\donttest{
-Gam1PE1D(2,dat,r,c,int,ch.data.pnt = TRUE) #point p is not a data point in Dt
-}
 
 gam.vec<-vector()
 for (i in 1:n)
@@ -91,6 +85,10 @@ Gam1PE1D(dat[5],dat,r,c,int)
 n<-10
 dat2<-runif(n,a+b,b+10)
 Gam1PE1D(5,dat2,r,c,int)
+
+\dontrun{
+Gam1PE1D(2,dat,r,c,int,ch.data.pnt = TRUE)  #point p is not a data point in Dt
+}
 
 }
 \seealso{

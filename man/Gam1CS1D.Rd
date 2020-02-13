@@ -45,9 +45,6 @@ if it actually were in the data set.
 t<-2
 c<-.4
 a<-0; b<-10; int<-c(a,b)
-#try also the following
-#c<-runif(1)
-#a<-runif(1); b<-runif(1); int<-range(a,b); a<-int[1]; b<-int[2]
 
 Mc<-centMc(int,c)
 n<-10
@@ -56,8 +53,8 @@ set.seed(1)
 dat<-runif(n,a,b)
 
 Gam1CS1D(dat[5],dat,t,c,int)
-\donttest{
-Gam1CS1D(2,dat,t,c,int,ch.data.pnt = TRUE) #p is not a data point in Dt
+\dontrun{
+Gam1CS1D(2,dat,t,c,int,ch.data.pnt = TRUE)  #p is not a data point in Dt
 }
 
 gam.vec<-vector()

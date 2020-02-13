@@ -42,9 +42,6 @@ with the parameter \code{t} being provided in vector \code{t}.
 \examples{
 \donttest{
 P<-c(1,10,4); A<-c(1,1,3); B<-c(3,9,12)
-#try also the following
-#P<-runif(3); A<-runif(3); B<-runif(3)
-#P<-runif(3,1,100); A<-runif(3,1,100); B<-runif(3,1,100)
 
 vecs<-rbind(P,B-A)
 pts<-rbind(P,A,B)
@@ -52,7 +49,7 @@ paraline3D(P,A,B,.1)
 
 tr<-range(pts,vecs);
 tf<-(tr[2]-tr[1])*.1 #how far to go at the lower and upper ends in the x-coordinate
-tsq<-seq(-tf*10-tf,tf*10+tf,l=20) #try also l=100
+tsq<-seq(-tf*10-tf,tf*10+tf,l=20)  #try also l=100
 
 pln3D<-paraline3D(P,A,B,tsq)
 pln3D

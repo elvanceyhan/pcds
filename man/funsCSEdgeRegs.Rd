@@ -61,11 +61,7 @@ set.seed(1)
 dat3<-runif.tri(10,T3)$g
 dat<-runifTe(10)$gen.points
 
-M<-as.numeric(runifTe(1)$g)
-#M<-c(.6,.2)
-#M<-c(1,1,1) #M<-c(1,2,3) #M<-c(-1,2,3) #barycentric coordinates
-#M<-c(1.3,1.3)
-#M<-c(.3,.3)
+M<-as.numeric(runifTe(1)$g)  #try also M<-c(.6,.2)
 
 t<-1
 
@@ -76,6 +72,8 @@ IndCSTeRAB(dat[1,],dat[1,],t,M)
 IndCSTeRAB(dat3[1,],dat[2,],t=20,M)
 IndCSTeRAB(dat3[1,],dat3[3,],t,M)
 IndCSTeRAB(c(.2,.5),dat[2,],t,M)
+
+IndCSTeRAB(dat[1,],dat[2,],t,M)
 }
 
 #Examples for IndCSTeRBC
@@ -88,12 +86,7 @@ set.seed(1)
 dat1<-runif.tri(10,T1)$g
 dat<-runifTe(10)$gen.points
 
-M<-as.numeric(runifTe(1)$g)
-#try also the following
-#M<-c(.6,.2)
-#M<-c(1,1,1) #M<-c(1,2,3) #M<-c(-1,2,3) #barycentric coordinates
-#M<-c(1.3,1.3)
-#M<-c(.3,.3)
+M<-as.numeric(runifTe(1)$g)  #try also M<-c(.6,.2)
 
 t<-1
 
@@ -106,6 +99,8 @@ IndCSTeRBC(dat1[1,],dat1[3,],t,M)
 IndCSTeRBC(c(.2,.5),dat[2,],t,M)
 
 IndCSTeRBC(c(.2,.5),c(.2,.5),t,M)
+
+IndCSTeRBC(dat[1,],dat[2,],t,M)
 }
 
 #Examples for IndCSTeRAC
@@ -118,12 +113,7 @@ set.seed(1)
 dat2<-runif.tri(10,T2)$g
 dat<-runifTe(10)$gen.points
 
-M<-as.numeric(runifTe(1)$g)
-#try also the following
-#M<-c(.6,.2)
-#M<-c(1,1,1) #M<-c(1,2,3) #M<-c(-1,2,3) #barycentric coordinates
-#M<-c(1.3,1.3)
-#M<-c(.3,.3)
+M<-as.numeric(runifTe(1)$g)  #try also M<-c(.6,.2)
 
 t<-1
 
@@ -136,6 +126,8 @@ IndCSTeRAC(dat2[1,],dat2[3,],t=20,M)
 IndCSTeRAC(c(.2,.5),dat[2,],t,M)
 
 IndCSTeRAC(c(.2,.5),c(.2,.5),t,M)
+
+IndCSTeRAC(dat[1,],dat[2,],t,M)
 }
 
 }

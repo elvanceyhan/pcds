@@ -68,10 +68,8 @@ yc<-txt[,2]+c(.02,.02,.02,0,0,0,0,0,0,0)
 txt.str<-c("A","B","C","CM","1","2","3","4","5","6")
 text(xc,yc,txt.str)
 
-n<-10 #try also n<-40
+n<-10  #try also n<-40
 dat<-runifTe(n)$gen.points
-#dat<-cbind(runif(n),runif(n))
-#dat<-cbind(runif(n,1,2),runif(n,0,1))
 
 Xlim<-range(Te[,1],dat[,1])
 Ylim<-range(Te[,2],dat[,2])

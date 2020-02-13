@@ -104,14 +104,11 @@ of trials equals to expected number of \code{Xp} points per subinterval.
 \examples{
 a<-0; b<-10; int<-c(a,b)
 c<-.4
-#try also the following
-#a<-runif(1); b<-runif(1); int<-range(a,b); a<-int[1]; b<-int[2]
-#c<-runif(1);
 
 r<-1/max(c,1-c)
 
 #nx is number of X points (target) and ny is number of Y points (nontarget)
-nx<-20; ny<-4; #try also nx<-40; ny<-10 or nx<-1000; ny<-10;
+nx<-20; ny<-4;  #try also nx<-40; ny<-10 or nx<-1000; ny<-10;
 
 set.seed(1)
 Xp<-runif(nx,a,b)

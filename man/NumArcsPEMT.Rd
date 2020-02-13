@@ -44,23 +44,18 @@ See (\insertCite{ceyhan:Phd-thesis,ceyhan:arc-density-PE;textual}{pcds}) for mor
 Also see (\insertCite{okabe:2000,ceyhan:comp-geo-2010,sinclair:2016;textual}{pcds}) for more on Delaunay triangulation and the corresponding algorithm.
 }
 \examples{
-nx<-20; ny<-4; #try also nx<-40; ny<-10 or nx<-1000; ny<-10;
+#nx is number of X points (target) and ny is number of Y points (nontarget)
+nx<-20; ny<-4;  #try also nx<-40; ny<-10 or nx<-1000; ny<-10;
 
 set.seed(1)
 Xp<-cbind(runif(nx),runif(nx))
-#try also the following
-#Xp<-cbind(runif(nx,.5,1.5),runif(nx))
-#Xp<-cbind(runif(nx,1,2),runif(nx))
-#Xp<-c(.5,.5)
 Yp<-cbind(runif(ny),runif(ny))
 
+oldpar <- par(mfrow = c(1,2))
 plotDeltri(Xp,Yp,xlab="",ylab="")
+par(oldpar)
 
-M<-c(1,1,1)
-#try also the following
-#M<-c(1,2,3) #M<-c(-1,2,3) #barycentric coordinates
-#M<-"CC"
-#M<-c(1.3,1.3)
+M<-c(1,1,1)  #try also M<-c(1,2,3)
 
 NumArcsPEMT(Xp,Yp,r=1.25,M)
 NumArcsPEMT(Xp,Yp,r=1.5,M)

@@ -57,9 +57,10 @@ for (i in 1:lrseq)
   avar<-c(avar,asyvarPE2D(rseq[i]))
 }
 
+oldpar <- par(mfrow = c(1,2))
 par(mar=c(5,5,4,2))
 plot(rseq, avar,type="l",xlab="r",ylab=expression(paste(sigma^2,"(r)")),lty=1,xlim=range(rseq))
-par(mar=c(5.1, 4.1, 4.1, 2.1))
+par(oldpar)
 
 }
 \references{

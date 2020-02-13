@@ -46,19 +46,15 @@ and \code{lC_M.Te} is the line joining C to \code{M}, in the standard equilatera
 with \eqn{A=(0,0)};  \eqn{B=(1,0)}; \eqn{C=(1/2,sqrt{3}/2)}; x-coordinates are provided in vector \code{x}
 }
 \examples{
-#Examples for lA_M.Te
 \donttest{
+#Examples for lA_M.Te
 A<-c(0,0); B<-c(1,0); C<-c(1/2,sqrt(3)/2);
 Te<-rbind(A,B,C)
 
-M<-c(.65,.2)
-#try also the following
-#M<-c(1,1,1) #M<-c(1,2,3) #M<-c(-1,2,3) #barycentric coordinates
-#M<-c(1.3,1.3)
-#M<-c(.3,.3)
+M<-c(.65,.2)  #try also M<-c(1,1,1)
 
 xfence<-abs(A[1]-B[1])*.25 #how far to go at the lower and upper ends in the x-coordinate
-x<-seq(min(A[1],B[1])-xfence,max(A[1],B[1])+xfence,by=.1) #try also by=.01
+x<-seq(min(A[1],B[1])-xfence,max(A[1],B[1])+xfence,by=.1)  #try also by=.01
 
 lnAM<-lA_M.Te(x,M)
 lnAM
@@ -92,19 +88,15 @@ text(xc,yc,txt.str)
 lA_M.Te(.25,M)
 }
 
-#Examples for lB_M.Te
 \donttest{
+#Examples for lB_M.Te
 A<-c(0,0); B<-c(1,0); C<-c(1/2,sqrt(3)/2);
 Te<-rbind(A,B,C)
 
-M<-c(.65,.2)
-#try also the following
-#M<-c(1,1,1) #M<-c(1,2,3) #M<-c(-1,2,3) #barycentric coordinates
-#M<-c(1.3,1.3)
-#M<-c(.3,.3)
+M<-c(.65,.2)  #try also M<-c(1,1,1)
 
 xfence<-abs(A[1]-B[1])*.25 #how far to go at the lower and upper ends in the x-coordinate
-x<-seq(min(A[1],B[1])-xfence,max(A[1],B[1])+xfence,by=.1) #try also by=.01
+x<-seq(min(A[1],B[1])-xfence,max(A[1],B[1])+xfence,by=.1)  #try also by=.01
 
 lnBM<-lB_M.Te(x,M)
 lnBM
@@ -114,19 +106,15 @@ plot(lnBM)
 lB_M.Te(.25,M)
 }
 
-#Examples for lC_M.Te
 \donttest{
+#Examples for lC_M.Te
 A<-c(0,0); B<-c(1,0); C<-c(1/2,sqrt(3)/2);
 Te<-rbind(A,B,C)
 
-M<-c(.65,.2)
-#try also the following
-#M<-c(1,1,1) #M<-c(1,2,3) #M<-c(-1,2,3) #barycentric coordinates
-#M<-c(1.3,1.3)
-#M<-c(.3,.3)
+M<-c(.65,.2)  #try also M<-c(1,1,1)
 
 xfence<-abs(A[1]-B[1])*.25 #how far to go at the lower and upper ends in the x-coordinate
-x<-seq(min(A[1],B[1])-xfence,max(A[1],B[1])+xfence,by=.1) #try also by=.01
+x<-seq(min(A[1],B[1])-xfence,max(A[1],B[1])+xfence,by=.1)  #try also by=.01
 
 lnCM<-lC_M.Te(x,M)
 lnCM

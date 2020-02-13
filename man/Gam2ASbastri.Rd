@@ -74,20 +74,11 @@ n<-20
 
 set.seed(1)
 dat<-runif.bastri(n,c1,c2)$g
-#try also the following
-#dat<-cbind(runif(n),runif(n))
-#dat<-cbind(runif(n,1,2),runif(n,0,2))
 
-M<-as.numeric(runif.bastri(1,c1,c2)$g)
-#try also the following
-#M<-c(.6,.2)
-#M<-circ.cent.tri(Tb); #M<-"CC"; #M<-"CM"
-#M<-c(1,1,1) #M<-c(1,2,3) #M<-c(-1,2,3) #barycentric coordinates
-#M<-c(1.3,1.3)
-#M<-c(.3,.3)
+M<-as.numeric(runif.bastri(1,c1,c2)$g)  #try also M<-c(.6,.2)
 
 Gam2ASbastri(dat[1,],dat[2,],dat,c1,c2,M)
-Gam2ASbastri(dat[1,],dat[1,],dat,c1,c2,M) #one point can not a dominating set of size two
+Gam2ASbastri(dat[1,],dat[1,],dat,c1,c2,M)  #one point can not a dominating set of size two
 
 Gam2ASbastri(c(.2,.4),c(.2,.5),rbind(c(.2,.4),c(.2,.5)),c1,c2,M)
 

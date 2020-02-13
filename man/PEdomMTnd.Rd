@@ -41,24 +41,20 @@ the corresponding algorithm.
 }
 \examples{
 #nx is number of X points (target) and ny is number of Y points (nontarget)
-nx<-20; ny<-4; #try also nx<-40; ny<-10 or nx<-1000; ny<-10;
+nx<-20; ny<-4;  #try also nx<-40; ny<-10 or nx<-1000; ny<-10;
 
-r<-1.5 #try also #r<-2
+r<-1.5  #try also r<-2
 
 set.seed(1)
 Xp<-cbind(runif(nx,0,1),runif(nx,0,1))
-#try also the following
-#Xp<-cbind(runif(nx,0.5,1.5),runif(nx,0,1))
-#Xp<-cbind(runif(nx,1,2),runif(nx,0,1))
-#Xp<-c(.5,.5)
 Yp<-cbind(runif(ny,0,1),runif(ny,0,1))
 
 PEdomMTnd(Xp,Yp,r)
 
 PEdomMTnd(Xp,Yp,r=1.4)
 
-r<-1.5 #try also  #r<-2
-PEdomMTnd(Xp,Yp,r) #this may be different due to random selection of the center for r in (1,1.5)
+r<-1.5  #try also  #r<-2
+PEdomMTnd(Xp,Yp,r)  #this may be different due to random selection of the center for r in (1,1.5)
 
 PEdomMTnd(Xp,Yp[1:3,],r)
 

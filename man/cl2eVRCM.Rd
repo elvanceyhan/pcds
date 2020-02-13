@@ -42,18 +42,11 @@ See also (\insertCite{ceyhan:Phd-thesis,ceyhan:masa-2007,ceyhan:comp-geo-2010,ce
 }
 \examples{
 A<-c(1,1); B<-c(2,0); C<-c(1.5,2);
-#try also the following
-#A<-runif(2); B<-runif(2); C<-runif(2);
-#A<-runif(2,1,100); B<-runif(2,1,100); C<-runif(2,1,100);
-
 Tr<-rbind(A,B,C);
 
-n<-10 #try also n<-20
+n<-10  #try also n<-20
 set.seed(1)
 dat<-runif.tri(n,Tr)$g
-#try also the following
-#dat<-cbind(runif(n),runif(n))
-#dat<-cbind(runif(n,1,2),runif(n,0,2))
 
 Ext<-cl2eVRCM(dat,Tr)
 Ext
@@ -77,8 +70,8 @@ yd<-Ylim[2]-Ylim[1]
 plot(Tr,pch=".",xlab="",ylab="",axes=TRUE,xlim=Xlim+xd*c(-.05,.05),ylim=Ylim+yd*c(-.05,.05))
 polygon(Tr)
 
-xc<-Tr[,1]
-yc<-Tr[,2]
+xc<-Tr[,1]+c(-.02,.02,.02)
+yc<-Tr[,2]+c(.02,.02,.04)
 txt.str<-c("A","B","C")
 text(xc,yc,txt.str)
 
@@ -88,8 +81,8 @@ segments(L[,1], L[,2], R[,1], R[,2], lty=2)
 points(cl2e$Ext,pch=3,col=2)
 
 txt<-rbind(CM,Ds)
-xc<-txt[,1]
-yc<-txt[,2]
+xc<-txt[,1]+c(-.04,.04,-.03,0)
+yc<-txt[,2]+c(-.05,.04,.06,-.08)
 txt.str<-c("CM","D1","D2","D3")
 text(xc,yc,txt.str)
 

@@ -47,7 +47,7 @@ NumArcsCSend1D(dat,t=4,int)
 NumArcsCSend1D(dat,t=2,int+5)
 NumArcsCSend1D(dat,t=2,int=c(-5,15))
 
-n<-10 #try also n<-20
+n<-10  #try also n<-20
 dat2<-runif(n,a-5,b+5)
 NumArcsCSend1D(dat2,t=2,int)
 

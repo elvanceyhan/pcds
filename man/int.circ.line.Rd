@@ -45,16 +45,13 @@ int.circ.line(P1,P2,cent,rad=.8)
 int.circ.line(P1,P2,cent,rad=.78)
 
 #plot of the line and the circle
-A<-c(.3,.2); B<-c(.6,.3); cent<-c(1,1); rad<-2 #dp2l(cent,A,B)$dis, .3
-#try also the following
-#A<-runif(2); B<-runif(2); cent<-runif(2); rad<-runif(1)
-#A<-runif(2,1,100); B<-runif(2,1,100); cent<-runif(2,1,100); rad<-runif(2,1,100);
+A<-c(.3,.2); B<-c(.6,.3); cent<-c(1,1); rad<-2 #check dp2l(cent,A,B)$dis, .3
 
 IPs<-int.circ.line(A,B,cent,rad)
 
 xr<-range(A[1],B[1],cent[1])
 xf<-(xr[2]-xr[1])*.1 #how far to go at the lower and upper ends in the x-coordinate
-x<-seq(xr[1]-rad-xf,xr[2]+rad+xf,l=20) #try also l=100
+x<-seq(xr[1]-rad-xf,xr[2]+rad+xf,l=20)  #try also l=100
 lnAB<-Line(A,B,x)
 y<-lnAB$y
 

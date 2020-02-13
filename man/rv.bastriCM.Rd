@@ -66,11 +66,8 @@ rv.bastriCM(D1,c1,c2)
 rv.bastriCM(D2,c1,c2)
 rv.bastriCM(D3,c1,c2)
 
-n<-10 #try also n<-20
+n<-10  #try also n<-20
 dat<-runif.bastri(n,c1,c2)$g
-#try also the following
-#dat<-cbind(runif(n),runif(n))
-#dat<-cbind(runif(n,1,2),runif(n,0,1))
 
 Rv<-vector()
 for (i in 1:n)

@@ -18,13 +18,9 @@ See (\insertCite{weisstein-tri-centers,ceyhan:comp-geo-2010;textual}{pcds}) for 
 }
 \examples{
 A<-c(1,1); B<-c(2,0); C<-c(1.5,2);
-#try also the following
-#A<-runif(2); B<-runif(2); C<-runif(2);
-#A<-runif(2,1,100); B<-runif(2,1,100); C<-runif(2,1,100);
-
 Tr<-rbind(A,B,C);  #the vertices of the triangle Tr
 
-CC<-circ.cent.tri(Tr) #the circumcenter
+CC<-circ.cent.tri(Tr)  #the circumcenter
 CC
 
 D1<-(B+C)/2; D2<-(A+C)/2; D3<-(A+B)/2; #midpoints of the edges
@@ -35,6 +31,7 @@ Ylim<-range(Tr[,2],CC[2])
 xd<-Xlim[2]-Xlim[1]
 yd<-Ylim[2]-Ylim[1]
 
+oldpar <- par(mfrow = c(1,2))
 par(pty="s")
 plot(A,asp=1,pch=".",xlab="",ylab="",axes=TRUE,xlim=Xlim+xd*c(-.05,.05),ylim=Ylim+yd*c(-.05,.05))
 polygon(Tr)
@@ -43,19 +40,19 @@ L<-matrix(rep(CC,3),ncol=2,byrow=TRUE); R<-Ds
 segments(L[,1], L[,2], R[,1], R[,2], lty=2)
 
 txt<-rbind(Tr,CC,Ds)
-xc<-txt[,1]
-yc<-txt[,2]
+xc<-txt[,1]+c(-.08,.08,.08,.12,-.09,-.1,-.09)
+yc<-txt[,2]+c(.02,-.02,.03,-.06,.02,.06,-.04)
 txt.str<-c("A","B","C","CC","D1","D2","D3")
 text(xc,yc,txt.str)
-par(pty="m")
+par(oldpar)
 
 A<-c(0,0); B<-c(1,0); C<-c(1/2,sqrt(3)/2);
-Te<-rbind(A,B,C);  #the vertices of the triangle T
-circ.cent.tri(Te) #the circumcenter
+Te<-rbind(A,B,C);  #the vertices of the equilateral triangle Te
+circ.cent.tri(Te)  #the circumcenter
 
 A<-c(0,0); B<-c(0,1); C<-c(2,0);
 Tr<-rbind(A,B,C);  #the vertices of the triangle T
-circ.cent.tri(Tr) #the circumcenter
+circ.cent.tri(Tr)  #the circumcenter
 
 dat.fr<-data.frame(a=Tr)
 circ.cent.tri(dat.fr)

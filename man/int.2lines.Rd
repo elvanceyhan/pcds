@@ -24,16 +24,13 @@ defined.
 }
 \examples{
 A<-c(-1.22,-2.33); B<-c(2.55,3.75); C<-c(0,6); D<-c(3,-2)
-#try also the following
-#A<-runif(2); B<-runif(2); C<-runif(2); D<-runif(2)
-#A<-runif(2,1,100); B<-runif(2,1,100); C<-runif(2,1,100); D<-runif(2,1,100)
 
 ip<-int.2lines(A,B,C,D)
 ip
 pts<-rbind(A,B,C,D,ip)
 xr<-range(pts)
 xf<-abs(xr[2]-xr[1])*.1 #how far to go at the lower and upper ends in the x-coordinate
-x<-seq(xr[1]-xf,xr[2]+xf,l=20) #try also l=100
+x<-seq(xr[1]-xf,xr[2]+xf,l=20)  #try also l=100
 lnAB<-Line(A,B,x)
 lnCD<-Line(C,D,x)
 

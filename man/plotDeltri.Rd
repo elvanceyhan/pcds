@@ -38,11 +38,13 @@ Both sets of points are of 2D.
 See (\insertCite{okabe:2000,ceyhan:comp-geo-2010,sinclair:2016;textual}{pcds}) for more on Delaunay triangulation and the corresponding algorithm.
 }
 \examples{
-nx<-20; ny<-4; #try also nx<-40; ny<-10 or nx<-1000; ny<-10;
+nx<-20; ny<-4;  #try also nx<-40; ny<-10 or nx<-1000; ny<-10;
 
 set.seed(1)
 Xp<-cbind(runif(nx),runif(nx))
 Yp<-cbind(runif(ny),runif(ny))
+
+oldpar <- par(mfrow = c(1,2))
 plotDeltri(Xp,Yp,xlab="",ylab="",main="X points and Delaunay Triangulation of Y points")
 
 P<-c(.6,.4)
@@ -58,6 +60,7 @@ plotDeltri(dat.fr,Yp,xlab="",ylab="")
 
 dat.fr<-data.frame(a=Yp)
 plotDeltri(Xp,dat.fr,xlab="",ylab="")
+par(oldpar)
 
 }
 \references{

@@ -34,10 +34,6 @@ combined) else it checks if \code{p} lies in the interior of the tetrahedron.
 \examples{
 \donttest{
 A<-c(0,0,0); B<-c(1,0,0); C<-c(1/2,sqrt(3)/2,0); D<-c(1/2,sqrt(3)/6,sqrt(6)/3); P<-c(.1,.1,.1)
-#try also the following
-#A<-runif(3); B<-runif(3); C<-runif(3); D<-runif(3); P<-runif(3)
-#A<-runif(3,1,100); B<-runif(3,1,100); C<-runif(3,1,100); D<-runif(3,1,100); P<-runif(3,1,100)
-
 tetra<-rbind(A,B,C,D)
 
 in.tetrahedron(P,tetra,boundary=FALSE)
@@ -45,7 +41,7 @@ in.tetrahedron(P,tetra,boundary=FALSE)
 in.tetrahedron(C,tetra,boundary=FALSE)
 in.tetrahedron(C,tetra,boundary=TRUE)
 
-n<-10 #try also n<-40
+n<-10  #try also n<-40
 Dt<-cbind(runif(n),runif(n,0,sqrt(3)/2),runif(n,0,sqrt(6)/3))
 
 in.tetra<-vector()

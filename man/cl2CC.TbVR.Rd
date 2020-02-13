@@ -49,9 +49,6 @@ n<-20
 
 set.seed(1)
 dat<-runif.bastri(n,c1,c2)$g
-#try also the following
-#dat<-cbind(runif(n),runif(n))
-#dat<-cbind(runif(n,1,2),runif(n,0,1))
 
 Ext<-cl2CC.TbVR(dat,c1,c2)
 Ext
@@ -60,13 +57,9 @@ plot(Ext)
 
 cl2CC.TbVR(dat[1,],c1,c2)
 
-dat2<-rbind(dat,c(.2,.4))
-cl2CC.TbVR(dat2,c1,c2)
-cl2CC.TbVR(dat2,c1,c2,ch.all.intri = TRUE)
-
 c2CC<-cl2CC.TbVR(dat,c1,c2)
 
-CC<-circ.cent.bastri(c1,c2) #the circumcenter
+CC<-circ.cent.bastri(c1,c2)  #the circumcenter
 D1<-(B+C)/2; D2<-(A+C)/2; D3<-(A+B)/2;
 Ds<-rbind(D1,D2,D3)
 
@@ -94,7 +87,15 @@ cl2CC.TbVR(c(.4,.2),c1,c2)
 
 dat.fr<-data.frame(a=dat)
 cl2CC.TbVR(dat.fr,c1,c2)
+
+dat2<-rbind(dat,c(.2,.4))
+cl2CC.TbVR(dat2,c1,c2)
 }
+\dontrun{
+cl2CC.TbVR(dat2,c1,c2,ch.all.intri = TRUE)
+#gives an error message since not all points are in the basic triangle
+}
+
 
 }
 \references{

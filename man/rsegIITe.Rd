@@ -42,8 +42,8 @@ to \eqn{T_e} (see examples for a sample plot.)
 \examples{
 A<-c(0,0); B<-c(1,0); C<-c(1/2,sqrt(3)/2);
 Te<-rbind(A,B,C);
-n<-10 #try also n<-20 #try also n<-100 or 1000
-eps<-.15 #try also .2
+n<-10  #try also n<-20 or n<-100 or 1000
+eps<-.15  #try also .2
 
 set.seed(1)
 Xdt<-rsegIITe(n,eps)

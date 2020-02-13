@@ -43,9 +43,7 @@
 #' dat.fr<-data.frame(a=A,b=B[1:2])
 #' is.point(dat.fr)
 #'
-#' \donttest{
 #' is.point(c("a","b"))
-#' }
 #'
 #' @export
 is.point<-function(p,dim=2)
@@ -179,22 +177,17 @@ slope<-function(a,b)
 #'
 #' @examples
 #' A<-c(-1.22,-2.33); B<-c(2.55,3.75)
-#' #try also below choices for A and B
-#' #A<-runif(2); B<-runif(2)
-#' #A<-runif(2,1,100); B<-runif(2,1,100)
-#' #A<-c(1,1); B<-c(1,2) #lines are vertical
-#' #A<-c(1,1); B<-c(1,-2) #lines are vertical
 #'
 #' xr<-range(A,B);
 #' xf<-(xr[2]-xr[1])*.1 #how far to go at the lower and upper ends in the x-coordinate
-#' x<-seq(xr[1]-xf,xr[2]+xf,l=20) #try also l=100
+#' x<-seq(xr[1]-xf,xr[2]+xf,l=20)  #try also l=100
 #'
 #' lnAB<-Line(A,B,x)
 #' lnAB
 #' summary(lnAB)
 #' plot(lnAB)
 #'
-#' line(A,B) #this takes A as the x points and B as the y points and fits the line
+#' line(A,B)  #this takes A as the x points and B as the y points and fits the line
 #'
 #' y<-lnAB$y
 #' Xlim<-range(x,A,B)
@@ -208,7 +201,7 @@ slope<-function(a,b)
 #' xlim=Xlim+xd*c(-.05,.05),ylim=Ylim+yd*c(-.05,.05))
 #' if (!is.na(y[1])) {lines(x,y,lty=1)} else {abline(v=A[1])}
 #' text(rbind(A+pf,B+pf),c("A","B"))
-#' int<-round(lnAB$intercept,2)#intercept
+#' int<-round(lnAB$intercept,2)  #intercept
 #' sl<-round(lnAB$slope,2)  #slope
 #' text(rbind((A+B)/2+pf*3),ifelse(is.na(int),paste("x=",A[1]),
 #' ifelse(sl==0,paste("y=",int),
@@ -306,16 +299,13 @@ Line<-function(a,b,x)
 #'
 #' @examples
 #' A<-c(-1.22,-2.33); B<-c(2.55,3.75); C<-c(0,6); D<-c(3,-2)
-#' #try also the following
-#' #A<-runif(2); B<-runif(2); C<-runif(2); D<-runif(2)
-#' #A<-runif(2,1,100); B<-runif(2,1,100); C<-runif(2,1,100); D<-runif(2,1,100)
 #'
 #' ip<-int.2lines(A,B,C,D)
 #' ip
 #' pts<-rbind(A,B,C,D,ip)
 #' xr<-range(pts)
 #' xf<-abs(xr[2]-xr[1])*.1 #how far to go at the lower and upper ends in the x-coordinate
-#' x<-seq(xr[1]-xf,xr[2]+xf,l=20) #try also l=100
+#' x<-seq(xr[1]-xf,xr[2]+xf,l=20)  #try also l=100
 #' lnAB<-Line(A,B,x)
 #' lnCD<-Line(C,D,x)
 #'
@@ -384,9 +374,6 @@ int.2lines<-function(p1,q1,p2,q2)
 #'
 #' @examples
 #' A<-c(1,2); B<-c(2,3); P<-c(3,1.5)
-#' #try also the following
-#' #A<-runif(2); B<-runif(2); P<-runif(2)
-#' #A<-runif(2,1,100); B<-runif(2,1,100); P<-runif(2,1,100);
 #'
 #' dpl<-dp2l(P,A,B);
 #' dpl
@@ -398,13 +385,13 @@ int.2lines<-function(p1,q1,p2,q2)
 #'
 #' xr<-range(pts[,1])
 #' xf<-(xr[2]-xr[1])*.25 #how far to go at the lower and upper ends in the x-coordinate
-#' x<-seq(xr[1]-xf,xr[2]+xf,l=20) #try also l=100
+#' x<-seq(xr[1]-xf,xr[2]+xf,l=20)  #try also l=100
 #' lnAB<-Line(A,B,x)
 #' y<-lnAB$y
 #' int<-lnAB$intercept #intercept
 #' sl<-lnAB$slope #slope
 #'
-#' xsq<-seq(min(A[1],B[1],P[1])-xf,max(A[1],B[1],P[1])+xf,l=20) #try also l=100
+#' xsq<-seq(min(A[1],B[1],P[1])-xf,max(A[1],B[1],P[1])+xf,l=20)  #try also l=100
 #' pline<-(-1/sl)*(xsq-P[1])+P[2] #line passing thru P and perpendicular to AB
 #'
 #' Xlim<-range(pts[,1],x)
@@ -451,7 +438,7 @@ dp2l<-function(p,a,b)
   if (a1==b1)
   {
     dp<-abs(a1-p1)
-    C<-c(a1,p1) #the point of intersection of perpendicular line from P to line joining A and B
+    C<-c(a1,p1)  #the point of intersection of perpendicular line from P to line joining A and B
   } else
   {
     sl<-slope(a,b);
@@ -509,17 +496,6 @@ dp2l<-function(p,a,b)
 #'
 #' Dist(xm,xm)
 #'
-#' \donttest{
-#' xm<-matrix(x,ncol=2)
-#' ym<-matrix(y,ncol=1)
-#' Dist(xm,ym) #gives error, since vectors are not of the same dimension
-#' Dist(B,xm)
-#' Dist(B,x) #gives error, since vectors are not of the same dimension
-#'
-#' dat.fr<-data.frame(b=B,c=C)
-#' Dist(B,dat.fr)
-#' }
-#'
 #' dat.fr<-data.frame(b=B,c=C)
 #' Dist(dat.fr,dat.fr)
 #' Dist(dat.fr,cbind(B,C))
@@ -564,22 +540,19 @@ Dist<-function(x,y)
 #' dist.pt2set(C,C)
 #' dist.pt2set(B,C)
 #'
-#' \donttest{
+#' \dontrun{
 #' x<-runif(1)
 #' y<-runif(10)
-#' dist.pt2set(x,y) #this does not work because both entries are treated as vectors
+#' dist.pt2set(x,y)
+#' #this does not work because both entries are treated as vectors
 #' }
 #'
 #' x<-runif(1)
 #' y<-as.matrix(runif(10))
-#' dist.pt2set(x,y) #this works, because x is a 1D point, and y is treated as a set of 10 1D points
+#' dist.pt2set(x,y)  #this works, because x is a 1D point, and y is treated as a set of 10 1D points
 #'
 #' dat.fr<-data.frame(b=B,c=C)
 #' dist.pt2set(A,dat.fr)
-#'
-#' \donttest{
-#' dist.pt2set(dat.fr,dat.fr)  #this does not work since first entry must be a vector
-#' }
 #'
 #' @export dist.pt2set
 dist.pt2set<-function(x,Y)
@@ -671,7 +644,7 @@ dist.pt2set<-function(x,Y)
 #' @seealso \code{\link{rasc.disc}}, \code{\link{rsegTe}}, \code{\link{rsegIITe}}, and \code{\link{rsegMT}}
 #'
 #' @examples
-#' nx<-20; ny<-4; #try also nx<-1000; ny<-10
+#' nx<-20; ny<-4;  #try also nx<-1000; ny<-10
 #' e<-.15;
 #' #with default bounding box (i.e., unit square)
 #' Y<-cbind(runif(ny),runif(ny))
@@ -681,10 +654,7 @@ dist.pt2set<-function(x,Y)
 #' summary(Xdt)
 #' plot(Xdt,asp=1)
 #'
-#' e<-.15;
-#' #try also the following
-#' #e<--.1; #this provides a CSR realization
-#' #e<-.15;
+#' e<-.15;  #try also e<- -.1; #this provides a CSR realization
 #'
 #' #with default bounding box (i.e., unit square)
 #' Y<-cbind(runif(ny),runif(ny))
@@ -703,7 +673,7 @@ dist.pt2set<-function(x,Y)
 #' b1<-0; b2<-5;
 #' e<-1.5;
 #' Y<-cbind(runif(ny,a1,a2),runif(ny,b1,b2))
-#' #try also #Y<-cbind(runif(ny,a1,a2/2),runif(ny,b1,b2/2))
+#' #try also Y<-cbind(runif(ny,a1,a2/2),runif(ny,b1,b2/2))
 #'
 #' Xdt<-rseg.disc(nx,Y,e,a1,a2,b1,b2)$gen.points
 #' Xlim<-range(Xdt[,1],Y[,1]); Ylim<-range(Xdt[,2],Y[,2])
@@ -820,7 +790,7 @@ rseg.disc<-function(n,Y,e,a1=min(Y[,1]),a2=max(Y[,1]),b1=min(Y[,2]),b2=max(Y[,2]
 #' \code{\link{rasc.matern}}, and \code{\link{rascMT}}
 #'
 #' @examples
-#' nx<-20; ny<-4; #try also nx<-1000; ny<-10;
+#' nx<-20; ny<-4;  #try also nx<-1000; ny<-10;
 #'
 #' e<-.15;
 #' #with default bounding box (i.e., unit square)
@@ -842,7 +812,7 @@ rseg.disc<-function(n,Y,e,a1=min(Y[,1]),a2=max(Y[,1]),b1=min(Y[,2]),b2=max(Y[,2]
 #' points(Xdt)
 #'
 #' e<-.25; #pattern is very close to CSR!
-#' #try also #e<-.1;
+#' #try also e<-.1;
 #'
 #' #with default bounding box (i.e., unit square)
 #' Y<-cbind(runif(ny),runif(ny))
@@ -860,13 +830,10 @@ rseg.disc<-function(n,Y,e,a1=min(Y[,1]),a2=max(Y[,1]),b1=min(Y[,2]),b2=max(Y[,2]
 #' #with a rectangular bounding box
 #' a1<-0; a2<-10;
 #' b1<-0; b2<-5;
-#' e<-1.1;
-#' #try also the following
-#' #e<-5; #pattern very close to CSR!
-#' #e<-1.5; #negative d is not recommended for association
+#' e<-1.1;  #try also e<-5; #pattern very close to CSR!
 #'
 #' Y<-cbind(runif(ny,a1,a2),runif(ny,b1,b2))
-#' #try also #Y<-cbind(runif(ny,a1,a2/2),runif(ny,b1,b2/2))
+#' #try also Y<-cbind(runif(ny,a1,a2/2),runif(ny,b1,b2/2))
 #'
 #' Xdt<-rasc.disc(nx,Y,e,a1,a2,b1,b2)$gen.points
 #' Xlim<-range(Xdt[,1],Y[,1]);
@@ -997,12 +964,9 @@ rasc.disc<-function(n,Y,e,a1=min(Y[,1]),a2=max(Y[,1]),b1=min(Y[,2]),b2=max(Y[,2]
 #' \insertAllCited{}
 #'
 #' @examples
-#' nx<-20; ny<-4; #try also nx<-1000; ny<-10;
+#' nx<-20; ny<-4;  #try also nx<-1000; ny<-10;
 #'
-#' e<-.15;
-#' #try also the following
-#' #e<-1.1; #closer to CSR than association, as e is large
-#' #e<--.15; #not possible, gives error
+#' e<-.15;  #try also e<-1.1; #closer to CSR than association, as e is large
 #'
 #' #Y points uniform in unit square
 #' Y<-cbind(runif(ny),runif(ny))
@@ -1028,7 +992,7 @@ rasc.disc<-function(n,Y,e,a1=min(Y[,1]),a2=max(Y[,1]),b1=min(Y[,2]),b2=max(Y[,2]
 #'
 #' #Y points uniform in a rectangle
 #' Y<-cbind(runif(ny,a1,a2),runif(ny,b1,b2))
-#' #try also #Y<-cbind(runif(ny,a1,a2/2),runif(ny,b1,b2/2))
+#' #try also Y<-cbind(runif(ny,a1,a2/2),runif(ny,b1,b2/2))
 #'
 #' Xdt<-rasc.matern(nx,Y,e)$gen.points
 #' Xlim<-range(Xdt[,1],Y[,1]);
@@ -1138,7 +1102,7 @@ rasc.matern<-function(n,Y,e)
 #' CM<-(A+B+C)/3;
 #' D1<-(B+C)/2; D2<-(A+C)/2; D3<-(A+B)/2;
 #' Ds<-rbind(D1,D2,D3)
-#' nx<-100 #try also nx<-100
+#' nx<-100  #try also nx<-100
 #'
 #' #data generation step
 #' set.seed(1)
@@ -1187,8 +1151,8 @@ runifTe.onesixth<-function(k)
   }
   A<-c(0,0); B<-c(1,0); C<-c(1/2,sqrt(3)/2)
   CM<-(A+B+C)/3
-  Te<-rbind(A,B,C)#std eq triangle
-  Te1_6<-rbind(A,(A+B)/2,CM)#std eq triangle
+  Te<-rbind(A,B,C)  #std eq triangle
+  Te1_6<-rbind(A,(A+B)/2,CM)  #std eq triangle
 
   typ<-"Uniform Distribution in one-sixth of the standard equilateral triangle"
   txt<-paste(k, "uniform points in one-sixth of the standard equilateral triangle")
@@ -1260,11 +1224,6 @@ runifTe.onesixth<-function(k)
 #'
 #' @examples
 #' A<-c(1.1,1.2); B<-c(2.3,3.4); p<-c(.51,2.5)
-#' #try also the following
-#' #A<-runif(2); B<-runif(2); p<-runif(2)
-#' #A<-runif(2,1,100); B<-runif(2,1,100); p<-runif(2,1,100);
-#' #A<-c(1,2); B<-c(2,2) #lines are horizontal
-#' #A<-c(1,1); B<-c(1,2) #lines are vertical
 #'
 #' paraline(p,A,B,.45)
 #' paraline(A,A,B,.45)
@@ -1272,7 +1231,7 @@ runifTe.onesixth<-function(k)
 #' pts<-rbind(A,B,p)
 #' xr<-range(pts)
 #' xf<-(xr[2]-xr[1])*.25 #how far to go at the lower and upper ends in the x-coordinate
-#' x<-seq(xr[1]-xf,xr[2]+xf,l=20) #try also l=100
+#' x<-seq(xr[1]-xf,xr[2]+xf,l=20)  #try also l=100
 #'
 #' plnAB<-paraline(p,A,B,x)
 #' plnAB
@@ -1412,7 +1371,7 @@ NULL
 #' A<-c(0,0); B<-c(1,0); C<-c(1/2,sqrt(3)/2);
 #' Te<-rbind(A,B,C)
 #' xfence<-abs(A[1]-B[1])*.25 #how far to go at the lower and upper ends in the x-coordinate
-#' x<-seq(min(A[1],B[1])-xfence,max(A[1],B[1])+xfence,by=.1) #try also by=.01
+#' x<-seq(min(A[1],B[1])-xfence,max(A[1],B[1])+xfence,by=.1)  #try also by=.01
 #'
 #' lnACM<-lA_CM.Te(x)
 #' lnACM
@@ -1489,7 +1448,7 @@ lA_CM.Te<-function(x)
 #' A<-c(0,0); B<-c(1,0); C<-c(1/2,sqrt(3)/2);
 #' Te<-rbind(A,B,C)
 #' xfence<-abs(A[1]-B[1])*.25 #how far to go at the lower and upper ends in the x-coordinate
-#' x<-seq(min(A[1],B[1])-xfence,max(A[1],B[1])+xfence,by=.1) #try also by=.01
+#' x<-seq(min(A[1],B[1])-xfence,max(A[1],B[1])+xfence,by=.1)  #try also by=.01
 #'
 #' lnBCM<-lB_CM.Te(x)
 #' lnBCM
@@ -1580,19 +1539,15 @@ NULL
 #'
 #' @rdname funsAB2MTe
 #' @examples
-#' #Examples for lA_M.Te
 #' \donttest{
+#' #Examples for lA_M.Te
 #' A<-c(0,0); B<-c(1,0); C<-c(1/2,sqrt(3)/2);
 #' Te<-rbind(A,B,C)
 #'
-#' M<-c(.65,.2)
-#' #try also the following
-#' #M<-c(1,1,1) #M<-c(1,2,3) #M<-c(-1,2,3) #barycentric coordinates
-#' #M<-c(1.3,1.3)
-#' #M<-c(.3,.3)
+#' M<-c(.65,.2)  #try also M<-c(1,1,1)
 #'
 #' xfence<-abs(A[1]-B[1])*.25 #how far to go at the lower and upper ends in the x-coordinate
-#' x<-seq(min(A[1],B[1])-xfence,max(A[1],B[1])+xfence,by=.1) #try also by=.01
+#' x<-seq(min(A[1],B[1])-xfence,max(A[1],B[1])+xfence,by=.1)  #try also by=.01
 #'
 #' lnAM<-lA_M.Te(x,M)
 #' lnAM
@@ -1681,19 +1636,15 @@ lA_M.Te<-function(x,M)
 #' @rdname funsAB2MTe
 #'
 #' @examples
-#' #Examples for lB_M.Te
 #' \donttest{
+#' #Examples for lB_M.Te
 #' A<-c(0,0); B<-c(1,0); C<-c(1/2,sqrt(3)/2);
 #' Te<-rbind(A,B,C)
 #'
-#' M<-c(.65,.2)
-#' #try also the following
-#' #M<-c(1,1,1) #M<-c(1,2,3) #M<-c(-1,2,3) #barycentric coordinates
-#' #M<-c(1.3,1.3)
-#' #M<-c(.3,.3)
+#' M<-c(.65,.2)  #try also M<-c(1,1,1)
 #'
 #' xfence<-abs(A[1]-B[1])*.25 #how far to go at the lower and upper ends in the x-coordinate
-#' x<-seq(min(A[1],B[1])-xfence,max(A[1],B[1])+xfence,by=.1) #try also by=.01
+#' x<-seq(min(A[1],B[1])-xfence,max(A[1],B[1])+xfence,by=.1)  #try also by=.01
 #'
 #' lnBM<-lB_M.Te(x,M)
 #' lnBM
@@ -1757,19 +1708,15 @@ lB_M.Te<-function(x,M)
 #' @rdname funsAB2MTe
 #'
 #' @examples
-#' #Examples for lC_M.Te
 #' \donttest{
+#' #Examples for lC_M.Te
 #' A<-c(0,0); B<-c(1,0); C<-c(1/2,sqrt(3)/2);
 #' Te<-rbind(A,B,C)
 #'
-#' M<-c(.65,.2)
-#' #try also the following
-#' #M<-c(1,1,1) #M<-c(1,2,3) #M<-c(-1,2,3) #barycentric coordinates
-#' #M<-c(1.3,1.3)
-#' #M<-c(.3,.3)
+#' M<-c(.65,.2)  #try also M<-c(1,1,1)
 #'
 #' xfence<-abs(A[1]-B[1])*.25 #how far to go at the lower and upper ends in the x-coordinate
-#' x<-seq(min(A[1],B[1])-xfence,max(A[1],B[1])+xfence,by=.1) #try also by=.01
+#' x<-seq(min(A[1],B[1])-xfence,max(A[1],B[1])+xfence,by=.1)  #try also by=.01
 #'
 #' lnCM<-lC_M.Te(x,M)
 #' lnCM
@@ -1860,7 +1807,7 @@ lC_M.Te<-function(x,M)
 #' @examples
 #' A<-c(0,0); B<-c(1,0); C<-c(1/2,sqrt(3)/2);
 #' Te<-rbind(A,B,C);
-#' n<-10 #try also n<-100
+#' n<-10  #try also n<-100
 #'
 #' set.seed(1)
 #' Xdt<-runifTe(n)
@@ -1894,7 +1841,7 @@ runifTe<-function(k)
   }
   }
   A<-c(0,0); B<-c(1,0); C<-c(1/2,sqrt(3)/2)
-  Te<-rbind(A,B,C) #std eq triangle
+  Te<-rbind(A,B,C)  #std eq triangle
 
   typ<-"Uniform Distribution in the Standard Equilateral Triangle"
   main.txt<-"Uniform Points in the Standard Equilateral Triangle"
@@ -1963,7 +1910,7 @@ runifTe<-function(k)
 #' c1<-.4; c2<-.6
 #' A<-c(0,0); B<-c(1,0); C<-c(c1,c2);
 #' Tb<-rbind(A,B,C);
-#' n<-10 #try also n<-100
+#' n<-10  #try also n<-100
 #'
 #' set.seed(1)
 #' runif.bastri(1,c1,c2)
@@ -2005,7 +1952,7 @@ runif.bastri<-function(k,c1,c2)
   }
   }
   A<-c(0,0); B<-c(1,0); C<-c(c1,c2)
-  Tb<-rbind(A,B,C) #basic triangle
+  Tb<-rbind(A,B,C)  #basic triangle
 
   typ<-"Uniform Distribution in the Basic Triangle"
   main.txt<-paste("Uniform Points in the Basic Triangle\n with c1=",c1,"and c2=",c2)
@@ -2059,8 +2006,7 @@ runif.bastri<-function(k,c1,c2)
 #'
 #' @examples
 #' cent<-c(1,1); rad<-1; p<-c(1.4,1.2)
-#' #try also the following
-#' #cent<-runif(2); rad<-runif(1); p<-runif(2);
+#' #try also cent<-runif(2); rad<-runif(1); p<-runif(2);
 #'
 #' in.circle(p,cent,rad)
 #'
@@ -2125,9 +2071,6 @@ in.circle<-function(pt,cent,rad,boundary=FALSE)
 #'
 #' @examples
 #' A<-c(1,1); B<-c(2,0); C<-c(1.5,2); p<-c(1.4,1.2)
-#' #try also the following
-#' #A<-runif(2); B<-runif(2); C<-runif(2); p<-runif(2);
-#' #A<-runif(2,1,100); B<-runif(2,1,100); C<-runif(2,1,100); p<-runif(2,1,100);
 #'
 #' Tr<-rbind(A,B,C)
 #'
@@ -2149,34 +2092,15 @@ in.circle<-function(pt,cent,rad,boundary=FALSE)
 #' p<-c(NA,.2)
 #' in.triangle(p,Tr)
 #'
-#' \donttest{
+#' dat.fr<-data.frame(a=Tr)
+#' in.triangle(p,dat.fr)
+#'
+#' \dontrun{
 #' #when triangle is degenerate
 #' B<-A+2*(C-A);
 #' Tr<-rbind(A,B,C)
 #' p<-c(.4,.2)
 #' in.triangle(p,Tr)
-#'
-#' A<-c(1,1); B<-c(2,0); C<-c(1.5,2);
-#' Tr<-rbind(A,B,C)
-#' in.triangle(c("a","b"),Tr)
-#' in.triangle(rbind(p,p),Tr)
-#'
-#' in.triangle(p,cbind(Tr,Tr))
-#'
-#' in.triangle(p,c(1,2,3))
-#' in.triangle(p,rbind(c("a","b"),B,C))
-#'
-#' lis<-list(a=p)
-#' in.triangle(lis,Tr)
-#'
-#' lis<-list(tri=Tr)
-#' in.triangle(p,lis)
-#'
-#' dat.fr<-data.frame(a=p)
-#' in.triangle(dat.fr,Tr)
-#'
-#' dat.fr<-data.frame(a=Tr)
-#' in.triangle(p,dat.fr)
 #' }
 #'
 #' @export in.triangle
@@ -2252,9 +2176,6 @@ in.triangle<-function(p,tri,boundary=FALSE)
 #'
 #' @examples
 #' A<-c(1,1); B<-c(2,0); C<-c(1.5,2); p<-c(1.4,1.2)
-#' #try also the following
-#' #A<-runif(2); B<-runif(2);  C<-runif(2); p<-runif(2);
-#' #A<-runif(2,1,100); B<-runif(2,1,100); C<-runif(2,1,100); p<-runif(2,1,100)
 #'
 #' Tr<-rbind(A,B,C)
 #'
@@ -2345,12 +2266,8 @@ inTriAll<-function(Dt,tri,boundary=FALSE)
 #' @seealso \code{\link{runifTe}}, \code{\link{runif.bastri}}, and \code{\link{runifMT}}
 #'
 #' @examples
-#' n<-10 #try also n<-100
+#' n<-10  #try also n<-100
 #' A<-c(1,1); B<-c(2,0); C<-c(1.5,2);
-#' #try also the following
-#' #A<-runif(2); B<-runif(2); C<-runif(2);
-#' #A<-runif(2,1,100); B<-runif(2,1,100); C<-runif(2,1,100);
-#'
 #' Tr<-rbind(A,B,C)
 #'
 #' Xdt<-runif.tri(n,Tr)
@@ -2367,8 +2284,8 @@ inTriAll<-function(Dt,tri,boundary=FALSE)
 #' plot(Tr,pch=".",xlab="",ylab="",xlim=Xlim+xd*c(-.05,.05),ylim=Ylim+yd*c(-.05,.05))
 #' polygon(Tr)
 #' points(dat)
-#' xc<-Tr[,1]
-#' yc<-Tr[,2]
+#' xc<-Tr[,1]+c(-.01,.01,.01)
+#' yc<-Tr[,2]+c(.02,.02,.02)
 #' txt.str<-c("A","B","C")
 #' text(xc,yc,txt.str)
 #'
@@ -2464,8 +2381,8 @@ runif.tri<-function(k,tri)
 #' @examples
 #' A<-c(0,0); B<-c(1,0); C<-c(1/2,sqrt(3)/2);
 #' Te<-rbind(A,B,C);
-#' n<-10 #try also n<-20 #try also n<-100 or 1000
-#' eps<-.3 #try also .15, .5, .75
+#' n<-10  #try also n<-20 or n<-100 or 1000
+#' eps<-.3  #try also .15, .5, .75
 #'
 #' set.seed(1)
 #' Xdt<-rsegTe(n,eps)
@@ -2515,11 +2432,11 @@ rsegTe<-function(k,eps)
   if (!is.point(eps,1) || eps<=0 || eps>=sqrt(3)/3)
   {stop('eps must be a scalar in (0,sqrt(3)/3=0.5773503)')}
 
-  Y<-rbind(c(0,0),c(1,0),c(1/2,sqrt(3)/2))#std eq triangle
+  Y<-rbind(c(0,0),c(1,0),c(1/2,sqrt(3)/2))  #std eq triangle
   ny<-nrow(Y)
 
   X <-matrix(0,k,2);
-  if (eps < 0.4330127 ) #(eps < sqrt(3)/4 )
+  if (eps < 0.4330127 )  #(eps < sqrt(3)/4 )
   {
     for (i in 1:k)
     {ct<-0;
@@ -2622,12 +2539,8 @@ rsegTe<-function(k,eps)
 #' \insertAllCited{}
 #'
 #' @examples
-#' n<-10 #try also n<-100
+#' n<-10  #try also n<-100
 #' A<-c(1,1); B<-c(2,0); C<-c(1.5,2);
-#' #try also the following
-#' #A<-runif(2); B<-runif(2); C<-runif(2);
-#' #A<-runif(2,1,100); B<-runif(2,1,100); C<-runif(2,1,100);
-#'
 #' Tr<-rbind(A,B,C)
 #' del<-.4
 #'
@@ -2645,8 +2558,8 @@ rsegTe<-function(k,eps)
 #' plot(Tr,pch=".",xlab="",ylab="",xlim=Xlim+xd*c(-.05,.05),ylim=Ylim+yd*c(-.05,.05))
 #' polygon(Tr)
 #' points(dat)
-#' xc<-Tr[,1]
-#' yc<-Tr[,2]
+#' xc<-Tr[,1]+c(-.01,.01,.01)
+#' yc<-Tr[,2]+c(.02,.02,.02)
 #' txt.str<-c("A","B","C")
 #' text(xc,yc,txt.str)
 #'
@@ -2746,8 +2659,8 @@ rseg.tri<-function(k,tri,delta)
 #' @examples
 #' A<-c(0,0); B<-c(1,0); C<-c(1/2,sqrt(3)/2);
 #' Te<-rbind(A,B,C);
-#' n<-10 #try also n<-20 #try also n<-100 or 1000
-#' eps<-.15 #try also .2
+#' n<-10  #try also n<-20 or n<-100 or 1000
+#' eps<-.15  #try also .2
 #'
 #' set.seed(1)
 #' Xdt<-rsegIITe(n,eps)
@@ -2784,7 +2697,7 @@ rsegIITe<-function(k,eps)
   if (!is.point(eps,1) || eps<=0 || eps>=sqrt(3)/6)
   {stop('eps must be a scalar in (0,sqrt(3)/6=0.2886751)')}
 
-  Y<-rbind(c(0,0),c(1,0),c(1/2,sqrt(3)/2))#std eq triangle
+  Y<-rbind(c(0,0),c(1,0),c(1/2,sqrt(3)/2))  #std eq triangle
   ny<-nrow(Y)
 
   X <-matrix(0,k,2);
@@ -2874,8 +2787,8 @@ rsegIITe<-function(k,eps)
 #' @examples
 #' A<-c(0,0); B<-c(1,0); C<-c(1/2,sqrt(3)/2);
 #' Te<-rbind(A,B,C);
-#' n<-10 #try also n<-20 #try also n<-100 or 1000
-#' eps<-.25 #try also .15, .5, .75
+#' n<-10  #try also n<-20 or n<-100 or 1000
+#' eps<-.25  #try also .15, .5, .75
 #'
 #' set.seed(1)
 #' Xdt<-rascTe(n,eps)
@@ -2924,7 +2837,7 @@ rascTe<-function(k,eps)
   if (!is.point(eps,1) || eps<=0 || eps>=sqrt(3)/3 )
   {stop('eps must be a scalar in (0,sqrt(3)/3=0.5773503)')}
 
-  Y<-rbind(c(0,0),c(1,0),c(1/2,sqrt(3)/2))#std eq triangle
+  Y<-rbind(c(0,0),c(1,0),c(1/2,sqrt(3)/2))  #std eq triangle
   ny<-nrow(Y)
 
   X<-matrix(0,k,2);
@@ -3014,12 +2927,8 @@ rascTe<-function(k,eps)
 #' \insertAllCited{}
 #'
 #' @examples
-#' n<-10 #try also n<-100
+#' n<-10  #try also n<-100
 #' A<-c(1,1); B<-c(2,0); C<-c(1.5,2);
-#' #try also the following
-#' #A<-runif(2); B<-runif(2); C<-runif(2);
-#' #A<-runif(2,1,100); B<-runif(2,1,100); C<-runif(2,1,100);
-#'
 #' Tr<-rbind(A,B,C)
 #' del<-.4
 #'
@@ -3037,12 +2946,12 @@ rascTe<-function(k,eps)
 #' plot(Tr,pch=".",xlab="",ylab="",xlim=Xlim+xd*c(-.05,.05),ylim=Ylim+yd*c(-.05,.05))
 #' polygon(Tr)
 #' points(dat)
-#' xc<-Tr[,1]
-#' yc<-Tr[,2]
+#' xc<-Tr[,1]+c(-.01,.01,.01)
+#' yc<-Tr[,2]+c(.02,.02,.02)
 #' txt.str<-c("A","B","C")
 #' text(xc,yc,txt.str)
 #'
-#' dat.fr<-data.frame(a=Tr) #this works fine
+#' dat.fr<-data.frame(a=Tr)
 #' rasc.tri(n,dat.fr,del)
 #'
 #' @export
@@ -3139,8 +3048,8 @@ rasc.tri<-function(k,tri,delta)
 #' @examples
 #' A<-c(0,0); B<-c(1,0); C<-c(1/2,sqrt(3)/2);
 #' Te<-rbind(A,B,C);
-#' n<-10 #try also n<-20 #try also n<-100 or 1000
-#' eps<-.2 #try also .25, .1
+#' n<-10  #try also n<-20 or n<-100 or 1000
+#' eps<-.2  #try also .25, .1
 #'
 #' set.seed(1)
 #' Xdt<-rascIITe(n,eps)
@@ -3177,7 +3086,7 @@ rascIITe<-function(k,eps)
   if (!is.point(eps,1) || eps<=0 || eps>=sqrt(3)/6 )
   {stop('eps must be a scalar in (0,sqrt(3)/6=0.2886751)')}
 
-  Y<-rbind(c(0,0),c(1,0),c(1/2,sqrt(3)/2))#std eq triangle
+  Y<-rbind(c(0,0),c(1,0),c(1/2,sqrt(3)/2))  #std eq triangle
   ny<-nrow(Y)
 
   X <-matrix(0,k,2);
@@ -3263,12 +3172,6 @@ rascIITe<-function(k,eps)
 #'
 #' @examples
 #' A<-c(1.1,1.2); B<-c(2.3,3.4); p<-c(.51,2.5)
-#' #try also the following
-#' #A<-runif(2); B<-runif(2); p<-runif(2)
-#' #A<-runif(2,1,100); B<-runif(2,1,100); p<-runif(2,1,100);
-#' #A<-c(1,1); B<-c(1,2) #perpendicular line is horizontal
-#' #A<-c(1,2); B<-c(2,2) #perpendicular line is vertical
-#' #p<-(A+B)/2
 #'
 #' perpline(p,A,B,.45)
 #' perpline(A,A,B,.45)
@@ -3276,7 +3179,7 @@ rascIITe<-function(k,eps)
 #' pts<-rbind(A,B,p)
 #' xr<-range(pts)
 #' xf<-(xr[2]-xr[1])*.25 #how far to go at the lower and upper ends in the x-coordinate
-#' x<-seq(xr[1]-xf,xr[2]+xf,l=20) #try also l=100
+#' x<-seq(xr[1]-xf,xr[2]+xf,l=20)  #try also l=100
 #'
 #' plnAB<-perpline(p,A,B,x)
 #' plnAB
@@ -3404,12 +3307,11 @@ NULL
 #' @rdname funsRankOrderTe
 #'
 #' @examples
-#' #Examples for rank.d2e.Te
 #' \donttest{
+#' #Examples for rank.d2e.Te
 #' n<-20
 #' set.seed(1)
 #' dat<-runifTe(n)$gen.points
-#' #try also #dat<-cbind(runif(n),runif(n))
 #'
 #' dec.dist<-rank.d2e.Te(dat)
 #' dec.dist
@@ -3485,12 +3387,11 @@ rank.d2e.Te<-function(Dt,dec=TRUE)
 #' @rdname funsRankOrderTe
 #'
 #' @examples
-#' #Examples for order.d2e.Te
 #' \donttest{
+#' #Examples for order.d2e.Te
 #' n<-20
 #' set.seed(1)
-#' dat<-runifTe(n)$gen.points
-#' #try also #dat<-cbind(runif(n),runif(n))
+#' dat<-runifTe(n)$gen.points  #try also dat<-cbind(runif(n),runif(n))
 #'
 #' dec.dist<-order.d2e.Te(dat)
 #' dec.dist
@@ -3579,7 +3480,7 @@ order.d2e.Te<-function(Dt,dec=TRUE)
 #'
 #' @examples
 #' A<-c(0,0); B<-c(1,0); C<-c(1/2,sqrt(3)/2);
-#' Te<-rbind(A,B,C) #try adding +10^(-16) to each vertex
+#' Te<-rbind(A,B,C)  #try adding +10^(-16) to each vertex
 #' isStdEqTri(Te)
 #'
 #' isStdEqTri(Te)
@@ -3685,17 +3586,19 @@ isStdEqTri<-function(tri)
 #'
 #' radii(c(1,2),c(2,3))
 #'
-#' \donttest{
+#' \dontrun{
 #' nx<-10
 #' ny<-5
 #' X<-runif(nx)
 #' Y<-runif(ny)
-#' radii(X,Y) #this does not work, as X and Y are treated as vectors (i.e. points)
+#' radii(X,Y)  #this does not work, as X and Y are treated as vectors (i.e. points)
+#' }
 #'
+#' nx<-10
+#' ny<-5
 #' X<-as.matrix(X)
 #' Y<-as.matrix(Y)
-#' radii(X,Y) #this works as X and Y are treated as 1D data sets
-#' }
+#' radii(X,Y)  #this works as X and Y are treated as 1D data sets
 #'
 #' nx<-10
 #' ny<-5
@@ -3766,7 +3669,6 @@ radii<-function(x,y)
 #'
 #' @examples
 #' A<-c(1,1); B<-c(2,0); C<-c(1.5,2);
-#' #try also #A<-runif(2); B<-runif(2); C<-runif(2);
 #'
 #' ny<-10
 #' Y<-cbind(runif(ny),runif(ny))
@@ -3853,10 +3755,6 @@ radius<-function(pt,Y)
 #'
 #' @examples
 #' A<-c(1,1); B<-c(2,0); C<-c(1.6,2);
-#' #try also the following
-#' #A<-runif(2); B<-runif(2); C<-runif(2)
-#' #A<-runif(2,1,100); B<-runif(2,1,100); C<-runif(2,1,100);
-#'
 #' Tr<-rbind(A,B,C);
 #' P<-c(1.4,1.2)
 #' rv.triCM(P,Tr)
@@ -3867,11 +3765,8 @@ radius<-function(pt,Y)
 #' P<-c(1.5,1.6)
 #' rv.triCM(P,Tr)
 #'
-#' n<-10 #try also n<-20
+#' n<-10  #try also n<-20
 #' dat<-runif.tri(n,Tr)$g
-#' #try also the following
-#' #dat<-cbind(runif(n,1,2),runif(n,0,2))
-#' #dat<-cbind(runif(n),runif(n))
 #'
 #' Rv<-vector()
 #' for (i in 1:n)
@@ -3895,8 +3790,8 @@ radius<-function(pt,Y)
 #' text(dat,labels=factor(Rv))
 #'
 #' txt<-rbind(Tr,CM,D1,D2,D3)
-#' xc<-txt[,1]
-#' yc<-txt[,2]
+#' xc<-txt[,1]+c(-.02,.02,.02,-.02,.02,-.01,-.01)
+#' yc<-txt[,2]+c(-.02,-.04,.06,-.02,.02,.06,-.06)
 #' txt.str<-c("rv=1","rv=2","rv=3","CM","D1","D2","D3")
 #' text(xc,yc,txt.str)
 #'
@@ -3958,7 +3853,7 @@ rv.triCM<-function(p,tri)
       {rv<-3}
     }
   }
-  row.names(tri)<-c("vertex 1","vertex 2","vertex 3") #vertex labelling
+  row.names(tri)<-c("vertex 1","vertex 2","vertex 3")  #vertex labelling
 
   list(rv=rv, #relative vertex
        tri=tri #vertex labelling
@@ -4007,7 +3902,6 @@ rv.triCM<-function(p,tri)
 #' as.bastri(rbind(B,A,C))
 #'
 #' A<-runif(2); B<-runif(2); C<-runif(2)
-#' #try also #A<-runif(2,1,100); B<-runif(2,1,100); C<-runif(2,1,100);
 #' as.bastri(rbind(A,B,C))
 #'
 #' dat.fr<-data.frame(a=rbind(A,B,C))
@@ -4031,7 +3925,7 @@ as.bastri<-function(tri)
 
   orig.ord<-c(setdiff(1:3,vord[2,]),setdiff(1:3,vord[3,]),setdiff(1:3,vord[1,]))
   Tr<-rbind(A,B,C)
-  row.names(Tr)<-c("A","B","C") #vertex labelling
+  row.names(Tr)<-c("A","B","C")  #vertex labelling
   edge.desc<-"Edges (in decreasing length are) AB, BC, and AC"
 
   list(tri=Tr, #vertex labelling
@@ -4072,10 +3966,6 @@ NULL
 #' #Examples for cart2bary
 #' c1<-.4; c2<-.6
 #' A<-c(0,0); B<-c(1,0); C<-c(c1,c2);
-#' #try also the following
-#' #A<-runif(2); B<-runif(2); C<-runif(2)
-#' #A<-runif(2,1,100); B<-runif(2,1,100); C<-runif(2,1,100);
-#'
 #' Tr<-rbind(A,B,C)
 #'
 #' cart2bary(A,Tr)
@@ -4126,10 +4016,6 @@ cart2bary<-function(P,tri)
 #' #Examples for bary2cart
 #' c1<-.4; c2<-.6
 #' A<-c(0,0); B<-c(1,0); C<-c(c1,c2);
-#' #try also the following
-#' #A<-runif(2); B<-runif(2); C<-runif(2)
-#' #A<-runif(2,1,100); B<-runif(2,1,100); C<-runif(2,1,100);
-#'
 #' Tr<-rbind(A,B,C)
 #'
 #' bary2cart(c(.3,.2,.5),Tr)
@@ -4170,9 +4056,9 @@ bary2cart<-function(P,tri)
   if (!is.numeric(tri) || nrow(tri)!=3 || ncol(tri)!=2)
   {stop('tri must be numeric and of dimension 3x2')}
 
-  P<-P/sum(P) #normalized barycentric coordinates
+  P<-P/sum(P)  #normalized barycentric coordinates
   R<-t(tri)
-  cc<-R %*% matrix(P) #Cartesian coordinates
+  cc<-R %*% matrix(P)  #Cartesian coordinates
   as.vector(cc)
 } #end of the function
 #'
@@ -4243,11 +4129,8 @@ bary2cart<-function(P,tri)
 #' rv.bastriCM(D2,c1,c2)
 #' rv.bastriCM(D3,c1,c2)
 #'
-#' n<-10 #try also n<-20
+#' n<-10  #try also n<-20
 #' dat<-runif.bastri(n,c1,c2)$g
-#' #try also the following
-#' #dat<-cbind(runif(n),runif(n))
-#' #dat<-cbind(runif(n,1,2),runif(n,0,1))
 #'
 #' Rv<-vector()
 #' for (i in 1:n)
@@ -4350,7 +4233,7 @@ rv.bastriCM<-function(p,c1,c2)
       }
     }
   }
-  row.names(Tb)<-c("vertex 1","vertex 2","vertex 3") #vertex labelling
+  row.names(Tb)<-c("vertex 1","vertex 2","vertex 3")  #vertex labelling
 
   list(rv=rv, #relative vertex
        tri=Tb #vertex labelling
@@ -4377,15 +4260,11 @@ rv.bastriCM<-function(p,c1,c2)
 #'
 #' @examples
 #' A<-c(0,0); B<-c(1,0); C<-c(0.5,.8);
-#' #try also the following
-#' #A<-runif(2); B<-runif(2); C<-runif(2)
-#' #A<-runif(2,1,100); B<-runif(2,1,100); C<-runif(2,1,100);
-#'
 #' Tr<-rbind(A,B,C);
 #' area.polygon(Tr)
 #'
 #' A<-c(0,0); B<-c(1,0); C<-c(.7,.6); D<-c(0.3,.8);
-#' h1<-rbind(A,B,C,D); #try also #h1<-rbind(A,B,D,C); #h1<-rbind(A,C,B,D) #h1<-rbind(A,D,C,B);
+#' h1<-rbind(A,B,C,D);  #try also h1<-rbind(A,B,D,C) or h1<-rbind(A,C,B,D) or h1<-rbind(A,D,C,B);
 #' area.polygon(h1)
 #'
 #' Xlim<-range(h1[,1])
@@ -4403,12 +4282,10 @@ rv.bastriCM<-function(p,c1,c2)
 #' dat.fr<-data.frame(a=Tr)
 #' area.polygon(dat.fr)
 #'
-#' \donttest{
-#' #when the triangle is degenerate
+#' #when the triangle is degenerate, it gives zero area
 #' B<-A+2*(C-A);
 #' T2<-rbind(A,B,C)
 #' area.polygon(T2)
-#' }
 #'
 #' @export area.polygon
 area.polygon<-function(h)
@@ -4462,10 +4339,6 @@ area.polygon<-function(h)
 #'
 #' @examples
 #' A<-c(1,1); B<-c(2,0); C<-c(1.5,2);
-#' #try also the following
-#' #A<-runif(2); B<-runif(2); C<-runif(2)
-#' #A<-runif(2,1,100); B<-runif(2,1,100); C<-runif(2,1,100);
-#'
 #' Tr<-rbind(A,B,C);
 #' P<-c(1.4,1.2)
 #' re.triCM(P,Tr)
@@ -4483,11 +4356,8 @@ area.polygon<-function(h)
 #' re.triCM(C,Tr)
 #' re.triCM(CM,Tr)
 #'
-#' n<-10 #try also n<-20
+#' n<-10  #try also n<-20
 #' dat<-runif.tri(n,Tr)$g
-#' #try also the following
-#' #dat<-cbind(runif(n,1,2),runif(n,0,2))
-#' #dat<-cbind(runif(n),runif(n))
 #'
 #' re<-vector()
 #' for (i in 1:n)
@@ -4522,8 +4392,8 @@ area.polygon<-function(h)
 #' segments(L[,1], L[,2], R[,1], R[,2], lty=2)
 #'
 #' txt<-rbind(Tr,CM,p1,p2,p3)
-#' xc<-txt[,1]
-#' yc<-txt[,2]
+#' xc<-txt[,1]+c(-.02,.02,.02,.02)
+#' yc<-txt[,2]+c(.02,.02,.04,.05)
 #' txt.str<-c("A","B","C","CM","re=3","re=1","re=2")
 #' text(xc,yc,txt.str)
 #'
@@ -4564,7 +4434,7 @@ re.triCM<-function(pt,tri)
     } else
     {reled<-2}
   }
-  row.names(tri)<-c("A","B","C") #vertex labelling
+  row.names(tri)<-c("A","B","C")  #vertex labelling
   edge.desc<-"Edge labels are AB=3, BC=1, and AC=2"
 
   list(re=reled, #relative edge
@@ -4608,18 +4478,10 @@ re.triCM<-function(pt,tri)
 #'
 #' @examples
 #' A<-c(1,1); B<-c(2,0); C<-c(1.5,2);
-#' #try also the following
-#' #A<-runif(2); B<-runif(2); C<-runif(2)
-#' #A<-runif(2,1,100); B<-runif(2,1,100); C<-runif(2,1,100);
-#'
 #' Tr<-rbind(A,B,C);
 #'
 #' P<-c(1.4,1.2)
-#' M<-as.numeric(runif.tri(1,Tr)$g)
-#' #try also the following
-#' #M<-c(1.6,1.2)
-#' #M<-circ.cent.tri(Tr); #M<-"CC"; #M<-"CM"
-#' #M<-c(1,1,1) #M<-c(1,2,3) #M<-c(-1,2,3) #barycentric coordinates
+#' M<-as.numeric(runif.tri(1,Tr)$g)  #try also M<-c(1.6,1.2)
 #'
 #' re.tri.cent(P,Tr,M)
 #'
@@ -4634,11 +4496,8 @@ re.triCM<-function(pt,tri)
 #' re.tri.cent(C,Tr,M)
 #' re.tri.cent(M,Tr,M)
 #'
-#' n<-10 #try also n<-20
+#' n<-10  #try also n<-20
 #' dat<-runif.tri(n,Tr)$g
-#' #try also the following
-#' #dat<-cbind(runif(n,1,2),runif(n,0,2))
-#' #dat<-cbind(runif(n),runif(n))
 #'
 #' re<-vector()
 #' for (i in 1:n)
@@ -4675,8 +4534,8 @@ re.triCM<-function(pt,tri)
 #' segments(L[,1], L[,2], R[,1], R[,2], lty=2)
 #'
 #' txt<-rbind(Tr,M,p1,p2,p3)
-#' xc<-txt[,1]
-#' yc<-txt[,2]
+#' xc<-txt[,1]+c(-.02,.02,.02,.02)
+#' yc<-txt[,2]+c(.02,.02,.04,.05)
 #' txt.str<-c("A","B","C","M","re=3","re=1","re=2")
 #' text(xc,yc,txt.str)
 #'
@@ -4723,7 +4582,7 @@ re.tri.cent<-function(pt,tri,M)
       else reled<-2
     }
   }
-  row.names(tri)<-c("A","B","C") #vertex labelling
+  row.names(tri)<-c("A","B","C")  #vertex labelling
   edge.desc<-"Edge labels are AB=3, BC=1, and AC=2"
 
   list(re=reled, #relative edge
@@ -4795,10 +4654,8 @@ re.tri.cent<-function(pt,tri,M)
 #' re.bastriCM(C,c1,c2)
 #' re.bastriCM(CM,c1,c2)
 #'
-#' n<-10 #try also n<-20
+#' n<-10  #try also n<-20
 #' dat<-runif.bastri(n,c1,c2)$g
-#' #dat<-cbind(runif(n),runif(n))
-#' #dat<-cbind(runif(n,1,2),runif(n,0,1))
 #'
 #' re<-vector()
 #' for (i in 1:n)
@@ -4853,7 +4710,7 @@ re.bastriCM<-function(pt,c1,c2)
       else reled<-2
     }
   }
-  row.names(Tb)<-c("A","B","C") #vertex labelling
+  row.names(Tb)<-c("A","B","C")  #vertex labelling
   edge.desc<-"Edge labels are AB=3, BC=1, and AC=2"
 
   list(re=reled, #relative edge
@@ -4932,18 +4789,10 @@ re.bastriCM<-function(pt,c1,c2)
 #' re.bastri.cent(C,c1,c2,M)
 #' re.bastri.cent(M,c1,c2,M)
 #'
-#' n<-10 #try also n<-20
+#' n<-10  #try also n<-20
 #' dat<-runif.bastri(n,c1,c2)$g
-#' #try also the following
-#' #dat<-cbind(runif(n),runif(n))
-#' #dat<-cbind(runif(n,1,2),runif(n,0,1))
 #'
-#' M<-as.numeric(runif.bastri(1,c1,c2)$g)
-#' #try also the following
-#' #M<-c(.6,.2)
-#' #M<-c(1,1,1) #M<-c(1,2,3) #M<-c(-1,2,3) #barycentric coordinates
-#' #M<-c(1.3,1.3)
-#' #M<-c(.3,.3)
+#' M<-as.numeric(runif.bastri(1,c1,c2)$g)  #try also M<-c(.6,.2)
 #'
 #' re<-vector()
 #' for (i in 1:n)
@@ -5008,7 +4857,7 @@ re.bastri.cent<-function(pt,c1,c2,M)
       else reled<-2
     }
   }
-  row.names(Tb)<-c("A","B","C") #vertex labelling
+  row.names(Tb)<-c("A","B","C")  #vertex labelling
   edge.desc<-"Edge labels are AB=3, BC=1, and AC=2"
 
   list(re=reled, #relative edge
@@ -5073,11 +4922,8 @@ re.bastri.cent<-function(pt,c1,c2,M)
 #' CM<-(A+B+C)/3
 #' reTeCM(CM)
 #'
-#' n<-10 #try also n<-20
+#' n<-10  #try also n<-20
 #' dat<-runifTe(n)$gen.points
-#' #try also the following
-#' #dat<-cbind(runif(n),runif(n))
-#' #dat<-cbind(runif(n,1,2),runif(n,0,1))
 #'
 #' re<-vector()
 #' for (i in 1:n)
@@ -5136,7 +4982,7 @@ reTeCM<-function(pt)
       reled<-ifelse (pt[1]>=1/2, 1, 2)
     }
   }
-  row.names(Te)<-c("A","B","C") #vertex labelling
+  row.names(Te)<-c("A","B","C")  #vertex labelling
   edge.desc<-"Edge labels are AB=3, BC=1, and AC=2"
 
   list(re=reled, #relative edge
@@ -5191,9 +5037,6 @@ reTeCM<-function(pt)
 #' \donttest{
 #' n<-20
 #' dat<-runifTe(n)$gen.points
-#' #try also the following
-#' #dat<-cbind(runif(n),runif(n))
-#' #dat<-cbind(runif(n,1,2),runif(n,0,1))
 #'
 #' Ext<-fr2eTeER(dat)
 #' Ext
@@ -5273,7 +5116,7 @@ fr2eTeER<-function(Dt,ch.all.intri=FALSE)
     }
   }
 
-  row.names(Te)<-c("A","B","C") #vertex labelling
+  row.names(Te)<-c("A","B","C")  #vertex labelling
 
   typ<-"Furthest Points from Edges among Data Points, Dt, in CM-Edge Regions in the Standard Equilateral Triangle T=(A,B,C) with A=(0,0), B=(1,0), and C=(1/2,sqrt{3}/2)"
   txt1<-"Edge Labels are AB=3, BC=1, and AC=2 (corresponds to row number in Extrema Points)"
@@ -5292,7 +5135,7 @@ fr2eTeER<-function(Dt,ch.all.intri=FALSE)
   for (i in 1:length(Regs))
   { Reg.Cent<-rbind(Reg.Cent,apply(Regs[[i]],2,mean))}
 
-  Reg.names<-c("er=1","er=2","er=3") #regions names
+  Reg.names<-c("er=1","er=2","er=3")  #regions names
 
   res<-list(
     txt1=txt1, txt2=txt2,
@@ -5363,11 +5206,8 @@ fr2eTeER<-function(Dt,ch.all.intri=FALSE)
 #' \insertAllCited{}
 #'
 #' @examples
-#' n<-10 #try also n<-20
+#' n<-10  #try also n<-20
 #' dat<-runifTe(n)$gen.points
-#' #try also the following
-#' #dat<-cbind(runif(n),runif(n))
-#' #dat<-cbind(runif(n,1,2),runif(n,0,1))
 #'
 #' Ext<-cl2edgesTe(dat)
 #' Ext
@@ -5451,7 +5291,7 @@ cl2edgesTe<-function(Dt,ch.all.intri=FALSE)
     }
   }
 
-  row.names(Te)<-c("A","B","C") #vertex labelling
+  row.names(Te)<-c("A","B","C")  #vertex labelling
   typ<-"Closest Points to Edges in the Standard Equilateral Triangle Te=T(A,B,C) with Vertices A=(0,0), B=(1,0), and C=(1/2,sqrt{3}/2)"
   txt1<-"Edge labels are AB=3, BC=1, and AC=2 (corresponds to row number in Extrema Points)"
   txt2<-"Distances to Edges in the Standard Equilateral Triangle \n (Row i corresponds to edge i for i=1,2,3)"
@@ -5546,10 +5386,8 @@ cl2edgesTe<-function(Dt,ch.all.intri=FALSE)
 #' txt.str<-c("A","B","C","CM","1","2","3","4","5","6")
 #' text(xc,yc,txt.str)
 #'
-#' n<-10 #try also n<-40
+#' n<-10  #try also n<-40
 #' dat<-runifTe(n)$gen.points
-#' #dat<-cbind(runif(n),runif(n))
-#' #dat<-cbind(runif(n,1,2),runif(n,0,1))
 #'
 #' Xlim<-range(Te[,1],dat[,1])
 #' Ylim<-range(Te[,2],dat[,2])
@@ -5659,11 +5497,8 @@ rel.six.Te<-function(Pt)
 #'
 #' @examples
 #' \donttest{
-#' n<-10 #try also n<-100
+#' n<-10  #try also n<-100
 #' dat<-runifTe(n)$gen.points
-#' #try also the following
-#' #dat<-cbind(runif(n),runif(n))
-#' #dat<-cbind(runif(n,1,2),runif(n,0,1))
 #'
 #' Ext<-six.ext(dat)
 #' Ext
@@ -5672,10 +5507,6 @@ rel.six.Te<-function(Pt)
 #'
 #' six.ext(dat[1:5,])$Ext
 #' sixt<-six.ext(dat)
-#'
-#' dat2<-rbind(dat,c(.8,.8))
-#' six.ext(dat2)
-#' six.ext(dat2,ch.all.intri = TRUE)
 #'
 #' A<-c(0,0); B<-c(1,0); C<-c(0.5,sqrt(3)/2);
 #' Te<-rbind(A,B,C)
@@ -5710,6 +5541,14 @@ rel.six.Te<-function(Pt)
 #'
 #' dat.fr<-data.frame(a=dat)
 #' six.ext(dat.fr)
+#'
+#' dat2<-rbind(dat,c(.8,.8))
+#' six.ext(dat2)
+#' }
+#'
+#' \dontrun{
+#' six.ext(dat2,ch.all.intri = TRUE)
+#' #gives an error message since not all data points are in the std equilateral triangle
 #' }
 #'
 six.ext<-function(Dt,ch.all.intri=FALSE)
@@ -5750,13 +5589,13 @@ six.ext<-function(Dt,ch.all.intri=FALSE)
   }
   }
 
-  row.names(Te)<-c("A","B","C") #vertex labelling
+  row.names(Te)<-c("A","B","C")  #vertex labelling
   row.names(xc)<-c("closest to line segment (A,CM) in region r1:",
                    "closest to line segment (B,CM) in region r2:",
                    "closest to line segment (B,CM) in region r3:",
                    "closest to line segment (C,CM) in region r4:",
                    "closest to line segment (C,CM) in region r5:",
-                   "closest to line segment (A,CM) in region r6:") #extrema labelling
+                   "closest to line segment (A,CM) in region r6:")  #extrema labelling
   typ<-"Closest Points to Line Segments (A,CM), (B,CM), and (C,CM), in the six regions r1-r6 in the Standard Equilateral Triangle with Vertices A=(0,0), B=(1,0), and C=(1/2,sqrt{3}/2)"
   txt1<-"Region labels are r1-r6 (corresponding to row number in Extrema Points)"
   txt2<-"Distances to Line Segments (A,CM), (B,CM), and (C,CM) in the six regions r1-r6"
@@ -5779,7 +5618,7 @@ six.ext<-function(Dt,ch.all.intri=FALSE)
   for (i in 1:length(Regs))
   { Reg.Cent<-rbind(Reg.Cent,apply(Regs[[i]],2,mean))}
 
-  Reg.names<-c("r1","r2","r3","r4","r5","r6"," "," ") #regions names
+  Reg.names<-c("r1","r2","r3","r4","r5","r6"," "," ")  #regions names
 
   res<-list(
     txt1=txt1, txt2=txt2,
@@ -5844,18 +5683,18 @@ six.ext<-function(Dt,ch.all.intri=FALSE)
 #'
 #' @examples
 #' #nx is number of X points (target) and ny is number of Y points (nontarget)
-#' nx<-20; ny<-4; #try also nx<-1000; ny<-10;
+#' nx<-20; ny<-4;  #try also nx<-1000; ny<-10;
 #' set.seed(1)
 #' Yp<-cbind(runif(ny,0,10),runif(ny,0,10))
 #'
-#' Xdt<-runifMT(nx,Yp) #data under CSR in the convex hull of Ypoints
+#' Xdt<-runifMT(nx,Yp)  #data under CSR in the convex hull of Ypoints
 #' Xdt
 #' summary(Xdt)
 #' plot(Xdt)
 #'
 #' dat<-runifMT(nx,Yp)$g #data under CSR in the convex hull of Ypoints
 #' #or use
-#' DTY<-interp::tri.mesh(Yp[,1],Yp[,2],duplicate="remove") #Delaunay triangulation based on Y points
+#' DTY<-interp::tri.mesh(Yp[,1],Yp[,2],duplicate="remove")  #Delaunay triangulation based on Y points
 #' dat<-runifMT(nx,Yp,DTY)$g #data under CSR in the convex hull of Ypoints
 #'
 #' Xlim<-range(Yp[,1])
@@ -5985,12 +5824,12 @@ NULL
 #' Yp<-cbind(runif(ny),runif(ny))
 #'
 #' dat<-runifMT(nx,Yp)$g #data under CSR in the convex hull of Ypoints
-#' #try also #dat<-cbind(runif(nx),runif(nx))
+#' #try also dat<-cbind(runif(nx),runif(nx))
 #'
 #' ind.Del.tri(dat[10,],Yp)
 #'
 #' #or use
-#' DTY<-interp::tri.mesh(Yp[,1],Yp[,2],duplicate="remove") #Delaunay triangulation
+#' DTY<-interp::tri.mesh(Yp[,1],Yp[,2],duplicate="remove")  #Delaunay triangulation
 #' TRY<-interp::triangles(DTY)[,1:3];
 #' ind.Del.tri(dat[10,],Yp,DTY)
 #'
@@ -6008,7 +5847,7 @@ NULL
 #' xd<-Xlim[2]-Xlim[1]
 #' yd<-Ylim[2]-Ylim[1]
 #'
-#' DTY<-interp::tri.mesh(Yp[,1],Yp[,2],duplicate="remove") #Delaunay triangulation based on Y points
+#' DTY<-interp::tri.mesh(Yp[,1],Yp[,2],duplicate="remove")  #Delaunay triangulation based on Y points
 #'
 #' #plot of the data in the convex hull of Y points together with the Delaunay triangulation
 #' plot(dat,main=" ", xlab=" ", ylab=" ",xlim=Xlim+xd*c(-.05,.05),ylim=Ylim+yd*c(-.05,.05),type="n")
@@ -6040,11 +5879,11 @@ ind.Del.tri<-function(pt,Yp,DTmesh=NULL)
   {stop('Yp must be numeric and of dimension kx2 with k>=3')}
 
   if (is.null(DTmesh))
-  {DTmesh<-interp::tri.mesh(Yp[,1],Yp[,2],duplicate="remove") #Delaunay triangulation
+  {DTmesh<-interp::tri.mesh(Yp[,1],Yp[,2],duplicate="remove")  #Delaunay triangulation
   }
   DTr<-matrix(interp::triangles(DTmesh)[,1:3],ncol=3); #the Delaunay triangles
 
-  nt<-nrow(DTr) #number of Delaunay triangles;
+  nt<-nrow(DTr)  #number of Delaunay triangles;
 
   for (i in 1:nt)
   {
@@ -6061,19 +5900,19 @@ ind.Del.tri<-function(pt,Yp,DTmesh=NULL)
 #' @examples
 #' #Examples for indices.Del.tri
 #' #nx is number of X points (target) and ny is number of Y points (nontarget)
-#' nx<-20; ny<-4; #try also nx<-40; ny<-10 or nx<-1000; ny<-10;
+#' nx<-20; ny<-4;  #try also nx<-40; ny<-10 or nx<-1000; ny<-10;
 #'
 #' set.seed(1)
 #' Yp<-cbind(runif(ny),runif(ny))
 #' dat<-runifMT(nx,Yp)$g #data under CSR in the convex hull of Ypoints
-#' #try also #dat<-cbind(runif(nx),runif(nx))
+#' #try also dat<-cbind(runif(nx),runif(nx))
 #'
-#' tr.ind<-indices.Del.tri(dat,Yp) #indices of the Delaunay triangles
+#' tr.ind<-indices.Del.tri(dat,Yp)  #indices of the Delaunay triangles
 #' tr.ind
 #'
 #' #or use
-#' DTY<-interp::tri.mesh(Yp[,1],Yp[,2],duplicate="remove") #Delaunay triangulation based on Y points
-#' tr.ind<-indices.Del.tri(dat,Yp,DTY) #indices of the Delaunay triangles
+#' DTY<-interp::tri.mesh(Yp[,1],Yp[,2],duplicate="remove")  #Delaunay triangulation based on Y points
+#' tr.ind<-indices.Del.tri(dat,Yp,DTY)  #indices of the Delaunay triangles
 #' tr.ind
 #'
 #' Xlim<-range(Yp[,1],dat[,1])
@@ -6082,11 +5921,13 @@ ind.Del.tri<-function(pt,Yp,DTmesh=NULL)
 #' yd<-Ylim[2]-Ylim[1]
 #'
 #' #plot of the data in the convex hull of Y points together with the Delaunay triangulation
+#'
+#' oldpar <- par(mfrow = c(1,2))
 #' par(pty="s")
 #' plot(dat,main=" ", xlab=" ", ylab=" ",xlim=Xlim+xd*c(-.05,.05),ylim=Ylim+yd*c(-.05,.05),pch=".")
 #' interp::plot.triSht(DTY, add=TRUE, do.points = TRUE,pch=16,col="blue")
 #' text(dat,labels = factor(tr.ind) )
-#' par(pty="m")
+#' par(oldpar)
 #'
 #' Yp<-rbind(c(.3,.2),c(.4,.5),c(.14,.15))
 #' indices.Del.tri(c(.25,.25),Yp)
@@ -6149,10 +5990,10 @@ indices.Del.tri<-function(dat,Yp,DTmesh=NULL)
 #'
 #' @examples
 #' \donttest{
-#' #for the standard equilateral triangle
+#' #the standard equilateral triangle
 #' A<-c(0,0); B<-c(1,0); C<-c(1/2,sqrt(3)/2);
 #' Te<-rbind(A,B,C);
-#' delta<-.3 #try also .5,.75,.85
+#' delta<-.3  #try also .5,.75,.85
 #' seg.tri.supp(delta,Te)
 #'
 #' Tseg<-seg.tri.supp(delta,Te)
@@ -6162,6 +6003,7 @@ indices.Del.tri<-function(dat,Yp,DTmesh=NULL)
 #' xd<-Xlim[2]-Xlim[1]
 #' yd<-Ylim[2]-Ylim[1]
 #'
+#' oldpar <- par(mfrow = c(1,2))
 #' par(pty="s")
 #' plot(Te,pch=".",xlab="",ylab="",
 #' main="segregation support is the intersection\n of these two triangles"
@@ -6174,16 +6016,12 @@ indices.Del.tri<-function(dat,Yp,DTmesh=NULL)
 #' yc<-txt[,2]+c(.02,.02,.04,-.03,0,0)
 #' txt.str<-c("A","B","C","T1","T2","T3")
 #' text(xc,yc,txt.str)
-#' par(pty="m")
+#' par(oldpar)
 #'
 #' #for a general triangle
 #' A<-c(1,1); B<-c(2,0); C<-c(1.5,2);
-#' #try also the following
-#' #A<-runif(2); B<-runif(2); C<-runif(2)
-#' #A<-runif(2,1,100); B<-runif(2,1,100); C<-runif(2,1,100);
-#'
 #' Tr<-rbind(A,B,C);
-#' delta<-.3 #try also .5,.75,.85
+#' delta<-.3  #try also .5,.75,.85
 #' Tseg<-seg.tri.supp(delta,Tr)
 #'
 #' Xlim<-range(Tr[,1],Tseg[,1])
@@ -6191,6 +6029,7 @@ indices.Del.tri<-function(dat,Yp,DTmesh=NULL)
 #' xd<-Xlim[2]-Xlim[1]
 #' yd<-Ylim[2]-Ylim[1]
 #'
+#' oldpar <- par(mfrow = c(1,2))
 #' par(pty="s")
 #' plot(Tr,pch=".",xlab="",ylab="",
 #' main="segregation support is the intersection\n of these two triangles"
@@ -6199,11 +6038,11 @@ indices.Del.tri<-function(dat,Yp,DTmesh=NULL)
 #' polygon(Tseg,lty=2)
 #'
 #' txt<-rbind(Tr,Tseg)
-#' xc<-txt[,1]
-#' yc<-txt[,2]
+#' xc<-txt[,1]+c(-.03,.03,.03,.06,.04,-.04)
+#' yc<-txt[,2]+c(.02,.02,.04,-.03,0,0)
 #' txt.str<-c("A","B","C","T1","T2","T3")
 #' text(xc,yc,txt.str)
-#' par(pty="m")
+#' par(oldpar)
 #'
 #' dat.fr<-data.frame(a=Tr)
 #' seg.tri.supp(delta,dat.fr)
@@ -6302,7 +6141,7 @@ seg.tri.supp<-function(delta,tri)
 #'
 #' @examples
 #' #nx is number of X points (target) and ny is number of Y points (nontarget)
-#' nx<-20; ny<-4; #try also nx<-1000; ny<-10;
+#' nx<-20; ny<-4;  #try also nx<-1000; ny<-10;
 #'
 #' set.seed(1)
 #' Yp<-cbind(runif(ny),runif(ny))
@@ -6315,19 +6154,19 @@ seg.tri.supp<-function(delta,tri)
 #'
 #' Yp<-cbind(runif(ny),runif(ny))
 #' del<-.3 #try .5, .75, .85
-#' dat<-rsegMT(nx,Yp,del) #data under CSR in the convex hull of Ypoints
+#' dat<-rsegMT(nx,Yp,del)  #data under CSR in the convex hull of Ypoints
 #'
 #' #or use
-#' DTY<-interp::tri.mesh(Yp[,1],Yp[,2],duplicate="remove") #Delaunay triangulation based on Y points
-#' dat<-rsegMT(nx,Yp,del,DTY) #data under CSR in the convex hull of Ypoints
+#' DTY<-interp::tri.mesh(Yp[,1],Yp[,2],duplicate="remove")  #Delaunay triangulation based on Y points
+#' dat<-rsegMT(nx,Yp,del,DTY)  #data under CSR in the convex hull of Ypoints
 #'
 #' #or use
-#' DTY<-interp::tri.mesh(Yp[,1],Yp[,2],duplicate="remove") #Delaunay triangulation based on Y points
+#' DTY<-interp::tri.mesh(Yp[,1],Yp[,2],duplicate="remove")  #Delaunay triangulation based on Y points
 #' TRY<-interp::triangles(DTY)[,1:3];
-#' dat<-rsegMT(nx,Yp,del,DTr=TRY) #data under CSR in the convex hull of Ypoints
+#' dat<-rsegMT(nx,Yp,del,DTr=TRY)  #data under CSR in the convex hull of Ypoints
 #'
 #' #or use
-#' DTY<-interp::tri.mesh(Yp[,1],Yp[,2],duplicate="remove") #Delaunay triangulation based on Y points
+#' DTY<-interp::tri.mesh(Yp[,1],Yp[,2],duplicate="remove")  #Delaunay triangulation based on Y points
 #' TRY<-interp::triangles(DTY)[,1:3];
 #' dat<-rsegMT(nx,Yp,del,DTY,TRY)$gen.points #data under CSR in the convex hull of Ypoints
 #'
@@ -6337,13 +6176,14 @@ seg.tri.supp<-function(delta,tri)
 #' yd<-Ylim[2]-Ylim[1]
 #'
 #' #plot of the data in the convex hull of Y points together with the Delaunay triangulation
-#' DTY<-interp::tri.mesh(Yp[,1],Yp[,2],duplicate="remove") #Delaunay triangulation based on Y points
+#' DTY<-interp::tri.mesh(Yp[,1],Yp[,2],duplicate="remove")  #Delaunay triangulation based on Y points
 #'
+#' oldpar <- par(mfrow = c(1,2))
 #' par(pty="s")
 #' plot(dat,main=" ", xlab=" ", ylab=" ",xlim=Xlim+xd*c(-.05,.05),ylim=Ylim+yd*c(-.05,.05),type="n")
 #' interp::plot.triSht(DTY, add=TRUE, do.points=TRUE,col="blue")
 #' points(dat,pch=".",cex=3)
-#' par(pty="m")
+#' par(oldpar)
 #'
 #' Yp<-rbind(c(.3,.2),c(.4,.5),c(.14,.15))
 #' rsegMT(nx,Yp,del)
@@ -6368,7 +6208,7 @@ rsegMT<-function(n,Yp,delta,DTmesh=NULL,DTr=NULL)
   } else
   {
     if (is.null(DTmesh))
-    {DTmesh<-interp::tri.mesh(Yp[,1],Yp[,2],duplicate="remove") #Delaunay triangulation
+    {DTmesh<-interp::tri.mesh(Yp[,1],Yp[,2],duplicate="remove")  #Delaunay triangulation
     }
 
     if (is.null(DTr))
@@ -6488,7 +6328,7 @@ rsegMT<-function(n,Yp,delta,DTmesh=NULL,DTr=NULL)
 #' @examples
 #' \donttest{
 #' #nx is number of X points (target) and ny is number of Y points (nontarget)
-#' nx<-20; ny<-4; #try also nx<-40; ny<-10 or nx<-1000; ny<-10;
+#' nx<-20; ny<-4;  #try also nx<-40; ny<-10 or nx<-1000; ny<-10;
 #'
 #' set.seed(1)
 #' Yp<-cbind(runif(ny),runif(ny))
@@ -6501,19 +6341,19 @@ rsegMT<-function(n,Yp,delta,DTmesh=NULL,DTr=NULL)
 #'
 #' Yp<-cbind(runif(ny),runif(ny))
 #' del<-.3 #try .5, .75, .85
-#' dat<-rascMT(nx,Yp,del) #data under CSR in the convex hull of Ypoints
+#' dat<-rascMT(nx,Yp,del)  #data under CSR in the convex hull of Ypoints
 #'
 #' #or use
-#' DTY<-interp::tri.mesh(Yp[,1],Yp[,2],duplicate="remove") #Delaunay triangulation based on Y points
-#' dat<-rascMT(nx,Yp,del,DTY) #data under CSR in the convex hull of Ypoints
+#' DTY<-interp::tri.mesh(Yp[,1],Yp[,2],duplicate="remove")  #Delaunay triangulation based on Y points
+#' dat<-rascMT(nx,Yp,del,DTY)  #data under CSR in the convex hull of Ypoints
 #'
 #' #or use
-#' DTY<-interp::tri.mesh(Yp[,1],Yp[,2],duplicate="remove") #Delaunay triangulation based on Y points
+#' DTY<-interp::tri.mesh(Yp[,1],Yp[,2],duplicate="remove")  #Delaunay triangulation based on Y points
 #' TRY<-interp::triangles(DTY)[,1:3];
-#' dat<-rascMT(nx,Yp,del,DTr=TRY) #data under CSR in the convex hull of Ypoints
+#' dat<-rascMT(nx,Yp,del,DTr=TRY)  #data under CSR in the convex hull of Ypoints
 #'
 #' #or use
-#' DTY<-interp::tri.mesh(Yp[,1],Yp[,2],duplicate="remove") #Delaunay triangulation based on Y points
+#' DTY<-interp::tri.mesh(Yp[,1],Yp[,2],duplicate="remove")  #Delaunay triangulation based on Y points
 #' TRY<-interp::triangles(DTY)[,1:3];
 #' dat<-rascMT(nx,Yp,del,DTY,TRY)$g #data under CSR in the convex hull of Ypoints
 #'
@@ -6523,7 +6363,7 @@ rsegMT<-function(n,Yp,delta,DTmesh=NULL,DTr=NULL)
 #' yd<-Ylim[2]-Ylim[1]
 #'
 #' #plot of the data in the convex hull of Y points together with the Delaunay triangulation
-#' DTY<-interp::tri.mesh(Yp[,1],Yp[,2],duplicate="remove") #Delaunay triangulation based on Y points
+#' DTY<-interp::tri.mesh(Yp[,1],Yp[,2],duplicate="remove")  #Delaunay triangulation based on Y points
 #'
 #' plot(dat,main=" ", xlab=" ", ylab=" ",xlim=Xlim+xd*c(-.05,.05),ylim=Ylim+yd*c(-.05,.05),type="n")
 #' interp::plot.triSht(DTY, add=TRUE, do.points=TRUE,col="blue")
@@ -6553,7 +6393,7 @@ rascMT<-function(n,Yp,delta,DTmesh=NULL,DTr=NULL)
   } else
   {
     if (is.null(DTmesh))
-    {DTmesh<-interp::tri.mesh(Yp[,1],Yp[,2],duplicate="remove") #Delaunay triangulation
+    {DTmesh<-interp::tri.mesh(Yp[,1],Yp[,2],duplicate="remove")  #Delaunay triangulation
     }
 
     if (is.null(DTr))
@@ -6672,7 +6512,7 @@ dom.greedy<-function(Inc.Mat)
     max.ind<-which(rsums==max(rsums))
     sel.ind<-ifelse(length(max.ind)>1,sample(max.ind,1),max.ind)
     dom.ind<-c(dom.ind,vert.ind[sel.ind])
-    nghd<-which(inc.mat[sel.ind,]==1) #indices in the nghd of the max dominating vertex
+    nghd<-which(inc.mat[sel.ind,]==1)  #indices in the nghd of the max dominating vertex
     vert.ind<-vert.ind[-nghd]
     inc.mat1<-inc.mat[-nghd,]
     if (length(inc.mat1)>0)
@@ -6745,7 +6585,7 @@ IndUBdom<-function(Inc.Mat,k)
   {diag(inc.mat)<-1}
 
   xc<-combinat::combn(1:nr,k); N1<-choose(nr,k);
-  xc<-matrix(xc,ncol=N1) #required when N1=1
+  xc<-matrix(xc,ncol=N1)  #required when N1=1
   dom<-0; j<-1; ind.domset<-c();
   while (j<=N1 && dom==0)
   { ifelse(nrow(xc)==1,dom.check<-inc.mat[xc[,j],],dom.check<-apply(inc.mat[xc[,j],],2,sum))
@@ -6865,7 +6705,7 @@ dom.exact<-function(Inc.Mat)
 #' c1<-.4; c2<-.6;
 #' A<-c(0,0); B<-c(1,0); C<-c(c1,c2);  #the vertices of the basic triangle Tb
 #' Tb<-rbind(A,B,C)
-#' CC<-circ.cent.bastri(c1,c2) #the circumcenter
+#' CC<-circ.cent.bastri(c1,c2)  #the circumcenter
 #' CC
 #'
 #' D1<-(B+C)/2; D2<-(A+C)/2; D3<-(A+B)/2; #midpoints of the edges
@@ -6876,6 +6716,7 @@ dom.exact<-function(Inc.Mat)
 #' xd<-Xlim[2]-Xlim[1]
 #' yd<-Ylim[2]-Ylim[1]
 #'
+#' oldpar <- par(mfrow = c(1,2))
 #' par(pty="s")
 #' plot(A,pch=".",asp=1,xlab="",ylab="",axes=TRUE,xlim=Xlim+xd*c(-.05,.05),ylim=Ylim+yd*c(-.05,.05))
 #' polygon(Tb)
@@ -6888,13 +6729,13 @@ dom.exact<-function(Inc.Mat)
 #' yc<-txt[,2]+c(.02,.02,.03,-.03,.02,.04,-.03)
 #' txt.str<-c("A","B","C","CC","D1","D2","D3")
 #' text(xc,yc,txt.str)
-#' par(pty="m")
+#' par(oldpar)
 #'
 #' #for an obtuse triangle
 #' c1<-.4; c2<-.3;
 #' A<-c(0,0); B<-c(1,0); C<-c(c1,c2);  #the vertices of the basic triangle Tb
 #' Tb<-rbind(A,B,C)
-#' CC<-circ.cent.bastri(c1,c2) #the circumcenter
+#' CC<-circ.cent.bastri(c1,c2)  #the circumcenter
 #' CC
 #'
 #' D1<-(B+C)/2; D2<-(A+C)/2; D3<-(A+B)/2; #midpoints of the edges
@@ -6905,6 +6746,7 @@ dom.exact<-function(Inc.Mat)
 #' xd<-Xlim[2]-Xlim[1]
 #' yd<-Ylim[2]-Ylim[1]
 #'
+#' oldpar <- par(mfrow = c(1,2))
 #' par(pty="s")
 #' plot(A,pch=".",asp=1,xlab="",ylab="",axes=TRUE,xlim=Xlim+xd*c(-.05,.05),ylim=Ylim+yd*c(-.05,.05))
 #' polygon(Tb)
@@ -6917,7 +6759,7 @@ dom.exact<-function(Inc.Mat)
 #' yc<-txt[,2]+c(.02,.02,.04,-.03,.03,.04,.06)
 #' txt.str<-c("A","B","C","CC","D1","D2","D3")
 #' text(xc,yc,txt.str)
-#' par(pty="m")
+#' par(oldpar)
 #'
 #' @export circ.cent.bastri
 circ.cent.bastri<-function(c1,c2)
@@ -6950,13 +6792,9 @@ circ.cent.bastri<-function(c1,c2)
 #'
 #' @examples
 #' A<-c(1,1); B<-c(2,0); C<-c(1.5,2);
-#' #try also the following
-#' #A<-runif(2); B<-runif(2); C<-runif(2);
-#' #A<-runif(2,1,100); B<-runif(2,1,100); C<-runif(2,1,100);
-#'
 #' Tr<-rbind(A,B,C);  #the vertices of the triangle Tr
 #'
-#' CC<-circ.cent.tri(Tr) #the circumcenter
+#' CC<-circ.cent.tri(Tr)  #the circumcenter
 #' CC
 #'
 #' D1<-(B+C)/2; D2<-(A+C)/2; D3<-(A+B)/2; #midpoints of the edges
@@ -6967,6 +6805,7 @@ circ.cent.bastri<-function(c1,c2)
 #' xd<-Xlim[2]-Xlim[1]
 #' yd<-Ylim[2]-Ylim[1]
 #'
+#' oldpar <- par(mfrow = c(1,2))
 #' par(pty="s")
 #' plot(A,asp=1,pch=".",xlab="",ylab="",axes=TRUE,xlim=Xlim+xd*c(-.05,.05),ylim=Ylim+yd*c(-.05,.05))
 #' polygon(Tr)
@@ -6975,19 +6814,19 @@ circ.cent.bastri<-function(c1,c2)
 #' segments(L[,1], L[,2], R[,1], R[,2], lty=2)
 #'
 #' txt<-rbind(Tr,CC,Ds)
-#' xc<-txt[,1]
-#' yc<-txt[,2]
+#' xc<-txt[,1]+c(-.08,.08,.08,.12,-.09,-.1,-.09)
+#' yc<-txt[,2]+c(.02,-.02,.03,-.06,.02,.06,-.04)
 #' txt.str<-c("A","B","C","CC","D1","D2","D3")
 #' text(xc,yc,txt.str)
-#' par(pty="m")
+#' par(oldpar)
 #'
 #' A<-c(0,0); B<-c(1,0); C<-c(1/2,sqrt(3)/2);
-#' Te<-rbind(A,B,C);  #the vertices of the triangle T
-#' circ.cent.tri(Te) #the circumcenter
+#' Te<-rbind(A,B,C);  #the vertices of the equilateral triangle Te
+#' circ.cent.tri(Te)  #the circumcenter
 #'
 #' A<-c(0,0); B<-c(0,1); C<-c(2,0);
 #' Tr<-rbind(A,B,C);  #the vertices of the triangle T
-#' circ.cent.tri(Tr) #the circumcenter
+#' circ.cent.tri(Tr)  #the circumcenter
 #'
 #' dat.fr<-data.frame(a=Tr)
 #' circ.cent.tri(dat.fr)
@@ -7072,19 +6911,19 @@ NULL
 #' Tb<-rbind(A,B,C)
 #'
 #' xfence<-abs(A[1]-B[1])*.25 #how far to go at the lower and upper ends in the x-coordinate
-#' x<-seq(min(A[1],B[1])-xfence,max(A[1],B[1])+xfence,by=.1) #try also by=.01
+#' x<-seq(min(A[1],B[1])-xfence,max(A[1],B[1])+xfence,by=.1)  #try also by=.01
 #'
 #' lnD1CC<-lD1CCinTb(x,c1,c2)
 #' lnD1CC
 #' summary(lnD1CC)
 #' plot(lnD1CC)
 #'
-#' CC<-circ.cent.bastri(c1,c2) #the circumcenter
+#' CC<-circ.cent.bastri(c1,c2)  #the circumcenter
 #' CC
 #' D1<-(B+C)/2; D2<-(A+C)/2; D3<-(A+B)/2; #midpoints of the edges
 #' Ds<-rbind(D1,D2,D3)
 #'
-#' x1<-seq(0,1,by=.1) #try also by=.01
+#' x1<-seq(0,1,by=.1)  #try also by=.01
 #' y1<-lD1CCinTb(x1,c1,c2)$y
 #'
 #' Xlim<-range(Tb[,1],x1)
@@ -7107,7 +6946,7 @@ NULL
 #' text(.8,.5,"lD1CCinTb")
 #'
 #' c1<-.4; c2<-.6;
-#' x1<-seq(0,1,by=.1) #try also by=.01
+#' x1<-seq(0,1,by=.1)  #try also by=.01
 #' lD1CCinTb(x1,c1,c2)
 #' }
 #'
@@ -7166,19 +7005,19 @@ lD1CCinTb<-function(x,c1,c2)
 #' Tb<-rbind(A,B,C)
 #'
 #' xfence<-abs(A[1]-B[1])*.25 #how far to go at the lower and upper ends in the x-coordinate
-#' x<-seq(min(A[1],B[1])-xfence,max(A[1],B[1])+xfence,by=.1) #try also by=.01
+#' x<-seq(min(A[1],B[1])-xfence,max(A[1],B[1])+xfence,by=.1)  #try also by=.01
 #'
 #' lnD2CC<-lD2CCinTb(x,c1,c2)
 #' lnD2CC
 #' summary(lnD2CC)
 #' plot(lnD2CC)
 #'
-#' CC<-circ.cent.bastri(c1,c2) #the circumcenter
+#' CC<-circ.cent.bastri(c1,c2)  #the circumcenter
 #' CC
 #' D1<-(B+C)/2; D2<-(A+C)/2; D3<-(A+B)/2; #midpoints of the edges
 #' Ds<-rbind(D1,D2,D3)
 #'
-#' x2<-seq(0,1,by=.1) #try also by=.01
+#' x2<-seq(0,1,by=.1)  #try also by=.01
 #' y2<-lD2CCinTb(x2,c1,c2)$y
 #'
 #' Xlim<-range(Tb[,1],x1)
@@ -7283,7 +7122,7 @@ lD2CCinTb<-function(x,c1,c2)
 #' \insertAllCited{}
 #'
 #' @examples
-#' c1<-.4; c2<-.6; #try also #c1<-.5; c2<-.5;
+#' c1<-.4; c2<-.6;  #try also c1<-.5; c2<-.5;
 #'
 #' P<-c(.3,.2)
 #' rv.bastriCC(P,c1,c2)
@@ -7299,7 +7138,7 @@ lD2CCinTb<-function(x,c1,c2)
 #'
 #' A<-c(0,0);B<-c(1,0);C<-c(c1,c2);
 #' Tb<-rbind(A,B,C)
-#' CC<-circ.cent.bastri(c1,c2) #the circumcenter
+#' CC<-circ.cent.bastri(c1,c2)  #the circumcenter
 #' D1<-(B+C)/2; D2<-(A+C)/2; D3<-(A+B)/2;
 #' Ds<-rbind(D1,D2,D3)
 #'
@@ -7329,11 +7168,8 @@ lD2CCinTb<-function(x,c1,c2)
 #' txt.str<-c("rv=1","rv=2","rv=3")
 #' text(xc,yc,txt.str)
 #'
-#' n<-10 #try also n<-20
+#' n<-10  #try also n<-20
 #' dat<-runif.bastri(n,c1,c2)$g
-#' #try also the following
-#' #dat<-cbind(runif(n),runif(n))
-#' #dat<-cbind(runif(n,1,2),runif(n,0,1))
 #'
 #' Rv<-vector()
 #' for (i in 1:n)
@@ -7390,7 +7226,7 @@ rv.bastriCC<-function(p,c1,c2)
       {rv<-3}
     }
   }
-  row.names(Tb)<-c("vertex 1","vertex 2","vertex 3") #vertex labelling
+  row.names(Tb)<-c("vertex 1","vertex 2","vertex 3")  #vertex labelling
 
   list(rv=rv, #relative vertex
        tri=Tb #vertex labelling
@@ -7430,10 +7266,6 @@ rv.bastriCC<-function(p,c1,c2)
 #'
 #' @examples
 #' A<-c(1,1); B<-c(2,0); C<-c(1.5,2);
-#' #try also the following
-#' #A<-runif(2); B<-runif(2); C<-runif(2);
-#' #A<-runif(2,1,100); B<-runif(2,1,100); C<-runif(2,1,100);
-#'
 #' Tr<-rbind(A,B,C);
 #'
 #' P<-c(1.3,1.2)
@@ -7448,7 +7280,7 @@ rv.bastriCC<-function(p,c1,c2)
 #' P<-c(.5,.8)
 #' rv.triCC(P,Tr)
 #'
-#' CC<-circ.cent.tri(Tr) #the circumcenter
+#' CC<-circ.cent.tri(Tr)  #the circumcenter
 #' D1<-(B+C)/2; D2<-(A+C)/2; D3<-(A+B)/2;
 #' Ds<-rbind(D1,D2,D3)
 #'
@@ -7463,8 +7295,8 @@ rv.bastriCC<-function(p,c1,c2)
 #' segments(L[,1], L[,2], R[,1], R[,2], lty=2)
 #'
 #' txt<-rbind(Tr,CC,Ds)
-#' xc<-txt[,1]
-#' yc<-txt[,2]
+#' xc<-txt[,1]+c(-.07,.08,.06,.12,-.1,-.1,-.09)
+#' yc<-txt[,2]+c(.02,-.02,.03,.0,.02,.06,-.04)
 #' txt.str<-c("A","B","C","CC","D1","D2","D3")
 #' text(xc,yc,txt.str)
 #'
@@ -7478,11 +7310,8 @@ rv.bastriCC<-function(p,c1,c2)
 #' txt.str<-c("rv=1","rv=2","rv=3")
 #' text(xc,yc,txt.str)
 #'
-#' n<-10 #try also n<-20
+#' n<-10  #try also n<-20
 #' dat<-runif.tri(n,Tr)$g
-#' #try also the following
-#' #dat<-cbind(runif(n,1,2),runif(n,0,2))
-#' #dat<-cbind(runif(n),runif(n))
 #'
 #' Rv<-vector()
 #' for (i in 1:n)
@@ -7502,8 +7331,8 @@ rv.bastriCC<-function(p,c1,c2)
 #' text(dat,labels=factor(Rv))
 #'
 #' txt<-rbind(Tr,CC,Ds)
-#' xc<-txt[,1]
-#' yc<-txt[,2]
+#' xc<-txt[,1]+c(-.07,.08,.06,.12,-.1,-.1,-.09)
+#' yc<-txt[,2]+c(.02,-.02,.03,.0,.02,.06,-.04)
 #' txt.str<-c("A","B","C","CC","D1","D2","D3")
 #' text(xc,yc,txt.str)
 #'
@@ -7540,7 +7369,7 @@ rv.triCC<-function(p,tri)
     {mdt<-d1; rv<-i }
   }
   }
-  row.names(tri)<-c("vertex 1","vertex 2","vertex 3") #vertex labelling
+  row.names(tri)<-c("vertex 1","vertex 2","vertex 3")  #vertex labelling
 
   list(rv=rv, #relative vertex
        tri=tri #vertex labelling
@@ -7580,10 +7409,6 @@ rv.triCC<-function(p,tri)
 #'
 #' @examples
 #' A<-c(1,1); B<-c(2,0); C<-c(1.5,2);
-#' #try also the following
-#' #A<-runif(2); B<-runif(2); C<-runif(2);
-#' #A<-runif(2,1,100); B<-runif(2,1,100); C<-runif(2,1,100);
-#'
 #' Tr<-rbind(A,B,C);
 #'
 #' P<-c(.4,.2)
@@ -7595,12 +7420,9 @@ rv.triCC<-function(p,tri)
 #' P<-c(10.5,1.6)
 #' rverts.triCC(P,Tr)
 #'
-#' n<-10 #try also n<-20
+#' n<-10  #try also n<-20
 #' set.seed(1)
 #' dat<-runif.tri(n,Tr)$g
-#' #try also the following
-#' #dat<-cbind(runif(n,1,2),runif(n,0,1))
-#' #dat<-cbind(runif(n),runif(n))
 #'
 #' rverts.triCC(dat,Tr)
 #' rverts.triCC(rbind(dat,c(2,2)),Tr)
@@ -7629,8 +7451,8 @@ rv.triCC<-function(p,tri)
 #' text(xc,yc,txt.str)
 #'
 #' txt<-rbind(CC,Ds)
-#' xc<-txt[,1]
-#' yc<-txt[,2]
+#' xc<-txt[,1]+c(.04,.04,-.03,0)
+#' yc<-txt[,2]+c(-.07,.04,.06,-.08)
 #' txt.str<-c("CC","D1","D2","D3")
 #' text(xc,yc,txt.str)
 #'
@@ -7677,7 +7499,7 @@ rverts.triCC<-function(Dt,tri)
     }
   }
 
-  row.names(tri)<-c("vertex 1","vertex 2","vertex 3") #vertex labelling
+  row.names(tri)<-c("vertex 1","vertex 2","vertex 3")  #vertex labelling
 
   list(rv=ind.set, #relative vertices
        tri=tri #vertex labelling
@@ -7705,10 +7527,6 @@ rverts.triCC<-function(Dt,tri)
 #'
 #' @examples
 #' A<-c(.3,.2); B<-c(.6,.3); C<-c(1,1)
-#' #try also the following
-#' #A<-runif(2); B<-runif(2); C<-runif(2);
-#' #A<-runif(2,1,100); B<-runif(2,1,100); C<-runif(2,1,100);
-#'
 #' pts<-rbind(A,B,C)
 #'
 #' angle3pnts(A,B,C)
@@ -7752,7 +7570,7 @@ angle3pnts<-function(a,b,c,radian=TRUE)
   rhs<-sum(u*v)/(sqrt(sum(u*u))*sqrt(sum(v*v)))
 
   if  (radian==T)
-  {angle<-acos(rhs) #in radians
+  {angle<-acos(rhs)  #in radians
   } else
   {
     angle<-acos(rhs)*180/pi # in degrees
@@ -7788,9 +7606,6 @@ angle3pnts<-function(a,b,c,radian=TRUE)
 #'
 #' @examples
 #' A<-c(.3,.2); B<-c(.6,.3); C<-c(1,1)
-#' #try also the following
-#' #A<-runif(2); B<-runif(2); C<-runif(2);
-#' #A<-runif(2,1,100); B<-runif(2,1,100); C<-runif(2,1,100);
 #'
 #' pts<-rbind(A,B,C)
 #'
@@ -7877,7 +7692,7 @@ angle.str2end<-function(a,b,c,radian=TRUE)
   }
 
   if  (radian==T)
-  {angles<-c(st.ang,end.ang) #in radians
+  {angles<-c(st.ang,end.ang)  #in radians
   } else
   {
     angles<-c(st.ang,end.ang)*180/pi # in degrees
@@ -7885,7 +7700,7 @@ angle.str2end<-function(a,b,c,radian=TRUE)
   }
   list(
     small.arc.angles=angles, #angles are given so that arc between [ba] and [bc] is plotted in the smaller angle
-    ccw.arc.angles=c(A1,A2) #angles are given so that arc between [ba] and [bc] is plotted in counter-clockwise order,
+    ccw.arc.angles=c(A1,A2)  #angles are given so that arc between [ba] and [bc] is plotted in counter-clockwise order,
   )
 } #end of the function
 #'
@@ -7930,16 +7745,13 @@ angle.str2end<-function(a,b,c,radian=TRUE)
 #' int.circ.line(P1,P2,cent,rad=.78)
 #'
 #' #plot of the line and the circle
-#' A<-c(.3,.2); B<-c(.6,.3); cent<-c(1,1); rad<-2 #dp2l(cent,A,B)$dis, .3
-#' #try also the following
-#' #A<-runif(2); B<-runif(2); cent<-runif(2); rad<-runif(1)
-#' #A<-runif(2,1,100); B<-runif(2,1,100); cent<-runif(2,1,100); rad<-runif(2,1,100);
+#' A<-c(.3,.2); B<-c(.6,.3); cent<-c(1,1); rad<-2 #check dp2l(cent,A,B)$dis, .3
 #'
 #' IPs<-int.circ.line(A,B,cent,rad)
 #'
 #' xr<-range(A[1],B[1],cent[1])
 #' xf<-(xr[2]-xr[1])*.1 #how far to go at the lower and upper ends in the x-coordinate
-#' x<-seq(xr[1]-rad-xf,xr[2]+rad+xf,l=20) #try also l=100
+#' x<-seq(xr[1]-rad-xf,xr[2]+rad+xf,l=20)  #try also l=100
 #' lnAB<-Line(A,B,x)
 #' y<-lnAB$y
 #'
@@ -8076,20 +7888,14 @@ int.circ.line<-function(pt1,pt2,cent,rad)
 #' \insertAllCited{}
 #'
 #' @examples
-#' c1<-.4; c2<-.6 #c1<-.2; c2<-.2;
+#' c1<-.4; c2<-.6  #try also c1<-.2; c2<-.2;
 #' A<-c(0,0); B<-c(1,0); C<-c(c1,c2);
 #' Tb<-rbind(A,B,C)
 #'
-#' M<-as.numeric(runif.bastri(1,c1,c2)$g)
-#' #try also the following
-#' #M<-c(.6,.2)
-#' #M<-circ.cent.tri(Tb); #M<-"CC"; #M<-"CM"
-#' #M<-c(1,1,1) #M<-c(1,2,3) #M<-c(-1,2,3) #barycentric coordinates
-#' #M<-c(1.3,1.3)
-#' #M<-c(.3,.3)
+#' M<-as.numeric(runif.bastri(1,c1,c2)$g)  #try also M<-c(.6,.2)
 #'
-#' P1<-as.numeric(runif.bastri(1,c1,c2)$g);  #try also #P1<-c(.3,.2)
-#' NASbastri(P1,c1,c2) #default with M="CC"
+#' P1<-as.numeric(runif.bastri(1,c1,c2)$g);  #try also P1<-c(.3,.2)
+#' NASbastri(P1,c1,c2)  #default with M="CC"
 #' NASbastri(P1,c1,c2,M)
 #'
 #' #or try
@@ -8109,10 +7915,6 @@ int.circ.line<-function(pt1,pt2,cent,rad)
 #'
 #' #plot of the NAS region
 #' P1<-as.numeric(runif.bastri(1,c1,c2)$g);
-#' #try also the following
-#' #P1<-c(.13,.081) #P1<-c(.2,.1) #P1<-c(.4,.1) #P1<-c(.55,.1) #P1<-c(.6,.1) #P1<-c(.5,.3)
-#' #M<-as.numeric(runif.bastri(1,c1,c2)$g); P1<-as.numeric(runif.bastri(1,c1,c2)$g);
-#'
 #' CC<-circ.cent.bastri(c1,c2)
 #'
 #' if (isTRUE(all.equal(M,CC)) || identical(M,"CC"))
@@ -8207,7 +8009,7 @@ NASbastri<-function(pt,c1,c2,M="CC",rv=NULL,dec=4)
   }
 
   if (is.null(rv))
-  { rv<-ifelse(isTRUE(all.equal(M,circ.cent.tri(Tb)))==T,rv.bastriCC(pt,c1,c2)$rv,rv.bastri.cent(pt,c1,c2,M)$rv) #vertex region for pt
+  { rv<-ifelse(isTRUE(all.equal(M,circ.cent.tri(Tb)))==T,rv.bastriCC(pt,c1,c2)$rv,rv.bastri.cent(pt,c1,c2,M)$rv)  #vertex region for pt
   } else
   {  if (!is.numeric(rv) || sum(rv==c(1,2,3))!=1)
   {stop('vertex index, rv, must be 1, 2 or 3')}}
@@ -8433,19 +8235,11 @@ NASbastri<-function(pt,c1,c2,M="CC",rv=NULL,dec=4)
 #' P<-c(.5,.26)
 #' rv.bastri.cent(P,c1,c2,M)
 #'
-#' n<-10 #try also n<-20
+#' n<-10  #try also n<-20
 #' set.seed(1)
 #' dat<-runif.bastri(n,c1,c2)$g
-#' #try also the following
-#' #dat<-cbind(runif(n),runif(n))
-#' #dat<-cbind(runif(n,1,2),runif(n,0,1))
 #'
-#' M<-as.numeric(runif.bastri(1,c1,c2)$g)
-#' #try also the following
-#' #M<-c(.6,.2)
-#' #M<-c(1,1,1) #M<-c(1,2,3) #M<-c(-1,2,3) #barycentric coordinates
-#' #M<-c(1.3,1.3)
-#' #M<-c(.3,.3)
+#' M<-as.numeric(runif.bastri(1,c1,c2)$g)  #try also M<-c(.6,.2)
 #'
 #' Rv<-vector()
 #' for (i in 1:n)
@@ -8529,7 +8323,7 @@ rv.bastri.cent<-function(p,c1,c2,M)
       {rv<-3}
     }
   }
-  row.names(Tb)<-c("vertex 1","vertex 2","vertex 3") #vertex labelling
+  row.names(Tb)<-c("vertex 1","vertex 2","vertex 3")  #vertex labelling
 
   list(rv=rv, #relative vertex
        tri=Tb #vertex labelling
@@ -8572,12 +8366,7 @@ rv.bastri.cent<-function(p,c1,c2,M)
 #' A<-c(0,0); B<-c(1,0); C<-c(c1,c2);
 #' Tb<-rbind(A,B,C);
 #'
-#' M<-as.numeric(runif.bastri(1,c1,c2)$g)
-#' #try also the following
-#' #M<-c(.6,.2)
-#' #M<-c(1,1,1) #M<-c(1,2,3) #M<-c(-1,2,3) #barycentric coordinates
-#' #M<-c(1.3,1.3)
-#' #M<-c(.3,.3)
+#' M<-as.numeric(runif.bastri(1,c1,c2)$g)  #try also M<-c(.6,.2)
 #'
 #' cp2e.bastri(c1,c2,M)
 #'
@@ -8702,13 +8491,7 @@ cp2e.bastri<-function(c1,c2,M)
 #' A<-c(0,0); B<-c(1,0); C<-c(c1,c2);
 #' Tb<-rbind(A,B,C)
 #'
-#' M<-as.numeric(runif.bastri(1,c1,c2)$g)
-#' #try also the following
-#' #M<-c(.6,.2)
-#' #M<-circ.cent.tri(Tb); #M<-"CC"; #M<-"CM"
-#' #M<-c(1,1,1) #M<-c(1,2,3) #M<-c(-1,2,3) #barycentric coordinates
-#' #M<-c(1.3,1.3)
-#' #M<-c(.3,.3)
+#' M<-as.numeric(runif.bastri(1,c1,c2)$g)  #try also M<-c(.6,.2)
 #'
 #' P1<-as.numeric(runif.bastri(1,c1,c2)$g)
 #' P2<-as.numeric(runif.bastri(1,c1,c2)$g)
@@ -8776,7 +8559,7 @@ IndNASbastri<-function(pt1,pt2,c1,c2,M="CC",rv=NULL)
   {arc<-0; return(arc); stop}
 
   if (is.null(rv))
-  { rv<-ifelse(isTRUE(all.equal(M,circ.cent.tri(Tb)))==T,rv.bastriCC(pt1,c1,c2)$rv,rv.bastri.cent(pt1,c1,c2,M)$rv) #vertex region for pt
+  { rv<-ifelse(isTRUE(all.equal(M,circ.cent.tri(Tb)))==T,rv.bastriCC(pt1,c1,c2)$rv,rv.bastri.cent(pt1,c1,c2,M)$rv)  #vertex region for pt
   } else
   {  if (!is.numeric(rv) || sum(rv==c(1,2,3))!=1)
   {stop('vertex index, rv, must be 1, 2 or 3')}}
@@ -8840,20 +8623,11 @@ IndNASbastri<-function(pt1,pt2,c1,c2,M="CC",rv=NULL)
 #'
 #' @examples
 #' A<-c(1,1); B<-c(2,0); C<-c(1.5,2);
-#' #try also the following
-#' #A<-runif(2); B<-runif(2); C<-runif(2);
-#' #A<-runif(2,1,100); B<-runif(2,1,100); C<-runif(2,1,100);
 #' Tr<-rbind(A,B,C);
 #'
-#' M<-as.numeric(runif.tri(1,Tr)$g)
-#' #try also the following
-#' #M<-c(1.6,1.2)
-#' #M<-circ.cent.tri(Tr); #M<-"CC"; #M<-"CM"
-#' #M<-c(1,1,1) #M<-c(1,2,3) #M<-c(-1,2,3) #barycentric coordinates
-#' #M<-c(1.3,1.3)
-#' #M<-c(.3,.3)
+#' M<-as.numeric(runif.tri(1,Tr)$g)  #try also M<-c(.6,.2)
 #'
-#' P1<-as.numeric(runif.tri(1,Tr)$g) #try also #P1<-c(1.3,1.2)
+#' P1<-as.numeric(runif.tri(1,Tr)$g)  #try also P1<-c(1.3,1.2)
 #' NAStri(P1,Tr,M)
 #'
 #' #or try
@@ -8871,7 +8645,7 @@ IndNASbastri<-function(pt1,pt2,c1,c2,M="CC",rv=NULL)
 #' if (dimension(M)==3) {M<-bary2cart(M,Tr)}
 #' #need to run this when M is given in barycentric coordinates
 #'
-#' CC<-circ.cent.tri(Tr) #the circumcenter
+#' CC<-circ.cent.tri(Tr)  #the circumcenter
 #'
 #' if (isTRUE(all.equal(M,CC)) || identical(M,"CC"))
 #' {cent<-CC
@@ -8976,7 +8750,7 @@ NAStri<-function(pt,tri,M="CC",rv=NULL,dec=4)
   ifelse(Tr[2,2]>Tr[3,2],tri<-Tr[c(1,3,2),],tri<-Tr)   #arcs are provided in counter-clockwise
 
   if (is.null(rv))
-  { rv<-ifelse(isTRUE(all.equal(M,circ.cent.tri(tri)))==T,rv.triCC(pt,tri)$rv,rv.tri.cent(pt,tri,M)$rv) #vertex region for pt
+  { rv<-ifelse(isTRUE(all.equal(M,circ.cent.tri(tri)))==T,rv.triCC(pt,tri)$rv,rv.tri.cent(pt,tri,M)$rv)  #vertex region for pt
   } else
   {  if (!is.numeric(rv) || sum(rv==c(1,2,3))!=1)
   {stop('vertex index, rv, must be 1, 2 or 3')}}
@@ -9180,19 +8954,10 @@ NAStri<-function(pt,tri,M="CC",rv=NULL,dec=4)
 #'
 #' @examples
 #' A<-c(1,1); B<-c(2,0); C<-c(1.5,2);
-#' #try also the following
-#' #A<-runif(2); B<-runif(2); C<-runif(2);
-#' #A<-runif(2,1,100); B<-runif(2,1,100); C<-runif(2,1,100);
 #'
 #' Tr<-rbind(A,B,C);
 #'
-#' M<-as.numeric(runif.tri(1,Tr)$g)
-#' #try also the following
-#' #M<-c(1.6,1.2)
-#' #M<-circ.cent.tri(Tr); #M<-"CC"; #M<-"CM"
-#' #M<-c(1,1,1) #M<-c(1,2,3) #M<-c(-1,2,3) #barycentric coordinates
-#' #M<-c(1.3,1.3)
-#' #M<-c(.3,.3)
+#' M<-as.numeric(runif.tri(1,Tr)$g)  #try also M<-c(1.6,1.2)
 #'
 #' P1<-as.numeric(runif.tri(1,Tr)$g)
 #' P2<-as.numeric(runif.tri(1,Tr)$g)
@@ -9263,7 +9028,7 @@ IndNAStri<-function(pt1,pt2,tri,M="CC",rv=NULL)
   {arc<-0; return(arc); stop}
 
   if (is.null(rv))
-  { rv<-ifelse(isTRUE(all.equal(M,circ.cent.tri(tri)))==T,rv.triCC(pt1,tri)$rv,rv.tri.cent(pt1,tri,M)$rv) #vertex region for pt
+  { rv<-ifelse(isTRUE(all.equal(M,circ.cent.tri(tri)))==T,rv.triCC(pt1,tri)$rv,rv.tri.cent(pt1,tri,M)$rv)  #vertex region for pt
   } else
   {  if (!is.numeric(rv) || sum(rv==c(1,2,3))!=1)
   {stop('vertex index, rv, must be 1, 2 or 3')}}
@@ -9320,10 +9085,6 @@ IndNAStri<-function(pt1,pt2,tri,M="CC",rv=NULL)
 #'
 #' @examples
 #' A<-c(1,1); B<-c(2,0); C<-c(1.5,2);
-#' #try also the following
-#' #A<-runif(2); B<-runif(2); C<-runif(2);
-#' #A<-runif(2,1,100); B<-runif(2,1,100); C<-runif(2,1,100);
-#'
 #' Tr<-rbind(A,B,C);
 #' M<-c(1.6,1.0)
 #'
@@ -9335,21 +9096,13 @@ IndNAStri<-function(pt1,pt2,tri,M="CC",rv=NULL)
 #'
 #' P<-c(1.5,1.6)
 #' rv.tri.cent(P,Tr,M)
-#' #try also #rv.tri.cent(P,Tr,M=c(2,2)) #center is not in the interior of the triangle
+#' #try also rv.tri.cent(P,Tr,M=c(2,2))  #center is not in the interior of the triangle
 #'
-#' n<-10 #try also n<-20
+#' n<-10  #try also n<-20
 #' set.seed(1)
 #' dat<-runif.tri(n,Tr)$g
-#' #try also the following
-#' #dat<-cbind(runif(n,1,2),runif(n,0,2))
-#' #dat<-cbind(runif(n),runif(n))
 #'
-#' M<-as.numeric(runif.tri(1,Tr)$g)
-#' #try also the following
-#' #M<-c(1.6,1.0)
-#' #M<-c(1,1,1) #M<-c(1,2,3) #M<-c(-1,2,3) #barycentric coordinates
-#' #M<-c(1.3,1.3)
-#' #M<-c(.3,.3)
+#' M<-as.numeric(runif.tri(1,Tr)$g)  #try also M<-c(1.6,1.0)
 #'
 #' Rv<-vector()
 #' for (i in 1:n)
@@ -9379,8 +9132,8 @@ IndNAStri<-function(pt1,pt2,tri,M="CC",rv=NULL)
 #' text(xc,yc,txt.str)
 #'
 #' txt<-rbind(M,Ds)
-#' xc<-txt[,1]
-#' yc<-txt[,2]
+#' xc<-txt[,1]+c(-.02,.04,-.04,0)
+#' yc<-txt[,2]+c(-.02,.04,.05,-.08)
 #' txt.str<-c("M","D1","D2","D3")
 #' text(xc,yc,txt.str)
 #'
@@ -9438,7 +9191,7 @@ rv.tri.cent<-function(p,tri,M)
       {rv<-3}
     }
   }
-  row.names(tri)<-c("vertex 1","vertex 2","vertex 3") #vertex labelling
+  row.names(tri)<-c("vertex 1","vertex 2","vertex 3")  #vertex labelling
 
   list(rv=rv, #relative vertex
        tri=tri #vertex labelling
@@ -9471,20 +9224,11 @@ rv.tri.cent<-function(p,tri,M)
 #'
 #' @examples
 #' A<-c(1,1); B<-c(2,0); C<-c(1.5,2);
-#' #try also the following
-#' #A<-runif(2); B<-runif(2); C<-runif(2);
-#' #A<-runif(2,1,100); B<-runif(2,1,100); C<-runif(2,1,100);
-#'
 #' Tr<-rbind(A,B,C);
 #'
-#' M<-as.numeric(runif.tri(1,Tr)$g)
-#' #try also the following
-#' #M<-c(1.6,1.0)
-#' #M<-c(1,1,1) #M<-c(1,2,3) #M<-c(-1,2,3) #barycentric coordinates
-#' #M<-c(1.3,1.3)
-#' #M<-c(.3,.3)
+#' M<-as.numeric(runif.tri(1,Tr)$g)  #try also M<-c(1.6,1.0)
 #'
-#' cp2e.tri(Tr,M) #try also #cp2e.tri(Tr,M=c(1,1))
+#' cp2e.tri(Tr,M)  #try also cp2e.tri(Tr,M=c(1,1))
 #'
 #' Ds<-cp2e.tri(Tr,M)
 #'
@@ -9508,8 +9252,8 @@ rv.tri.cent<-function(p,tri,M)
 #' text(xc,yc,txt.str)
 #'
 #' txt<-rbind(M,Ds)
-#' xc<-txt[,1]
-#' yc<-txt[,2]
+#' xc<-txt[,1]+c(-.02,.04,-.04,-.02)
+#' yc<-txt[,2]+c(-.02,.04,.04,-.06)
 #' txt.str<-c("M","D1","D2","D3")
 #' text(xc,yc,txt.str)
 #'
@@ -9594,28 +9338,15 @@ cp2e.tri<-function(tri,M)
 #'
 #' @examples
 #' A<-c(1,1); B<-c(2,0); C<-c(1.5,2);
-#' #try also the following
-#' #A<-runif(2); B<-runif(2); C<-runif(2);
-#' #A<-runif(2,1,100); B<-runif(2,1,100); C<-runif(2,1,100);
-#'
 #' Tr<-rbind(A,B,C);
 #'
-#' n<-10 #try also n<-20
+#' n<-10  #try also n<-20
 #' set.seed(1)
 #' dat<-runif.tri(n,Tr)$g
-#' #try also the following
-#' #dat<-cbind(runif(n,1,2),runif(n,0,2))
-#' #dat<-cbind(runif(n),runif(n))
 #'
-#' M<-as.numeric(runif.tri(1,Tr)$g)
-#' #try also the following
-#' #M<-c(1.6,1.2)
-#' #M<-circ.cent.tri(Tr); #M<-"CC"; #M<-"CM"
-#' #M<-c(1,1,1) #M<-c(1,2,3) #M<-c(-1,2,3) #barycentric coordinates
-#' #M<-c(1.3,1.3)
-#' #M<-c(.3,.3)
+#' M<-as.numeric(runif.tri(1,Tr)$g)  #try also M<-c(1.6,1.2)
 #'
-#' NumArcsAStri(dat,Tr) #with default M="CC"
+#' NumArcsAStri(dat,Tr)  #with default M="CC"
 #' NumArcsAStri(dat,Tr,M)
 #'
 #' NumArcsAStri(rbind(dat,c(0,2)),Tr,M)
@@ -9673,8 +9404,8 @@ NumArcsAStri<-function(dat,tri,M="CC")
     for (i in 1:n)
     { pt1<-dat[i,]
     if (in.triangle(pt1,tri,boundary=TRUE)$in.tri)
-    { vert<-ifelse(isTRUE(all.equal(M,circ.cent.tri(tri)))==T,rv.triCC(pt1,tri)$rv,rv.tri.cent(pt1,tri,M)$rv) #vertex region for pt
-    for (j in (1:n)[-i]) #to avoid loops
+    { vert<-ifelse(isTRUE(all.equal(M,circ.cent.tri(tri)))==T,rv.triCC(pt1,tri)$rv,rv.tri.cent(pt1,tri,M)$rv)  #vertex region for pt
+    for (j in (1:n)[-i])  #to avoid loops
     {
       arcs<-arcs+IndNAStri(pt1,dat[j,],tri,M,rv=vert)
     }
@@ -9724,27 +9455,14 @@ NumArcsAStri<-function(dat,tri,M="CC")
 #'
 #' @examples
 #' A<-c(1,1); B<-c(2,0); C<-c(1.5,2);
-#' #try also the following
-#' #A<-runif(2); B<-runif(2); C<-runif(2);
-#' #A<-runif(2,1,100); B<-runif(2,1,100); C<-runif(2,1,100);
-#'
 #' Tr<-rbind(A,B,C);
 #'
 #' set.seed(1)
-#' n<-10 #try also n<-20
+#' n<-10  #try also n<-20
 #'
 #' dat<-runif.tri(n,Tr)$g
-#' #try also the following
-#' #dat<-cbind(runif(n,1,2),runif(n,0,2))
-#' #dat<-cbind(runif(n),runif(n))
 #'
-#' M<-as.numeric(runif.tri(1,Tr)$g)
-#' #try also the following
-#' #M<-c(1.6,1.2)
-#' #M<-circ.cent.tri(Tr); #M<-"CC"; #M<-"CM"
-#' #M<-c(1,1,1) #M<-c(1,2,3) #M<-c(-1,2,3) #barycentric coordinates
-#' #M<-c(1.3,1.3)
-#' #M<-c(.3,.3)
+#' M<-as.numeric(runif.tri(1,Tr)$g)  #try also M<-c(1.6,1.2)
 #'
 #' NumArcsAStri(dat,Tr,M)
 #' ASarcdens.tri(dat,Tr,M)
@@ -9859,28 +9577,15 @@ rho
 #'
 #' @examples
 #' A<-c(1,1); B<-c(2,0); C<-c(1.5,2);
-#' #try also the following
-#' #A<-runif(2); B<-runif(2); C<-runif(2);
-#' #A<-runif(2,1,100); B<-runif(2,1,100); C<-runif(2,1,100);
-#'
 #' Tr<-rbind(A,B,C);
 #' n<-10
 #'
 #' set.seed(1)
 #' dat<-runif.tri(n,Tr)$gen.points
-#' #try also the following
-#' #dat<-cbind(runif(n),runif(n))
-#' #dat<-cbind(runif(n,1,2),runif(n,0,1))
 #'
-#' S<-rbind(dat[1,],dat[2,]) #try also #S<-c(1.5,1)
+#' S<-rbind(dat[1,],dat[2,])  #try also S<-c(1.5,1)
 #'
-#' M<-as.numeric(runif.tri(1,Tr)$g)
-#' #try also the following
-#' #M<-c(1.6,1.2)
-#' #M<-circ.cent.tri(Tr); #M<-"CC"; #M<-"CM"
-#' #M<-c(1,1,1) #M<-c(1,2,3) #M<-c(-1,2,3) #barycentric coordinates
-#' #M<-c(1.3,1.3)
-#' #M<-c(.3,.3)
+#' M<-as.numeric(runif.tri(1,Tr)$g)  #try also M<-c(1.6,1.2)
 #'
 #' IndNAStriSet(S,dat[3,],Tr,M)
 #'
@@ -9910,11 +9615,6 @@ rho
 #'
 #' dat.fr<-data.frame(a=S)
 #' IndNAStriSet(dat.fr,P,Tr,M)
-#'
-#' \donttest{
-#' IndNAStriSet(cbind(S,S),P,Tr,M)
-#' IndNAStriSet(rbind(c("a","b"),S),P,Tr,M)
-#' }
 #'
 #' @export IndNAStriSet
 IndNAStriSet<-function(S,pt,tri,M="CC")
@@ -10006,26 +9706,14 @@ IndNAStriSet<-function(S,pt,tri,M="CC")
 #'
 #' @examples
 #' A<-c(1,1); B<-c(2,0); C<-c(1.5,2);
-#' #try also the following
-#' #A<-runif(2); B<-runif(2); C<-runif(2);
-#' #A<-runif(2,1,100); B<-runif(2,1,100); C<-runif(2,1,100);
 #'
 #' Tr<-rbind(A,B,C);
 #' n<-10
 #'
 #' set.seed(1)
 #' dat<-runif.tri(n,Tr)$gen.points
-#' #try also the following
-#' #dat<-cbind(runif(n),runif(n))
-#' #dat<-cbind(runif(n,1,2),runif(n,0,1))
 #'
-#' M<-as.numeric(runif.tri(1,Tr)$g)
-#' #try also the following
-#' #M<-c(1.6,1.2)
-#' #M<-circ.cent.tri(Tr); #M<-"CC"; #M<-"CM"
-#' #M<-c(1,1,1) #M<-c(1,2,3) #M<-c(-1,2,3) #barycentric coordinates
-#' #M<-c(1.3,1.3)
-#' #M<-c(.3,.3)
+#' M<-as.numeric(runif.tri(1,Tr)$g)  #try also M<-c(1.6,1.2)
 #'
 #' S<-rbind(dat[1,],dat[2,])
 #' IndNAStri.domset(S,dat,Tr,M)
@@ -10110,7 +9798,7 @@ IndNAStri.domset<-function(S,Dt,tri,M="CC")
   dom<-1; i<-1;
   while (dom ==1 && i<= n)
   {
-    if (IndNAStriSet(S,Dt[i,],tri,M)==0) #this is where tri is used
+    if (IndNAStriSet(S,Dt[i,],tri,M)==0)  #this is where tri is used
     {dom<-0};
     i<-i+1;
   }
@@ -10157,26 +9845,14 @@ IndNAStri.domset<-function(S,Dt,tri,M="CC")
 #'
 #' @examples
 #' A<-c(1,1); B<-c(2,0); C<-c(1.5,2);
-#' #try also the following
-#' #A<-runif(2); B<-runif(2); C<-runif(2);
-#' #A<-runif(2,1,100); B<-runif(2,1,100); C<-runif(2,1,100);
 #'
 #' Tr<-rbind(A,B,C);
 #' n<-10
 #'
 #' set.seed(1)
 #' dat<-runif.tri(n,Tr)$gen.points
-#' #try also the following
-#' #dat<-cbind(runif(n),runif(n))
-#' #dat<-cbind(runif(n,1,2),runif(n,0,1,Tr))
 #'
-#' M<-as.numeric(runif.tri(1,Tr)$g)
-#' #try also the following
-#' #M<-c(1.6,1.2)
-#' #M<-circ.cent.tri(Tr); #M<-"CC"; #M<-"CM"
-#' #M<-c(1,1,1) #M<-c(1,2,3) #M<-c(-1,2,3) #barycentric coordinates
-#' #M<-c(1.3,1.3)
-#' #M<-c(.3,.3)
+#' M<-as.numeric(runif.tri(1,Tr)$g)  #try also M<-c(1.6,1.2)
 #'
 #' IndASdomUBtri(dat,1,Tr)
 #'
@@ -10287,22 +9963,17 @@ IndASdomUBtri<-function(Dt,k,tri,M="CC")
 #' \insertAllCited{}
 #'
 #' @examples
-#' nx<-20; ny<-4; #try also nx<-40; ny<-10 or nx<-1000; ny<-10;
+#' nx<-20; ny<-4;  #try also nx<-40; ny<-10 or nx<-1000; ny<-10;
 #'
 #' set.seed(1)
 #' Xp<-cbind(runif(nx),runif(nx))
-#' #try also the following
-#' #Xp<-cbind(runif(nx,.5,1.5),runif(nx))
-#' #Xp<-cbind(runif(nx,1,2),runif(nx))
-#' #Xp<-c(.5,.5)
 #' Yp<-cbind(runif(ny),runif(ny))
 #'
+#' oldpar <- par(mfrow = c(1,2))
 #' plotDeltri(Xp,Yp,xlab="",ylab="")
+#' par(oldpar)
 #'
-#' M<-"CC"
-#' #try also the following
-#' #M<-c(1,1,1) #M<-c(1,2,3) #M<-c(-1,2,3) #barycentric coordinates
-#' #M<-c(1.3,1.3)
+#' M<-"CC"  #try also M<-c(1,1,1)
 #'
 #' NumArcsASMT(Xp,Yp,M)
 #' NumArcsASMT(Xp,Yp[1:3,],M)
@@ -10334,10 +10005,10 @@ NumArcsASMT<-function(Xp,Yp,M="CC")
 
   if (nrow(Yp)==3)
   {
-    Tri.Ind<-indices.Del.tri(Xp,Yp) #returns 1's if the points Xp[i,]'s are inside triangle based on Yp, NA otherwise
+    Tri.Ind<-indices.Del.tri(Xp,Yp)  #returns 1's if the points Xp[i,]'s are inside triangle based on Yp, NA otherwise
 
     inTri<-which(Tri.Ind==1)
-    NinTri<-length(inTri) #number of points in the triangle
+    NinTri<-length(inTri)  #number of points in the triangle
 
     if (NinTri==0)
     {Tot.Arcs<-0;
@@ -10347,7 +10018,7 @@ NumArcsASMT<-function(Xp,Yp,M="CC")
       Xdt<-matrix(Xp[inTri,],ncol=2)
       tri<-as.bastri(Yp)$tri #convert the triangle Yp into an unscaled basic triangle, see as.bastri help page
       ListW<-area.polygon(tri)
-      Tot.Arcs<-NumArcsAStri(Xdt,tri,M) #number of arcs in the triangle Yp
+      Tot.Arcs<-NumArcsAStri(Xdt,tri,M)  #number of arcs in the triangle Yp
     }
     res<-list(num.arcs=Tot.Arcs,
               num.in.conv.hull=NinTri,
@@ -10360,10 +10031,10 @@ NumArcsASMT<-function(Xp,Yp,M="CC")
     #Delaunay triangulation of Yp points
     Ytrimesh<-interp::tri.mesh(Yp[,1],Yp[,2],duplicate="remove")
     Ytri<-matrix(interp::triangles(Ytrimesh)[,1:3],ncol=3); #the vertices of the Delaunay triangles
-    nt<-nrow(Ytri) #number of Delaunay triangles
+    nt<-nrow(Ytri)  #number of Delaunay triangles
 
     inCH<-interp::in.convex.hull(Ytrimesh,Xp[,1],Xp[,2])
-    Ninch<-sum(inCH) #number of points in the convex hull
+    Ninch<-sum(inCH)  #number of points in the convex hull
     if (Ninch==0)
     {Tot.Arcs<-0;
     ListW<-NULL
@@ -10381,13 +10052,13 @@ NumArcsASMT<-function(Xp,Yp,M="CC")
         Tri<-Yp[Ytri[i,],]
         tri<-as.bastri(Tri)$tri #convert the triangle Tri into an unscaled basic triangle, see as.bastri help page
         List.W<-c(List.W,area.polygon(tri))
-        ni<-c(ni,length(dati)/2) #number of points in ith Delaunay triangle
+        ni<-c(ni,length(dati)/2)  #number of points in ith Delaunay triangle
 
-        num.arcs<-NumArcsAStri(dati,tri,M) #number of arcs in ith triangle
-        arcs<-c(arcs,num.arcs) #number of arcs in all triangles as a vector
+        num.arcs<-NumArcsAStri(dati,tri,M)  #number of arcs in ith triangle
+        arcs<-c(arcs,num.arcs)  #number of arcs in all triangles as a vector
       }
 
-      Tot.Arcs<-sum(arcs) #the total number of arcs in all triangles
+      Tot.Arcs<-sum(arcs)  #the total number of arcs in all triangles
       ListW<-List.W[ni >= 1] #adjusted for triangles with one or more points in them
     }
     res<-list(num.pts.in.CH=Ninch,
@@ -10421,11 +10092,13 @@ NumArcsASMT<-function(Xp,Yp,M="CC")
 #' \insertAllCited{}
 #'
 #' @examples
-#' nx<-20; ny<-4; #try also nx<-40; ny<-10 or nx<-1000; ny<-10;
+#' nx<-20; ny<-4;  #try also nx<-40; ny<-10 or nx<-1000; ny<-10;
 #'
 #' set.seed(1)
 #' Xp<-cbind(runif(nx),runif(nx))
 #' Yp<-cbind(runif(ny),runif(ny))
+#'
+#' oldpar <- par(mfrow = c(1,2))
 #' plotDeltri(Xp,Yp,xlab="",ylab="",main="X points and Delaunay Triangulation of Y points")
 #'
 #' P<-c(.6,.4)
@@ -10441,6 +10114,7 @@ NumArcsASMT<-function(Xp,Yp,M="CC")
 #'
 #' dat.fr<-data.frame(a=Yp)
 #' plotDeltri(Xp,dat.fr,xlab="",ylab="")
+#' par(oldpar)
 #'
 #' @export plotDeltri
 plotDeltri<-function(Xp,Yp,main="",xlab="",ylab="",xlim=NULL,ylim=NULL, ...)
@@ -10474,7 +10148,7 @@ plotDeltri<-function(Xp,Yp,main="",xlab="",ylab="",xlim=NULL,ylim=NULL, ...)
   } else
   {
 
-    Ytrimesh<-interp::tri.mesh(Yp[,1],Yp[,2],duplicate="remove") #Delaunay triangulation
+    Ytrimesh<-interp::tri.mesh(Yp[,1],Yp[,2],duplicate="remove")  #Delaunay triangulation
 
     par(mfrow=c(1,1),mar=c(5,5,4,2))
     plot(Xp[,1],Xp[,2],main=main, xlab=xlab, ylab=ylab,xlim=xlim,ylim=ylim,pch=".",cex=4, ...)
@@ -10515,27 +10189,13 @@ plotDeltri<-function(Xp,Yp,main="",xlab="",ylab="",xlim=NULL,ylim=NULL, ...)
 #'
 #' @examples
 #' A<-c(1,1); B<-c(2,0); C<-c(1.5,2);
-#' #try also the following
-#' #A<-runif(2); B<-runif(2); C<-runif(2);
-#' #A<-runif(2,1,100); B<-runif(2,1,100); C<-runif(2,1,100);
-#'
 #' Tr<-rbind(A,B,C);
 #' n<-10
 #'
 #' set.seed(1)
 #' dat<-runif.tri(n,Tr)$g
-#' #try also the following
-#' #dat<-cbind(runif(n,1,2),runif(n,0,2))
-#' #dat<-cbind(runif(n),runif(n))
-#' #dat<-c(.5,.5)
 #'
-#' M<-as.numeric(runif.tri(1,Tr)$g)
-#' #try also the following
-#' #M<-c(1.6,1.2)
-#' #M<-circ.cent.tri(Tr); #M<-"CC"; #M<-"CM"
-#' #M<-c(1,1,1) #M<-c(1,2,3) #M<-c(-1,2,3) #barycentric coordinates
-#' #M<-c(1.3,1.3)
-#' #M<-c(.3,.3)
+#' M<-as.numeric(runif.tri(1,Tr)$g)  #try also M<-c(1.6,1.2)
 #'
 #' IM<-IncMatAStri(dat,Tr,M)
 #' IM
@@ -10592,7 +10252,7 @@ IncMatAStri<-function(dat,tri,M="CC")
   {
     for (i in 1:n)
     {pt1<-dat[i,]
-    vert<-ifelse(isTRUE(all.equal(M,circ.cent.tri(tri)))==T,rv.triCC(pt1,tri)$rv,rv.tri.cent(pt1,tri,M)$rv) #vertex region for pt
+    vert<-ifelse(isTRUE(all.equal(M,circ.cent.tri(tri)))==T,rv.triCC(pt1,tri)$rv,rv.tri.cent(pt1,tri,M)$rv)  #vertex region for pt
     for (j in ((1:n)) )
     {pt2<-dat[j,]
     inc.mat[i,j]<-IndNAStri(pt1,pt2,tri,M,rv=vert)
@@ -10636,24 +10296,17 @@ IncMatAStri<-function(dat,tri,M="CC")
 #'
 #' @examples
 #' #nx is number of X points (target) and ny is number of Y points (nontarget)
-#' nx<-20; ny<-4; #try also nx<-40; ny<-10 or nx<-1000; ny<-10;
+#' nx<-20; ny<-4;  #try also nx<-40; ny<-10 or nx<-1000; ny<-10;
 #'
 #' set.seed(1)
 #' Xp<-cbind(runif(nx,0,1),runif(nx,0,1))
-#' #try also the following
-#' #Xp<-cbind(runif(nx,0.5,1.5),runif(nx,0,1))
-#' #Xp<-cbind(runif(nx,1,2),runif(nx,0,1))
-#' #Xp<-c(.5,.5)
 #' Yp<-cbind(runif(ny,0,1),runif(ny,0,1))
 #'
-#' M<-"CC"
-#' #try also the following
-#' #M<-c(1,1,1) #M<-c(1,2,3) #M<-c(-1,2,3) #barycentric coordinates
-#' #M<-c(1.3,1.3)
+#' M<-"CC"  #try also M<-c(1,1,1)
 #'
 #' IM<-IncMatASMT(Xp,Yp,M)
 #' IM
-#' dom.greedy(IM) #try also #dom.exact(IM) #this might take a long time for large  nx
+#' dom.greedy(IM)  #try also dom.exact(IM)  #this might take a long time for large  nx
 #'
 #' IM<-IncMatASMT(Xp,Yp[1:3,],M)
 #'
@@ -10698,11 +10351,11 @@ IncMatASMT<-function(Xp,Yp,M="CC")
     inc.mat<-matrix(0, nrow=nx, ncol=nx)
 
     DTr<-matrix(interp::triangles(DTmesh)[,1:3],ncol=3)
-    nt<-nrow(DTr) #number of Delaunay triangles
+    nt<-nrow(DTr)  #number of Delaunay triangles
 
     if (nx>1)
     {
-      i.tr<-rep(0,nx) #the vector of indices for the triangles that contain the Xp points
+      i.tr<-rep(0,nx)  #the vector of indices for the triangles that contain the Xp points
       for (i in 1:nx)
         for (j in 1:nt)
         {
@@ -10785,9 +10438,6 @@ IncMatASMT<-function(Xp,Yp,M="CC")
 #'
 #' set.seed(1)
 #' dat<-runif.bastri(n,c1,c2)$g
-#' #try also the following
-#' #dat<-cbind(runif(n),runif(n))
-#' #dat<-cbind(runif(n,1,2),runif(n,0,1))
 #'
 #' Ext<-fr2vTbVRCC(dat,c1,c2)
 #' Ext
@@ -10801,7 +10451,7 @@ IncMatASMT<-function(Xp,Yp,M="CC")
 #'
 #' f2v<-fr2vTbVRCC(dat,c1,c2)
 #'
-#' CC<-circ.cent.bastri(c1,c2) #the circumcenter
+#' CC<-circ.cent.bastri(c1,c2)  #the circumcenter
 #' D1<-(B+C)/2; D2<-(A+C)/2; D3<-(A+B)/2;
 #' Ds<-rbind(D1,D2,D3)
 #'
@@ -10884,7 +10534,7 @@ fr2vTbVRCC<-function(Dt,c1,c2,ch.all.intri=FALSE)
         }}
     }
   }
-  row.names(tri)<-c("A","B","C") #vertex labelling
+  row.names(tri)<-c("A","B","C")  #vertex labelling
   typ<-paste("Furthest Points from Vertices in CC-Vertex Regions in the Basic Triangle with Vertices A=(0,0), B=(1,0), and C=(",c1,",",c2,")",sep="")
   description<-"Furthest Points from Vertices in corresponding CC-Vertex Regions \n (Row i corresponds to vertex i for i=1,2,3)"
   txt1<-"Vertex labels are A=1, B=2, and C=3 (correspond to row number in Extrema Points)"
@@ -10901,7 +10551,7 @@ fr2vTbVRCC<-function(Dt,c1,c2,ch.all.intri=FALSE)
   for (i in 1:length(Regs))
   { Reg.Cent<-rbind(Reg.Cent,apply(Regs[[i]],2,mean))}
 
-  Reg.names<-c("vr=1","vr=2","vr=3") #regions names
+  Reg.names<-c("vr=1","vr=2","vr=3")  #regions names
 
   res<-list(
     txt1=txt1, txt2=txt2,
@@ -10971,18 +10621,11 @@ fr2vTbVRCC<-function(Dt,c1,c2,ch.all.intri=FALSE)
 #'
 #' @examples
 #' A<-c(1,1); B<-c(2,0); C<-c(1.5,2);
-#' #try also the following
-#' #A<-runif(2); B<-runif(2); C<-runif(2);
-#' #A<-runif(2,1,100); B<-runif(2,1,100); C<-runif(2,1,100);
-#'
 #' Tr<-rbind(A,B,C);
-#' n<-10 #try also n<-20
+#' n<-10  #try also n<-20
 #'
 #' set.seed(1)
 #' dat<-runif.tri(n,Tr)$g
-#' #try also the following
-#' #dat<-cbind(runif(n),runif(n))
-#' #dat<-cbind(runif(n,1,2),runif(n,0,2))
 #'
 #' Ext<-fr2vVRCC(dat,Tr)
 #' Ext
@@ -10990,16 +10633,9 @@ fr2vTbVRCC<-function(Dt,c1,c2,ch.all.intri=FALSE)
 #' plot(Ext)
 #'
 #' fr2vVRCC(dat[1,],Tr)
-#'
-#' dat2<-rbind(dat,c(.2,.4))
-#' fr2vVRCC(dat2,Tr)
-#' \donttest{
-#' fr2vVRCC(dat2,Tr,ch.all.intri = TRUE) #not all points in the data set are in the triangle
-#' }
-#'
 #' f2v<-fr2vVRCC(dat,Tr)
 #'
-#' CC<-circ.cent.tri(Tr) #the circumcenter
+#' CC<-circ.cent.tri(Tr)  #the circumcenter
 #' D1<-(B+C)/2; D2<-(A+C)/2; D3<-(A+B)/2;
 #' Ds<-rbind(D1,D2,D3)
 #'
@@ -11030,6 +10666,13 @@ fr2vTbVRCC<-function(Dt,c1,c2,ch.all.intri=FALSE)
 #'
 #' dat.fr<-data.frame(a=Tr)
 #' fr2vVRCC(dat,dat.fr)
+#'
+#' dat2<-rbind(dat,c(.2,.4))
+#' fr2vVRCC(dat2,Tr)
+#' \dontrun{
+#' fr2vVRCC(dat2,Tr,ch.all.intri = TRUE)
+#' #gives an error message since not all points in the data set are in the triangle
+#' }
 #'
 #' @export fr2vVRCC
 fr2vVRCC<-function(Dt,tri,ch.all.intri=FALSE)
@@ -11087,7 +10730,7 @@ fr2vVRCC<-function(Dt,tri,ch.all.intri=FALSE)
     }
   }
 
-  row.names(tri)<-c("A","B","C") #vertex labelling
+  row.names(tri)<-c("A","B","C")  #vertex labelling
   typ<-"Furthest Points from Vertices in CC-Vertex Regions in the Triangle with Vertices A, B, and C "
   description<-"Furthest Points from Vertices in corresponding CC-Vertex Regions \n (Row i corresponds to edge i for i=1,2,3)  "
   txt1<-"Vertex labels are A=1, B=2, and C=3 (corresponds to row number in Extrema Points)"
@@ -11105,7 +10748,7 @@ fr2vVRCC<-function(Dt,tri,ch.all.intri=FALSE)
   for (i in 1:length(Regs))
   { Reg.Cent<-rbind(Reg.Cent,apply(Regs[[i]],2,mean))}
 
-  Reg.names<-c("vr=1","vr=2","vr=3") #regions names
+  Reg.names<-c("vr=1","vr=2","vr=3")  #regions names
 
   res<-list(
     txt1=txt1, txt2=txt2,
@@ -11182,9 +10825,6 @@ fr2vVRCC<-function(Dt,tri,ch.all.intri=FALSE)
 #'
 #' set.seed(1)
 #' dat<-runif.bastri(n,c1,c2)$g
-#' #try also the following
-#' #dat<-cbind(runif(n),runif(n))
-#' #dat<-cbind(runif(n,1,2),runif(n,0,1))
 #'
 #' Ext<-Kfr2vTbVRCC(dat,c1,c2,k)
 #' Ext
@@ -11194,13 +10834,9 @@ fr2vVRCC<-function(Dt,tri,ch.all.intri=FALSE)
 #' Kfr2vTbVRCC(dat[1:k,],c1,c2,k)
 #' Kfr2vTbVRCC(dat[1,],c1,c2,k)
 #'
-#' dat2<-rbind(dat,c(.2,.4))
-#' Kfr2vTbVRCC(dat2,c1,c2,k)
-#' Kfr2vTbVRCC(dat2,c1,c2,k,ch.all.intri = TRUE)
-#'
 #' kf2v<-Kfr2vTbVRCC(dat,c1,c2,k)
 #'
-#' CC<-circ.cent.bastri(c1,c2) #the circumcenter
+#' CC<-circ.cent.bastri(c1,c2)  #the circumcenter
 #' D1<-(B+C)/2; D2<-(A+C)/2; D3<-(A+B)/2;
 #' Ds<-rbind(D1,D2,D3)
 #'
@@ -11228,6 +10864,14 @@ fr2vVRCC<-function(Dt,tri,ch.all.intri=FALSE)
 #'
 #' dat.fr<-data.frame(a=dat)
 #' Kfr2vTbVRCC(dat.fr,c1,c2,k)
+#'
+#' dat2<-rbind(dat,c(.2,.4))
+#' Kfr2vTbVRCC(dat2,c1,c2,k)
+#' }
+#'
+#' \dontrun{
+#' Kfr2vTbVRCC(dat2,c1,c2,k,ch.all.intri = TRUE)
+#' #gives an error message since not all points are in the basic triangle
 #' }
 #'
 Kfr2vTbVRCC<-function(Dt,c1,c2,k,ch.all.intri=FALSE)
@@ -11308,12 +10952,12 @@ Kfr2vTbVRCC<-function(Dt,c1,c2,k,ch.all.intri=FALSE)
   }
   U<-rbind(U1,U2,U3)
 
-  row.names(Tb)<-c("A","B","C") #vertex labelling
+  row.names(Tb)<-c("A","B","C")  #vertex labelling
   rn1<-rn2<-rn3<-vector()
   for (i in 1:k) {rn1<-c(rn1,paste(i,". furthest from vertex 1",sep=""));
   rn2<-c(rn2,paste(i,". furthest from vertex 2",sep=""));
   rn3<-c(rn3,paste(i,". furthest from vertex 3",sep=""))}
-  row.names(U)<-c(rn1,rn2,rn3) #extrema labelling
+  row.names(U)<-c(rn1,rn2,rn3)  #extrema labelling
 
   typ<-paste(k, "Furthest Points from Vertices in CC-Vertex Regions in the Basic Triangle with Vertices A=(0,0), B=(1,0), and C=(",c1,",",c2,")",sep="")
   description<-paste(k, "Furthest Points from Vertices in Corresponding CC-Vertex Regions \n (Row i corresponds to vertex i for i=1,2,3)")
@@ -11331,7 +10975,7 @@ Kfr2vTbVRCC<-function(Dt,c1,c2,k,ch.all.intri=FALSE)
   for (i in 1:length(Regs))
   { Reg.Cent<-rbind(Reg.Cent,apply(Regs[[i]],2,mean))}
 
-  Reg.names<-c("vr=1","vr=2","vr=3") #regions names
+  Reg.names<-c("vr=1","vr=2","vr=3")  #regions names
 
   res<-list(
     txt1=txt1, txt2=txt2,
@@ -11409,19 +11053,12 @@ Kfr2vTbVRCC<-function(Dt,c1,c2,k,ch.all.intri=FALSE)
 #'
 #' @examples
 #' A<-c(1,1); B<-c(2,0); C<-c(1.5,2);
-#' #try also the following
-#' #A<-runif(2); B<-runif(2); C<-runif(2);
-#' #A<-runif(2,1,100); B<-runif(2,1,100); C<-runif(2,1,100);
-#'
 #' Tr<-rbind(A,B,C);
-#' n<-10 #try also n<-20
+#' n<-10  #try also n<-20
 #' k<-3
 #'
 #' set.seed(1)
 #' dat<-runif.tri(n,Tr)$g
-#' #try also the following
-#' #dat<-cbind(runif(n),runif(n))
-#' #dat<-cbind(runif(n,1,2),runif(n,0,2))
 #'
 #' Ext<-Kfr2vVRCC(dat,Tr,k)
 #' Ext
@@ -11432,11 +11069,11 @@ Kfr2vTbVRCC<-function(Dt,c1,c2,k,ch.all.intri=FALSE)
 #' Kfr2vVRCC(dat[1,],Tr,k)
 #'
 #' dat2<-rbind(dat,c(.2,.4))
-#' Kfr2vVRCC(dat2,Tr,k) #try also # Kfr2vVRCC(dat2,Tr,k,ch.all.intri = TRUE)
+#' Kfr2vVRCC(dat2,Tr,k)  #try also Kfr2vVRCC(dat2,Tr,k,ch.all.intri = TRUE)
 #'
 #' kf2v<-Kfr2vVRCC(dat,Tr,k)
 #'
-#' CC<-circ.cent.tri(Tr) #the circumcenter
+#' CC<-circ.cent.tri(Tr)  #the circumcenter
 #' D1<-(B+C)/2; D2<-(A+C)/2; D3<-(A+B)/2;
 #' Ds<-rbind(D1,D2,D3)
 #'
@@ -11544,12 +11181,12 @@ Kfr2vVRCC<-function(Dt,tri,k,ch.all.intri=FALSE)
   }
   U<-rbind(U1,U2,U3)
 
-  row.names(tri)<-c("A","B","C") #vertex labelling
+  row.names(tri)<-c("A","B","C")  #vertex labelling
   rn1<-rn2<-rn3<-vector()
   for (i in 1:k) {rn1<-c(rn1,paste(i,". furthest from vertex 1",sep=""));
   rn2<-c(rn2,paste(i,". furthest from vertex 2",sep=""));
   rn3<-c(rn3,paste(i,". furthest from vertex 3",sep=""))}
-  row.names(U)<-c(rn1,rn2,rn3) #extrema labelling
+  row.names(U)<-c(rn1,rn2,rn3)  #extrema labelling
 
   typ<-paste(k, "Furthest Points from Vertices in CC-Vertex Regions in the Triangle with Vertices A, B, and C")
   description<-paste(k, "Furthest Points from Vertices in Respective CC-Vertex Regions \n (Row i corresponds to vertex i for i=1,2,3)")
@@ -11567,7 +11204,7 @@ Kfr2vVRCC<-function(Dt,tri,k,ch.all.intri=FALSE)
   for (i in 1:length(Regs))
   { Reg.Cent<-rbind(Reg.Cent,apply(Regs[[i]],2,mean))}
 
-  Reg.names<-c("vr=1","vr=2","vr=3") #regions names
+  Reg.names<-c("vr=1","vr=2","vr=3")  #regions names
 
   res<-list(
     txt1=txt1, txt2=txt2,
@@ -11635,9 +11272,6 @@ Kfr2vVRCC<-function(Dt,tri,k,ch.all.intri=FALSE)
 #'
 #' set.seed(1)
 #' dat<-runif.bastri(n,c1,c2)$g
-#' #try also the following
-#' #dat<-cbind(runif(n),runif(n))
-#' #dat<-cbind(runif(n,1,2),runif(n,0,1))
 #'
 #' Ext<-cl2CC.TbVR(dat,c1,c2)
 #' Ext
@@ -11646,13 +11280,9 @@ Kfr2vVRCC<-function(Dt,tri,k,ch.all.intri=FALSE)
 #'
 #' cl2CC.TbVR(dat[1,],c1,c2)
 #'
-#' dat2<-rbind(dat,c(.2,.4))
-#' cl2CC.TbVR(dat2,c1,c2)
-#' cl2CC.TbVR(dat2,c1,c2,ch.all.intri = TRUE)
-#'
 #' c2CC<-cl2CC.TbVR(dat,c1,c2)
 #'
-#' CC<-circ.cent.bastri(c1,c2) #the circumcenter
+#' CC<-circ.cent.bastri(c1,c2)  #the circumcenter
 #' D1<-(B+C)/2; D2<-(A+C)/2; D3<-(A+B)/2;
 #' Ds<-rbind(D1,D2,D3)
 #'
@@ -11680,7 +11310,15 @@ Kfr2vVRCC<-function(Dt,tri,k,ch.all.intri=FALSE)
 #'
 #' dat.fr<-data.frame(a=dat)
 #' cl2CC.TbVR(dat.fr,c1,c2)
+#'
+#' dat2<-rbind(dat,c(.2,.4))
+#' cl2CC.TbVR(dat2,c1,c2)
 #' }
+#' \dontrun{
+#' cl2CC.TbVR(dat2,c1,c2,ch.all.intri = TRUE)
+#' #gives an error message since not all points are in the basic triangle
+#' }
+#'
 #'
 cl2CC.TbVR<-function(Dt,c1,c2,ch.all.intri=FALSE)
 {
@@ -11736,7 +11374,7 @@ cl2CC.TbVR<-function(Dt,c1,c2,ch.all.intri=FALSE)
     }
   }
 
-  row.names(Tb)<-c("A","B","C") #vertex labelling
+  row.names(Tb)<-c("A","B","C")  #vertex labelling
   typ<-paste("Closest Points to CC in CC-Vertex Regions in the Basic Triangle with Vertices A=(0,0), B=(1,0), and C=(",c1,",",c2,")",sep="")
   description<-"Closest Points to CC in CC-Vertex Regions \n (Row i corresponds to vertex i for i=1,2,3)"
   txt1<-"Vertex labels are A=1, B=2, and C=3 (corresponds to row number in Extrema Points)"
@@ -11753,7 +11391,7 @@ cl2CC.TbVR<-function(Dt,c1,c2,ch.all.intri=FALSE)
   for (i in 1:length(Regs))
   { Reg.Cent<-rbind(Reg.Cent,apply(Regs[[i]],2,mean))}
 
-  Reg.names<-c("vr=1","vr=2","vr=3") #regions names
+  Reg.names<-c("vr=1","vr=2","vr=3")  #regions names
 
   res<-list(
     txt1=txt1, txt2=txt2,
@@ -11822,18 +11460,11 @@ cl2CC.TbVR<-function(Dt,c1,c2,ch.all.intri=FALSE)
 #'
 #' @examples
 #' A<-c(1,1); B<-c(2,0); C<-c(1.5,2);
-#' #try also the following
-#' #A<-runif(2); B<-runif(2); C<-runif(2);
-#' #A<-runif(2,1,100); B<-runif(2,1,100); C<-runif(2,1,100);
-#'
 #' Tr<-rbind(A,B,C);
-#' n<-10 #try also n<-20
+#' n<-10  #try also n<-20
 #'
 #' set.seed(1)
 #' dat<-runif.tri(n,Tr)$g
-#' #try also the following
-#' #dat<-cbind(runif(n),runif(n))
-#' #dat<-cbind(runif(n,1,2),runif(n,0,2))
 #'
 #' Ext<-cl2CC.VR(dat,Tr)
 #' Ext
@@ -11842,16 +11473,9 @@ cl2CC.TbVR<-function(Dt,c1,c2,ch.all.intri=FALSE)
 #'
 #' cl2CC.VR(dat[1,],Tr)
 #'
-#' dat2<-rbind(dat,c(.2,.4))
-#' cl2CC.VR(dat2,Tr)
-#' \donttest{
-#' cl2CC.VR(dat2,Tr,ch.all.intri = TRUE)
-#' #not all points in the data set are in the triangle
-#' }
-#'
 #' c2CC<-cl2CC.VR(dat,Tr)
 #'
-#' CC<-circ.cent.tri(Tr) #the circumcenter
+#' CC<-circ.cent.tri(Tr)  #the circumcenter
 #' D1<-(B+C)/2; D2<-(A+C)/2; D3<-(A+B)/2;
 #' Ds<-rbind(D1,D2,D3)
 #'
@@ -11882,6 +11506,13 @@ cl2CC.TbVR<-function(Dt,c1,c2,ch.all.intri=FALSE)
 #'
 #' dat.fr<-data.frame(a=Tr)
 #' cl2CC.VR(dat,dat.fr)
+#'
+#' dat2<-rbind(dat,c(.2,.4))
+#' cl2CC.VR(dat2,Tr)
+#' \dontrun{
+#' cl2CC.VR(dat2,Tr,ch.all.intri = TRUE)
+#' #gives an error message since not all points are in the triangle
+#' }
 #'
 #' @export cl2CC.VR
 cl2CC.VR<-function(Dt,tri,ch.all.intri=FALSE)
@@ -11937,7 +11568,7 @@ cl2CC.VR<-function(Dt,tri,ch.all.intri=FALSE)
 
   Mdt<-c(ifelse(!is.na(U[1,1]),mdt[1],NA),ifelse(!is.na(U[2,1]),mdt[2],NA),ifelse(!is.na(U[3,1]),mdt[3],NA))
 
-  row.names(tri)<-c("A","B","C") #vertex labelling
+  row.names(tri)<-c("A","B","C")  #vertex labelling
   typ<-"Closest Points to CC in CC-Vertex Regions in the Triangle with Vertices A, B, and C"
   description<-"Closest Points to CC in CC-Vertex Regions \n (Row i corresponds to vertex i for i=1,2,3)"
   txt1<-"Vertex labels are A=1, B=2, and C=3 (corresponds to row number in Extrema Points)"
@@ -11954,7 +11585,7 @@ cl2CC.VR<-function(Dt,tri,ch.all.intri=FALSE)
   for (i in 1:length(Regs))
   { Reg.Cent<-rbind(Reg.Cent,apply(Regs[[i]],2,mean))}
 
-  Reg.names<-c("vr=1","vr=2","vr=3") #regions names
+  Reg.names<-c("vr=1","vr=2","vr=3")  #regions names
 
   res<-list(
     txt1=txt1, txt2=txt2,
@@ -12029,17 +11660,8 @@ cl2CC.VR<-function(Dt,tri,ch.all.intri=FALSE)
 #'
 #' set.seed(1)
 #' dat<-runif.bastri(n,c1,c2)$g
-#' #try also the following
-#' #dat<-cbind(runif(n),runif(n))
-#' #dat<-cbind(runif(n,1,2),runif(n,0,1))
 #'
-#' M<-as.numeric(runif.bastri(1,c1,c2)$g)
-#' #try also the following
-#' #M<-c(.6,.2)
-#' #M<-circ.cent.tri(Tb); #M<-"CC"; #M<-"CM"
-#' #M<-c(1,1,1) #M<-c(1,2,3) #M<-c(-1,2,3) #barycentric coordinates
-#' #M<-c(1.3,1.3)
-#' #M<-c(.3,.3)
+#' M<-as.numeric(runif.bastri(1,c1,c2)$g)  #try also M<-c(.6,.2)
 #'
 #' Gam1ASbastri(dat[1,],dat,c1,c2,M)
 #'
@@ -12054,16 +11676,13 @@ cl2CC.VR<-function(Dt,tri,ch.all.intri=FALSE)
 #' Rv<-rv.bastriCC(dat[1,],c1,c2)$rv
 #' Gam1ASbastri(dat[1,],dat,c1,c2,M,Rv)
 #'
-#' Gam1ASbastri(c(.5,.11),dat,c1,c2,M)
-#' Gam1ASbastri(c(.5,.11),dat,c1,c2,M,ch.data.pnt=TRUE)
-#'
 #' Gam1ASbastri(c(.2,.4),dat,c1,c2,M)
 #' Gam1ASbastri(c(.2,.4),c(.2,.4),c1,c2,M)
 #'
 #' dat2<-rbind(dat,c(.2,.4))
 #' Gam1ASbastri(dat[1,],dat2,c1,c2,M)
 #'
-#' CC<-circ.cent.bastri(c1,c2) #the circumcenter
+#' CC<-circ.cent.bastri(c1,c2)  #the circumcenter
 #'
 #' if (dimension(M)==3) {M<-bary2cart(M,Tb)}
 #' #need to run this when M is given in barycentric coordinates
@@ -12103,6 +11722,12 @@ cl2CC.VR<-function(Dt,tri,ch.all.intri=FALSE)
 #'
 #' dat.fr<-data.frame(a=dat)
 #' Gam1ASbastri(c(.4,.2),dat.fr,c1,c2,M)
+#'
+#' Gam1ASbastri(c(.5,.11),dat,c1,c2,M)
+#' }
+#' \dontrun{
+#' Gam1ASbastri(c(.5,.11),dat,c1,c2,M,ch.data.pnt=TRUE)
+#' #gives an error message since the point is not in the basic triangle
 #' }
 #'
 Gam1ASbastri<-function(p,Dt,c1,c2,M="CC",rv=NULL,ch.data.pnt=FALSE)
@@ -12158,7 +11783,7 @@ Gam1ASbastri<-function(p,Dt,c1,c2,M="CC",rv=NULL,ch.data.pnt=FALSE)
   {dom<-0; return(dom); stop}
 
   if (is.null(rv))
-  { rv<-ifelse(isTRUE(all.equal(M,circ.cent.tri(Tb)))==T,rv.bastriCC(p,c1,c2)$rv,rv.bastri.cent(p,c1,c2,M)$rv) #vertex region for pt
+  { rv<-ifelse(isTRUE(all.equal(M,circ.cent.tri(Tb)))==T,rv.bastriCC(p,c1,c2)$rv,rv.bastri.cent(p,c1,c2,M)$rv)  #vertex region for pt
   } else
   {  if (!is.numeric(rv) || sum(rv==c(1,2,3))!=1)
   {stop('vertex index, rv, must be 1, 2 or 3')}}
@@ -12217,25 +11842,13 @@ Gam1ASbastri<-function(p,Dt,c1,c2,M="CC",rv=NULL,ch.data.pnt=FALSE)
 #'
 #' @examples
 #' A<-c(1,1); B<-c(2,0); C<-c(1.5,2);
-#' #try also the following
-#' #A<-runif(2); B<-runif(2); C<-runif(2);
-#' #A<-runif(2,1,100); B<-runif(2,1,100); C<-runif(2,1,100);
-#'
 #' Tr<-rbind(A,B,C);
 #' n<-10
 #'
 #' set.seed(1)
 #' dat<-runif.tri(n,Tr)$g
-#' #dat<-cbind(runif(n),runif(n))
-#' #dat<-cbind(runif(n,1,2),runif(n,0,2))
 #'
-#' M<-as.numeric(runif.tri(1,Tr)$g)
-#' #try also the following
-#' #M<-c(1.6,1.2)
-#' #M<-circ.cent.tri(Tr); #M<-"CC"; #M<-"CM"
-#' #M<-c(1,1,1) #M<-c(1,2,3) #M<-c(-1,2,3) #barycentric coordinates
-#' #M<-c(1.3,1.3)
-#' #M<-c(.3,.3)
+#' M<-as.numeric(runif.tri(1,Tr)$g)  #try also M<-c(1.6,1.2)
 #'
 #' Gam1AStri(dat[1,],dat,Tr,M)
 #' Gam1AStri(dat[1,],dat[1,],Tr,M)
@@ -12253,11 +11866,6 @@ Gam1ASbastri<-function(p,Dt,c1,c2,M="CC",rv=NULL,ch.data.pnt=FALSE)
 #' Rv<-rv.triCC(dat[1,],Tr)$rv
 #' Gam1AStri(dat[1,],dat,Tr,M,Rv)
 #'
-#' Gam1AStri(c(1.5,1.1),dat,Tr,M)
-#' \donttest{
-#' Gam1AStri(c(1.5,1.1),dat,Tr,M,ch.data.pnt=TRUE) #point p is not a data point in Dt
-#' }
-#'
 #' Gam1AStri(c(.2,.4),dat,Tr,M)
 #' Gam1AStri(c(.2,.4),c(.2,.4),Tr,M)
 #'
@@ -12267,7 +11875,7 @@ Gam1ASbastri<-function(p,Dt,c1,c2,M="CC",rv=NULL,ch.data.pnt=FALSE)
 #' if (dimension(M)==3) {M<-bary2cart(M,Tr)}
 #' #need to run this when M is given in barycentric coordinates
 #'
-#' CC<-circ.cent.tri(Tr) #the circumcenter
+#' CC<-circ.cent.tri(Tr)  #the circumcenter
 #'
 #' if (isTRUE(all.equal(M,CC)) || identical(M,"CC"))
 #' {cent<-CC
@@ -12306,6 +11914,12 @@ Gam1ASbastri<-function(p,Dt,c1,c2,M="CC",rv=NULL,ch.data.pnt=FALSE)
 #'
 #' dat.fr<-data.frame(a=Tr)
 #' Gam1AStri(c(1.5,1.1),dat,dat.fr,M)
+#'
+#' Gam1AStri(c(1.5,1.1),dat,Tr,M)
+#' \dontrun{
+#' Gam1AStri(c(1.5,1.1),dat,Tr,M,ch.data.pnt=TRUE)
+#' #gives an error message since point p is not a data point in Dt
+#' }
 #'
 #' @export Gam1AStri
 Gam1AStri<-function(p,Dt,tri,M="CC",rv=NULL,ch.data.pnt=FALSE)
@@ -12363,7 +11977,7 @@ Gam1AStri<-function(p,Dt,tri,M="CC",rv=NULL,ch.data.pnt=FALSE)
   {dom<-0; return(dom); stop}
 
   if (is.null(rv))
-  { rv<-ifelse(isTRUE(all.equal(M,circ.cent.tri(tri)))==T,rv.triCC(p,tri)$rv,rv.tri.cent(p,tri,M)$rv) #vertex region for pt
+  { rv<-ifelse(isTRUE(all.equal(M,circ.cent.tri(tri)))==T,rv.triCC(p,tri)$rv,rv.tri.cent(p,tri,M)$rv)  #vertex region for pt
   } else
   {  if (!is.numeric(rv) || sum(rv==c(1,2,3))!=1)
   {stop('vertex index, rv, must be 1, 2 or 3')}}
@@ -12408,21 +12022,17 @@ Gam1AStri<-function(p,Dt,tri,M="CC",rv=NULL,ch.data.pnt=FALSE)
 #'
 #' is.in.data(c(2,2),c(2,2))
 #'
-#' \donttest{
-#' is.in.data(P,vector()) #p and Dt must be numeric
-#' }
-#'
 #' #for 1D data
 #' n<-10
 #' dat<-runif(n)
 #'
-#' \donttest{
+#' \dontrun{
 #' P<-dat[7]
-#' is.in.data(P,dat) #Both arguments must be of the same dimension
+#' is.in.data(P,dat)  #Both arguments must be of the same dimension
 #' #this does not work because both entries are treated as vectors of different dimensions
-#' is.in.data(P,dat[7]) #this works because both entries are treated as 1D vectors
-#'
-#' is.in.data(P,vector()) #p and Dt must be numeric
+#' }
+#' P<-dat[7]
+#' is.in.data(P,dat[7])  #this works because both entries are treated as 1D vectors
 #'
 #' dat<-as.matrix(dat)
 #' is.in.data(P,dat)
@@ -12433,7 +12043,6 @@ Gam1AStri<-function(p,Dt,tri,M="CC",rv=NULL,ch.data.pnt=FALSE)
 #'
 #' P<-dat[7]+10^(-9)
 #' is.in.data(P,dat)
-#' }
 #'
 #' is.in.data(P,P)
 #'
@@ -12564,20 +12173,11 @@ is.in.data<-function(p,Dt)
 #'
 #' set.seed(1)
 #' dat<-runif.bastri(n,c1,c2)$g
-#' #try also the following
-#' #dat<-cbind(runif(n),runif(n))
-#' #dat<-cbind(runif(n,1,2),runif(n,0,2))
 #'
-#' M<-as.numeric(runif.bastri(1,c1,c2)$g)
-#' #try also the following
-#' #M<-c(.6,.2)
-#' #M<-circ.cent.tri(Tb); #M<-"CC"; #M<-"CM"
-#' #M<-c(1,1,1) #M<-c(1,2,3) #M<-c(-1,2,3) #barycentric coordinates
-#' #M<-c(1.3,1.3)
-#' #M<-c(.3,.3)
+#' M<-as.numeric(runif.bastri(1,c1,c2)$g)  #try also M<-c(.6,.2)
 #'
 #' Gam2ASbastri(dat[1,],dat[2,],dat,c1,c2,M)
-#' Gam2ASbastri(dat[1,],dat[1,],dat,c1,c2,M) #one point can not a dominating set of size two
+#' Gam2ASbastri(dat[1,],dat[1,],dat,c1,c2,M)  #one point can not a dominating set of size two
 #'
 #' Gam2ASbastri(c(.2,.4),c(.2,.5),rbind(c(.2,.4),c(.2,.5)),c1,c2,M)
 #'
@@ -12662,13 +12262,13 @@ Gam2ASbastri<-function(pt1,pt2,Dt,c1,c2,M="CC",rv1=NULL,rv2=NULL,ch.data.pnts=FA
   {dom<-0; return(dom); stop}
 
   if (is.null(rv1))
-  { rv1<-ifelse(isTRUE(all.equal(M,circ.cent.tri(Tb)))==T,rv.bastriCC(pt1,c1,c2)$rv,rv.bastri.cent(pt1,c1,c2,M)$rv) #vertex region for pt
+  { rv1<-ifelse(isTRUE(all.equal(M,circ.cent.tri(Tb)))==T,rv.bastriCC(pt1,c1,c2)$rv,rv.bastri.cent(pt1,c1,c2,M)$rv)  #vertex region for pt
   } else
   {  if (!is.numeric(rv1) || sum(rv1==c(1,2,3))!=1)
   {stop('vertex index, rv1, must be 1, 2 or 3')}}
 
   if (is.null(rv2))
-  { rv2<-ifelse(isTRUE(all.equal(M,circ.cent.tri(Tb)))==T,rv.bastriCC(pt2,c1,c2)$rv,rv.bastri.cent(pt2,c1,c2,M)$rv) #vertex region for pt
+  { rv2<-ifelse(isTRUE(all.equal(M,circ.cent.tri(Tb)))==T,rv.bastriCC(pt2,c1,c2)$rv,rv.bastri.cent(pt2,c1,c2,M)$rv)  #vertex region for pt
   } else
   {  if (!is.numeric(rv2) || sum(rv2==c(1,2,3))!=1)
   {stop('vertex index, rv2, must be 1, 2 or 3')}}
@@ -12729,29 +12329,16 @@ Gam2ASbastri<-function(pt1,pt2,Dt,c1,c2,M="CC",rv1=NULL,rv2=NULL,ch.data.pnts=FA
 #'
 #' @examples
 #' A<-c(1,1); B<-c(2,0); C<-c(1.5,2);
-#' #try also the following
-#' #A<-runif(2); B<-runif(2); C<-runif(2);
-#' #A<-runif(2,1,100); B<-runif(2,1,100); C<-runif(2,1,100);
-#'
 #' Tr<-rbind(A,B,C);
 #' n<-10
 #'
 #' set.seed(1)
 #' dat<-runif.tri(n,Tr)$g
-#' #try also the following
-#' #dat<-cbind(runif(n),runif(n))
-#' #dat<-cbind(runif(n,1,2),runif(n,0,2))
 #'
-#' M<-as.numeric(runif.tri(1,Tr)$g)
-#' #try also the following
-#' #M<-c(1.6,1.2)
-#' #M<-circ.cent.tri(Tr); #M<-"CC"; #M<-"CM"
-#' #M<-c(1,1,1) #M<-c(1,2,3) #M<-c(-1,2,3) #barycentric coordinates
-#' #M<-c(1.3,1.3)
-#' #M<-c(.3,.3)
+#' M<-as.numeric(runif.tri(1,Tr)$g)  #try also M<-c(1.6,1.2)
 #'
 #' Gam2AStri(dat[1,],dat[2,],dat,Tr,M)
-#' Gam2AStri(dat[1,],dat[1,],dat,Tr,M) #same two points cannot be a dominating set of size 2
+#' Gam2AStri(dat[1,],dat[1,],dat,Tr,M)  #same two points cannot be a dominating set of size 2
 #'
 #' Gam2AStri(c(.2,.4),dat[2,],dat,Tr,M)
 #' Gam2AStri(c(.2,.4),c(.2,.5),dat,Tr,M)
@@ -12846,13 +12433,13 @@ Gam2AStri<-function(pt1,pt2,Dt,tri,M="CC",rv1=NULL,rv2=NULL,ch.data.pnts=FALSE)
   {dom<-0; return(dom); stop}
 
   if (is.null(rv1))
-  { rv1<-ifelse(isTRUE(all.equal(M,circ.cent.tri(tri)))==T,rv.triCC(pt1,tri)$rv,rv.tri.cent(pt1,tri,M)$rv) #vertex region for pt
+  { rv1<-ifelse(isTRUE(all.equal(M,circ.cent.tri(tri)))==T,rv.triCC(pt1,tri)$rv,rv.tri.cent(pt1,tri,M)$rv)  #vertex region for pt
   } else
   {  if (!is.numeric(rv1) || sum(rv1==c(1,2,3))!=1)
   {stop('vertex index, rv1, must be 1, 2 or 3')}}
 
   if (is.null(rv2))
-  { rv2<-ifelse(isTRUE(all.equal(M,circ.cent.tri(tri)))==T,rv.triCC(pt2,tri)$rv,rv.tri.cent(pt2,tri,M)$rv) #vertex region for pt
+  { rv2<-ifelse(isTRUE(all.equal(M,circ.cent.tri(tri)))==T,rv.triCC(pt2,tri)$rv,rv.tri.cent(pt2,tri,M)$rv)  #vertex region for pt
   } else
   {  if (!is.numeric(rv2) || sum(rv2==c(1,2,3))!=1)
   {stop('vertex index, rv2, must be 1, 2 or 3')}}
@@ -12917,27 +12504,14 @@ Gam2AStri<-function(pt1,pt2,Dt,tri,M="CC",rv1=NULL,rv2=NULL,ch.data.pnts=FALSE)
 #'
 #' @examples
 #' A<-c(1,1); B<-c(2,0); C<-c(1.5,2);
-#' #try also the following
-#' #A<-runif(2); B<-runif(2); C<-runif(2);
-#' #A<-runif(2,1,100); B<-runif(2,1,100); C<-runif(2,1,100);
 #'
 #' Tr<-rbind(A,B,C);
 #' n<-10
 #'
 #' set.seed(1)
 #' dat<-runif.tri(n,Tr)$g
-#' #try also the following
-#' #dat<-cbind(runif(n,1,2),runif(n,0,2))
-#' #dat<-cbind(runif(n),runif(n))
-#' #dat<-c(1.4,1)
 #'
-#' M<-as.numeric(runif.tri(1,Tr)$g)
-#' #try also the following
-#' #M<-c(1.6,1.2)
-#' #M<-circ.cent.tri(Tb); #M<-"CC"; #M<-"CM"
-#' #M<-c(1,1,1) #M<-c(1,2,3) #M<-c(-1,2,3) #barycentric coordinates
-#' #M<-c(1.3,1.3)
-#' #M<-c(.3,.3)
+#' M<-as.numeric(runif.tri(1,Tr)$g)  #try also  #M<-c(1.6,1.2)
 #'
 #' ArcsAStri(dat,Tr,M)
 #'
@@ -12980,8 +12554,8 @@ Gam2AStri<-function(pt1,pt2,Dt,tri,M="CC",rv1=NULL,rv2=NULL,ch.data.pnts=FALSE)
 #' arrows(S[,1], S[,2], E[,1], E[,2], length = 0.1, col= 4)
 #'
 #' txt<-rbind(Tr,cent,Ds)
-#' xc<-txt[,1]
-#' yc<-txt[,2]
+#' xc<-txt[,1]+c(-.02,.03,.02,.03,.04,-.03,-.01)
+#' yc<-txt[,2]+c(.02,.02,.03,.06,.04,.05,-.07)
 #' txt.str<-c("A","B","C",cent.name,"D1","D2","D3")
 #' text(xc,yc,txt.str)
 #'
@@ -13042,8 +12616,8 @@ ArcsAStri<-function(Xp,tri,M="CC")
     for (j in 1:n2)
     {
       pt1<-Xtri[j,];
-      RV1<-ifelse(isTRUE(all.equal(M,circ.cent.tri(tri)))==T,rv.triCC(pt1,tri)$rv,rv.tri.cent(pt1,tri,M)$rv) #vertex region for pt
-      for (k in (1:n2)[-j]) #to avoid loops
+      RV1<-ifelse(isTRUE(all.equal(M,circ.cent.tri(tri)))==T,rv.triCC(pt1,tri)$rv,rv.tri.cent(pt1,tri,M)$rv)  #vertex region for pt
+      for (k in (1:n2)[-j])  #to avoid loops
       {
         pt2<-Xtri[k,];
         if (IndNAStri(pt1,pt2,tri,M,RV1)==1)
@@ -13123,23 +12697,13 @@ ArcsAStri<-function(Xp,tri,M="CC")
 #'
 #' @examples
 #' A<-c(1,1); B<-c(2,0); C<-c(1.5,2);
-#' #try also the following
-#' #A<-runif(2); B<-runif(2); C<-runif(2);
-#' #A<-runif(2,1,100); B<-runif(2,1,100); C<-runif(2,1,100);
-#'
 #' Tr<-rbind(A,B,C);
 #' n<-10
 #'
 #' set.seed(1)
-#' dat<-runif.tri(n,Tr)$g #try also #dat<-cbind(runif(n,1,2),runif(n,0,2))
+#' dat<-runif.tri(n,Tr)$g  #try also dat<-cbind(runif(n,1,2),runif(n,0,2))
 #'
-#' M<-as.numeric(runif.tri(1,Tr)$g)
-#' #try also the following
-#' #M<-c(1.6,1.2)
-#' #M<-circ.cent.tri(Tr); #M<-"CC"; #M<-"CM"
-#' #M<-c(1,1,1) #M<-c(1,2,3) #M<-c(-1,2,3) #barycentric coordinates
-#' #M<-c(1.3,1.3)
-#' #M<-c(.3,.3)
+#' M<-as.numeric(runif.tri(1,Tr)$g)  #try also  #M<-c(1.6,1.2)
 #'
 #' if (dimension(M)==3) {M<-bary2cart(M,Tr)}
 #' #need to run this when M is given in barycentric coordinates
@@ -13168,8 +12732,8 @@ ArcsAStri<-function(Xp,tri,M="CC")
 #' segments(L[,1], L[,2], R[,1], R[,2], lty=2)
 #'
 #' txt<-rbind(Tr,cent,Ds)
-#' xc<-txt[,1]
-#' yc<-txt[,2]
+#' xc<-txt[,1]+c(-.02,.03,.03,.03,.05,-0.03,-.01)
+#' yc<-txt[,2]+c(.02,.02,.02,.07,.02,.05,-.06)
 #' txt.str<-c("A","B","C",cent.name,"D1","D2","D3")
 #' text(xc,yc,txt.str)
 #'
@@ -13226,26 +12790,13 @@ plotASarcsTri<-function(Xp,tri,M="CC",asp=NA,main="",xlab="",ylab="",xlim=NULL,y
 #'
 #' @examples
 #' A<-c(1,1); B<-c(2,0); C<-c(1.5,2);
-#' #try also the following
-#' #A<-runif(2); B<-runif(2); C<-runif(2);
-#' #A<-runif(2,1,100); B<-runif(2,1,100); C<-runif(2,1,100);
-#'
 #' Tr<-rbind(A,B,C);
 #' n<-1
 #'
 #' set.seed(1)
 #' dat<-runif.tri(n,Tr)$g
-#' #try also the following
-#' #dat<-cbind(runif(n,1,2),runif(n,0,2))
-#' #dat<-cbind(runif(n,0,1),runif(n,0,2))
 #'
-#' M<-as.numeric(runif.tri(1,Tr)$g)
-#' #try also the following
-#' #M<-c(1.6,1.2); #dat<-c(1.61,1.19)
-#' #M<-circ.cent.tri(Tr); #M<-"CC"; #M<-"CM"
-#' #M<-c(1,1,1) #M<-c(1,2,3) #M<-c(-1,2,3) #barycentric coordinates
-#' #M<-c(1.3,1.3)
-#' #M<-c(.3,.3)
+#' M<-as.numeric(runif.tri(1,Tr)$g)  #try also  #M<-c(1.6,1.2);
 #'
 #' dat<-matrix(dat,ncol=2)
 #' Xlim<-range(Tr[,1],dat[,1])
@@ -13279,8 +12830,8 @@ plotASarcsTri<-function(Xp,tri,M="CC",asp=NA,main="",xlab="",ylab="",xlim=NULL,y
 #' segments(L[,1], L[,2], R[,1], R[,2], lty=2)
 #'
 #' txt<-rbind(Tr,cent,Ds)
-#' xc<-txt[,1]
-#' yc<-txt[,2]
+#' xc<-txt[,1]+c(-.02,.03,.03,.03,.05,-0.03,-.01)
+#' yc<-txt[,2]+c(.02,.02,.02,.07,.02,.05,-.06)
 #' txt.str<-c("A","B","C",cent.name,"D1","D2","D3")
 #' text(xc,yc,txt.str)
 #'
@@ -13329,7 +12880,7 @@ plotASregsTri<-function(Xp,tri,M="CC",main="",xlab="",ylab="",xlim=NULL,ylim=NUL
   for (i in 1:nx)
     in.tri[i]<-in.triangle(Xp[i,],tri,boundary=TRUE)$in.tri #indices of the Xp points inside the triangle
 
-  Xtri<-matrix(Xp[in.tri==1,],ncol=2) #the Xp points inside the triangle
+  Xtri<-matrix(Xp[in.tri==1,],ncol=2)  #the Xp points inside the triangle
   nx2<-nrow(Xtri)
 
   if (is.null(xlim))
@@ -13348,7 +12899,7 @@ plotASregsTri<-function(Xp,tri,M="CC",main="",xlab="",ylab="",xlim=NULL,ylim=NUL
     for (i in 1:nx2)
     {
       P1<-Xtri[i,]
-      rv<-ifelse(isTRUE(all.equal(M,circ.cent.tri(tri)))==T,rv.triCC(P1,tri)$rv,rv.tri.cent(P1,tri,M)$rv) #vertex region for pt
+      rv<-ifelse(isTRUE(all.equal(M,circ.cent.tri(tri)))==T,rv.triCC(P1,tri)$rv,rv.tri.cent(P1,tri,M)$rv)  #vertex region for pt
       RV<-tri[rv,]
       rad<-Dist(P1,RV)
 
@@ -13426,21 +12977,13 @@ plotASregsTri<-function(Xp,tri,M="CC",main="",xlab="",ylab="",xlim=NULL,ylim=NUL
 #'
 #' @examples
 #' #nx is number of X points (target) and ny is number of Y points (nontarget)
-#' nx<-20; ny<-4; #try also nx<-40; ny<-10 or nx<-1000; ny<-10;
+#' nx<-20; ny<-4;  #try also nx<-40; ny<-10 or nx<-1000; ny<-10;
 #'
 #' set.seed(1)
 #' Xp<-cbind(runif(nx,0,1),runif(nx,0,1))
-#' #try also the following
-#' #Xp<-cbind(runif(nx,0.5,1.5),runif(nx,0,1))
-#' #Xp<-cbind(runif(nx,1,2),runif(nx,0,1))
-#' #Xp<-c(.5,.5)
 #' Yp<-cbind(runif(ny,0,1),runif(ny,0,1))
 #'
-#' M<-c(1,1,1)
-#' #try also the following
-#' #M<-c(1,2,3) #M<-c(-1,2,3) #barycentric coordinates
-#' #M<-"CC"
-#' #M<-c(1.3,1.3)
+#' M<-c(1,1,1)  #try also M<-c(1,2,3)
 #'
 #' ArcsASMT(Xp,Yp,M)
 #'
@@ -13503,16 +13046,16 @@ ArcsASMT<-function(Xp,Yp,M="CC")
     for (i in 1:nx)
       ch[i]<-interp::in.convex.hull(DTmesh,Xp[i,1],Xp[i,2])
 
-    Xch<-matrix(Xp[ch==1,],ncol=2) #the Xp points inside the convex hull of Yp points
+    Xch<-matrix(Xp[ch==1,],ncol=2)  #the Xp points inside the convex hull of Yp points
 
     DTr<-matrix(interp::triangles(DTmesh)[,1:3],ncol=3)
     nt<-nrow(DTr)
-    nx2<-nrow(Xch) #number of Xp points inside the convex hull of Yp points
+    nx2<-nrow(Xch)  #number of Xp points inside the convex hull of Yp points
 
     S<-E<-NULL #S is for source and E is for end points for the arcs
     if (nx2>1)
     {
-      i.tr<-rep(0,nx2) #the vector of indices for the triangles that contain the Xp points
+      i.tr<-rep(0,nx2)  #the vector of indices for the triangles that contain the Xp points
       for (i in 1:nx2)
         for (j in 1:nt)
         {
@@ -13530,10 +13073,10 @@ ArcsASMT<-function(Xp,Yp,M="CC")
           Yi.tri<-as.bastri(Yi.Tri)$tri #convert the triangle Tri into an unscaled basic triangle, see as.bastri help page
           nl<-nrow(Xl)
           ifelse(identical(M,"CC"), rv.ind<-rverts.triCC(Xl,tri=Yi.tri)$rv,
-                 rv.ind<-rverts.tri.cent(Xl,tri=Yi.tri,M)$rv) #vertex region for pt
+                 rv.ind<-rverts.tri.cent(Xl,tri=Yi.tri,M)$rv)  #vertex region for pt
           for (j in 1:nl)
           {RV<-rv.ind[j]
-          for (k in (1:nl)[-j]) # to avoid loops
+          for (k in (1:nl)[-j])  # to avoid loops
             if (IndNAStri(Xl[j,],Xl[k,],Yi.tri,M,rv=RV)==1 )
             {
               S <-rbind(S,Xl[j,]); E <-rbind(E,Xl[k,]);
@@ -13616,10 +13159,6 @@ ArcsASMT<-function(Xp,Yp,M="CC")
 #'
 #' @examples
 #' A<-c(1,1); B<-c(2,0); C<-c(1.5,2);
-#' #try also the following
-#' #A<-runif(2); B<-runif(2); C<-runif(2);
-#' #A<-runif(2,1,100); B<-runif(2,1,100); C<-runif(2,1,100);
-#'
 #' Tr<-rbind(A,B,C);
 #' M<-c(1.6,1.0)
 #'
@@ -13632,20 +13171,11 @@ ArcsASMT<-function(Xp,Yp,M="CC")
 #' P<-c(1.5,1.6)
 #' rverts.tri.cent(P,Tr,M)
 #'
-#' n<-10 #try also n<-20
+#' n<-10  #try also n<-20
 #' set.seed(1)
 #' dat<-runif.tri(n,Tr)$g
-#' #try also the following
-#' #dat<-cbind(runif(n,1,2),runif(n,0,2))
-#' #dat<-cbind(runif(n),runif(n))
 #'
-#' M<-as.numeric(runif.tri(1,Tr)$g)
-#' #try also the following
-#' #M<-c(1.6,1.0)
-#' #M<-circ.cent.tri(Tr)
-#' #M<-c(1,1,1) #M<-c(1,2,3) #M<-c(-1,2,3) #barycentric coordinates
-#' #M<-c(1.3,1.3)
-#' #M<-c(.3,.3)
+#' M<-as.numeric(runif.tri(1,Tr)$g)  #try also  #M<-c(1.6,1.0)
 #'
 #' rverts.tri.cent(dat,Tr,M)
 #' rverts.tri.cent(rbind(dat,c(2,2)),Tr,M)
@@ -13677,8 +13207,8 @@ ArcsASMT<-function(Xp,Yp,M="CC")
 #' text(xc,yc,txt.str)
 #'
 #' txt<-rbind(M,Ds)
-#' xc<-txt[,1]
-#' yc<-txt[,2]
+#' xc<-txt[,1]+c(.02,.04,-.03,0)
+#' yc<-txt[,2]+c(.07,.04,.05,-.07)
 #' txt.str<-c("M","D1","D2","D3")
 #' text(xc,yc,txt.str)
 #'
@@ -13771,7 +13301,7 @@ rverts.tri.cent<-function(Dt,tri,M)
       ind.set[ind.vC==TRUE]<-3
     }
   }
-  row.names(tri)<-c("vertex 1","vertex 2","vertex 3") #vertex labelling
+  row.names(tri)<-c("vertex 1","vertex 2","vertex 3")  #vertex labelling
 
   list(rv=ind.set, #relative vertices
        tri=tri #vertex labelling
@@ -13821,20 +13351,13 @@ rverts.tri.cent<-function(Dt,tri,M)
 #'
 #' @examples
 #' #nx is number of X points (target) and ny is number of Y points (nontarget)
-#' nx<-20; ny<-4; #try also nx<-40; ny<-10 or nx<-1000; ny<-10;
+#' nx<-20; ny<-4;  #try also nx<-40; ny<-10 or nx<-1000; ny<-10;
 #'
 #' set.seed(1)
 #' Xp<-cbind(runif(nx,0,1),runif(nx,0,1))
-#' #try also the following
-#' #Xp<-cbind(runif(nx,0.5,1.5),runif(nx,0,1))
-#' #Xp<-cbind(runif(nx,1,2),runif(nx,0,1))
 #' Yp<-cbind(runif(ny,0,1),runif(ny,0,1))
 #'
-#' M<-c(1,1,1)
-#' #try also the following
-#' #M<-c(1,2,3) #M<-c(-1,2,3) #barycentric coordinates
-#' #M<-"CC"
-#' #M<-c(1.3,1.3)
+#' M<-c(1,1,1)  #try also M<-c(1,2,3)
 #'
 #' plotASarcsMT(Xp,Yp,M,xlab="",ylab="")
 #' plotASarcsMT(Xp,Yp,M,asp=1,xlab="",ylab="")
@@ -13926,16 +13449,9 @@ plotASarcsMT<-function(Xp,Yp,M="CC",asp=NA,main="",xlab="",ylab="",xlim=NULL,yli
 #'
 #' set.seed(1)
 #' Xp<-cbind(runif(nx,0,1),runif(nx,0,1))
-#' #try also the following
-#' #Xp<-cbind(runif(nx,0.5,1.5),runif(nx,0,1))
-#' #Xp<-cbind(runif(nx,1,2),runif(nx,0,1))
 #' Yp<-cbind(runif(ny,0,1),runif(ny,0,1))
 #'
-#' M<-c(1,1,1)
-#' #try also the following
-#' #M<-c(1,2,3) #M<-c(-1,2,3) #barycentric coordinates
-#' #M<-"CC"
-#' #M<-c(1.3,1.3)
+#' M<-c(1,1,1)  #try also M<-c(1,2,3)
 #'
 #' plotASregsMT(Xp,Yp,M,xlab="",ylab="")
 #'
@@ -13985,11 +13501,11 @@ plotASregsMT<-function(Xp,Yp,M="CC",main="",xlab="",ylab="",xlim=NULL,ylim=NULL,
     for (i in 1:nx)
       ch[i]<-interp::in.convex.hull(DTmesh,Xp[i,1],Xp[i,2])
 
-    Xch<-matrix(Xp[ch==1,],ncol=2) #the Xp points inside the convex hull of Yp points
+    Xch<-matrix(Xp[ch==1,],ncol=2)  #the Xp points inside the convex hull of Yp points
 
     DTr<-matrix(interp::triangles(DTmesh)[,1:3],ncol=3)
-    nt<-nrow(DTr) #number of Delaunay triangles
-    nx2<-nrow(Xch) #number of Xp points inside the convex hull of Yp points
+    nt<-nrow(DTr)  #number of Delaunay triangles
+    nx2<-nrow(Xch)  #number of Xp points inside the convex hull of Yp points
 
     if (is.null(xlim))
     {xlim<-range(Yp[,1],Xp[,1])
@@ -14012,7 +13528,7 @@ plotASregsMT<-function(Xp,Yp,M="CC",main="",xlab="",ylab="",xlim=NULL,ylim=NULL,
       }
     } else
     {
-      i.tr<-rep(0,nx2) #the vector of indices for the triangles that contain the Xp points
+      i.tr<-rep(0,nx2)  #the vector of indices for the triangles that contain the Xp points
       for (i1 in 1:nx2)
         for (j1 in 1:nt)
         {
@@ -14028,7 +13544,7 @@ plotASregsMT<-function(Xp,Yp,M="CC",main="",xlab="",ylab="",xlim=NULL,ylim=NULL,
         tri<-as.bastri(Tri)$tri #convert the triangle Tri into an unscaled basic triangle, see as.bastri help page
 
         polygon(tri,lty=2)
-        Xtri<-matrix(Xch[i.tr==i,],ncol=2) #Xp points inside triangle i
+        Xtri<-matrix(Xch[i.tr==i,],ncol=2)  #Xp points inside triangle i
         ni<-nrow(Xtri)
         if (ni>=1)
         {
@@ -14036,7 +13552,7 @@ plotASregsMT<-function(Xp,Yp,M="CC",main="",xlab="",ylab="",xlim=NULL,ylim=NULL,
           for (j in 1:ni)
           {
             P1<-Xtri[j,]
-            rv<-ifelse(identical(M,"CC"), rv.triCC(P1,tri)$rv, rv.tri.cent(P1,tri,M)$rv) #vertex region for P1
+            rv<-ifelse(identical(M,"CC"), rv.triCC(P1,tri)$rv, rv.tri.cent(P1,tri,M)$rv)  #vertex region for P1
             RV<-tri[rv,]
             rad<-Dist(P1,RV)
 
@@ -14096,10 +13612,6 @@ plotASregsMT<-function(Xp,Yp,M="CC",main="",xlab="",ylab="",xlim=NULL,ylim=NULL,
 #' @examples
 #' c<-.4
 #' a<-0; b<-10; int<-c(a,b)
-#' #try also the following
-#' #c<-runif(1)
-#' #a<-runif(1,0,5); b<-runif(1,5,10); int<-c(a,b)
-#'
 #' int
 #' centMc(int,c)
 #'
@@ -14150,12 +13662,12 @@ centMc<-function(int,c)
 #'
 #' @examples
 #' n<-10
-#' c<-.4 #try also #c<-runif(1)
+#' c<-.4  #try also c<-runif(1)
 #' x<-runif(n)
 #' centersMc(x,c)
 #'
 #' n<-10
-#' c<-.3 #try also #c<-runif(1)
+#' c<-.3  #try also c<-runif(1)
 #' x<-runif(n,0,10)
 #' centersMc(x,c)
 #'
@@ -14209,9 +13721,6 @@ centersMc<-function(x,c)
 #' @examples
 #' c<-.4
 #' a<-0; b<-10; int<-c(a,b)
-#' #try also the following
-#' #c<-runif(1)
-#' #a<-runif(1); b<-runif(1); int<-range(a,b); a<-int[1]; b<-int[2]
 #'
 #' Mc<-centMc(int,c)
 #'
@@ -14225,13 +13734,10 @@ centersMc<-function(x,c)
 #' rv.mid.int(0,c,int)
 #' rv.mid.int(-3,c,int)
 #'
-#' n<-10 #try also n<-20
+#' n<-10  #try also n<-20
 #' xr<-range(a,b,Mc)
 #' xf<-(xr[2]-xr[1])*.5
 #' dat<-runif(n,a,b)
-#' #try also the following
-#' #dat<-runif(n,a-xf,b+xf)
-#' #dat<-runif(n,a+10,b+10)
 #'
 #' Rv<-vector()
 #' for (i in 1:n)
@@ -14279,7 +13785,7 @@ rv.mid.int<-function(pt,c,int)
     if (pt > Mc)
     {rv<-2}
   }
-  names(int)<-c("vertex 1","vertex 2") #vertex labelling
+  names(int)<-c("vertex 1","vertex 2")  #vertex labelling
 
   list(rv=rv, #relative vertex
        int=int #vertex labelling
@@ -14429,7 +13935,7 @@ IndNPEmid1D<-function(x1,x2,r,c,int,rv=NULL)
 #'
 #' NumArcsPEmid1D(dat,r=1.5,c,int)
 #'
-#' n<-10 #try also n<-20
+#' n<-10  #try also n<-20
 #' dat<-runif(n,a-5,b+5)
 #' NumArcsPEmid1D(dat,r,c,int)
 #'
@@ -14529,9 +14035,6 @@ NumArcsPEmid1D<-function(dat,r,c,int)
 #' @examples
 #' c<-.4
 #' a<-0; b<-10; int<-c(a,b)
-#' #try also the following
-#' #c<-runif(1)
-#' #a<-runif(1); b<-runif(1); int<-range(a,b); a<-int[1]; b<-int[2]
 #'
 #' Mc<-centMc(int,c)
 #'
@@ -14540,9 +14043,6 @@ NumArcsPEmid1D<-function(dat,r,c,int)
 #' xf<-(xr[2]-xr[1])*.5
 #'
 #' dat<-runif(nx,a,b)
-#' #try also the following
-#' #dat<-runif(n,a-xf,b+xf)
-#' #dat<-runif(nx,a,b)+10
 #'
 #' Ext<-cl2Mc.int(dat,int,c)
 #' Ext
@@ -14562,7 +14062,7 @@ NumArcsPEmid1D<-function(dat,r,c,int)
 #' points(cbind(c(cMc$Ext),0),pch=4,col=2)
 #' text(cbind(c(a,b,Mc),-0.1),c("a","b","Mc"))
 #'
-#' n<-10 #try also n<-20
+#' n<-10  #try also n<-20
 #' dat<-runif(n,a-5,b+5)
 #' cl2Mc.int(dat,c(a,b),c)
 #'
@@ -14604,14 +14104,14 @@ cl2Mc.int<-function(Dt,int,c)
   if (sum(!ind)>0)
   {U[2]<-min(dat[!ind])};
 
-  names(int)<-c("a","b") #vertex labelling
+  names(int)<-c("a","b")  #vertex labelling
   typ<-"Closest Points to Mc in Mc-Vertex Regions in the Interval (a,b)"
   txt1<-"Vertex Labels are a=1 and b=2 for the interval (a,b)"
   txt2<-"Distances from closest points to Mc in each vertex region\n (Row i corresponds to vertex i for i=1,2)"
   description<-"Closest Points to Mc in the Mc-Vertex Regions \n (Row i corresponds to vertex i for i=1,2)  "
   main.txt<-"Closest Points to Mc in Mc-Vertex Regions"
 
-  Dis<-rbind(Mc-U[1],U[2]-Mc) #distances of the closest points to Mc
+  Dis<-rbind(Mc-U[1],U[2]-Mc)  #distances of the closest points to Mc
   Regs<-list(vr1=c(int[1],Mc), #regions inside the interval
              vr2=c(Mc,int[2]))
 
@@ -14619,7 +14119,7 @@ cl2Mc.int<-function(Dt,int,c)
   for (i in 1:length(Regs))
   { Reg.Cent<-c(Reg.Cent,mean(Regs[[i]]))}
 
-  Reg.names<-c("vr=1","vr=2") #regions names
+  Reg.names<-c("vr=1","vr=2")  #regions names
 
   res<-list(
     txt1=txt1, txt2=txt2,
@@ -14900,7 +14400,7 @@ asyvarPE1D<-function(r,c)
 #' r<-2
 #' a<-0; b<-10; int<-c(a,b)
 #'
-#' n<-10 #try also n<-20
+#' n<-10  #try also n<-20
 #' dat<-runif(n,a,b)
 #'
 #' NumArcsPEint(dat,r,c,int)
@@ -14921,7 +14421,7 @@ asyvarPE1D<-function(r,c)
 #' c<-.4
 #' r<-2
 #' a<-0; b<-10; int<-c(a,b)
-#' n<-10 #try also n<-20
+#' n<-10  #try also n<-20
 #' dat<-runif(n,a,b)
 #' TSArcDensPE1D(dat,r,c,int)
 #' }
@@ -15054,18 +14554,12 @@ TSArcDensPE1D<-function(dat,r,c,int,alternative=c("two.sided", "less", "greater"
 #' r<-2
 #' c<-.4
 #' a<-0; b<-10;
-#' #try also the following
-#' #c<-runif(1)
-#' #a<-runif(1); b<-runif(1); int<-range(a,b); a<-int[1]; b<-int[2]
 #'
 #' #nx is number of X points (target) and ny is number of Y points (nontarget)
-#' nx<-20; ny<-4; #try also nx<-40; ny<-10 or nx<-1000; ny<-10;
+#' nx<-20; ny<-4;  #try also nx<-40; ny<-10 or nx<-1000; ny<-10;
 #'
 #' set.seed(1)
 #' Xp<-runif(nx,a,b)
-#' #try also the following
-#' #Xp<-runif(nx,a+5,b+5)
-#' #Xp<-runif(nx,a+10,b+10)
 #' Yp<-runif(ny,a,b)
 #'
 #' Arcs<-ArcsPEmid1D(Xp,Yp,r,c)
@@ -15096,7 +14590,7 @@ TSArcDensPE1D<-function(dat,r,c,int,alternative=c("two.sided", "less", "greater"
 #' r<-2
 #' c<-.4
 #' a<-0; b<-10;
-#' nx<-20; ny<-4; #try also nx<-40; ny<-10 or nx<-1000; ny<-10;
+#' nx<-20; ny<-4;  #try also nx<-40; ny<-10 or nx<-1000; ny<-10;
 #' Xp<-runif(nx,a,b)
 #' Yp<-runif(ny,a,b)
 #' ArcsPEmid1D(Xp,Yp,r,c)
@@ -15120,19 +14614,19 @@ ArcsPEmid1D<-function(Xp,Yp,r,c)
     S<-E<-vector(); nx2<-0
   } else
   {
-    Xs<-sort(Xp); Ys<-sort(Yp) #sorted data points from classes X and Y
+    Xs<-sort(Xp); Ys<-sort(Yp)  #sorted data points from classes X and Y
     ymin<-Ys[1]; ymax<-Ys[ny];
 
     int<-rep(0,nx)
     for (i in 1:nx)
-      int[i]<-(Xs[i]>ymin & Xs[i] < ymax ) #indices of X points in the middle intervals, i.e., inside min(Yp) and max (Yp)
+      int[i]<-(Xs[i]>ymin & Xs[i] < ymax )  #indices of X points in the middle intervals, i.e., inside min(Yp) and max (Yp)
 
     Xint<-Xs[int==1] # X points inside  min(Yp) and max (Yp)
     XLe<-Xs[Xs<ymin] # X points in the left end interval of Yp points
     XRe<-Xs[Xs>ymax] # X points in the right end interval of Yp points
 
     nt<-ny-1 #number of Yp middle intervals
-    nx2<-length(Xint) #number of Xp points inside the middle intervals
+    nx2<-length(Xint)  #number of Xp points inside the middle intervals
 
     if (nx2==0)
     {S<-E<-NA
@@ -15147,7 +14641,7 @@ ArcsPEmid1D<-function(Xp,Yp,r,c)
         }
 
       #the arcs of PE-PCDs for parameters r and c
-      S<-E<-vector() #S is for source and E is for end points for the arcs for middle intervals
+      S<-E<-vector()  #S is for source and E is for end points for the arcs for middle intervals
       for (i in 1:nt)
       {
         Xi<-Xint[i.int==i] #X points in the ith Yp mid interval
@@ -15162,12 +14656,12 @@ ArcsPEmid1D<-function(Xp,Yp,r,c)
           {
             xR<-y1+r*(x1-y1)
             ind.tails<-((Xinl < min(xR,y2)) & (Xinl > y1))
-            st<-sum(ind.tails) #sum of tails of the arcs with head Xi[j]
+            st<-sum(ind.tails)  #sum of tails of the arcs with head Xi[j]
             S<-c(S,rep(x1,st)); E<-c(E,Xinl[ind.tails])
           } else {
             xL <-y2-r*(y2-x1)
             ind.tails<-((Xinl < y2) & (Xinl > max(xL,y1)))
-            st<-sum(ind.tails) #sum of tails of the arcs with head Xi[j]
+            st<-sum(ind.tails)  #sum of tails of the arcs with head Xi[j]
             S<-c(S,rep(x1,st)); E<-c(E,Xinl[ind.tails])
           }
           }
@@ -15248,8 +14742,6 @@ ArcsPEmid1D<-function(Xp,Yp,r,c)
 #'
 #' @examples
 #' a<-0; b<-10; int<-c(a,b)
-#' #try also the following
-#' #a<-runif(1); b<-runif(1); int<-range(a,b); a<-int[1]; b<-int[2]
 #'
 #' rv.end.int(-6,int)
 #' rv.end.int(16,int)
@@ -15311,7 +14803,7 @@ rv.end.int<-function(pt,int)
   if (pt >y2)
   {rv<-2}
 
-  names(int)<-c("vertex 1","vertex 2") #vertex labelling
+  names(int)<-c("vertex 1","vertex 2")  #vertex labelling
 
   list(rv=rv, #relative vertex
        int=int #vertex labelling
@@ -15448,11 +14940,8 @@ IndNPEend1D<-function(x1,x2,r,int,rv=NULL)
 #'
 #' NumArcsPEend1D(dat,r=1.2,int)
 #' NumArcsPEend1D(dat,r=4,int)
-#' \donttest{
-#' NumArcsPEend1D(dat,r=.4,int) # r must be a scalar >= 1
-#' }
 #'
-#' n<-10 #try also n<-20
+#' n<-10  #try also n<-20
 #' dat2<-runif(n,a-5,b+5)
 #' NumArcsPEend1D(dat2,r,int)
 #'
@@ -15565,10 +15054,11 @@ muPEend1D<-function(r)
 #'   var.end<-c(var.end,asyvarPEend1D(rseq[i]))
 #' }
 #'
+#' oldpar <- par(mfrow = c(1,2))
 #' par(mar=c(5,5,4,2))
 #' plot(rseq, var.end,type="l",
 #' xlab="r",ylab=expression(paste(sigma^2,"(r)")),lty=1,xlim=range(rseq))
-#' par(mar=c(5.1, 4.1, 4.1, 2.1))
+#' par(oldpar)
 #'
 #' @export asyvarPEend1D
 asyvarPEend1D<-function(r)
@@ -15624,21 +15114,16 @@ asyvarPEend1D<-function(r)
 #' @examples
 #' r<-2
 #' a<-0; b<-10;
-#' #try also the following
-#' #a<-runif(1); b<-runif(1); int<-range(a,b); a<-int[1]; b<-int[2]
 #'
 #' #nx is number of X points (target) and ny is number of Y points (nontarget)
-#' nx<-20; ny<-4; #try also nx<-40; ny<-10 or nx<-1000; ny<-10;
+#' nx<-20; ny<-4;  #try also nx<-40; ny<-10 or nx<-1000; ny<-10;
 #'
 #' set.seed(1)
 #' xr<-range(a,b)
 #' xf<-(xr[2]-xr[1])*.5
 #'
 #' Xp<-runif(nx,a-xf,b+xf)
-#' #try also the following
-#' #Xp<-runif(nx,a+5,b+5)
-#' #Xp<-runif(nx,a+10,b+10)
-#' Yp<-runif(ny,a,b) #try also #Yp<-runif(ny,a,b)+c(-10,10)
+#' Yp<-runif(ny,a,b)  #try also Yp<-runif(ny,a,b)+c(-10,10)
 #'
 #' Arcs<-ArcsPEend1D(Xp,Yp,r)
 #' Arcs
@@ -15673,13 +15158,13 @@ ArcsPEend1D<-function(Xp,Yp,r)
   if (!is.point(r,1) || r<1)
   {stop('r must be a scalar >= 1')}
 
-  Xs<-sort(Xp); Ys<-sort(Yp) #sorted data points
+  Xs<-sort(Xp); Ys<-sort(Yp)  #sorted data points
   ymin<-Ys[1]; ymax<-max(Yp)
 
   XLe<-Xs[Xs<ymin]; XRe<-Xs[Xs>ymax] #X points in the left and right end intervals respectively
 
   #the arcs of PE-PCDs for parameters r and c
-  S<-E<-vector() #S is for source and E is for end points for the arcs
+  S<-E<-vector()  #S is for source and E is for end points for the arcs
 
   #for end intervals
   #left end interval
@@ -15690,7 +15175,7 @@ ArcsPEend1D<-function(Xp,Yp,r)
     {x1 <-XLe[j];  xLe<-XLe[-j] #to avoid loops
     xL<-ymin-r*(ymin-x1)
     ind.tails<-((xLe < ymin) & (xLe > xL))
-    st<-sum(ind.tails) #sum of tails of the arcs with head XLe[j]
+    st<-sum(ind.tails)  #sum of tails of the arcs with head XLe[j]
     S<-c(S,rep(x1,st)); E<-c(E,xLe[ind.tails])
     }
   }
@@ -15704,7 +15189,7 @@ ArcsPEend1D<-function(Xp,Yp,r)
     {x1 <-XRe[j]; xRe<-XRe[-j]
     xR<-ymax+r*(x1-ymax)
     ind.tails<-((xRe < xR) & xRe > ymax )
-    st<-sum(ind.tails) #sum of tails of the arcs with head XRe[j]
+    st<-sum(ind.tails)  #sum of tails of the arcs with head XRe[j]
     S<-c(S,rep(x1,st)); E<-c(E,xRe[ind.tails])
     }
   }
@@ -15794,21 +15279,15 @@ ArcsPEend1D<-function(Xp,Yp,r)
 #' r<-2
 #' c<-.4
 #' a<-0; b<-10; int<-c(a,b)
-#' #try also the following
-#' #c<-runif(1)
-#' #a<-runif(1); b<-runif(1); int<-range(a,b); a<-int[1]; b<-int[2]
 #'
 #' #nx is number of X points (target) and ny is number of Y points (nontarget)
-#' nx<-20; ny<-4; #try also nx<-40; ny<-10 or nx<-1000; ny<-10;
+#' nx<-20; ny<-4;  #try also nx<-40; ny<-10 or nx<-1000; ny<-10;
 #'
 #' set.seed(1)
 #' xr<-range(a,b)
 #' xf<-(xr[2]-xr[1])*.1
 #'
 #' Xp<-runif(nx,a-xf,b+xf)
-#' #try also the following
-#' #Xp<-runif(nx,a+5,b+5)
-#' #Xp<-runif(nx,a+10,b+10)
 #' Yp<-runif(ny,a,b)
 #'
 #' Arcs<-ArcsPE1D(Xp,Yp,r,c)
@@ -15820,9 +15299,6 @@ ArcsPEend1D<-function(Xp,Yp,r)
 #' E<-Arcs$E
 #'
 #' ArcsPE1D(Xp,Yp,r,c)
-#' \donttest{
-#' ArcsPE1D(Xp,Yp,r=.5,c) # r must be a scalar >= 1
-#' }
 #'
 #' jit<-.1
 #' yjit<-runif(nx,-jit,jit)
@@ -15924,21 +15400,15 @@ ArcsPE1D<-function(Xp,Yp,r,c)
 #' r<-2
 #' c<-.4
 #' a<-0; b<-10; int<-c(a,b)
-#' #try also the following
-#' #c<-runif(1)
-#' #a<-runif(1); b<-runif(1); int<-range(a,b); a<-int[1]; b<-int[2]
 #'
 #' #nx is number of X points (target) and ny is number of Y points (nontarget)
-#' nx<-20; ny<-4; #try also nx<-40; ny<-10 or nx<-1000; ny<-10;
+#' nx<-20; ny<-4;  #try also nx<-40; ny<-10 or nx<-1000; ny<-10;
 #'
 #' set.seed(1)
 #' xr<-range(a,b)
 #' xf<-(xr[2]-xr[1])*.1
 #'
 #' Xp<-runif(nx,a-xf,b+xf)
-#' #try also the following
-#' #Xp<-runif(nx,a+5,b+5)
-#' #Xp<-runif(nx,a+10,b+10)
 #' Yp<-runif(ny,a,b)
 #'
 #' Xlim=range(Xp,Yp)
@@ -16127,7 +15597,7 @@ IndNPEint<-function(x1,x2,r,c=.5,int)
   {stop('x2 must be a scalar')}
 
   arc<-0
-  pr<-NPEint(x1,r,c,int) #proximity region as interval
+  pr<-NPEint(x1,r,c,int)  #proximity region as interval
   if (x2>=pr[1] && x2<=pr[2])
   {arc<-1}
   arc
@@ -16174,15 +15644,12 @@ IndNPEint<-function(x1,x2,r,c=.5,int)
 #' c<-.4
 #' r<-2
 #' a<-0; b<-10; int<-c(a,b)
-#' #try also the following
-#' #c<-runif(1)
-#' #a<-runif(1); b<-runif(1); int<-range(a,b); a<-int[1]; b<-int[2]
 #'
 #' n<-10
 #' xr<-range(a,b)
 #' xf<-(xr[2]-xr[1])*.1
 #'
-#' dat<-runif(n,a-xf,b+xf) #try also #dat<-runif(n,a-5,b+5)
+#' dat<-runif(n,a-xf,b+xf)  #try also dat<-runif(n,a-5,b+5)
 #'
 #' plotPEregsInt(7,r,c,int)
 #'
@@ -16275,12 +15742,8 @@ plotPEregsInt<-function(dat,r,c=.5,int,Jit=.1,main="",xlab="",ylab="",xlim=NULL,
 #'
 #' NumArcsPEint(dat,r=1.5,c,int)
 #'
-#' n<-10 #try also n<-20
+#' n<-10  #try also n<-20
 #' dat<-runif(n,a,b)
-#' #try also the following
-#' #dat<-runif(n,a-5,b+5)
-#' #dat<-runif(n,a+5,b+5)
-#' #dat<-runif(n,a+10,b+10)
 #'
 #' NumArcsPEint(dat,r,c,int)
 #'
@@ -16358,22 +15821,15 @@ NumArcsPEint<-function(dat,r,c=.5,int)
 #' r<-2
 #' c<-.4
 #' a<-0; b<-10;
-#' #try also the following
-#' #c<-runif(1)
-#' #a<-runif(1); b<-runif(1); int<-range(a,b); a<-int[1]; b<-int[2]
 #'
 #' #nx is number of X points (target) and ny is number of Y points (nontarget)
-#' nx<-20; ny<-4; #try also nx<-40; ny<-10 or nx<-1000; ny<-10;
+#' nx<-20; ny<-4;  #try also nx<-40; ny<-10 or nx<-1000; ny<-10;
 #'
 #' set.seed(1)
 #' xr<-range(a,b)
 #' xf<-(xr[2]-xr[1])*.1
 #'
 #' Xp<-runif(nx,a-xf,b+xf)
-#' #try also the following
-#' #Xp<-runif(nx,a-5,b+5)
-#' #Xp<-runif(nx,a+5,b+5)
-#' #Xp<-runif(nx,a+10,b+10)
 #' Yp<-runif(ny,a,b)
 #'
 #' Arcs<-ArcsPEMI(Xp,Yp,r,c)
@@ -16404,7 +15860,7 @@ NumArcsPEint<-function(dat,r,c=.5,int)
 #' r<-2
 #' c<-.4
 #' a<-0; b<-10;
-#' nx<-20; ny<-4; #try also nx<-40; ny<-10 or nx<-1000; ny<-10;
+#' nx<-20; ny<-4;  #try also nx<-40; ny<-10 or nx<-1000; ny<-10;
 #' Xp<-runif(nx,a,b)
 #' Yp<-runif(ny,a,b)
 #' ArcsPEMI(Xp,Yp,r,c)
@@ -16422,18 +15878,18 @@ ArcsPEMI<-function(Xp,Yp,r,c)
   {stop('c must be a scalar in (0,1)')}
 
   nx<-length(Xp); ny<-length(Yp)
-  S<-E<-vector() #S is for source and E is for end points for the arcs
+  S<-E<-vector()  #S is for source and E is for end points for the arcs
   if (nx==0 || ny==0)
   {stop('Not enough points to construct PE-PCD')}
 
   if (nx>1)
   {
-    Ys<-sort(Yp) #sorted data points from classes X and Y
+    Ys<-sort(Yp)  #sorted data points from classes X and Y
     ymin<-Ys[1]; ymax<-Ys[ny];
 
     int<-rep(0,nx)
     for (i in 1:nx)
-      int[i]<-(Xp[i]>ymin & Xp[i] < ymax ) #indices of X points in the middle intervals, i.e., inside min(Yp) and max (Yp)
+      int[i]<-(Xp[i]>ymin & Xp[i] < ymax )  #indices of X points in the middle intervals, i.e., inside min(Yp) and max (Yp)
 
     Xint<-Xp[int==1] # X points inside  min(Yp) and max (Yp)
     XLe<-Xp[Xp<ymin] # X points in the left end interval of Yp points
@@ -16447,14 +15903,14 @@ ArcsPEMI<-function(Xp,Yp,r,c)
       {x1 <-XLe[j];  xLe<-XLe[-j] #to avoid loops
       xL<-ymin-r*(ymin-x1)
       ind.tails<-((xLe < ymin) & (xLe > xL))
-      st<-sum(ind.tails) #sum of tails of the arcs with head XLe[j]
+      st<-sum(ind.tails)  #sum of tails of the arcs with head XLe[j]
       S<-c(S,rep(x1,st)); E<-c(E,xLe[ind.tails])
       }
     }
 
     #for middle intervals
     nt<-ny-1 #number of Yp middle intervals
-    nx2<-length(Xint) #number of Xp points inside the middle intervals
+    nx2<-length(Xint)  #number of Xp points inside the middle intervals
 
     if (nx2>1)
     {
@@ -16480,12 +15936,12 @@ ArcsPEMI<-function(Xp,Yp,r,c)
           {
             xR<-y1+r*(x1-y1)
             ind.tails<-((Xinl < min(xR,y2)) & (Xinl > y1))
-            st<-sum(ind.tails) #sum of tails of the arcs with head Xi[j]
+            st<-sum(ind.tails)  #sum of tails of the arcs with head Xi[j]
             S<-c(S,rep(x1,st)); E<-c(E,Xinl[ind.tails])
           } else {
             xL <-y2-r*(y2-x1)
             ind.tails<-((Xinl < y2) & (Xinl > max(xL,y1)))
-            st<-sum(ind.tails) #sum of tails of the arcs with head Xi[j]
+            st<-sum(ind.tails)  #sum of tails of the arcs with head Xi[j]
             S<-c(S,rep(x1,st)); E<-c(E,Xinl[ind.tails])
           }
           }
@@ -16502,7 +15958,7 @@ ArcsPEMI<-function(Xp,Yp,r,c)
       {x1 <-XRe[j]; xRe<-XRe[-j]
       xR<-ymax+r*(x1-ymax)
       ind.tails<-((xRe < xR) & xRe > ymax )
-      st<-sum(ind.tails) #sum of tails of the arcs with head XRe[j]
+      st<-sum(ind.tails)  #sum of tails of the arcs with head XRe[j]
       S<-c(S,rep(x1,st)); E<-c(E,xRe[ind.tails])
       }
     }
@@ -16582,10 +16038,6 @@ ArcsPEMI<-function(Xp,Yp,r,c)
 #'
 #' set.seed(1)
 #' Xp<-runif(nx,a,b)
-#' #try also the following
-#' #Xp<-runif(nx,a-5,b+5)
-#' #Xp<-runif(nx,a+5,b+5)
-#' #Xp<-runif(nx,a+10,b+10)
 #' Yp<-runif(ny,a,b)
 #'
 #' IM<-IncMatPE1D(Xp,Yp,r,c)
@@ -16607,7 +16059,7 @@ ArcsPEMI<-function(Xp,Yp,r,c)
 #' a<-0; b<-10;
 #'
 #' #nx is number of X points (target) and ny is number of Y points (nontarget)
-#' nx<-20; ny<-4; #try also nx<-40; ny<-10 or nx<-1000; ny<-10;
+#' nx<-20; ny<-4;  #try also nx<-40; ny<-10 or nx<-1000; ny<-10;
 #' Xp<-runif(nx,a,b)
 #' Yp<-runif(ny,a,b)
 #' IncMatPE1D(Xp,Yp,r,c)
@@ -16631,7 +16083,7 @@ IncMatPE1D<-function(Xp,Yp,r,c)
 
   if (nx>=1)
   {
-    Ys<-sort(Yp) #sorted data points from classes X and Y
+    Ys<-sort(Yp)  #sorted data points from classes X and Y
     ymin<-Ys[1]; ymax<-Ys[ny];
 
     pr<-c()
@@ -16687,11 +16139,9 @@ IncMatPE1D<-function(Xp,Yp,r,c)
 #'
 #' @examples
 #' a<-0; b<-10;
-#' #try also the following
-#' #a<-runif(1); b<-runif(1); int<-range(a,b); a<-int[1]; b<-int[2]
 #'
 #' #nx is number of X points (target) and ny is number of Y points (nontarget)
-#' nx<-20; ny<-4; #try also nx<-40; ny<-10 or nx<-1000; ny<-10;
+#' nx<-20; ny<-4;  #try also nx<-40; ny<-10 or nx<-1000; ny<-10;
 #'
 #' set.seed(1)
 #' Xp<-runif(nx,a,b)
@@ -16716,11 +16166,23 @@ plotIntervals<-function(Xp,Yp,main="",xlab="",ylab="",xlim=NULL,ylim=NULL, ...)
   RE<-Ys[2:ny]
 
   if (is.null(xlim))
-  {xlim<-range(Xp,Yp)}
+  {xl<-range(Xp,Yp)
+  xr<-xl[2]-xl[1]
+  xlim<-xl+.05*xr*c(-1,1)
+  } else
+  {
+    xr<-xlim[2]-xlim[1]
+    xlim<-xlim+.05*xr*c(-1,1)
+  }
 
-  xr<-xlim[2]-xlim[1]
+  #xr<-xlim[2]-xlim[1]
 
-  plot(cbind(Xp, 0),main=main, xlab=xlab, ylab=ylab,xlim=xlim+.05*xr*c(-1,1),ylim=ylim,pch=".",cex=3, ...)
+  if (is.null(ylim))
+  {yl<-xr*.05*sin(30*pi/180)
+    ylim<-yl*c(-1,1)
+  }
+
+  plot(cbind(Xp, 0),main=main, xlab=xlab, ylab=ylab,xlim=xlim,ylim=ylim,pch=".",cex=3, ...)
   points(cbind(Yp,0), col=2, ...)
   abline(h=0,lty=1)
   for (i in 1:ny)
@@ -16778,25 +16240,19 @@ plotIntervals<-function(Xp,Yp,main="",xlab="",ylab="",xlim=NULL,ylim=NULL, ...)
 #' r<-2
 #' c<-.4
 #' a<-0; b<-10;
-#' #try also the following
-#' #c<-runif(1)
-#' #a<-runif(1); b<-runif(1); int<-range(a,b); a<-int[1]; b<-int[2]
 #'
 #' #nx is number of X points (target) and ny is number of Y points (nontarget)
-#' nx<-20; ny<-4; #try also nx<-40; ny<-10 or nx<-1000; ny<-10;
+#' nx<-20; ny<-4;  #try also nx<-40; ny<-10 or nx<-1000; ny<-10;
 #'
 #' set.seed(1)
 #' xr<-range(a,b)
 #' xf<-(xr[2]-xr[1])*.1
 #'
 #' Xp<-runif(nx,a-xf,b+xf)
-#' #try also the following
-#' #Xp<-runif(nx,a-5,b+5)
-#' #Xp<-runif(nx,a+5,b+5)
-#' #Xp<-runif(nx,a+10,b+10)
 #' Yp<-runif(ny,a,b)
 #'
 #' plotPEregsMI(Xp,Yp,r,c,xlab="",ylab="")
+#'
 #' plotPEregsMI(Xp,Yp+10,r,c,xlab="",ylab="")
 #'
 #' @export plotPEregsMI
@@ -16819,12 +16275,12 @@ plotPEregsMI<-function(Xp,Yp,r,c,Jit=.1,main="",xlab="",ylab="",xlim=NULL,ylim=N
   LE<-RE<-vector()
   if (nx>=1)
   { Xp<-sort(Xp)
-  Ys<-sort(Yp) #sorted data points from classes X and Y
+  Ys<-sort(Yp)  #sorted data points from classes X and Y
   ymin<-Ys[1]; ymax<-Ys[ny];
 
   in.int<-rep(0,nx)
   for (i in 1:nx)
-    in.int[i]<-(Xp[i]>ymin & Xp[i] < ymax ) #indices of X points in the middle intervals, i.e., inside min(Yp) and max (Yp)
+    in.int[i]<-(Xp[i]>ymin & Xp[i] < ymax )  #indices of X points in the middle intervals, i.e., inside min(Yp) and max (Yp)
 
   Xint<-Xp[in.int==1] # X points inside  min(Yp) and max (Yp)
   XLe<-Xp[Xp<ymin] # X points in the left end interval of Yp points
@@ -16843,7 +16299,7 @@ plotPEregsMI<-function(Xp,Yp,r,c,Jit=.1,main="",xlab="",ylab="",xlim=NULL,ylim=N
 
   #for middle intervals
   nt<-ny-1 #number of Yp middle intervals
-  nx2<-length(Xint) #number of Xp points inside the middle intervals
+  nx2<-length(Xint)  #number of Xp points inside the middle intervals
 
   if (nx2>=1)
   {
@@ -16945,9 +16401,6 @@ plotPEregsMI<-function(Xp,Yp,r,c,Jit=.1,main="",xlab="",ylab="",xlim=NULL,ylim=N
 #' r<-2
 #' c<-.4
 #' a<-0; b<-10; int<-c(a,b)
-#' #try also the following
-#' #c<-runif(1)
-#' #a<-runif(1); b<-runif(1); int<-range(a,b); a<-int[1]; b<-int[2]
 #'
 #' Mc<-centMc(int,c)
 #'
@@ -16957,9 +16410,6 @@ plotPEregsMI<-function(Xp,Yp,r,c,Jit=.1,main="",xlab="",ylab="",xlim=NULL,ylim=N
 #' dat<-runif(n,a,b)
 #'
 #' Gam1PE1D(dat[5],dat,r,c,int)
-#' \donttest{
-#' Gam1PE1D(2,dat,r,c,int,ch.data.pnt = TRUE) #point p is not a data point in Dt
-#' }
 #'
 #' gam.vec<-vector()
 #' for (i in 1:n)
@@ -16991,6 +16441,10 @@ plotPEregsMI<-function(Xp,Yp,r,c,Jit=.1,main="",xlab="",ylab="",xlim=NULL,ylim=N
 #' n<-10
 #' dat2<-runif(n,a+b,b+10)
 #' Gam1PE1D(5,dat2,r,c,int)
+#'
+#' \dontrun{
+#' Gam1PE1D(2,dat,r,c,int,ch.data.pnt = TRUE)  #point p is not a data point in Dt
+#' }
 #'
 #' @export Gam1PE1D
 Gam1PE1D<-function(p,Dt,r,c,int,rv=NULL,ch.data.pnt=FALSE)
@@ -17485,7 +16939,7 @@ Pg2PE1D.asy<-function(c)
   if (!is.point(c,1) || c<=0 || c>=1)
   {stop('c must be a scalar in (0,1)')}
 
-  rstar<-1/max(c,1-c) #r value for the non-degenerate asymptotic distribution
+  rstar<-1/max(c,1-c)  #r value for the non-degenerate asymptotic distribution
 
   if (c<=0 | c>=1)
   { pg2<-0;
@@ -17515,17 +16969,15 @@ Pg2PE1D.asy<-function(c)
 #'
 #' @examples
 #' a<-0; b<-10; int<-c(a,b)
-#' #try also the following
-#' #a<-runif(1); b<-runif(1); int<-range(a,b); a<-int[1]; b<-int[2]
 #'
 #' #nx is number of X points (target) and ny is number of Y points (nontarget)
-#' nx<-20; ny<-4; #try also nx<-40; ny<-10 or nx<-1000; ny<-10;
+#' nx<-20; ny<-4;  #try also nx<-40; ny<-10 or nx<-1000; ny<-10;
 #'
 #' set.seed(1)
 #' xr<-range(a,b)
 #' xf<-(xr[2]-xr[1])*.1
 #' Xp<-runif(nx,a-xf,b+xf)
-#' Yp<-runif(ny,a,b) #try also #Yp<-runif(ny,a+1,b-1)
+#' Yp<-runif(ny,a,b)  #try also Yp<-runif(ny,a+1,b-1)
 #'
 #' ind<-ind.int.set(Xp,Yp)
 #' ind
@@ -17595,12 +17047,9 @@ ind.int.set<-function(dat,Yp)
 #' a<-0; b<-10; int<-c(a,b)
 #' c<-.4
 #' r<-2
-#' #try also the following
-#' #c<-runif(1); r<-rexp(1)+1
-#' #a<-runif(1); b<-runif(1); int<-range(a,b); a<-int[1]; b<-int[2]
 #'
 #' #nx is number of X points (target) and ny is number of Y points (nontarget)
-#' nx<-20; ny<-4; #try also nx<-40; ny<-10 or nx<-1000; ny<-10;
+#' nx<-20; ny<-4;  #try also nx<-40; ny<-10 or nx<-1000; ny<-10;
 #'
 #' set.seed(1)
 #' Xp<-runif(nx,a,b)
@@ -17627,10 +17076,10 @@ PEdom1D<-function(Xp,Yp,r,c=.5)
   if (!is.point(c,1) || c<=0 || c>=1)
   {stop('c must be a scalar in (0,1)')}
 
-  nx<-length(Xp) #number of Xp points
-  ny<-length(Yp) #number of Yp points
+  nx<-length(Xp)  #number of Xp points
+  ny<-length(Yp)  #number of Yp points
 
-  Ys<-sort(Yp) #sorted Yp points (ends of the subintervals)
+  Ys<-sort(Yp)  #sorted Yp points (ends of the subintervals)
   nint<-ny-1
 
   if (nint==0)
@@ -17638,7 +17087,7 @@ PEdom1D<-function(Xp,Yp,r,c=.5)
     gam<-0; mds<-NULL
   } else
   {
-    Int.Ind<-ind.int.set(Xp,Ys) #indices of intervals in which Xp points in the data fall
+    Int.Ind<-ind.int.set(Xp,Ys)  #indices of intervals in which Xp points in the data fall
 
     #calculation of the domination number
     gam<-rep(0,nint);
@@ -17646,13 +17095,13 @@ PEdom1D<-function(Xp,Yp,r,c=.5)
     for (i in 1:nint)
     {
       dati<-Xp[Int.Ind==i] #points in ith interval
-      ni<-length(dati) #number of points in ith interval
+      ni<-length(dati)  #number of points in ith interval
       if (ni==0)
       {
         gam[i]<-0
       } else
       {
-        int<-c(Ys[i],Ys[i+1]) #end points of the ith interval
+        int<-c(Ys[i],Ys[i+1])  #end points of the ith interval
         Clvert<-as.numeric(cl2Mc.int(dati,int,c)$Ext)
 
         #Gamma=1 piece
@@ -17672,11 +17121,11 @@ PEdom1D<-function(Xp,Yp,r,c=.5)
       }
     }
   }
-  Gam<-sum(gam) #domination number for the entire digraph in middle intervals
-  Dom.Num<-Gam+sum(sum(Xp<Ys[1])>0)+sum(sum(Xp>Ys[ny])>0) #adding the domination number in the end intervals
+  Gam<-sum(gam)  #domination number for the entire digraph in middle intervals
+  Dom.Num<-Gam+sum(sum(Xp<Ys[1])>0)+sum(sum(Xp>Ys[ny])>0)  #adding the domination number in the end intervals
   if (sum(Xp<Ys[1])>0) {ledp<-min(Xp[Xp<Ys[1]])} else {ledp<-NULL} #left end interval dominating point
   if (sum(Xp>Ys[ny])>0) {redp<-max(Xp[Xp>Ys[ny]])} else {redp<-NULL} #right end interval dominating point
-  MDS<-c(ledp,mds,redp) #a minimum dominating set
+  MDS<-c(ledp,mds,redp)  #a minimum dominating set
   list(dom.num=Dom.Num,  #domination number
        mds=MDS #a minimum dominating set
   )
@@ -17771,14 +17220,11 @@ PEdom1D<-function(Xp,Yp,r,c=.5)
 #' @examples
 #' a<-0; b<-10; int<-c(a,b)
 #' c<-.4
-#' #try also the following
-#' #a<-runif(1); b<-runif(1); int<-range(a,b); a<-int[1]; b<-int[2]
-#' #c<-runif(1);
 #'
 #' r<-1/max(c,1-c)
 #'
 #' #nx is number of X points (target) and ny is number of Y points (nontarget)
-#' nx<-20; ny<-4; #try also nx<-40; ny<-10 or nx<-1000; ny<-10;
+#' nx<-20; ny<-4;  #try also nx<-40; ny<-10 or nx<-1000; ny<-10;
 #'
 #' set.seed(1)
 #' Xp<-runif(nx,a,b)
@@ -17815,9 +17261,9 @@ TSDomPEBin1D<-function(Xp,Yp=NULL,int,c=.5,asy.bin=FALSE,end.int.cor=FALSE,
   if (!is.point(c,1) || c<=0 || c>=1)
   {stop('c must be a scalar in (0,1)')}
 
-  rstar<-1/max(c,1-c) #r value for the non-degenerate asymptotic distribution
+  rstar<-1/max(c,1-c)  #r value for the non-degenerate asymptotic distribution
 
-  nx<-length(Xp) #number of Xp points
+  nx<-length(Xp)  #number of Xp points
   if (is.null(Yp))
   { nint<-round(sqrt(nx),0)
   Yp<-(int[2]-int[1])*(0:nint)/nint #Y points (ends of the subintervals)
@@ -17830,7 +17276,7 @@ TSDomPEBin1D<-function(Xp,Yp=NULL,int,c=.5,asy.bin=FALSE,end.int.cor=FALSE,
   }
   } else
   {
-    p<-Pg2PE1D.asy(c) #asymptotic probability of success, used when Yp is provided or when asy.bin=F
+    p<-Pg2PE1D.asy(c)  #asymptotic probability of success, used when Yp is provided or when asy.bin=F
   }
 
   if (length(Yp)<2)
@@ -17840,27 +17286,27 @@ TSDomPEBin1D<-function(Xp,Yp=NULL,int,c=.5,asy.bin=FALSE,end.int.cor=FALSE,
     if (length(conf.level) != 1 || is.na(conf.level) || conf.level < 0 || conf.level > 1)
       stop("conf.level must be a number between 0 and 1")
 
-  ny<-length(Yp) #number of Yp points
+  ny<-length(Yp)  #number of Yp points
   nint<-ny-1
-  Ys<-sort(Yp) #sorted Yp points (ends of the subintervals)
+  Ys<-sort(Yp)  #sorted Yp points (ends of the subintervals)
 
   Gam.all<-PEdom1D(Xp,Yp,rstar,c)$d #domination number (with the end intervals counted)
-  Gam<-Gam.all-sum(sum(Xp<Ys[1])>0)-sum(sum(Xp>Ys[ny])>0) #removing the domination number in the end intervals
+  Gam<-Gam.all-sum(sum(Xp<Ys[1])>0)-sum(sum(Xp>Ys[ny])>0)  #removing the domination number in the end intervals
   estimate2<-Gam
   Bm<-Gam-nint; #the binomial test statistic
 
   if (Bm<0)
     warning('The adjusted binomial test statistic is negative! So 0 is taken as its value')
 
-  Bm<-max(0,Bm) # to avoid negative Bm values
+  Bm<-max(0,Bm)  # to avoid negative Bm values
 
   method <-c("Exact Binomial Test for the Domination Number for Testing Uniformness of 1D Data \n without End Interval Correction")
 
-  if (end.int.cor==T) #the part for the end interval correction
+  if (end.int.cor==T)  #the part for the end interval correction
   {
     out.int<-sum(Xp<Ys[1])+sum(Xp>Ys[ny])
     prop.out<-out.int/nx #observed proportion of points in the end intervals
-    exp.prop.out<-2/(ny+1) #expected proportion of points in the end intervals
+    exp.prop.out<-2/(ny+1)  #expected proportion of points in the end intervals
 
     Bm<-Bm*(1-(prop.out-exp.prop.out))
     method <-c("Exact Binomial Test for the Domination Number for Testing Uniformness of 1D Data \n with End Interval Correction")
@@ -17969,17 +17415,16 @@ TSDomPEBin1D<-function(Xp,Yp=NULL,int,c=.5,asy.bin=FALSE,end.int.cor=FALSE,
 #' A<-c(0,0); B<-c(1,0); C<-c(c1,c2);
 #' Tb<-rbind(A,B,C);
 #'
-#' M<-as.numeric(runif.bastri(1,c1,c2)$g)
-#' #try also the following
-#' #M<-c(.6,.2)
-#' #M<-circ.cent.tri(Tb)
-#' #M<-c(1,1,1) #M<-c(1,2,3) #M<-c(-1,2,3) #barycentric coordinates
-#' #M<-c(.3,.3)
+#' M<-as.numeric(runif.bastri(1,c1,c2)$g)  #try also M<-c(.6,.2)
 #'
 #' r<-2
 #'
-#' P1<-as.numeric(runif.bastri(1,c1,c2)$g) #try also #P1<-c(.4,.2)
+#' P1<-as.numeric(runif.bastri(1,c1,c2)$g)  #try also P1<-c(.4,.2)
 #' NPEbastri(P1,r,c1,c2,M)
+#'
+#' #or try
+#' Rv<-rv.bastri.cent(P1,c1,c2,M)$rv
+#' NPEbastri(P1,r,c1,c2,M,Rv)
 #'
 #' P2<-c(1.8,.5)
 #' NPEbastri(P2,r,c1,c2,M)
@@ -17990,15 +17435,13 @@ TSDomPEBin1D<-function(Xp,Yp=NULL,int,c=.5,asy.bin=FALSE,end.int.cor=FALSE,
 #' M<-c(1.3,1.3)
 #' r<-2
 #'
-#' \donttest{
+#' \dontrun{
 #' P1<-c(1.4,1.2)
 #' P2<-c(1.5,1.26)
-#' NPEbastri(P1,r,c1,c2,M) #center is not the circumcenter or not in the interior of the triangle
+#' NPEbastri(P1,r,c1,c2,M)
+#' #gives an error since center is not the circumcenter or not in the interior of the triangle
 #' NPEbastri(P2,r,c1,c2,M)
-#'
-#' #or try
-#' Rv<-rv.bastri.cent(P1,c1,c2,M)$rv
-#' NPEbastri(P1,r,c1,c2,M,Rv)
+#' #gives an error since center is not the circumcenter or not in the interior of the triangle
 #' }
 #'
 #' @export NPEbastri
@@ -18016,7 +17459,7 @@ NPEbastri<-function(pt,r,c1,c2,M=c(1,1,1),rv=NULL)
   if (!is.point(M) && !is.point(M,3) )
   {stop('M must be a numeric 2D point for Cartesian coordinates or 3D point for barycentric coordinates')}
 
-  A<-c(0,0); B<-c(1,0); C<-c(c1,c2); Tb<-rbind(A,B,C) #basic triangle
+  A<-c(0,0); B<-c(1,0); C<-c(c1,c2); Tb<-rbind(A,B,C)  #basic triangle
 
   if (dimension(M)==3)
   {
@@ -18030,7 +17473,7 @@ NPEbastri<-function(pt,r,c1,c2,M=c(1,1,1),rv=NULL)
   {reg<-NULL; return(reg); stop}
 
   if (is.null(rv))
-  { rv<-ifelse(isTRUE(all.equal(M,circ.cent.tri(Tb)))==T,rv.triCC(pt,Tb)$rv,rv.tri.cent(pt,Tb,M)$rv) #vertex region for pt
+  { rv<-ifelse(isTRUE(all.equal(M,circ.cent.tri(Tb)))==T,rv.triCC(pt,Tb)$rv,rv.tri.cent(pt,Tb,M)$rv)  #vertex region for pt
   } else
   {  if (!is.numeric(rv) || sum(rv==c(1,2,3))!=1)
   {stop('vertex index, rv, must be 1, 2 or 3')}}
@@ -18112,12 +17555,6 @@ NPEbastri<-function(pt,r,c1,c2,M=c(1,1,1),rv=NULL)
 #' Tb<-rbind(A,B,C);
 #'
 #' M<-as.numeric(runif.bastri(1,c1,c2)$g)
-#' #try also the following
-#' #M<-c(.6,.2)
-#' #M<-circ.cent.tri(Tb)
-#' #M<-c(1,1,1) #M<-c(1,2,3) #M<-c(-1,2,3) #barycentric coordinates
-#' #M<-c(1.3,1.3)
-#' #M<-c(.3,.3)
 #'
 #' r<-2
 #'
@@ -18188,7 +17625,7 @@ IndNPEbastri<-function(pt1,pt2,r,c1,c2,M=c(1,1,1),rv=NULL)
   {arc<-0; return(arc); stop}
 
   if (is.null(rv))
-  { rv<-ifelse(isTRUE(all.equal(M,circ.cent.tri(Tb)))==T,rv.triCC(pt1,Tb)$rv,rv.tri.cent(pt1,Tb,M)$rv) #vertex region for pt1
+  { rv<-ifelse(isTRUE(all.equal(M,circ.cent.tri(Tb)))==T,rv.triCC(pt1,Tb)$rv,rv.tri.cent(pt1,Tb,M)$rv)  #vertex region for pt1
   } else
   {  if (!is.numeric(rv) || sum(rv==c(1,2,3))!=1)
   {stop('vertex index, rv, must be 1, 2 or 3')}}
@@ -18245,13 +17682,10 @@ IndNPEbastri<-function(pt1,pt2,r,c1,c2,M=c(1,1,1),rv=NULL)
 #' A<-c(0,0); B<-c(1,0); C<-c(1/2,sqrt(3)/2);
 #' Te<-rbind(A,B,C)
 #'
-#' n<-10 #try also n<-20
+#' n<-10  #try also n<-20
 #'
 #' set.seed(1)
 #' dat<-runifTe(n)$gen.points
-#' #try also the following
-#' #dat<-cbind(runif(n),runif(n))
-#' #dat<-cbind(runif(n,1,2),runif(n,0,1))
 #'
 #' rvTeCM(dat[1,])
 #' rvTeCM(c(.7,.2))
@@ -18307,7 +17741,7 @@ rvTeCM<-function(pt)
       {mdt<-d1; rv<-i }
     }
   }
-  row.names(tri)<-c("vertex 1","vertex 2","vertex 3") #vertex labelling
+  row.names(tri)<-c("vertex 1","vertex 2","vertex 3")  #vertex labelling
 
   list(rv=rv, #relative vertex
        tri=tri #vertex labelling
@@ -18350,21 +17784,12 @@ rvTeCM<-function(pt)
 #' @examples
 #' A<-c(0,0); B<-c(1,0); C<-c(1/2,sqrt(3)/2);
 #' Te<-rbind(A,B,C)
-#' n<-10 #try also n<-20
+#' n<-10  #try also n<-20
 #'
 #' set.seed(1)
 #' dat<-runifTe(n)$gen.points
-#' #try also the following
-#' #dat<-cbind(runif(n),runif(n))
-#' #dat<-cbind(runif(n,1,2),runif(n,0,1))
 #'
-#' M<-as.numeric(runifTe(1)$g)
-#' #try also the following
-#' #M<-c(.6,.2)
-#' #M<-circ.cent.tri(Te)
-#' #M<-c(1,1,1) #M<-c(1,2,3) #M<-c(-1,2,3) #barycentric coordinates
-#' #M<-c(1.3,1.3)
-#' #M<-c(.3,.3)
+#' M<-as.numeric(runifTe(1)$g)  #try also M<-c(.6,.2)
 #'
 #' rvTe.cent(dat[1,],M)
 #' rvTe.cent(c(.7,.2),M)
@@ -18438,7 +17863,7 @@ rvTe.cent<-function(pt,M)
       {rv<-3}
     }
   }
-  row.names(Te)<-c("vertex 1","vertex 2","vertex 3") #vertex labelling
+  row.names(Te)<-c("vertex 1","vertex 2","vertex 3")  #vertex labelling
 
   list(rv=rv, #relative vertex
        tri=Te #vertex labelling
@@ -18503,17 +17928,8 @@ rvTe.cent<-function(pt,M)
 #' set.seed(1)
 #' n<-20
 #' dat<-runif.bastri(n,c1,c2)$g
-#' #try also the following
-#' #dat<-cbind(runif(n),runif(n))
-#' #dat<-cbind(runif(n,1,2),runif(n,0,1))
 #'
-#' M<-as.numeric(runif.bastri(1,c1,c2)$g)
-#' #try also the following
-#' #M<-c(.6,.3)
-#' #M<-circ.cent.tri(Tb)
-#' #M<-c(1,1,1) #M<-c(1,2,3) #M<-c(-1,2,3) #barycentric coordinates
-#' #M<-c(1.3,1.3)
-#' #M<-c(.3,.3)
+#' M<-as.numeric(runif.bastri(1,c1,c2)$g)  #try also M<-c(.6,.3)
 #'
 #' Ext<-cl2eTbVRcent(dat,c1,c2,M)
 #' Ext
@@ -18625,7 +18041,7 @@ cl2eTbVRcent<-function(Dt,c1,c2,M)
     }
     }
 
-    row.names(Tb)<-c("A","B","C") #vertex labelling
+    row.names(Tb)<-c("A","B","C")  #vertex labelling
     typ<-paste("Closest Points to Edges in the Respective M-Vertex Regions in the Basic Triangle with Vertices A=(0,0), B=(1,0), and C=(",c1,",",c2,")",sep="")
     txt1<-"Vertex labels are A=1, B=2, and C=3 (corresponds to row number in Extrema Points)"
     txt2<-"Distances to Edges in the Respective M-Vertex Regions"
@@ -18642,7 +18058,7 @@ cl2eTbVRcent<-function(Dt,c1,c2,M)
     for (i in 1:length(Regs))
     { Reg.Cent<-rbind(Reg.Cent,apply(Regs[[i]],2,mean))}
 
-    Reg.names<-c("vr=1","vr=2","vr=3") #regions names
+    Reg.names<-c("vr=1","vr=2","vr=3")  #regions names
 
     res<-list(
       txt1=txt1, txt2=txt2,
@@ -18709,26 +18125,14 @@ cl2eTbVRcent<-function(Dt,c1,c2,M)
 #'
 #' @examples
 #' A<-c(1,1); B<-c(2,0); C<-c(1.5,2);
-#' #try also the following
-#' #A<-runif(2); B<-runif(2); C<-runif(2);
-#' #A<-runif(2,1,100); B<-runif(2,1,100); C<-runif(2,1,100);
 #'
 #' Tr<-rbind(A,B,C);
-#' n<-10 #try also n<-20
+#' n<-10  #try also n<-20
 #'
 #' set.seed(1)
 #' dat<-runif.tri(n,Tr)$g
-#' #try also the following
-#' #dat<-cbind(runif(n,1,2),runif(n,0,2))
-#' #dat<-cbind(runif(n),runif(n))
 #'
-#' M<-as.numeric(runif.tri(1,Tr)$g)
-#' #try also the following
-#' #M<-c(1.6,1.0)
-#' #M<-circ.cent.tri(Tr)
-#' #M<-c(1,1,1) #M<-c(1,2,3) #M<-c(-1,2,3) #barycentric coordinates
-#' #M<-c(1.3,1.3)
-#' #M<-c(.3,.3)
+#' M<-as.numeric(runif.tri(1,Tr)$g)  #try also M<-c(1.6,1.0)
 #'
 #' Ext<-cl2eVRcent(dat,Tr,M)
 #' Ext
@@ -18757,14 +18161,14 @@ cl2eTbVRcent<-function(Dt,c1,c2,M)
 #' segments(L[,1], L[,2], R[,1], R[,2], lty=2)
 #' points(cl2e$Ext,pch=3,col=2)
 #'
-#' xc<-Tr[,1]
-#' yc<-Tr[,2]
+#' xc<-Tr[,1]+c(-.02,.03,.02)
+#' yc<-Tr[,2]+c(.02,.02,.04)
 #' txt.str<-c("A","B","C")
 #' text(xc,yc,txt.str)
 #'
 #' txt<-rbind(M,Ds)
-#' xc<-txt[,1]
-#' yc<-txt[,2]
+#' xc<-txt[,1]+c(-.02,.05,-.02,-.01)
+#' yc<-txt[,2]+c(-.03,.02,.08,-.07)
 #' txt.str<-c("M","D1","D2","D3")
 #' text(xc,yc,txt.str)
 #'
@@ -18847,7 +18251,7 @@ cl2eVRcent<-function(Dt,tri,M)
     }
     }
 
-    row.names(tri)<-c("A","B","C") #vertex labelling
+    row.names(tri)<-c("A","B","C")  #vertex labelling
     typ<-"Closest Points to Edges in the Respective M-Vertex Regions in the Triangle with Vertices A, B, and C"
     txt1<-"Vertex labels are A=1, B=2, and C=3 (corresponds to row number in Extrema Points)"
     txt2<-"Distances to Edges in the Respective M-Vertex Regions"
@@ -18864,7 +18268,7 @@ cl2eVRcent<-function(Dt,tri,M)
     for (i in 1:length(Regs))
     { Reg.Cent<-rbind(Reg.Cent,apply(Regs[[i]],2,mean))}
 
-    Reg.names<-c("vr=1","vr=2","vr=3") #regions names
+    Reg.names<-c("vr=1","vr=2","vr=3")  #regions names
 
     res<-list(
       txt1=txt1, txt2=txt2,
@@ -18923,7 +18327,7 @@ cl2eVRcent<-function(Dt,tri,M)
 #' \donttest{
 #' A<-c(1,1); B<-c(2,0); C<-c(1.5,2);
 #' Tr<-rbind(A,B,C);
-#' M<-c(1.6,1.0) #try also #M<-c(1.3,1.3)
+#' M<-c(1.6,1.0)  #try also M<-c(1.3,1.3)
 #'
 #' n<-20
 #' set.seed(1)
@@ -18935,9 +18339,6 @@ cl2eVRcent<-function(Dt,tri,M)
 #' plot(Ext)
 #'
 #' cl2eVRcent.alt(dat[1,],Tr,M)
-#'
-#' T2<-rbind(A,A+2*(C-A),C)
-#' cl2eVRcent.alt(dat,T2,M)
 #'
 #' cl2e<-cl2eVRcent.alt(dat,Tr,M)
 #' cl2e
@@ -18967,6 +18368,12 @@ cl2eVRcent<-function(Dt,tri,M)
 #' yc<-txt[,2]+c(.07,.04,.06,-.08)
 #' txt.str<-c("M","D1","D2","D3")
 #' text(xc,yc,txt.str)
+#'
+#' dat.fr<-data.frame(a=dat)
+#' cl2eVRcent.alt(dat.fr,Tr,M)
+#'
+#' dat.fr<-data.frame(a=Tr)
+#' cl2eVRcent.alt(dat,dat.fr,M)
 #' }
 #'
 cl2eVRcent.alt<-function(dat,tri,M)
@@ -19033,11 +18440,11 @@ cl2eVRcent.alt<-function(dat,tri,M)
   Dis<-c(ifelse(is.numeric(distA),min(distA),NA),ifelse(is.numeric(distB),min(distB),NA),
          ifelse(is.numeric(distC),min(distC),NA))
 
-  row.names(tri)<-c("A","B","C") #vertex labelling
+  row.names(tri)<-c("A","B","C")  #vertex labelling
   txt<-"Edge labels are AB=3, BC=1, and AC=2 (corresponds to row number in ce)"
 
-  row.names(tri)<-c("A","B","C") #vertex labelling
-  row.names(ce)<-c("closest to edge 1:","closest to edge 2:","closest to edge 3:") #extrema labelling
+  row.names(tri)<-c("A","B","C")  #vertex labelling
+  row.names(ce)<-c("closest to edge 1:","closest to edge 2:","closest to edge 3:")  #extrema labelling
   typ<-"Closest Points to Edges in the Respective CM-Vertex Regions in the Triangle with vertices A, B, and C"
   txt1<-"Vertex labels are A=1, B=2, and C=3 (corresponds to row number in Extrema Points)"
   txt2<-"Distances to Edges in the Respective CM-Vertex Regions"
@@ -19054,7 +18461,7 @@ cl2eVRcent.alt<-function(dat,tri,M)
   for (i in 1:length(Regs))
   { Reg.Cent<-rbind(Reg.Cent,apply(Regs[[i]],2,mean))}
 
-  Reg.names<-c("vr=1","vr=2","vr=3") #regions names
+  Reg.names<-c("vr=1","vr=2","vr=3")  #regions names
 
   res<-list(
     txt1=txt1, txt2=txt2,
@@ -19119,13 +18526,7 @@ cl2eVRcent.alt<-function(dat,tri,M)
 #' set.seed(1)
 #' dat<-runifTe(n)$gen.points
 #'
-#' M<-as.numeric(runifTe(1)$g)
-#' #try also the following
-#' #M<-c(.6,.2)
-#' #M<-circ.cent.tri(Te)
-#' #M<-c(1,1,1) #M<-c(1,2,3) #M<-c(-1,2,3) #barycentric coordinates
-#' #M<-c(1.3,1.3)
-#' #M<-c(.3,.3)
+#' M<-as.numeric(runifTe(1)$g)  #try also M<-c(.6,.2)
 #'
 #' IndNPETe(dat[1,],dat[10,],r=2,M)
 #' IndNPETe(c(0,1),dat[10,],r=2,M)
@@ -19237,20 +18638,12 @@ IndNPETe<-function(pt1,pt2,r,M=c(1,1,1),rv=NULL)
 #'
 #' @examples
 #' A<-c(0,0); B<-c(1,0); C<-c(1/2,sqrt(3)/2);
-#' n<-10 #try also n<-20
+#' n<-10  #try also n<-20
 #'
 #' set.seed(1)
 #' dat<-runifTe(n)$gen.points
-#' #try also the following
-#' #dat<-cbind(runif(n),runif(n))
-#' #dat<-cbind(runif(n,1,2),runif(n,0,1))
 #'
-#' M<-c(.6,.2)
-#' #try also the following
-#' #M<-circ.cent.tri(Te)
-#' #M<-c(1,1,1) #M<-c(1,2,3) #M<-c(-1,2,3) #barycentric coordinates
-#' #M<-c(1.3,1.3)
-#' #M<-c(.3,.3)
+#' M<-c(.6,.2)  #try also M<-c(1,1,1)
 #'
 #' NumArcsPETe(dat,r=1.25,M)
 #' NumArcsPETe(dat,r=1.5,M)
@@ -19358,17 +18751,8 @@ NumArcsPETe<-function(dat,r,M=c(1,1,1))
 #'
 #' set.seed(1)
 #' dat<-runifTe(n)$gen.points
-#' #try also the following
-#' #dat<-cbind(runif(n),runif(n))
-#' #dat<-cbind(runif(n,1,2),runif(n,0,1))
 #'
-#' M<-as.numeric(runifTe(1)$g)
-#' #try also the following
-#' #M<-c(.6,.2)
-#' #M<-circ.cent.tri(Te)
-#' #M<-c(1,1,1) #M<-c(1,2,3) #M<-c(-1,2,3) #barycentric coordinates
-#' #M<-c(1.3,1.3)
-#' #M<-c(.3,.3)
+#' M<-as.numeric(runifTe(1)$g)  #try also M<-c(.6,.2)
 #'
 #' NumArcsPETe(dat,r=1.25)
 #'
@@ -19523,9 +18907,10 @@ muPE2D<-function(r)
 #'   avar<-c(avar,asyvarPE2D(rseq[i]))
 #' }
 #'
+#' oldpar <- par(mfrow = c(1,2))
 #' par(mar=c(5,5,4,2))
 #' plot(rseq, avar,type="l",xlab="r",ylab=expression(paste(sigma^2,"(r)")),lty=1,xlim=range(rseq))
-#' par(mar=c(5.1, 4.1, 4.1, 2.1))
+#' par(oldpar)
 #'
 #' @export asyvarPE2D
 asyvarPE2D<-function(r)
@@ -19607,22 +18992,12 @@ asyvarPE2D<-function(r)
 #' c1<-.4; c2<-.6;
 #' A<-c(0,0); B<-c(1,0); C<-c(c1,c2);
 #' Tb<-rbind(A,B,C)
-#' n<-10 #try also n<-20
+#' n<-10  #try also n<-20
 #'
 #' set.seed(1)
 #' dat<-runif.bastri(n,c1,c2)$g
-#' #try also the following
-#' #dat<-cbind(runif(n),runif(n))
-#' #dat<-cbind(runif(n,1,2),runif(n,0,1))
 #'
-#' M<-as.numeric(runif.bastri(1,c1,c2)$g)
-#' #try also the following
-#' #M<-c(.6,.3)
-#' #M<-circ.cent.tri(Tb)
-#' #M<-c(1,1,1) #M<-c(1,2,3) #M<-c(-1,2,3) #barycentric coordinates
-#' #M<-c(1.3,1.3)
-#' #M<-c(.3,.3)
-#'
+#' M<-as.numeric(runif.bastri(1,c1,c2)$g)  #try also M<-c(.6,.3)
 #' r<-2
 #'
 #' P<-c(.4,.2)
@@ -19632,7 +19007,10 @@ asyvarPE2D<-function(r)
 #' Gam1PEbastri(dat[1,],dat,r,c1,c2,M)
 #'
 #' Gam1PEbastri(c(1,1),dat,r,c1,c2,M)
-#' #Gam1PEbastri(c(1,1),dat,r,c1,c2,M,ch.data.pnt = TRUE) #point p is not a data point in Dt
+#' \dontrun{
+#' Gam1PEbastri(c(1,1),dat,r,c1,c2,M,ch.data.pnt = TRUE)
+#' #gives an error message since point p=c(1,1) is not a data point in Dt
+#' }
 #' Gam1PEbastri(c(1,1),c(1,1),r,c1,c2,M)
 #'
 #' #or try
@@ -19642,9 +19020,6 @@ asyvarPE2D<-function(r)
 #' Gam1PEbastri(c(2,1),dat,r,c1,c2,M)
 #'
 #' Gam1PEbastri(c(.2,.1),dat,r,c1,c2,M)
-#' \donttest{
-#' Gam1PEbastri(c(.2,.1),dat,r,c1,c2,M,ch.data.pnt=TRUE) #point p is not a data point in Dt
-#' }
 #'
 #' gam.vec<-vector()
 #' for (i in 1:n)
@@ -19692,9 +19067,9 @@ asyvarPE2D<-function(r)
 #' dat.fr<-data.frame(a=dat)
 #' Gam1PEbastri(P,dat.fr,r,c1,c2,M)
 #'
-#' \donttest{
-#' Gam1PEbastri(P,cbind(dat,dat),r,c1,c2,M)
-#' Gam1PEbastri(P, rbind(c("a","b"),dat),r,c1,c2,M)
+#' \dontrun{
+#' Gam1PEbastri(c(.2,.1),dat,r,c1,c2,M,ch.data.pnt=TRUE)
+#' #gives an error message since point p is not a data point in Dt
 #' }
 #'
 #' @export Gam1PEbastri
@@ -19749,7 +19124,7 @@ Gam1PEbastri<-function(p,Dt,r,c1,c2,M=c(1,1,1),rv=NULL,ch.data.pnt=FALSE)
   dom<-1; i<-1;
 
   if (is.null(rv))
-  { rv<-ifelse(isTRUE(all.equal(M,circ.cent.tri(Tb)))==T,rv.triCC(p,Tb)$rv,rv.tri.cent(p,Tb,M)$rv) #vertex region for p
+  { rv<-ifelse(isTRUE(all.equal(M,circ.cent.tri(Tb)))==T,rv.triCC(p,Tb)$rv,rv.tri.cent(p,Tb,M)$rv)  #vertex region for p
   } else
   {  if (!is.numeric(rv) || sum(rv==c(1,2,3))!=1)
   {stop('vertex index, rv, must be 1, 2 or 3')}}
@@ -19818,21 +19193,12 @@ Gam1PEbastri<-function(p,Dt,r,c1,c2,M=c(1,1,1),rv=NULL,ch.data.pnt=FALSE)
 #' c1<-.4; c2<-.6;
 #' A<-c(0,0); B<-c(1,0); C<-c(c1,c2);
 #' Tb<-rbind(A,B,C)
-#' n<-10 #try also n<-20
+#' n<-10  #try also n<-20
 #'
 #' set.seed(1)
 #' dat<-runif.bastri(n,c1,c2)$g
-#' #try also the following
-#' #dat<-cbind(runif(n),runif(n))
-#' #dat<-cbind(runif(n,1,2),runif(n,0,1))
 #'
-#' M<-as.numeric(runif.bastri(1,c1,c2)$g)
-#' #try also the following
-#' #M<-c(.6,.3)
-#' #M<-circ.cent.tri(Tb)
-#' #M<-c(1,1,1) #M<-c(1,2,3) #M<-c(-1,2,3) #barycentric coordinates
-#' #M<-c(1.3,1.3)
-#' #M<-c(.3,.3)
+#' M<-as.numeric(runif.bastri(1,c1,c2)$g)  #try also M<-c(.6,.3)
 #'
 #' r<-2
 #'
@@ -19840,11 +19206,6 @@ Gam1PEbastri<-function(p,Dt,r,c1,c2,M=c(1,1,1),rv=NULL,ch.data.pnt=FALSE)
 #' Gam2PEbastri(c(1,1),dat[2,],dat,r,c1,c2,M)
 #'
 #' Gam2PEbastri(c(1,2),dat[2,],dat,r,c1,c2,M)
-#' \donttest{
-#' Gam2PEbastri(c(1,2),dat[2,],dat,r,c1,c2,M,ch.data.pnts = TRUE)
-#' #not both points are data points in Dt
-#' }
-#'
 #'
 #' Gam2PEbastri(c(1,2),c(1,3),rbind(c(1,2),c(1,3)),r,c1,c2,M)
 #' Gam2PEbastri(c(1,2),c(1,3),rbind(c(1,2),c(1,3)),r,c1,c2,M,ch.data.pnts = TRUE)
@@ -19878,9 +19239,9 @@ Gam1PEbastri<-function(p,Dt,r,c1,c2,M=c(1,1,1),rv=NULL,ch.data.pnt=FALSE)
 #' dat.fr<-data.frame(a=dat)
 #' Gam2PEbastri(P1,P2,dat.fr,r,c1,c2,M)
 #'
-#' \donttest{
-#' Gam2PEbastri(P1,P2,cbind(dat,dat),r,c1,c2,M)
-#' Gam2PEbastri(P1,P2, rbind(c("a","b"),dat),r,c1,c2,M)
+#' \dontrun{
+#' Gam2PEbastri(c(1,2),dat[2,],dat,r,c1,c2,M,ch.data.pnts = TRUE)
+#' #gives an error message since not both points are data points in Dt
 #' }
 #'
 #' @export Gam2PEbastri
@@ -19932,10 +19293,10 @@ Gam2PEbastri<-function(pt1,pt2,Dt,r,c1,c2,M=c(1,1,1),rv1=NULL,rv2=NULL,ch.data.p
   {stop('center is not the circumcenter or not in the interior of the triangle')}
 
   if (is.null(rv1))
-  {rv1<-ifelse(isTRUE(all.equal(M,circ.cent.tri(Tb)))==T,rv.triCC(pt1,Tb)$rv,rv.tri.cent(pt1,Tb,M)$rv) #vertex region for point pt1
+  {rv1<-ifelse(isTRUE(all.equal(M,circ.cent.tri(Tb)))==T,rv.triCC(pt1,Tb)$rv,rv.tri.cent(pt1,Tb,M)$rv)  #vertex region for point pt1
   }
   if (is.null(rv2))
-  {rv2<-ifelse(isTRUE(all.equal(M,circ.cent.tri(Tb)))==T,rv.triCC(pt2,Tb)$rv,rv.tri.cent(pt2,Tb,M)$rv) #vertex region for point pt2
+  {rv2<-ifelse(isTRUE(all.equal(M,circ.cent.tri(Tb)))==T,rv.triCC(pt2,Tb)$rv,rv.tri.cent(pt2,Tb,M)$rv)  #vertex region for point pt2
   }
 
   Dt<-matrix(Dt,ncol=2)
@@ -19983,10 +19344,6 @@ Gam2PEbastri<-function(pt1,pt2,Dt,r,c1,c2,M=c(1,1,1),rv1=NULL,rv2=NULL,ch.data.p
 #'
 #' @examples
 #' A<-c(1,1); B<-c(2,0); C<-c(1.5,2);
-#' #try also the following
-#' #A<-runif(2); B<-runif(2); C<-runif(2);
-#' #A<-runif(2,1,100); B<-runif(2,1,100); C<-runif(2,1,100);
-#'
 #' Tr<-rbind(A,B,C);
 #'
 #' P<-c(.4,.2)
@@ -19998,12 +19355,9 @@ Gam2PEbastri<-function(pt1,pt2,Dt,r,c1,c2,M=c(1,1,1),rv1=NULL,rv2=NULL,ch.data.p
 #' P<-c(10.5,1.6)
 #' rverts.triCM(P,Tr)
 #'
-#' n<-10 #try also n<-20
+#' n<-10  #try also n<-20
 #' set.seed(1)
 #' dat<-runif.tri(n,Tr)$g
-#' #try also the following
-#' #dat<-cbind(runif(n,1,2),runif(n,0,1))
-#' #dat<-cbind(runif(n),runif(n))
 #'
 #' rverts.triCM(dat,Tr)
 #' rverts.triCM(rbind(dat,c(2,2)),Tr)
@@ -20026,14 +19380,14 @@ Gam2PEbastri<-function(pt1,pt2,Dt,r,c1,c2,M=c(1,1,1),rv1=NULL,rv2=NULL,ch.data.p
 #' L<-matrix(rep(CM,3),ncol=2,byrow=TRUE); R<-Ds
 #' segments(L[,1], L[,2], R[,1], R[,2], lty=2)
 #'
-#' xc<-Tr[,1]
-#' yc<-Tr[,2]
+#' xc<-Tr[,1]+c(-.04,.05,.05)
+#' yc<-Tr[,2]+c(-.05,.05,.03)
 #' txt.str<-c("rv=1","rv=2","rv=3")
 #' text(xc,yc,txt.str)
 #'
 #' txt<-rbind(CM,Ds)
-#' xc<-txt[,1]
-#' yc<-txt[,2]
+#' xc<-txt[,1]+c(.04,.04,-.03,0)
+#' yc<-txt[,2]+c(-.07,.04,.06,-.08)
 #' txt.str<-c("CM","D1","D2","D3")
 #' text(xc,yc,txt.str)
 #'
@@ -20095,7 +19449,7 @@ rverts.triCM<-function(Dt,tri)
     ind.set[ind.vC==TRUE]<-3
   }
 
-  row.names(tri)<-c("vertex 1","vertex 2","vertex 3") #vertex labelling
+  row.names(tri)<-c("vertex 1","vertex 2","vertex 3")  #vertex labelling
 
   list(rv=ind.set, #relative vertices
        tri=tri #vertex labelling
@@ -20134,12 +19488,6 @@ rverts.triCM<-function(Dt,tri)
 #'
 #' @examples
 #' A<-c(1,1); B<-c(2,0); C<-c(1.5,2);
-#' #try also the following
-#' #c1<-.4; c2<-.6; A<-c(0,0); B<-c(1,0); C<-c(c1,c2);
-#' #A<-c(0,0); B<-c(1,0); C<-c(1/2,sqrt(3)/2);
-#' #A<-runif(2); B<-runif(2); C<-runif(2);
-#' #A<-runif(2,1,100); B<-runif(2,1,100); C<-runif(2,1,100);
-#'
 #' Tr<-rbind(A,B,C);
 #' r<-1.35
 #'
@@ -20156,13 +19504,13 @@ rverts.triCM<-function(Dt,tri)
 #' points(Ms,pch=".",col=1)
 #' polygon(Ms,lty=2)
 #'
-#' xc<-Tr[,1]
-#' yc<-Tr[,2]
+#' xc<-Tr[,1]+c(-.02,.02,.02)
+#' yc<-Tr[,2]+c(.02,.02,.03)
 #' txt.str<-c("A","B","C")
 #' text(xc,yc,txt.str)
 #'
-#' xc<-Ms[,1]
-#' yc<-Ms[,2]
+#' xc<-Ms[,1]+c(-.04,.04,.03)
+#' yc<-Ms[,2]+c(.02,.02,.05)
 #' txt.str<-c("M1","M2","M3")
 #' text(xc,yc,txt.str)
 #'
@@ -20237,12 +19585,6 @@ cent.nondeg<-function(tri,r)
 #'
 #' @examples
 #' A<-c(1,1); B<-c(2,0); C<-c(1.5,2);
-#' #try also the following
-#' #c1<-.4; c2<-.6; A<-c(0,0); B<-c(1,0); C<-c(c1,c2);
-#' #A<-c(0,0); B<-c(1,0); C<-c(1/2,sqrt(3)/2);
-#' #A<-runif(2); B<-runif(2); C<-runif(2);
-#' #A<-runif(2,1,100); B<-runif(2,1,100); C<-runif(2,1,100);
-#'
 #' Tr<-rbind(A,B,C);
 #' r<-1.35
 #'
@@ -20251,9 +19593,6 @@ cent.nondeg<-function(tri,r)
 #' Ms<-cent.nondeg(Tr,r)
 #'
 #' Ds<-cp2edges.nd(Tr,r,cent=1)
-#' #try also the following
-#' #Ds<-cp2edges.nd(Tr,r,cent=2)
-#' #Ds<-cp2edges.nd(T,r,cent=3)
 #' D1<-Ds[1,]; D2<-Ds[2,]; D3<-Ds[3,]
 #'
 #' Xlim<-range(Tr[,1])
@@ -20291,12 +19630,15 @@ cent.nondeg<-function(tri,r)
 #' dat.fr<-data.frame(a=Tr)
 #' cp2edges.nd(dat.fr,r,1)
 #'
-#' \donttest{
-#' cp2edges.nd(Tr,r,cent=5) #center index, cent, must be 1, 2 or 3
-#' cp2edges.nd(Tr,r=2,cent=2) #r must be a scalar in (1,1.5]
+#' \dontrun{
+#' cp2edges.nd(Tr,r,cent=5)
+#' #gives an error message since center index, cent, must be 1, 2 or 3
+#' cp2edges.nd(Tr,r=2,cent=2)
+#' #gives an error message since r must be a scalar in (1,1.5]
 #'
 #' T2<-rbind(A,A+2*(C-A),C)
 #' cp2edges.nd(T2,r,cent=2)
+#' #gives an error message since the triangle is degenerate
 #' }
 #'
 #' @export cp2edges.nd
@@ -20383,10 +19725,6 @@ cp2edges.nd<-function(tri,r,cent=1)
 #'
 #' @examples
 #' A<-c(1,1); B<-c(2,0); C<-c(1.5,2);
-#' #try also the following
-#' #A<-runif(2); B<-runif(2); C<-runif(2);
-#' #A<-runif(2,1,100); B<-runif(2,1,100); C<-runif(2,1,100);
-#'
 #' Tr<-rbind(A,B,C);
 #' r<-1.35
 #' cent<-2
@@ -20400,12 +19738,9 @@ cp2edges.nd<-function(tri,r,cent=1)
 #' P<-c(10.5,1.6)
 #' rverts.tri.nd(P,Tr,r,cent)
 #'
-#' n<-10 #try also n<-20
+#' n<-10  #try also n<-20
 #' set.seed(1)
 #' dat<-runif.tri(n,Tr)$g
-#' #try also the following
-#' #dat<-cbind(runif(n,1,2),runif(n,0,2))
-#' #dat<-cbind(runif(n),runif(n))
 #'
 #' rverts.tri.nd(dat,Tr,r,cent)
 #' rverts.tri.nd(rbind(dat,c(2,2)),Tr,r,cent)
@@ -20426,14 +19761,14 @@ cp2edges.nd<-function(tri,r,cent=1)
 #' L<-rbind(M,M,M); R<-Ds
 #' segments(L[,1], L[,2], R[,1], R[,2], lty=2)
 #'
-#' xc<-Tr[,1]
-#' yc<-Tr[,2]
+#' xc<-Tr[,1]+c(-.03,.05,.05)
+#' yc<-Tr[,2]+c(-.06,.02,.05)
 #' txt.str<-c("rv=1","rv=2","rv=3")
 #' text(xc,yc,txt.str)
 #'
 #' txt<-rbind(M,Ds)
-#' xc<-txt[,1]
-#' yc<-txt[,2]
+#' xc<-txt[,1]+c(.02,.04,-.03,0)
+#' yc<-txt[,2]+c(.07,.03,.05,-.07)
 #' txt.str<-c("M","D1","D2","D3")
 #' text(xc,yc,txt.str)
 #'
@@ -20504,7 +19839,7 @@ rverts.tri.nd<-function(Dt,tri,r,cent=1)
     ind.set[ind.vB==TRUE]<-2
     ind.set[ind.vC==TRUE]<-3
   }
-  row.names(tri)<-c("vertex 1","vertex 2","vertex 3") #vertex labelling
+  row.names(tri)<-c("vertex 1","vertex 2","vertex 3")  #vertex labelling
 
   list(rv=ind.set, #relative vertices
        tri=tri #vertex labelling
@@ -20550,14 +19885,11 @@ rverts.tri.nd<-function(Dt,tri,r,cent=1)
 #' P<-c(1.5,1.6)
 #' rverts.tri.cent.alt(P,Tr,M)
 #'
-#' n<-10 #try also n<-20
+#' n<-10  #try also n<-20
 #' set.seed(1)
 #' dat<-runif.tri(n,Tr)$g
-#' #try also the following
-#' #dat<-cbind(runif(n),runif(n))
-#' #dat<-cbind(runif(n,1,2),runif(n,0,2))
 #'
-#' M<-c(1.6,1.0) #try also #M<-c(1.3,1.3)
+#' M<-c(1.6,1.0)  #try also M<-c(1.3,1.3)
 #'
 #' rv<-rverts.tri.cent.alt(dat,Tr,M)
 #' rv
@@ -20587,6 +19919,18 @@ rverts.tri.nd<-function(Dt,tri,r,cent=1)
 #' text(xc,yc,txt.str)
 #'
 #' text(dat,labels=factor(rv$rv))
+#'
+#' P<-c(1.4,1.0)
+#' rverts.tri.cent.alt(P,Tr,M)
+#' rverts.tri.cent.alt(dat,Tr,M)
+#'
+#' rverts.tri.cent.alt(rbind(dat,dat),Tr,M)
+#'
+#' dat.fr<-data.frame(a=dat)
+#' rverts.tri.cent.alt(dat.fr,Tr,M)
+#'
+#' dat.fr<-data.frame(a=Tr)
+#' rverts.tri.cent.alt(dat,dat.fr,M)
 #' }
 #'
 rverts.tri.cent.alt<-function(Dt,tri,M)
@@ -20629,7 +19973,7 @@ rverts.tri.cent.alt<-function(Dt,tri,M)
       rv[i]<-rv.tri.cent(Dt[i,],tri,M)$rv
     }
   }
-  row.names(tri)<-c("vertex 1","vertex 2","vertex 3") #vertex labelling
+  row.names(tri)<-c("vertex 1","vertex 2","vertex 3")  #vertex labelling
 
   list(rv=rv, #relative vertices
        tri=tri #vertex labelling
@@ -20679,18 +20023,11 @@ rverts.tri.cent.alt<-function(Dt,tri,M)
 #'
 #' @examples
 #' A<-c(1,1); B<-c(2,0); C<-c(1.5,2);
-#' #try also the following
-#' #A<-runif(2); B<-runif(2); C<-runif(2);
-#' #A<-runif(2,1,100); B<-runif(2,1,100); C<-runif(2,1,100);
-#'
 #' Tr<-rbind(A,B,C);
 #'
-#' n<-10 #try also n<-20
+#' n<-10  #try also n<-20
 #' set.seed(1)
 #' dat<-runif.tri(n,Tr)$g
-#' #try also the following
-#' #dat<-cbind(runif(n),runif(n))
-#' #dat<-cbind(runif(n,1,2),runif(n,0,2))
 #'
 #' Ext<-cl2eVRCM(dat,Tr)
 #' Ext
@@ -20714,8 +20051,8 @@ rverts.tri.cent.alt<-function(Dt,tri,M)
 #' plot(Tr,pch=".",xlab="",ylab="",axes=TRUE,xlim=Xlim+xd*c(-.05,.05),ylim=Ylim+yd*c(-.05,.05))
 #' polygon(Tr)
 #'
-#' xc<-Tr[,1]
-#' yc<-Tr[,2]
+#' xc<-Tr[,1]+c(-.02,.02,.02)
+#' yc<-Tr[,2]+c(.02,.02,.04)
 #' txt.str<-c("A","B","C")
 #' text(xc,yc,txt.str)
 #'
@@ -20725,8 +20062,8 @@ rverts.tri.cent.alt<-function(Dt,tri,M)
 #' points(cl2e$Ext,pch=3,col=2)
 #'
 #' txt<-rbind(CM,Ds)
-#' xc<-txt[,1]
-#' yc<-txt[,2]
+#' xc<-txt[,1]+c(-.04,.04,-.03,0)
+#' yc<-txt[,2]+c(-.05,.04,.06,-.08)
 #' txt.str<-c("CM","D1","D2","D3")
 #' text(xc,yc,txt.str)
 #'
@@ -20805,10 +20142,10 @@ cl2eVRCM<-function(dat,tri)
   Dis<-rbind(ifelse(is.numeric(distA),min(distA),NA),ifelse(is.numeric(distB),min(distB),NA),
              ifelse(is.numeric(distC),min(distC),NA))
 
-  row.names(tri)<-c("A","B","C") #vertex labelling
+  row.names(tri)<-c("A","B","C")  #vertex labelling
   txt<-"Edge labels are AB=3, BC=1, and AC=2 (corresponds to row number in ce)"
 
-  row.names(tri)<-c("A","B","C") #vertex labelling
+  row.names(tri)<-c("A","B","C")  #vertex labelling
   typ<-"Closest Points to Edges in the Respective CM-Vertex Regions in the Triangle with Vertices A, B, and C"
   txt1<-"Vertex labels are A=1, B=2, and C=3 (corresponds to row number in Extrema Points)"
   txt2<-"Distances to Edges in the Respective CM-Vertex Regions"
@@ -20826,7 +20163,7 @@ cl2eVRCM<-function(dat,tri)
   for (i in 1:length(Regs))
   { Reg.Cent<-rbind(Reg.Cent,apply(Regs[[i]],2,mean))}
 
-  Reg.names<-c("vr=1","vr=2","vr=3") #regions names
+  Reg.names<-c("vr=1","vr=2","vr=3")  #regions names
 
   res<-list(
     txt1=txt1, txt2=txt2,
@@ -20888,20 +20225,11 @@ cl2eVRCM<-function(dat,tri)
 #'
 #' @examples
 #' A<-c(1,1); B<-c(2,0); C<-c(1.5,2);
-#' #try also the following
-#' #A<-c(0,0); B<-c(2,0); C<-c(1.5,2);
-#' #A<-c(1,1); B<-c(2,0); C<-c(0.5,2);
-#' #A<-runif(2); B<-runif(2); C<-runif(2);
-#' #A<-runif(2,1,100); B<-runif(2,1,100); C<-runif(2,1,100);
-#'
 #' Tr<-rbind(A,B,C);
 #'
-#' n<-10 #try also n<-20
+#' n<-10  #try also n<-20
 #' set.seed(1)
 #' dat<-runif.tri(n,Tr)$g
-#' #try also the following
-#' #dat<-cbind(runif(n,1,2),runif(n,0,2))
-#' #dat<-cbind(runif(n),runif(n))
 #'
 #' Ext<-cl2eVRCC(dat,Tr)
 #' Ext
@@ -20925,8 +20253,8 @@ cl2eVRCM<-function(dat,tri)
 #' plot(Tr,asp=1,pch=".",xlab="",ylab="",axes=TRUE,xlim=Xlim+xd*c(-.05,.05),ylim=Ylim+yd*c(-.05,.05))
 #' polygon(Tr)
 #'
-#' xc<-Tr[,1]
-#' yc<-Tr[,2]
+#' xc<-Tr[,1]+c(-.02,.02,.02)
+#' yc<-Tr[,2]+c(.02,.02,.04)
 #' txt.str<-c("A","B","C")
 #' text(xc,yc,txt.str)
 #'
@@ -20936,8 +20264,8 @@ cl2eVRCM<-function(dat,tri)
 #' points(cl2e$Ext,pch=3,col=2)
 #'
 #' txt<-rbind(CC,Ds)
-#' xc<-txt[,1]
-#' yc<-txt[,2]
+#' xc<-txt[,1]+c(-.04,.04,-.03,0)
+#' yc<-txt[,2]+c(-.05,.04,.06,-.08)
 #' txt.str<-c("CC","D1","D2","D3")
 #' text(xc,yc,txt.str)
 #'
@@ -21015,10 +20343,10 @@ cl2eVRCC<-function(dat,tri)
   Dis<-rbind(ifelse(is.numeric(distA),min(distA),NA),ifelse(is.numeric(distB),min(distB),NA),
              ifelse(is.numeric(distC),min(distC),NA))
 
-  row.names(tri)<-c("A","B","C") #vertex labelling
+  row.names(tri)<-c("A","B","C")  #vertex labelling
   txt<-"Edge labels are AB=3, BC=1, and AC=2 (corresponds to row number in ce)"
 
-  row.names(tri)<-c("A","B","C") #vertex labelling
+  row.names(tri)<-c("A","B","C")  #vertex labelling
   typ<-"Closest Points to Edges in the Respective CC-Vertex Regions in the Triangle with Vertices A, B, and C"
   txt1<-"Vertex labels are A=1, B=2, and C=3 (corresponds to row number in Extrema Points)"
   txt2<-"Distances to Edges in the Respective CC-Vertex Regions"
@@ -21033,7 +20361,7 @@ cl2eVRCC<-function(dat,tri)
     Regs<-list(vr1=rbind(A,D3,Cent,D2), #regions inside the triangles
                vr2=rbind(B,D1,Cent,D3),
                vr3=rbind(C,D2,Cent,D1))
-    Reg.names<-c("vr=1","vr=2","vr=3") #regions names
+    Reg.names<-c("vr=1","vr=2","vr=3")  #regions names
   } else
   { a1<-A[1]; a2<-A[2]; b1<-B[1]; b2<-B[2]; c1<-C[1]; c2<-C[2];
   dAB<-Dist(A,B); dBC<-Dist(B,C); dAC<-Dist(A,C); max.dis<-max(dAB,dBC,dAC)
@@ -21044,7 +20372,7 @@ cl2eVRCC<-function(dat,tri)
     Regs<-list(vr1=rbind(A,L1,D2), #regions inside the triangles
                vr2=rbind(B,D1,L2),
                vr3=rbind(C,D2,L1,L2,D1),
-               r4=rbind(Cent,L1,L2)) #only r4 is outside the triangle
+               r4=rbind(Cent,L1,L2))  #only r4 is outside the triangle
   }
 
   if (dBC==max.dis)
@@ -21054,7 +20382,7 @@ cl2eVRCC<-function(dat,tri)
     Regs<-list(vr1=rbind(A,D3,L1,L2,D2), #regions inside the triangles
                vr2=rbind(B,L1,D3),
                vr3=rbind(C,D2,L2),
-               r4=rbind(Cent,L1,L2)) #only r4 is outside the triangle
+               r4=rbind(Cent,L1,L2))  #only r4 is outside the triangle
   }
 
   if (dAC==max.dis)
@@ -21064,9 +20392,9 @@ cl2eVRCC<-function(dat,tri)
     Regs<-list(vr1=rbind(A,D3,L1), #regions inside the triangles
                vr2=rbind(B,D1,L2,L1,D3),
                vr3=rbind(C,L2,D1),
-               r4=rbind(Cent,L1,L2)) #only r4 is outside the triangle
+               r4=rbind(Cent,L1,L2))  #only r4 is outside the triangle
   }
-  Reg.names<-c("vr=1","vr=2","vr=3",NA) #regions names
+  Reg.names<-c("vr=1","vr=2","vr=3",NA)  #regions names
   }
   Reg.Cent<-vector()
   for (i in 1:length(Regs))
@@ -21126,19 +20454,9 @@ cl2eVRCC<-function(dat,tri)
 #'
 #' @examples
 #' A<-c(1,1); B<-c(2,0); C<-c(1.5,2);
-#' #try also the following
-#' #A<-runif(2); B<-runif(2); C<-runif(2);
-#' #A<-runif(2,1,100); B<-runif(2,1,100); C<-runif(2,1,100);
-#'
 #' Tr<-rbind(A,B,C);
 #'
-#' M<-as.numeric(runif.tri(1,Tr)$g)
-#' #try also the following
-#' #M<-c(1.6,1.0)
-#' #M<-circ.cent.tri(Tb)
-#' #M<-c(1,1,1) #M<-c(1,2,3) #M<-c(-1,2,3) #barycentric coordinates
-#' #M<-c(1.3,1.3)
-#' #M<-c(.3,.3)
+#' M<-as.numeric(runif.tri(1,Tr)$g)  #try also M<-c(1.6,1.0)
 #'
 #' r<-1.5
 #'
@@ -21148,7 +20466,7 @@ cl2eVRCC<-function(dat,tri)
 #'
 #' NPEtri(dat[7,],r,Tr,M)
 #'
-#' P1<-as.numeric(runif.tri(1,Tr)$g) #try also #P1<-c(.4,.2)
+#' P1<-as.numeric(runif.tri(1,Tr)$g)  #try also P1<-c(.4,.2)
 #' NPEtri(P1,r,Tr,M)
 #'
 #' P2<-c(1.8,.5)
@@ -21205,7 +20523,7 @@ NPEtri<-function(pt,r,tri,M=c(1,1,1),rv=NULL)
   {reg<-NULL; return(reg); stop}
 
   if (is.null(rv))
-  { rv<-ifelse(isTRUE(all.equal(M,circ.cent.tri(tri)))==T,rv.triCC(pt,tri)$rv,rv.tri.cent(pt,tri,M)$rv) #vertex region for pt
+  { rv<-ifelse(isTRUE(all.equal(M,circ.cent.tri(tri)))==T,rv.triCC(pt,tri)$rv,rv.tri.cent(pt,tri,M)$rv)  #vertex region for pt
   } else
   {  if (!is.numeric(rv) || sum(rv==c(1,2,3))!=1)
   {stop('vertex index, rv, must be 1, 2 or 3')}}
@@ -21285,19 +20603,9 @@ NPEtri<-function(pt,r,tri,M=c(1,1,1),rv=NULL)
 #'
 #' @examples
 #' A<-c(1,1); B<-c(2,0); C<-c(1.5,2);
-#' #try also the following
-#' #A<-runif(2); B<-runif(2); C<-runif(2);
-#' #A<-runif(2,1,100); B<-runif(2,1,100); C<-runif(2,1,100);
-#'
 #' Tr<-rbind(A,B,C);
 #'
-#' M<-as.numeric(runif.tri(1,Tr)$g)
-#' #try also the following
-#' #M<-c(1.6,1.0);
-#' #M<-circ.cent.tri(Tr)
-#' #M<-c(1,1,1) #M<-c(1,2,3) #M<-c(-1,2,3) #barycentric coordinates
-#' #M<-c(1.3,1.3)
-#' #M<-c(.3,.3)
+#' M<-as.numeric(runif.tri(1,Tr)$g)  #try also M<-c(1.6,1.0);
 #'
 #' r<-1.5
 #'
@@ -21378,12 +20686,12 @@ IndNPEtri<-function(pt1,pt2,r,tri,M=c(1,1,1),rv=NULL)
   {arc<-0; return(arc); stop}
 
   if (is.null(rv))
-  { rv<-ifelse(isTRUE(all.equal(M,circ.cent.tri(tri)))==T,rv.triCC(pt1,tri)$rv,rv.tri.cent(pt1,tri,M)$rv) #vertex region for pt1
+  { rv<-ifelse(isTRUE(all.equal(M,circ.cent.tri(tri)))==T,rv.triCC(pt1,tri)$rv,rv.tri.cent(pt1,tri,M)$rv)  #vertex region for pt1
   } else
   {  if (!is.numeric(rv) || sum(rv==c(1,2,3))!=1)
   {stop('vertex index, rv, must be 1, 2 or 3')}}
 
-  pr<-NPEtri(pt1,r,tri,M,rv) #proximity region
+  pr<-NPEtri(pt1,r,tri,M,rv)  #proximity region
 
   arc<-sum(in.triangle(pt2,pr,boundary=TRUE)$in.tri)
   arc
@@ -21425,26 +20733,13 @@ IndNPEtri<-function(pt1,pt2,r,tri,M=c(1,1,1),rv=NULL)
 #'
 #' @examples
 #' A<-c(1,1); B<-c(2,0); C<-c(1.5,2);
-#' #try also the following
-#' #A<-runif(2); B<-runif(2); C<-runif(2);
-#' #A<-runif(2,1,100); B<-runif(2,1,100); C<-runif(2,1,100);
-#'
 #' Tr<-rbind(A,B,C);
 #'
-#' n<-10 #try also n<-20
+#' n<-10  #try also n<-20
 #' set.seed(1)
 #' dat<-runif.tri(n,Tr)$g
-#' #try also the following
-#' #dat<-cbind(runif(n,1,2),runif(n,0,2))
-#' #dat<-cbind(runif(n),runif(n))
 #'
-#' M<-as.numeric(runif.tri(1,Tr)$g)
-#' #try also the following
-#' #M<-c(1.6,1.0)
-#' #M<-circ.cent.tri(Tr)
-#' #M<-c(1,1,1) #M<-c(1,2,3) #M<-c(-1,2,3) #barycentric coordinates
-#' #M<-c(1.3,1.3)
-#' #M<-c(.3,.3)
+#' M<-as.numeric(runif.tri(1,Tr)$g)  #try also M<-c(1.6,1.0)
 #'
 #' NumArcsPEtri(dat,Tr,r=1.25,M)
 #' NumArcsPEtri(dat,Tr,r=1.5,M)
@@ -21510,7 +20805,7 @@ NumArcsPEtri<-function(dat,tri,r,M=c(1,1,1))
       if (in.triangle(dat[i,],tri,boundary=TRUE)$in.tri)
       {  vert<-ifelse(isTRUE(all.equal(M,circ.cent.tri(tri)))==T,rv.triCC(dat[i,],tri)$rv,rv.tri.cent(dat[i,],tri,M)$rv)
 
-      for (j in (1:n)[-i]) #to avoid loops
+      for (j in (1:n)[-i])  #to avoid loops
       {
         arcs<-arcs+IndNPEtri(dat[i,],dat[j,],r,tri,M,rv=vert)
       }
@@ -21569,26 +20864,13 @@ NumArcsPEtri<-function(dat,tri,r,M=c(1,1,1))
 #'
 #' @examples
 #' A<-c(1,1); B<-c(2,0); C<-c(1.5,2);
-#' #try also the following
-#' #A<-runif(2); B<-runif(2); C<-runif(2);
-#' #A<-runif(2,1,100); B<-runif(2,1,100); C<-runif(2,1,100);
-#'
 #' Tr<-rbind(A,B,C);
-#' n<-10 #try also n<-20
+#' n<-10  #try also n<-20
 #'
 #' set.seed(1)
 #' dat<-runif.tri(n,Tr)$g
-#' #try also the following
-#' #dat<-cbind(runif(n,1,2),runif(n,0,2))
-#' #dat<-cbind(runif(n),runif(n))
 #'
-#' M<-as.numeric(runif.tri(1,Tr)$g)
-#' #try also the following
-#' #M<-c(1.6,1.0)
-#' #M<-circ.cent.tri(Tr)
-#' #M<-c(1,1,1) #M<-c(1,2,3) #M<-c(-1,2,3) #barycentric coordinates
-#' #M<-c(1.3,1.3)
-#' #M<-c(.3,.3)
+#' M<-as.numeric(runif.tri(1,Tr)$g)  #try also M<-c(1.6,1.0)
 #'
 #' NumArcsPEtri(dat,Tr,r=1.5,M)
 #' PEarcdens.tri(dat,Tr,r=1.5,M)
@@ -21721,23 +21003,18 @@ PEarcdens.tri<-function(Xp,tri,r,M=c(1,1,1),tri.cor=TRUE)
 #' \insertAllCited{}
 #'
 #' @examples
-#' nx<-20; ny<-4; #try also nx<-40; ny<-10 or nx<-1000; ny<-10;
+#' #nx is number of X points (target) and ny is number of Y points (nontarget)
+#' nx<-20; ny<-4;  #try also nx<-40; ny<-10 or nx<-1000; ny<-10;
 #'
 #' set.seed(1)
 #' Xp<-cbind(runif(nx),runif(nx))
-#' #try also the following
-#' #Xp<-cbind(runif(nx,.5,1.5),runif(nx))
-#' #Xp<-cbind(runif(nx,1,2),runif(nx))
-#' #Xp<-c(.5,.5)
 #' Yp<-cbind(runif(ny),runif(ny))
 #'
+#' oldpar <- par(mfrow = c(1,2))
 #' plotDeltri(Xp,Yp,xlab="",ylab="")
+#' par(oldpar)
 #'
-#' M<-c(1,1,1)
-#' #try also the following
-#' #M<-c(1,2,3) #M<-c(-1,2,3) #barycentric coordinates
-#' #M<-"CC"
-#' #M<-c(1.3,1.3)
+#' M<-c(1,1,1)  #try also M<-c(1,2,3)
 #'
 #' NumArcsPEMT(Xp,Yp,r=1.25,M)
 #' NumArcsPEMT(Xp,Yp,r=1.5,M)
@@ -21780,10 +21057,10 @@ NumArcsPEMT<-function(Xp,Yp,r,M=c(1,1,1))
 
   if (nrow(Yp)==3)
   {
-    Tri.Ind<-indices.Del.tri(Xp,Yp) #returns 1's if the points Xp[i,]'s are inside triangle based on Yp, NA otherwise
+    Tri.Ind<-indices.Del.tri(Xp,Yp)  #returns 1's if the points Xp[i,]'s are inside triangle based on Yp, NA otherwise
 
     inTri<-which(Tri.Ind==1)
-    NinTri<-length(inTri) #number of points in the triangle
+    NinTri<-length(inTri)  #number of points in the triangle
 
     if (NinTri==0)
     {Tot.Arcs<-0;
@@ -21793,7 +21070,7 @@ NumArcsPEMT<-function(Xp,Yp,r,M=c(1,1,1))
       Xdt<-matrix(Xp[inTri,],ncol=2)
       tri<-as.bastri(Yp)$tri #convert the triangle Yp into an unscaled basic triangle, see as.bastri help page
       ListW<-area.polygon(tri)
-      Tot.Arcs<-NumArcsPEtri(Xdt,tri,r,M) #number of arcs in the triangle Yp
+      Tot.Arcs<-NumArcsPEtri(Xdt,tri,r,M)  #number of arcs in the triangle Yp
     }
     res<-list(num.arcs=Tot.Arcs,
               num.in.conv.hull=NinTri,
@@ -21807,10 +21084,10 @@ NumArcsPEMT<-function(Xp,Yp,r,M=c(1,1,1))
     #Delaunay triangulation of Yp points
     Ytrimesh<-interp::tri.mesh(Yp[,1],Yp[,2],duplicate="remove")
     Ytri<-matrix(interp::triangles(Ytrimesh)[,1:3],ncol=3); #the vertices of the Delaunay triangles
-    nt<-nrow(Ytri) #number of Delaunay triangles
+    nt<-nrow(Ytri)  #number of Delaunay triangles
 
     inCH<-interp::in.convex.hull(Ytrimesh,Xp[,1],Xp[,2])
-    Ninch<-sum(inCH) #number of points in the convex hull
+    Ninch<-sum(inCH)  #number of points in the convex hull
     if (Ninch==0)
     {Tot.Arcs<-0;
     ListW<-vector()
@@ -21827,17 +21104,17 @@ NumArcsPEMT<-function(Xp,Yp,r,M=c(1,1,1))
       for (i in 1:nt)
       {
         dati<-Xdt[Tri.Ind==i,] #points in ith Delaunay triangle
-        ifelse(nt==1,Tri<-Yp[Ytri,],Tri<-Yp[Ytri[i,],]) #vertices of ith triangle
+        ifelse(nt==1,Tri<-Yp[Ytri,],Tri<-Yp[Ytri[i,],])  #vertices of ith triangle
         tri<-as.bastri(Tri)$tri #convert the triangle Tri into an unscaled basic triangle, see as.bastri help page
         List.W<-c(List.W,area.polygon(tri))
-        ni<-c(ni,length(dati)/2) #number of points in ith delaunay triangle
+        ni<-c(ni,length(dati)/2)  #number of points in ith delaunay triangle
         ifelse(identical(M,"CC"),cent<-circ.cent.tri(tri),cent<-M)
-        num.arcs<-NumArcsPEtri(dati,tri,r,cent) #number of arcs in ith triangle
-        arcs<-c(arcs,num.arcs) #number of arcs in all triangles as a vector
+        num.arcs<-NumArcsPEtri(dati,tri,r,cent)  #number of arcs in ith triangle
+        arcs<-c(arcs,num.arcs)  #number of arcs in all triangles as a vector
 
       }
 
-      Tot.Arcs<-sum(arcs) #the total number of arcs in all triangles
+      Tot.Arcs<-sum(arcs)  #the total number of arcs in all triangles
       ListW<-List.W[ni >= 1] #adjusted for triangles with one or more points in them
     }
     res<-list(num.arcs=Tot.Arcs,
@@ -21908,16 +21185,15 @@ NumArcsPEMT<-function(Xp,Yp,r,M=c(1,1,1))
 #'
 #' @examples
 #' #nx is number of X points (target) and ny is number of Y points (nontarget)
-#' nx<-20; ny<-4; #try also nx<-40; ny<-10 or nx<-1000; ny<-10;
+#' nx<-20; ny<-4;  #try also nx<-40; ny<-10 or nx<-1000; ny<-10;
 #'
 #' set.seed(1)
 #' Xp<-cbind(runif(nx),runif(nx))
-#' #try also the following
-#' #Xp<-cbind(runif(nx,.5,1.5),runif(nx))
-#' #Xp<-cbind(runif(nx,1,2),runif(nx))
 #' Yp<-cbind(runif(ny),runif(ny))
 #'
+#' oldpar <- par(mfrow = c(1,2))
 #' plotDeltri(Xp,Yp,xlab="",ylab="")
+#' par(oldpar)
 #'
 #' NumArcsPEMT(Xp,Yp,r=1.25)
 #' TSArcDensPEMT(Xp,Yp,r=1.25)
@@ -21977,7 +21253,7 @@ TSArcDensPEMT<-function(Xp,Yp,r,ch.cor=FALSE,alternative = c("two.sided", "less"
     if (length(conf.level) != 1 || is.na(conf.level) || conf.level < 0 || conf.level > 1)
       stop("conf.level must be a number between 0 and 1")
 
-  Num.arcs<-NumArcsPEMT(Xp,Yp,r,M=c(1,1,1)) #use the default, i.e., CM for the center M
+  Num.arcs<-NumArcsPEMT(Xp,Yp,r,M=c(1,1,1))  #use the default, i.e., CM for the center M
   NinCH<-Num.arcs[[1]]
   if (NinCH<=1)
   {stop('not enough points in the convex hull of non-target points to compute arc density of the target points')}
@@ -21986,15 +21262,15 @@ TSArcDensPEMT<-function(Xp,Yp,r,ch.cor=FALSE,alternative = c("two.sided", "less"
   ListW<-Num.arcs[[3]]
 
   LW<-ListW/sum(ListW)
-  arc.dens<-num.arcs/(NinCH*(NinCH-1)) #arc density
+  arc.dens<-num.arcs/(NinCH*(NinCH-1))  #arc density
   estimate1<-arc.dens
-  asy.mean0<-muPE2D(r) #asy mean value for the r value
+  asy.mean0<-muPE2D(r)  #asy mean value for the r value
   asy.mean<-asy.mean0*sum(LW^2)
   estimate2<-asy.mean
-  asy.var0<-asyvarPE2D(r) #asy variance value for the r value
+  asy.var0<-asyvarPE2D(r)  #asy variance value for the r value
   asy.var<-asy.var0*sum(LW^3)+4*asy.mean0^2*(sum(LW^3)-(sum(LW^2))^2)
 
-  TS0<-sqrt(NinCH)*(arc.dens-asy.mean)/sqrt(asy.var) #standardized test stat
+  TS0<-sqrt(NinCH)*(arc.dens-asy.mean)/sqrt(asy.var)  #standardized test stat
 
   if (ch.cor==F)
   {
@@ -22003,12 +21279,12 @@ TSArcDensPEMT<-function(Xp,Yp,r,ch.cor=FALSE,alternative = c("two.sided", "less"
   }
   else
   {
-    n<-nrow(Xp) #number of X points
-    m<-nrow(Yp) #number of Y points
+    n<-nrow(Xp)  #number of X points
+    m<-nrow(Yp)  #number of Y points
     NoutCH<-n-NinCH #number of points outside of the convex hull
 
     prop.out<-NoutCH/n #observed proportion of points outside convex hull
-    exp.prop.out<-1.66/m+1.256/sqrt(m) #expected proportion of points outside convex hull
+    exp.prop.out<-1.66/m+1.256/sqrt(m)  #expected proportion of points outside convex hull
 
     TS<-TS0+abs(TS0)*sign(prop.out-exp.prop.out)*(prop.out-exp.prop.out)^2
     method <-c("Large Sample z-Test Based on Arc Density for 2D Data \n with Convex Hull Correction")
@@ -22084,28 +21360,14 @@ TSArcDensPEMT<-function(Xp,Yp,r,ch.cor=FALSE,alternative = c("two.sided", "less"
 #'
 #' @examples
 #' A<-c(1,1); B<-c(2,0); C<-c(1.5,2);
-#' #try also the following
-#' #A<-runif(2); B<-runif(2); C<-runif(2);
-#' #A<-runif(2,1,100); B<-runif(2,1,100); C<-runif(2,1,100);
-#'
 #' Tr<-rbind(A,B,C);
 #' n<-10
 #'
 #' set.seed(1)
 #' dat<-runif.tri(n,Tr)$g
-#' #try also the following
-#' #dat<-cbind(runif(n,1,2),runif(n,0,2))
-#' #dat<-cbind(runif(n),runif(n))
 #'
-#' M<-as.numeric(runif.tri(1,Tr)$g)
-#' #try also the following
-#' #M<-c(1.6,1.0)
-#' #M<-circ.cent.tri(Tr)
-#' #M<-c(1,1,1) #M<-c(1,2,3) #M<-c(-1,2,3) #barycentric coordinates
-#' #M<-c(1.3,1.3)
-#' #M<-c(.3,.3)
+#' M<-as.numeric(runif.tri(1,Tr)$g)  #try also M<-c(1.6,1.0)
 #'
-#' #dat<-c(.5,.5)
 #' IM<-IncMatPEtri(dat,Tr,r=1.25,M)
 #'
 #' IM
@@ -22227,35 +21489,19 @@ IncMatPEtri<-function(dat,tri,r,M=c(1,1,1))
 #'
 #' @examples
 #' A<-c(1,1); B<-c(2,0); C<-c(1.5,2);
-#' #try also the following
-#' #A<-runif(2); B<-runif(2); C<-runif(2);
-#' #A<-runif(2,1,100); B<-runif(2,1,100); C<-runif(2,1,100);
-#'
 #' Tr<-rbind(A,B,C);
-#' n<-10 #try also n<-20
+#' n<-10  #try also n<-20
 #'
 #' set.seed(1)
 #' dat<-runif.tri(n,Tr)$g
-#' #try also the following
-#' #dat<-cbind(runif(n,1,2),runif(n,0,2))
-#' #dat<-cbind(runif(n),runif(n))
 #'
-#' M<-as.numeric(runif.tri(1,Tr)$g)
-#' #try also the following
-#' #M<-c(1.6,1.0)
-#' #M<-circ.cent.tri(Tr)
-#' #M<-c(1,1,1) #M<-c(1,2,3) #M<-c(-1,2,3) #barycentric coordinates
-#' #M<-c(1.3,1.3)
-#' #M<-c(.3,.3)
+#' M<-as.numeric(runif.tri(1,Tr)$g)  #try also M<-c(1.6,1.0)
 #'
-#' r<-1.5 #try also r<-2
+#' r<-1.5  #try also r<-2
 #'
 #' Gam1PEtri(c(1.4,1),c(1.4,1),Tr,r,M)
 #' Gam1PEtri(dat[1,],dat,Tr,r,M)
 #' Gam1PEtri(c(1,2),dat,Tr,r,M)
-#' \donttest{
-#' Gam1PEtri(c(1,2),dat,Tr,r,M,ch.data.pnt = TRUE) #p is not a data point
-#' }
 #'
 #' Gam1PEtri(c(1,2),c(1,2),Tr,r,M)
 #' Gam1PEtri(c(1,2),c(1,2),Tr,r,M,ch.data.pnt = TRUE)
@@ -22291,8 +21537,8 @@ IncMatPEtri<-function(dat,tri,r,M=c(1,1,1))
 #' #rbind is to insert the points correctly if there is only one dominating point
 #'
 #' txt<-rbind(Tr,M,Ds)
-#' xc<-txt[,1]
-#' yc<-txt[,2]
+#' xc<-txt[,1]+c(-.02,.03,.02,-.02,.04,-.03,.0)
+#' yc<-txt[,2]+c(.02,.02,.05,-.03,.04,.06,-.07)
 #' txt.str<-c("A","B","C","M","D1","D2","D3")
 #' text(xc,yc,txt.str)
 #'
@@ -22305,6 +21551,11 @@ IncMatPEtri<-function(dat,tri,r,M=c(1,1,1))
 #'
 #' dat.fr<-data.frame(a=Tr)
 #' Gam1PEtri(P,dat,dat.fr,r,M)
+#'
+#' \dontrun{
+#' Gam1PEtri(c(1,2),dat,Tr,r,M,ch.data.pnt = TRUE)
+#' #gives an error message since p is not a data point
+#' }
 #'
 #' @export Gam1PEtri
 Gam1PEtri<-function(p,Dt,tri,r,M=c(1,1,1),rv=NULL,ch.data.pnt=FALSE)
@@ -22426,38 +21677,21 @@ Gam1PEtri<-function(p,Dt,tri,r,M=c(1,1,1),rv=NULL,ch.data.pnt=FALSE)
 #'
 #' @examples
 #' A<-c(1,1); B<-c(2,0); C<-c(1.5,2);
-#' #try also the following
-#' #A<-runif(2); B<-runif(2); C<-runif(2);
-#' #A<-runif(2,1,100); B<-runif(2,1,100); C<-runif(2,1,100);
-#'
 #' Tr<-rbind(A,B,C);
-#' n<-10 #try also n<-20
+#' n<-10  #try also n<-20
 #'
 #' set.seed(1)
 #' dat<-runif.tri(n,Tr)$g
-#' #try also the following
-#' #dat<-cbind(runif(n,1,2),runif(n,0,2))
-#' #dat<-cbind(runif(n),runif(n))
 #'
-#' M<-as.numeric(runif.tri(1,Tr)$g)
-#' #try also the following
-#' #M<-c(1.6,1.0)
-#' #M<-circ.cent.tri(Tr)
-#' #M<-c(1,1,1) #M<-c(1,2,3) #M<-c(-1,2,3) #barycentric coordinates
-#' #M<-c(1.3,1.3)
-#' #M<-c(.3,.3)
+#' M<-as.numeric(runif.tri(1,Tr)$g)  #try also M<-c(1.6,1.0)
 #'
-#' r<-1.5 #try also #r<-2
+#' r<-1.5  #try also r<-2
 #'
 #' Gam2PEtri(dat[1,],dat[2,],dat,Tr,r,M)
 #' Gam2PEtri(dat[1,],dat[4,],dat,Tr,r,M)
 #' Gam2PEtri(dat[4,],dat[4,],dat,Tr,r,M)
 #'
 #' Gam2PEtri(dat[1,],c(1,2),dat,Tr,r,M)
-#' \donttest{
-#' Gam2PEtri(dat[1,],c(1,2),dat,Tr,r,M,ch.data.pnts = TRUE)
-#' #not both points, pt1 and pt2, are data points in Dt
-#' }
 #'
 #' Gam2PEtri(c(1,2),c(1,3),rbind(c(1,2),c(1,3)),Tr,r,M)
 #'
@@ -22491,6 +21725,11 @@ Gam1PEtri<-function(p,Dt,tri,r,M=c(1,1,1),rv=NULL,ch.data.pnt=FALSE)
 #'
 #' dat.fr<-data.frame(a=Tr)
 #' Gam2PEtri(P1,P2,dat,dat.fr,r,M)
+#'
+#' \dontrun{
+#' Gam2PEtri(dat[1,],c(1,2),dat,Tr,r,M,ch.data.pnts = TRUE)
+#' #gives an error message since not both points, pt1 and pt2, are data points in Dt
+#' }
 #'
 #' @export Gam2PEtri
 Gam2PEtri<-function(pt1,pt2,Dt,tri,r,M=c(1,1,1),rv1=NULL,rv2=NULL,ch.data.pnts=FALSE)
@@ -22542,7 +21781,7 @@ Gam2PEtri<-function(pt1,pt2,Dt,tri,r,M=c(1,1,1),rv1=NULL,rv2=NULL,ch.data.pnts=F
   {dom<-0; return(dom); stop}
 
   if (is.null(rv1))
-  {rv1<-ifelse(isTRUE(all.equal(M,circ.cent.tri(tri)))==T,rv.triCC(pt1,tri)$rv,rv.tri.cent(pt1,tri,M)$rv) #vertex region for point pt1
+  {rv1<-ifelse(isTRUE(all.equal(M,circ.cent.tri(tri)))==T,rv.triCC(pt1,tri)$rv,rv.tri.cent(pt1,tri,M)$rv)  #vertex region for point pt1
   }
   if (is.null(rv2))
   {rv2<-ifelse(isTRUE(all.equal(M,circ.cent.tri(tri)))==T,rv.triCC(pt2,tri)$rv,rv.tri.cent(pt2,tri,M)$rv)  #vertex region for point pt2
@@ -22589,21 +21828,11 @@ Gam2PEtri<-function(pt1,pt2,Dt,tri,r,M=c(1,1,1),rv1=NULL,rv2=NULL,ch.data.pnts=F
 #'
 #' @examples
 #' A<-c(0,0); B<-c(1,0); C<-c(1/2,sqrt(3)/2)
-#' #try also the following
-#' #A<-runif(2); B<-runif(2); C<-runif(2);
-#' #A<-runif(2,1,100); B<-runif(2,1,100); C<-runif(2,1,100);
-#'
 #' Tr<-rbind(A,B,C)
-#' n<-10 #try also n<-20
+#' n<-10  #try also n<-20
 #' dat<-runif.tri(n,Tr)$g
 #'
-#' M<-as.numeric(runif.tri(1,Tr)$g)
-#' #try also the following
-#' #M<-(A+B+C)/3
-#' #M<-circ.cent.tri(Tr)
-#' #M<-c(1,1,1) #M<-c(1,2,3) #M<-c(-1,2,3) #barycentric coordinates
-#' #M<-c(1.3,1.3)
-#' #M<-c(.3,.3)
+#' M<-as.numeric(runif.tri(1,Tr)$g)  #try also M<-c(1,1,1)
 #'
 #' r<-1.4
 #'
@@ -22654,7 +21883,7 @@ PEdomtri<-function(Xp,tri,r,M=c(1,1,1))
   if (!is.point(r,1) || r<1)
   {stop('r must be a scalar >= 1')}
 
-  n<-nrow(Xp) #number of Xp points
+  n<-nrow(Xp)  #number of Xp points
 
   ind.tri<-c()
   for (i in 1:n)
@@ -22665,11 +21894,11 @@ PEdomtri<-function(Xp,tri,r,M=c(1,1,1))
 
   Xtri<-matrix(Xp[ind.tri,],ncol=2)
 
-  ntri<-nrow(Xtri) #number of points inside the triangle
+  ntri<-nrow(Xtri)  #number of points inside the triangle
   if (ntri==0)
   {gam<-0;
   res<-list(dom.num=gam, #domination number
-            mds=vector()) #a minimum dominating set
+            mds=vector())  #a minimum dominating set
   return(res); stop}
 
   if (dimension(M)==3)
@@ -22759,21 +21988,12 @@ PEdomtri<-function(Xp,tri,r,M=c(1,1,1))
 #'
 #' set.seed(1)
 #' dat<-runifTe(n)$gen.points
-#' #try also the following
-#' #dat<-cbind(runif(n),runif(n))
-#' #dat<-cbind(runif(n,1,2),runif(n,0,1))
 #'
-#' M<-as.numeric(runifTe(1)$g)
-#' #try also the following
-#' #M<-c(.6,.2)
-#' #M<-circ.cent.tri(Te)
-#' #M<-c(1,1,1) #M<-c(1,2,3) #M<-c(-1,2,3) #barycentric coordinates
-#' #M<-c(1.3,1.3)
-#' #M<-c(.3,.3)
+#' M<-as.numeric(runifTe(1)$g)  #try also M<-c(.6,.2)
 #'
 #' r<-1.5
 #'
-#' S<-rbind(dat[1,],dat[2,]) #try also #S<-c(.5,.5)
+#' S<-rbind(dat[1,],dat[2,])  #try also S<-c(.5,.5)
 #' IndNPETeSet(S,dat[3,],r,M)
 #' IndNPETeSet(S,dat[3,],r=1,M)
 #' IndNPETeSet(S,dat[3,],r=1.5,M)
@@ -22887,29 +22107,17 @@ IndNPETeSet<-function(S,pt,r,M=c(1,1,1))
 #'
 #' @examples
 #' A<-c(1,1); B<-c(2,0); C<-c(1.5,2);
-#' #try also the following
-#' #A<-runif(2); B<-runif(2); C<-runif(2);
-#' #A<-runif(2,1,100); B<-runif(2,1,100); C<-runif(2,1,100);
-#'
 #' Tr<-rbind(A,B,C);
 #' n<-10
 #'
 #' set.seed(1)
 #' dat<-runif.tri(n,Tr)$gen.points
-#' #try also the following
-#' #dat<-cbind(runif(n),runif(n))
-#' #dat<-cbind(runif(n,1,2),runif(n,0,1))
 #'
-#' M<-as.numeric(runif.tri(1,Tr)$g)
-#' #try also the following
-#' #M<-c(1.6,1.0)
-#' #M<-c(1,1,1) #M<-c(1,2,3) #M<-c(-1,2,3) #barycentric coordinates
-#' #M<-c(1.3,1.3)
-#' #M<-c(.3,.3)
+#' M<-as.numeric(runif.tri(1,Tr)$g)  #try also M<-c(1.6,1.0)
 #'
 #' r<-1.5
 #'
-#' S<-rbind(dat[1,],dat[2,]) #try also #S<-c(1.5,1)
+#' S<-rbind(dat[1,],dat[2,])  #try also S<-c(1.5,1)
 #'
 #' IndNPEtriSet(S,dat[3,],r,Tr,M)
 #' IndNPEtriSet(S,dat[3,],r=1,Tr,M)
@@ -23034,17 +22242,8 @@ IndNPEtriSet<-function(S,pt,r,tri,M=c(1,1,1))
 #'
 #' set.seed(1)
 #' dat<-runifTe(n)$gen.points
-#' #try also the following
-#' #dat<-cbind(runif(n),runif(n))
-#' #dat<-cbind(runif(n,1,2),runif(n,0,1))
 #'
-#' M<-as.numeric(runifTe(1)$g)
-#' #try also the following
-#' #M<-c(.6,.2)
-#' #M<-circ.cent.tri(Te)
-#' #M<-c(1,1,1) #M<-c(1,2,3) #M<-c(-1,2,3) #barycentric coordinates
-#' #M<-c(1.3,1.3)
-#' #M<-c(.3,.3)
+#' M<-as.numeric(runifTe(1)$g)  #try also M<-c(.6,.2)
 #'
 #' r<-1.5
 #'
@@ -23120,7 +22319,7 @@ IndNPETe.domset<-function(S,Dt,r,M=c(1,1,1))
   dom<-1; i<-1;
   while (dom ==1 && i<= n)
   {
-    if (IndNPETeSet(S,Dt[i,],r,M)==0) #this is where std equilateral triangle Te is implicitly used
+    if (IndNPETeSet(S,Dt[i,],r,M)==0)  #this is where std equilateral triangle Te is implicitly used
     {dom<-0};
     i<-i+1;
   }
@@ -23166,26 +22365,13 @@ IndNPETe.domset<-function(S,Dt,r,M=c(1,1,1))
 #'
 #' @examples
 #' A<-c(1,1); B<-c(2,0); C<-c(1.5,2);
-#' #try also the following
-#' #A<-runif(2); B<-runif(2); C<-runif(2);
-#' #A<-runif(2,1,100); B<-runif(2,1,100); C<-runif(2,1,100);
-#'
 #' Tr<-rbind(A,B,C);
 #' n<-10
 #'
 #' set.seed(1)
 #' dat<-runif.tri(n,Tr)$gen.points
-#' #try also the following
-#' #dat<-cbind(runif(n),runif(n))
-#' #dat<-cbind(runif(n,1,2),runif(n,0,1))
 #'
-#' M<-as.numeric(runif.tri(1,Tr)$g)
-#' #try also the following
-#' #M<-c(1.6,1.0)
-#' #M<-circ.cent.tri(Tr)
-#' #M<-c(1,1,1) #M<-c(1,2,3) #M<-c(-1,2,3) #barycentric coordinates
-#' #M<-c(1.3,1.3)
-#' #M<-c(.3,.3)
+#' M<-as.numeric(runif.tri(1,Tr)$g)  #try also M<-c(1.6,1.0)
 #'
 #' r<-1.5
 #'
@@ -23268,7 +22454,7 @@ IndNPEtri.domset<-function(S,Dt,r,tri,M=c(1,1,1))
   dom<-1; i<-1;
   while (dom ==1 && i<= n)
   {
-    if (IndNPEtriSet(S,Dt[i,],r,tri,M)==0) #this is where tri is used
+    if (IndNPEtriSet(S,Dt[i,],r,tri,M)==0)  #this is where tri is used
     {dom<-0};
     i<-i+1;
   }
@@ -23323,29 +22509,15 @@ IndNPEtri.domset<-function(S,Dt,r,tri,M=c(1,1,1))
 #'
 #' @examples
 #' A<-c(1,1); B<-c(2,0); C<-c(1.5,2);
-#' #try also the following
-#' #A<-runif(2); B<-runif(2); C<-runif(2);
-#' #A<-runif(2,1,100); B<-runif(2,1,100); C<-runif(2,1,100);
-#'
 #' Tr<-rbind(A,B,C);
 #' n<-10
 #'
 #' set.seed(1)
 #' dat<-runif.tri(n,Tr)$g
-#' #try also the following
-#' #dat<-cbind(runif(n,1,2),runif(n,0,2))
-#' #dat<-cbind(runif(n),runif(n))
-#' #dat<-c(1.4,1)
 #'
-#' M<-as.numeric(runif.tri(1,Tr)$g)
-#' #try also the following
-#' #M<-c(1.6,1.0)
-#' #M<-circ.cent.tri(Tr)
-#' #M<-c(1,1,1) #M<-c(1,2,3) #M<-c(-1,2,3) #barycentric coordinates
-#' #M<-c(1.3,1.3)
-#' #M<-c(.3,.3)
+#' M<-as.numeric(runif.tri(1,Tr)$g)  #try also M<-c(1.6,1.0)
 #'
-#' r<-1.5 #try also #r<-2
+#' r<-1.5  #try also r<-2
 #'
 #' ArcsPEtri(dat,Tr,r,M)
 #'
@@ -23376,8 +22548,8 @@ IndNPEtri.domset<-function(S,Dt,r,tri,M=c(1,1,1))
 #' arrows(S[,1], S[,2], E[,1], E[,2], length = 0.1, col= 4)
 #'
 #' txt<-rbind(Tr,M,Ds)
-#' xc<-txt[,1]
-#' yc<-txt[,2]
+#' xc<-txt[,1]+c(-.02,.03,.02,.03,.04,-.03,-.01)
+#' yc<-txt[,2]+c(.02,.02,.03,.06,.04,.05,-.07)
 #' txt.str<-c("A","B","C","M","D1","D2","D3")
 #' text(xc,yc,txt.str)
 #'
@@ -23444,7 +22616,7 @@ ArcsPEtri<-function(Xp,tri,r,M=c(1,1,1))
     {
       pt1<-Xtri[j,];
       RV1<-ifelse(isTRUE(all.equal(M,circ.cent.tri(tri)))==T,rv.triCC(pt1,tri)$rv,rv.tri.cent(pt1,tri,M)$rv);
-      for (k in (1:n2)[-j]) #to avoid loops
+      for (k in (1:n2)[-j])  #to avoid loops
       {
         pt2<-Xtri[k,];
         if (IndNPEtri(pt1,pt2,r,tri,M,RV1)==1)
@@ -23528,29 +22700,15 @@ ArcsPEtri<-function(Xp,tri,r,M=c(1,1,1))
 #'
 #' @examples
 #' A<-c(1,1); B<-c(2,0); C<-c(1.5,2);
-#' #try also the following
-#' #A<-runif(2); B<-runif(2); C<-runif(2);
-#' #A<-runif(2,1,100); B<-runif(2,1,100); C<-runif(2,1,100);
-#'
 #' Tr<-rbind(A,B,C);
-#' n<-10 #try also n<-20
+#' n<-10  #try also n<-20
 #'
 #' set.seed(1)
 #' dat<-runif.tri(n,Tr)$g
-#' #try also the following
-#' #dat<-cbind(runif(n,1,2),runif(n,0,2))
-#' #dat<-cbind(runif(n),runif(n))
-#' #dat<-c(.5,.5)
 #'
-#' M<-as.numeric(runif.tri(1,Tr)$g)
-#' #try also the following
-#' #M<-c(1.6,1.0)
-#' #M<-circ.cent.tri(Tr)
-#' #M<-c(1,1,1) #M<-c(1,2,3) #M<-c(-1,2,3) #barycentric coordinates
-#' #M<-c(1.3,1.3)
-#' #M<-c(.3,.3)
+#' M<-as.numeric(runif.tri(1,Tr)$g)  #try also M<-c(1.6,1.0)
 #'
-#' r<-1.5 #try also #r<-2
+#' r<-1.5  #try also r<-2
 #'
 #' ifelse(isTRUE(all.equal(M,circ.cent.tri(Tr))),
 #' Ds<-rbind((B+C)/2,(A+C)/2,(A+B)/2),Ds<-cp2e.tri(Tr,M))
@@ -23573,8 +22731,8 @@ ArcsPEtri<-function(Xp,tri,r,M=c(1,1,1))
 #' segments(L[,1], L[,2], R[,1], R[,2], lty=2)
 #'
 #' txt<-rbind(Tr,M,Ds)
-#' xc<-txt[,1]
-#' yc<-txt[,2]
+#' xc<-txt[,1]+c(-.02,.03,.03,.03,.05,-0.03,-.01)
+#' yc<-txt[,2]+c(.02,.02,.02,.07,.02,.05,-.06)
 #' txt.str<-c("A","B","C","M","D1","D2","D3")
 #' text(xc,yc,txt.str)
 #'
@@ -23636,30 +22794,15 @@ plotPEarcsTri<-function(Xp,tri,r,M=c(1,1,1),asp=NA,main="",xlab="",ylab="",xlim=
 #'
 #' @examples
 #' A<-c(1,1); B<-c(2,0); C<-c(1.5,2);
-#' #try also the following
-#' #A<-runif(2); B<-runif(2); C<-runif(2);
-#' #A<-runif(2,1,100); B<-runif(2,1,100); C<-runif(2,1,100);
-#'
 #' Tr<-rbind(A,B,C);
 #' n<-10
 #'
 #' set.seed(1)
 #' dat<-runif.tri(n,Tr)$g
-#' #try also the following
-#' #dat<-cbind(runif(n,1,2),runif(n,0,2))
-#' #dat<-cbind(runif(n),runif(n))
-#' #dat<-c(.5,.5)
-#' dat<-matrix(dat,ncol=2)
 #'
-#' M<-as.numeric(runif.tri(1,Tr)$g)
-#' #try also the following
-#' #M<-c(1.6,1.0)
-#' #M<-circ.cent.tri(Tr)
-#' #M<-c(1,1,1) #M<-c(1,2,3) #M<-c(-1,2,3) #barycentric coordinates
-#' #M<-c(1.3,1.3)
-#' #M<-c(.3,.3)
+#' M<-as.numeric(runif.tri(1,Tr)$g)  #try also M<-c(1.6,1.0)
 #'
-#' r<-1.5 #try also #r<-2
+#' r<-1.5  #try also r<-2
 #'
 #' ifelse(identical(M,circ.cent.tri(Tr)),Ds<-rbind((B+C)/2,(A+C)/2,(A+B)/2),Ds<-cp2e.tri(Tr,M))
 #'
@@ -23680,8 +22823,8 @@ plotPEarcsTri<-function(Xp,tri,r,M=c(1,1,1),asp=NA,main="",xlab="",ylab="",xlim=
 #' segments(L[,1], L[,2], R[,1], R[,2], lty=2)
 #'
 #' txt<-rbind(Tr,M,Ds)
-#' xc<-txt[,1]
-#' yc<-txt[,2]
+#' xc<-txt[,1]+c(-.02,.03,.03,.03,.05,-0.03,-.01)
+#' yc<-txt[,2]+c(.02,.02,.02,.07,.02,.05,-.06)
 #' txt.str<-c("A","B","C","M","D1","D2","D3")
 #' text(xc,yc,txt.str)
 #'
@@ -23728,7 +22871,7 @@ plotPEregsTri<-function(Xp,tri,r,M=c(1,1,1),asp=NA,main="",xlab="",ylab="",xlim=
   for (i in 1:n)
     in.tri[i]<-in.triangle(Xp[i,],tri,boundary=TRUE)$in.tri #indices of the Xp points inside the triangle
 
-  Xtri<-matrix(Xp[in.tri==1,],ncol=2) #the Xp points inside the triangle
+  Xtri<-matrix(Xp[in.tri==1,],ncol=2)  #the Xp points inside the triangle
   nt<-length(Xtri)/2 #number of Xp points inside the triangle
 
   if (is.null(xlim))
@@ -23810,23 +22953,15 @@ plotPEregsTri<-function(Xp,tri,r,M=c(1,1,1),asp=NA,main="",xlab="",ylab="",xlim=
 #'
 #' @examples
 #' #nx is number of X points (target) and ny is number of Y points (nontarget)
-#' nx<-20; ny<-4; #try also nx<-40; ny<-10 or nx<-1000; ny<-10;
+#' nx<-20; ny<-4;  #try also nx<-40; ny<-10 or nx<-1000; ny<-10;
 #'
 #' set.seed(1)
 #' Xp<-cbind(runif(nx,0,1),runif(nx,0,1))
-#' #try also the following
-#' #Xp<-cbind(runif(nx,0.5,1.5),runif(nx,0,1))
-#' #Xp<-cbind(runif(nx,1,2),runif(nx,0,1))
-#' #Xp<-c(.5,.5)
 #' Yp<-cbind(runif(ny,0,1),runif(ny,0,1))
 #'
-#' M<-c(1,1,1)
-#' #try also the following
-#' #M<-c(1,2,3) #M<-c(-1,2,3) #barycentric coordinates
-#' #M<-"CC"
-#' #M<-c(1.3,1.3)
+#' M<-c(1,1,1)  #try also M<-c(1,2,3)
 #'
-#' r<-1.5 #try also #r<-2
+#' r<-1.5  #try also r<-2
 #'
 #' ArcsPEMT(Xp,Yp,r,M)
 #'
@@ -23897,7 +23032,7 @@ ArcsPEMT<-function(Xp,Yp,r,M=c(1,1,1))
     for (i in 1:nx)
       ch[i]<-interp::in.convex.hull(DTmesh,Xp[i,1],Xp[i,2])
 
-    Xch<-matrix(Xp[ch==1,],ncol=2) #the Xp points inside the convex hull of Yp
+    Xch<-matrix(Xp[ch==1,],ncol=2)  #the Xp points inside the convex hull of Yp
 
     DTr<-matrix(interp::triangles(DTmesh)[,1:3],ncol=3)
     nt<-nrow(DTr)
@@ -23906,7 +23041,7 @@ ArcsPEMT<-function(Xp,Yp,r,M=c(1,1,1))
     S<-E<-NULL #S is for source and E is for end points for the arcs
     if (nx2>1)
     {
-      i.tr<-rep(0,nx2) #the vector of indices for the triangles that contain the Xp points
+      i.tr<-rep(0,nx2)  #the vector of indices for the triangles that contain the Xp points
       for (i in 1:nx2)
         for (j in 1:nt)
         {
@@ -23928,7 +23063,7 @@ ArcsPEMT<-function(Xp,Yp,r,M=c(1,1,1))
 
           for (j in 1:nl)
           {RV<-rv.ind[j]
-          for (k in (1:nl)[-j]) # to avoid loops
+          for (k in (1:nl)[-j])  # to avoid loops
             if (IndNPEtri(Xl[j,],Xl[k,],r,Yi.tri,cent,rv=RV)==1 )
             {
               S <-rbind(S,Xl[j,]); E <-rbind(E,Xl[k,]);
@@ -24013,29 +23148,21 @@ ArcsPEMT<-function(Xp,Yp,r,M=c(1,1,1))
 #' \insertAllCited{}
 #'
 #' @examples
-#' nx<-20; ny<-4; #try also nx<-40; ny<-10 or nx<-1000; ny<-10;
+#' nx<-20; ny<-4;  #try also nx<-40; ny<-10 or nx<-1000; ny<-10;
 #'
 #' set.seed(1)
 #' Xp<-cbind(runif(nx,0,1),runif(nx,0,1))
-#' #try also the following
-#' #Xp<-cbind(runif(nx,0.5,1.5),runif(nx,0,1))
-#' #Xp<-cbind(runif(nx,1,2),runif(nx,0,1))
-#' #Xp<-c(.5,.5)
 #' Yp<-cbind(runif(ny,0,1),runif(ny,0,1))
 #'
-#' M<-c(1,1,1)
-#' #try also the following
-#' #M<-c(1,2,3) #M<-c(-1,2,3) #barycentric coordinates
-#' #M<-"CC"
-#' #M<-c(1.3,1.3)
+#' M<-c(1,1,1)  #try also M<-c(1,2,3)
 #'
-#' r<-1.5 #try also #r<-2
+#' r<-1.5  #try also r<-2
 #'
 #' IM<-IncMatPEMT(Xp,Yp,r,M)
 #' IM
 #' dom.greedy(IM)
 #' \donttest{
-#' dom.exact(IM) #might take a long time in this brute-force fashion ignoring the
+#' dom.exact(IM)  #might take a long time in this brute-force fashion ignoring the
 #' #disconnected nature of the digraph inherent by the geometric construction of it
 #' }
 #' PEdomMTnd(Xp,Yp,r)
@@ -24096,11 +23223,11 @@ IncMatPEMT<-function(Xp,Yp,r,M=c(1,1,1))
     inc.mat<-matrix(0, nrow=nx, ncol=nx)
 
     DTr<-matrix(interp::triangles(DTmesh)[,1:3],ncol=3)
-    nt<-nrow(DTr) #number of Delaunay triangles
+    nt<-nrow(DTr)  #number of Delaunay triangles
 
     if (nx>1)
     {
-      i.tr<-rep(0,nx) #the vector of indices for the triangles that contain the Xp points
+      i.tr<-rep(0,nx)  #the vector of indices for the triangles that contain the Xp points
       for (i in 1:nx)
         for (j in 1:nt)
         {
@@ -24152,13 +23279,10 @@ IncMatPEMT<-function(Xp,Yp,r,M=c(1,1,1))
 #'
 #' @examples
 #' #nx is number of X points (target) and ny is number of Y points (nontarget)
-#' nx<-20; ny<-4; #try also nx<-40; ny<-10 or nx<-1000; ny<-10;
+#' nx<-20; ny<-4;  #try also nx<-40; ny<-10 or nx<-1000; ny<-10;
 #'
 #' set.seed(1)
 #' Xp<-cbind(runif(nx,0,1),runif(nx,0,1))
-#' #try also the following
-#' #Xp<-cbind(runif(nx,0.5,1.5),runif(nx,0,1))
-#' #Xp<-cbind(runif(nx,1,2),runif(nx,0,1))
 #' Yp<-cbind(runif(ny,0,1),runif(ny,0,1))
 #'
 #' DT<-interp::tri.mesh(Yp[,1],Yp[,2],duplicate="remove")
@@ -24172,7 +23296,7 @@ IncMatPEMT<-function(Xp,Yp,r,M=c(1,1,1))
 #'
 #' plot(Xp,main=" ", xlab=" ", ylab=" ",
 #' xlim=Xlim+xd*c(-.05,.05),ylim=Ylim+yd*c(-.05,.05),pch=".",cex=3)
-#' interp::convex.hull(DT,plot.it = TRUE, add = TRUE) # or try polygon(Yp[ch$i,])
+#' interp::convex.hull(DT,plot.it = TRUE, add = TRUE)  # or try polygon(Yp[ch$i,])
 #' points(Xch,pch=4,col="red")
 #'
 #' XinCHY(Xp,Yp)
@@ -24273,23 +23397,15 @@ XinCHY<-function(Xp,Yp)
 #'
 #' @examples
 #' #nx is number of X points (target) and ny is number of Y points (nontarget)
-#' nx<-20; ny<-4; #try also nx<-40; ny<-10 or nx<-1000; ny<-10;
+#' nx<-20; ny<-4;  #try also nx<-40; ny<-10 or nx<-1000; ny<-10;
 #'
 #' set.seed(1)
 #' Xp<-cbind(runif(nx,0,1),runif(nx,0,1))
-#' #try also the following
-#' #Xp<-cbind(runif(nx,0.5,1.5),runif(nx,0,1))
-#' #Xp<-cbind(runif(nx,1,2),runif(nx,0,1))
-#' #Xp<-c(.5,.5); Xp<-matrix(Xp,ncol=2)
 #' Yp<-cbind(runif(ny,0,1),runif(ny,0,1))
 #'
-#' M<-c(1,1,1)
-#' #try also the following
-#' #M<-c(1,2,3) #M<-c(-1,2,3) #barycentric coordinates
-#' #M<-"CC"
-#' #M<-c(1.3,1.3)
+#' M<-c(1,1,1)  #try also M<-c(1,2,3)
 #'
-#' r<-1.5 #try also #r<-2
+#' r<-1.5  #try also r<-2
 #'
 #' Xlim<-range(Xp[,1],Yp[,1])
 #' Ylim<-range(Xp[,2],Yp[,2])
@@ -24367,14 +23483,10 @@ plotPEarcsMT<-function(Xp,Yp,r,M=c(1,1,1),asp=NA,main="",xlab="",ylab="",xlim=NU
 #'
 #' @examples
 #' #nx is number of X points (target) and ny is number of Y points (nontarget)
-#' nx<-20; ny<-4; #try also nx<-40; ny<-10 or nx<-1000; ny<-10;
+#' nx<-20; ny<-4;  #try also nx<-40; ny<-10 or nx<-1000; ny<-10;
 #'
 #' set.seed(1)
 #' Xp<-cbind(runif(nx,0,1),runif(nx,0,1))
-#' #try also the following
-#' #Xp<-cbind(runif(nx,0.5,1.5),runif(nx,0,1))
-#' #Xp<-cbind(runif(nx,1,2),runif(nx,0,1))
-#' #Xp<-c(.5,.5); Xp<-matrix(Xp,ncol=2)
 #' Yp<-cbind(runif(ny,0,1),runif(ny,0,1))
 #'
 #' Xlim<-range(Xp[,1],Yp[,1])
@@ -24382,13 +23494,9 @@ plotPEarcsMT<-function(Xp,Yp,r,M=c(1,1,1),asp=NA,main="",xlab="",ylab="",xlim=NU
 #' xd<-Xlim[2]-Xlim[1]
 #' yd<-Ylim[2]-Ylim[1]
 #'
-#' M<-c(1,1,1)
-#' #try also the following
-#' #M<-c(1,2,3) #M<-c(-1,2,3) #barycentric coordinates
-#' #M<-"CC"
-#' #M<-c(1.3,1.3)
+#' M<-c(1,1,1)  #try also M<-c(1,2,3)
 #'
-#' r<-1.5 #try also #r<-2
+#' r<-1.5  #try also r<-2
 #'
 #' plotPEregsMT(Xp,Yp,r,M,xlab="",ylab="",xlim=Xlim+xd*c(-.05,.05),ylim=Ylim+yd*c(-.05,.05))
 #'
@@ -24431,15 +23539,15 @@ plotPEregsMT<-function(Xp,Yp,r,M=c(1,1,1),asp=NA,main="",xlab="",ylab="",xlim=NU
     for (i in 1:nx)
       ch[i]<-interp::in.convex.hull(DTmesh,Xp[i,1],Xp[i,2])
 
-    Xch<-matrix(Xp[ch==1,],ncol=2) #the Xp points inside the convex hull of Yp points
+    Xch<-matrix(Xp[ch==1,],ncol=2)  #the Xp points inside the convex hull of Yp points
 
     DTr<-matrix(interp::triangles(DTmesh)[,1:3],ncol=3)
-    nt<-nrow(DTr) #number of Delaunay triangles
-    nx2<-nrow(Xch) #number of Xp points inside the convex hull of Yp points
+    nt<-nrow(DTr)  #number of Delaunay triangles
+    nx2<-nrow(Xch)  #number of Xp points inside the convex hull of Yp points
 
     if (nx2>=1)
     {
-      i.tr<-rep(0,nx2) #the vector of indices for the triangles that contain the Xp points
+      i.tr<-rep(0,nx2)  #the vector of indices for the triangles that contain the Xp points
       for (i1 in 1:nx2)
         for (j1 in 1:nt)
         {
@@ -24472,7 +23580,7 @@ plotPEregsMT<-function(Xp,Yp,r,M=c(1,1,1),asp=NA,main="",xlab="",ylab="",xlim=NU
       polygon(tri,lty=2)
       if (nx2>=1)
       {
-        Xtri<-matrix(Xch[i.tr==i,],ncol=2) #Xp points inside triangle i
+        Xtri<-matrix(Xch[i.tr==i,],ncol=2)  #Xp points inside triangle i
         ni<-nrow(Xtri)
         if (ni>=1)
         {
@@ -24536,31 +23644,24 @@ plotPEregsMT<-function(Xp,Yp,r,M=c(1,1,1),asp=NA,main="",xlab="",ylab="",xlim=NU
 #'
 #' @examples
 #' #nx is number of X points (target) and ny is number of Y points (nontarget)
-#' nx<-20; ny<-4; #try also nx<-40; ny<-10 or nx<-1000; ny<-10;
+#' nx<-20; ny<-4;  #try also nx<-40; ny<-10 or nx<-1000; ny<-10;
 #'
 #' set.seed(1)
-#' #Xp<-c(.5,.5)
 #' Xp<-cbind(runif(nx,0,1),runif(nx,0,1))
-#' #Xp<-cbind(runif(nx,0.5,1.5),runif(nx,0,1))
-#' #Xp<-cbind(runif(nx,1,2),runif(nx,0,1))
 #' Yp<-cbind(runif(ny,0,1),runif(ny,0,1))
 #'
-#' M<-c(1,1,1)
-#' #try also the following
-#' #M<-c(1,2,3) #M<-c(-1,2,3) #barycentric coordinates
-#' #M<-"CC"
-#' #M<-c(1.3,1.3)
+#' M<-c(1,1,1)  #try also M<-c(1,2,3)
 #'
-#' r<-1.5 #try also #r<-2
+#' r<-1.5  #try also r<-2
 #'
 #' PEdomMT(Xp,Yp,r,M)
 #'
 #' PEdomMT(Xp,Yp,r=1.4,M)
 #' PEdomMT(Xp,Yp,r=2,M)
 #'
-#' r<-1.5 #try also #r<-2
+#' r<-1.5  #try also r<-2
 #'
-#' PEdomMT(Xp,Yp,r,M) #this may be different due to random selection of the center for r in (1,1.5)
+#' PEdomMT(Xp,Yp,r,M)  #this may be different due to random selection of the center for r in (1,1.5)
 #'
 #' PEdomMT(Xp,Yp,r,M)
 #' PEdomMT(Xp,Yp[1:3,],r,M)
@@ -24603,25 +23704,25 @@ PEdomMT<-function(Xp,Yp,r,M=c(1,1,1))
     if ((!is.point(M,3) && M!="CC") || !all(M>0))
     {stop('M must be a numeric 3D point with positive barycentric coordinates or "CC" for circumcenter')}
 
-    n<-nrow(Xp) #number of Xp points
-    m<-nrow(Yp) #number of Yp points
+    n<-nrow(Xp)  #number of Xp points
+    m<-nrow(Yp)  #number of Yp points
 
-    Ytrimesh<-interp::tri.mesh(Yp[,1],Yp[,2],duplicate="remove") #Delaunay triangulation
+    Ytrimesh<-interp::tri.mesh(Yp[,1],Yp[,2],duplicate="remove")  #Delaunay triangulation
     Ytri<-matrix(interp::triangles(Ytrimesh)[,1:3],ncol=3); #the Delaunay triangles
-    nt<-nrow(Ytri) #number of Delaunay triangles
-    inCH<-interp::in.convex.hull(Ytrimesh,Xp[,1],Xp[,2]) #logical indices for Xp points in convex hull of Yp points
+    nt<-nrow(Ytri)  #number of Delaunay triangles
+    inCH<-interp::in.convex.hull(Ytrimesh,Xp[,1],Xp[,2])  #logical indices for Xp points in convex hull of Yp points
     Xch<-matrix(Xp[inCH==TRUE,],ncol=2)
 
     gam<-rep(0,nt);  mds<-c()
     if (nrow(Xch)>=1)
     {
-      Tri.Ind<-indices.Del.tri(Xch,Yp,Ytrimesh) #indices of triangles in which the points in the data fall
+      Tri.Ind<-indices.Del.tri(Xch,Yp,Ytrimesh)  #indices of triangles in which the points in the data fall
 
       #calculation of the domination number
       for (i in 1:nt)
       {
-        dati<-matrix(Xch[Tri.Ind==i,],ncol=2) #points in ith Delaunay triangle
-        ni<-nrow(dati) #number of points in ith triangle
+        dati<-matrix(Xch[Tri.Ind==i,],ncol=2)  #points in ith Delaunay triangle
+        ni<-nrow(dati)  #number of points in ith triangle
         if (ni==0)
         {
           gam[i]<-0
@@ -24666,7 +23767,7 @@ PEdomMT<-function(Xp,Yp,r,M=c(1,1,1))
       }
     }
 
-    Gam<-sum(gam) #domination number for the entire digraph
+    Gam<-sum(gam)  #domination number for the entire digraph
     row.names(mds)<-c()
 
     res<-list(dom.num=Gam, #domination number
@@ -24716,24 +23817,20 @@ PEdomMT<-function(Xp,Yp,r,M=c(1,1,1))
 #'
 #' @examples
 #' #nx is number of X points (target) and ny is number of Y points (nontarget)
-#' nx<-20; ny<-4; #try also nx<-40; ny<-10 or nx<-1000; ny<-10;
+#' nx<-20; ny<-4;  #try also nx<-40; ny<-10 or nx<-1000; ny<-10;
 #'
-#' r<-1.5 #try also #r<-2
+#' r<-1.5  #try also r<-2
 #'
 #' set.seed(1)
 #' Xp<-cbind(runif(nx,0,1),runif(nx,0,1))
-#' #try also the following
-#' #Xp<-cbind(runif(nx,0.5,1.5),runif(nx,0,1))
-#' #Xp<-cbind(runif(nx,1,2),runif(nx,0,1))
-#' #Xp<-c(.5,.5)
 #' Yp<-cbind(runif(ny,0,1),runif(ny,0,1))
 #'
 #' PEdomMTnd(Xp,Yp,r)
 #'
 #' PEdomMTnd(Xp,Yp,r=1.4)
 #'
-#' r<-1.5 #try also  #r<-2
-#' PEdomMTnd(Xp,Yp,r) #this may be different due to random selection of the center for r in (1,1.5)
+#' r<-1.5  #try also  #r<-2
+#' PEdomMTnd(Xp,Yp,r)  #this may be different due to random selection of the center for r in (1,1.5)
 #'
 #' PEdomMTnd(Xp,Yp[1:3,],r)
 #'
@@ -24767,34 +23864,34 @@ PEdomMTnd<-function(Xp,Yp,r)
   {stop('r must be a scalar >= 1')}
 
   if(nrow(Yp)==3)
-  { rcent<-sample(1:3,1) #random center selection from M1,M2,M3
+  { rcent<-sample(1:3,1)  #random center selection from M1,M2,M3
   cent.nd<-cent.nondeg(Yp,r)[rcent,]
   res<-PEdomtri(Xp,Yp,r,cent.nd)
   } else
   {
-    Ytrimesh<-interp::tri.mesh(Yp[,1],Yp[,2],duplicate="remove") #Delaunay triangulation
+    Ytrimesh<-interp::tri.mesh(Yp[,1],Yp[,2],duplicate="remove")  #Delaunay triangulation
     Ytri<-matrix(interp::triangles(Ytrimesh)[,1:3],ncol=3); #the Delaunay triangles
-    nt<-nrow(Ytri) #number of Delaunay triangles
-    inCH<-interp::in.convex.hull(Ytrimesh,Xp[,1],Xp[,2]) #logical indices for Xp points in convex hull of Yp points
+    nt<-nrow(Ytri)  #number of Delaunay triangles
+    inCH<-interp::in.convex.hull(Ytrimesh,Xp[,1],Xp[,2])  #logical indices for Xp points in convex hull of Yp points
     Xch<-matrix(Xp[inCH==TRUE,],ncol=2)
 
     gam<-rep(0,nt);  mds<-c()
     if (nrow(Xch)>=1)
     {
-      Tri.Ind<-indices.Del.tri(Xch,Yp,Ytrimesh) #indices of triangles in which the points in the data fall
+      Tri.Ind<-indices.Del.tri(Xch,Yp,Ytrimesh)  #indices of triangles in which the points in the data fall
 
       #calculation of the domination number
       for (i in 1:nt)
       {
-        dati<-matrix(Xch[Tri.Ind==i,],ncol=2) #points in ith Delaunay triangle
-        ni<-nrow(dati) #number of points in ith triangle
+        dati<-matrix(Xch[Tri.Ind==i,],ncol=2)  #points in ith Delaunay triangle
+        ni<-nrow(dati)  #number of points in ith triangle
         if (ni==0)
         {
           gam[i]<-0
         } else
         {
           Yi.tri<-Yp[Ytri[i,],] #vertices of ith triangle
-          rcent<-sample(1:3,1) #random center selection from M1,M2,M3
+          rcent<-sample(1:3,1)  #random center selection from M1,M2,M3
           Centi<-cent.nondeg(Yi.tri,r)[rcent,]
           Clvert<-cl2eVRcent(dati,Yi.tri,Centi)$Ext  #for general r
 
@@ -24831,7 +23928,7 @@ PEdomMTnd<-function(Xp,Yp,r)
       }
     }
 
-    Gam<-sum(gam) #domination number for the entire digraph
+    Gam<-sum(gam)  #domination number for the entire digraph
     row.names(mds)<-c()
 
     res<-list(dom.num=Gam, #domination number
@@ -24873,7 +23970,7 @@ PEdomMTnd<-function(Xp,Yp,r)
 #'
 #' Pg2PEtri(r=1.5) / Pg2PEtri(r=1.4999999999)
 #'
-#' rseq<-seq(1.01,1.49999999999,l=20) #try also l=100
+#' rseq<-seq(1.01,1.49999999999,l=20)  #try also l=100
 #' lrseq<-length(rseq)
 #'
 #' pg2<-vector()
@@ -24947,9 +24044,9 @@ NumDelTri<-function(Yp)
     nt<-1
   } else
   {
-    Ytrimesh<-interp::tri.mesh(Yp[,1],Yp[,2],duplicate="remove") #Delaunay triangulation
+    Ytrimesh<-interp::tri.mesh(Yp[,1],Yp[,2],duplicate="remove")  #Delaunay triangulation
     Ytri<-matrix(interp::triangles(Ytrimesh)[,1:3],ncol=3); #the Delaunay triangles
-    nt<-nrow(Ytri) #number of Delaunay triangles
+    nt<-nrow(Ytri)  #number of Delaunay triangles
   }
   nt
 } #end of the function
@@ -25020,17 +24117,16 @@ NumDelTri<-function(Yp)
 #' \insertAllCited{}
 #'
 #' @examples
-#' nx<-20; ny<-4 #try also nx<-1000; ny<-10
-#' r<-1.4 #try also #r<-1.5
+#' nx<-20; ny<-4  #try also nx<-1000; ny<-10
+#' r<-1.4  #try also r<-1.5
 #'
 #' set.seed(1)
 #' Xp<-cbind(runif(nx,0,1),runif(nx,0,1))
-#' #try also the following
-#' #Xp<-cbind(runif(nx,.5,1.5),runif(nx))
-#' #Xp<-cbind(runif(nx,1,2),runif(nx))
 #' Yp<-cbind(runif(ny,0,1),runif(ny,0,1))
 #'
+#' oldpar <- par(mfrow = c(1,2))
 #' plotDeltri(Xp,Yp,xlab="",ylab="")
+#' par(oldpar)
 #'
 #' PEdomMTnd(Xp,Yp,r)
 #'
@@ -25098,21 +24194,21 @@ TSDomPEBin<-function(Xp,Yp,r,ch.cor=F,nt=NULL,alternative=c("two.sided", "less",
   if (Bm<0)
     warning('The adjusted binomial test statistic is negative! So 0 is taken as its value')
 
-  Bm<-max(0,Bm) # to avoid negative Bm values
+  Bm<-max(0,Bm)  # to avoid negative Bm values
 
   method <-c("Exact Binomial Test for the Domination Number for Testing Uniformness of 2D Data \n without Convex Hull Correction")
 
-  if (ch.cor==T) #the part for the convex hull correction
+  if (ch.cor==T)  #the part for the convex hull correction
   {
-    nx<-nrow(Xp) #number of Xp points
-    ny<-nrow(Yp) #number of Yp points
-    Ytrimesh<-interp::tri.mesh(Yp[,1],Yp[,2],duplicate="remove") #Delaunay triangulation
+    nx<-nrow(Xp)  #number of Xp points
+    ny<-nrow(Yp)  #number of Yp points
+    Ytrimesh<-interp::tri.mesh(Yp[,1],Yp[,2],duplicate="remove")  #Delaunay triangulation
 
-    inCH<-interp::in.convex.hull(Ytrimesh,Xp[,1],Xp[,2]) #logical indices for Xp points in convex hull of Yp points
+    inCH<-interp::in.convex.hull(Ytrimesh,Xp[,1],Xp[,2])  #logical indices for Xp points in convex hull of Yp points
 
     outch<-nx-sum(inCH)
     prop.out<-outch/nx #observed proportion of points outside convex hull
-    exp.prop.out<-1.7932/ny+1.2229/sqrt(ny) #expected proportion of points outside convex hull
+    exp.prop.out<-1.7932/ny+1.2229/sqrt(ny)  #expected proportion of points outside convex hull
 
     Bm<-Bm*(1-(prop.out-exp.prop.out))
     method <-c("Exact Binomial Test for the Domination Number for Testing Uniformness of 2D Data \n with Convex Hull Correction")
@@ -25243,17 +24339,16 @@ TSDomPEBin<-function(Xp,Yp,r,ch.cor=F,nt=NULL,alternative=c("two.sided", "less",
 #' \insertAllCited{}
 #'
 #' @examples
-#' nx<-20; ny<-4 #try also nx<-1000; ny<-10
-#' r<-1.5 #try also #r<-2 #r<-1.25
+#' nx<-20; ny<-4  #try also nx<-1000; ny<-10
+#' r<-1.5  #try also r<-2 or r<-1.25
 #'
 #' set.seed(1)
 #' Xp<-cbind(runif(nx,0,1),runif(nx,0,1))
-#' #try also the following
-#' #Xp<-cbind(runif(nx,.5,1.5),runif(nx))
-#' #Xp<-cbind(runif(nx,1,2),runif(nx))
 #' Yp<-cbind(runif(ny,0,1),runif(ny,0,1))
 #'
+#' oldpar <- par(mfrow = c(1,2))
 #' plotDeltri(Xp,Yp,xlab="",ylab="")
+#' par(oldpar)
 #'
 #' PEdomMTnd(Xp,Yp,r)
 #'
@@ -25316,25 +24411,25 @@ TSDomPENor<-function(Xp,Yp,r,ch.cor=F,nt=NULL,alternative=c("two.sided", "less",
   Gam<-PEdomMTnd(Xp,Yp,r)$d #domination number
   estimate1<-Gam
   p<-Pg2PEtri(r)
-  Exp.Gam <-nt*(3-p) #expected domination number
+  Exp.Gam <-nt*(3-p)  #expected domination number
   estimate2<-1-p #Pr(gamma=3)
-  TS0<-(Gam-Exp.Gam)/sqrt(nt*p*(1-p)) #the standardized test statistic
+  TS0<-(Gam-Exp.Gam)/sqrt(nt*p*(1-p))  #the standardized test statistic
 
-  if (ch.cor==F) #the part for the convex hull correction
+  if (ch.cor==F)  #the part for the convex hull correction
   {
     TS<-TS0
     method <-c("Normal Approximation to the Domination Number for Testing Uniformness of 2D Data\n without Convex Hull Correction")
   } else
   {
-    n<-nrow(Xp) #number of Xp points
-    m<-nrow(Yp) #number of Yp points
-    Ytrimesh<-interp::tri.mesh(Yp[,1],Yp[,2],duplicate="remove") #Delaunay triangulation
+    n<-nrow(Xp)  #number of Xp points
+    m<-nrow(Yp)  #number of Yp points
+    Ytrimesh<-interp::tri.mesh(Yp[,1],Yp[,2],duplicate="remove")  #Delaunay triangulation
 
-    inCH<-interp::in.convex.hull(Ytrimesh,Xp[,1],Xp[,2]) #logical indices for Xp points in convex hull of Yp points
+    inCH<-interp::in.convex.hull(Ytrimesh,Xp[,1],Xp[,2])  #logical indices for Xp points in convex hull of Yp points
 
     outch<-n-sum(inCH)
     prop.out<-outch/n #observed proportion of points outside convex hull
-    exp.prop.out<-1.7932/m+1.2229/sqrt(m) #expected proportion of points outside convex hull
+    exp.prop.out<-1.7932/m+1.2229/sqrt(m)  #expected proportion of points outside convex hull
 
     TS<-TS0*(1-(prop.out-exp.prop.out))
     method <-c("Normal Approximation to the Domination Number for Testing Uniformness of 2D Data\n with Convex Hull Correction")
@@ -25427,9 +24522,6 @@ TSDomPENor<-function(Xp,Yp,r,ch.cor=F,nt=NULL,alternative=c("two.sided", "less",
 #' @examples
 #' \donttest{
 #' A<-c(1,10,3); B<-c(1,1,3);
-#' #try also the following
-#' #A<-runif(3); B<-runif(3);
-#' #A<-runif(3,1,100); B<-runif(3,1,100);
 #'
 #' vecs<-rbind(A,B)
 #'
@@ -25438,7 +24530,7 @@ TSDomPENor<-function(Xp,Yp,r,ch.cor=F,nt=NULL,alternative=c("two.sided", "less",
 #'
 #' tr<-range(vecs);
 #' tf<-(tr[2]-tr[1])*.1 #how far to go at the lower and upper ends in the x-coordinate
-#' tsq<-seq(-tf*10-tf,tf*10+tf,l=20) #try also l=100
+#' tsq<-seq(-tf*10-tf,tf*10+tf,l=20)  #try also l=100
 #'
 #' lnAB3D<-Line3D(A,B,tsq)
 #' lnAB3D
@@ -25571,9 +24663,6 @@ Line3D<-function(r0,v,t,dir.vec=TRUE)
 #' @examples
 #' \donttest{
 #' P<-c(1,10,4); A<-c(1,1,3); B<-c(3,9,12)
-#' #try also the following
-#' #P<-runif(3); A<-runif(3); B<-runif(3)
-#' #P<-runif(3,1,100); A<-runif(3,1,100); B<-runif(3,1,100)
 #'
 #' vecs<-rbind(P,B-A)
 #' pts<-rbind(P,A,B)
@@ -25581,7 +24670,7 @@ Line3D<-function(r0,v,t,dir.vec=TRUE)
 #'
 #' tr<-range(pts,vecs);
 #' tf<-(tr[2]-tr[1])*.1 #how far to go at the lower and upper ends in the x-coordinate
-#' tsq<-seq(-tf*10-tf,tf*10+tf,l=20) #try also l=100
+#' tsq<-seq(-tf*10-tf,tf*10+tf,l=20)  #try also l=100
 #'
 #' pln3D<-paraline3D(P,A,B,tsq)
 #' pln3D
@@ -25713,9 +24802,6 @@ paraline3D<-function(P,A,B,t)
 #' @examples
 #' \donttest{
 #' P<-c(1,1,1); A<-c(1,10,4); B<-c(1,1,3); C<-c(3,9,12)
-#' #try also the following
-#' #P<-runif(3); A<-runif(3); B<-runif(3); C<-runif(3)
-#' #P<-runif(3,1,100); A<-runif(3,1,100); B<-runif(3,1,100); C<-runif(3,1,100)
 #'
 #' cf<-as.numeric(Plane(A,B,C,1,1)$coeff)
 #' a<-cf[1]; b<-cf[2]; c<- -1;
@@ -25726,7 +24812,7 @@ paraline3D<-function(P,A,B,t)
 #'
 #' tr<-range(pts,vecs);
 #' tf<-(tr[2]-tr[1])*.1 #how far to go at the lower and upper ends in the x-coordinate
-#' tsq<-seq(-tf*10-tf,tf*10+tf,l=20) #try also l=100
+#' tsq<-seq(-tf*10-tf,tf*10+tf,l=20)  #try also l=100
 #'
 #' pln2pl<-perp.ln2pl(P,A,B,C,tsq)
 #' pln2pl
@@ -25749,8 +24835,8 @@ paraline3D<-function(P,A,B,t)
 #' xr<-range(pts2[,1],xc); yr<-range(pts2[,2],yc)
 #' xf<-(xr[2]-xr[1])*.1 #how far to go at the lower and upper ends in the x-coordinate
 #' yf<-(yr[2]-yr[1])*.1 #how far to go at the lower and upper ends in the y-coordinate
-#' xs<-seq(xr[1]-xf,xr[2]+xf,l=20) #try also l=100
-#' ys<-seq(yr[1]-yf,yr[2]+yf,l=20) #try also l=100
+#' xs<-seq(xr[1]-xf,xr[2]+xf,l=20)  #try also l=100
+#' ys<-seq(yr[1]-yf,yr[2]+yf,l=20)  #try also l=100
 #'
 #' plABC<-Plane(A,B,C,xs,ys)
 #' z.grid<-plABC$z
@@ -25850,10 +24936,6 @@ perp.ln2pl<-function(P,A,B,C,t)
 #' @examples
 #' \donttest{
 #' L1<-c(2,4,6); L2<-c(1,3,5); A<-c(1,10,3); B<-c(1,1,3); C<-c(3,9,12)
-#' #try also the following
-#' #L1<-runif(3); L2<-runif(3); A<-runif(3); B<-runif(3); C<-runif(3)
-#' #L1<-runif(3,1,100); L2<-runif(3,1,100);
-#' #A<-runif(3,1,100); B<-runif(3,1,100); C<-runif(3,1,100)
 #'
 #' Pint<-int.line.plane(L1,L2,A,B,C)
 #' Pint
@@ -25861,7 +24943,7 @@ perp.ln2pl<-function(P,A,B,C,t)
 #'
 #' tr<-max(Dist(L1,L2),Dist(L1,Pint),Dist(L2,Pint))
 #' tf<-tr*1.1 #how far to go at the lower and upper ends in the x-coordinate
-#' tsq<-seq(-tf,tf,l=20) #try also l=100
+#' tsq<-seq(-tf,tf,l=20)  #try also l=100
 #'
 #' lnAB3D<-Line3D(L1,L2,tsq)
 #' xl<-lnAB3D$x
@@ -25871,8 +24953,8 @@ perp.ln2pl<-function(P,A,B,C,t)
 #' xr<-range(pts[,1]); yr<-range(pts[,2])
 #' xf<-(xr[2]-xr[1])*.1 #how far to go at the lower and upper ends in the x-coordinate
 #' yf<-(yr[2]-yr[1])*.1 #how far to go at the lower and upper ends in the y-coordinate
-#' xp<-seq(xr[1]-xf,xr[2]+xf,l=20) #try also l=100
-#' yp<-seq(yr[1]-yf,yr[2]+yf,l=20) #try also l=100
+#' xp<-seq(xr[1]-xf,xr[2]+xf,l=20)  #try also l=100
+#' yp<-seq(yr[1]-yf,yr[2]+yf,l=20)  #try also l=100
 #'
 #' plABC<-Plane(A,B,C,xp,yp)
 #' z.grid<-plABC$z
@@ -25963,9 +25045,6 @@ int.line.plane<-function(x1,x2,x3,x4,x5)
 #' @examples
 #' \donttest{
 #' A<-c(1,10,3); B<-c(1,1,3); C<-c(3,9,12)
-#' #try also the following
-#' #A<-runif(3); B<-runif(3); C<-runif(3)
-#' #A<-runif(3,1,100); B<-runif(3,1,100); C<-runif(3,1,100)
 #'
 #' pts<-rbind(A,B,C)
 #' Plane(A,B,C,.1,.2)
@@ -25973,8 +25052,8 @@ int.line.plane<-function(x1,x2,x3,x4,x5)
 #' xr<-range(pts[,1]); yr<-range(pts[,2])
 #' xf<-(xr[2]-xr[1])*.1 #how far to go at the lower and upper ends in the x-coordinate
 #' yf<-(yr[2]-yr[1])*.1 #how far to go at the lower and upper ends in the y-coordinate
-#' x<-seq(xr[1]-xf,xr[2]+xf,l=20) #try also l=100
-#' y<-seq(yr[1]-yf,yr[2]+yf,l=20) #try also l=100
+#' x<-seq(xr[1]-xf,xr[2]+xf,l=20)  #try also l=100
+#' y<-seq(yr[1]-yf,yr[2]+yf,l=20)  #try also l=100
 #'
 #' plABC<-Plane(A,B,C,x,y)
 #' plABC
@@ -26087,9 +25166,6 @@ Plane<-function(a,b,c,x,y)
 #' @examples
 #' \donttest{
 #' A<-c(1,2,3); B<-c(3,9,12); C<-c(1,1,3); P<-c(5,2,40)
-#' #try also the following
-#' #A<-runif(3); B<-runif(3); C<-runif(3); P<-runif(3)
-#' #A<-runif(3,1,100); B<-runif(3,1,100); C<-runif(3,1,100); P<-runif(3,1,100)
 #'
 #' dis<-dp2pl(P,A,B,C);
 #' dis
@@ -26100,8 +25176,8 @@ Plane<-function(a,b,c,x,y)
 #'
 #' dp2pl(A,A,B,C);
 #'
-#' xseq<-seq(0,10,l=20) #try also l=100
-#' yseq<-seq(0,10,l=20) #try also l=100
+#' xseq<-seq(0,10,l=20)  #try also l=100
+#' yseq<-seq(0,10,l=20)  #try also l=100
 #'
 #' pl.grid<-Plane(A,B,C,xseq,yseq)$z
 #'
@@ -26136,7 +25212,7 @@ dp2pl<-function(p,a,b,c)
   Cx <-(-a2*b3+a2*c3+a3*b2-a3*c2-b2*c3+b3*c2)/(a1*b2-a1*c2-a2*b1+a2*c1+b1*c2-b2*c1);
   Cy <-(a1*b3-a1*c3-a3*b1+a3*c1+b1*c3-b3*c1)/(a1*b2-a1*c2-a2*b1+a2*c1+b1*c2-b2*c1);
   Cz <--1;
-  if (abs(Cx)==Inf || abs(Cy)==Inf) #this part is for when the plane is vertical so Cx or Cy are Inf or -Inf
+  if (abs(Cx)==Inf || abs(Cy)==Inf)  #this part is for when the plane is vertical so Cx or Cy are Inf or -Inf
   {ra<-range(a); a<-a+(ra[2]-ra[1])*runif(3,0,10^(-10))
   rb<-range(b); b<-b+(rb[2]-rb[1])*runif(3,0,10^(-10))
   rc<-range(c); c<-c+(rc[2]-rc[1])*runif(3,0,10^(-10))
@@ -26191,7 +25267,7 @@ dp2pl<-function(p,a,b,c)
 #' \donttest{
 #' A<-c(0,0,0); B<-c(1,0,0); C<-c(1/2,sqrt(3)/2,0); D<-c(1/2,sqrt(3)/6,sqrt(6)/3)
 #' tetra<-rbind(A,B,C,D)
-#' n<-10 #try also n<-100
+#' n<-10  #try also n<-100
 #'
 #' set.seed(1)
 #' Xdt<-runif.stdtetra(n)
@@ -26200,12 +25276,6 @@ dp2pl<-function(p,a,b,c)
 #' plot(Xdt)
 #'
 #' Dt<-runif.stdtetra(n)$g
-#'
-#' #need to install scatterplot3d package and call "library(scatterplot3d)"
-#' s3d<-scatterscatterplot3d(Dt, highlight.3d=TRUE,xlab="x",ylab="y",zlab="z",
-#'               col.axis="blue", col.grid="lightblue",
-#'                main="3D Scatterplot of the data", pch=20)
-#' s3d$points3d(tetra,pch=20,col="blue")
 #'
 #' Xlim<-range(tetra[,1])
 #' Ylim<-range(tetra[,2])
@@ -26226,6 +25296,14 @@ dp2pl<-function(p,a,b,c)
 #' labels=c("A","B","C","D"), add=TRUE)
 #' }
 #'
+#' \dontrun{
+#' #need to install scatterplot3d package and call "library(scatterplot3d)"
+#' s3d<-scatterplot3d(Dt, highlight.3d=TRUE,xlab="x",ylab="y",zlab="z",
+#'               col.axis="blue", col.grid="lightblue",
+#'                main="3D Scatterplot of the data", pch=20)
+#' s3d$points3d(tetra,pch=20,col="blue")
+#' }
+#'
 #' @export runif.stdtetra
 runif.stdtetra<-function(k)
 {
@@ -26244,7 +25322,7 @@ runif.stdtetra<-function(k)
   }
   }
   A<-c(0,0,0); B<-c(1,0,0); C<-c(1/2,sqrt(3)/2,0); D<-c(1/2,sqrt(3)/6,sqrt(6)/3)
-  Th<-rbind(A,B,C,D) #std regular tetrahedron
+  Th<-rbind(A,B,C,D)  #std regular tetrahedron
 
   typ<-"Uniform Distribution in the Standard Regular Tetrahedron with Vertices A=(0,0,0), B=(1,0,0), C=(1/2,sqrt(3)/2,0), and D=(1/2,sqrt(3)/6,sqrt(6)/3)"
   main.txt<-"Uniform Points in the \n Standard Regular Tetrahedron"
@@ -26311,9 +25389,6 @@ runif.stdtetra<-function(k)
 #' @examples
 #' \donttest{
 #' A<-c(1,10,3); B<-c(1,1,3); C<-c(3,9,12); P<-c(1,1,0)
-#' #try also the following
-#' #A<-runif(3); B<-runif(3); C<-runif(3); P<-runif(3)
-#' #A<-runif(3,1,100); B<-runif(3,1,100); C<-runif(3,1,100); P<-runif(3,1,100)
 #'
 #' Plane(A,B,C,.1,.2)
 #'
@@ -26324,8 +25399,8 @@ runif.stdtetra<-function(k)
 #' xr<-range(pts[,1]); yr<-range(pts[,2])
 #' xf<-(xr[2]-xr[1])*.25 #how far to go at the lower and upper ends in the x-coordinate
 #' yf<-(yr[2]-yr[1])*.25 #how far to go at the lower and upper ends in the y-coordinate
-#' x<-seq(xr[1]-xf,xr[2]+xf,l=20) #try also l=100
-#' y<-seq(yr[1]-yf,yr[2]+yf,l=20) #try also l=100
+#' x<-seq(xr[1]-xf,xr[2]+xf,l=20)  #try also l=100
+#' y<-seq(yr[1]-yf,yr[2]+yf,l=20)  #try also l=100
 #'
 #' plP2ABC<-paraplane(P,A,B,C,x,y)
 #' plP2ABC
@@ -26455,10 +25530,6 @@ paraplane<-function(p,a,b,c,x,y)
 #' @examples
 #' \donttest{
 #' A<-c(0,0,0); B<-c(1,0,0); C<-c(1/2,sqrt(3)/2,0); D<-c(1/2,sqrt(3)/6,sqrt(6)/3); P<-c(.1,.1,.1)
-#' #try also the following
-#' #A<-runif(3); B<-runif(3); C<-runif(3); D<-runif(3); P<-runif(3)
-#' #A<-runif(3,1,100); B<-runif(3,1,100); C<-runif(3,1,100); D<-runif(3,1,100); P<-runif(3,1,100)
-#'
 #' tetra<-rbind(A,B,C,D)
 #'
 #' in.tetrahedron(P,tetra,boundary=FALSE)
@@ -26466,7 +25537,7 @@ paraplane<-function(p,a,b,c,x,y)
 #' in.tetrahedron(C,tetra,boundary=FALSE)
 #' in.tetrahedron(C,tetra,boundary=TRUE)
 #'
-#' n<-10 #try also n<-40
+#' n<-10  #try also n<-40
 #' Dt<-cbind(runif(n),runif(n,0,sqrt(3)/2),runif(n,0,sqrt(6)/3))
 #'
 #' in.tetra<-vector()
@@ -26569,13 +25640,9 @@ in.tetrahedron<-function(p,th,boundary=FALSE)
 #' @examples
 #' \donttest{
 #' A<-sample(1:12,3); B<-sample(1:12,3); C<-sample(1:12,3); D<-sample(1:12,3)
-#' #try also the following
-#' #A<-runif(3); B<-runif(3); C<-runif(3); D<-runif(3)
-#' #A<-runif(3,1,100); B<-runif(3,1,100); C<-runif(3,1,100); D<-runif(3,1,100)
-#'
 #' tetra<-rbind(A,B,C,D)
 #'
-#' n<-10 #try also n<-100
+#' n<-10  #try also n<-100
 #'
 #' set.seed(1)
 #' Xdt<-runif.tetra(n,tetra)
@@ -26584,12 +25651,6 @@ in.tetrahedron<-function(p,th,boundary=FALSE)
 #' plot(Xdt)
 #'
 #' Dt<-Xdt$g
-#'
-#' #need to install scatterplot3d package and call "library(scatterplot3d)"
-#' s3d<-scatterplot3d(Dt, highlight.3d=TRUE,xlab="x",ylab="y",zlab="z",
-#'                     col.axis="blue", col.grid="lightblue",
-#'                     main="3D Scatterplot of the data", pch=20)
-#'  s3d$points3d(tetra,pch=20,col="blue")
 #'
 #' Xlim<-range(tetra[,1],Dt[,1])
 #' Ylim<-range(tetra[,2],Dt[,2])
@@ -26613,6 +25674,14 @@ in.tetrahedron<-function(p,th,boundary=FALSE)
 #' dat.fr<-data.frame(a=tetra)
 #' runif.tetra(n,dat.fr)
 #' }
+#'
+#' \dontrun{
+#' #need to install scatterplot3d package and call "library(scatterplot3d)"
+#' s3d<-scatterplot3d(Dt, highlight.3d=TRUE,xlab="x",ylab="y",zlab="z",
+#'                     col.axis="blue", col.grid="lightblue",
+#'                     main="3D Scatterplot of the data", pch=20)
+#'  s3d$points3d(tetra,pch=20,col="blue")
+#'  }
 #'
 #' @export runif.tetra
 runif.tetra<-function(k,th)
@@ -26685,10 +25754,6 @@ runif.tetra<-function(k,th)
 #' @examples
 #' \donttest{
 #' A<-c(0,0,0); B<-c(1,0,0); C<-c(1/2,sqrt(3)/2,0); D<-c(1/2,sqrt(3)/6,sqrt(6)/3)
-#' #try also the following
-#' #A<-runif(3); B<-runif(3); C<-runif(3); D<-runif(3)
-#' #A<-runif(3,1,100); B<-runif(3,1,100); C<-runif(3,1,100); D<-runif(3,1,100)
-#'
 #' tetra<-rbind(A,B,C,D)
 #'
 #' CC<-circ.cent.tetra(tetra)
@@ -26780,18 +25845,11 @@ circ.cent.tetra<-function(th)
 #' @examples
 #' \donttest{
 #' A<-c(0,0,0); B<-c(1,0,0); C<-c(1/2,sqrt(3)/2,0); D<-c(1/2,sqrt(3)/6,sqrt(6)/3)
-#' #try also the following
-#' #A<-runif(3); B<-runif(3); C<-runif(3); D<-runif(3)
-#' #A<-runif(3,1,100); B<-runif(3,1,100); C<-runif(3,1,100); D<-runif(3,1,100)
-#'
 #' tetra<-rbind(A,B,C,D)
 #'
-#' n<-10 #try also n<-20
+#' n<-10  #try also n<-20
 #'
 #' Dt<-runif.stdtetra(n)$g
-#' #try also the following
-#' #Dt<-runif.tetra(n,tetra)$g
-#' #Dt<-cbind(runif(n),runif(n),runif(n))
 #'
 #' rv.tetraCC(Dt[1,],tetra)
 #' rv.tetraCC(Dt[5,],tetra)
@@ -26880,7 +25938,7 @@ rv.tetraCC<-function(p,th)
       {mdt<-d1; rv<-i }
     }
   }
-  row.names(th)<-c("vertex 1","vertex 2","vertex 3","vertex 4") #vertex labelling
+  row.names(th)<-c("vertex 1","vertex 2","vertex 3","vertex 4")  #vertex labelling
 
   list(rv=rv, #relative vertex
        tetra=th #vertex labelling
@@ -26921,18 +25979,11 @@ rv.tetraCC<-function(p,th)
 #' @examples
 #' \donttest{
 #' A<-c(0,0,0); B<-c(1,0,0); C<-c(1/2,sqrt(3)/2,0); D<-c(1/2,sqrt(3)/6,sqrt(6)/3)
-#' #try also the following
-#' #A<-runif(3); B<-runif(3); C<-runif(3); D<-runif(3)
-#' #A<-runif(3,1,100); B<-runif(3,1,100); C<-runif(3,1,100); D<-runif(3,1,100)
-#'
 #' tetra<-rbind(A,B,C,D)
 #'
-#' n<-10 #try also n<-20
+#' n<-10  #try also n<-20
 #'
 #' Dt<-runif.stdtetra(n)$g
-#' #try also the following
-#' #Dt<-runif.tetra(n,tetra)$g
-#' #Dt<-cbind(runif(n),runif(n),runif(n))
 #'
 #' rv.tetraCM(Dt[1,],tetra)
 #' rv.tetraCM(Dt[5,],tetra)
@@ -27026,7 +26077,7 @@ rv.tetraCM<-function(p,th)
     {i<-i+1}
     }
   }
-  row.names(th)<-c("vertex 1","vertex 2","vertex 3","vertex 4") #vertex labelling
+  row.names(th)<-c("vertex 1","vertex 2","vertex 3","vertex 4")  #vertex labelling
 
   list(rv=rv, #relative vertex
        tetra=th #vertex labelling
@@ -27075,15 +26126,11 @@ rv.tetraCM<-function(p,th)
 #' @examples
 #' \donttest{
 #' A<-c(0,0,0); B<-c(1,0,0); C<-c(1/2,sqrt(3)/2,0); D<-c(1/2,sqrt(3)/6,sqrt(6)/3)
-#' #try also the following
-#' #A<-runif(3); B<-runif(3); C<-runif(3); D<-runif(3)
-#' #A<-runif(3,1,100); B<-runif(3,1,100); C<-runif(3,1,100); D<-runif(3,1,100)
-#'
 #' tetra<-rbind(A,B,C,D)
-#' Cent<-"CC" #try also "CM"
+#' Cent<-"CC"  #try also "CM"
 #'
-#' n<-10 #try also n<-20
-#' Dt<-runif.tetra(n,tetra)$g #try also #' #Dt<-cbind(runif(n),runif(n),runif(n))
+#' n<-10  #try also n<-20
+#' Dt<-runif.tetra(n,tetra)$g  #try also Dt<-cbind(runif(n),runif(n),runif(n))
 #'
 #' Ext<-cl2fVRth(Dt,tetra,Cent)
 #' Ext
@@ -27191,7 +26238,7 @@ cl2fVRth<-function(Dt,th,M="CM")
     }
   }
 
-  row.names(th)<-c("A","B","C","D") #vertex labelling
+  row.names(th)<-c("A","B","C","D")  #vertex labelling
   typ<-paste("Closest Points to Faces in the Respective ",cent.name,"-Vertex Regions in the Tetrahedron with Vertices A, B, C and D",sep="")
   description<-paste("Closest Points to Faces in the Respective ",cent.name,"-Vertex Regions\n (Row i corresponds to face i for i=1,2,3,4)",sep="")
   txt1<-"Vertex labels are A=1, B=2, C=3, and D=4 (corresponds to row number in Extrema Points)"
@@ -27210,7 +26257,7 @@ cl2fVRth<-function(Dt,th,M="CM")
   for (i in 1:length(Regs))
   { Reg.Cent<-rbind(Reg.Cent,apply(Regs[[i]],2,mean))}
 
-  Reg.names<-c("vr=1","vr=2","vr=3","vr=4") #regions names
+  Reg.names<-c("vr=1","vr=2","vr=3","vr=4")  #regions names
 
   res<-list(
     txt1=txt1, txt2=txt2,
@@ -27263,7 +26310,7 @@ cl2fVRth<-function(Dt,th,M="CM")
 #' A<-c(0,0,0); B<-c(1,0,0); C<-c(1/2,sqrt(3)/2,0); D<-c(1/2,sqrt(3)/6,sqrt(6)/3)
 #' tetra<-rbind(A,B,C,D)
 #'
-#' n<-10 #try also n<-20
+#' n<-10  #try also n<-20
 #' dat<-runif.stdtetra(n)$g
 #' r<-1.5
 #' NPEstdtetra(dat[1,],r)
@@ -27294,7 +26341,7 @@ NPEstdtetra<-function(pt,r,rv=NULL)
   {stop('r must be a scalar >= 1')}
 
   A<-c(0,0,0); B<-c(1,0,0); C<-c(1/2,sqrt(3)/2,0); D<-c(1/2,sqrt(3)/6,sqrt(6)/3)
-  th<-rbind(A,B,C,D) #standard regular tetrahedron
+  th<-rbind(A,B,C,D)  #standard regular tetrahedron
 
   if (!in.tetrahedron(pt,th,boundary=TRUE)$in.tetra)
   {reg<-NULL; return(reg); stop}
@@ -27378,7 +26425,7 @@ NPEstdtetra<-function(pt,r,rv=NULL)
 #' A<-c(0,0,0); B<-c(1,0,0); C<-c(1/2,sqrt(3)/2,0); D<-c(1/2,sqrt(3)/6,sqrt(6)/3)
 #' tetra<-rbind(A,B,C,D)
 #'
-#' n<-10 #try also n<-20
+#' n<-10  #try also n<-20
 #' dat<-runif.stdtetra(n)$g
 #' r<-1.5
 #' IndNPEstdtetra(dat[1,],dat[1,],r)
@@ -27415,7 +26462,7 @@ IndNPEstdtetra<-function(pt1,pt2,r,rv=NULL)
   {arc<-1; return(arc); stop}
 
   A<-c(0,0,0); B<-c(1,0,0); C<-c(1/2,sqrt(3)/2,0); D<-c(1/2,sqrt(3)/6,sqrt(6)/3)
-  th<-rbind(A,B,C,D) #standard regular tetrahedron
+  th<-rbind(A,B,C,D)  #standard regular tetrahedron
 
   if (!in.tetrahedron(pt1,th,boundary=TRUE)$in.tetra || !in.tetrahedron(pt2,th,boundary=TRUE)$in.tetra)
   {arc<-0
@@ -27494,8 +26541,8 @@ IndNPEstdtetra<-function(pt1,pt2,r,rv=NULL)
 #' tetra<-rbind(A,B,C,D)
 #' r<-1.5
 #'
-#' n<-10 #try also n<-20
-#' dat<-runif.stdtetra(n)$g #try also #dat[,1]<-dat[,1]+1
+#' n<-10  #try also n<-20
+#' dat<-runif.stdtetra(n)$g  #try also dat[,1]<-dat[,1]+1
 #'
 #' plotPEregsStdTH(dat[1,],r)
 #'
@@ -27531,13 +26578,13 @@ plotPEregsStdTH<-function(Xp,r,main="",xlab="",ylab="",zlab="",xlim=NULL,ylim=NU
   n<-nrow(Xp)
 
   A<-c(0,0,0); B<-c(1,0,0); C<-c(1/2,sqrt(3)/2,0); D<-c(1/2,sqrt(3)/6,sqrt(6)/3)
-  th<-rbind(A,B,C,D) #standard regular tetrahedron
+  th<-rbind(A,B,C,D)  #standard regular tetrahedron
 
   in.tetra<-rep(0,n)
   for (i in 1:n)
     in.tetra[i]<-in.tetrahedron(Xp[i,],th,boundary=TRUE)$in.tetra #indices of the Xp points inside the tetrahedron
 
-  Xtetra<-matrix(Xp[in.tetra==1,],ncol=3) #the Xp points inside the tetrahedron
+  Xtetra<-matrix(Xp[in.tetra==1,],ncol=3)  #the Xp points inside the tetrahedron
   nt<-length(Xtetra)/3 #number of Xp points inside the tetrahedron
 
   if (is.null(xlim))
@@ -27608,19 +26655,15 @@ plotPEregsStdTH<-function(Xp,r,main="",xlab="",ylab="",zlab="",xlim=NULL,ylim=NU
 #'
 #' @examples
 #' A<-c(0,0,0); B<-c(1,0,0); C<-c(1/2,sqrt(3)/2,0); D<-c(1/2,sqrt(3)/6,sqrt(6)/3)
-#' #try also the following
-#' #A<-runif(3); B<-runif(3); C<-runif(3); D<-runif(3)
-#' #A<-runif(3,1,100); B<-runif(3,1,100); C<-runif(3,1,100); D<-runif(3,1,100)
-#'
 #' tetra<-rbind(A,B,C,D)
-#' n<-10 #try also n<-20
+#' n<-10  #try also n<-20
 #'
 #' dat<-runif.tetra(n,tetra)$g
 #'
-#' M<-"CM" #try also #M<-"CC"
+#' M<-"CM"  #try also M<-"CC"
 #' r<-1.5
 #'
-#' NPEtetra(dat[1,],r,tetra) #uses the default M="CM"
+#' NPEtetra(dat[1,],r,tetra)  #uses the default M="CM"
 #' NPEtetra(dat[1,],r,tetra,M)
 #'
 #' NPEtetra(dat[5,],r,tetra,M)
@@ -27659,7 +26702,7 @@ NPEtetra<-function(pt,r,th,M="CM",rv=NULL)
 
   Rv<-rv
   if (is.null(Rv))
-  {Rv<-ifelse(identical(M,"CC"),rv.tetraCC(pt,th)$rv,rv.tetraCM(pt,th)$rv) #vertex region for pt
+  {Rv<-ifelse(identical(M,"CC"),rv.tetraCC(pt,th)$rv,rv.tetraCM(pt,th)$rv)  #vertex region for pt
   } else
   {  if (!is.numeric(Rv) || sum(Rv==c(1,2,3,4))!=1)
   {stop('vertex index, rv, must be 1, 2, 3 or 4')}}
@@ -27719,19 +26762,15 @@ NPEtetra<-function(pt,r,th,M="CM",rv=NULL)
 #'
 #' @examples
 #' A<-c(0,0,0); B<-c(1,0,0); C<-c(1/2,sqrt(3)/2,0); D<-c(1/2,sqrt(3)/6,sqrt(6)/3)
-#' #try also the following
-#' #A<-runif(3); B<-runif(3); C<-runif(3); D<-runif(3)
-#' #A<-runif(3,1,100); B<-runif(3,1,100); C<-runif(3,1,100); D<-runif(3,1,100)
-#'
 #' tetra<-rbind(A,B,C,D)
-#' n<-10 #try also n<-20
+#' n<-10  #try also n<-20
 #'
 #' dat<-runif.tetra(n,tetra)$g
 #'
-#' M<-"CM" #try also #M<-"CC"
+#' M<-"CM"  #try also M<-"CC"
 #' r<-1.5
 #'
-#' IndNPEtetra(dat[1,],dat[2,],r,tetra) #uses the default M="CM"
+#' IndNPEtetra(dat[1,],dat[2,],r,tetra)  #uses the default M="CM"
 #' IndNPEtetra(dat[1,],dat[2,],r,tetra,M)
 #'
 #' IndNPEtetra(dat[1,],dat[1,],r,tetra,M)
@@ -27775,7 +26814,7 @@ IndNPEtetra<-function(pt1,pt2,r,th,M="CM",rv=NULL)
   } else
   {
     if (is.null(rv))
-    {rv<-ifelse(identical(M,"CC"),rv.tetraCC(pt1,th)$rv,rv.tetraCM(pt1,th)$rv) #vertex region for pt1
+    {rv<-ifelse(identical(M,"CC"),rv.tetraCC(pt1,th)$rv,rv.tetraCM(pt1,th)$rv)  #vertex region for pt1
     } else
     {  if (!is.numeric(rv) || sum(rv==c(1,2,3,4))!=1)
     {stop('vertex index, rv, must be 1, 2, 3 or 4')}}
@@ -27818,24 +26857,20 @@ IndNPEtetra<-function(pt1,pt2,r,th,M="CM",rv=NULL)
 #' @examples
 #' \donttest{
 #' A<-c(0,0,0); B<-c(1,0,0); C<-c(1/2,sqrt(3)/2,0); D<-c(1/2,sqrt(3)/6,sqrt(6)/3)
-#' #try also the following
-#' #A<-runif(3); B<-runif(3); C<-runif(3); D<-runif(3)
-#' #A<-runif(3,1,100); B<-runif(3,1,100); C<-runif(3,1,100); D<-runif(3,1,100)
-#'
 #' tetra<-rbind(A,B,C,D)
 #' n<-10
 #'
-#' dat<-runif.tetra(n,tetra)$g #try also #dat<-c(.5,.5,.5)
+#' dat<-runif.tetra(n,tetra)$g  #try also dat<-c(.5,.5,.5)
 #'
-#' M<-"CM" #try also #M<-"CC"
+#' M<-"CM"  #try also M<-"CC"
 #' r<-1.5
 #'
-#' IM<-IncMatPEtetra(dat,tetra,r=1.25)#uses the default M="CM"
+#' IM<-IncMatPEtetra(dat,tetra,r=1.25)  #uses the default M="CM"
 #' IM<-IncMatPEtetra(dat,tetra,r=1.25,M)
 #' IM
 #' dom.greedy(IM)
 #' IndUBdom(IM,3)
-#' dom.exact(IM) #this might take a long time for large n
+#' dom.exact(IM)  #this might take a long time for large n
 #'
 #' IncMatPEtetra(dat,tetra,r=1.5)
 #' IncMatPEtetra(dat,tetra,r=2)
@@ -27886,7 +26921,7 @@ IncMatPEtetra<-function(dat,th,r,M="CM")
   {
     for (i in 1:n)
     {pt1<-dat[i,]
-    v<-ifelse(identical(M,"CC"),rv.tetraCC(pt1,th)$rv,rv.tetraCM(pt1,th)$rv) #vertex region for pt1
+    v<-ifelse(identical(M,"CC"),rv.tetraCC(pt1,th)$rv,rv.tetraCM(pt1,th)$rv)  #vertex region for pt1
     for (j in ((1:n)) )
     {pt2<-dat[j,]
     inc.mat[i,j]<-IndNPEtetra(pt1,pt2,r,th,M,rv=v)
@@ -27934,19 +26969,15 @@ IncMatPEtetra<-function(dat,th,r,M="CM")
 #' @examples
 #' \donttest{
 #' A<-c(0,0,0); B<-c(1,0,0); C<-c(1/2,sqrt(3)/2,0); D<-c(1/2,sqrt(3)/6,sqrt(6)/3)
-#' #try also the following
-#' #A<-runif(3); B<-runif(3); C<-runif(3); D<-runif(3)
-#' #A<-runif(3,1,100); B<-runif(3,1,100); C<-runif(3,1,100); D<-runif(3,1,100)
-#'
 #' tetra<-rbind(A,B,C,D)
-#' n<-10 #try also n<-20
+#' n<-10  #try also n<-20
 #'
-#' dat<-runif.tetra(n,tetra)$g #try also #dat[,1]<-dat[,1]+1
+#' dat<-runif.tetra(n,tetra)$g  #try also dat[,1]<-dat[,1]+1
 #'
-#' M<-"CM" #try also #M<-"CC"
+#' M<-"CM"  #try also M<-"CC"
 #' r<-1.5
 #'
-#' plotPEregsTH(dat[1,],r,tetra) #uses the default M="CM"
+#' plotPEregsTH(dat[1,],r,tetra)  #uses the default M="CM"
 #' plotPEregsTH(dat[1,],r,tetra,M)
 #'
 #' plotPEregsTH(dat[5,],r,tetra,M)
@@ -27996,7 +27027,7 @@ plotPEregsTH<-function(Xp,r,th,M="CM",main="",xlab="",ylab="",zlab="",xlim=NULL,
   for (i in 1:n)
     in.tetra[i]<-in.tetrahedron(Xp[i,],th,boundary=TRUE)$in.tetra #indices of the Xp points inside the tetrahedron
 
-  Xtetra<-matrix(Xp[in.tetra==1,],ncol=3) #the Xp points inside the tetrahedron
+  Xtetra<-matrix(Xp[in.tetra==1,],ncol=3)  #the Xp points inside the tetrahedron
   nt<-length(Xtetra)/3 #number of Xp points inside the tetrahedron
 
   if (is.null(xlim))
@@ -28076,7 +27107,7 @@ plotPEregsTH<-function(Xp,r,th,M="CM",main="",xlab="",ylab="",zlab="",xlim=NULL,
 #' tetra<-rbind(A,B,C,D)
 #'
 #' n<-20
-#' dat<-runif.stdtetra(n)$g #try also #dat<-cbind(runif(n),runif(n),runif(n))
+#' dat<-runif.stdtetra(n)$g  #try also dat<-cbind(runif(n),runif(n),runif(n))
 #' r<-1.5
 #'
 #' P<-c(.4,.1,.2)
@@ -28093,8 +27124,6 @@ plotPEregsTH<-function(Xp,r,th,M="CM",main="",xlab="",ylab="",zlab="",xlim=NULL,
 #'
 #' Gam1PEstdTetra(c(-1,-1,-1),dat,r)
 #' Gam1PEstdTetra(c(-1,-1,-1),c(-1,-1,-1),r)
-#'
-#' Gam1PEstdTetra(c(-1,-1,-1),dat,r,ch.data.pnt = TRUE) # p is not a data point
 #'
 #' gam.vec<-vector()
 #' for (i in 1:n)
@@ -28127,6 +27156,17 @@ plotPEregsTH<-function(Xp,r,th,M="CM",main="",xlab="",ylab="",zlab="",xlim=NULL,
 #' D1<-(A+B)/2; D2<-(A+C)/2; D3<-(A+D)/2; D4<-(B+C)/2; D5<-(B+D)/2; D6<-(C+D)/2;
 #' L<-rbind(D1,D2,D3,D4,D5,D6); R<-matrix(rep(CM,6),ncol=3,byrow=TRUE)
 #' plot3D::segments3D(L[,1], L[,2], L[,3], R[,1], R[,2],R[,3], add=TRUE,lty=2)
+#'
+#' P<-c(.4,.1,.2)
+#' Gam1PEstdTetra(P,dat,r)
+#'
+#' dat.fr<-data.frame(a=dat)
+#' Gam1PEstdTetra(P,dat.fr,r)
+#' }
+#'
+#' \dontrun{
+#' Gam1PEstdTetra(c(-1,-1,-1),dat,r,ch.data.pnt = TRUE)
+#' #gives an error message since p is not a data point
 #' }
 #'
 Gam1PEstdTetra<-function(p,Dt,r,rv=NULL,ch.data.pnt=FALSE)
@@ -28158,7 +27198,7 @@ Gam1PEstdTetra<-function(p,Dt,r,rv=NULL,ch.data.pnt=FALSE)
   {dom<-1;return(dom);stop}
 
   A<-c(0,0,0); B<-c(1,0,0); C<-c(1/2,sqrt(3)/2,0); D<-c(1/2,sqrt(3)/6,sqrt(6)/3)
-  th<-rbind(A,B,C,D) #standard regular tetrahedron
+  th<-rbind(A,B,C,D)  #standard regular tetrahedron
   if (in.tetrahedron(p,th)$in.tetra==F)
   {dom<-0; return(dom); stop}
 
@@ -28225,16 +27265,13 @@ Gam1PEstdTetra<-function(p,Dt,r,rv=NULL,ch.data.pnt=FALSE)
 #' tetra<-rbind(A,B,C,D)
 #'
 #' n<-20
-#' dat<-runif.stdtetra(n)$g #try also #dat<-cbind(runif(n),runif(n),runif(n))
+#' dat<-runif.stdtetra(n)$g  #try also dat<-cbind(runif(n),runif(n),runif(n))
 #' r<-1.5
 #'
 #' Gam2PEstdTetra(dat[1,],dat[2,],dat,r)
 #' Gam2PEstdTetra(dat[1,],dat[1,],dat,r)
 #'
 #' Gam2PEstdTetra(c(-1,-1,-1),dat[2,],dat,r)
-#'
-#' Gam2PEstdTetra(c(-1,-1,-1),dat[2,],dat,r,ch.data.pnts = TRUE)
-#' #not both points, pt1 and pt2, are data points in Dt
 #'
 #' Gam2PEstdTetra(c(-1,-1,-1),c(-1,-1,-2),rbind(c(-1,-1,-1),c(-1,-1,-2)),r)
 #'
@@ -28257,6 +27294,20 @@ Gam1PEstdTetra<-function(p,Dt,r,rv=NULL,ch.data.pnt=FALSE)
 #' #or try
 #' rv2<-rv.tetraCC(dat[2,],tetra)$rv
 #' Gam2PEstdTetra(dat[1,],dat[2,],dat,r,rv2=rv2)
+#'
+#' P1<-c(.1,.1,.1)
+#' P2<-c(.4,.1,.2)
+#' Gam2PEstdTetra(P1,P2,dat,r)
+#'
+#' Gam2PEstdTetra(dat[1,],dat[2,],dat,r)
+#'
+#' dat.fr<-data.frame(a=dat)
+#' Gam2PEstdTetra(P1,P2,dat.fr,r)
+#' }
+#'
+#' \dontrun{
+#' Gam2PEstdTetra(c(-1,-1,-1),dat[2,],dat,r,ch.data.pnts = TRUE)
+#' #gives an error message since not both points, pt1 and pt2, are data points in Dt
 #' }
 #'
 Gam2PEstdTetra<-function(pt1,pt2,Dt,r,rv1=NULL,rv2=NULL,ch.data.pnts=FALSE)
@@ -28288,7 +27339,7 @@ Gam2PEstdTetra<-function(pt1,pt2,Dt,r,rv1=NULL,rv2=NULL,ch.data.pnts=FALSE)
   {dom<-0; return(dom); stop}
 
   A<-c(0,0,0); B<-c(1,0,0); C<-c(1/2,sqrt(3)/2,0); D<-c(1/2,sqrt(3)/6,sqrt(6)/3)
-  th<-rbind(A,B,C,D) #standard regular tetrahedron
+  th<-rbind(A,B,C,D)  #standard regular tetrahedron
 
   if (is.null(rv1))
   {rv1<-rv.tetraCC(pt1,th)$rv #vertex region for point pt1
@@ -28354,7 +27405,7 @@ Gam2PEstdTetra<-function(pt1,pt2,Dt,r,rv1=NULL,rv2=NULL,ch.data.pnts=FALSE)
 #' tetra<-rbind(A,B,C,D)
 #'
 #' n<-20
-#' dat<-runif.stdtetra(n)$g #try also #dat<-cbind(runif(n),runif(n),runif(n))
+#' dat<-runif.stdtetra(n)$g  #try also dat<-cbind(runif(n),runif(n),runif(n))
 #' r<-1.25
 #'
 #' Gam3PEstdTetra(dat[1,],dat[2,],dat[3,],dat,r)
@@ -28362,9 +27413,6 @@ Gam2PEstdTetra<-function(pt1,pt2,Dt,r,rv1=NULL,rv2=NULL,ch.data.pnts=FALSE)
 #' Gam3PEstdTetra(dat[1,],dat[2,],dat[2,],dat,r)
 #'
 #' Gam3PEstdTetra(dat[1,],c(1,1,1),dat[3,],dat,r)
-#'
-#' Gam3PEstdTetra(dat[1,],c(1,1,1),dat[3,],dat,r,ch.data.pnts = TRUE)
-#' #not all points, pt1, pt2 and pt3, are data points in Dt
 #'
 #' Gam3PEstdTetra(c(-1,1,1),c(1,1,1),c(1,1,-1),rbind(c(-1,1,1),c(1,1,1),c(1,1,-1)),r)
 #'
@@ -28389,6 +27437,19 @@ Gam2PEstdTetra<-function(pt1,pt2,Dt,r,rv1=NULL,rv2=NULL,ch.data.pnts=FALSE)
 #' #or try
 #' rv2<-rv.tetraCC(dat[2,],tetra)$rv
 #' Gam3PEstdTetra(dat[1,],dat[2,],dat[3,],dat,r,rv2=rv2)
+#'
+#' P1<-c(.1,.1,.1)
+#' P2<-c(.3,.3,.3)
+#' P3<-c(.4,.1,.2)
+#' Gam3PEstdTetra(P1,P2,P3,dat,r)
+#'
+#' dat.fr<-data.frame(a=dat)
+#' Gam3PEstdTetra(P1,P2,P3,dat.fr,r)
+#' }
+#'
+#' \dontrun{
+#' Gam3PEstdTetra(dat[1,],c(1,1,1),dat[3,],dat,r,ch.data.pnts = TRUE)
+#' #gives an error message since not all points, pt1, pt2 and pt3, are data points in Dt
 #' }
 #'
 Gam3PEstdTetra<-function(pt1,pt2,pt3,Dt,r,rv1=NULL,rv2=NULL,rv3=NULL,ch.data.pnts=FALSE)
@@ -28421,7 +27482,7 @@ Gam3PEstdTetra<-function(pt1,pt2,pt3,Dt,r,rv1=NULL,rv2=NULL,rv3=NULL,ch.data.pnt
   {dom<-0; return(dom); stop}
 
   A<-c(0,0,0); B<-c(1,0,0); C<-c(1/2,sqrt(3)/2,0); D<-c(1/2,sqrt(3)/6,sqrt(6)/3)
-  th<-rbind(A,B,C,D) #standard regular tetrahedron
+  th<-rbind(A,B,C,D)  #standard regular tetrahedron
 
   if (is.null(rv1))
   {rv1<-rv.tetraCC(pt1,th)$rv #vertex region for point pt1
@@ -28489,17 +27550,13 @@ Gam3PEstdTetra<-function(pt1,pt2,pt3,Dt,r,rv1=NULL,rv2=NULL,rv3=NULL,ch.data.pnt
 #' @examples
 #' \donttest{
 #' A<-c(0,0,0); B<-c(1,0,0); C<-c(1/2,sqrt(3)/2,0); D<-c(1/2,sqrt(3)/6,sqrt(6)/3)
-#' #try also the following
-#' #A<-runif(3); B<-runif(3); C<-runif(3); D<-runif(3)
-#' #A<-runif(3,1,100); B<-runif(3,1,100); C<-runif(3,1,100); D<-runif(3,1,100)
-#'
 #' tetra<-rbind(A,B,C,D)
 #' n<-20
 #'
-#' dat<-runif.tetra(n,tetra)$g #try also #dat<-cbind(runif(n),runif(n),runif(n))
+#' dat<-runif.tetra(n,tetra)$g  #try also dat<-cbind(runif(n),runif(n),runif(n))
 #'
-#' M<-"CM"; cent<-apply(tetra,2,mean) #center of mass
-#' #try also #M<-"CC"; cent<-circ.cent.tetra(tetra) #circumcenter
+#' M<-"CM"; cent<-apply(tetra,2,mean)  #center of mass
+#' #try also M<-"CC"; cent<-circ.cent.tetra(tetra)  #circumcenter
 #'
 #' r<-2
 #'
@@ -28517,8 +27574,6 @@ Gam3PEstdTetra<-function(pt1,pt2,pt3,Dt,r,rv1=NULL,rv2=NULL,rv3=NULL,ch.data.pnt
 #'
 #' Gam1PEtetra(c(-1,-1,-1),dat,r,tetra,M)
 #' Gam1PEtetra(c(-1,-1,-1),c(-1,-1,-1),r,tetra,M)
-#'
-#' Gam1PEtetra(c(-1,-1,-1),dat,r,tetra,M,ch.data.pnt = TRUE) #p is not a data point
 #'
 #' gam.vec<-vector()
 #' for (i in 1:n)
@@ -28550,6 +27605,17 @@ Gam3PEstdTetra<-function(pt1,pt2,pt3,Dt,r,rv1=NULL,rv2=NULL,rv3=NULL,ch.data.pnt
 #' D1<-(A+B)/2; D2<-(A+C)/2; D3<-(A+D)/2; D4<-(B+C)/2; D5<-(B+D)/2; D6<-(C+D)/2;
 #' L<-rbind(D1,D2,D3,D4,D5,D6); R<-rbind(cent,cent,cent,cent,cent,cent)
 #' plot3D::segments3D(L[,1], L[,2], L[,3], R[,1], R[,2],R[,3], add=TRUE,lty=2)
+#'
+#' P<-c(.4,.1,.2)
+#' Gam1PEtetra(P,dat,r,tetra,M)
+#'
+#' dat.fr<-data.frame(a=dat)
+#' Gam1PEtetra(P,dat.fr,r,tetra,M)
+#' }
+#'
+#' \dontrun{
+#' Gam1PEtetra(c(-1,-1,-1),dat,r,tetra,M,ch.data.pnt = TRUE)
+#' #gives an error message since p is not a data point
 #' }
 #'
 Gam1PEtetra<-function(p,Dt,r,th,M="CM",rv=NULL,ch.data.pnt=FALSE)
@@ -28657,25 +27723,18 @@ Gam1PEtetra<-function(p,Dt,r,th,M="CM",rv=NULL,ch.data.pnt=FALSE)
 #' @examples
 #' \donttest{
 #' A<-c(0,0,0); B<-c(1,0,0); C<-c(1/2,sqrt(3)/2,0); D<-c(1/2,sqrt(3)/6,sqrt(6)/3)
-#' #try also the following
-#' #A<-runif(3); B<-runif(3); C<-runif(3); D<-runif(3)
-#' #A<-runif(3,1,100); B<-runif(3,1,100); C<-runif(3,1,100); D<-runif(3,1,100)
-#'
 #' tetra<-rbind(A,B,C,D)
 #' n<-20
 #'
-#' dat<-runif.tetra(n,tetra)$g #try also #dat<-cbind(runif(n),runif(n),runif(n))
+#' dat<-runif.tetra(n,tetra)$g  #try also dat<-cbind(runif(n),runif(n),runif(n))
 #'
-#' M<-"CM"; #try also #M<-"CC";
+#' M<-"CM";  #try also M<-"CC";
 #' r<-1.5
 #'
 #' Gam2PEtetra(dat[1,],dat[2,],dat,r,tetra,M)
 #' Gam2PEtetra(dat[1,],dat[1,],dat,r,tetra,M)
 #'
 #' Gam2PEtetra(c(-1,-1,-1),dat[2,],dat,r,tetra,M)
-#'
-#' Gam2PEtetra(c(-1,-1,-1),dat[2,],dat,r,tetra,M,ch.data.pnts = TRUE)
-#' #not both points, pt1 and pt2, are data points in Dt
 #'
 #' Gam2PEtetra(c(-1,-1,-1),c(-1,-1,-2),rbind(c(-1,-1,-1),c(-1,-1,-2)),r,tetra,M)
 #'
@@ -28699,6 +27758,18 @@ Gam1PEtetra<-function(p,Dt,r,th,M="CM",rv=NULL,ch.data.pnt=FALSE)
 #' #or try
 #' rv2<-rv.tetraCC(dat[2,],tetra)$rv
 #' Gam2PEtetra(dat[1,],dat[2,],dat,r,tetra,M,rv2=rv2)
+#'
+#' P1<-c(.1,.1,.1)
+#' P2<-c(.4,.1,.2)
+#' Gam2PEtetra(P1,P2,dat,r,tetra,M)
+#'
+#' dat.fr<-data.frame(a=dat)
+#' Gam2PEtetra(P1,P2,dat.fr,r,tetra,M)
+#' }
+#'
+#' \dontrun{
+#' Gam2PEtetra(c(-1,-1,-1),dat[2,],dat,r,tetra,M,ch.data.pnts = TRUE)
+#' #gives an error message since not both points, pt1 and pt2, are data points in Dt
 #' }
 #'
 Gam2PEtetra<-function(pt1,pt2,Dt,r,th,M="CM",rv1=NULL,rv2=NULL,ch.data.pnts=FALSE)
@@ -28804,15 +27875,11 @@ Gam2PEtetra<-function(pt1,pt2,Dt,r,th,M="CM",rv1=NULL,rv2=NULL,ch.data.pnts=FALS
 #' @examples
 #' \donttest{
 #' A<-c(0,0,0); B<-c(1,0,0); C<-c(1/2,sqrt(3)/2,0); D<-c(1/2,sqrt(3)/6,sqrt(6)/3)
-#' #try also the following
-#' #A<-runif(3); B<-runif(3); C<-runif(3); D<-runif(3)
-#' #A<-runif(3,1,100); B<-runif(3,1,100); C<-runif(3,1,100); D<-runif(3,1,100)
-#'
 #' tetra<-rbind(A,B,C,D)
 #' n<-20
 #' dat<-runif.tetra(n,tetra)$g
 #'
-#' M<-"CM"; #try also #M<-"CC";
+#' M<-"CM";  #try also M<-"CC";
 #' r<-1.25
 #'
 #' Gam3PEtetra(dat[1,],dat[2,],dat[3,],dat,r,tetra,M)
@@ -28820,9 +27887,6 @@ Gam2PEtetra<-function(pt1,pt2,Dt,r,th,M="CM",rv1=NULL,rv2=NULL,ch.data.pnts=FALS
 #' Gam3PEtetra(dat[1,],dat[2,],dat[2,],dat,r,tetra,M)
 #'
 #' Gam3PEtetra(dat[1,],c(1,1,1),dat[3,],dat,r,tetra,M)
-#'
-#' Gam3PEtetra(dat[1,],c(1,1,1),dat[3,],dat,r,tetra,M,ch.data.pnts = TRUE)
-#' #not all points, pt1, pt2 and pts, are data points in Dt
 #'
 #' Gam3PEtetra(c(-1,1,1),c(1,1,1),c(1,1,-1),rbind(c(-1,1,1),c(1,1,1),c(1,1,-1)),r,tetra,M)
 #'
@@ -28847,6 +27911,19 @@ Gam2PEtetra<-function(pt1,pt2,Dt,r,th,M="CM",rv1=NULL,rv2=NULL,ch.data.pnts=FALS
 #' #or try
 #' rv2<-rv.tetraCC(dat[2,],tetra)$rv
 #' Gam3PEtetra(dat[1,],dat[2,],dat[3,],dat,r,tetra,M,rv2=rv2)
+#'
+#' P1<-c(.1,.1,.1)
+#' P2<-c(.3,.3,.3)
+#' P3<-c(.4,.1,.2)
+#' Gam3PEtetra(P1,P2,P3,dat,r,tetra,M)
+#'
+#' dat.fr<-data.frame(a=dat)
+#' Gam3PEtetra(P1,P2,P3,dat.fr,r,tetra,M)
+#' }
+#'
+#' \dontrun{
+#' Gam3PEtetra(dat[1,],c(1,1,1),dat[3,],dat,r,tetra,M,ch.data.pnts = TRUE)
+#' #gives an error message since not all points, pt1, pt2 and pts, are data points in Dt
 #' }
 #'
 Gam3PEtetra<-function(pt1,pt2,pt3,Dt,r,th,M="CM",rv1=NULL,rv2=NULL,rv3=NULL,ch.data.pnts=FALSE)
@@ -28940,16 +28017,12 @@ Gam3PEtetra<-function(pt1,pt2,pt3,Dt,r,th,M="CM",rv1=NULL,rv2=NULL,rv3=NULL,ch.d
 #' @examples
 #' \donttest{
 #' A<-c(0,0,0); B<-c(1,0,0); C<-c(1/2,sqrt(3)/2,0); D<-c(1/2,sqrt(3)/6,sqrt(6)/3)
-#' #try also the following
-#' #A<-runif(3); B<-runif(3); C<-runif(3); D<-runif(3)
-#' #A<-runif(3,1,100); B<-runif(3,1,100); C<-runif(3,1,100); D<-runif(3,1,100)
-#'
 #' tetra<-rbind(A,B,C,D)
-#' n<-10 #try also n<-20
+#' n<-10  #try also n<-20
 #'
 #' dat<-runif.tetra(n,tetra)$g
 #'
-#' M<-"CM" #try also #M<-"CC"
+#' M<-"CM"  #try also M<-"CC"
 #' r<-1.25
 #'
 #' PEdom.tetra(dat,tetra,r,M)
@@ -28989,7 +28062,7 @@ PEdom.tetra<-function(Xp,th,r,M="CM")
   if (length(M) > 1 || sum(M==c("CM","CC"))==0)
     stop("M must be one of \"CC\", \"CM\"")
 
-  n<-nrow(Xp) #number of Xp points
+  n<-nrow(Xp)  #number of Xp points
 
   ind.th<-mds<-c()
   for (i in 1:n)
@@ -29000,7 +28073,7 @@ PEdom.tetra<-function(Xp,th,r,M="CM")
 
   Xth<-matrix(Xp[ind.th,],ncol=3)
 
-  nth<-nrow(Xth) #number of points inside the tetrahedron
+  nth<-nrow(Xth)  #number of points inside the tetrahedron
   if (nth==0)
   {gam<-0; glis<-list(dom.num=gam,mds=mds); return(glis); stop}
 
@@ -29230,7 +28303,7 @@ IndNCSmid1D<-function(x1,x2,t,c,int,rv=NULL)
 #' NumArcsCSmid1D(dat,t,c,int+5)
 #' NumArcsCSmid1D(dat,t,c,int+10)
 #'
-#' n<-10 #try also n<-20
+#' n<-10  #try also n<-20
 #' dat<-runif(n,a-5,b+5)
 #' NumArcsCSint(dat,t,c,int)
 #'
@@ -29484,7 +28557,7 @@ asyvarCS1D<-function(t,c)
 #' c<-.4
 #' t<-.5
 #' a<-0; b<-10; int<-c(a,b)
-#' n<-10 #try also n<-20
+#' n<-10  #try also n<-20
 #' dat<-runif(n,a,b)
 #'
 #' TSArcDensCS1D(dat,t,c,int)
@@ -29619,18 +28692,12 @@ TSArcDensCS1D<-function(dat,t,c,int,alternative = c("two.sided", "less", "greate
 #' t<-1.5
 #' c<-.4
 #' a<-0; b<-10
-#' #try also the following
-#' #c<-runif(1)
-#' #a<-runif(1); b<-runif(1); int<-range(a,b); a<-int[1]; b<-int[2]
 #'
 #' #nx is number of X points (target) and ny is number of Y points (nontarget)
-#' nx<-20; ny<-4; #try also nx<-40; ny<-10 or nx<-1000; ny<-10;
+#' nx<-20; ny<-4;  #try also nx<-40; ny<-10 or nx<-1000; ny<-10;
 #'
 #' set.seed(1)
 #' Xp<-runif(nx,a,b)
-#' #try also the following
-#' #Xp<-runif(nx,a+5,b+5)
-#' #Xp<-runif(nx,a+10,b+10)
 #' Yp<-runif(ny,a,b)
 #'
 #' ArcsCSmid1D(Xp,Yp,t,c)
@@ -29661,7 +28728,7 @@ TSArcDensCS1D<-function(dat,t,c,int,alternative = c("two.sided", "less", "greate
 #' t<-.5
 #' c<-.4
 #' a<-0; b<-10;
-#' nx<-20; ny<-4; #try also nx<-40; ny<-10 or nx<-1000; ny<-10;
+#' nx<-20; ny<-4;  #try also nx<-40; ny<-10 or nx<-1000; ny<-10;
 #' Xp<-runif(nx,a,b)
 #' Yp<-runif(ny,a,b)
 #'
@@ -29686,17 +28753,17 @@ ArcsCSmid1D<-function(Xp,Yp,t,c)
     S<-E<-vector(); nx2<-0
   } else
   {
-    Xs<-sort(Xp); Ys<-sort(Yp) #sorted data points from classes X and Y
+    Xs<-sort(Xp); Ys<-sort(Yp)  #sorted data points from classes X and Y
     ymin<-Ys[1]; ymax<-Ys[ny];
 
     int<-rep(0,nx)
     for (i in 1:nx)
-      int[i]<-(Xs[i]>ymin & Xs[i] < ymax ) #indices of X points in the middle intervals, i.e., inside min(Yp) and max (Yp)
+      int[i]<-(Xs[i]>ymin & Xs[i] < ymax )  #indices of X points in the middle intervals, i.e., inside min(Yp) and max (Yp)
 
     Xint<-Xs[int==1] # X points inside  min(Yp) and max (Yp)
 
     nt<-ny-1 #number of Yp middle intervals
-    nx2<-length(Xint) #number of Xp points inside the middle intervals
+    nx2<-length(Xint)  #number of Xp points inside the middle intervals
 
     if (nx2==0)
     {S<-E<-NA
@@ -29711,7 +28778,7 @@ ArcsCSmid1D<-function(Xp,Yp,t,c)
         }
 
       #the arcs of CS-PCDs for parameters t and c
-      S<-E<-vector() #S is for source and E is for end points for the arcs for middle intervals
+      S<-E<-vector()  #S is for source and E is for end points for the arcs for middle intervals
       for (i in 1:nt)
       {
         Xi<-Xint[i.int==i] #X points in the ith Yp mid interval
@@ -29727,13 +28794,13 @@ ArcsCSmid1D<-function(Xp,Yp,t,c)
             xR<-x1+t*(1-c)*(x1-y1)/c
             xL<-x1-t*(x1-y1)
             ind.tails<-((Xinl < min(xR,y2)) & (Xinl > max(xL,y1)))
-            st<-sum(ind.tails) #sum of tails of the arcs with head Xi[j]
+            st<-sum(ind.tails)  #sum of tails of the arcs with head Xi[j]
             S<-c(S,rep(x1,st)); E<-c(E,Xinl[ind.tails])
           } else {
             xR <-x1+t*(y2-x1)
             xL <-x1-c*t*(y2-x1)/(1-c)
             ind.tails<-((Xinl < min(xR,y2)) & (Xinl > max(xL,y1)))
-            st<-sum(ind.tails) #sum of tails of the arcs with head Xi[j]
+            st<-sum(ind.tails)  #sum of tails of the arcs with head Xi[j]
             S<-c(S,rep(x1,st)); E<-c(E,Xinl[ind.tails])
           }
           }
@@ -29913,7 +28980,7 @@ IndNCSend1D<-function(x1,x2,t,int,rv=NULL)
 #' NumArcsCSend1D(dat,t=2,int+5)
 #' NumArcsCSend1D(dat,t=2,int=c(-5,15))
 #'
-#' n<-10 #try also n<-20
+#' n<-10  #try also n<-20
 #' dat2<-runif(n,a-5,b+5)
 #' NumArcsCSend1D(dat2,t=2,int)
 #'
@@ -30000,9 +29067,11 @@ NULL
 #'   mu.end<-c(mu.end,muCSend1D(tseq[i]))
 #' }
 #'
+#' oldpar <- par(mfrow = c(1,2))
 #' par(mar = c(5,4,4,2) + 0.1)
 #' plot(tseq, mu.end,type="l",
 #' ylab=expression(paste(mu,"(t)")),xlab="t",lty=1,xlim=range(tseq),ylim=c(0,1))
+#' par(oldpar)
 #'
 #'
 #' @export muCSend1D
@@ -30036,9 +29105,10 @@ muCSend1D<-function(t)
 #'   var.end<-c(var.end,asyvarCSend1D(tseq[i]))
 #' }
 #'
+#' oldpar <- par(mfrow = c(1,2))
 #' par(mar=c(5,5,4,2))
 #' plot(tseq, var.end,type="l",xlab="t",ylab=expression(paste(sigma^2,"(t)")),lty=1,xlim=range(tseq))
-#' par(mar=c(5.1, 4.1, 4.1, 2.1))
+#' par(oldpar)
 #'
 #' @export asyvarCSend1D
 asyvarCSend1D<-function(t)
@@ -30101,22 +29171,16 @@ asyvarCSend1D<-function(t)
 #' @examples
 #' t<-1.5
 #' a<-0; b<-10; int<-c(a,b)
-#' #try also the following
-#' #a<-runif(1); b<-runif(1); int<-range(a,b); a<-int[1]; b<-int[2]
 #'
 #' #nx is number of X points (target) and ny is number of Y points (nontarget)
-#' nx<-20; ny<-4; #try also nx<-40; ny<-10 or nx<-1000; ny<-10;
+#' nx<-20; ny<-4;  #try also nx<-40; ny<-10 or nx<-1000; ny<-10;
 #'
 #' set.seed(1)
 #' xr<-range(a,b)
 #' xf<-(xr[2]-xr[1])*.5
 #'
 #' Xp<-runif(nx,a-xf,b+xf)
-#' #try also the following
-#' #Xp<-runif(nx,a+5,b+5)
-#' #Xp<-runif(nx,a+10,b+10)
 #' Yp<-runif(ny,a,b)
-#' #Yp<-runif(ny,a,b)+c(-10,10)
 #'
 #' ArcsCSend1D(Xp,Yp,t)
 #'
@@ -30153,13 +29217,13 @@ ArcsCSend1D<-function(Xp,Yp,t)
   if (!is.point(t,1) || t<=0)
   {stop('t must be a scalar greater than 0')}
 
-  Xs<-sort(Xp); Ys<-sort(Yp) #sorted data points
+  Xs<-sort(Xp); Ys<-sort(Yp)  #sorted data points
   ymin<-Ys[1]; ymax<-max(Yp)
 
   XLe<-Xs[Xs<ymin]; XRe<-Xs[Xs>ymax] #X points in the left and right end intervals respectively
 
   #the arcs of PE-PCDs for parameters r and c
-  S<-E<-vector() #S is for source and E is for end points for the arcs
+  S<-E<-vector()  #S is for source and E is for end points for the arcs
 
   #for end intervals
   #left end interval
@@ -30170,7 +29234,7 @@ ArcsCSend1D<-function(Xp,Yp,t)
     {x1 <-XLe[j];  xLe<-XLe[-j] #to avoid loops
     xR<-x1+t*(ymin-x1); xL<-x1-t*(ymin-x1)
     ind.tails<-((xLe < min(xR,ymin)) & (xLe > xL))
-    st<-sum(ind.tails) #sum of tails of the arcs with head XLe[j]
+    st<-sum(ind.tails)  #sum of tails of the arcs with head XLe[j]
     S<-c(S,rep(x1,st)); E<-c(E,xLe[ind.tails])
     }
   }
@@ -30183,7 +29247,7 @@ ArcsCSend1D<-function(Xp,Yp,t)
     {x1 <-XRe[j]; xRe<-XRe[-j]
     xR<-x1+t*(x1-ymax); xL<-x1-t*(x1-ymax)
     ind.tails<-((xRe < xR) & xRe > max(ymax,xL))
-    st<-sum(ind.tails) #sum of tails of the arcs with head XRe[j]
+    st<-sum(ind.tails)  #sum of tails of the arcs with head XRe[j]
     S<-c(S,rep(x1,st)); E<-c(E,xRe[ind.tails])
     }
   }
@@ -30274,21 +29338,15 @@ ArcsCSend1D<-function(Xp,Yp,t)
 #' t<-1.5
 #' c<-.4
 #' a<-0; b<-10; int<-c(a,b)
-#' #try also the following
-#' #c<-runif(1);
-#' #a<-runif(1); b<-runif(1); int<-range(a,b); a<-int[1]; b<-int[2]
 #'
 #' #nx is number of X points (target) and ny is number of Y points (nontarget)
-#' nx<-20; ny<-4; #try also nx<-40; ny<-10 or nx<-1000; ny<-10;
+#' nx<-20; ny<-4;  #try also nx<-40; ny<-10 or nx<-1000; ny<-10;
 #'
 #' set.seed(1)
 #' xr<-range(a,b)
 #' xf<-(xr[2]-xr[1])*.1
 #'
 #' Xp<-runif(nx,a-xf,b+xf)
-#' #try also the following
-#' #Xp<-runif(nx,a+5,b+5)
-#' #Xp<-runif(nx,a+10,b+10)
 #' Yp<-runif(ny,a,b)
 #'
 #' ArcsCS1D(Xp,Yp,t,c)
@@ -30403,21 +29461,15 @@ ArcsCS1D<-function(Xp,Yp,t,c)
 #' t<-1.5
 #' c<-.4
 #' a<-0; b<-10; int<-c(a,b)
-#' #try also the following
-#' #c<-runif(1);
-#' #a<-runif(1); b<-runif(1); int<-range(a,b); a<-int[1]; b<-int[2]
 #'
 #' #nx is number of X points (target) and ny is number of Y points (nontarget)
-#' nx<-20; ny<-4; #try also nx<-40; ny<-10 or nx<-1000; ny<-10;
+#' nx<-20; ny<-4;  #try also nx<-40; ny<-10 or nx<-1000; ny<-10;
 #'
 #' set.seed(1)
 #' xr<-range(a,b)
 #' xf<-(xr[2]-xr[1])*.1
 #'
 #' Xp<-runif(nx,a-xf,b+xf)
-#' #try also the following
-#' #Xp<-runif(nx,a+5,b+5)
-#' #Xp<-runif(nx,a+10,b+10)
 #' Yp<-runif(ny,a,b)
 #'
 #' Xlim=range(Xp,Yp)
@@ -30608,7 +29660,7 @@ IndNCSint<-function(x1,x2,t,c=.5,int)
   {stop('x2 must be a scalar')}
 
   arc<-0
-  pr<-NCSint(x1,t,c,int) #proximity region as interval
+  pr<-NCSint(x1,t,c,int)  #proximity region as interval
   if (x2>=pr[1] && x2<=pr[2])
   {arc<-1}
   arc
@@ -30657,14 +29709,11 @@ IndNCSint<-function(x1,x2,t,c=.5,int)
 #' c<-.4
 #' t<-2
 #' a<-0; b<-10; int<-c(a,b)
-#' #try also the following
-#' #c<-runif(1)
-#' #a<-runif(1); b<-runif(1); int<-range(a,b); a<-int[1]; b<-int[2]
 #'
 #' n<-10
 #' xr<-range(a,b)
 #' xf<-(xr[2]-xr[1])*.1
-#' dat<-runif(n,a-xf,b+xf) #try also #dat<-runif(n,a-5,b+5)
+#' dat<-runif(n,a-xf,b+xf)  #try also dat<-runif(n,a-5,b+5)
 #'
 #' plotCSregsInt(7,t,c,int)
 #'
@@ -30754,12 +29803,8 @@ plotCSregsInt<-function(dat,t,c=.5,int,Jit=.1,main="",xlab="",ylab="",xlim=NULL,
 #'
 #' NumArcsCSint(dat,t=1.5,c,int)
 #'
-#' n<-10 #try also n<-20
+#' n<-10  #try also n<-20
 #' dat<-runif(n,a,b)
-#' #try also the following
-#' #dat<-runif(n,a-5,b+5)
-#' #dat<-runif(n,a+5,b+5)
-#' #dat<-runif(n,a+10,b+10)
 #'
 #' NumArcsCSint(dat,t,c,int)
 #'
@@ -30834,22 +29879,15 @@ NumArcsCSint<-function(dat,t,c=.5,int)
 #' t<-2
 #' c<-.4
 #' a<-0; b<-10;
-#' #try also the following
-#' #c<-runif(1)
-#' #a<-runif(1); b<-runif(1); int<-range(a,b); a<-int[1]; b<-int[2]
 #'
 #' #nx is number of X points (target) and ny is number of Y points (nontarget)
-#' nx<-20; ny<-4; #try also nx<-40; ny<-10 or nx<-1000; ny<-10;
+#' nx<-20; ny<-4;  #try also nx<-40; ny<-10 or nx<-1000; ny<-10;
 #'
 #' set.seed(1)
 #' xr<-range(a,b)
 #' xf<-(xr[2]-xr[1])*.1
 #'
 #' Xp<-runif(nx,a-xf,b+xf)
-#' #try also the following
-#' #Xp<-runif(nx,a-5,b+5)
-#' #Xp<-runif(nx,a+5,b+5)
-#' #Xp<-runif(nx,a+10,b+10)
 #' Yp<-runif(ny,a,b)
 #'
 #' Arcs<-ArcsCSMI(Xp,Yp,t,c)
@@ -30881,7 +29919,7 @@ NumArcsCSint<-function(dat,t,c=.5,int)
 #' t<-2
 #' c<-.4
 #' a<-0; b<-10;
-#' nx<-20; ny<-4; #try also nx<-40; ny<-10 or nx<-1000; ny<-10;
+#' nx<-20; ny<-4;  #try also nx<-40; ny<-10 or nx<-1000; ny<-10;
 #' Xp<-runif(nx,a,b)
 #' Yp<-runif(ny,a,b)
 #'
@@ -30900,18 +29938,18 @@ ArcsCSMI<-function(Xp,Yp,t,c)
   {stop('c must be a scalar in (0,1)')}
 
   nx<-length(Xp); ny<-length(Yp)
-  S<-E<-vector() #S is for source and E is for end points for the arcs
+  S<-E<-vector()  #S is for source and E is for end points for the arcs
   if (nx==0 || ny==0)
   {stop('Not enough points to construct PE-PCD')}
 
   if (nx>1)
   {
-    Ys<-sort(Yp) #sorted data points from classes X and Y
+    Ys<-sort(Yp)  #sorted data points from classes X and Y
     ymin<-Ys[1]; ymax<-Ys[ny];
 
     int<-rep(0,nx)
     for (i in 1:nx)
-      int[i]<-(Xp[i]>ymin & Xp[i] < ymax ) #indices of X points in the middle intervals, i.e., inside min(Yp) and max (Yp)
+      int[i]<-(Xp[i]>ymin & Xp[i] < ymax )  #indices of X points in the middle intervals, i.e., inside min(Yp) and max (Yp)
 
     Xint<-Xp[int==1] # X points inside  min(Yp) and max (Yp)
     XLe<-Xp[Xp<ymin] # X points in the left end interval of Yp points
@@ -30925,14 +29963,14 @@ ArcsCSMI<-function(Xp,Yp,t,c)
       {x1 <-XLe[j];  xLe<-XLe[-j] #to avoid loops
       xR<-x1+t*(ymin-x1); xL<-x1-t*(ymin-x1)
       ind.tails<-((xLe < min(xR,ymin)) & (xLe > xL))
-      st<-sum(ind.tails) #sum of tails of the arcs with head XLe[j]
+      st<-sum(ind.tails)  #sum of tails of the arcs with head XLe[j]
       S<-c(S,rep(x1,st)); E<-c(E,xLe[ind.tails])
       }
     }
 
     #for middle intervals
     nt<-ny-1 #number of Yp middle intervals
-    nx2<-length(Xint) #number of Xp points inside the middle intervals
+    nx2<-length(Xint)  #number of Xp points inside the middle intervals
 
     if (nx2>1)
     {
@@ -30959,13 +29997,13 @@ ArcsCSMI<-function(Xp,Yp,t,c)
             xR<-x1+t*(1-c)*(x1-y1)/c
             xL<-x1-t*(x1-y1)
             ind.tails<-((Xinl < min(xR,y2)) & (Xinl > max(xL,y1)))
-            st<-sum(ind.tails) #sum of tails of the arcs with head Xi[j]
+            st<-sum(ind.tails)  #sum of tails of the arcs with head Xi[j]
             S<-c(S,rep(x1,st)); E<-c(E,Xinl[ind.tails])
           } else {
             xR <-x1+t*(y2-x1)
             xL <-x1-c*t*(y2-x1)/(1-c)
             ind.tails<-((Xinl < min(xR,y2)) & (Xinl > max(xL,y1)))
-            st<-sum(ind.tails) #sum of tails of the arcs with head Xi[j]
+            st<-sum(ind.tails)  #sum of tails of the arcs with head Xi[j]
             S<-c(S,rep(x1,st)); E<-c(E,Xinl[ind.tails])
           }
           }
@@ -30981,7 +30019,7 @@ ArcsCSMI<-function(Xp,Yp,t,c)
       {x1 <-XRe[j]; xRe<-XRe[-j]
       xR<-x1+t*(x1-ymax); xL<-x1-t*(x1-ymax)
       ind.tails<-((xRe < xR) & xRe > max(ymax,xL))
-      st<-sum(ind.tails) #sum of tails of the arcs with head XRe[j]
+      st<-sum(ind.tails)  #sum of tails of the arcs with head XRe[j]
       S<-c(S,rep(x1,st)); E<-c(E,xRe[ind.tails])
       }
     }
@@ -31061,17 +30099,13 @@ ArcsCSMI<-function(Xp,Yp,t,c)
 #'
 #' set.seed(1)
 #' Xp<-runif(nx,a,b)
-#' #try also the following
-#' #Xp<-runif(nx,a-5,b+5)
-#' #Xp<-runif(nx,a+5,b+5)
-#' #Xp<-runif(nx,a+10,b+10)
 #' Yp<-runif(ny,a,b)
 #'
 #' IM<-IncMatCS1D(Xp,Yp,t,c)
 #' IM
 #' dom.greedy(IM)
 #' \donttest{
-#' dom.exact(IM) #might take a long time depending on nx
+#' dom.exact(IM)  #might take a long time depending on nx
 #' }
 #' IndUBdom(IM,5)
 #'
@@ -31086,7 +30120,7 @@ ArcsCSMI<-function(Xp,Yp,t,c)
 #' c<-.4
 #' a<-0; b<-10;
 #' #nx is number of X points (target) and ny is number of Y points (nontarget)
-#' nx<-20; ny<-4; #try also nx<-40; ny<-10 or nx<-1000; ny<-10;
+#' nx<-20; ny<-4;  #try also nx<-40; ny<-10 or nx<-1000; ny<-10;
 #'
 #' Xp<-runif(nx,a,b)
 #' Yp<-runif(ny,a,b)
@@ -31112,7 +30146,7 @@ IncMatCS1D<-function(Xp,Yp,t,c)
 
   if (nx>=1)
   {
-    Ys<-sort(Yp) #sorted data points from classes X and Y
+    Ys<-sort(Yp)  #sorted data points from classes X and Y
     ymin<-Ys[1]; ymax<-Ys[ny];
 
     pr<-c()
@@ -31194,22 +30228,15 @@ IncMatCS1D<-function(Xp,Yp,t,c)
 #' t<-2
 #' c<-.4
 #' a<-0; b<-10;
-#' #try also the following
-#' #c<-runif(1)
-#' #a<-runif(1); b<-runif(1); int<-range(a,b); a<-int[1]; b<-int[2]
 #'
 #' #nx is number of X points (target) and ny is number of Y points (nontarget)
-#' nx<-20; ny<-4; #try also nx<-40; ny<-10 or nx<-1000; ny<-10;
+#' nx<-20; ny<-4;  #try also nx<-40; ny<-10 or nx<-1000; ny<-10;
 #'
 #' set.seed(1)
 #' xr<-range(a,b)
 #' xf<-(xr[2]-xr[1])*.1
 #'
 #' Xp<-runif(nx,a-xf,b+xf)
-#' #try also the following
-#' #Xp<-runif(nx,a-5,b+5)
-#' #Xp<-runif(nx,a+5,b+5)
-#' #Xp<-runif(nx,a+10,b+10)
 #' Yp<-runif(ny,a,b)
 #'
 #' plotCSregsMI(Xp,Yp,t,c,xlab="",ylab="")
@@ -31234,14 +30261,14 @@ plotCSregsMI<-function(Xp,Yp,t,c,Jit=.1,main="",xlab="",ylab="",xlim=NULL,ylim=N
   LE<-RE<-vector()
   if (nx>=1)
   { Xp<-sort(Xp)
-  Ys<-sort(Yp) #sorted data points from classes X and Y
+  Ys<-sort(Yp)  #sorted data points from classes X and Y
   ymin<-Ys[1]; ymax<-Ys[ny];
 
   yjit<-runif(nx,-Jit,Jit)
 
   in.int<-rep(0,nx)
   for (i in 1:nx)
-    in.int[i]<-(Xp[i]>ymin & Xp[i] < ymax ) #indices of X points in the middle intervals, i.e., inside min(Yp) and max (Yp)
+    in.int[i]<-(Xp[i]>ymin & Xp[i] < ymax )  #indices of X points in the middle intervals, i.e., inside min(Yp) and max (Yp)
 
   Xint<-Xp[in.int==1] # X points inside  min(Yp) and max (Yp)
   XLe<-Xp[Xp<ymin] # X points in the left end interval of Yp points
@@ -31260,7 +30287,7 @@ plotCSregsMI<-function(Xp,Yp,t,c,Jit=.1,main="",xlab="",ylab="",xlim=NULL,ylim=N
 
   #for middle intervals
   nt<-ny-1 #number of Yp middle intervals
-  nx2<-length(Xint) #number of Xp points inside the middle intervals
+  nx2<-length(Xint)  #number of Xp points inside the middle intervals
 
   if (nx2>=1)
   {
@@ -31359,9 +30386,6 @@ plotCSregsMI<-function(Xp,Yp,t,c,Jit=.1,main="",xlab="",ylab="",xlim=NULL,ylim=N
 #' t<-2
 #' c<-.4
 #' a<-0; b<-10; int<-c(a,b)
-#' #try also the following
-#' #c<-runif(1)
-#' #a<-runif(1); b<-runif(1); int<-range(a,b); a<-int[1]; b<-int[2]
 #'
 #' Mc<-centMc(int,c)
 #' n<-10
@@ -31370,8 +30394,8 @@ plotCSregsMI<-function(Xp,Yp,t,c,Jit=.1,main="",xlab="",ylab="",xlim=NULL,ylim=N
 #' dat<-runif(n,a,b)
 #'
 #' Gam1CS1D(dat[5],dat,t,c,int)
-#' \donttest{
-#' Gam1CS1D(2,dat,t,c,int,ch.data.pnt = TRUE) #p is not a data point in Dt
+#' \dontrun{
+#' Gam1CS1D(2,dat,t,c,int,ch.data.pnt = TRUE)  #p is not a data point in Dt
 #' }
 #'
 #' gam.vec<-vector()
@@ -31536,9 +30560,10 @@ muCS2D<-function(t)
 #'   asyvar<-c(asyvar,asyvarCS2D(tseq[i]))
 #' }
 #'
+#' oldpar <- par(mfrow = c(1,2))
 #' par(mar=c(5,5,4,2))
 #' plot(tseq, asyvar,type="l",xlab="t",ylab=expression(paste(sigma^2,"(t)")),lty=1,xlim=range(tseq))
-#' par(mar=c(5.1, 4.1, 4.1, 2.1))
+#' par(oldpar)
 #'
 #' @export asyvarCS2D
 asyvarCS2D<-function(t)
@@ -31660,7 +30685,6 @@ IndCS.Te.onesixth<-function(pt1,pt2)
 #' @examples
 #' \donttest{
 #' n<-5
-#'
 #' set.seed(1)
 #' dat<-rbind(runifTe.onesixth(n)$gen.points,runifTe(n)$gen.points)
 #'
@@ -31672,8 +30696,6 @@ IndCS.Te.onesixth<-function(pt1,pt2)
 #' Gam1CS.Te.onesixth(dat[9,],dat)
 #'
 #' Gam1CS.Te.onesixth(c(.49,.49),dat)
-#'
-#' Gam1CS.Te.onesixth(c(.49,.49),dat,ch.data.pnt = TRUE)
 #'
 #' n<-nrow(dat)
 #' gam.vec<-vector()
@@ -31711,6 +30733,16 @@ IndCS.Te.onesixth<-function(pt1,pt2)
 #'
 #' Gam1CS.Te.onesixth(c(.4,.1),c(.4,.1))
 #' Gam1CS.Te.onesixth(c(.49,.19),c(.4,.1))
+#'
+#' Gam1CS.Te.onesixth(c(.4,.2),dat)
+#'
+#' dat.fr<-data.frame(a=dat)
+#' Gam1CS.Te.onesixth(c(.4,.2),dat.fr)
+#' }
+#'
+#' \dontrun{
+#' Gam1CS.Te.onesixth(c(.49,.49),dat,ch.data.pnt = TRUE)
+#' #gives an error message since point, p, is not a data point in Dt
 #' }
 #'
 Gam1CS.Te.onesixth<-function(p,Dt,ch.data.pnt=FALSE)
@@ -31787,7 +30819,6 @@ Gam1CS.Te.onesixth<-function(p,Dt,ch.data.pnt=FALSE)
 #' Gam2CS.Te.onesixth(dat[1,],dat[3,],dat)
 #' Gam2CS.Te.onesixth(c(.2,.2),dat[2,],dat)
 #'
-#' Gam2CS.Te.onesixth(c(.2,.2),dat[2,],dat,ch.data.pnts = TRUE)
 #' Gam2CS.Te.onesixth(c(.2,.1),c(.3,.1),rbind(c(.2,.1),c(.3,.1)))
 #' Gam2CS.Te.onesixth(c(1.2,1.1),c(1.3,1.1),rbind(c(1.2,1.1),c(1.3,1.1)))
 #'
@@ -31799,9 +30830,21 @@ Gam1CS.Te.onesixth<-function(p,Dt,ch.data.pnt=FALSE)
 #'    ind.gam2<-rbind(ind.gam2,c(i,j))}
 #'
 #' ind.gam2
+#'
+#' P1<-c(.2,.1)
+#' P2<-c(.3,.1)
+#' Gam2CS.Te.onesixth(P1,c(.4,.2),dat)
+#'
+#' dat.fr<-data.frame(a=dat)
+#' Gam2CS.Te.onesixth(c(.4,.2),P2,dat.fr)
 #' }
 #'
-Gam2CS.Te.onesixth <-function(pt1,pt2,Dt,ch.data.pnts=FALSE)
+#' \dontrun{
+#' Gam2CS.Te.onesixth(c(.2,.2),dat[2,],dat,ch.data.pnts = TRUE)
+#' #gives an error message since not both points are data points in Dt
+#' }
+#'
+Gam2CS.Te.onesixth<-function(pt1,pt2,Dt,ch.data.pnts=FALSE)
 {
   if (!is.point(pt1) || !is.point(pt2) )
   {stop('pt1 and pt2 must both be numeric 2D points')}
@@ -31874,10 +30917,6 @@ Gam2CS.Te.onesixth <-function(pt1,pt2,Dt,ch.data.pnts=FALSE)
 #'
 #' @examples
 #' A<-c(1,1); B<-c(2,0); C<-c(1.5,2);
-#' #try also the following
-#' #A<-runif(2); B<-runif(2); C<-runif(2);
-#' #A<-runif(2,1,100); B<-runif(2,1,100); C<-runif(2,1,100);
-#'
 #' Tr<-rbind(A,B,C);
 #'
 #' P<-c(.4,.2)
@@ -31889,12 +30928,9 @@ Gam2CS.Te.onesixth <-function(pt1,pt2,Dt,ch.data.pnts=FALSE)
 #' P<-c(10.5,1.6)
 #' redges.triCM(P,Tr)
 #'
-#' n<-10 #try also n<-20
+#' n<-10  #try also n<-20
 #' set.seed(1)
 #' dat<-runif.tri(n,Tr)$g
-#' #try also the following
-#' #dat<-cbind(runif(n,1,2),runif(n,0,2))
-#' #dat<-cbind(runif(n),runif(n))
 #'
 #' re<-redges.triCM(dat,Tr)
 #' re
@@ -31913,14 +30949,14 @@ Gam2CS.Te.onesixth <-function(pt1,pt2,Dt,ch.data.pnts=FALSE)
 #' L<-Tr; R<-matrix(rep(CM,3),ncol=2,byrow=TRUE)
 #' segments(L[,1], L[,2], R[,1], R[,2], lty=2)
 #'
-#' xc<-Tr[,1]
-#' yc<-Tr[,2]
+#' xc<-Tr[,1]+c(-.02,.03,.02)
+#' yc<-Tr[,2]+c(.02,.02,.04)
 #' txt.str<-c("A","B","C")
 #' text(xc,yc,txt.str)
 #'
 #' txt<-rbind(CM,Ds)
-#' xc<-txt[,1]
-#' yc<-txt[,2]
+#' xc<-txt[,1]+c(.05,.06,-.05,-.02)
+#' yc<-txt[,2]+c(.03,.03,.05,-.08)
 #' txt.str<-c("CM","re=2","re=3","re=1")
 #' text(xc,yc,txt.str)
 #' text(dat,labels=factor(re$re))
@@ -31983,7 +31019,7 @@ redges.triCM<-function(Dt,tri)
   {
     {ind.set<-NA}
   }
-  row.names(tri)<-c("A","B","C") #vertex labelling
+  row.names(tri)<-c("A","B","C")  #vertex labelling
   edge.desc<-"Edge labels are AB=1, BC=2, and AC=3"
 
   list(re=ind.set, #relative edge
@@ -32031,10 +31067,6 @@ redges.triCM<-function(Dt,tri)
 #'
 #' @examples
 #' A<-c(1,1); B<-c(2,0); C<-c(1.5,2);
-#' #try also the following
-#' #A<-runif(2); B<-runif(2); C<-runif(2);
-#' #A<-runif(2,1,100); B<-runif(2,1,100); C<-runif(2,1,100);
-#'
 #' Tr<-rbind(A,B,C);
 #'
 #' M<-c(1.6,1.2)
@@ -32048,19 +31080,11 @@ redges.triCM<-function(Dt,tri)
 #' P<-c(10.5,1.6)
 #' redges.tri.cent(P,Tr,M)
 #'
-#' n<-10 #try also n<-20
+#' n<-10  #try also n<-20
 #' set.seed(1)
 #' dat<-runif.tri(n,Tr)$g
-#' #try also the following
-#' #dat<-cbind(runif(n,1,2),runif(n,0,2))
-#' #dat<-cbind(runif(n),runif(n))
 #'
-#' M<-as.numeric(runif.tri(1,Tr)$g)
-#' #try also the following
-#' #M<-c(1.6,1.2)
-#' #M<-c(1,1,1) #M<-c(1,2,3) #M<-c(-1,2,3) #barycentric coordinates
-#' #M<-c(1.3,1.3)
-#' #M<-c(.3,.3)
+#' M<-as.numeric(runif.tri(1,Tr)$g)  #try also M<-c(1.6,1.2)
 #'
 #' re<-redges.tri.cent(dat,Tr,M)
 #' re
@@ -32083,14 +31107,14 @@ redges.triCM<-function(Dt,tri)
 #' L<-Tr; R<-rbind(M,M,M)
 #' segments(L[,1], L[,2], R[,1], R[,2], lty=2)
 #'
-#' xc<-Tr[,1]
-#' yc<-Tr[,2]
+#' xc<-Tr[,1]+c(-.02,.03,.02)
+#' yc<-Tr[,2]+c(.02,.02,.04)
 #' txt.str<-c("A","B","C")
 #' text(xc,yc,txt.str)
 #'
 #' txt<-rbind(M,Ds)
-#' xc<-txt[,1]
-#' yc<-txt[,2]
+#' xc<-txt[,1]+c(.05,.06,-.05,-.02)
+#' yc<-txt[,2]+c(.03,.03,.05,-.08)
 #' txt.str<-c("M","re=2","re=3","re=1")
 #' text(xc,yc,txt.str)
 #' text(dat,labels=factor(re$re))
@@ -32165,7 +31189,7 @@ redges.tri.cent<-function(Dt,tri,M)
   }
 
   ind.set
-  row.names(tri)<-c("A","B","C") #vertex labelling
+  row.names(tri)<-c("A","B","C")  #vertex labelling
   edge.desc<-"Edge labels are AB=1, BC=2, and AC=3"
 
   list(re=ind.set, #relative edge
@@ -32208,19 +31232,10 @@ redges.tri.cent<-function(Dt,tri,M)
 #'
 #' @examples
 #' A<-c(1,1); B<-c(2,0); C<-c(1.5,2);
-#' #try also the following
-#' #A<-runif(2); B<-runif(2); C<-runif(2);
-#' #A<-runif(2,1,100); B<-runif(2,1,100); C<-runif(2,1,100);
-#'
 #' Tr<-rbind(A,B,C);
 #' tau<-1.5
 #'
-#' M<-as.numeric(runif.tri(1,Tr)$g)
-#' #try also the following
-#' #M<-c(1.6,1.2)
-#' #M<-c(1,1,1) #M<-c(1,2,3) #M<-c(-1,2,3) #barycentric coordinates
-#' #M<-c(1.3,1.3)
-#' #M<-c(.3,.3)
+#' M<-as.numeric(runif.tri(1,Tr)$g)  #try also M<-c(1.6,1.2)
 #'
 #' n<-10
 #' set.seed(1)
@@ -32228,7 +31243,7 @@ redges.tri.cent<-function(Dt,tri,M)
 #'
 #' NCStri(dat[7,],tau,Tr,M)
 #'
-#' P1<-as.numeric(runif.tri(1,Tr)$g) #try also #P1<-c(.4,.2)
+#' P1<-as.numeric(runif.tri(1,Tr)$g)  #try also P1<-c(.4,.2)
 #' NCStri(P1,tau,Tr,M)
 #'
 #' P2<-c(1.8,.5)
@@ -32392,19 +31407,10 @@ NCStri<-function(pt,tau,tri,M,re=NULL)
 #'
 #' @examples
 #' A<-c(1,1); B<-c(2,0); C<-c(1.5,2);
-#' #try also the following
-#' #A<-runif(2); B<-runif(2); C<-runif(2);
-#' #A<-runif(2,1,100); B<-runif(2,1,100); C<-runif(2,1,100);
-#'
 #' Tr<-rbind(A,B,C);
 #' tau<-1.5
 #'
-#' M<-as.numeric(runif.tri(1,Tr)$g)
-#' #try also the following
-#' #M<-c(1.6,1.2)
-#' #M<-c(1,1,1) #M<-c(1,2,3) #M<-c(-1,2,3) #barycentric coordinates
-#' #M<-c(1.3,1.3)
-#' #M<-c(.3,.3)
+#' M<-as.numeric(runif.tri(1,Tr)$g)  #try also M<-c(1.6,1.2)
 #'
 #' n<-10
 #' set.seed(1)
@@ -32590,8 +31596,8 @@ IndCSTeRABt1<-function(pt1,pt2)
 #' @rdname funsCSt1EdgeRegs
 #'
 #' @examples
-#' #Examples for IndCSTeRBCt1
 #' \donttest{
+#' #Examples for IndCSTeRBCt1
 #' A<-c(0,0); B<-c(1,0); C<-c(1/2,sqrt(3)/2);
 #' CM<-(A+B+C)/3
 #' T1<-rbind(B,C,CM);
@@ -32607,6 +31613,8 @@ IndCSTeRABt1<-function(pt1,pt2)
 #' IndCSTeRBCt1(dat1[1,],dat1[3,])
 #' IndCSTeRBCt1(c(.2,.5),dat[2,])
 #' IndCSTeRBCt1(c(.2,.5),c(.2,.5))
+#'
+#' IndCSTeRBCt1(dat[2,],dat[2,])
 #' }
 #'
 IndCSTeRBCt1<-function(pt1,pt2)
@@ -32634,8 +31642,8 @@ IndCSTeRBCt1<-function(pt1,pt2)
 #' @rdname funsCSt1EdgeRegs
 #'
 #' @examples
-#' #Examples for IndCSTeRACt1
 #' \donttest{
+#' #Examples for IndCSTeRACt1
 #' A<-c(0,0); B<-c(1,0); C<-c(1/2,sqrt(3)/2);
 #' CM<-(A+B+C)/3
 #' T2<-rbind(A,C,CM);
@@ -32650,6 +31658,8 @@ IndCSTeRBCt1<-function(pt1,pt2)
 #'
 #' IndCSTeRACt1(dat2[1,],dat2[3,])
 #' IndCSTeRACt1(c(1,2),c(1,2))
+#'
+#' IndCSTeRACt1(dat[2,],dat[2,])
 #' }
 #'
 IndCSTeRACt1<-function(pt1,pt2)
@@ -32800,11 +31810,7 @@ NULL
 #' dat3<-runif.tri(10,T3)$g
 #' dat<-runifTe(10)$gen.points
 #'
-#' M<-as.numeric(runifTe(1)$g)
-#' #M<-c(.6,.2)
-#' #M<-c(1,1,1) #M<-c(1,2,3) #M<-c(-1,2,3) #barycentric coordinates
-#' #M<-c(1.3,1.3)
-#' #M<-c(.3,.3)
+#' M<-as.numeric(runifTe(1)$g)  #try also M<-c(.6,.2)
 #'
 #' t<-1
 #'
@@ -32815,6 +31821,8 @@ NULL
 #' IndCSTeRAB(dat3[1,],dat[2,],t=20,M)
 #' IndCSTeRAB(dat3[1,],dat3[3,],t,M)
 #' IndCSTeRAB(c(.2,.5),dat[2,],t,M)
+#'
+#' IndCSTeRAB(dat[1,],dat[2,],t,M)
 #' }
 #'
 IndCSTeRAB<-function(pt1,pt2,t,M)
@@ -32894,12 +31902,7 @@ IndCSTeRAB<-function(pt1,pt2,t,M)
 #' dat1<-runif.tri(10,T1)$g
 #' dat<-runifTe(10)$gen.points
 #'
-#' M<-as.numeric(runifTe(1)$g)
-#' #try also the following
-#' #M<-c(.6,.2)
-#' #M<-c(1,1,1) #M<-c(1,2,3) #M<-c(-1,2,3) #barycentric coordinates
-#' #M<-c(1.3,1.3)
-#' #M<-c(.3,.3)
+#' M<-as.numeric(runifTe(1)$g)  #try also M<-c(.6,.2)
 #'
 #' t<-1
 #'
@@ -32912,6 +31915,8 @@ IndCSTeRAB<-function(pt1,pt2,t,M)
 #' IndCSTeRBC(c(.2,.5),dat[2,],t,M)
 #'
 #' IndCSTeRBC(c(.2,.5),c(.2,.5),t,M)
+#'
+#' IndCSTeRBC(dat[1,],dat[2,],t,M)
 #' }
 #'
 IndCSTeRBC<-function(pt1,pt2,t,M)
@@ -32991,12 +31996,7 @@ IndCSTeRBC<-function(pt1,pt2,t,M)
 #' dat2<-runif.tri(10,T2)$g
 #' dat<-runifTe(10)$gen.points
 #'
-#' M<-as.numeric(runifTe(1)$g)
-#' #try also the following
-#' #M<-c(.6,.2)
-#' #M<-c(1,1,1) #M<-c(1,2,3) #M<-c(-1,2,3) #barycentric coordinates
-#' #M<-c(1.3,1.3)
-#' #M<-c(.3,.3)
+#' M<-as.numeric(runifTe(1)$g)  #try also M<-c(.6,.2)
 #'
 #' t<-1
 #'
@@ -33009,6 +32009,8 @@ IndCSTeRBC<-function(pt1,pt2,t,M)
 #' IndCSTeRAC(c(.2,.5),dat[2,],t,M)
 #'
 #' IndCSTeRAC(c(.2,.5),c(.2,.5),t,M)
+#'
+#' IndCSTeRAC(dat[1,],dat[2,],t,M)
 #' }
 #'
 IndCSTeRAC<-function(pt1,pt2,t,M)
@@ -33120,12 +32122,7 @@ IndCSTeRAC<-function(pt1,pt2,t,M)
 #' set.seed(1)
 #' dat<-runifTe(n)$gen.points
 #'
-#' M<-as.numeric(runifTe(1)$g)
-#' #try also the following
-#' #M<-c(.6,.2)
-#' #M<-c(1,1,1) #M<-c(1,2,3) #M<-c(-1,2,3) #barycentric coordinates
-#' #M<-c(1.3,1.3)
-#' #M<-c(.3,.3)
+#' M<-as.numeric(runifTe(1)$g)  #try also M<-c(.6,.2)
 #'
 #' t<-1
 #'
@@ -33230,16 +32227,8 @@ IndCSTe<-function(pt1,pt2,t,M=c(1,1,1),re=NULL)
 #'
 #' set.seed(1)
 #' dat<-runifTe(n)$gen.points
-#' #try also the following
-#' #dat<-cbind(runif(n),runif(n))
-#' #dat<-cbind(runif(n,1,2),runif(n,0,1))
 #'
-#' M<-as.numeric(runifTe(1)$g)
-#' #try also the following
-#' #M<-c(.6,.2)
-#' #M<-c(1,1,1) #M<-c(1,2,3) #M<-c(-1,2,3) #barycentric coordinates
-#' #M<-c(1.3,1.3)
-#' #M<-c(.3,.3)
+#' M<-as.numeric(runifTe(1)$g)  #try also M<-c(.6,.2)
 #'
 #' NumArcsCSTe(dat,t=1.25)
 #'
@@ -33249,7 +32238,7 @@ IndCSTe<-function(pt1,pt2,t,M=c(1,1,1),re=NULL)
 #'
 #' dom.greedy(inc.mat)
 #' \donttest{
-#' dom.exact(inc.mat) #might take a long time for large n
+#' dom.exact(inc.mat)  #might take a long time for large n
 #' }
 #' IndUBdom(inc.mat,1)
 #'
@@ -33344,20 +32333,12 @@ IncMatCSTe<-function(dat,t,M=c(1,1,1))
 #'
 #' @examples
 #' A<-c(0,0); B<-c(1,0); C<-c(1/2,sqrt(3)/2);
-#' n<-10 #try also n<-20
+#' n<-10  #try also n<-20
 #'
 #' set.seed(1)
 #' dat<-runifTe(n)$gen.points
-#' #try also the following
-#' #dat<-cbind(runif(n),runif(n))
-#' #dat<-cbind(runif(n,1,2),runif(n,0,1))
 #'
-#' M<-as.numeric(runifTe(1)$g)
-#' #try also the following
-#' #M<-c(.6,.2)
-#' #M<-c(1,1,1) #M<-c(1,2,3) #M<-c(-1,2,3) #barycentric coordinates
-#' #M<-c(1.3,1.3)
-#' #M<-c(.3,.3)
+#' M<-as.numeric(runifTe(1)$g)  #try also M<-c(.6,.2)
 #'
 #' NumArcsCSTe(dat,t=.5,M)
 #' NumArcsCSTe(dat,t=3,M)
@@ -33463,25 +32444,13 @@ NumArcsCSTe<-function(dat,t,M=c(1,1,1))
 #'
 #' @examples
 #' A<-c(1,1); B<-c(2,0); C<-c(1.5,2);
-#' #try also the following
-#' #A<-runif(2); B<-runif(2); C<-runif(2);
-#' #A<-runif(2,1,100); B<-runif(2,1,100); C<-runif(2,1,100);
-#'
 #' Tr<-rbind(A,B,C);
 #'
-#' n<-10 #try also n<-20
+#' n<-10  #try also n<-20
 #' set.seed(1)
 #' dat<-runif.tri(n,Tr)$g
-#' #try also the following
-#' #dat<-cbind(runif(n,1,2),runif(n,0,2))
-#' #dat<-cbind(runif(n),runif(n))
 #'
-#' M<-as.numeric(runif.tri(1,Tr)$g)
-#' #try also the following
-#' #M<-c(1.6,1.0)
-#' #M<-c(1,1,1) #M<-c(1,2,3) #M<-c(-1,2,3) #barycentric coordinates
-#' #M<-c(1.3,1.3)
-#' #M<-c(.3,.3)
+#' M<-as.numeric(runif.tri(1,Tr)$g)  #try also M<-c(1.6,1.0)
 #'
 #' NumArcsCStri(dat,Tr,t=.5,M)
 #' NumArcsCStri(dat,Tr,t=1,M)
@@ -33547,7 +32516,7 @@ NumArcsCStri<-function(Dt,tri,t,M=c(1,1,1))
     { dati<-as.numeric(Dt[i,])
       if (in.triangle(dati,tri,boundary=TRUE)$in.tri)
       {   edgei<-redges.tri.cent(dati,tri,M)$re
-      for (j in (1:n)[-i]) #to avoid loops
+      for (j in (1:n)[-i])  #to avoid loops
       { datj<-as.numeric(Dt[j,])
         arcs<-arcs+IndNCStri(dati,datj,t,tri,M,re=edgei)
       }
@@ -33600,21 +32569,17 @@ NumArcsCStri<-function(Dt,tri,t,M=c(1,1,1))
 #'
 #' @examples
 #' #nx is number of X points (target) and ny is number of Y points (nontarget)
-#' nx<-20; ny<-4; #try also nx<-40; ny<-10 or nx<-1000; ny<-10;
+#' nx<-20; ny<-4;  #try also nx<-40; ny<-10 or nx<-1000; ny<-10;
 #'
 #' set.seed(1)
 #' Xp<-cbind(runif(nx),runif(nx))
-#' #try also the following
-#' #Xp<-cbind(runif(nx,0.5,1.5),runif(nx,0,1))
-#' #Xp<-cbind(runif(nx,1,2),runif(nx,0,1))
 #' Yp<-cbind(runif(ny),runif(ny))
 #'
+#' oldpar <- par(mfrow = c(1,2))
 #' plotDeltri(Xp,Yp,xlab="",ylab="")
+#' par(oldpar)
 #'
-#' M<-c(1,1,1)
-#' #try also the following
-#' #M<-c(1,2,3) #M<-c(-1,2,3) #barycentric coordinates
-#' #M<-c(1.3,1.3)
+#' M<-c(1,1,1)  #try also M<-c(1,2,3)
 #'
 #' NumArcsCSMT(Xp,Yp,t=.5,M)
 #' NumArcsCSMT(Xp,Yp,t=1.,M)
@@ -33658,10 +32623,10 @@ NumArcsCSMT<-function(Xp,Yp,t,M=c(1,1,1))
 
   if (nrow(Yp)==3)
   {
-    Tri.Ind<-indices.Del.tri(Xp,Yp) #returns 1's if the points Xp[i,]'s are inside triangle based on Yp, NA otherwise
+    Tri.Ind<-indices.Del.tri(Xp,Yp)  #returns 1's if the points Xp[i,]'s are inside triangle based on Yp, NA otherwise
 
     inTri<-which(Tri.Ind==1)
-    NinTri<-length(inTri) #number of points in the triangle
+    NinTri<-length(inTri)  #number of points in the triangle
 
     if (NinTri==0)
     {Tot.Arcs<-0;
@@ -33671,7 +32636,7 @@ NumArcsCSMT<-function(Xp,Yp,t,M=c(1,1,1))
       Xdt<-matrix(Xp[inTri,],ncol=2)
       tri<-as.bastri(Yp)$tri #convert the triangle Yp into an unscaled basic triangle, see as.bastri help page
       ListW<-area.polygon(tri)
-      Tot.Arcs<-NumArcsCStri(Xdt,tri,t,M) #number of arcs in the triangle Yp
+      Tot.Arcs<-NumArcsCStri(Xdt,tri,t,M)  #number of arcs in the triangle Yp
     }
     res<-list(num.arcs=Tot.Arcs,
               num.in.conv.hull=NinTri,
@@ -33685,10 +32650,10 @@ NumArcsCSMT<-function(Xp,Yp,t,M=c(1,1,1))
     #Delaunay triangulation of Yp points
     Ytrimesh<-interp::tri.mesh(Yp[,1],Yp[,2],duplicate="remove")
     Ytri<-matrix(interp::triangles(Ytrimesh)[,1:3],ncol=3); #the vertices of the Delaunay triangles
-    nt<-nrow(Ytri) #number of Delaunay triangles
+    nt<-nrow(Ytri)  #number of Delaunay triangles
 
     inCH<-interp::in.convex.hull(Ytrimesh,Xp[,1],Xp[,2])
-    Ninch<-sum(inCH) #number of points in the convex hull
+    Ninch<-sum(inCH)  #number of points in the convex hull
 
     if (Ninch==0)
     {Tot.Arcs<-0;
@@ -33696,7 +32661,7 @@ NumArcsCSMT<-function(Xp,Yp,t,M=c(1,1,1))
     } else
     {
       Xdt<-matrix(Xp[inCH==TRUE,],ncol=2)
-      Tri.Ind<-indices.Del.tri(Xdt,Yp,Ytrimesh) #indices of triangles in which the points in the data fall
+      Tri.Ind<-indices.Del.tri(Xdt,Yp,Ytrimesh)  #indices of triangles in which the points in the data fall
 
       #calculation of the total number of arcs
       List.W<-ni<-arcs<-vector()
@@ -33706,13 +32671,13 @@ NumArcsCSMT<-function(Xp,Yp,t,M=c(1,1,1))
         Tri<-Yp[Ytri[i,],] #vertices of ith triangle
         tri<-as.bastri(Tri)$tri #convert the triangle Tri into an unscaled basic triangle, see as.bastri help page
         List.W<-c(List.W,area.polygon(tri))
-        ni<-c(ni,length(dati)/2) #number of points in ith delaunay triangle
+        ni<-c(ni,length(dati)/2)  #number of points in ith delaunay triangle
 
-        num.arcs<-NumArcsCStri(dati,tri,t,M) #number of arcs in ith triangle
-        arcs<-c(arcs,num.arcs) #number of arcs in all triangles as a vector
+        num.arcs<-NumArcsCStri(dati,tri,t,M)  #number of arcs in ith triangle
+        arcs<-c(arcs,num.arcs)  #number of arcs in all triangles as a vector
       }
 
-      Tot.Arcs<-sum(arcs) #the total number of arcs in all triangles
+      Tot.Arcs<-sum(arcs)  #the total number of arcs in all triangles
       ListW<-List.W[ni >= 1] #adjusted for triangles with one or more points in them
     }
 
@@ -33785,16 +32750,15 @@ NumArcsCSMT<-function(Xp,Yp,t,M=c(1,1,1))
 #'
 #' @examples
 #' #nx is number of X points (target) and ny is number of Y points (nontarget)
-#' nx<-40; ny<-4; #try also nx<-40; ny<-10 or nx<-1000; ny<-10;
+#' nx<-40; ny<-4;  #try also nx<-40; ny<-10 or nx<-1000; ny<-10;
 #'
 #' set.seed(1)
 #' Xp<-cbind(runif(nx),runif(nx))
-#' #try also the following
-#' #Xp<-cbind(runif(nx,0.5,1.5),runif(nx,0,1))
-#' #Xp<-cbind(runif(nx,1,2),runif(nx,0,1))
 #' Yp<-cbind(runif(ny),runif(ny))
 #'
+#' oldpar <- par(mfrow = c(1,2))
 #' plotDeltri(Xp,Yp,xlab="",ylab = "")
+#' par(oldpar)
 #'
 #' NumArcsCSMT(Xp,Yp,t=.5)
 #'
@@ -33812,13 +32776,8 @@ NumArcsCSMT<-function(Xp,Yp,t,M=c(1,1,1))
 #' t<-2
 #' TSArcDensCSMT(Xp,Yp,t)
 #'
-#' \donttest{
-#' TSArcDensCSMT(c(.4,.2),Yp,t=.5) #not enough points in the convex hull of non-target points to
-#' #compute arc density of the target points
-#'
 #' Xp<-runif.tri(nx,Yp[1:3,])$g
 #' TSArcDensCSMT(Xp,Yp[1:3,],t)
-#' }
 #'
 #' TSArcDensCSMT(Xp,rbind(Yp,Yp),t)
 #'
@@ -33827,6 +32786,12 @@ NumArcsCSMT<-function(Xp,Yp,t,M=c(1,1,1))
 #'
 #' dat.fr<-data.frame(a=Yp)
 #' TSArcDensCSMT(Xp,dat.fr,t)
+#'
+#' \dontrun{
+#' TSArcDensCSMT(c(.4,.2),Yp,t=.5)
+#' #gives an error message since not enough points in the convex hull of non-target points to
+#' #compute arc density of the target points
+#' }
 #'
 #' @export TSArcDensCSMT
 TSArcDensCSMT<-function(Xp,Yp,t,ch.cor=FALSE,alternative = c("two.sided", "less", "greater"),conf.level = 0.95)
@@ -33859,7 +32824,7 @@ TSArcDensCSMT<-function(Xp,Yp,t,ch.cor=FALSE,alternative = c("two.sided", "less"
     if (length(conf.level) != 1 || is.na(conf.level) || conf.level < 0 || conf.level > 1)
       stop("conf.level must be a number between 0 and 1")
 
-  Num.arcs<-NumArcsCSMT(Xp,Yp,t,M=c(1,1,1)) #use the default, i.e., CM for the center M
+  Num.arcs<-NumArcsCSMT(Xp,Yp,t,M=c(1,1,1))  #use the default, i.e., CM for the center M
   NinCH<-Num.arcs[[1]]
   if (NinCH<=1)
   {stop('not enough points in the convex hull of non-target points to compute arc density of the target points')}
@@ -33868,15 +32833,15 @@ TSArcDensCSMT<-function(Xp,Yp,t,ch.cor=FALSE,alternative = c("two.sided", "less"
   ListW<-Num.arcs[[3]]
 
   LW<-ListW/sum(ListW)
-  arc.dens<-num.arcs/(NinCH*(NinCH-1)) #arc density
+  arc.dens<-num.arcs/(NinCH*(NinCH-1))  #arc density
   estimate1<-arc.dens
-  asy.mean0<-muCS2D(t) #asy mean value for the t value
+  asy.mean0<-muCS2D(t)  #asy mean value for the t value
   asy.mean<-asy.mean0*sum(LW^2)
   estimate2<-asy.mean
-  asy.var0<-asyvarCS2D(t) #asy variance value for the t value
+  asy.var0<-asyvarCS2D(t)  #asy variance value for the t value
   asy.var<-asy.var0*sum(LW^3)+4*asy.mean0^2*(sum(LW^3)-(sum(LW^2))^2)
 
-  TS0<-sqrt(NinCH)*(arc.dens-asy.mean)/sqrt(asy.var) #standardized test stat
+  TS0<-sqrt(NinCH)*(arc.dens-asy.mean)/sqrt(asy.var)  #standardized test stat
 
   if (ch.cor==F)
   {
@@ -33885,12 +32850,12 @@ TSArcDensCSMT<-function(Xp,Yp,t,ch.cor=FALSE,alternative = c("two.sided", "less"
   }
   else
   {
-    n<-nrow(Xp) #number of X points
-    m<-nrow(Yp) #number of Y points
+    n<-nrow(Xp)  #number of X points
+    m<-nrow(Yp)  #number of Y points
     NoutCH<-n-NinCH #number of points outside of the convex hull
 
     prop.out<-NoutCH/n #observed proportion of points outside convex hull
-    exp.prop.out<-1.66/m+1.256/sqrt(m) #expected proportion of points outside convex hull
+    exp.prop.out<-1.66/m+1.256/sqrt(m)  #expected proportion of points outside convex hull
 
     TS<-TS0+abs(TS0)*sign(prop.out-exp.prop.out)*(prop.out-exp.prop.out)^2
     method <-c("Large Sample z-Test Based on Arc Density for 2D Data \n with Convex Hull Correction")
@@ -33979,28 +32944,15 @@ TSArcDensCSMT<-function(Xp,Yp,t,ch.cor=FALSE,alternative = c("two.sided", "less"
 #'
 #' @examples
 #' A<-c(1,1); B<-c(2,0); C<-c(1.5,2);
-#' #try also the following
-#' #A<-runif(2); B<-runif(2); C<-runif(2);
-#' #A<-runif(2,1,100); B<-runif(2,1,100); C<-runif(2,1,100);
-#'
 #' Tr<-rbind(A,B,C);
 #' n<-10
 #'
 #' set.seed(1)
 #' dat<-runif.tri(n,Tr)$g
-#' #try also the following
-#' #dat<-cbind(runif(n),runif(n))
-#' #dat<-cbind(runif(n,1,2),runif(n,0,2))
-#' #dat<-c(1.4,1)
 #'
-#' M<-as.numeric(runif.tri(1,Tr)$g)
-#' #try also the following
-#' #M<-c(1.6,1.0)
-#' #M<-c(1,1,1) #M<-c(1,2,3) #M<-c(-1,2,3) #barycentric coordinates
-#' #M<-c(1.3,1.3)
-#' #M<-c(.3,.3)
+#' M<-as.numeric(runif.tri(1,Tr)$g)  #try also M<-c(1.6,1.0)
 #'
-#' t<-1.5 #try also #t<-2
+#' t<-1.5  #try also t<-2
 #'
 #' ArcsCStri(dat,Tr,t,M)
 #'
@@ -34031,8 +32983,8 @@ TSArcDensCSMT<-function(Xp,Yp,t,ch.cor=FALSE,alternative = c("two.sided", "less"
 #' arrows(S[,1], S[,2], E[,1], E[,2], length = 0.1, col= 4)
 #'
 #' txt<-rbind(Tr,M,Ds)
-#' xc<-txt[,1]
-#' yc<-txt[,2]
+#' xc<-txt[,1]+c(-.02,.03,.02,.03,.04,-.03,-.01)
+#' yc<-txt[,2]+c(.02,.02,.03,.06,.03,.05,-.07)
 #' txt.str<-c("A","B","C","M","D1","D2","D3")
 #' text(xc,yc,txt.str)
 #'
@@ -34099,7 +33051,7 @@ ArcsCStri<-function(Xp,tri,t,M=c(1,1,1))
     for (j in 1:n2)
     {
       pt1<-Xtri[j,]; RE1<-re.tri.cent(pt1,tri,M)$re;
-      for (k in (1:n2)[-j]) #to avoid loops
+      for (k in (1:n2)[-j])  #to avoid loops
       {
         pt2<-Xtri[k,];
         if (IndNCStri(pt1,pt2,t,tri,M,RE1)==1)
@@ -34178,26 +33130,14 @@ ArcsCStri<-function(Xp,tri,t,M=c(1,1,1))
 #'
 #' @examples
 #' A<-c(1,1); B<-c(2,0); C<-c(1.5,2);
-#' #try also the following
-#' #A<-runif(2); B<-runif(2); C<-runif(2);
-#' #A<-runif(2,1,100); B<-runif(2,1,100); C<-runif(2,1,100);
 #'
 #' Tr<-rbind(A,B,C);
 #' n<-10
 #'
 #' set.seed(1)
 #' dat<-runif.tri(n,Tr)$g
-#' #try also the following
-#' #dat<-cbind(runif(n),runif(n))
-#' #dat<-cbind(runif(n,1,2),runif(n,0,2))
-#' #dat<-c(.5,.5)
 #'
-#' M<-as.numeric(runif.tri(1,Tr)$g)
-#' #try also the following
-#' #M<-c(1.6,1.0)
-#' #M<-c(1,1,1) #M<-c(1,2,3) #M<-c(-1,2,3) #barycentric coordinates
-#' #M<-c(1.3,1.3)
-#' #M<-c(.3,.3)
+#' M<-as.numeric(runif.tri(1,Tr)$g)  #try also M<-c(1.6,1.0)
 #'
 #' IM<-IncMatCStri(dat,Tr,t=1.25,M)
 #' IM
@@ -34310,28 +33250,15 @@ IncMatCStri<-function(dat,tri,t,M=c(1,1,1))
 #'
 #' @examples
 #' A<-c(1,1); B<-c(2,0); C<-c(1.5,2);
-#' #try also the following
-#' #A<-runif(2); B<-runif(2); C<-runif(2);
-#' #A<-runif(2,1,100); B<-runif(2,1,100); C<-runif(2,1,100);
-#'
 #' Tr<-rbind(A,B,C);
-#' n<-10 #try also n<-20
+#' n<-10  #try also n<-20
 #'
 #' set.seed(1)
 #' dat<-runif.tri(n,Tr)$g
-#' #try also the following
-#' #dat<-cbind(runif(n,1,2),runif(n,0,2))
-#' #dat<-cbind(runif(n),runif(n))
-#' #dat<-c(.5,.5)
 #'
-#' M<-as.numeric(runif.tri(1,Tr)$g)
-#' #try also the following
-#' #M<-c(1.6,1.0)
-#' #M<-c(1,1,1) #M<-c(1,2,3) #M<-c(-1,2,3) #barycentric coordinates
-#' #M<-c(1.3,1.3)
-#' #M<-c(.3,.3)
+#' M<-as.numeric(runif.tri(1,Tr)$g)  #try also M<-c(1.6,1.0)
 #'
-#' t<-1.5 #try also #t<-2
+#' t<-1.5  #try also t<-2
 #'
 #' dat<-matrix(dat,ncol=2)
 #' Xlim<-range(Tr[,1],dat[,1])
@@ -34350,8 +33277,8 @@ IncMatCStri<-function(dat,tri,t,M=c(1,1,1))
 #' segments(L[,1], L[,2], R[,1], R[,2], lty=2)
 #'
 #' txt<-rbind(Tr,M,Ds)
-#' xc<-txt[,1]
-#' yc<-txt[,2]
+#' xc<-txt[,1]+c(-.02,.03,.03,.03,.05,-0.03,-.01)
+#' yc<-txt[,2]+c(.02,.02,.02,.07,.02,.05,-.06)
 #' txt.str<-c("A","B","C","M","D1","D2","D3")
 #' text(xc,yc,txt.str)
 #'
@@ -34416,29 +33343,16 @@ plotCSarcsTri<-function(Xp,tri,t,M=c(1,1,1),asp=NA,main="",xlab="",ylab="",xlim=
 #'
 #' @examples
 #' A<-c(1,1); B<-c(2,0); C<-c(1.5,2);
-#' #try also the following
-#' #A<-runif(2); B<-runif(2); C<-runif(2);
-#' #A<-runif(2,1,100); B<-runif(2,1,100); C<-runif(2,1,100);
-#'
 #' Tr<-rbind(A,B,C);
 #' n<-10
 #'
 #' set.seed(1)
 #' dat<-runif.tri(n,Tr)$g
-#' #try also the following
-#' #dat<-cbind(runif(n,1,2),runif(n,0,2))
-#' #dat<-cbind(runif(n),runif(n))
-#' #dat<-c(.5,.5)
 #' dat<-matrix(dat,ncol=2)
 #'
-#' M<-as.numeric(runif.tri(1,Tr)$g)
-#' #try also the following
-#' #M<-c(1.6,1.0)
-#' #M<-c(1,1,1) #M<-c(1,2,3) #M<-c(-1,2,3) #barycentric coordinates
-#' #M<-c(1.3,1.3)
-#' #M<-c(.3,.3)
+#' M<-as.numeric(runif.tri(1,Tr)$g)  #try also M<-c(1.6,1.0)
 #'
-#' t<-.5 #try also #t<-2
+#' t<-.5  #try also t<-2
 #'
 #' dat<-matrix(dat,ncol=2)
 #' Xlim<-range(Tr[,1],dat[,1])
@@ -34457,8 +33371,8 @@ plotCSarcsTri<-function(Xp,tri,t,M=c(1,1,1),asp=NA,main="",xlab="",ylab="",xlim=
 #' segments(L[,1], L[,2], R[,1], R[,2], lty=2)
 #'
 #' txt<-rbind(Tr,M)
-#' xc<-txt[,1]
-#' yc<-txt[,2]
+#' xc<-txt[,1]+c(-.02,.03,.03,.03)
+#' yc<-txt[,2]+c(.02,.02,.02,.07)
 #' txt.str<-c("A","B","C","M")
 #' text(xc,yc,txt.str)
 #'
@@ -34505,7 +33419,7 @@ plotCSregsTri<-function(Xp,tri,t,M=c(1,1,1),asp=NA,main="",xlab="",ylab="",xlim=
   for (i in 1:n)
     in.tri[i]<-in.triangle(Xp[i,],tri,boundary=TRUE)$in.tri #indices of the Xp points inside the triangle
 
-  Xtri<-matrix(Xp[in.tri==1,],ncol=2) #the Xp points inside the triangle
+  Xtri<-matrix(Xp[in.tri==1,],ncol=2)  #the Xp points inside the triangle
   nt<-length(Xtri)/2 #number of Xp points inside the triangle
 
   if (is.null(xlim))
@@ -34584,23 +33498,15 @@ plotCSregsTri<-function(Xp,tri,t,M=c(1,1,1),asp=NA,main="",xlab="",ylab="",xlim=
 #'
 #' @examples
 #' #nx is number of X points (target) and ny is number of Y points (nontarget)
-#' nx<-20; ny<-4; #try also nx<-40; ny<-10 or nx<-1000; ny<-10;
+#' nx<-20; ny<-4;  #try also nx<-40; ny<-10 or nx<-1000; ny<-10;
 #'
 #' set.seed(1)
 #' Xp<-cbind(runif(nx,0,1),runif(nx,0,1))
-#' #try also the following
-#' #Xp<-cbind(runif(nx,0.5,1.5),runif(nx,0,1))
-#' #Xp<-cbind(runif(nx,1,2),runif(nx,0,1))
-#' #Xp<-c(.5,.5)
 #' Yp<-cbind(runif(ny,0,1),runif(ny,0,1))
 #'
-#' M<-c(1,1,1)
-#' #try also the following
-#' #M<-c(1,2,3) #M<-c(-1,2,3) #barycentric coordinates
-#' #M<-c(1.3,1.3)
-#' #M<-c(.3,.3)
+#' M<-c(1,1,1)  #try also M<-c(1,2,3)
 #'
-#' tau<-1.5 #try also #tau<-2
+#' tau<-1.5  #try also tau<-2
 #'
 #' ArcsCSMT(Xp,Yp,tau,M)
 #'
@@ -34671,7 +33577,7 @@ ArcsCSMT<-function(Xp,Yp,tau,M=c(1,1,1))
     for (i in 1:nx)
       ch[i]<-interp::in.convex.hull(DTmesh,Xp[i,1],Xp[i,2])
 
-    Xch<-matrix(Xp[ch==1,],ncol=2) #the Xp points inside the convex hull of Yp
+    Xch<-matrix(Xp[ch==1,],ncol=2)  #the Xp points inside the convex hull of Yp
 
     DTr<-matrix(interp::triangles(DTmesh)[,1:3],ncol=3)
     nt<-nrow(DTr)
@@ -34680,7 +33586,7 @@ ArcsCSMT<-function(Xp,Yp,tau,M=c(1,1,1))
     S<-E<-NULL #S is for source and E is for end points for the arcs
     if (nx2>1)
     {
-      i.tr<-rep(0,nx2) #the vector of indices for the triangles that contain the Xp points
+      i.tr<-rep(0,nx2)  #the vector of indices for the triangles that contain the Xp points
       for (i in 1:nx2)
         for (j in 1:nt)
         {
@@ -34701,7 +33607,7 @@ ArcsCSMT<-function(Xp,Yp,tau,M=c(1,1,1))
           re.ind<-redges.tri.cent(Xl,Yi.tri,M)$re
           for (j in 1:nl)
           {RE<-re.ind[j]
-          for (k in (1:nl)[-j]) #to avoid loops
+          for (k in (1:nl)[-j])  #to avoid loops
             if (IndNCStri(Xl[j,],Xl[k,],tau,Yi.tri,M,re=RE)==1 )
             {
               S <-rbind(S,Xl[j,]); E <-rbind(E,Xl[k,]);
@@ -34785,29 +33691,22 @@ ArcsCSMT<-function(Xp,Yp,tau,M=c(1,1,1))
 #'
 #' @examples
 #' #nx is number of X points (target) and ny is number of Y points (nontarget)
-#' nx<-20; ny<-4; #try also nx<-40; ny<-10 or nx<-1000; ny<-10;
+#' nx<-20; ny<-4;  #try also nx<-40; ny<-10 or nx<-1000; ny<-10;
 #'
 #' set.seed(1)
 #' Xp<-cbind(runif(nx,0,1),runif(nx,0,1))
-#' #try also the following
-#' #Xp<-cbind(runif(nx,0.5,1.5),runif(nx,0,1))
-#' #Xp<-cbind(runif(nx,1,2),runif(nx,0,1))
-#' #Xp<-c(.5,.5)
 #' Yp<-cbind(runif(ny,0,1),runif(ny,0,1))
 #'
-#' M<-c(1,1,1)
-#' #try also the following
-#' #M<-c(1,2,3) #M<-c(-1,2,3) #barycentric coordinates
-#' #M<-c(1.3,1.3)
+#' M<-c(1,1,1)  #try also M<-c(1,2,3)
 #'
-#' t<-1.5 #try also #t<-2
+#' t<-1.5  #try also t<-2
 #'
 #' IM<-IncMatCSMT(Xp,Yp,t,M)
 #' IM
 #' dom.greedy(IM)
 #' \donttest{
-#' dom.exact(IM) #takes a very long time for large nx, try smaller nx
-#' IndUBdom(IM,3) #takes a very long time for large nx, try smaller nx
+#' dom.exact(IM)  #takes a very long time for large nx, try smaller nx
+#' IndUBdom(IM,3)  #takes a very long time for large nx, try smaller nx
 #' }
 #'
 #' IncMatCSMT(Xp,Yp,t,M)
@@ -34861,11 +33760,11 @@ IncMatCSMT<-function(Xp,Yp,t,M=c(1,1,1))
     inc.mat<-matrix(0, nrow=nx, ncol=nx)
 
     DTr<-matrix(interp::triangles(DTmesh)[,1:3],ncol=3)
-    nt<-nrow(DTr) #number of Delaunay triangles
+    nt<-nrow(DTr)  #number of Delaunay triangles
 
     if (nx>1)
     {
-      i.tr<-rep(0,nx) #the vector of indices for the triangles that contain the Xp points
+      i.tr<-rep(0,nx)  #the vector of indices for the triangles that contain the Xp points
       for (i in 1:nx)
         for (j in 1:nt)
         {
@@ -34939,22 +33838,15 @@ IncMatCSMT<-function(Xp,Yp,t,M=c(1,1,1))
 #'
 #' @examples
 #' #nx is number of X points (target) and ny is number of Y points (nontarget)
-#' nx<-20; ny<-4; #try also nx<-40; ny<-10 or nx<-1000; ny<-10;
+#' nx<-20; ny<-4;  #try also nx<-40; ny<-10 or nx<-1000; ny<-10;
 #'
 #' set.seed(1)
 #' Xp<-cbind(runif(nx,0,1),runif(nx,0,1))
-#' #try also the following
-#' #Xp<-cbind(runif(nx,0.5,1.5),runif(nx,0,1))
-#' #Xp<-cbind(runif(nx,1,2),runif(nx,0,1))
-#' #Xp<-c(.5,.5); Xp<-matrix(Xp,ncol=2)
 #' Yp<-cbind(runif(ny,0,1),runif(ny,0,1))
 #'
-#' M<-c(1,1,1)
-#' #try also the following
-#' #M<-c(1,2,3) #M<-c(-1,2,3) #barycentric coordinates
-#' #M<-c(1.3,1.3)
+#' M<-c(1,1,1)  #try also M<-c(1,2,3)
 #'
-#' tau<-1.5 #try also #tau<-2
+#' tau<-1.5  #try also tau<-2
 #'
 #' Xlim<-range(Xp[,1],Yp[,1])
 #' Ylim<-range(Xp[,2],Yp[,2])
@@ -35031,22 +33923,15 @@ plotCSarcsMT<-function(Xp,Yp,tau,M=c(1,1,1),asp=NA,main="",xlab="",ylab="",xlim=
 #'
 #' @examples
 #' #nx is number of X points (target) and ny is number of Y points (nontarget)
-#' nx<-20; ny<-4; #try also nx<-40; ny<-10 or nx<-1000; ny<-10;
+#' nx<-20; ny<-4;  #try also nx<-40; ny<-10 or nx<-1000; ny<-10;
 #'
 #' set.seed(1)
 #' Xp<-cbind(runif(nx,0,1),runif(nx,0,1))
-#' #try also the following
-#' #Xp<-cbind(runif(nx,0.5,1.5),runif(nx,0,1))
-#' #Xp<-cbind(runif(nx,1,2),runif(nx,0,1))
-#' #Xp<-c(.5,.5); Xp<-matrix(Xp,ncol=2)
 #' Yp<-cbind(runif(ny,0,1),runif(ny,0,1))
 #'
-#' M<-c(1,1,1)
-#' #try also the following
-#' #M<-c(1,2,3) #M<-c(-1,2,3) #barycentric coordinates
-#' #M<-c(1.3,1.3)
+#' M<-c(1,1,1)  #try also M<-c(1,2,3)
 #'
-#' t<-1.5 #try also #t<-2
+#' t<-1.5  #try also t<-2
 #'
 #' Xlim<-range(Xp[,1],Yp[,1])
 #' Ylim<-range(Xp[,2],Yp[,2])
@@ -35094,15 +33979,15 @@ plotCSregsMT<-function(Xp,Yp,t,M=c(1,1,1),asp=NA,main="",xlab="",ylab="",xlim=NU
   for (i in 1:nx)
     ch[i]<-interp::in.convex.hull(DTmesh,Xp[i,1],Xp[i,2])
 
-  Xch<-matrix(Xp[ch==1,],ncol=2) #the Xp points inside the convex hull of Yp points
+  Xch<-matrix(Xp[ch==1,],ncol=2)  #the Xp points inside the convex hull of Yp points
 
   DTr<-matrix(interp::triangles(DTmesh)[,1:3],ncol=3)
-  nt<-nrow(DTr) #number of Delaunay triangles
-  nx2<-nrow(Xch) #number of Xp points inside the convex hull of Yp points
+  nt<-nrow(DTr)  #number of Delaunay triangles
+  nx2<-nrow(Xch)  #number of Xp points inside the convex hull of Yp points
 
   if (nx2>=1)
   {
-    i.tr<-rep(0,nx2) #the vector of indices for the triangles that contain the Xp points
+    i.tr<-rep(0,nx2)  #the vector of indices for the triangles that contain the Xp points
     for (i1 in 1:nx2)
       for (j1 in 1:nt)
       {
@@ -35135,7 +34020,7 @@ plotCSregsMT<-function(Xp,Yp,t,M=c(1,1,1),asp=NA,main="",xlab="",ylab="",xlim=NU
     polygon(tri,lty=2)
     if (nx2>=1)
     {
-      Xtri<-matrix(Xch[i.tr==i,],ncol=2) #Xp points inside triangle i
+      Xtri<-matrix(Xch[i.tr==i,],ncol=2)  #Xp points inside triangle i
       ni<-nrow(Xtri)
       if (ni>=1)
       {
@@ -35201,20 +34086,12 @@ plotCSregsMT<-function(Xp,Yp,t,M=c(1,1,1),asp=NA,main="",xlab="",ylab="",xlim=NU
 #'
 #' set.seed(1)
 #' dat<-runifTe(n)$gen.points
-#' #try also the following
-#' #dat<-cbind(runif(n),runif(n))
-#' #dat<-cbind(runif(n,1,2),runif(n,0,1))
 #'
-#' M<-as.numeric(runifTe(1)$g)
-#' #try also the following
-#' #M<-c(.6,.2)
-#' #M<-c(1,1,1) #M<-c(1,2,3) #M<-c(-1,2,3) #barycentric coordinates
-#' #M<-c(1.3,1.3)
-#' #M<-c(.3,.3)
+#' M<-as.numeric(runifTe(1)$g)  #try also M<-c(.6,.2)
 #'
 #' t<-.5
 #'
-#' S<-rbind(dat[1,],dat[2,]) #try also #S<-c(.5,.5)
+#' S<-rbind(dat[1,],dat[2,])  #try also S<-c(.5,.5)
 #' IndCSTeSet(S,dat[3,],t,M)
 #' IndCSTeSet(S,dat[3,],t=1,M)
 #' IndCSTeSet(S,dat[3,],t=1.5,M)
@@ -35316,27 +34193,15 @@ IndCSTeSet<-function(S,pt,t,M=c(1,1,1))
 #'
 #' @examples
 #' A<-c(1,1); B<-c(2,0); C<-c(1.5,2);
-#' #try also the following
-#' #A<-runif(2); B<-runif(2); C<-runif(2);
-#' #A<-runif(2,1,100); B<-runif(2,1,100); C<-runif(2,1,100);
-#'
 #' Tr<-rbind(A,B,C);
 #' n<-10
 #'
 #' set.seed(1)
 #' dat<-runif.tri(n,Tr)$gen.points
-#' #try also the following
-#' #dat<-cbind(runif(n),runif(n))
-#' #dat<-cbind(runif(n,1,2),runif(n,0,1))
 #'
-#' S<-rbind(dat[1,],dat[2,]) #try also #S<-c(1.5,1)
+#' S<-rbind(dat[1,],dat[2,])  #try also S<-c(1.5,1)
 #'
-#' M<-as.numeric(runif.tri(1,Tr)$g)
-#' #try also the following
-#' #M<-c(1.6,1.0)
-#' #M<-c(1,1,1) #M<-c(1,2,3) #M<-c(-1,2,3) #barycentric coordinates
-#' #M<-c(1.3,1.3)
-#' #M<-c(.3,.3)
+#' M<-as.numeric(runif.tri(1,Tr)$g)  #try also M<-c(1.6,1.0)
 #'
 #' tau<-.5
 #'
@@ -35464,16 +34329,8 @@ IndNCStriSet<-function(S,pt,tau,tri,M=c(1,1,1))
 #'
 #' set.seed(1)
 #' dat<-runifTe(n)$gen.points
-#' #try also the following
-#' #dat<-cbind(runif(n),runif(n))
-#' #dat<-cbind(runif(n,1,2),runif(n,0,1))
 #'
-#' M<-as.numeric(runifTe(1)$g)
-#' #try also the following
-#' #M<-c(.6,.2)
-#' #M<-c(1,1,1) #M<-c(1,2,3) #M<-c(-1,2,3) #barycentric coordinates
-#' #M<-c(1.3,1.3)
-#' #M<-c(.3,.3)
+#' M<-as.numeric(runifTe(1)$g)  #try also M<-c(.6,.2)
 #'
 #' t<-.5
 #'
@@ -35551,7 +34408,7 @@ IndCSTe.domset<-function(S,Dt,t,M=c(1,1,1))
   dom<-1; i<-1;
   while (dom ==1 && i<= n)
   {
-    if (IndCSTeSet(S,Dt[i,],t,M)==0) #this is where std equilateral triangle Te is implicitly used
+    if (IndCSTeSet(S,Dt[i,],t,M)==0)  #this is where std equilateral triangle Te is implicitly used
     {dom<-0};
     i<-i+1;
   }
@@ -35596,25 +34453,13 @@ IndCSTe.domset<-function(S,Dt,t,M=c(1,1,1))
 #'
 #' @examples
 #' A<-c(1,1); B<-c(2,0); C<-c(1.5,2);
-#' #try also the following
-#' #A<-runif(2); B<-runif(2); C<-runif(2);
-#' #A<-runif(2,1,100); B<-runif(2,1,100); C<-runif(2,1,100);
-#'
 #' Tr<-rbind(A,B,C);
 #' n<-10
 #'
 #' set.seed(1)
 #' dat<-runif.tri(n,Tr)$gen.points
-#' #try also the following
-#' #dat<-cbind(runif(n),runif(n))
-#' #dat<-cbind(runif(n,1,2),runif(n,0,1))
 #'
-#' M<-as.numeric(runif.tri(1,Tr)$g)
-#' #try also the following
-#' #M<-c(1.6,1.0)
-#' #M<-c(1,1,1) #M<-c(1,2,3) #M<-c(-1,2,3) #barycentric coordinates
-#' #M<-c(1.3,1.3)
-#' #M<-c(.3,.3)
+#' M<-as.numeric(runif.tri(1,Tr)$g)  #try also M<-c(1.6,1.0)
 #'
 #' tau<-.5
 #'
@@ -35698,7 +34543,7 @@ IndNCStri.domset<-function(S,Dt,tau,tri,M=c(1,1,1))
   dom<-1; i<-1;
   while (dom ==1 && i<= n)
   {
-    if (IndNCStriSet(S,Dt[i,],tau,tri,M)==0) #this is where tri is used
+    if (IndNCStriSet(S,Dt[i,],tau,tri,M)==0)  #this is where tri is used
     {dom<-0};
     i<-i+1;
   }
@@ -35756,16 +34601,8 @@ IndNCStri.domset<-function(S,Dt,tau,tri,M=c(1,1,1))
 #'
 #' set.seed(1)
 #' dat<-runifTe(n)$gen.points
-#' #try also the following
-#' #dat<-cbind(runif(n),runif(n))
-#' #dat<-cbind(runif(n,1,2),runif(n,0,1))
 #'
-#' M<-as.numeric(runifTe(1)$g)
-#' #try also the following
-#' #M<-c(.6,.2)
-#' #M<-c(1,1,1) #M<-c(1,2,3) #M<-c(-1,2,3) #barycentric coordinates
-#' #M<-c(1.3,1.3)
-#' #M<-c(.3,.3)
+#' M<-as.numeric(runifTe(1)$g)  #try also M<-c(.6,.2)
 #'
 #' t<-.5
 #'
@@ -35881,25 +34718,13 @@ IndCSdomUBTe<-function(Dt,k,t,M=c(1,1,1))
 #' @examples
 #' \donttest{
 #' A<-c(1,1); B<-c(2,0); C<-c(1.5,2);
-#' #try also the following
-#' #A<-runif(2); B<-runif(2); C<-runif(2);
-#' #A<-runif(2,1,100); B<-runif(2,1,100); C<-runif(2,1,100);
-#'
 #' Tr<-rbind(A,B,C);
 #' n<-10
 #'
 #' set.seed(1)
 #' dat<-runif.tri(n,Tr)$gen.points
-#' #try also the following
-#' #dat<-cbind(runif(n),runif(n))
-#' #dat<-cbind(runif(n,1,2),runif(n,0,1,t,Tr))
 #'
-#' M<-as.numeric(runif.tri(1,Tr)$g)
-#' #try also the following
-#' #M<-c(1.6,1.0)
-#' #M<-c(1,1,1) #M<-c(1,2,3) #M<-c(-1,2,3) #barycentric coordinates
-#' #M<-c(1.3,1.3)
-#' #M<-c(.3,.3)
+#' M<-as.numeric(runif.tri(1,Tr)$g)  #try also M<-c(1.6,1.0)
 #'
 #' t<-.5
 #'
@@ -36018,15 +34843,10 @@ IndCSdomUBtri<-function(Dt,k,t,tri,M=c(1,1,1))
 #'
 #' set.seed(1)
 #' dat<-runifTe(n)$gen.points
-#' #try also the following
-#' #dat<-cbind(runif(n),runif(n))
-#' #dat<-cbind(runif(n,1,2),runif(n,0,1))
 #'
 #' Gam1CSTet1(dat[3,],dat)
 #'
 #' Gam1CSTet1(c(1,2),dat)
-#'
-#' Gam1CSTet1(c(1,2),dat,ch.data.pnt = TRUE) #p is not a data point
 #'
 #' Gam1CSTet1(c(1,2),c(1,2))
 #' Gam1CSTet1(c(1,2),c(1,2),ch.data.pnt = TRUE)
@@ -36056,6 +34876,17 @@ IndCSdomUBtri<-function(Dt,k,t,tri,M=c(1,1,1))
 #' yc<-txt[,2]+c(.02,.02,.03,.02)
 #' txt.str<-c("A","B","C","CM")
 #' text(xc,yc,txt.str)
+#'
+#' P<-c(.4,.2)
+#' Gam1CSTe(P,dat,t)
+#'
+#' dat.fr<-data.frame(a=dat)
+#' Gam1CSTe(P,dat.fr,t)
+#' }
+#'
+#' \dontrun{
+#' Gam1CSTet1(c(1,2),dat,ch.data.pnt = TRUE)
+#' #gives an error message since p is not a data point
 #' }
 #'
 Gam1CSTet1<-function(p,Dt,re=NULL,ch.data.pnt=FALSE)
@@ -36097,7 +34928,7 @@ Gam1CSTet1<-function(p,Dt,re=NULL,ch.data.pnt=FALSE)
   dom<-0
   c.e<-cl2edgesTe(Dt)$Ext
   c.e<-c.e[-re,]
-  if (IndCSTet1(p,c.e[1,])==1 && IndCSTet1(p,c.e[2,])==1) #this is where std equilateral triangle Te is implicitly used
+  if (IndCSTet1(p,c.e[1,])==1 && IndCSTet1(p,c.e[2,])==1)  #this is where std equilateral triangle Te is implicitly used
     dom<-1;
   dom
 } #end of the function
@@ -36139,21 +34970,14 @@ Gam1CSTet1<-function(p,Dt,re=NULL,ch.data.pnt=FALSE)
 #' CM<-(A+B+C)/3
 #' Te<-rbind(A,B,C);
 #' t<-1.5
-#' n<-10 #try also n<-20
+#' n<-10  #try also n<-20
 #'
 #' set.seed(1)
 #' dat<-runifTe(n)$gen.points
-#' #try also the following
-#' #dat<-cbind(runif(n),runif(n))
-#' #dat<-cbind(runif(n,1,2),runif(n,0,1))
 #'
 #' Gam1CSTe(dat[3,],dat,t)
 #'
 #' Gam1CSTe(c(1,2),dat,t)
-#'
-#' \donttest{
-#' Gam1CSTe(c(1,2),dat,t,ch.data.pnt = TRUE) #p is not a data point
-#' }
 #'
 #' Gam1CSTe(c(1,2),c(1,2),t)
 #' Gam1CSTe(c(1,2),c(1,2),t,ch.data.pnt = TRUE)
@@ -36183,6 +35007,11 @@ Gam1CSTet1<-function(p,Dt,re=NULL,ch.data.pnt=FALSE)
 #' yc<-txt[,2]+c(.02,.02,.03,.02)
 #' txt.str<-c("A","B","C","CM")
 #' text(xc,yc,txt.str)
+#'
+#' \dontrun{
+#' Gam1CSTe(c(1,2),dat,t,ch.data.pnt = TRUE)
+#' #gives an error message since p is not a data point
+#' }
 #'
 #' @export Gam1CSTe
 Gam1CSTe<-function(p,Dt,t,ch.data.pnt=FALSE)
@@ -36269,9 +35098,6 @@ NULL
 #'
 #' set.seed(1)
 #' dat<-runifTe(n)$gen.points
-#' #try also the following
-#' #dat<-cbind(runif(n),runif(n))
-#' #dat<-cbind(runif(n,1,2),runif(n,0,1))
 #'
 #' Gam2CSTe(dat[1,],dat[2,],dat,t)
 #' Gam2CSTe(dat[1,],dat[1,],dat,t)
@@ -36279,10 +35105,8 @@ NULL
 #' Gam2CSTe(dat[1,],dat[3,],dat,t)
 #'
 #' Gam2CSTe(c(.2,.2),dat[2,],dat,t)
-#' Gam2CSTe(c(.2,.2),dat[2,],dat,t,ch.data.pnts = TRUE)
 #'
 #' Gam2CSTe(c(.2,.2),c(.2,.3),dat,t)
-#' Gam2CSTe(c(.2,.2),c(.2,.3),dat,t,ch.data.pnts = TRUE)
 #'
 #' Gam2CSTe(c(.2,.2),c(.2,.3),rbind(c(.2,.2),c(.2,.3)),t)
 #' Gam2CSTe(c(1.2,1.2),c(1.2,1.3),rbind(c(1.2,1.2),c(1.2,1.3)),t)
@@ -36294,6 +35118,19 @@ NULL
 #'    ind.gam2<-rbind(ind.gam2,c(i,j))}
 #'
 #' ind.gam2
+#'
+#' P1<-c(.4,.2); P2<-c(.6,.4)
+#' Gam2CSTe(P1,P2,dat,t)
+#'
+#' dat.fr<-data.frame(a=dat)
+#' Gam2CSTe(P1,P2,dat.fr,t)
+#' }
+#'
+#' \dontrun{
+#' Gam2CSTe(c(.2,.2),dat[2,],dat,t,ch.data.pnts = TRUE)
+#' #gives an error message since not both points are data points in Dt
+#' Gam2CSTe(c(.2,.2),c(.2,.3),dat,t,ch.data.pnts = TRUE)
+#' #gives an error message since not both points are data points in Dt
 #' }
 #'
 Gam2CSTe<-function(pt1,pt2,Dt,t,ch.data.pnts=FALSE)
@@ -36325,7 +35162,7 @@ Gam2CSTe<-function(pt1,pt2,Dt,t,ch.data.pnts=FALSE)
   dom<-1; i<-1;
   while (i<=n && dom==1)
   {
-    if (IndCSTe(pt1,Dt[i,],t)==0 && IndCSTe(pt2,Dt[i,],t)==0) #this is where std equilateral triangle Te is implicitly used
+    if (IndCSTe(pt1,Dt[i,],t)==0 && IndCSTe(pt2,Dt[i,],t)==0)  #this is where std equilateral triangle Te is implicitly used
     {dom<-0};
     i<-i+1;
   }
@@ -36342,18 +35179,12 @@ Gam2CSTe<-function(pt1,pt2,Dt,t,ch.data.pnts=FALSE)
 #'
 #' set.seed(1)
 #' dat<-runifTe(n)$gen.points
-#' #try also the following
-#' #dat<-cbind(runif(n),runif(n))
-#' #dat<-cbind(runif(n,1,2),runif(n,0,1))
 #'
 #' Gam3CSTe(dat[1,],dat[2,],dat[3,],dat,t)
 #'
 #' Gam3CSTe(dat[1,],dat[3,],dat[4,],dat,t)
 #'
 #' Gam3CSTe(c(.2,.2),dat[2,],dat[3,],dat,t)
-#'
-#' Gam3CSTe(c(.2,.2),dat[2,],dat[3,],dat,t,ch.data.pnts = TRUE)
-#' #not all points, pt1, pt2, and pt3, are data points in Dt
 #'
 #' Gam3CSTe(c(.2,.2),c(.2,.3),c(.2,.4),rbind(c(.2,.2),c(.2,.3),c(.2,.4)),t)
 #' Gam3CSTe(c(1.2,1.2),c(1.2,1.3),c(1.2,1.4),rbind(c(1.2,1.2),c(1.2,1.3),c(1.2,1.4)),t)
@@ -36366,6 +35197,17 @@ Gam2CSTe<-function(pt1,pt2,Dt,t,ch.data.pnts=FALSE)
 #'      ind.gam3<-rbind(ind.gam3,c(i,j,k))}
 #'
 #' ind.gam3
+#'
+#' P1<-c(.4,.2); P2<-c(.6,.4); P3<-c(.5,.1)
+#' Gam3CSTe(P1,P2,P3,dat,t)
+#'
+#' dat.fr<-data.frame(a=dat)
+#' Gam3CSTe(P1,P2,P3,dat.fr,t)
+#' }
+#'
+#' \dontrun{
+#' Gam3CSTe(c(.2,.2),dat[2,],dat[3,],dat,t,ch.data.pnts = TRUE)
+#' #gives an error message since not all points, pt1, pt2, and pt3, are data points in Dt
 #' }
 #'
 Gam3CSTe<-function(pt1,pt2,pt3,Dt,t,ch.data.pnts=FALSE)
@@ -36397,7 +35239,7 @@ Gam3CSTe<-function(pt1,pt2,pt3,Dt,t,ch.data.pnts=FALSE)
   dom<-1; i<-1;
   while (i<=n && dom==1)
   {
-    if (IndCSTe(pt1,Dt[i,],t)==0 && IndCSTe(pt2,Dt[i,],t)==0 && IndCSTe(pt3,Dt[i,],t)==0) #this is where std equilateral triangle Te is implicitly used
+    if (IndCSTe(pt1,Dt[i,],t)==0 && IndCSTe(pt2,Dt[i,],t)==0 && IndCSTe(pt3,Dt[i,],t)==0)  #this is where std equilateral triangle Te is implicitly used
     {dom<-0};
     i<-i+1;
   }
@@ -36414,16 +35256,12 @@ Gam3CSTe<-function(pt1,pt2,pt3,Dt,t,ch.data.pnts=FALSE)
 #'
 #' set.seed(1)
 #' dat<-runifTe(n)$gen.points
-#' #try also the following
-#' #dat<-cbind(runif(n),runif(n))
-#' #dat<-cbind(runif(n,1,2),runif(n,0,1))
 #'
 #' Gam4CSTe(dat[1,],dat[2,],dat[3,],dat[4,],dat,t)
 #'
 #' Gam4CSTe(dat[1,],dat[3,],dat[4,],dat[5,],dat,t)
 #'
 #' Gam4CSTe(c(.2,.2),dat[2,],dat[3,],dat[4,],dat,t)
-#' Gam4CSTe(c(.2,.2),dat[2,],dat[3,],dat[4,],dat,t,ch.data.pnts = TRUE)
 #'
 #' Gam4CSTe(c(.2,.2),c(.2,.3),c(.2,.4),c(.2,.5),rbind(c(.2,.2),c(.2,.3),c(.2,.4),c(.2,.5)) ,t)
 #' Gam4CSTe(c(1.2,1.2),c(1.2,1.3),c(1.2,1.4),c(1.2,1.5),
@@ -36438,6 +35276,17 @@ Gam3CSTe<-function(pt1,pt2,pt3,Dt,t,ch.data.pnts=FALSE)
 #'        ind.gam4<-rbind(ind.gam4,c(i,j,k,l))}
 #'
 #' ind.gam4
+#'
+#' P1<-c(.4,.2); P2<-c(.6,.4); P3<-c(.5,.1); P4<-c(.5,.29)
+#' Gam4CSTe(P1,P2,P3,P4,dat,t)
+#'
+#' dat.fr<-data.frame(a=dat)
+#' Gam4CSTe(P1,P2,P3,P4,dat.fr,t)
+#' }
+#'
+#' \dontrun{
+#' Gam4CSTe(c(.2,.2),dat[2,],dat[3,],dat[4,],dat,t,ch.data.pnts = TRUE)
+#' #gives an error message since not all points are data points in Dt
 #' }
 #'
 Gam4CSTe<-function(pt1,pt2,pt3,pt4,Dt,t,ch.data.pnts=FALSE)
@@ -36488,16 +35337,12 @@ Gam4CSTe<-function(pt1,pt2,pt3,pt4,Dt,t,ch.data.pnts=FALSE)
 #'
 #' set.seed(1)
 #' dat<-runifTe(n)$gen.points
-#' #try also the following
-#' #dat<-cbind(runif(n),runif(n))
-#' #dat<-cbind(runif(n,1,2),runif(n,0,1))
 #'
 #' Gam5CSTe(dat[1,],dat[2,],dat[3,],dat[4,],dat[5,],dat,t)
 #'
 #' Gam5CSTe(dat[1,],dat[3,],dat[4,],dat[5,],dat[6,],dat,t)
 #'
 #' Gam5CSTe(c(.2,.2),dat[2,],dat[3,],dat[4,],dat[5,],dat,t)
-#' Gam5CSTe(c(.2,.2),dat[2,],dat[3,],dat[4,],dat[5,],dat,t,ch.data.pnts = TRUE)
 #'
 #' ind.gam5<-vector()
 #' for (i1 in 1:(n-4))
@@ -36509,6 +35354,17 @@ Gam4CSTe<-function(pt1,pt2,pt3,pt4,Dt,t,ch.data.pnts=FALSE)
 #'          ind.gam5<-rbind(ind.gam5,c(i1,i2,i3,i4,i5))}
 #'
 #' ind.gam5
+#'
+#' P1<-c(.4,.2); P2<-c(.6,.4); P3<-c(.5,.1); P4<-c(.5,.29); P5<-c(.3,.3)
+#' Gam5CSTe(P1,P2,P3,P4,P5,dat,t)
+#'
+#' dat.fr<-data.frame(a=dat)
+#' Gam5CSTe(P1,P2,P3,P4,P5,dat.fr,t)
+#' }
+#'
+#' \dontrun{
+#' Gam5CSTe(c(.2,.2),dat[2,],dat[3,],dat[4,],dat[5,],dat,t,ch.data.pnts = TRUE)
+#' #gives an error message since not all points are data points in Dt
 #' }
 #'
 Gam5CSTe<-function(pt1,pt2,pt3,pt4,pt5,Dt,t,ch.data.pnts=FALSE)
@@ -36541,7 +35397,7 @@ Gam5CSTe<-function(pt1,pt2,pt3,pt4,pt5,Dt,t,ch.data.pnts=FALSE)
   while (i<=n && dom==1)
   {
     if (IndCSTe(pt1,Dt[i,],t)==0 && IndCSTe(pt2,Dt[i,],t)==0 && IndCSTe(pt3,Dt[i,],t)==0 &&
-        IndCSTe(pt4,Dt[i,],t)==0 && IndCSTe(pt5,Dt[i,],t)==0) #this is where std equilateral triangle Te is implicitly used
+        IndCSTe(pt4,Dt[i,],t)==0 && IndCSTe(pt5,Dt[i,],t)==0)  #this is where std equilateral triangle Te is implicitly used
     {dom<-0};
     i<-i+1;
   }
@@ -36558,16 +35414,12 @@ Gam5CSTe<-function(pt1,pt2,pt3,pt4,pt5,Dt,t,ch.data.pnts=FALSE)
 #'
 #' set.seed(1)
 #' dat<-runifTe(n)$gen.points
-#' #try also the following
-#' #dat<-cbind(runif(n),runif(n))
-#' #dat<-cbind(runif(n,1,2),runif(n,0,1))
 #'
 #' Gam6CSTe(dat[1,],dat[2,],dat[3,],dat[4,],dat[5,],dat[6,],dat,t)
 #'
 #' Gam6CSTe(dat[1,],dat[3,],dat[4,],dat[5,],dat[6,],dat[7,],dat,t)
 #'
 #' Gam6CSTe(c(.2,.2),dat[2,],dat[3,],dat[4,],dat[5,],dat[6,],dat,t)
-#' Gam6CSTe(c(.2,.2),dat[2,],dat[3,],dat[4,],dat[5,],dat[6,],dat,t,ch.data.pnts = TRUE)
 #'
 #' ind.gam6<-vector()
 #' for (i1 in 1:(n-5))
@@ -36580,6 +35432,17 @@ Gam5CSTe<-function(pt1,pt2,pt3,pt4,pt5,Dt,t,ch.data.pnts=FALSE)
 #'            ind.gam6<-rbind(ind.gam6,c(i1,i2,i3,i4,i5,i6))}
 #'
 #' ind.gam6
+#'
+#' P1<-c(.4,.2); P2<-c(.6,.4); P3<-c(.5,.1); P4<-c(.5,.29); P5<-c(.3,.3); P6<-c(.4,.4)
+#' Gam6CSTe(P1,P2,P3,P4,P5,P6,dat,t)
+#'
+#' dat.fr<-data.frame(a=dat)
+#' Gam6CSTe(P1,P2,P3,P4,P5,P6,dat.fr,t)
+#' }
+#'
+#' \dontrun{
+#' Gam6CSTe(c(.2,.2),dat[2,],dat[3,],dat[4,],dat[5,],dat[6,],dat,t,ch.data.pnts = TRUE)
+#' #gives an error message since not all points are data points in Dt
 #' }
 #'
 Gam6CSTe<-function(pt1,pt2,pt3,pt4,pt5,pt6,Dt,t,ch.data.pnts=FALSE)
@@ -36613,7 +35476,7 @@ Gam6CSTe<-function(pt1,pt2,pt3,pt4,pt5,pt6,Dt,t,ch.data.pnts=FALSE)
   while (i<=n && dom==1)
   {
     if (IndCSTe(pt1,Dt[i,],t)==0 && IndCSTe(pt2,Dt[i,],t)==0 && IndCSTe(pt3,Dt[i,],t)==0 &&
-        IndCSTe(pt4,Dt[i,],t)==0 && IndCSTe(pt5,Dt[i,],t)==0 && IndCSTe(pt6,Dt[i,],t)==0) #this is where std equilateral triangle Te is implicitly used
+        IndCSTe(pt4,Dt[i,],t)==0 && IndCSTe(pt5,Dt[i,],t)==0 && IndCSTe(pt6,Dt[i,],t)==0)  #this is where std equilateral triangle Te is implicitly used
     {dom<-0};
     i<-i+1;
   }
@@ -36655,13 +35518,9 @@ Gam6CSTe<-function(pt1,pt2,pt3,pt4,pt5,pt6,Dt,t,ch.data.pnts=FALSE)
 #' @examples
 #' \donttest{
 #' A<-c(1,1); B<-c(2,0); C<-c(1.5,2);
-#' #try also the following
-#' #A<-runif(2); B<-runif(2); C<-runif(2);
-#' #A<-runif(2,1,100); B<-runif(2,1,100); C<-runif(2,1,100);
-#'
 #' Tr<-rbind(A,B,C);
 #'
-#' P<-c(.4,.2) #try also P<-as.numeric(runif.tri(1,Tr)$g)
+#' P<-c(.4,.2)  #try also P<-as.numeric(runif.tri(1,Tr)$g)
 #' redge.triCM(P,Tr)
 #'
 #' P<-c(.8,.2)
@@ -36686,10 +35545,13 @@ Gam6CSTe<-function(pt1,pt2,pt3,pt4,pt5,pt6,Dt,t,ch.data.pnts=FALSE)
 #' segments(L[,1], L[,2], R[,1], R[,2], lty=2)
 #'
 #' txt<-rbind(Tr,CM,p1,p2,p3)
-#' xc<-txt[,1]
-#' yc<-txt[,2]
+#' xc<-txt[,1]+c(-.02,.02,.02,.05,0,0,0)
+#' yc<-txt[,2]+c(.02,.02,.02,.02,0,0,0)
 #' txt.str<-c("A","B","C","CM","re=y1y2y3","re=y2y3y1","re=y3y1y2")
 #' text(xc,yc,txt.str)
+#'
+#' dat.fr<-data.frame(a=Tr)
+#' redge.triCM(P,dat.fr)
 #' }
 #'
 redge.triCM<-function(pt,tri)
@@ -36769,10 +35631,6 @@ redge.triCM<-function(pt,tri)
 #' @examples
 #' \donttest{
 #' A<-c(1,1); B<-c(2,0); C<-c(1.6,2);
-#' #try also the following
-#' #A<-runif(2); B<-runif(2); C<-runif(2);
-#' #A<-runif(2,1,100); B<-runif(2,1,100); C<-runif(2,1,100);
-#'
 #' Tr<-rbind(A,B,C);
 #' t<-1.5
 #'
@@ -36801,6 +35659,12 @@ redge.triCM<-function(pt,tri)
 #' re<-redges.triCM(P1,Tr)$re
 #' IndNCStri(P1,P2,t,Tr,M=c(1,1,1),re)
 #' IndNCStri.alt(P1,P2,t,Tr,re)
+#'
+#' P2<-c(1.85,.5); P3<-c(1.7,.6)
+#' IndNCStri.alt(P2,P3,t,Tr)
+#'
+#' dat.fr<-data.frame(a=Tr)
+#' IndNCStri.alt(P2,P3,t,dat.fr)
 #' }
 #'
 IndNCStri.alt<-function(pt1,pt2,t,tri,re=NULL)
@@ -36827,7 +35691,7 @@ IndNCStri.alt<-function(pt1,pt2,t,tri,re=NULL)
   {arc<-0; return(arc); stop}
 
   if (is.null(re))
-  {RE<-redge.triCM(pt1,tri) #related vertices for edge region for pt1
+  {RE<-redge.triCM(pt1,tri)  #related vertices for edge region for pt1
   } else
   {  if (!is.numeric(re) || sum(re==c(1,2,3))!=1)
   {stop('edge index, re, must be 1, 2 or 3')}}
@@ -36902,25 +35766,13 @@ IndNCStri.alt<-function(pt1,pt2,t,tri,re=NULL)
 #'
 #' @examples
 #' A<-c(1,1); B<-c(2,0); C<-c(1.5,2);
-#' #try also the following
-#' #A<-runif(2); B<-runif(2); C<-runif(2);
-#' #A<-runif(2,1,100); B<-runif(2,1,100); C<-runif(2,1,100);
-#'
 #' Tr<-rbind(A,B,C);
-#' n<-10 #try also n<-20
+#' n<-10  #try also n<-20
 #'
 #' set.seed(1)
 #' dat<-runif.tri(n,Tr)$g
-#' #try also the following
-#' #dat<-cbind(runif(n,1,2),runif(n,0,2))
-#' #dat<-cbind(runif(n),runif(n))
 #'
-#' M<-as.numeric(runif.tri(1,Tr)$g)
-#' #try also the following
-#' #M<-c(1.6,1.0)
-#' #M<-c(1,1,1) #M<-c(1,2,3) #M<-c(-1,2,3) #barycentric coordinates
-#' #M<-c(1.3,1.3)
-#' #M<-c(.3,.3)
+#' M<-as.numeric(runif.tri(1,Tr)$g)  #try also M<-c(1.6,1.0)
 #'
 #' NumArcsCStri(dat,Tr,t=.5,M)
 #' CSarcdens.tri(dat,Tr,t=.5,M)

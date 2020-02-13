@@ -22,10 +22,6 @@ by 3D points \code{x3}, \code{x4}, and \code{x5}.
 \examples{
 \donttest{
 L1<-c(2,4,6); L2<-c(1,3,5); A<-c(1,10,3); B<-c(1,1,3); C<-c(3,9,12)
-#try also the following
-#L1<-runif(3); L2<-runif(3); A<-runif(3); B<-runif(3); C<-runif(3)
-#L1<-runif(3,1,100); L2<-runif(3,1,100);
-#A<-runif(3,1,100); B<-runif(3,1,100); C<-runif(3,1,100)
 
 Pint<-int.line.plane(L1,L2,A,B,C)
 Pint
@@ -33,7 +29,7 @@ pts<-rbind(L1,L2,A,B,C,Pint)
 
 tr<-max(Dist(L1,L2),Dist(L1,Pint),Dist(L2,Pint))
 tf<-tr*1.1 #how far to go at the lower and upper ends in the x-coordinate
-tsq<-seq(-tf,tf,l=20) #try also l=100
+tsq<-seq(-tf,tf,l=20)  #try also l=100
 
 lnAB3D<-Line3D(L1,L2,tsq)
 xl<-lnAB3D$x
@@ -43,8 +39,8 @@ zl<-lnAB3D$z
 xr<-range(pts[,1]); yr<-range(pts[,2])
 xf<-(xr[2]-xr[1])*.1 #how far to go at the lower and upper ends in the x-coordinate
 yf<-(yr[2]-yr[1])*.1 #how far to go at the lower and upper ends in the y-coordinate
-xp<-seq(xr[1]-xf,xr[2]+xf,l=20) #try also l=100
-yp<-seq(yr[1]-yf,yr[2]+yf,l=20) #try also l=100
+xp<-seq(xr[1]-xf,xr[2]+xf,l=20)  #try also l=100
+yp<-seq(yr[1]-yf,yr[2]+yf,l=20)  #try also l=100
 
 plABC<-Plane(A,B,C,xp,yp)
 z.grid<-plABC$z

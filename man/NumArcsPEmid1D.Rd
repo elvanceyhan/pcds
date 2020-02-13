@@ -50,7 +50,7 @@ NumArcsPEmid1D(dat,r,c=.3,int)
 
 NumArcsPEmid1D(dat,r=1.5,c,int)
 
-n<-10 #try also n<-20
+n<-10  #try also n<-20
 dat<-runif(n,a-5,b+5)
 NumArcsPEmid1D(dat,r,c,int)
 

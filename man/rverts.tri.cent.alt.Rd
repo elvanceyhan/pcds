@@ -39,14 +39,11 @@ rverts.tri.cent.alt(P,Tr,M)
 P<-c(1.5,1.6)
 rverts.tri.cent.alt(P,Tr,M)
 
-n<-10 #try also n<-20
+n<-10  #try also n<-20
 set.seed(1)
 dat<-runif.tri(n,Tr)$g
-#try also the following
-#dat<-cbind(runif(n),runif(n))
-#dat<-cbind(runif(n,1,2),runif(n,0,2))
 
-M<-c(1.6,1.0) #try also #M<-c(1.3,1.3)
+M<-c(1.6,1.0)  #try also M<-c(1.3,1.3)
 
 rv<-rverts.tri.cent.alt(dat,Tr,M)
 rv
@@ -76,6 +73,18 @@ txt.str<-c("M","D1","D2","D3")
 text(xc,yc,txt.str)
 
 text(dat,labels=factor(rv$rv))
+
+P<-c(1.4,1.0)
+rverts.tri.cent.alt(P,Tr,M)
+rverts.tri.cent.alt(dat,Tr,M)
+
+rverts.tri.cent.alt(rbind(dat,dat),Tr,M)
+
+dat.fr<-data.frame(a=dat)
+rverts.tri.cent.alt(dat.fr,Tr,M)
+
+dat.fr<-data.frame(a=Tr)
+rverts.tri.cent.alt(dat,dat.fr,M)
 }
 
 }

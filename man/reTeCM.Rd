@@ -54,11 +54,8 @@ reTeCM(D3)
 CM<-(A+B+C)/3
 reTeCM(CM)
 
-n<-10 #try also n<-20
+n<-10  #try also n<-20
 dat<-runifTe(n)$gen.points
-#try also the following
-#dat<-cbind(runif(n),runif(n))
-#dat<-cbind(runif(n,1,2),runif(n,0,1))
 
 re<-vector()
 for (i in 1:n)

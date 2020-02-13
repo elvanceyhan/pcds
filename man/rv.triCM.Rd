@@ -31,10 +31,6 @@ See (\insertCite{ceyhan:Phd-thesis,ceyhan:comp-geo-2010,ceyhan:mcap2012;textual}
 }
 \examples{
 A<-c(1,1); B<-c(2,0); C<-c(1.6,2);
-#try also the following
-#A<-runif(2); B<-runif(2); C<-runif(2)
-#A<-runif(2,1,100); B<-runif(2,1,100); C<-runif(2,1,100);
-
 Tr<-rbind(A,B,C);
 P<-c(1.4,1.2)
 rv.triCM(P,Tr)
@@ -45,11 +41,8 @@ rv.triCM(P,Tr)
 P<-c(1.5,1.6)
 rv.triCM(P,Tr)
 
-n<-10 #try also n<-20
+n<-10  #try also n<-20
 dat<-runif.tri(n,Tr)$g
-#try also the following
-#dat<-cbind(runif(n,1,2),runif(n,0,2))
-#dat<-cbind(runif(n),runif(n))
 
 Rv<-vector()
 for (i in 1:n)
@@ -73,8 +66,8 @@ segments(L[,1], L[,2], R[,1], R[,2], lty=2)
 text(dat,labels=factor(Rv))
 
 txt<-rbind(Tr,CM,D1,D2,D3)
-xc<-txt[,1]
-yc<-txt[,2]
+xc<-txt[,1]+c(-.02,.02,.02,-.02,.02,-.01,-.01)
+yc<-txt[,2]+c(-.02,-.04,.06,-.02,.02,.06,-.06)
 txt.str<-c("rv=1","rv=2","rv=3","CM","D1","D2","D3")
 text(xc,yc,txt.str)
 

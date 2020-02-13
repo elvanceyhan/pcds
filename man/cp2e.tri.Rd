@@ -27,20 +27,11 @@ See also (\insertCite{ceyhan:Phd-thesis,ceyhan:comp-geo-2010,ceyhan:mcap2012;tex
 }
 \examples{
 A<-c(1,1); B<-c(2,0); C<-c(1.5,2);
-#try also the following
-#A<-runif(2); B<-runif(2); C<-runif(2);
-#A<-runif(2,1,100); B<-runif(2,1,100); C<-runif(2,1,100);
-
 Tr<-rbind(A,B,C);
 
-M<-as.numeric(runif.tri(1,Tr)$g)
-#try also the following
-#M<-c(1.6,1.0)
-#M<-c(1,1,1) #M<-c(1,2,3) #M<-c(-1,2,3) #barycentric coordinates
-#M<-c(1.3,1.3)
-#M<-c(.3,.3)
+M<-as.numeric(runif.tri(1,Tr)$g)  #try also M<-c(1.6,1.0)
 
-cp2e.tri(Tr,M) #try also #cp2e.tri(Tr,M=c(1,1))
+cp2e.tri(Tr,M)  #try also cp2e.tri(Tr,M=c(1,1))
 
 Ds<-cp2e.tri(Tr,M)
 
@@ -64,8 +55,8 @@ txt.str<-c("rv=1","rv=2","rv=3")
 text(xc,yc,txt.str)
 
 txt<-rbind(M,Ds)
-xc<-txt[,1]
-yc<-txt[,2]
+xc<-txt[,1]+c(-.02,.04,-.04,-.02)
+yc<-txt[,2]+c(-.02,.04,.04,-.06)
 txt.str<-c("M","D1","D2","D3")
 text(xc,yc,txt.str)
 

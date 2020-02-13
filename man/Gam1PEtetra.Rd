@@ -49,17 +49,13 @@ See also (\insertCite{ceyhan:Phd-thesis,ceyhan:comp-geo-2010;textual}{pcds}).
 \examples{
 \donttest{
 A<-c(0,0,0); B<-c(1,0,0); C<-c(1/2,sqrt(3)/2,0); D<-c(1/2,sqrt(3)/6,sqrt(6)/3)
-#try also the following
-#A<-runif(3); B<-runif(3); C<-runif(3); D<-runif(3)
-#A<-runif(3,1,100); B<-runif(3,1,100); C<-runif(3,1,100); D<-runif(3,1,100)
-
 tetra<-rbind(A,B,C,D)
 n<-20
 
-dat<-runif.tetra(n,tetra)$g #try also #dat<-cbind(runif(n),runif(n),runif(n))
+dat<-runif.tetra(n,tetra)$g  #try also dat<-cbind(runif(n),runif(n),runif(n))
 
-M<-"CM"; cent<-apply(tetra,2,mean) #center of mass
-#try also #M<-"CC"; cent<-circ.cent.tetra(tetra) #circumcenter
+M<-"CM"; cent<-apply(tetra,2,mean)  #center of mass
+#try also M<-"CC"; cent<-circ.cent.tetra(tetra)  #circumcenter
 
 r<-2
 
@@ -77,8 +73,6 @@ Gam1PEtetra(dat[1,],dat,r,tetra,M,rv=RV)
 
 Gam1PEtetra(c(-1,-1,-1),dat,r,tetra,M)
 Gam1PEtetra(c(-1,-1,-1),c(-1,-1,-1),r,tetra,M)
-
-Gam1PEtetra(c(-1,-1,-1),dat,r,tetra,M,ch.data.pnt = TRUE) #p is not a data point
 
 gam.vec<-vector()
 for (i in 1:n)
@@ -110,6 +104,17 @@ plot3D::text3D(tetra[,1],tetra[,2],tetra[,3], labels=c("A","B","C","D"), add=TRU
 D1<-(A+B)/2; D2<-(A+C)/2; D3<-(A+D)/2; D4<-(B+C)/2; D5<-(B+D)/2; D6<-(C+D)/2;
 L<-rbind(D1,D2,D3,D4,D5,D6); R<-rbind(cent,cent,cent,cent,cent,cent)
 plot3D::segments3D(L[,1], L[,2], L[,3], R[,1], R[,2],R[,3], add=TRUE,lty=2)
+
+P<-c(.4,.1,.2)
+Gam1PEtetra(P,dat,r,tetra,M)
+
+dat.fr<-data.frame(a=dat)
+Gam1PEtetra(P,dat.fr,r,tetra,M)
+}
+
+\dontrun{
+Gam1PEtetra(c(-1,-1,-1),dat,r,tetra,M,ch.data.pnt = TRUE)
+#gives an error message since p is not a data point
 }
 
 }

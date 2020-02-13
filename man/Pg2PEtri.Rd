@@ -31,7 +31,7 @@ Pg2PEtri(r=1.4999999999)
 
 Pg2PEtri(r=1.5) / Pg2PEtri(r=1.4999999999)
 
-rseq<-seq(1.01,1.49999999999,l=20) #try also l=100
+rseq<-seq(1.01,1.49999999999,l=20)  #try also l=100
 lrseq<-length(rseq)
 
 pg2<-vector()

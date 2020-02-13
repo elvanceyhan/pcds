@@ -42,7 +42,7 @@ An alternative function to the function \code{\link{cl2eVRcent}}
 \donttest{
 A<-c(1,1); B<-c(2,0); C<-c(1.5,2);
 Tr<-rbind(A,B,C);
-M<-c(1.6,1.0) #try also #M<-c(1.3,1.3)
+M<-c(1.6,1.0)  #try also M<-c(1.3,1.3)
 
 n<-20
 set.seed(1)
@@ -54,9 +54,6 @@ summary(Ext)
 plot(Ext)
 
 cl2eVRcent.alt(dat[1,],Tr,M)
-
-T2<-rbind(A,A+2*(C-A),C)
-cl2eVRcent.alt(dat,T2,M)
 
 cl2e<-cl2eVRcent.alt(dat,Tr,M)
 cl2e
@@ -86,6 +83,12 @@ xc<-txt[,1]+c(.02,.04,-.03,0)
 yc<-txt[,2]+c(.07,.04,.06,-.08)
 txt.str<-c("M","D1","D2","D3")
 text(xc,yc,txt.str)
+
+dat.fr<-data.frame(a=dat)
+cl2eVRcent.alt(dat.fr,Tr,M)
+
+dat.fr<-data.frame(a=Tr)
+cl2eVRcent.alt(dat,dat.fr,M)
 }
 
 }

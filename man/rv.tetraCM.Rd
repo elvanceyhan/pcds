@@ -34,18 +34,11 @@ See also (\insertCite{ceyhan:Phd-thesis,ceyhan:comp-geo-2010;textual}{pcds}).
 \examples{
 \donttest{
 A<-c(0,0,0); B<-c(1,0,0); C<-c(1/2,sqrt(3)/2,0); D<-c(1/2,sqrt(3)/6,sqrt(6)/3)
-#try also the following
-#A<-runif(3); B<-runif(3); C<-runif(3); D<-runif(3)
-#A<-runif(3,1,100); B<-runif(3,1,100); C<-runif(3,1,100); D<-runif(3,1,100)
-
 tetra<-rbind(A,B,C,D)
 
-n<-10 #try also n<-20
+n<-10  #try also n<-20
 
 Dt<-runif.stdtetra(n)$g
-#try also the following
-#Dt<-runif.tetra(n,tetra)$g
-#Dt<-cbind(runif(n),runif(n),runif(n))
 
 rv.tetraCM(Dt[1,],tetra)
 rv.tetraCM(Dt[5,],tetra)

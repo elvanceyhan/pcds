@@ -60,17 +60,8 @@ n<-20
 
 set.seed(1)
 dat<-runif.bastri(n,c1,c2)$g
-#try also the following
-#dat<-cbind(runif(n),runif(n))
-#dat<-cbind(runif(n,1,2),runif(n,0,1))
 
-M<-as.numeric(runif.bastri(1,c1,c2)$g)
-#try also the following
-#M<-c(.6,.2)
-#M<-circ.cent.tri(Tb); #M<-"CC"; #M<-"CM"
-#M<-c(1,1,1) #M<-c(1,2,3) #M<-c(-1,2,3) #barycentric coordinates
-#M<-c(1.3,1.3)
-#M<-c(.3,.3)
+M<-as.numeric(runif.bastri(1,c1,c2)$g)  #try also M<-c(.6,.2)
 
 Gam1ASbastri(dat[1,],dat,c1,c2,M)
 
@@ -85,16 +76,13 @@ ind.gam1
 Rv<-rv.bastriCC(dat[1,],c1,c2)$rv
 Gam1ASbastri(dat[1,],dat,c1,c2,M,Rv)
 
-Gam1ASbastri(c(.5,.11),dat,c1,c2,M)
-Gam1ASbastri(c(.5,.11),dat,c1,c2,M,ch.data.pnt=TRUE)
-
 Gam1ASbastri(c(.2,.4),dat,c1,c2,M)
 Gam1ASbastri(c(.2,.4),c(.2,.4),c1,c2,M)
 
 dat2<-rbind(dat,c(.2,.4))
 Gam1ASbastri(dat[1,],dat2,c1,c2,M)
 
-CC<-circ.cent.bastri(c1,c2) #the circumcenter
+CC<-circ.cent.bastri(c1,c2)  #the circumcenter
 
 if (dimension(M)==3) {M<-bary2cart(M,Tb)}
 #need to run this when M is given in barycentric coordinates
@@ -134,6 +122,12 @@ Gam1ASbastri(c(.4,.2),dat,c1,c2,M)
 
 dat.fr<-data.frame(a=dat)
 Gam1ASbastri(c(.4,.2),dat.fr,c1,c2,M)
+
+Gam1ASbastri(c(.5,.11),dat,c1,c2,M)
+}
+\dontrun{
+Gam1ASbastri(c(.5,.11),dat,c1,c2,M,ch.data.pnt=TRUE)
+#gives an error message since the point is not in the basic triangle
 }
 
 }

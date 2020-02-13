@@ -22,9 +22,6 @@ Returns the distance from a point \code{p} to the line joining points \code{a} a
 }
 \examples{
 A<-c(1,2); B<-c(2,3); P<-c(3,1.5)
-#try also the following
-#A<-runif(2); B<-runif(2); P<-runif(2)
-#A<-runif(2,1,100); B<-runif(2,1,100); P<-runif(2,1,100);
 
 dpl<-dp2l(P,A,B);
 dpl
@@ -36,13 +33,13 @@ dp2l((A+B)/2,A,B);
 
 xr<-range(pts[,1])
 xf<-(xr[2]-xr[1])*.25 #how far to go at the lower and upper ends in the x-coordinate
-x<-seq(xr[1]-xf,xr[2]+xf,l=20) #try also l=100
+x<-seq(xr[1]-xf,xr[2]+xf,l=20)  #try also l=100
 lnAB<-Line(A,B,x)
 y<-lnAB$y
 int<-lnAB$intercept #intercept
 sl<-lnAB$slope #slope
 
-xsq<-seq(min(A[1],B[1],P[1])-xf,max(A[1],B[1],P[1])+xf,l=20) #try also l=100
+xsq<-seq(min(A[1],B[1],P[1])-xf,max(A[1],B[1],P[1])+xf,l=20)  #try also l=100
 pline<-(-1/sl)*(xsq-P[1])+P[2] #line passing thru P and perpendicular to AB
 
 Xlim<-range(pts[,1],x)

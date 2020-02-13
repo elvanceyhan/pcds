@@ -42,7 +42,7 @@ Hence basic triangle is useful for simulation studies under the uniformness hypo
 c1<-.4; c2<-.6
 A<-c(0,0); B<-c(1,0); C<-c(c1,c2);
 Tb<-rbind(A,B,C);
-n<-10 #try also n<-100
+n<-10  #try also n<-100
 
 set.seed(1)
 runif.bastri(1,c1,c2)

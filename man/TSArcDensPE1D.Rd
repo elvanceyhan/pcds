@@ -66,7 +66,7 @@ c<-.4
 r<-2
 a<-0; b<-10; int<-c(a,b)
 
-n<-10 #try also n<-20
+n<-10  #try also n<-20
 dat<-runif(n,a,b)
 
 NumArcsPEint(dat,r,c,int)
@@ -87,7 +87,7 @@ TSArcDensPE1D(dat,r,c,int)
 c<-.4
 r<-2
 a<-0; b<-10; int<-c(a,b)
-n<-10 #try also n<-20
+n<-10  #try also n<-20
 dat<-runif(n,a,b)
 TSArcDensPE1D(dat,r,c,int)
 }

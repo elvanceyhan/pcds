@@ -62,15 +62,11 @@ See also (\insertCite{ceyhan:Phd-thesis,ceyhan:comp-geo-2010;textual}{pcds}).
 \examples{
 \donttest{
 A<-c(0,0,0); B<-c(1,0,0); C<-c(1/2,sqrt(3)/2,0); D<-c(1/2,sqrt(3)/6,sqrt(6)/3)
-#try also the following
-#A<-runif(3); B<-runif(3); C<-runif(3); D<-runif(3)
-#A<-runif(3,1,100); B<-runif(3,1,100); C<-runif(3,1,100); D<-runif(3,1,100)
-
 tetra<-rbind(A,B,C,D)
 n<-20
 dat<-runif.tetra(n,tetra)$g
 
-M<-"CM"; #try also #M<-"CC";
+M<-"CM";  #try also M<-"CC";
 r<-1.25
 
 Gam3PEtetra(dat[1,],dat[2,],dat[3,],dat,r,tetra,M)
@@ -78,9 +74,6 @@ Gam3PEtetra(dat[1,],dat[2,],dat[3,],dat,r,tetra,M)
 Gam3PEtetra(dat[1,],dat[2,],dat[2,],dat,r,tetra,M)
 
 Gam3PEtetra(dat[1,],c(1,1,1),dat[3,],dat,r,tetra,M)
-
-Gam3PEtetra(dat[1,],c(1,1,1),dat[3,],dat,r,tetra,M,ch.data.pnts = TRUE)
-#not all points, pt1, pt2 and pts, are data points in Dt
 
 Gam3PEtetra(c(-1,1,1),c(1,1,1),c(1,1,-1),rbind(c(-1,1,1),c(1,1,1),c(1,1,-1)),r,tetra,M)
 
@@ -105,6 +98,19 @@ Gam3PEtetra(dat[1,],dat[2,],dat[3,],dat,r,tetra,M,rv1)
 #or try
 rv2<-rv.tetraCC(dat[2,],tetra)$rv
 Gam3PEtetra(dat[1,],dat[2,],dat[3,],dat,r,tetra,M,rv2=rv2)
+
+P1<-c(.1,.1,.1)
+P2<-c(.3,.3,.3)
+P3<-c(.4,.1,.2)
+Gam3PEtetra(P1,P2,P3,dat,r,tetra,M)
+
+dat.fr<-data.frame(a=dat)
+Gam3PEtetra(P1,P2,P3,dat.fr,r,tetra,M)
+}
+
+\dontrun{
+Gam3PEtetra(dat[1,],c(1,1,1),dat[3,],dat,r,tetra,M,ch.data.pnts = TRUE)
+#gives an error message since not all points, pt1, pt2 and pts, are data points in Dt
 }
 
 }

@@ -33,7 +33,7 @@ with vertices \eqn{A=(0,0)}, \eqn{B=(1,0)}, and \eqn{C=(1/2,sqrt{3}/2)}.
 \examples{
 A<-c(0,0); B<-c(1,0); C<-c(1/2,sqrt(3)/2);
 Te<-rbind(A,B,C);
-n<-10 #try also n<-100
+n<-10  #try also n<-100
 
 set.seed(1)
 Xdt<-runifTe(n)

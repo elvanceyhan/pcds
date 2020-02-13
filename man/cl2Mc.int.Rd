@@ -50,9 +50,6 @@ See also (\insertCite{ceyhan:metrika-2012;textual}{pcds}).
 \examples{
 c<-.4
 a<-0; b<-10; int<-c(a,b)
-#try also the following
-#c<-runif(1)
-#a<-runif(1); b<-runif(1); int<-range(a,b); a<-int[1]; b<-int[2]
 
 Mc<-centMc(int,c)
 
@@ -61,9 +58,6 @@ xr<-range(a,b,Mc)
 xf<-(xr[2]-xr[1])*.5
 
 dat<-runif(nx,a,b)
-#try also the following
-#dat<-runif(n,a-xf,b+xf)
-#dat<-runif(nx,a,b)+10
 
 Ext<-cl2Mc.int(dat,int,c)
 Ext
@@ -83,7 +77,7 @@ points(cbind(dat,0))
 points(cbind(c(cMc$Ext),0),pch=4,col=2)
 text(cbind(c(a,b,Mc),-0.1),c("a","b","Mc"))
 
-n<-10 #try also n<-20
+n<-10  #try also n<-20
 dat<-runif(n,a-5,b+5)
 cl2Mc.int(dat,c(a,b),c)
 

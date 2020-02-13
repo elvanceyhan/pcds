@@ -46,11 +46,8 @@ See the example for this function or example for
 }
 \examples{
 \donttest{
-n<-10 #try also n<-100
+n<-10  #try also n<-100
 dat<-runifTe(n)$gen.points
-#try also the following
-#dat<-cbind(runif(n),runif(n))
-#dat<-cbind(runif(n,1,2),runif(n,0,1))
 
 Ext<-six.ext(dat)
 Ext
@@ -59,10 +56,6 @@ plot(Ext)
 
 six.ext(dat[1:5,])$Ext
 sixt<-six.ext(dat)
-
-dat2<-rbind(dat,c(.8,.8))
-six.ext(dat2)
-six.ext(dat2,ch.all.intri = TRUE)
 
 A<-c(0,0); B<-c(1,0); C<-c(0.5,sqrt(3)/2);
 Te<-rbind(A,B,C)
@@ -97,6 +90,14 @@ text(xc,yc,txt.str)
 
 dat.fr<-data.frame(a=dat)
 six.ext(dat.fr)
+
+dat2<-rbind(dat,c(.8,.8))
+six.ext(dat2)
+}
+
+\dontrun{
+six.ext(dat2,ch.all.intri = TRUE)
+#gives an error message since not all data points are in the std equilateral triangle
 }
 
 }

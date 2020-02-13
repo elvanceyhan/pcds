@@ -58,16 +58,9 @@ nx<-10 ; ny<-10
 
 set.seed(1)
 Xp<-cbind(runif(nx,0,1),runif(nx,0,1))
-#try also the following
-#Xp<-cbind(runif(nx,0.5,1.5),runif(nx,0,1))
-#Xp<-cbind(runif(nx,1,2),runif(nx,0,1))
 Yp<-cbind(runif(ny,0,1),runif(ny,0,1))
 
-M<-c(1,1,1)
-#try also the following
-#M<-c(1,2,3) #M<-c(-1,2,3) #barycentric coordinates
-#M<-"CC"
-#M<-c(1.3,1.3)
+M<-c(1,1,1)  #try also M<-c(1,2,3)
 
 plotASregsMT(Xp,Yp,M,xlab="",ylab="")
 

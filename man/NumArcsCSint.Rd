@@ -48,12 +48,8 @@ NumArcsCSint(dat,t,c=.3,int)
 
 NumArcsCSint(dat,t=1.5,c,int)
 
-n<-10 #try also n<-20
+n<-10  #try also n<-20
 dat<-runif(n,a,b)
-#try also the following
-#dat<-runif(n,a-5,b+5)
-#dat<-runif(n,a+5,b+5)
-#dat<-runif(n,a+10,b+10)
 
 NumArcsCSint(dat,t,c,int)
 

@@ -33,13 +33,9 @@ Generates \code{k} points uniformly in the general tetrahedron \code{th} whose v
 \examples{
 \donttest{
 A<-sample(1:12,3); B<-sample(1:12,3); C<-sample(1:12,3); D<-sample(1:12,3)
-#try also the following
-#A<-runif(3); B<-runif(3); C<-runif(3); D<-runif(3)
-#A<-runif(3,1,100); B<-runif(3,1,100); C<-runif(3,1,100); D<-runif(3,1,100)
-
 tetra<-rbind(A,B,C,D)
 
-n<-10 #try also n<-100
+n<-10  #try also n<-100
 
 set.seed(1)
 Xdt<-runif.tetra(n,tetra)
@@ -48,12 +44,6 @@ summary(Xdt)
 plot(Xdt)
 
 Dt<-Xdt$g
-
-#need to install scatterplot3d package and call "library(scatterplot3d)"
-s3d<-scatterplot3d(Dt, highlight.3d=TRUE,xlab="x",ylab="y",zlab="z",
-                    col.axis="blue", col.grid="lightblue",
-                    main="3D Scatterplot of the data", pch=20)
- s3d$points3d(tetra,pch=20,col="blue")
 
 Xlim<-range(tetra[,1],Dt[,1])
 Ylim<-range(tetra[,2],Dt[,2])
@@ -77,6 +67,14 @@ runif.tetra(n,tetra)
 dat.fr<-data.frame(a=tetra)
 runif.tetra(n,dat.fr)
 }
+
+\dontrun{
+#need to install scatterplot3d package and call "library(scatterplot3d)"
+s3d<-scatterplot3d(Dt, highlight.3d=TRUE,xlab="x",ylab="y",zlab="z",
+                    col.axis="blue", col.grid="lightblue",
+                    main="3D Scatterplot of the data", pch=20)
+ s3d$points3d(tetra,pch=20,col="blue")
+ }
 
 }
 \seealso{

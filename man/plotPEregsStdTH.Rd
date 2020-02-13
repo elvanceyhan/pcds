@@ -55,8 +55,8 @@ A<-c(0,0,0); B<-c(1,0,0); C<-c(1/2,sqrt(3)/2,0); D<-c(1/2,sqrt(3)/6,sqrt(6)/3)
 tetra<-rbind(A,B,C,D)
 r<-1.5
 
-n<-10 #try also n<-20
-dat<-runif.stdtetra(n)$g #try also #dat[,1]<-dat[,1]+1
+n<-10  #try also n<-20
+dat<-runif.stdtetra(n)$g  #try also dat[,1]<-dat[,1]+1
 
 plotPEregsStdTH(dat[1,],r)
 

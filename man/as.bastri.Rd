@@ -47,7 +47,6 @@ as.bastri(rbind(A,C,B))
 as.bastri(rbind(B,A,C))
 
 A<-runif(2); B<-runif(2); C<-runif(2)
-#try also #A<-runif(2,1,100); B<-runif(2,1,100); C<-runif(2,1,100);
 as.bastri(rbind(A,B,C))
 
 dat.fr<-data.frame(a=rbind(A,B,C))

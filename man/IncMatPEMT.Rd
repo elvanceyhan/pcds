@@ -44,29 +44,21 @@ on the PE-PCDs.
 Also see (\insertCite{okabe:2000,ceyhan:comp-geo-2010,sinclair:2016;textual}{pcds}) for more on Delaunay triangulation and the corresponding algorithm.
 }
 \examples{
-nx<-20; ny<-4; #try also nx<-40; ny<-10 or nx<-1000; ny<-10;
+nx<-20; ny<-4;  #try also nx<-40; ny<-10 or nx<-1000; ny<-10;
 
 set.seed(1)
 Xp<-cbind(runif(nx,0,1),runif(nx,0,1))
-#try also the following
-#Xp<-cbind(runif(nx,0.5,1.5),runif(nx,0,1))
-#Xp<-cbind(runif(nx,1,2),runif(nx,0,1))
-#Xp<-c(.5,.5)
 Yp<-cbind(runif(ny,0,1),runif(ny,0,1))
 
-M<-c(1,1,1)
-#try also the following
-#M<-c(1,2,3) #M<-c(-1,2,3) #barycentric coordinates
-#M<-"CC"
-#M<-c(1.3,1.3)
+M<-c(1,1,1)  #try also M<-c(1,2,3)
 
-r<-1.5 #try also #r<-2
+r<-1.5  #try also r<-2
 
 IM<-IncMatPEMT(Xp,Yp,r,M)
 IM
 dom.greedy(IM)
 \donttest{
-dom.exact(IM) #might take a long time in this brute-force fashion ignoring the
+dom.exact(IM)  #might take a long time in this brute-force fashion ignoring the
 #disconnected nature of the digraph inherent by the geometric construction of it
 }
 PEdomMTnd(Xp,Yp,r)

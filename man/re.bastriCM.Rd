@@ -62,10 +62,8 @@ re.bastriCM(B,c1,c2)
 re.bastriCM(C,c1,c2)
 re.bastriCM(CM,c1,c2)
 
-n<-10 #try also n<-20
+n<-10  #try also n<-20
 dat<-runif.bastri(n,c1,c2)$g
-#dat<-cbind(runif(n),runif(n))
-#dat<-cbind(runif(n,1,2),runif(n,0,1))
 
 re<-vector()
 for (i in 1:n)

@@ -59,8 +59,8 @@ IndCSTeRABt1(c(.2,.5),dat[2,])
 IndCSTeRABt1(c(.2,.5),c(.2,.5))
 }
 
-#Examples for IndCSTeRBCt1
 \donttest{
+#Examples for IndCSTeRBCt1
 A<-c(0,0); B<-c(1,0); C<-c(1/2,sqrt(3)/2);
 CM<-(A+B+C)/3
 T1<-rbind(B,C,CM);
@@ -76,10 +76,12 @@ IndCSTeRBCt1(dat[2,],dat[2,])
 IndCSTeRBCt1(dat1[1,],dat1[3,])
 IndCSTeRBCt1(c(.2,.5),dat[2,])
 IndCSTeRBCt1(c(.2,.5),c(.2,.5))
+
+IndCSTeRBCt1(dat[2,],dat[2,])
 }
 
-#Examples for IndCSTeRACt1
 \donttest{
+#Examples for IndCSTeRACt1
 A<-c(0,0); B<-c(1,0); C<-c(1/2,sqrt(3)/2);
 CM<-(A+B+C)/3
 T2<-rbind(A,C,CM);
@@ -94,6 +96,8 @@ IndCSTeRACt1(dat[2,],dat[2,])
 
 IndCSTeRACt1(dat2[1,],dat2[3,])
 IndCSTeRACt1(c(1,2),c(1,2))
+
+IndCSTeRACt1(dat[2,],dat[2,])
 }
 
 }

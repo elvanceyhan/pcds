@@ -39,7 +39,7 @@ Te<-rbind(A,B,C);
 CM<-(A+B+C)/3;
 D1<-(B+C)/2; D2<-(A+C)/2; D3<-(A+B)/2;
 Ds<-rbind(D1,D2,D3)
-nx<-100 #try also nx<-100
+nx<-100  #try also nx<-100
 
 #data generation step
 set.seed(1)

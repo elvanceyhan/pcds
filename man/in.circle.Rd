@@ -31,8 +31,7 @@ boundary combined) else it checks if \code{pt} lies in the interior of the circl
 }
 \examples{
 cent<-c(1,1); rad<-1; p<-c(1.4,1.2)
-#try also the following
-#cent<-runif(2); rad<-runif(1); p<-runif(2);
+#try also cent<-runif(2); rad<-runif(1); p<-runif(2);
 
 in.circle(p,cent,rad)
 

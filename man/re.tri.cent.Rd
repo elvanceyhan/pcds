@@ -35,18 +35,10 @@ See also (\insertCite{ceyhan:Phd-thesis,ceyhan:comp-geo-2010,ceyhan:mcap2012,cey
 }
 \examples{
 A<-c(1,1); B<-c(2,0); C<-c(1.5,2);
-#try also the following
-#A<-runif(2); B<-runif(2); C<-runif(2)
-#A<-runif(2,1,100); B<-runif(2,1,100); C<-runif(2,1,100);
-
 Tr<-rbind(A,B,C);
 
 P<-c(1.4,1.2)
-M<-as.numeric(runif.tri(1,Tr)$g)
-#try also the following
-#M<-c(1.6,1.2)
-#M<-circ.cent.tri(Tr); #M<-"CC"; #M<-"CM"
-#M<-c(1,1,1) #M<-c(1,2,3) #M<-c(-1,2,3) #barycentric coordinates
+M<-as.numeric(runif.tri(1,Tr)$g)  #try also M<-c(1.6,1.2)
 
 re.tri.cent(P,Tr,M)
 
@@ -61,11 +53,8 @@ re.tri.cent(B,Tr,M)
 re.tri.cent(C,Tr,M)
 re.tri.cent(M,Tr,M)
 
-n<-10 #try also n<-20
+n<-10  #try also n<-20
 dat<-runif.tri(n,Tr)$g
-#try also the following
-#dat<-cbind(runif(n,1,2),runif(n,0,2))
-#dat<-cbind(runif(n),runif(n))
 
 re<-vector()
 for (i in 1:n)
@@ -102,8 +91,8 @@ L<-Tr; R<-rbind(M,M,M)
 segments(L[,1], L[,2], R[,1], R[,2], lty=2)
 
 txt<-rbind(Tr,M,p1,p2,p3)
-xc<-txt[,1]
-yc<-txt[,2]
+xc<-txt[,1]+c(-.02,.02,.02,.02)
+yc<-txt[,2]+c(.02,.02,.04,.05)
 txt.str<-c("A","B","C","M","re=3","re=1","re=2")
 text(xc,yc,txt.str)
 

@@ -47,7 +47,7 @@ A<-c(0,0,0); B<-c(1,0,0); C<-c(1/2,sqrt(3)/2,0); D<-c(1/2,sqrt(3)/6,sqrt(6)/3)
 tetra<-rbind(A,B,C,D)
 
 n<-20
-dat<-runif.stdtetra(n)$g #try also #dat<-cbind(runif(n),runif(n),runif(n))
+dat<-runif.stdtetra(n)$g  #try also dat<-cbind(runif(n),runif(n),runif(n))
 r<-1.5
 
 P<-c(.4,.1,.2)
@@ -64,8 +64,6 @@ Gam1PEstdTetra(dat[1,],dat,r,rv=RV)
 
 Gam1PEstdTetra(c(-1,-1,-1),dat,r)
 Gam1PEstdTetra(c(-1,-1,-1),c(-1,-1,-1),r)
-
-Gam1PEstdTetra(c(-1,-1,-1),dat,r,ch.data.pnt = TRUE) # p is not a data point
 
 gam.vec<-vector()
 for (i in 1:n)
@@ -98,6 +96,17 @@ CM<-apply(tetra,2,mean)
 D1<-(A+B)/2; D2<-(A+C)/2; D3<-(A+D)/2; D4<-(B+C)/2; D5<-(B+D)/2; D6<-(C+D)/2;
 L<-rbind(D1,D2,D3,D4,D5,D6); R<-matrix(rep(CM,6),ncol=3,byrow=TRUE)
 plot3D::segments3D(L[,1], L[,2], L[,3], R[,1], R[,2],R[,3], add=TRUE,lty=2)
+
+P<-c(.4,.1,.2)
+Gam1PEstdTetra(P,dat,r)
+
+dat.fr<-data.frame(a=dat)
+Gam1PEstdTetra(P,dat.fr,r)
+}
+
+\dontrun{
+Gam1PEstdTetra(c(-1,-1,-1),dat,r,ch.data.pnt = TRUE)
+#gives an error message since p is not a data point
 }
 
 }

@@ -46,11 +46,6 @@ x-coordinates are provided in vector \code{x}.
 }
 \examples{
 A<-c(1.1,1.2); B<-c(2.3,3.4); p<-c(.51,2.5)
-#try also the following
-#A<-runif(2); B<-runif(2); p<-runif(2)
-#A<-runif(2,1,100); B<-runif(2,1,100); p<-runif(2,1,100);
-#A<-c(1,2); B<-c(2,2) #lines are horizontal
-#A<-c(1,1); B<-c(1,2) #lines are vertical
 
 paraline(p,A,B,.45)
 paraline(A,A,B,.45)
@@ -58,7 +53,7 @@ paraline(A,A,B,.45)
 pts<-rbind(A,B,p)
 xr<-range(pts)
 xf<-(xr[2]-xr[1])*.25 #how far to go at the lower and upper ends in the x-coordinate
-x<-seq(xr[1]-xf,xr[2]+xf,l=20) #try also l=100
+x<-seq(xr[1]-xf,xr[2]+xf,l=20)  #try also l=100
 
 plnAB<-paraline(p,A,B,x)
 plnAB

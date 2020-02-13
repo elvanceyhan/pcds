@@ -32,10 +32,6 @@ See also (\insertCite{ceyhan:Phd-thesis,ceyhan:comp-geo-2010,ceyhan:mcap2012;tex
 }
 \examples{
 A<-c(1,1); B<-c(2,0); C<-c(1.5,2);
-#try also the following
-#A<-runif(2); B<-runif(2); C<-runif(2);
-#A<-runif(2,1,100); B<-runif(2,1,100); C<-runif(2,1,100);
-
 Tr<-rbind(A,B,C);
 
 P<-c(1.3,1.2)
@@ -50,7 +46,7 @@ rv.triCC(P,Tr)
 P<-c(.5,.8)
 rv.triCC(P,Tr)
 
-CC<-circ.cent.tri(Tr) #the circumcenter
+CC<-circ.cent.tri(Tr)  #the circumcenter
 D1<-(B+C)/2; D2<-(A+C)/2; D3<-(A+B)/2;
 Ds<-rbind(D1,D2,D3)
 
@@ -65,8 +61,8 @@ L<-matrix(rep(CC,3),ncol=2,byrow=TRUE); R<-Ds
 segments(L[,1], L[,2], R[,1], R[,2], lty=2)
 
 txt<-rbind(Tr,CC,Ds)
-xc<-txt[,1]
-yc<-txt[,2]
+xc<-txt[,1]+c(-.07,.08,.06,.12,-.1,-.1,-.09)
+yc<-txt[,2]+c(.02,-.02,.03,.0,.02,.06,-.04)
 txt.str<-c("A","B","C","CC","D1","D2","D3")
 text(xc,yc,txt.str)
 
@@ -80,11 +76,8 @@ yc<-txt[,2]
 txt.str<-c("rv=1","rv=2","rv=3")
 text(xc,yc,txt.str)
 
-n<-10 #try also n<-20
+n<-10  #try also n<-20
 dat<-runif.tri(n,Tr)$g
-#try also the following
-#dat<-cbind(runif(n,1,2),runif(n,0,2))
-#dat<-cbind(runif(n),runif(n))
 
 Rv<-vector()
 for (i in 1:n)
@@ -104,8 +97,8 @@ segments(L[,1], L[,2], R[,1], R[,2], lty=2)
 text(dat,labels=factor(Rv))
 
 txt<-rbind(Tr,CC,Ds)
-xc<-txt[,1]
-yc<-txt[,2]
+xc<-txt[,1]+c(-.07,.08,.06,.12,-.1,-.1,-.09)
+yc<-txt[,2]+c(.02,-.02,.03,.0,.02,.06,-.04)
 txt.str<-c("A","B","C","CC","D1","D2","D3")
 text(xc,yc,txt.str)
 
