@@ -13,14 +13,14 @@ IndCSTe(pt1, pt2, t, M = c(1, 1, 1), re = NULL)
 \item{pt2}{A 2D point. The function determines whether \code{pt2} is inside the CS proximity region of
 \code{pt1} or not.}
 
-\item{t}{A positive real number which serves as the expansion parameter in CS proximity region}
+\item{t}{A positive real number which serves as the expansion parameter in CS proximity region.}
 
 \item{M}{A 2D point in Cartesian coordinates or a 3D point in barycentric coordinates
 which serves as a center in the interior of the standard equilateral triangle \eqn{T_e}; default is \eqn{M=(1,1,1)} i.e.
-the center of mass of \eqn{T_e}}
+the center of mass of \eqn{T_e}.}
 
 \item{re}{The index of the edge region in \eqn{T_e} containing the point, either 1, 2, 3 or \code{NULL}
-(default is \code{NULL})}
+(default is \code{NULL}).}
 }
 \value{
 I(\code{pt2} is in \eqn{NCS(pt1,t)}) for \code{pt1}, that is, returns 1 if \code{pt2} is in \eqn{NCS(pt1,t)}, returns 0 otherwise

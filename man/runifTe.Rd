@@ -2,15 +2,13 @@
 % Please edit documentation in R/PCDFunctions.r
 \name{runifTe}
 \alias{runifTe}
-\title{An object of class "Uniform":
-
-Generation of Uniform Points in the Standard Equilateral Triangle}
+\title{Generation of Uniform Points in the Standard Equilateral Triangle}
 \usage{
 runifTe(k)
 }
 \arguments{
 \item{k}{A positive integer representing the number of uniform points to be generated in the
-standard equilateral triangle \eqn{T_e}}
+standard equilateral triangle \eqn{T_e}.}
 }
 \value{
 A list with the elements
@@ -27,6 +25,7 @@ of vertices of the support points (here it is 3).}
 \item{xlimit,ylimit}{The ranges of the x- and y-coordinates of the support, \eqn{T_e}}
 }
 \description{
+An object of class "Uniform".
 Generates \code{k} points uniformly in the standard equilateral triangle \eqn{T_e=T(A,B,C)}
 with vertices \eqn{A=(0,0)}, \eqn{B=(1,0)}, and \eqn{C=(1/2,sqrt{3}/2)}.
 }

@@ -2,16 +2,14 @@
 % Please edit documentation in R/PCDFunctions.r
 \name{cl2fVRth}
 \alias{cl2fVRth}
-\title{An object of class "Extrema":
-
-The closest points among a data set in the vertex regions to the respective faces in a tetrahedron}
+\title{The closest points among a data set in the vertex regions to the respective faces in a tetrahedron}
 \usage{
 cl2fVRth(Dt, th, M = "CM")
 }
 \arguments{
-\item{Dt}{A set of 3D points representing the set of data points}
+\item{Dt}{A set of 3D points representing the set of data points.}
 
-\item{th}{Four 3D points, stacked row-wise, each row representing a vertex of the tetrahedron}
+\item{th}{Four 3D points, stacked row-wise, each row representing a vertex of the tetrahedron.}
 
 \item{M}{The center to be used in the construction of the vertex regions in the tetrahedron, \code{th}.
 Currently it only takes "CC" for circumcenter and "CM" for center of mass; default="CM".}
@@ -23,7 +21,7 @@ A list with the elements
 \item{type}{Type of the extrema points}
 \item{desc}{A short description of the extrema points}
 \item{mtitle}{The "main" title for the plot of the exrema}
-\item{Ext}{The extrema points, here, closest points to faces in the respective vertex region.}
+\item{ext}{The extrema points, here, closest points to faces in the respective vertex region.}
 \item{X}{The input data, \code{Dt}, can be a matrix or data frame}
 \item{num.points}{The number of data points, i.e., size of \code{Dt}}
 \item{supp}{Support of the data points, here, it is \code{th}}
@@ -36,6 +34,7 @@ for this function}
 \item{dist2ref}{Distances from closest points in each vertex region to the corresponding face.}
 }
 \description{
+An object of class "Extrema".
 Returns the closest data points among the data set, \code{Dt}, to face i in \code{M}-vertex region \eqn{i} for \eqn{i=1,2,3,4}
 in the tetrahedron \eqn{th=T(A,B,C,D)}. Vertex labels are A=1, B=2, C=3, and D=4 and corresponding face
 labels are BCD=1, ACD=2, ABD=3, and ABC=4.
@@ -60,7 +59,7 @@ plot(Ext)
 cl2fVRth(c(.5,.5,.5),tetra,Cent)
 
 cl2fVRth(Dt,tetra,Cent)
-clf<-cl2fVRth(Dt,tetra,Cent)$Ext
+clf<-cl2fVRth(Dt,tetra,Cent)$ext
 clf
 
 if (Cent=="CC") {M<-circ.cent.tetra(tetra)}

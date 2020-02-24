@@ -20,22 +20,25 @@ Gam3PEtetra(
 )
 }
 \arguments{
-\item{pt1, pt2, pt3}{Three 3D points to be tested for constituting a dominating set of the PE-PCD}
+\item{pt1, pt2, pt3}{Three 3D points to be tested for constituting a dominating set of the PE-PCD.}
 
-\item{Dt}{A set of 3D points which constitutes the vertices of the PE-PCD}
+\item{Dt}{A set of 3D points which constitutes the vertices of the PE-PCD.}
 
-\item{r}{A positive real number which serves as the expansion parameter in PE proximity region; must be \eqn{\ge 1}}
+\item{r}{A positive real number which serves as the expansion parameter in PE proximity region;
+must be \eqn{\ge 1}.}
 
-\item{th}{Four 3D points, stacked row-wise, each row representing a vertex of the tetrahedron}
+\item{th}{Four 3D points, stacked row-wise, each row representing a vertex of the tetrahedron.}
 
 \item{M}{The center to be used in the construction of the vertex regions in the tetrahedron, \code{th}.
-Currently it only takes "CC" for circumcenter and "CM" for center of mass; default="CM"}
+Currently it only takes "CC" for circumcenter and "CM" for center of mass; default="CM".}
 
-\item{rv1, rv2, rv3}{The indices of the vertices whose regions contains \code{pt1}, \code{pt2} and \code{pt3}, respectively.
-They take the vertex labels as 1,2,3,4 as in the row order of the vertices in th ( default is \code{NULL} for all)}
+\item{rv1, rv2, rv3}{The indices of the vertices whose regions contains \code{pt1}, \code{pt2} and \code{pt3},
+respectively.
+They take the vertex labels as 1,2,3,4 as in the row order of the vertices in \code{th}
+( default is \code{NULL} for all).}
 
 \item{ch.data.pnts}{A logical argument for checking whether points \code{pt1} and \code{pt2} are
-data points in \code{Dt} or not (default is \code{FALSE})}
+data points in \code{Dt} or not (default is \code{FALSE}).}
 }
 \value{
 I(\{\code{pt1,pt2,pt3}\} is a dominating set of the PE-PCD) where the vertices of the PE-PCD are the 3D data set \code{Dt}),

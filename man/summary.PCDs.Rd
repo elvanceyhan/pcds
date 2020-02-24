@@ -7,7 +7,7 @@
 \method{summary}{PCDs}(object, ...)
 }
 \arguments{
-\item{object}{Object of class \code{PCDs}}
+\item{object}{Object of class \code{PCDs}.}
 
 \item{\dots}{Additional parameters for \code{summary}.}
 }

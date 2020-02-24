@@ -7,14 +7,14 @@
 NCSint(x, t, c = 0.5, int)
 }
 \arguments{
-\item{x}{A 1D point for which CS proximity region is constructed}
+\item{x}{A 1D point for which CS proximity region is constructed.}
 
-\item{t}{A positive real number which serves as the expansion parameter in CS proximity region}
+\item{t}{A positive real number which serves as the expansion parameter in CS proximity region.}
 
 \item{c}{A positive real number in \eqn{(0,1)} parameterizing the center inside \eqn{int=(a,b)}.
-For the interval, \eqn{int=(a,b)}, the parameterized center is \eqn{M_c=a+c(b-a)}, and default=.5}
+For the interval, \eqn{int=(a,b)}, the parameterized center is \eqn{M_c=a+c(b-a)}, and default=0.5.}
 
-\item{int}{A vector of two real numbers representing an interval}
+\item{int}{A vector of two real numbers representing an interval.}
 }
 \value{
 The interval which constitutes the CS proximity region for the point \code{x}

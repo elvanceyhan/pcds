@@ -21,29 +21,29 @@ plotCSregsInt(
 )
 }
 \arguments{
-\item{dat}{A set of 1D points for which CS proximity regions are to be constructed}
+\item{dat}{A set of 1D points for which CS proximity regions are to be constructed.}
 
-\item{t}{A positive real number which serves as the expansion parameter in CS proximity region}
+\item{t}{A positive real number which serves as the expansion parameter in CS proximity region.}
 
 \item{c}{A positive real number in \eqn{(0,1)} parameterizing the center inside \eqn{int=(a,b)}.
-For the interval, \eqn{int=(a,b)}, the parameterized center is \eqn{M_c=a+c(b-a)}; default=.5}
+For the interval, \eqn{int=(a,b)}, the parameterized center is \eqn{M_c=a+c(b-a)}; default=0.5.}
 
-\item{int}{A vector of two real numbers representing an interval}
+\item{int}{A vector of two real numbers representing an interval.}
 
-\item{Jit}{A positive real number that determines the amount of jitter along the y-axis, default is .1 and
+\item{Jit}{A positive real number that determines the amount of jitter along the y-axis, default is 0.1 and
 \code{dat} points are jittered according to \eqn{U(-Jit,Jit)} distribution along the y-axis where \code{Jit} equals to the range of \code{dat} and proximity region
- intervals multiplied by \code{Jit}.)}
+ intervals multiplied by \code{Jit}).}
 
-\item{main}{Title of the main heading of the plot}
+\item{main}{Title of the main heading of the plot.}
 
-\item{xlab, ylab}{Titles for the x and y axes, respectively (default="" for both)}
+\item{xlab, ylab}{Titles for the x and y axes, respectively (default="" for both).}
 
 \item{xlim, ylim}{Numeric vectors of length 2, giving the x- and y-coordinate ranges.}
 
-\item{centers}{A logical argument, if \code{TRUE}, plot includes the centers of the intervals
+\item{centers}{A logical argument, if \code{TRUE}, plot includes the centers of the intervals.
 as vertical lines in the plot, else centers of the intervals are not plotted.}
 
-\item{\dots}{Additional \code{plot} parameters}
+\item{\dots}{Additional \code{plot} parameters.}
 }
 \value{
 Plot of the CS proximity regions for 1D points in or outside the interval \code{int}

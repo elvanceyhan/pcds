@@ -2,15 +2,15 @@
 % Please edit documentation in R/PCDFunctions.r
 \name{centersMc}
 \alias{centersMc}
-\title{(Parameterized) Centers of intervals}
+\title{Parameterized centers of intervals}
 \usage{
 centersMc(x, c)
 }
 \arguments{
-\item{x}{A vector real numbers that constitute the end points of intervals}
+\item{x}{A vector real numbers that constitute the end points of intervals.}
 
 \item{c}{A positive real number in \eqn{(0,1)} parameterizing the centers inside the intervals.
-For the interval, \eqn{int=(a,b)}, the parameterized center is \eqn{M_c=a+c(b-a)}}
+For the interval, \eqn{int=(a,b)}, the parameterized center is \eqn{M_c=a+c(b-a)}.}
 }
 \value{
 (parameterized) centers of the intervals based on \code{x} points as a vector

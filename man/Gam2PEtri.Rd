@@ -18,23 +18,25 @@ Gam2PEtri(
 )
 }
 \arguments{
-\item{pt1, pt2}{Two 2D points to be tested for constituting a dominating set of the PE-PCD}
+\item{pt1, pt2}{Two 2D points to be tested for constituting a dominating set of the PE-PCD.}
 
-\item{Dt}{A set of 2D points which constitutes the vertices of the PE-PCD}
+\item{Dt}{A set of 2D points which constitutes the vertices of the PE-PCD.}
 
-\item{tri}{Three 2D points, stacked row-wise, each row representing a vertex of the triangle}
+\item{tri}{Three 2D points, stacked row-wise, each row representing a vertex of the triangle.}
 
-\item{r}{A positive real number which serves as the expansion parameter in PE proximity region; must be \eqn{\ge 1}}
+\item{r}{A positive real number which serves as the expansion parameter in PE proximity region;
+must be \eqn{\ge 1}.}
 
 \item{M}{A 2D point in Cartesian coordinates or a 3D point in barycentric coordinates
 which serves as a center in the interior of the triangle \code{tri} or the circumcenter of \code{tri};
-default is \eqn{M=(1,1,1)} i.e. the center of mass of \code{tri}}
+default is \eqn{M=(1,1,1)} i.e. the center of mass of \code{tri}.}
 
 \item{rv1, rv2}{The indices of the vertices whose regions contains \code{pt1} and \code{pt2}, respectively.
-They take the vertex labels as 1,2,3 as in the row order of the vertices in \code{tri} (default is \code{NULL} for both)}
+They take the vertex labels as 1,2,3 as in the row order of the vertices in \code{tri}
+(default is \code{NULL} for both).}
 
 \item{ch.data.pnts}{A logical argument for checking whether points \code{pt1} and \code{pt2} are
-data points in \code{Dt} or not (default is \code{FALSE})}
+data points in \code{Dt} or not (default is \code{FALSE}).}
 }
 \value{
 I(\{\code{pt1,pt2}\} is a dominating set of the PE-PCD) where the vertices of the PE-PCD are the 2D data set \code{Dt}),

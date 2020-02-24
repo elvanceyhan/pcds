@@ -8,17 +8,18 @@
 IndCSdomUBtri(Dt, k, t, tri, M = c(1, 1, 1))
 }
 \arguments{
-\item{Dt}{A set of 2D points which constitute the vertices of CS-PCD}
+\item{Dt}{A set of 2D points which constitute the vertices of CS-PCD.}
 
-\item{k}{A positive integer to be tested for an upper bound for the domination number of CS-PCDs}
+\item{k}{A positive integer to be tested for an upper bound for the domination number of CS-PCDs.}
 
 \item{t}{A positive real number which serves as the expansion parameter in CS proximity region in the
-triangle \code{tri}}
+triangle \code{tri}.}
 
-\item{tri}{Three 2D points, stacked row-wise, each row representing a vertex of the triangle}
+\item{tri}{Three 2D points, stacked row-wise, each row representing a vertex of the triangle.}
 
 \item{M}{A 2D point in Cartesian coordinates or a 3D point in barycentric coordinates which serves as a
-center in the interior of the triangle \code{tri}; default is \eqn{M=(1,1,1)} i.e. the center of mass of \code{tri}}
+center in the interior of the triangle \code{tri}; default is \eqn{M=(1,1,1)}, i.e.
+the center of mass of \code{tri}.}
 }
 \value{
 A list with two elements

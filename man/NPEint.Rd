@@ -7,14 +7,15 @@
 NPEint(x, r, c = 0.5, int)
 }
 \arguments{
-\item{x}{A 1D point for which PE proximity region is constructed}
+\item{x}{A 1D point for which PE proximity region is constructed.}
 
-\item{r}{A positive real number which serves as the expansion parameter in PE proximity region; must be \eqn{\ge 1}}
+\item{r}{A positive real number which serves as the expansion parameter in PE proximity region;
+must be \eqn{\ge 1}.}
 
 \item{c}{A positive real number in \eqn{(0,1)} parameterizing the center inside \eqn{int=(a,b)}.
-For the interval, \eqn{int=(a,b)}, the parameterized center is \eqn{M_c=a+c(b-a)}, and default=.5}
+For the interval, \eqn{int=(a,b)}, the parameterized center is \eqn{M_c=a+c(b-a)}, and default=0.5}
 
-\item{int}{A vector of two real numbers representing an interval}
+\item{int}{A vector of two real numbers representing an interval.}
 }
 \value{
 The interval which constitutes the PE proximity region for the point \code{x}

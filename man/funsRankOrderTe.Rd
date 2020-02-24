@@ -4,25 +4,28 @@
 \alias{funsRankOrderTe}
 \alias{rank.d2e.Te}
 \alias{order.d2e.Te}
-\title{Two functions: \code{rank.d2e.Te} and \code{order.d2e.Te} ---
-
-Returns the ranks and orders of points in decreasing distance to the edges of the triangle.}
+\title{Returns the ranks and orders of points in decreasing distance to the edges of the triangle}
 \usage{
 rank.d2e.Te(Dt, dec = TRUE)
 
 order.d2e.Te(Dt, dec = TRUE)
 }
 \arguments{
-\item{Dt}{A set of 2D points}
+\item{Dt}{A set of 2D points representing the data set in which ranking in terms of the distance
+to the edges of \eqn{T_e} is performed.}
 
-\item{dec}{A logical argument}
+\item{dec}{A logical argument indicating the how the ranking will be performed. If \code{TRUE},
+the ranks are for decreasing distances,and if \code{FALSE} they will be in increasing distances,
+default is \code{TRUE}.}
 }
 \value{
 A list with two elements
-\item{distances}{Distances from data points to the edges of \eqn{T_e}.}
-\item{dist.rank}{The ranks of the data points in decreasing distances to the edges of \eqn{T_e}.}
+\item{distances}{Distances from data points to the edges of \eqn{T_e}}
+\item{dist.rank}{The ranks of the data points in decreasing distances to the edges of \eqn{T_e}}
 }
 \description{
+Two functions: \code{rank.d2e.Te} and \code{order.d2e.Te}.
+
 \code{rank.d2e.Te} finds the ranks of the distances of points in data, \code{Dt}, to the edges of the standard equilateral triangle
 \eqn{T_e=T((0,0),(1,0),(1/2,\sqrt{3}/2))}
 

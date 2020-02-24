@@ -2,16 +2,14 @@
 % Please edit documentation in R/PCDFunctions.r
 \name{runif.tetra}
 \alias{runif.tetra}
-\title{An object of class "Uniform":
-
-Generation of Uniform Points in a tetrahedron}
+\title{Generation of Uniform Points in a tetrahedron}
 \usage{
 runif.tetra(k, th)
 }
 \arguments{
-\item{k}{A positive integer representing the number of uniform points to be generated in the tetrahedron}
+\item{k}{A positive integer representing the number of uniform points to be generated in the tetrahedron.}
 
-\item{th}{Four 3D points, stacked row-wise, each row representing a vertex of the tetrahedron}
+\item{th}{Four 3D points, stacked row-wise, each row representing a vertex of the tetrahedron.}
 }
 \value{
 A list with the elements
@@ -28,7 +26,8 @@ of vertices of the support points (here it is 4).}
 \item{xlimit, ylimit, zlimit}{The ranges of the x-, y- and z-coordinates of the support, \code{th}}
 }
 \description{
-Generates \code{k} points uniformly in the general tetrahedron \code{th} whose vertices are stacked row-wise
+An object of class "Uniform".
+Generates \code{k} points uniformly in the general tetrahedron \code{th} whose vertices are stacked row-wise.
 }
 \examples{
 \donttest{

@@ -2,21 +2,21 @@
 % Please edit documentation in R/PCDFunctions.r
 \name{perp.ln2pl}
 \alias{perp.ln2pl}
-\title{An object of class "Lines3D":
-
-The line crossing the 3D point \code{P} and perpendicular to the plane spanned by 3D points \code{A}, \code{B}, and \code{C}}
+\title{The line crossing the 3D point \code{P} and perpendicular to the plane spanned by 3D points \code{A},
+\code{B}, and \code{C}}
 \usage{
 perp.ln2pl(P, A, B, C, t)
 }
 \arguments{
-\item{P}{A 3D point through which the straight line passes}
+\item{P}{A 3D point through which the straight line passes.}
 
 \item{A, B, C}{3D points which determine the plane to which the line passing through point \code{P} would be
 perpendicular (i.e. the normal vector of this plane determines the direction of the straight line
-passing through \code{P})}
+passing through \code{P}).}
 
 \item{t}{A scalar or a vector of scalars representing the parameter of the coordinates of the line
-(for the form: \eqn{x=x_0 + a t}, \eqn{y=y_0 + b t}, and \eqn{z=z_0 + c t}  where \eqn{P=(x_0,y_0,z_0)} and normal vector=(a,b,c))}
+(for the form: \eqn{x=x_0 + a t}, \eqn{y=y_0 + b t}, and \eqn{z=z_0 + c t}  where \eqn{P=(x_0,y_0,z_0)}
+and normal vector=(a,b,c)).}
 }
 \value{
 A list with the elements
@@ -37,6 +37,7 @@ points \code{A}, \code{B}, and \code{C} (i.e., line is in the direction of the n
 is in the form: \eqn{x=x_0 + a t}, \eqn{y=y_0 + b t}, and \eqn{z=z_0 + c t} where \eqn{P=(x_0,y_0,z_0)} and normal vector=(a,b,c).}
 }
 \description{
+An object of class "Lines3D".
 Returns the equation, x-, y-, and z-coordinates of the line crossing 3D point \code{P} and perpendicular to the plane
 spanned by 3D points \code{A}, \code{B}, and \code{C} (i.e., the line is in the direction of normal vector of this plane)
 with the parameter \code{t} being provided in vector \code{t}.

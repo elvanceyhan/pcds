@@ -7,13 +7,13 @@
 IncMatASMT(Xp, Yp, M = "CC")
 }
 \arguments{
-\item{Xp}{A set of 2D points which constitute the vertices of the AS-PCD}
+\item{Xp}{A set of 2D points which constitute the vertices of the AS-PCD.}
 
-\item{Yp}{A set of 2D points which constitute the vertices of the Delaunay triangles}
+\item{Yp}{A set of 2D points which constitute the vertices of the Delaunay triangles.}
 
-\item{M}{"CC" which stands for circumcenter of each Delaunay triangle \code{tri} or 3D point in barycentric
+\item{M}{The center of the triangle. "CC" stands for circumcenter of each Delaunay triangle \code{tri} or 3D point in barycentric
 coordinates which serves as a center in the interior of each Delaunay triangle;
-default is \code{M}="CC" i.e. the circumcenter of each triangle}
+default is \code{M}="CC" i.e. the circumcenter of each triangle.}
 }
 \value{
 Incidence matrix for the AS-PCD whose vertices are the 2D data set, \code{Xp},

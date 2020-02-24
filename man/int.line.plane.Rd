@@ -7,9 +7,9 @@
 int.line.plane(x1, x2, x3, x4, x5)
 }
 \arguments{
-\item{x1, x2}{3D points that determine the straight line (i.e., through which the straight line passes)}
+\item{x1, x2}{3D points that determine the straight line (i.e., through which the straight line passes).}
 
-\item{x3, x4, x5}{3D points that determine the plane (i.e., through which the plane passes)}
+\item{x3, x4, x5}{3D points that determine the plane (i.e., through which the plane passes).}
 }
 \value{
 The coordinates of the point of intersection the line determined by the 3D points \code{x1} and \code{x2} and the

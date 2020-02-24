@@ -7,18 +7,20 @@
 NPEbastri(pt, r, c1, c2, M = c(1, 1, 1), rv = NULL)
 }
 \arguments{
-\item{pt}{A 2D point whose PE proximity region is to be computed}
+\item{pt}{A 2D point whose PE proximity region is to be computed.}
 
-\item{r}{A positive real number which serves as the expansion parameter in PE proximity region; must be \eqn{\ge 1}}
+\item{r}{A positive real number which serves as the expansion parameter in PE proximity region;
+must be \eqn{\ge 1}.}
 
 \item{c1, c2}{Positive real numbers representing the top vertex in basic triangle \eqn{T_b=T((0,0),(1,0),(c_1,c_2))},
-\code{c1} must be in \eqn{[0,1/2]}, \eqn{c_2>0} and \eqn{(1-c_1)^2+c_2^2 \le 1}}
+\code{c1} must be in \eqn{[0,1/2]}, \eqn{c_2>0} and \eqn{(1-c_1)^2+c_2^2 \le 1}.}
 
 \item{M}{A 2D point in Cartesian coordinates or a 3D point in barycentric coordinates
 which serves as a center in the interior of the basic triangle \eqn{T_b} or the circumcenter of \eqn{T_b};
-default is \eqn{M=(1,1,1)} i.e. the center of mass of \eqn{T_b}}
+default is \eqn{M=(1,1,1)} i.e. the center of mass of \eqn{T_b}.}
 
-\item{rv}{Index of the \code{M}-vertex region containing the point \code{pt}, either 1, 2, 3 or \code{NULL} (default is \code{NULL})}
+\item{rv}{Index of the \code{M}-vertex region containing the point \code{pt}, either 1, 2, 3 or \code{NULL}
+(default is \code{NULL}).}
 }
 \value{
 Vertices of the triangular region which constitutes the PE proximity region with expansion parameter

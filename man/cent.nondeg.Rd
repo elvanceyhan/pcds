@@ -8,10 +8,10 @@ Proportional Edge Proximity Catch Digraphs (PE-PCDs)}
 cent.nondeg(tri, r)
 }
 \arguments{
-\item{tri}{Three 2D points, stacked row-wise, each row representing a vertex of the triangle}
+\item{tri}{Three 2D points, stacked row-wise, each row representing a vertex of the triangle.}
 
 \item{r}{A positive real number which serves as the expansion parameter in PE proximity region;
-must be in \eqn{(1,1.5]} for this function}
+must be in \eqn{(1,1.5]} for this function.}
 }
 \value{
 The centers (stacked row-wise) which give nondegenerate asymptotic distribution

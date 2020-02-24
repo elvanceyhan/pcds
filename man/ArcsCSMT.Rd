@@ -2,21 +2,19 @@
 % Please edit documentation in R/PCDFunctions.r
 \name{ArcsCSMT}
 \alias{ArcsCSMT}
-\title{An object of class "PCDs":
-
-The arcs of Central Similarity Proximity Catch Digraph (CS-PCD) for 2D data - multiple triangle case}
+\title{The arcs of Central Similarity Proximity Catch Digraph (CS-PCD) for 2D data - multiple triangle case}
 \usage{
 ArcsCSMT(Xp, Yp, tau, M = c(1, 1, 1))
 }
 \arguments{
-\item{Xp}{A set of 2D points which constitute the vertices of the CS-PCD}
+\item{Xp}{A set of 2D points which constitute the vertices of the CS-PCD.}
 
-\item{Yp}{A set of 2D points which constitute the vertices of the Delaunay triangles}
+\item{Yp}{A set of 2D points which constitute the vertices of the Delaunay triangles.}
 
-\item{tau}{A positive real number which serves as the expansion parameter in CS proximity region}
+\item{tau}{A positive real number which serves as the expansion parameter in CS proximity region.}
 
 \item{M}{A 3D point in barycentric coordinates which serves as a center in the interior of each Delaunay
-triangle, default for \eqn{M=(1,1,1)} which is the center of mass of each triangle}
+triangle, default for \eqn{M=(1,1,1)} which is the center of mass of each triangle.}
 }
 \value{
 A list with the elements
@@ -27,13 +25,14 @@ is Delaunay triangulation based on \code{Yp} points.}
 \item{tess.name}{Name of data set used in tessellation, it is \code{Yp} for this function}
 \item{vertices}{Vertices of the digraph, \code{Xp} points}
 \item{vert.name}{Name of the data set which constitute the vertices of the digraph}
-\item{S}{tails (or sources) of the arcs of CS-PCD for 2D data set \code{Xp} as vertices of the digraph}
-\item{E}{heads (or arrow ends) of the arcs of CS-PCD for 2D data set \code{Xp} as vertices of the digraph}
+\item{S}{Tails (or sources) of the arcs of CS-PCD for 2D data set \code{Xp} as vertices of the digraph}
+\item{E}{Heads (or arrow ends) of the arcs of CS-PCD for 2D data set \code{Xp} as vertices of the digraph}
 \item{mtitle}{Text for "main" title in the plot of the digraph}
 \item{quant}{Various quantities for the digraph: number of vertices, number of partition points,
 number of intervals, number of arcs, and arc density.}
 }
 \description{
+An object of class "PCDs".
 Returns arcs as tails (or sources) and heads (or arrow ends) of Central Similarity Proximity Catch Digraph
 (CS-PCD) whose vertices are the data points in \code{Xp} in the multiple triangle case.
 

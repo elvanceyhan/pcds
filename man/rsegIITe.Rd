@@ -2,17 +2,15 @@
 % Please edit documentation in R/PCDFunctions.r
 \name{rsegIITe}
 \alias{rsegIITe}
-\title{An object of class "Patterns":
-
-Generation of points segregated (in a Type II fashion) from the vertices of \eqn{T_e}}
+\title{Generation of points segregated (in a Type II fashion) from the vertices of \eqn{T_e}}
 \usage{
 rsegIITe(k, eps)
 }
 \arguments{
-\item{k}{A positive integer representing the number of points to be generated}
+\item{k}{A positive integer representing the number of points to be generated.}
 
 \item{eps}{A positive real number representing the parameter of type II segregation (which is the
-distance from the interior triangle to \eqn{T_e}.)}
+distance from the interior triangle to \eqn{T_e}).}
 }
 \value{
 A list with the elements
@@ -32,6 +30,7 @@ the number of reference (i.e., \code{Y}) points, which is 3 here.}
 vertices of \eqn{T_e} here}
 }
 \description{
+An object of class "Patterns".
 Generates \code{k} points uniformly in the standard equilateral triangle \eqn{T_e=T((0,0),(1,0),(1/2,\sqrt{3}/2))}
 under the type II segregation alternative for \code{eps} in \eqn{(0,\sqrt{3}/6=0.2886751]}.
 

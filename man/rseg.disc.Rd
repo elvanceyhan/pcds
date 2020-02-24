@@ -2,9 +2,7 @@
 % Please edit documentation in R/PCDFunctions.r
 \name{rseg.disc}
 \alias{rseg.disc}
-\title{An object of class "Patterns":
-
-Generation of points segregated (in a radial or circular fashion) from a given set of points}
+\title{Generation of points segregated (in a radial or circular fashion) from a given set of points}
 \usage{
 rseg.disc(
   n,
@@ -17,20 +15,20 @@ rseg.disc(
 )
 }
 \arguments{
-\item{n}{A positive integer representing the number of points to be generated}
+\item{n}{A positive integer representing the number of points to be generated.}
 
 \item{Y}{A set of 2D points representing the reference points. The generated points are segregated
 (in a circular/radial fashion) from these points.}
 
 \item{e}{A positive real number representing the radius of the balls centered at \code{Y} points. These balls
 are forbidden for the generated points (i.e., generated points would be in the complement of union of these
-balls)}
+balls).}
 
 \item{a1, a2}{Real numbers representing the range of x-coordinates in the region
-(default is the range of x-coordinates of the \code{Y} points)}
+(default is the range of x-coordinates of the \code{Y} points).}
 
 \item{b1, b2}{Real numbers representing the range of y-coordinates in the region
-(default is the range of y-coordinates of the \code{Y} points)}
+(default is the range of y-coordinates of the \code{Y} points).}
 }
 \value{
 A list with the elements
@@ -48,6 +46,7 @@ the number of reference (i.e., \code{Y}) points.}
 \item{xlimit,ylimit}{The possible ranges of the x- and y-coordinates of the generated points}
 }
 \description{
+An object of class "Patterns".
 Generates \code{n} 2D points uniformly in \eqn{(a1-e,a1+e)x(a1-e,a1+e) \setminus B(y_i,e)} where
 \eqn{Y=(y_1,y_2,...,y_{n_y})} with \eqn{n_y} being number of \code{Y} points for various values of \code{e}
 under the segregation pattern and \eqn{B(y_i,e)} is the ball centered at \eqn{y_i} with radius \code{e}.

@@ -4,9 +4,7 @@
 \alias{funsMuVarPEend1D}
 \alias{muPEend1D}
 \alias{asyvarPEend1D}
-\title{Two functions: \code{muPEend1D} and \code{asyvarPEend1D} ---
-
-Returns the mean and (asymptotic) variance of arc density of Proportional Edge Proximity Catch Digraph (PE-PCD)
+\title{Returns the mean and (asymptotic) variance of arc density of Proportional Edge Proximity Catch Digraph (PE-PCD)
 for 1D data - end interval case}
 \usage{
 muPEend1D(r)
@@ -14,13 +12,16 @@ muPEend1D(r)
 asyvarPEend1D(r)
 }
 \arguments{
-\item{r}{A positive real number which serves as the expansion parameter in PE proximity region; must be \eqn{\ge 1}}
+\item{r}{A positive real number which serves as the expansion parameter in PE proximity region;
+must be \eqn{\ge 1}.}
 }
 \value{
 \code{muPEend1D} returns the mean and \code{asyvarPEend1D} returns the asymptotic variance of the
 arc density of PE-PCD for uniform data in end intervals
 }
 \description{
+Two functions: \code{muPEend1D} and \code{asyvarPEend1D}.
+
 \code{muPEend1D} returns the mean of the arc density of PE-PCD
 and \code{asyvarPEend1D} returns the asymptotic variance of the arc density of PE-PCD
 for a given expansion parameter \eqn{r \ge 1} for 1D uniform data in the left and right end intervals

@@ -7,9 +7,10 @@
 seg.tri.supp(delta, tri)
 }
 \arguments{
-\item{delta}{a positive real number between 0 and 1}
+\item{delta}{A positive real number between 0 and 1 that determines the percentage of area of the triangle
+around the vertices forbidden for point generation.}
 
-\item{tri}{Three 2D points, stacked row-wise, each row representing a vertex of the triangle}
+\item{tri}{Three 2D points, stacked row-wise, each row representing a vertex of the triangle.}
 }
 \value{
 the vertices of the triangle (stacked row-wise) whose intersection with a general triangle
@@ -17,11 +18,11 @@ gives the support for type I segregation for the given \code{delta}
 }
 \description{
 Returns the triangle whose intersection with a general triangle gives the support for
-type I segregation given the \code{delta} (i.e., \eqn{\delta 100} \% area of a triangle around the vertices is chopped off).
-See the plot in the examples.
+type I segregation given the \code{delta} (i.e., \eqn{\delta 100} \% area of a triangle around the
+vertices is chopped off). See the plot in the examples.
 
-Caveat: the vertices of this triangle may be outside the triangle, \code{tri}, depending on the value of \code{delta}
-(i.e., for small values of \code{delta})
+Caveat: the vertices of this triangle may be outside the triangle, \code{tri}, depending on the value of
+\code{delta} (i.e., for small values of \code{delta}).
 }
 \examples{
 \donttest{

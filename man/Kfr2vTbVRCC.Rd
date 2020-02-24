@@ -2,21 +2,21 @@
 % Please edit documentation in R/PCDFunctions.r
 \name{Kfr2vTbVRCC}
 \alias{Kfr2vTbVRCC}
-\title{An object of class "Extrema":
-
-The \code{k} furthest points from vertices in each CC-vertex region in a basic triangle}
+\title{The \code{k} furthest points from vertices in each CC-vertex region in a basic triangle}
 \usage{
 Kfr2vTbVRCC(Dt, c1, c2, k, ch.all.intri = FALSE)
 }
 \arguments{
-\item{Dt}{A set of 2D points}
+\item{Dt}{A set of 2D points representing the set of data points.}
 
-\item{c1, c2}{Positive real numbers which constitute the vertex of the basic triangle
+\item{c1, c2}{Positive real numbers which constitute the vertex of the basic triangle.
 adjacent to the shorter edges; \code{c1} must be in \eqn{[0,1/2]}, \eqn{c_2>0} and \eqn{(1-c_1)^2+c_2^2 \le 1}}
 
-\item{k}{A positive integer}
+\item{k}{A positive integer. \code{k} furthest data points in each CC-vertex region are to be found if exists, else
+\code{NA} are provided for (some of) the \code{k} furthest points.}
 
-\item{ch.all.intri}{A logical argument for checking whether all data points are inside \eqn{T_b} (default is \code{FALSE})}
+\item{ch.all.intri}{A logical argument for checking whether all data points are inside \eqn{T_b}
+(default is \code{FALSE}).}
 }
 \value{
 A list with the elements
@@ -25,7 +25,7 @@ A list with the elements
 \item{type}{Type of the extrema points}
 \item{desc}{A short description of the extrema points}
 \item{mtitle}{The "main" title for the plot of the exrema}
-\item{Ext}{The extrema points, here, \code{k} furthest points from vertices in each vertex region.}
+\item{ext}{The extrema points, here, \code{k} furthest points from vertices in each vertex region.}
 \item{X}{The input data, \code{Dt}, can be a matrix or data frame}
 \item{num.points}{The number of data points, i.e., size of \code{Dt}}
 \item{supp}{Support of the data points, here, it is \eqn{T_b}.}
@@ -38,6 +38,7 @@ A list with the elements
 (each row representing a vertex).}
 }
 \description{
+An object of class "Extrema".
 Returns the \code{k} furthest data points among the data set, \code{Dt}, in each CC-vertex region from the vertex in the
 basic triangle \eqn{T_b=T(A=(0,0),B=(1,0),C=(c_1,c_2))}.
 
@@ -47,7 +48,7 @@ original triangle. Hence basic triangle is useful for simulation
 studies under the uniformness hypothesis.
 
 \code{ch.all.intri} is for checking whether all data points are inside \eqn{T_b} (default is \code{FALSE}).
-In the extrema, \eqn{Ext}, in the output, the first \code{k} entries are the \code{k} furthest points from vertex 1,
+In the extrema, \eqn{ext}, in the output, the first \code{k} entries are the \code{k} furthest points from vertex 1,
 second \code{k} entries are \code{k} furthest points are from vertex 2, and
 last \code{k} entries are the \code{k} furthest points from vertex 3
 }
@@ -86,7 +87,7 @@ polygon(Tb)
 L<-matrix(rep(CC,3),ncol=2,byrow=TRUE); R<-Ds
 segments(L[,1], L[,2], R[,1], R[,2], lty=2)
 points(dat)
-points(kf2v$Ext,pch=4,col=2)
+points(kf2v$ext,pch=4,col=2)
 
 txt<-rbind(Tb,CC,Ds)
 xc<-txt[,1]+c(-.03,.03,.02,.07,.06,-.05,.01)

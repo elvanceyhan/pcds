@@ -9,7 +9,7 @@ Pg2PE1D.asy(c)
 }
 \arguments{
 \item{c}{A positive real number in \eqn{(0,1)} parameterizing the center inside \eqn{int=(a,b)}.
-For the interval, \eqn{int=(a,b)}, the parameterized center is \eqn{M_c=a+c(b-a)}}
+For the interval, \eqn{int=(a,b)}, the parameterized center is \eqn{M_c=a+c(b-a)}.}
 }
 \value{
 The asymptotic P(domination number=2) for PE-PCD whose vertices are a uniform data set in a finite

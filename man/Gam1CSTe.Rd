@@ -8,14 +8,14 @@
 Gam1CSTe(p, Dt, t, ch.data.pnt = FALSE)
 }
 \arguments{
-\item{p}{A 2D point that is to be tested for being a dominating point or not of the CS-PCD}
+\item{p}{A 2D point that is to be tested for being a dominating point or not of the CS-PCD.}
 
-\item{Dt}{A set of 2D points which constitutes the vertices of the CS-PCD}
+\item{Dt}{A set of 2D points which constitutes the vertices of the CS-PCD.}
 
-\item{t}{A positive real number which serves as the expansion parameter in CS proximity region}
+\item{t}{A positive real number which serves as the expansion parameter in CS proximity region.}
 
 \item{ch.data.pnt}{A logical argument for checking whether point \code{p} is a data point
-in \code{Dt} or not (default is \code{FALSE})}
+in \code{Dt} or not (default is \code{FALSE}).}
 }
 \value{
 I(\code{p} is a dominating point of the CS-PCD) where the vertices of the CS-PCD are the 2D data set \code{Dt},

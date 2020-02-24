@@ -13,14 +13,16 @@ IndNPEtetra(pt1, pt2, r, th, M = "CM", rv = NULL)
 \item{pt2}{A 3D point. The function determines whether \code{pt2} is inside the PE proximity region of
 \code{pt1} or not.}
 
-\item{r}{A positive real number which serves as the expansion parameter in PE proximity region; must be \eqn{\ge 1}}
+\item{r}{A positive real number which serves as the expansion parameter in PE proximity region;
+must be \eqn{\ge 1}.}
 
-\item{th}{Four 3D points, stacked row-wise, each row representing a vertex of the tetrahedron}
+\item{th}{Four 3D points, stacked row-wise, each row representing a vertex of the tetrahedron.}
 
 \item{M}{The center to be used in the construction of the vertex regions in the tetrahedron, \code{th}.
-Currently it only takes "CC" for circumcenter and "CM" for center of mass; default="CM"}
+Currently it only takes "CC" for circumcenter and "CM" for center of mass; default="CM".}
 
-\item{rv}{Index of the \code{M}-vertex region containing the point, either 1, 2, 3, 4 (defualt is \code{NULL})}
+\item{rv}{Index of the \code{M}-vertex region containing the point, either 1, 2, 3, 4
+(defualt is \code{NULL}).}
 }
 \value{
 I(\code{pt2} is in \eqn{NPE(pt1,r)}) for \code{pt1}, that is, returns 1 if \code{pt2} is in \eqn{NPE(pt1,r)}, returns 0 otherwise

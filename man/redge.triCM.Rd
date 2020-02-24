@@ -7,9 +7,9 @@
 redge.triCM(pt, tri)
 }
 \arguments{
-\item{pt}{A 2D point for which CM-edge region it resides in is to be determined in the triangle \code{tri}}
+\item{pt}{A 2D point for which CM-edge region it resides in is to be determined in the triangle \code{tri}.}
 
-\item{tri}{Three 2D points, stacked row-wise, each row representing a vertex of the triangle}
+\item{tri}{Three 2D points, stacked row-wise, each row representing a vertex of the triangle.}
 }
 \value{
 The CM-edge region that contains point, \code{pt}  in the triangle \code{tri}. The related edges are given as

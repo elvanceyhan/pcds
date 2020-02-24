@@ -7,9 +7,7 @@
 \alias{Gam4CSTe}
 \alias{Gam5CSTe}
 \alias{Gam6CSTe}
-\title{Four indicator functions: Gam2CSTe, Gam3CSTe, Gam4CSTe, Gam5CSTe and Gam6CSTe ---
-
-GamkCSTe is for \eqn{k} (\eqn{k=2,3,4,5}) points constituting a dominating set for Central Similarity
+\title{The function \code{GamkCSTe} is for \eqn{k} (\eqn{k=2,3,4,5}) points constituting a dominating set for Central Similarity
 Proximity Catch Digraphs (CS-PCDs) - standard equilateral triangle case}
 \usage{
 Gam2CSTe(pt1, pt2, Dt, t, ch.data.pnts = FALSE)
@@ -23,15 +21,15 @@ Gam5CSTe(pt1, pt2, pt3, pt4, pt5, Dt, t, ch.data.pnts = FALSE)
 Gam6CSTe(pt1, pt2, pt3, pt4, pt5, pt6, Dt, t, ch.data.pnts = FALSE)
 }
 \arguments{
-\item{pt1, pt2, pt3, pt4, pt5, pt6}{The points \{\eqn{pt1,...,ptk}\} are \eqn{k} 2D points (for \eqn{k=2,3,4,5,6}) to be
-tested for constituting a dominating set of the CS-PCD}
+\item{pt1, pt2, pt3, pt4, pt5, pt6}{The points \{\eqn{pt1,...,ptk}\} are \eqn{k} 2D points
+(for \eqn{k=2,3,4,5,6}) to be tested for constituting a dominating set of the CS-PCD.}
 
-\item{Dt}{A set of 2D points which constitutes the vertices of the CS-PCD}
+\item{Dt}{A set of 2D points which constitutes the vertices of the CS-PCD.}
 
-\item{t}{A positive real number which serves as the expansion parameter in CS proximity region}
+\item{t}{A positive real number which serves as the expansion parameter in CS proximity region.}
 
 \item{ch.data.pnts}{A logical argument for checking whether points \{\eqn{pt1,...,ptk}\} are
-data points in \code{Dt} or not (default is \code{FALSE})}
+data points in \code{Dt} or not (default is \code{FALSE}).}
 }
 \value{
 The function GamkCSTe returns \{\code{pt1},...,\code{ptk}\} is a dominating set of the CS-PCD) where
@@ -39,7 +37,9 @@ vertices of the CS-PCD are the 2D data set \code{Dt}), that is, returns 1 if \{\
 is a dominating set of CS-PCD, returns 0 otherwise.
 }
 \description{
-The function GamkCSTe returns I(\{\code{pt1},...,\code{ptk}\} is a dominating set of the CS-PCD)
+Four indicator functions: \code{Gam2CSTe}, \code{Gam3CSTe}, \code{Gam4CSTe}, \code{Gam5CSTe} and \code{Gam6CSTe}.
+
+The function \code{GamkCSTe} returns I(\{\code{pt1},...,\code{ptk}\} is a dominating set of the CS-PCD)
 where vertices of CS-PCD are the 2D data set \code{Dt}, that is, returns 1 if \{\code{pt1},...,\code{ptk}\}
 is a dominating set of CS-PCD, returns 0 otherwise for \eqn{k=2,3,4,5,6}.
 

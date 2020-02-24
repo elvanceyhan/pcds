@@ -2,16 +2,14 @@
 % Please edit documentation in R/PCDFunctions.r
 \name{cl2CC.VR}
 \alias{cl2CC.VR}
-\title{An object of class "Extrema":
-
-The closest points to circumcenter in each CC-vertex region in a triangle}
+\title{The closest points to circumcenter in each CC-vertex region in a triangle}
 \usage{
 cl2CC.VR(Dt, tri, ch.all.intri = FALSE)
 }
 \arguments{
-\item{Dt}{A set of 2D points representing the set of data points}
+\item{Dt}{A set of 2D points representing the set of data points.}
 
-\item{tri}{Three 2D points, stacked row-wise, each row representing a vertex of the triangle}
+\item{tri}{Three 2D points, stacked row-wise, each row representing a vertex of the triangle.}
 
 \item{ch.all.intri}{A logical argument (default=\code{FALSE}) to check whether all data points are inside
 the triangle \code{tri}. So if it is \code{TRUE},
@@ -24,7 +22,7 @@ A list with the elements
 \item{txt2}{A short description of the distances as "Distances to CC ..."}
 \item{type}{Type of the extrema points}
 \item{mtitle}{The "main" title for the plot of the exrema}
-\item{Ext}{The extrema points, here, closest points to CC in each CC-vertex region}
+\item{ext}{The extrema points, here, closest points to CC in each CC-vertex region}
 \item{X}{The input data, \code{Dt}, can be a matrix or data frame}
 \item{num.points}{The number of data points, i.e., size of \code{Dt}}
 \item{supp}{Support of the data points, here, it is \code{tri}}
@@ -36,6 +34,7 @@ A list with the elements
 \item{dist2ref}{Distances from closest points in each CC-vertex region to CC.}
 }
 \description{
+An object of class "Extrema".
 Returns the closest data points among the data set, \code{Dt}, to circumcenter, CC, in each CC-vertex region
 in the triangle \eqn{tri=T(A,B,C)}=(vertex 1,vertex 2,vertex 3).
 
@@ -79,7 +78,7 @@ polygon(Tr)
 points(dat)
 L<-matrix(rep(CC,3),ncol=2,byrow=TRUE); R<-Ds
 segments(L[,1], L[,2], R[,1], R[,2], lty=2)
-points(c2CC$Ext,pch=4,col=2)
+points(c2CC$ext,pch=4,col=2)
 
 txt<-rbind(Tr,CC,Ds)
 xc<-txt[,1]+c(-.07,.08,.06,.12,-.1,-.1,-.09)

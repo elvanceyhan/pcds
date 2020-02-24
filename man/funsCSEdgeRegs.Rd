@@ -5,10 +5,8 @@
 \alias{IndCSTeRAB}
 \alias{IndCSTeRBC}
 \alias{IndCSTeRAC}
-\title{Three indicator functions: \code{IndCSTeRAB}, \code{IndCSTeRBC} and \code{IndCSTeRAC} ---
-
-Each function is for the presence of an arc from a point in one of the edge regions
-to another for Central Similarity Proximity Catch Digraphs (CS-PCDs) - standard equilateral triangle case.}
+\title{Each function is for the presence of an arc from a point in one of the edge regions
+to another for Central Similarity Proximity Catch Digraphs (CS-PCDs) - standard equilateral triangle case}
 \usage{
 IndCSTeRAB(pt1, pt2, t, M)
 
@@ -22,16 +20,18 @@ IndCSTeRAC(pt1, pt2, t, M)
 \item{pt2}{A 2D point. The function determines whether \code{pt2} is inside the CS proximity region of
 \code{pt1} or not.}
 
-\item{t}{A positive real number which serves as the expansion parameter in CS proximity region}
+\item{t}{A positive real number which serves as the expansion parameter in CS proximity region.}
 
 \item{M}{A 2D point in Cartesian coordinates or a 3D point in barycentric coordinates
-which serves as a center in the interior of the standard equilateral triangle \eqn{T_e}}
+which serves as a center in the interior of the standard equilateral triangle \eqn{T_e}.}
 }
 \value{
 Each function returns I(\code{pt2} is in \eqn{NCS(pt1,t)}) for \code{pt1}, that is, returns 1 if \code{pt2} is in \eqn{NCS(pt1,t)},
 returns 0 otherwise
 }
 \description{
+Three indicator functions: \code{IndCSTeRAB}, \code{IndCSTeRBC} and \code{IndCSTeRAC}.
+
 The function \code{IndCSTeRAB} returns I(\code{pt2} is in \eqn{NCS(pt1,t)} for \code{pt1} in RAB (edge region for edge AB,
 i.e., edge 3) in the standard equilateral triangle \eqn{T_e=T(A,B,C)=T((0,0),(1,0),(1/2,\sqrt{3}/2))};
 

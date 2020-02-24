@@ -8,16 +8,16 @@ Arc Slice Proximity Catch Digraphs (AS-PCDs) - one triangle case}
 IndNAStriSet(S, pt, tri, M = "CC")
 }
 \arguments{
-\item{S}{A set of 2D points whose AS proximity regions are considered}
+\item{S}{A set of 2D points whose AS proximity regions are considered.}
 
 \item{pt}{A 2D point. The function determines whether \code{pt} is inside the union of AS proximity
 regions of points in \code{S} or not.}
 
-\item{tri}{Three 2D points, stacked row-wise, each row representing a vertex of the triangle}
+\item{tri}{Three 2D points, stacked row-wise, each row representing a vertex of the triangle.}
 
-\item{M}{"CC" which stands for circumcenter of the triangle \code{tri} or a 2D point in Cartesian coordinates or
+\item{M}{The center of the triangle. "CC" stands for circumcenter of the triangle \code{tri} or a 2D point in Cartesian coordinates or
 a 3D point in barycentric coordinates which serves as a center in the interior of \code{tri};
-default is \code{M}="CC" i.e. the circumcenter of \code{tri}}
+default is \code{M}="CC" i.e. the circumcenter of \code{tri}.}
 }
 \value{
 I(\code{pt} in U_{x in \code{S}}NAS(x,r)), that is, returns 1 if \code{pt} is in \code{S} or inside NAS(x) for at least

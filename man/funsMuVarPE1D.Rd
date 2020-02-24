@@ -7,10 +7,8 @@
 \alias{fvar1}
 \alias{fvar2}
 \alias{asyvarPE1D}
-\title{The functions \code{muPE1D} and \code{asyvarPE1D} and their auxiliary functions ---
-
-Returns the mean and (asymptotic) variance of arc density of Proportional Edge Proximity
-Catch Digraph (PE-PCD) for 1D data - middle interval case.}
+\title{Returns the mean and (asymptotic) variance of arc density of Proportional Edge Proximity
+Catch Digraph (PE-PCD) for 1D data - middle interval case}
 \usage{
 mu1PE1D(r, c)
 
@@ -23,16 +21,19 @@ fvar2(r, c)
 asyvarPE1D(r, c)
 }
 \arguments{
-\item{r}{A positive real number which serves as the expansion parameter in PE proximity region; must be \eqn{\ge 1}}
+\item{r}{A positive real number which serves as the expansion parameter in PE proximity region;
+must be \eqn{\ge 1}.}
 
 \item{c}{A positive real number in \eqn{(0,1)} parameterizing the center inside \eqn{int=(a,b)}.
-For the interval, \eqn{int=(a,b)}, the parameterized center is \eqn{M_c=a+c(b-a)}}
+For the interval, \eqn{int=(a,b)}, the parameterized center is \eqn{M_c=a+c(b-a)}.}
 }
 \value{
 \code{muPE1D} returns the mean and \code{asyvarPE1D} returns the asymptotic variance of the
 arc density of PE-PCD for \eqn{U(a,b)} data
 }
 \description{
+The functions \code{muPE1D} and \code{asyvarPE1D} and their auxiliary functions.
+
 \code{muPE1D} returns the mean of the (arc) density of PE-PCD
 and \code{asyvarPE1D} returns the (asymptotic) variance of the arc density of PE-PCD
 for a given centrality parameter \code{c} in \eqn{(0,1)} and an expansion parameter \eqn{r \ge 1} and for 1D uniform data in a

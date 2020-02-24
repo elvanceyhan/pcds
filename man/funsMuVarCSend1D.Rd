@@ -4,9 +4,7 @@
 \alias{funsMuVarCSend1D}
 \alias{muCSend1D}
 \alias{asyvarCSend1D}
-\title{Two functions: \code{muCSend1D} and \code{asyvarCSend1D} ---
-
-Returns the mean and (asymptotic) variance of arc density of Central Similarity Proximity Catch Digraph (CS-PCD)
+\title{Returns the mean and (asymptotic) variance of arc density of Central Similarity Proximity Catch Digraph (CS-PCD)
 for 1D data - end interval case}
 \usage{
 muCSend1D(t)
@@ -14,19 +12,24 @@ muCSend1D(t)
 asyvarCSend1D(t)
 }
 \arguments{
-\item{t}{A positive real number which serves as the expansion parameter in CS proximity region}
+\item{t}{A positive real number which serves as the expansion parameter in CS proximity region.}
 }
 \value{
 \code{muCSend1D} returns the mean and \code{asyvarCSend1D} returns the asymptotic variance of the
 arc density of CS-PCD for uniform data in end intervals
 }
 \description{
+Two functions: \code{muCSend1D} and \code{asyvarCSend1D}.
+
 \code{muCSend1D} returns the mean of the arc density of CS-PCD
 and \code{asyvarCSend1D} returns the asymptotic variance of the arc density of CS-PCD
 for a given expansion parameter \eqn{t>0}  for 1D uniform data in the left and right end intervals
 for the interval \eqn{(a,b)}.
 
 See also (\insertCite{ceyhan:revstat-2016;textual}{pcds}).
+}
+\details{
+funsMuVarCSend1D
 }
 \examples{
 #Examples for muCSend1D

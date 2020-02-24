@@ -9,15 +9,16 @@ IndNCSmid1D(x1, x2, t, c, int, rv = NULL)
 }
 \arguments{
 \item{x1, x2}{1D points; \code{x1} is the point for which the proximity region, \eqn{NCS(x1,t,c)} is
-constructed and \code{x2} is the point which the function is checking whether its inside \eqn{NCS(x1,t,c)} or not}
+constructed and \code{x2} is the point which the function is checking whether its inside
+\eqn{NCS(x1,t,c)} or not.}
 
-\item{t}{A positive real number which serves as the expansion parameter in CS proximity region}
+\item{t}{A positive real number which serves as the expansion parameter in CS proximity region.}
 
-\item{c}{A positive real number in \eqn{(0,1)} parameterizing the center inside \code{int}}
+\item{c}{A positive real number in \eqn{(0,1)} parameterizing the center inside \code{int}.}
 
-\item{int}{A vector of two real numbers representing an interval}
+\item{int}{A vector of two real numbers representing an interval.}
 
-\item{rv}{Index of the end interval containing the point, either 1, 2 or \code{NULL} (default is \code{NULL})}
+\item{rv}{Index of the end interval containing the point, either 1, 2 or \code{NULL} (default is \code{NULL}).}
 }
 \value{
 I(\code{x2} in \eqn{NCS(x1,t,c)}) for points \code{x1} and \code{x2} that is, returns 1 if \code{x2} is in \eqn{NCS(x1,t,c)},

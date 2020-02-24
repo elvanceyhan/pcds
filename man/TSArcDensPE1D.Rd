@@ -2,10 +2,8 @@
 % Please edit documentation in R/PCDFunctions.r
 \name{TSArcDensPE1D}
 \alias{TSArcDensPE1D}
-\title{An object of class "htest":
-
-A test of uniformity of 1D data in a given interval based on Proportional Edge Proximity Catch Digraph
-(PE-PCD).}
+\title{A test of uniformity of 1D data in a given interval based on Proportional Edge Proximity Catch Digraph
+(PE-PCD)}
 \usage{
 TSArcDensPE1D(
   dat,
@@ -17,14 +15,15 @@ TSArcDensPE1D(
 )
 }
 \arguments{
-\item{dat}{A set or vector of 1D points which constitute the vertices of PE-PCD}
+\item{dat}{A set or vector of 1D points which constitute the vertices of PE-PCD.}
 
-\item{r}{A positive real number which serves as the expansion parameter in PE proximity region; must be \eqn{\ge 1}}
+\item{r}{A positive real number which serves as the expansion parameter in PE proximity region;
+must be \eqn{\ge 1}.}
 
 \item{c}{A positive real number in \eqn{(0,1)} parameterizing the center inside \eqn{int=(a,b)}.
-For the interval, \eqn{int=(a,b)}, the parameterized center is \eqn{M_c=a+c(b-a)}}
+For the interval, \eqn{int=(a,b)}, the parameterized center is \eqn{M_c=a+c(b-a)}.}
 
-\item{int}{A vector of two real numbers representing an interval}
+\item{int}{A vector of two real numbers representing an interval.}
 
 \item{alternative}{Type of the alternative hypothesis in the test, one of "two.sided", "less", "greater".}
 
@@ -34,7 +33,7 @@ the 1D data set \code{dat}.}
 \value{
 A list with the elements
 \item{statistic}{Test statistic}
-\item{p.value}{\eqn{p}-value for the hypothesis test for the corresponding alternative}
+\item{p.value}{The \eqn{p}-value for the hypothesis test for the corresponding alternative}
 \item{conf.int}{Confidence interval for the arc density at the given confidence level \code{conf.level} and
 depends on the type of \code{alternative}.}
 \item{estimate}{Estimate of the parameter, i.e., arc density}
@@ -45,6 +44,7 @@ mean arc density under uniform distribution.}
 \item{data.name}{Name of the data set}
 }
 \description{
+An object of class "htest".
 This is an "htest" (i.e., hypothesis test) function which performs a hypothesis test of uniformity of 1D data
 in one interval based on the normal approximation of the arc density of the PE-PCD with expansion parameter \eqn{r \ge 1}
 and centrality parameter \code{c} in \eqn{(0,1)}.

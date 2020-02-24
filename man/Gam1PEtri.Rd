@@ -8,23 +8,24 @@
 Gam1PEtri(p, Dt, tri, r, M = c(1, 1, 1), rv = NULL, ch.data.pnt = FALSE)
 }
 \arguments{
-\item{p}{A 2D point that is to be tested for being a dominating point or not of the PE-PCD}
+\item{p}{A 2D point that is to be tested for being a dominating point or not of the PE-PCD.}
 
-\item{Dt}{A set of 2D points which constitutes the vertices of the PE-PCD}
+\item{Dt}{A set of 2D points which constitutes the vertices of the PE-PCD.}
 
-\item{tri}{Three 2D points, stacked row-wise, each row representing a vertex of the triangle}
+\item{tri}{Three 2D points, stacked row-wise, each row representing a vertex of the triangle.}
 
-\item{r}{A positive real number which serves as the expansion parameter in PE proximity region; must be \eqn{\ge 1}}
+\item{r}{A positive real number which serves as the expansion parameter in PE proximity region;
+must be \eqn{\ge 1}.}
 
 \item{M}{A 2D point in Cartesian coordinates or a 3D point in barycentric coordinates
 which serves as a center in the interior of the triangle \code{tri} or the circumcenter of \code{tri};
-default is \eqn{M=(1,1,1)} i.e. the center of mass of \code{tri}}
+default is \eqn{M=(1,1,1)} i.e. the center of mass of \code{tri}.}
 
 \item{rv}{Index of the vertex whose region contains point \code{p}, \code{rv} takes the vertex labels as 1,2,3 as
-in the row order of the vertices in \code{tri}}
+in the row order of the vertices in \code{tri}.}
 
 \item{ch.data.pnt}{A logical argument for checking whether point \code{p} is a data point
-in \code{Dt} or not (default is \code{FALSE})}
+in \code{Dt} or not (default is \code{FALSE}).}
 }
 \value{
 I(\code{p} is a dominating point of the PE-PCD) where the vertices of the PE-PCD are the 2D data set \code{Dt},

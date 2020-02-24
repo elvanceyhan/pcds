@@ -8,10 +8,11 @@ re.bastriCM(pt, c1, c2)
 }
 \arguments{
 \item{pt}{A 2D point for which CM-edge region it resides in is to be determined in the
-basic triangle \eqn{T_b}}
+basic triangle \eqn{T_b}.}
 
 \item{c1, c2}{Positive real numbers which constitute the upper vertex of the basic triangle (i.e., the vertex
-adjacent to the shorter edges of \eqn{T_b}); \code{c1} must be in \eqn{[0,1/2]}, \eqn{c_2>0} and \eqn{(1-c_1)^2+c_2^2 \le 1}}
+adjacent to the shorter edges of \eqn{T_b}); \code{c1} must be in \eqn{[0,1/2]}, \eqn{c_2>0} and
+\eqn{(1-c_1)^2+c_2^2 \le 1}.}
 }
 \value{
 A list with three elements

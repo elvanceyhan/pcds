@@ -2,9 +2,7 @@
 % Please edit documentation in R/PCDFunctions.r
 \name{rasc.tri}
 \alias{rasc.tri}
-\title{An object of class "Patterns":
-
-Generation of points associated (in a Type I fashion) with the vertices of a triangle}
+\title{Generation of points associated (in a Type I fashion) with the vertices of a triangle}
 \usage{
 rasc.tri(k, tri, delta)
 }
@@ -12,7 +10,7 @@ rasc.tri(k, tri, delta)
 \item{k}{A positive integer representing the number of points to be generated from the association pattern
 in the triangle, \code{tri}.}
 
-\item{tri}{Three 2D points, stacked row-wise, each row representing a vertex of the triangle}
+\item{tri}{Three 2D points, stacked row-wise, each row representing a vertex of the triangle.}
 
 \item{delta}{A positive real number in (0,4/9). \code{delta} is the parameter of association (that is, only
 \eqn{\delta 100} \% area around each vertex in the triangle is allowed for point generation).}
@@ -34,6 +32,7 @@ and the number of reference (i.e., \code{Yp}) points.}
 \code{Yp} points}
 }
 \description{
+An object of class "Patterns".
 Generates \code{k} points uniformly in the support for Type I association in
 a given triangle, \code{tri}.
 \code{delta} is the parameter of association (that is, only \eqn{\delta 100} \% area around each vertex in

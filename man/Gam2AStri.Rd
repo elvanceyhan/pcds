@@ -17,21 +17,22 @@ Gam2AStri(
 )
 }
 \arguments{
-\item{pt1, pt2}{Two 2D points to be tested for constituting a dominating set of the AS-PCD}
+\item{pt1, pt2}{Two 2D points to be tested for constituting a dominating set of the AS-PCD.}
 
-\item{Dt}{A set of 2D points which constitutes the vertices of the AS-PCD}
+\item{Dt}{A set of 2D points which constitutes the vertices of the AS-PCD.}
 
-\item{tri}{Three 2D points, stacked row-wise, each row representing a vertex of the triangle}
+\item{tri}{Three 2D points, stacked row-wise, each row representing a vertex of the triangle.}
 
-\item{M}{"CC" which stands for circumcenter of the triangle \code{tri} or a 2D point in Cartesian coordinates or
+\item{M}{The center of the triangle. "CC" stands for circumcenter of the triangle \code{tri} or a 2D point in Cartesian coordinates or
 a 3D point in  barycentric coordinates which serves as a center in the interior of the triangle \eqn{T_b};
-default is \code{M}="CC" i.e. the circumcenter of \code{tri}}
+default is \code{M}="CC" i.e. the circumcenter of \code{tri}.}
 
 \item{rv1, rv2}{The indices of the vertices whose regions contains \code{pt1} and \code{pt2}, respectively.
-They take the vertex labels as 1,2,3 as in the row order of the vertices in \code{tri} (default is \code{NULL} for both)}
+They take the vertex labels as 1,2,3 as in the row order of the vertices in \code{tri}
+(default is \code{NULL} for both).}
 
 \item{ch.data.pnts}{A logical argument for checking whether points \code{pt1} and \code{pt2} are data points in \code{Dt} or not
-(default is \code{FALSE})}
+(default is \code{FALSE}).}
 }
 \value{
 I(\{\code{pt1,pt2}\} is a dominating set of the AS-PCD) where vertices of the AS-PCD are the 2D data set \code{Dt}),

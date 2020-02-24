@@ -7,17 +7,19 @@
 NPEtri(pt, r, tri, M = c(1, 1, 1), rv = NULL)
 }
 \arguments{
-\item{pt}{A 2D point whose PE proximity region is to be computed}
+\item{pt}{A 2D point whose PE proximity region is to be computed.}
 
-\item{r}{A positive real number which serves as the expansion parameter in PE proximity region; must be \eqn{\ge 1}}
+\item{r}{A positive real number which serves as the expansion parameter in PE proximity region;
+must be \eqn{\ge 1}.}
 
-\item{tri}{Three 2D points, stacked row-wise, each row representing a vertex of the triangle}
+\item{tri}{Three 2D points, stacked row-wise, each row representing a vertex of the triangle.}
 
 \item{M}{A 2D point in Cartesian coordinates or a 3D point in barycentric coordinates
 which serves as a center in the interior of the triangle \code{tri} or the circumcenter of \code{tri};
-default is \eqn{M=(1,1,1)} i.e. the center of mass of \code{tri}}
+default is \eqn{M=(1,1,1)} i.e. the center of mass of \code{tri}.}
 
-\item{rv}{Index of the \code{M}-vertex region containing the point \code{pt}, either 1, 2, 3 or \code{NULL} (default is \code{NULL})}
+\item{rv}{Index of the \code{M}-vertex region containing the point \code{pt}, either 1, 2, 3 or \code{NULL}
+(default is \code{NULL}).}
 }
 \value{
 Vertices of the triangular region which constitutes the PE proximity region with expansion parameter

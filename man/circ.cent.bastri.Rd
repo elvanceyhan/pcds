@@ -8,7 +8,7 @@ circ.cent.bastri(c1, c2)
 }
 \arguments{
 \item{c1, c2}{Positive real numbers representing the top vertex in basic triangle \eqn{T_b=T((0,0),(1,0),(c_1,c_2))},
-\code{c1} must be in \eqn{[0,1/2]}, \eqn{c_2>0} and \eqn{(1-c_1)^2+c_2^2 \le 1}}
+\code{c1} must be in \eqn{[0,1/2]}, \eqn{c_2>0} and \eqn{(1-c_1)^2+c_2^2 \le 1}.}
 }
 \value{
 circumcenter of the basic triangle \eqn{T_b=T((0,0),(1,0),(c_1,c_2))} given \code{c1}, \code{c2} as the arguments of the

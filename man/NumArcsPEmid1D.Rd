@@ -7,14 +7,15 @@
 NumArcsPEmid1D(dat, r, c, int)
 }
 \arguments{
-\item{dat}{A set or vector of 1D points which constitute the vertices of PE-PCD}
+\item{dat}{A set or vector of 1D points which constitute the vertices of PE-PCD.}
 
-\item{r}{A positive real number which serves as the expansion parameter in PE proximity region; must be \eqn{\ge 1}}
+\item{r}{A positive real number which serves as the expansion parameter in PE proximity region;
+must be \eqn{\ge 1}.}
 
 \item{c}{A positive real number in \eqn{(0,1)} parameterizing the center inside \eqn{int=(a,b)}.
-For the interval, \eqn{int=(a,b)}, the parameterized center is \eqn{M_c=a+c(b-a)}}
+For the interval, \eqn{int=(a,b)}, the parameterized center is \eqn{M_c=a+c(b-a)}.}
 
-\item{int}{A vector of two real numbers representing an interval}
+\item{int}{A vector of two real numbers representing an interval.}
 }
 \value{
 Number of arcs for the PE-PCD whose vertices are the 1D data set, \code{dat},

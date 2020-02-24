@@ -2,21 +2,19 @@
 % Please edit documentation in R/PCDFunctions.r
 \name{ArcsASMT}
 \alias{ArcsASMT}
-\title{An object of class "PCDs":
-
-The arcs of Arc Slice Proximity Catch Digraph (AS-PCD) for a 2D data set - multiple triangle case}
+\title{The arcs of Arc Slice Proximity Catch Digraph (AS-PCD) for a 2D data set - multiple triangle case}
 \usage{
 ArcsASMT(Xp, Yp, M = "CC")
 }
 \arguments{
-\item{Xp}{A set of 2D points which constitute the vertices of the AS-PCD}
+\item{Xp}{A set of 2D points which constitute the vertices of the AS-PCD.}
 
 \item{Yp}{A set of 2D points which constitute the vertices of the Delaunay triangulation. The Delaunay
 triangles partition the convex hull of \code{Yp} points.}
 
-\item{M}{The circumcenter "CC" of each Delaunay triangle \code{tri} or 3D point in barycentric
-coordinates which serves as a center in the interior of each Delaunay triangle;
-default is \code{M}="CC" i.e. the circumcenter of each triangle}
+\item{M}{The center of the triangle. "CC" represents the circumcenter of each Delaunay triangle \code{tri}
+or 3D point in barycentric coordinates which serves as a center in the interior of each Delaunay triangle;
+default is \code{M}="CC" i.e. the circumcenter of each triangle.}
 }
 \value{
 A list with the elements
@@ -28,15 +26,16 @@ is the Delaunay triangulation based on \code{Yp} points.}
 \item{tess.name}{Name of data set used in tessellation, i.e., \code{Yp}}
 \item{vertices}{Vertices of the digraph, \code{Xp}.}
 \item{vert.name}{Name of the data set which constitute the vertices of the digraph}
-\item{S}{tails (or sources) of the arcs of AS-PCD for 2D data set \code{Xp} in the multiple triangle case
+\item{S}{Tails (or sources) of the arcs of AS-PCD for 2D data set \code{Xp} in the multiple triangle case
 as the vertices of the digraph}
-\item{E}{heads (or arrow ends) of the arcs of AS-PCD for 2D data set \code{Xp} in the multiple triangle case
+\item{E}{Heads (or arrow ends) of the arcs of AS-PCD for 2D data set \code{Xp} in the multiple triangle case
 as the vertices of the digraph}
 \item{mtitle}{Text for "main" title in the plot of the digraph}
 \item{quant}{Various quantities for the digraph: number of vertices, number of partition points,
 number of intervals, number of arcs, and arc density.}
 }
 \description{
+An object of class "PCDs".
 Returns arcs as tails (or sources) and heads (or arrow ends) of AS-PCD whose vertices are the data set \code{Xp}.
 
 AS proximity regions are defined with respect to the Delaunay triangles based on

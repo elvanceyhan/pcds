@@ -7,7 +7,7 @@
 circ.cent.tetra(th)
 }
 \arguments{
-\item{th}{Four 3D points, stacked row-wise, each row representing a vertex of the tetrahedron}
+\item{th}{Four 3D points, stacked row-wise, each row representing a vertex of the tetrahedron.}
 }
 \value{
 circumcenter of the tetrahedron \code{th}

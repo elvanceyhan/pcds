@@ -13,15 +13,17 @@ IndNPEtri(pt1, pt2, r, tri, M = c(1, 1, 1), rv = NULL)
 \item{pt2}{A 2D point. The function determines whether \code{pt2} is inside the PE proximity region of
 \code{pt1} or not.}
 
-\item{r}{A positive real number which serves as the expansion parameter in PE proximity region; must be \eqn{\ge 1}}
+\item{r}{A positive real number which serves as the expansion parameter in PE proximity region;
+must be \eqn{\ge 1}.}
 
-\item{tri}{Three 2D points, stacked row-wise, each row representing a vertex of the triangle}
+\item{tri}{Three 2D points, stacked row-wise, each row representing a vertex of the triangle.}
 
 \item{M}{A 2D point in Cartesian coordinates or a 3D point in barycentric coordinates
 which serves as a center in the interior of the triangle \code{tri} or the circumcenter of \code{tri};
-default is \eqn{M=(1,1,1)} i.e. the center of mass of \code{tri}}
+default is \eqn{M=(1,1,1)} i.e. the center of mass of \code{tri}.}
 
-\item{rv}{Index of the \code{M}-vertex region containing the point, either 1, 2, 3 or \code{NULL} (default is \code{NULL})}
+\item{rv}{Index of the \code{M}-vertex region containing the point, either 1, 2, 3 or \code{NULL}
+(default is \code{NULL}).}
 }
 \value{
 I(\code{pt2} is in \eqn{NPE(pt1,r)}) for points \code{pt1} and \code{pt2}, that is, returns 1 if \code{pt2} is in \eqn{NPE(pt1,r)},

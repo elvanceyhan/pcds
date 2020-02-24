@@ -2,9 +2,7 @@
 % Please edit documentation in R/PCDFunctions.r
 \name{TSDomPEBin1D}
 \alias{TSDomPEBin1D}
-\title{An object of class "htest":
-
-A test of segregation/association based on domination number of Proportional Edge Proximity Catch Digraph
+\title{A test of segregation/association based on domination number of Proportional Edge Proximity Catch Digraph
 (PE-PCD) for 1D data - Binomial Approximation}
 \usage{
 TSDomPEBin1D(
@@ -19,16 +17,17 @@ TSDomPEBin1D(
 )
 }
 \arguments{
-\item{Xp}{A set of 1D points which constitute the vertices of the PE-PCD}
+\item{Xp}{A set of 1D points which constitute the vertices of the PE-PCD.}
 
 \item{Yp}{A set of 1D points which constitute the end points of the subintervals, default is \code{NULL}.
 When \code{Yp}=\code{NULL}, the support interval \eqn{(a,b)} is partitioned as \code{Yp}=(b-a)*(0:nint)/nint
-where nint=round(sqrt(nx),0) and nx is the number of \code{Xp} points}
+where nint=round(sqrt(nx),0) and nx is the number of \code{Xp} points.}
 
-\item{int}{Support interval \eqn{(a,b)} with \eqn{a<b}. Uniformness of \code{Xp} points in this interval is tested.}
+\item{int}{Support interval \eqn{(a,b)} with \eqn{a<b}. Uniformness of \code{Xp} points in this interval
+is tested.}
 
 \item{c}{A positive real number which serves as the centrality parameter in PE proximity region;
-must be in \eqn{(0,1)} (default c=.5)}
+must be in \eqn{(0,1)} (default c=.5).}
 
 \item{asy.bin}{A logical argument for the use of aymptotic probability of success for the binomial distribution,
 default \code{asy.bin}=\code{FALSE}. It is an option only when \code{Yp} is not provided. When \code{Yp} is provided or when \code{Yp} is not provided
@@ -37,7 +36,7 @@ and \code{asy.bin}=F, the finite sample aymptotic probability of success for the
 of trials equals to expected number of \code{Xp} points per subinterval.}
 
 \item{end.int.cor}{A logical argument for end interval correction, default is \code{FALSE},
-recommended when both \code{Xp} and \code{Yp} have the same interval support}
+recommended when both \code{Xp} and \code{Yp} have the same interval support.}
 
 \item{alternative}{Type of the alternative hypothesis in the test, one of "two.sided", "less", "greater".}
 
@@ -47,10 +46,10 @@ recommended when both \code{Xp} and \code{Yp} have the same interval support}
 \value{
 A list with the elements
 \item{statistic}{Test statistic}
-\item{p.value}{\eqn{p}-value for the hypothesis test for the corresponding alternative}
+\item{p.value}{The \eqn{p}-value for the hypothesis test for the corresponding alternative}
 \item{conf.int}{Confidence interval for Pr(Domination Number=2) at the given level \code{conf.level} and
 depends on the type of \code{alternative}.}
-\item{estimate}{a vector with two entries: first is is the estimate of the parameter, i.e.,
+\item{estimate}{A vector with two entries: first is is the estimate of the parameter, i.e.,
 Pr(Domination Number=2) and second is the domination number}
 \item{null.value}{Hypothesized value for the parameter, i.e., the null value for Pr(Domination Number=2)}
 \item{alternative}{Type of the alternative hypothesis in the test, one of "two.sided", "less", "greater"}
@@ -58,7 +57,7 @@ Pr(Domination Number=2) and second is the domination number}
 \item{data.name}{Name of the data set}
 }
 \description{
-This is an "htest" (i.e., hypothesis test) function which performs a hypothesis test of complete spatial
+An object of class "htest" (i.e., hypothesis test) function which performs a hypothesis test of complete spatial
 randomness (CSR) or uniformity of \code{Xp} points within the subintervals based on \code{Yp} points (both residing in the
 interval \eqn{(a,b)}).
 

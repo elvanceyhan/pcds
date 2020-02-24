@@ -2,16 +2,14 @@
 % Please edit documentation in R/PCDFunctions.r
 \name{Plane}
 \alias{Plane}
-\title{An object of class "Planes":
-
-The plane passing through three distinct 3D points \code{a}, \code{b}, and \code{c}}
+\title{The plane passing through three distinct 3D points \code{a}, \code{b}, and \code{c}}
 \usage{
 Plane(a, b, c, x, y)
 }
 \arguments{
-\item{a, b, c}{3D points that determine the plane (i.e., through which the plane is passing)}
+\item{a, b, c}{3D points that determine the plane (i.e., through which the plane is passing).}
 
-\item{x, y}{Scalars or vectors of scalars representing the x- and y-coordinates of the plane}
+\item{x, y}{Scalars or vectors of scalars representing the x- and y-coordinates of the plane.}
 }
 \value{
 A list with the elements
@@ -29,6 +27,7 @@ containing the z-coordinate for each pair of \code{x} and \code{y} values.}
 \item{equation2}{Equation of the plane in short form, to be inserted on the plot}
 }
 \description{
+An object of class "Planes".
 Returns the equation and z-coordinates of the plane passing through three distinct 3D points \code{a}, \code{b}, and \code{c}
 with x- and y-coordinates are provided in vectors \code{x} and \code{y}, respectively.
 }

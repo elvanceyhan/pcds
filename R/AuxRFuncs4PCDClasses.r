@@ -48,7 +48,7 @@ print.Lines <- function(x, ...)
 #' \code{call} of the function defining the \code{object}, the defining \code{points}, selected x and y points on the line,
 #' equation of the line, and \code{coefficients} of the line.
 #'
-#' @param object Object of class \code{Lines}
+#' @param object Object of class \code{Lines}.
 #' @param \dots Additional parameters for \code{summary}.
 #'
 #' @return
@@ -132,10 +132,10 @@ print.summary.Lines <- function(x, ...)
 #'
 #' @description Plots the line together with the defining \code{points}.
 #'
-#' @param x Object of class \code{Lines}
+#' @param x Object of class \code{Lines}.
 #' @param asp A numeric value, giving the aspect ratio for y axis to x-axis y/x (default is \code{NA}),
-#' see the official help for \code{asp} by typing "? asp"
-#' @param xlab,ylab Titles for the x and y axes, respectively (default is \code{xlab}="x" and \code{ylab}="y".)
+#' see the official help for \code{asp} by typing "? asp".
+#' @param xlab,ylab Titles for the x and y axes, respectively (default is \code{xlab}="x" and \code{ylab}="y").
 #' @param \dots Additional parameters for \code{plot}.
 #'
 #' @return
@@ -262,7 +262,7 @@ print.TriLines <- function(x, ...)
 #' \code{call} of the function defining the \code{object}, the defining \code{points}, selected x and y points on the line,
 #' equation of the line, together with the vertices of the triangle, and \code{coefficients} of the line.
 #'
-#' @param object Object of class \code{TriLines}
+#' @param object Object of class \code{TriLines}.
 #' @param \dots Additional parameters for \code{summary}.
 #'
 #' @return
@@ -345,8 +345,8 @@ print.summary.TriLines <- function(x, ...)
 #'
 #' @description Plots the line together with the defining triangle.
 #'
-#' @param x Object of class \code{TriLines}
-#' @param xlab,ylab Titles for the x and y axes, respectively (default is \code{xlab}="x" and \code{ylab}="y".)
+#' @param x Object of class \code{TriLines}.
+#' @param xlab,ylab Titles for the x and y axes, respectively (default is \code{xlab}="x" and \code{ylab}="y").
 #' @param \dots Additional parameters for \code{plot}.
 #'
 #' @return
@@ -467,7 +467,7 @@ print.Lines3D <- function(x, ...)
 #' selected x, y and z points on the line,
 #' equation of the line (in parametric form), and \code{coefficients} of the line.
 #'
-#' @param object Object of class \code{Lines3D}
+#' @param object Object of class \code{Lines3D}.
 #' @param \dots Additional parameters for \code{summary}.
 #'
 #' @return
@@ -564,9 +564,9 @@ print.summary.Lines3D <- function(x, ...)
 #'
 #' @description Plots the line together with the defining vectors (i.e., the initial and direction vectors).
 #'
-#' @param x Object of class \code{Lines3D}
+#' @param x Object of class \code{Lines3D}.
 #' @param xlab,ylab,zlab Titles for the x, y and z axes, respectively (default is \code{xlab}="x", \code{ylab}="y"
-#' and \code{zlab}="z".)
+#' and \code{zlab}="z").
 #' @param \dots Additional parameters for \code{plot}.
 #'
 #' @return
@@ -724,7 +724,7 @@ print.Planes <- function(x, ...)
 #' \code{call} of the function defining the \code{object}, the defining 3D \code{points}, selected x, y and z points on
 #' the plane, equation of the plane, and \code{coefficients} of the plane.
 #'
-#' @param object Object of class \code{Planes}
+#' @param object Object of class \code{Planes}.
 #' @param \dots Additional parameters for \code{summary}.
 #'
 #' @return
@@ -815,9 +815,9 @@ print.summary.Planes <- function(x, ...)
 #'
 #' @description Plots the plane together with the defining 3D \code{points}.
 #'
-#' @param x Object of class \code{Planes}
+#' @param x Object of class \code{Planes}.
 #' @param xlab,ylab,zlab Titles for the x, y and z axes, respectively (default is \code{xlab}="x", \code{ylab}="y",
-#' and \code{zlab}="z".)
+#' and \code{zlab}="z").
 #' @param \dots Additional parameters for \code{plot}.
 #'
 #' @return
@@ -938,7 +938,7 @@ print.Patterns <- function(x, ...)
 #' study window, some sample points from the generated pattern, reference points (if any for the bivariate pattern),
 #' and number of points for each class
 #'
-#' @param object Object of class \code{Patterns}
+#' @param object Object of class \code{Patterns}.
 #' @param \dots Additional parameters for \code{summary}.
 #'
 #' @return
@@ -1035,10 +1035,10 @@ print.summary.Patterns <- function(x, ...)
 #' @description Plots the points generated from the pattern (color coded for each class) together with the
 #' study window
 #'
-#' @param x Object of class \code{Patterns}
+#' @param x Object of class \code{Patterns}.
 #' @param asp A numeric value, giving the aspect ratio for y axis to x-axis y/x (default is \code{NA}),
-#' see the official help for \code{asp} by typing "? asp"
-#' @param xlab,ylab Titles for the x and y axes, respectively (default is \code{xlab}="x" and \code{ylab}="y".)
+#' see the official help for \code{asp} by typing "? asp".
+#' @param xlab,ylab Titles for the x and y axes, respectively (default is \code{xlab}="x" and \code{ylab}="y").
 #' @param \dots Additional parameters for \code{plot}.
 #'
 #' @return
@@ -1131,7 +1131,7 @@ print.Uniform <- function(x, ...)
 #' some sample points generated from the uniform distribution, and the number of points (i.e., number of generated
 #' points and the number of vertices of the support of the uniform distribution.)
 #'
-#' @param object Object of class \code{Uniform}
+#' @param object Object of class \code{Uniform}.
 #' @param \dots Additional parameters for \code{summary}.
 #'
 #' @return
@@ -1248,12 +1248,12 @@ print.summary.Uniform <- function(x, ...)
 #'
 #' @description Plots the points generated from the uniform distribution together with the support region
 #'
-#' @param x Object of class \code{Uniform}
+#' @param x Object of class \code{Uniform}.
 #' @param asp A numeric value, giving the aspect ratio for y axis to x-axis y/x for the 2D case,
 #' it is redundant in the 3D case (default is \code{NA}),
-#' see the official help for \code{asp} by typing "? asp"
+#' see the official help for \code{asp} by typing "? asp".
 #' @param xlab,ylab,zlab Titles for the x and y axes in the 2D case, and x, y, and z axes in the 3D case,
-#' respectively (default is \code{xlab}="x", \code{ylab}="y", and \code{zlab}="z".)
+#' respectively (default is \code{xlab}="x", \code{ylab}="y", and \code{zlab}="z").
 #' @param \dots Additional parameters for \code{plot}.
 #'
 #' @return
@@ -1367,7 +1367,7 @@ print.Extrema <- function(x, ...)
 #' of the extrema), extrema points, distances from extrema to the reference object (e.g. boundary of a triangle),
 #' some of the data points (from which extrema is found).
 #'
-#' @param object Object of class \code{Extrema}
+#' @param object Object of class \code{Extrema}.
 #' @param \dots Additional parameters for \code{summary}.
 #'
 #' @return
@@ -1393,7 +1393,7 @@ summary.Extrema <- function(object, ...)
   typ <- object$type
   xv<-as.matrix(object$X)
   yv<-as.matrix(object$ROI)
-  Extr<-as.matrix(object$Ext)
+  Extr<-as.matrix(object$ext)
   nx<-min(6,nrow(xv))
   ny<-min(6,nrow(yv))
   Npts<-object$num.points
@@ -1458,12 +1458,12 @@ print.summary.Extrema <- function(x, ...)
 #' @description Plots the data points and extrema among these points together with the reference object
 #' (e.g., boundary of the support region)
 #'
-#' @param x Object of class \code{Extrema}
+#' @param x Object of class \code{Extrema}.
 #' @param asp A numeric value, giving the aspect ratio for y axis to x-axis y/x for the 2D case,
 #' it is redundant in the 3D case (default is \code{NA}),
-#' see the official help for \code{asp} by typing "? asp"
+#' see the official help for \code{asp} by typing "? asp".
 #' @param xlab,ylab,zlab Titles for the x and y axes in the 2D case, and x, y, and z axes in the 3D case,
-#' respectively (default is "" for all.)
+#' respectively (default is "" for all).
 #' @param \dots Additional parameters for \code{plot}.
 #'
 #' @return
@@ -1496,7 +1496,7 @@ plot.Extrema<-function (x,asp=NA,xlab=" ",ylab=" ",zlab="", ...)
     plot(cbind(Xdt,0),main=x$mtitle,xlab=xlab,ylab=ylab,xlim=Xlim+xd*c(-.05,.05), ...)
     abline(h=0)
     abline(v=c(a,b,Mc),col=c(1,1,2),lty=2)
-    points(cbind(x$Ext,0),pch=4,col=2)
+    points(cbind(x$ext,0),pch=4,col=2)
     text(cbind(c(Y,Cent,x$region.centers),-0.1),c("a","b",x$ncent,x$region.names))
   } else if (dimn==2)
   {
@@ -1512,7 +1512,7 @@ plot.Extrema<-function (x,asp=NA,xlab=" ",ylab=" ",zlab="", ...)
     polygon(Y,lty=1)
     for (i in 1:length(x$regions))
     {polygon(x$regions[[i]],lty=3)}
-    points(x$Ext,pty=2,pch=4,col="red")
+    points(x$ext,pty=2,pch=4,col="red")
 
     txt<-rbind(Y,Cent,x$region.centers)
     xc<-txt[,1]
@@ -1538,7 +1538,7 @@ plot.Extrema<-function (x,asp=NA,xlab=" ",ylab=" ",zlab="", ...)
     points3D(Y[,1],Y[,2],Y[,3], add = TRUE)
     L<-rbind(A,A,A,B,B,C); R<-rbind(B,C,D,C,D,D)
     segments3D(L[,1], L[,2], L[,3], R[,1], R[,2],R[,3], add=TRUE,lwd=2)
-    points3D(x$Ext[,1],x$Ext[,2],x$Ext[,3], pch=4,col="red", add = TRUE)
+    points3D(x$ext[,1],x$ext[,2],x$ext[,3], pch=4,col="red", add = TRUE)
 
     D1<-(A+B)/2; D2<-(A+C)/2; D3<-(A+D)/2; D4<-(B+C)/2; D5<-(B+D)/2; D6<-(C+D)/2;
     L<-rbind(D1,D2,D3,D4,D5,D6); R<-rbind(Cent,Cent,Cent,Cent,Cent,Cent)
@@ -1605,7 +1605,7 @@ print.PCDs <- function(x, ...)
 #' number of arcs and arc density of the PCDs, number of vertices for the partition and number of partition cells
 #' (i.e., intervals or triangles)).
 #'
-#' @param object Object of class \code{PCDs}
+#' @param object Object of class \code{PCDs}.
 #' @param \dots Additional parameters for \code{summary}.
 #'
 #' @return
@@ -1719,10 +1719,10 @@ print.summary.PCDs <- function(x, ...)
 #' @description Plots the vertices and the arcs of the PCD together with the vertices and boundaries of the partition
 #' cells (i.e., intervals in the 1D case and triangles in the 2D case)
 #'
-#' @param x Object of class \code{PCDs}
-#' @param Jit A positive real number that determines the amount of jitter along the y-axis, default is .1, for the
+#' @param x Object of class \code{PCDs}.
+#' @param Jit A positive real number that determines the amount of jitter along the y-axis, default is 0.1, for the
 #' 1D case, the vertices of the PCD are jittered according to \eqn{U(-Jit,Jit)} distribution along the y-axis where
-#' \code{Jit} equals to the range of vertices and the interval end points; it is redundant in the 2D case
+#' \code{Jit} equals to the range of vertices and the interval end points; it is redundant in the 2D case.
 #' @param \dots Additional parameters for \code{plot}.
 #'
 #' @return

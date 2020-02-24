@@ -8,12 +8,12 @@ re.tri.cent(pt, tri, M)
 }
 \arguments{
 \item{pt}{A 2D point for which \code{M}-edge region it resides in is to be determined in the triangle
-\code{tri}}
+\code{tri}.}
 
-\item{tri}{Three 2D points, stacked row-wise, each row representing a vertex of the triangle}
+\item{tri}{Three 2D points, stacked row-wise, each row representing a vertex of the triangle.}
 
 \item{M}{A 2D point in Cartesian coordinates or a 3D point in barycentric coordinates
-which serves as a center in the interior of the triangle \code{tri}}
+which serves as a center in the interior of the triangle \code{tri}.}
 }
 \value{
 A list with three elements

@@ -2,14 +2,12 @@
 % Please edit documentation in R/PCDFunctions.r
 \name{rasc.matern}
 \alias{rasc.matern}
-\title{An object of class "Patterns":
-
-Generation of points associated (in a Matern-like fashion) to a given set of points}
+\title{Generation of points associated (in a Matern-like fashion) to a given set of points}
 \usage{
 rasc.matern(n, Y, e)
 }
 \arguments{
-\item{n}{A positive integer representing the number of points to be generated}
+\item{n}{A positive integer representing the number of points to be generated.}
 
 \item{Y}{A set of 2D points representing the reference points. The generated points are associated
 (in a Matern-cluster like fashion) with these points.}
@@ -31,10 +29,10 @@ if \code{TRUE} triangulation based on \code{Y} points is to be implemented (defa
 \item{desc.pat}{Description of the point pattern}
 \item{num.points}{The vector of two numbers, which are the number of generated points and the number of
 attraction (i.e., \code{Y}) points.}
-\item{xlimit}{The possible range of the x-coordinates of the generated points.}
-\item{ylimit}{The possible range of the y-coordinates of the generated points.}
+\item{xlimit,ylimit}{The possible ranges of the x- and y-coordinates of the generated points.}
 }
 \description{
+An object of class "Patterns".
 Generates \code{n} 2D points uniformly in \eqn{\cup B(y_i,e)} where \eqn{Y=(y_1,y_2,...,y_{n_y})}
 with \eqn{n_y} being number of \code{Y} points for various values of e under the association pattern
 and \eqn{B(y_i,e)} is the ball centered at \eqn{y_i} with radius \code{e}.

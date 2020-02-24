@@ -2,21 +2,20 @@
 % Please edit documentation in R/PCDFunctions.r
 \name{ArcsPE1D}
 \alias{ArcsPE1D}
-\title{An object of class "PCDs":
-
-The arcs of Proportional Edge Proximity Catch Digraph (PE-PCD) for 1D data - multiple interval case}
+\title{The arcs of Proportional Edge Proximity Catch Digraph (PE-PCD) for 1D data - multiple interval case}
 \usage{
 ArcsPE1D(Xp, Yp, r, c)
 }
 \arguments{
-\item{Xp}{A set or vector of 1D points which constitute the vertices of the PE-PCD}
+\item{Xp}{A set or vector of 1D points which constitute the vertices of the PE-PCD.}
 
-\item{Yp}{A set or vector of 1D points which constitute the end points of the intervals}
+\item{Yp}{A set or vector of 1D points which constitute the end points of the intervals.}
 
-\item{r}{A positive real number which serves as the expansion parameter in PE proximity region; must be \eqn{\ge 1}}
+\item{r}{A positive real number which serves as the expansion parameter in PE proximity region;
+must be \eqn{\ge 1}.}
 
 \item{c}{A positive real number in \eqn{(0,1)} parameterizing the center inside \eqn{int=(a,b)}.
-For the interval, \eqn{int=(a,b)}, the parameterized center is \eqn{M_c=a+c(b-a)}}
+For the interval, \eqn{int=(a,b)}, the parameterized center is \eqn{M_c=a+c(b-a)}.}
 }
 \value{
 A list with the elements
@@ -27,13 +26,14 @@ is the intervalization of the real line based on \code{Yp} points.}
 \item{tess.name}{Name of data set used in tessellation, it is \code{Yp} for this function}
 \item{vertices}{Vertices of the digraph, \code{Xp} points}
 \item{vert.name}{Name of the data set which constitute the vertices of the digraph}
-\item{S}{tails (or sources) of the arcs of PE-PCD for 1D data}
-\item{E}{heads (or arrow ends) of the arcs of PE-PCD for 1D data}
+\item{S}{Tails (or sources) of the arcs of PE-PCD for 1D data}
+\item{E}{Heads (or arrow ends) of the arcs of PE-PCD for 1D data}
 \item{mtitle}{Text for "main" title in the plot of the digraph}
 \item{quant}{Various quantities for the digraph: number of vertices, number of partition points,
 number of intervals, number of arcs, and arc density.}
 }
 \description{
+An object of class "PCDs".
 Returns arcs as tails (or sources) and heads (or arrow ends) for 1D data set \code{Xp} as the vertices
 of PE-PCD.  \code{Yp} determines the end points of the intervals.
 

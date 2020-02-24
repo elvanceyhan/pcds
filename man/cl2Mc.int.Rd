@@ -2,20 +2,18 @@
 % Please edit documentation in R/PCDFunctions.r
 \name{cl2Mc.int}
 \alias{cl2Mc.int}
-\title{An object of class "Extrema":
-
-The closest points to center in each vertex region in an interval}
+\title{The closest points to center in each vertex region in an interval}
 \usage{
 cl2Mc.int(Dt, int, c)
 }
 \arguments{
 \item{Dt}{A set or vector of 1D points from which closest points to \eqn{M_c} are found
-in the interval \code{int}}
+in the interval \code{int}.}
 
-\item{int}{A vector of two real numbers representing an interval}
+\item{int}{A vector of two real numbers representing an interval.}
 
 \item{c}{A positive real number in \eqn{(0,1)} parameterizing the center inside \eqn{int=(a,b)}.
-For the interval, \eqn{int=(a,b)}, the parameterized center is \eqn{M_c=a+c(b-a)}}
+For the interval, \eqn{int=(a,b)}, the parameterized center is \eqn{M_c=a+c(b-a)}.}
 }
 \value{
 A list with the elements
@@ -24,7 +22,7 @@ A list with the elements
 \item{type}{Type of the extrema points}
 \item{desc}{A short description of the extrema points}
 \item{mtitle}{The "main" title for the plot of the exrema}
-\item{Ext}{The extrema points, here, closest points to \eqn{M_c} in each vertex region}
+\item{ext}{The extrema points, here, closest points to \eqn{M_c} in each vertex region}
 \item{X}{The input data vector, \code{Dt}.}
 \item{num.points}{The number of data points, i.e., size of \code{Dt}}
 \item{supp}{Support of the data points, here, it is int.}
@@ -36,6 +34,7 @@ A list with the elements
 \item{dist2ref}{Distances from closest points in each vertex region to \eqn{M_c}.}
 }
 \description{
+An object of class "Extrema".
 Returns the closest data points among the data set, \code{Dt}, in each \eqn{M_c}-vertex region
 i.e., finds the closest points from right and left to \eqn{M_c} among points of the 1D data set \code{Dt} which reside in
 in the interval \eqn{int=(a,b)}.
@@ -74,7 +73,7 @@ plot(cbind(a,0),xlab="",pch=".",xlim=Xlim+xd*c(-.05,.05))
 abline(h=0)
 abline(v=c(a,b,Mc),col=c(1,1,2),lty=2)
 points(cbind(dat,0))
-points(cbind(c(cMc$Ext),0),pch=4,col=2)
+points(cbind(c(cMc$ext),0),pch=4,col=2)
 text(cbind(c(a,b,Mc),-0.1),c("a","b","Mc"))
 
 n<-10  #try also n<-20

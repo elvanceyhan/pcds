@@ -8,14 +8,14 @@ Proportional Edge Proximity Catch Digraphs (PE-PCDs) to its edges}
 cp2edges.nd(tri, r, cent = 1)
 }
 \arguments{
-\item{tri}{Three 2D points, stacked row-wise, each row representing a vertex of the triangle}
+\item{tri}{Three 2D points, stacked row-wise, each row representing a vertex of the triangle.}
 
 \item{r}{A positive real number which serves as the expansion parameter in PE proximity region;
-must be in \eqn{(1,1.5]} for this function}
+must be in \eqn{(1,1.5]} for this function.}
 
 \item{cent}{Index of the center (as 1,2,3 corresponding to M1,M2,M3) which gives nondegenerate asymptotic
 distribution of the domination number of PE-PCD for uniform data in \code{tri} for expansion parameter \code{r} in \eqn{(1,1.5]};
-default \code{cent}=1}
+default \code{cent}=1.}
 }
 \value{
 Three projection points (stacked row-wise) from one of the centers (as 1,2,3 corresponding to

@@ -7,7 +7,7 @@
 \method{summary}{Patterns}(object, ...)
 }
 \arguments{
-\item{object}{Object of class \code{Patterns}}
+\item{object}{Object of class \code{Patterns}.}
 
 \item{\dots}{Additional parameters for \code{summary}.}
 }

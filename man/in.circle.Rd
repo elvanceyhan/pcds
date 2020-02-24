@@ -7,11 +7,11 @@
 in.circle(pt, cent, rad, boundary = FALSE)
 }
 \arguments{
-\item{pt}{A 2D point to be checked whether it is inside the circle or not}
+\item{pt}{A 2D point to be checked whether it is inside the circle or not.}
 
-\item{cent}{A 2D point in Cartesian coordinates which serves as the center of the circle}
+\item{cent}{A 2D point in Cartesian coordinates which serves as the center of the circle.}
 
-\item{rad}{A positive real number which serves as the radius of the circle}
+\item{rad}{A positive real number which serves as the radius of the circle.}
 
 \item{boundary}{A logical parameter (default=\code{FALSE}) to include boundary or not, so if it is \code{TRUE},
 the function checks if the point, \code{pt}, lies in the closure of the circle (i.e. interior and

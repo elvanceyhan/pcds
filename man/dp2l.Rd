@@ -10,7 +10,7 @@ dp2l(p, a, b)
 \item{p}{A 2D point, distance from \code{p} to the line passing through points \code{a} and \code{b} are to be
 computed.}
 
-\item{a, b}{2D points that determine the straight line (i.e., through which the straight line passes)}
+\item{a, b}{2D points that determine the straight line (i.e., through which the straight line passes).}
 }
 \value{
 A list with two elements

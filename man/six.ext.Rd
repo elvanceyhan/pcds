@@ -2,16 +2,17 @@
 % Please edit documentation in R/PCDFunctions.r
 \name{six.ext}
 \alias{six.ext}
-\title{An object of class "Extrema":
-
-The furthest points from edges in each edge region}
+\title{The closest points among a data set in the standard equilateral triangle
+to the median lines in 6 half edge regions}
 \usage{
 six.ext(Dt, ch.all.intri = FALSE)
 }
 \arguments{
-\item{Dt}{A set of 2D points}
+\item{Dt}{A set of 2D points among which the closest points in the standard equilateral triangle
+to the median lines in 6 half edge regions.}
 
-\item{ch.all.intri}{A logical argument}
+\item{ch.all.intri}{A logical argument for checking whether all data points are in \eqn{T_e}
+(default is \code{FALSE}).}
 }
 \value{
 A list with the elements
@@ -19,7 +20,7 @@ A list with the elements
 \item{txt2}{A short description of the distances as "Distances to Line Segments (A,CM), (B,CM), and (C,CM) in the six regions r1-r6".}
 \item{type}{Type of the extrema points}
 \item{mtitle}{The "main" title for the plot of the exrema}
-\item{Ext}{The extrema points, here, closest points in each of regions r1-r6 to the line segments
+\item{ext}{The extrema points, here, closest points in each of regions r1-r6 to the line segments
 joining vertices to the center of mass, CM.}
 \item{X}{The input data, \code{Dt}, can be a matrix or data frame}
 \item{num.points}{The number of data points, i.e., size of \code{Dt}}
@@ -33,6 +34,7 @@ joining vertices to the center of mass, CM.}
 joining vertices to the center of mass, CM.}
 }
 \description{
+An object of class "Extrema".
 Returns the six closest points among the data set, \code{Dt}, in the standard equilateral triangle
 \eqn{T_e=T(A=(0,0),B=(1,0),C=(1/2,\sqrt{3}/2))} in half edge regions. In particular,
 in regions \eqn{r_1} and \eqn{r_6}, it finds the closest point in each region to the line segment [A,CM]
@@ -54,7 +56,7 @@ Ext
 summary(Ext)
 plot(Ext)
 
-six.ext(dat[1:5,])$Ext
+six.ext(dat[1:5,])$ext
 sixt<-six.ext(dat)
 
 A<-c(0,0); B<-c(1,0); C<-c(0.5,sqrt(3)/2);
@@ -80,7 +82,7 @@ L<-Te; R<-Ds
 segments(L[,1], L[,2], R[,1], R[,2], lty=2)
 polygon(rbind(h1,h2,h3,h4,h5,h6))
 points(dat)
-points(sixt$Ext,pty=2,pch=4,col="red")
+points(sixt$ext,pty=2,pch=4,col="red")
 
 txt<-rbind(Te,r1,r2,r3,r4,r5,r6)
 xc<-txt[,1]+c(-.02,.02,.02,0,0,0,0,0,0)

@@ -2,15 +2,15 @@
 % Please edit documentation in R/PCDFunctions.r
 \name{centMc}
 \alias{centMc}
-\title{(Parameterized) Center of an interval}
+\title{Parameterized center of an interval}
 \usage{
 centMc(int, c)
 }
 \arguments{
-\item{int}{A vector with two entries representing an interval}
+\item{int}{A vector with two entries representing an interval.}
 
 \item{c}{A positive real number in \eqn{(0,1)} parameterizing the center inside \eqn{int=(a,b)}.
-For the interval, \eqn{int=(a,b)}, the parameterized center is \eqn{M_c=a+c(b-a)}}
+For the interval, \eqn{int=(a,b)}, the parameterized center is \eqn{M_c=a+c(b-a)}.}
 }
 \value{
 (parameterized) center inside \code{int}

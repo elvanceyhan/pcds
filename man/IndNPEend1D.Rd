@@ -8,16 +8,17 @@ Proportional Edge Proximity Catch Digraphs (PE-PCDs) - end interval case}
 IndNPEend1D(x1, x2, r, int, rv = NULL)
 }
 \arguments{
-\item{x1}{A 1D point whose PE proximity region is constructed}
+\item{x1}{A 1D point whose PE proximity region is constructed.}
 
 \item{x2}{A 1D point. The function determines whether \code{x2} is inside the PE proximity region of
 \code{x1} or not.}
 
-\item{r}{A positive real number which serves as the expansion parameter in PE proximity region; must be \eqn{\ge 1}}
+\item{r}{A positive real number which serves as the expansion parameter in PE proximity region;
+must be \eqn{\ge 1}.}
 
-\item{int}{A vector of two real numbers representing an interval}
+\item{int}{A vector of two real numbers representing an interval.}
 
-\item{rv}{Index of the end interval containing the point, either 1, 2 or \code{NULL} (default is \code{NULL})}
+\item{rv}{Index of the end interval containing the point, either 1, 2 or \code{NULL} (default is \code{NULL}).}
 }
 \value{
 I(\code{x2} in \eqn{NPE(x1,r)}) for points \code{x1} and \code{x2}, that is, returns 1 if \code{x2} is in \eqn{NPE(x1,r)}

@@ -5,9 +5,7 @@
 \alias{IndCSTeRABt1}
 \alias{IndCSTeRBCt1}
 \alias{IndCSTeRACt1}
-\title{Three indicator functions: \code{IndCSTeRABt1}, \code{IndCSTeRBCt1} and \code{IndCSTeRACt1} ---
-
-Each function is for the presence of an arc from a point in one of the edge regions
+\title{Each function is for the presence of an arc from a point in one of the edge regions
 to another for Central Similarity Proximity Catch Digraphs (CS-PCDs) -
 standard equilateral triangle case with \eqn{t=1}}
 \usage{
@@ -28,6 +26,8 @@ Each function returns I(\code{pt2} is in \eqn{NCS(pt1,t=1)}) for \code{pt1}, tha
 returns 1 if \code{pt2} is in \eqn{NCS(pt1,t=1)}, returns 0 otherwise
 }
 \description{
+Three indicator functions: \code{IndCSTeRABt1}, \code{IndCSTeRBCt1} and \code{IndCSTeRACt1}.
+
 The function \code{IndCSTeRABt1} returns I(\code{pt2} is in \eqn{NCS(pt1,t=1)} for \code{pt1} in RAB
 (edge region for edge AB, i.e., edge 3) in the standard equilateral triangle \eqn{T_e=T(A,B,C)=T((0,0),(1,0),(1/2,\sqrt{3}/2))};
 

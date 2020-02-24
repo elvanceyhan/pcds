@@ -7,8 +7,8 @@
 area.polygon(h)
 }
 \arguments{
-\item{h}{n 2D points, stacked row-wise, each row representing a vertex of the polygon, where n is the
-number of vertices of the polygon}
+\item{h}{A vector of n 2D points, stacked row-wise, each row representing a vertex of the polygon,
+where n is the number of vertices of the polygon.}
 }
 \value{
 area of the polygon \code{h}

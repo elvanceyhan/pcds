@@ -8,12 +8,12 @@
 Gam2CS.Te.onesixth(pt1, pt2, Dt, ch.data.pnts = FALSE)
 }
 \arguments{
-\item{pt1, pt2}{Two 2D points to be tested for constituting a dominating set of the CS-PCD}
+\item{pt1, pt2}{Two 2D points to be tested for constituting a dominating set of the CS-PCD.}
 
-\item{Dt}{A set of 2D points which constitutes the vertices of the CS-PCD}
+\item{Dt}{A set of 2D points which constitutes the vertices of the CS-PCD.}
 
 \item{ch.data.pnts}{A logical argument for checking whether points \code{pt1} and \code{pt2} are
-data points in \code{Dt} or not (default is \code{FALSE})}
+data points in \code{Dt} or not (default is \code{FALSE}).}
 }
 \value{
 I(\{\code{pt1,pt2}\} is a dominating set of the CS-PCD) where the vertices of the CS-PCD are the 2D data set \code{Dt}),

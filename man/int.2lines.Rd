@@ -8,10 +8,10 @@ int.2lines(p1, q1, p2, q2)
 }
 \arguments{
 \item{p1, q1}{2D points that determine the first straight line (i.e., through which the first straight line
-passes)}
+passes).}
 
 \item{p2, q2}{2D points that determine the second straight line (i.e., through which the second straight line
-passes)}
+passes).}
 }
 \value{
 The coordinates of the point of intersection of the two lines, first passing through points

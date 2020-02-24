@@ -2,18 +2,17 @@
 % Please edit documentation in R/PCDFunctions.r
 \name{ArcsPEend1D}
 \alias{ArcsPEend1D}
-\title{An object of class "PCDs":
-
-The arcs of Proportional Edge Proximity Catch Digraph (PE-PCD) for 1D data - end interval case}
+\title{The arcs of Proportional Edge Proximity Catch Digraph (PE-PCD) for 1D data - end interval case}
 \usage{
 ArcsPEend1D(Xp, Yp, r)
 }
 \arguments{
-\item{Xp}{A set or vector of 1D points which constitute the vertices of the PE-PCD}
+\item{Xp}{A set or vector of 1D points which constitute the vertices of the PE-PCD.}
 
-\item{Yp}{A set or vector of 1D points which constitute the end points of the intervals}
+\item{Yp}{A set or vector of 1D points which constitute the end points of the intervals.}
 
-\item{r}{A positive real number which serves as the expansion parameter in PE proximity region; must be \eqn{\ge 1}}
+\item{r}{A positive real number which serves as the expansion parameter in PE proximity region;
+must be \eqn{\ge 1}.}
 }
 \value{
 A list with the elements
@@ -24,13 +23,14 @@ is the intervalization based on \code{Yp}.}
 \item{tess.name}{Name of data set used in tessellation, it is \code{Yp} for this function}
 \item{vertices}{Vertices of the digraph, \code{Xp} points}
 \item{vert.name}{Name of the data set which constitutes the vertices of the digraph}
-\item{S}{tails (or sources) of the arcs of PE-PCD for 1D data in the end intervals}
-\item{E}{heads (or arrow ends) of the arcs of PE-PCD for 1D data in the end intervals}
+\item{S}{Tails (or sources) of the arcs of PE-PCD for 1D data in the end intervals}
+\item{E}{Heads (or arrow ends) of the arcs of PE-PCD for 1D data in the end intervals}
 \item{mtitle}{Text for "main" title in the plot of the digraph}
 \item{quant}{Various quantities for the digraph: number of vertices, number of partition points,
 number of intervals (which is 2 for end intervals), number of arcs, and arc density.}
 }
 \description{
+An object of class "PCDs".
 Returns arcs as tails (or sources) and heads (or arrow ends) for 1D data set \code{Xp} as the vertices
 of PE-PCD.  \code{Yp} determines the end points of the end intervals.
 

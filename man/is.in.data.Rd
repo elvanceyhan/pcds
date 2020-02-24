@@ -2,14 +2,14 @@
 % Please edit documentation in R/PCDFunctions.r
 \name{is.in.data}
 \alias{is.in.data}
-\title{Check a point belong to a given data set.}
+\title{Check a point belong to a given data set}
 \usage{
 is.in.data(p, Dt)
 }
 \arguments{
-\item{p}{A 2D point for which the function checks membership to the data set \code{Dt}}
+\item{p}{A 2D point for which the function checks membership to the data set \code{Dt}.}
 
-\item{Dt}{A set of 2D points representing the set of data points}
+\item{Dt}{A set of 2D points representing the set of data points.}
 }
 \value{
 \code{TRUE} if \code{p} belongs to the data set \code{Dt}.

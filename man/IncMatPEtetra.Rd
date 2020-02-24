@@ -7,14 +7,15 @@
 IncMatPEtetra(dat, th, r, M = "CM")
 }
 \arguments{
-\item{dat}{A set of 3D points which constitute the vertices of PE-PCD}
+\item{dat}{A set of 3D points which constitute the vertices of PE-PCD.}
 
-\item{th}{Four 3D points, stacked row-wise, each row representing a vertex of the tetrahedron}
+\item{th}{Four 3D points, stacked row-wise, each row representing a vertex of the tetrahedron.}
 
-\item{r}{A positive real number which serves as the expansion parameter in PE proximity region; must be \eqn{\ge 1}}
+\item{r}{A positive real number which serves as the expansion parameter in PE proximity region;
+must be \eqn{\ge 1}.}
 
 \item{M}{The center to be used in the construction of the vertex regions in the tetrahedron, \code{th}.
-Currently it only takes "CC" for circumcenter and "CM" for center of mass; default="CM"}
+Currently it only takes "CC" for circumcenter and "CM" for center of mass; default="CM".}
 }
 \value{
 Incidence matrix for the PE-PCD with vertices being 3D data set, \code{dat},
@@ -25,7 +26,7 @@ Returns the incidence matrix for the PE-PCD whose vertices are the given 3D nume
 in the tetrahedron \eqn{th=T(v=1,v=2,v=3,v=4)}.
 
 PE proximity regions are constructed with respect to tetrahedron
-th with expansion parameter \eqn{r \ge 1} and vertex regions are based on the center \code{M} which is circumcenter ("CC")
+\code{th} with expansion parameter \eqn{r \ge 1} and vertex regions are based on the center \code{M} which is circumcenter ("CC")
 or center of mass ("CM") of \code{th} with default="CM".
 Loops are allowed, so the diagonal entries are all equal to 1.
 

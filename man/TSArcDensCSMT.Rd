@@ -2,9 +2,7 @@
 % Please edit documentation in R/PCDFunctions.r
 \name{TSArcDensCSMT}
 \alias{TSArcDensCSMT}
-\title{An object of class "htest":
-
-A test of segregation/association based on arc density of Central Similarity Proximity Catch Digraph
+\title{A test of segregation/association based on arc density of Central Similarity Proximity Catch Digraph
 (CS-PCD) for 2D data}
 \usage{
 TSArcDensCSMT(
@@ -17,14 +15,14 @@ TSArcDensCSMT(
 )
 }
 \arguments{
-\item{Xp}{A set of 2D points which constitute the vertices of the CS-PCD}
+\item{Xp}{A set of 2D points which constitute the vertices of the CS-PCD.}
 
-\item{Yp}{A set of 2D points which constitute the vertices of the Delaunay triangles}
+\item{Yp}{A set of 2D points which constitute the vertices of the Delaunay triangles.}
 
-\item{t}{A positive real number which serves as the expansion parameter in CS proximity region}
+\item{t}{A positive real number which serves as the expansion parameter in CS proximity region.}
 
 \item{ch.cor}{A logical argument for convex hull correction, default \code{ch.cor}=\code{FALSE},
-recommended when both \code{Xp} and \code{Yp} have the same rectangular support}
+recommended when both \code{Xp} and \code{Yp} have the same rectangular support.}
 
 \item{alternative}{Type of the alternative hypothesis in the test, one of "two.sided", "less", "greater".}
 
@@ -34,7 +32,7 @@ the 2D data set \code{Xp}.}
 \value{
 A list with the elements
 \item{statistic}{Test statistic}
-\item{p.value}{\eqn{p}-value for the hypothesis test for the corresponding alternative}
+\item{p.value}{The \eqn{p}-value for the hypothesis test for the corresponding alternative}
 \item{conf.int}{Confidence interval for the arc density at the given confidence level \code{conf.level} and
 depends on the type of \code{alternative}.}
 \item{estimate}{Estimate of the parameter, i.e., arc density}
@@ -45,7 +43,7 @@ mean arc density under uniform distribution.}
 \item{data.name}{Name of the data set}
 }
 \description{
-This is an "htest" (i.e., hypothesis test) function which performs a hypothesis test of complete spatial
+An object of class "htest" (i.e., hypothesis test) function which performs a hypothesis test of complete spatial
 randomness (CSR) or uniformity of \code{Xp} points in the convex hull of \code{Yp} points against the alternatives
 of segregation (where \code{Xp} points cluster away from \code{Yp} points) and association (where \code{Xp} points cluster around
 \code{Yp} points) based on the normal approximation of the arc density of the CS-PCD for uniform 2D data

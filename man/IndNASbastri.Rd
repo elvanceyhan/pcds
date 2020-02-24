@@ -14,14 +14,14 @@ IndNASbastri(pt1, pt2, c1, c2, M = "CC", rv = NULL)
 \code{pt1} or not.}
 
 \item{c1, c2}{Positive real numbers representing the top vertex in basic triangle \eqn{T_b=T((0,0),(1,0),(c_1,c_2))},
-\code{c1} must be in \eqn{[0,1/2]}, \eqn{c_2>0} and \eqn{(1-c_1)^2+c_2^2 \le 1}}
+\code{c1} must be in \eqn{[0,1/2]}, \eqn{c_2>0} and \eqn{(1-c_1)^2+c_2^2 \le 1}.}
 
-\item{M}{"CC" which stands for circumcenter or a 2D point in Cartesian coordinates or a 3D point in
+\item{M}{The center of the triangle. "CC" stands for circumcenter or a 2D point in Cartesian coordinates or a 3D point in
 barycentric coordinates which serves as a center in the interior of the triangle \eqn{T_b};
-default is \code{M}="CC" i.e. the circumcenter of \eqn{T_b}}
+default is \code{M}="CC" i.e. the circumcenter of \eqn{T_b}.}
 
 \item{rv}{The index of the \code{M}-vertex region in \eqn{T_b} containing the point, either 1, 2, 3 or \code{NULL}
-(default is \code{NULL})}
+(default is \code{NULL}).}
 }
 \value{
 \eqn{I(pt2 \in N_{AS}(pt1))} for points \code{pt1} and \code{pt2}, that is, returns 1 if \code{pt2} is in NAS(\code{pt1})

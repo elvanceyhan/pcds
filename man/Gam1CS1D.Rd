@@ -8,21 +8,22 @@ Proximity Catch Digraphs (CS-PCDs) for an interval}
 Gam1CS1D(p, Dt, t, c, int, rv = NULL, ch.data.pnt = FALSE)
 }
 \arguments{
-\item{p}{A 1D point that is to be tested for being a dominating point or not of the CS-PCD}
+\item{p}{A 1D point that is to be tested for being a dominating point or not of the CS-PCD.}
 
-\item{Dt}{A set of 1D points which constitutes the vertices of the CS-PCD}
+\item{Dt}{A set of 1D points which constitutes the vertices of the CS-PCD.}
 
-\item{t}{A positive real number which serves as the expansion parameter in CS proximity region}
+\item{t}{A positive real number which serves as the expansion parameter in CS proximity region.}
 
 \item{c}{A positive real number in \eqn{(0,1)} parameterizing the center inside \eqn{int=(a,b)}.
-For the interval, \eqn{int=(a,b)}, the parameterized center is \eqn{M_c=a+c(b-a)}; default c=.5}
+For the interval, \eqn{int=(a,b)}, the parameterized center is \eqn{M_c=a+c(b-a)}; default c=.5.}
 
-\item{int}{A vector of two real numbers representing an interval}
+\item{int}{A vector of two real numbers representing an interval.}
 
-\item{rv}{Index of the vertex region in which the point resides, either 1, 2 or \code{NULL} (default is \code{NULL})}
+\item{rv}{Index of the vertex region in which the point resides, either 1, 2 or \code{NULL}
+(default is \code{NULL}).}
 
 \item{ch.data.pnt}{A logical argument for checking whether point \code{p} is a data point
-in \code{Dt} or not (default is \code{FALSE})}
+in \code{Dt} or not (default is \code{FALSE}).}
 }
 \value{
 I(\code{p} is a dominating point of CS-PCD) where the vertices of the CS-PCD are the 1D data set \code{Dt}),

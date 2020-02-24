@@ -8,15 +8,15 @@ Central Similarity Proximity Catch Digraphs (CS-PCDs) - end interval case}
 IndNCSend1D(x1, x2, t, int, rv = NULL)
 }
 \arguments{
-\item{x1}{A 1D point for which the CS proximity region is constructed}
+\item{x1}{A 1D point for which the CS proximity region is constructed.}
 
-\item{x2}{A 1D point to check whether it is inside the proximity region or not}
+\item{x2}{A 1D point to check whether it is inside the proximity region or not.}
 
-\item{t}{A positive real number which serves as the expansion parameter in CS proximity region}
+\item{t}{A positive real number which serves as the expansion parameter in CS proximity region.}
 
-\item{int}{A vector of two real numbers representing an interval}
+\item{int}{A vector of two real numbers representing an interval.}
 
-\item{rv}{Index of the end interval containing the point, either 1, 2 or \code{NULL} (default=\code{NULL})}
+\item{rv}{Index of the end interval containing the point, either 1, 2 or \code{NULL} (default=\code{NULL}).}
 }
 \value{
 I(\code{x2} in \eqn{NCS(x1,t)}) for points \code{x1} and \code{x2}, that is, returns 1 if \code{x2} is in \eqn{NCS(x1,t)}

@@ -7,7 +7,7 @@
 as.bastri(tri)
 }
 \arguments{
-\item{tri}{Three 2D points, stacked row-wise, each row representing a vertex of the triangle}
+\item{tri}{Three 2D points, stacked row-wise, each row representing a vertex of the triangle.}
 }
 \value{
 A list with two elements

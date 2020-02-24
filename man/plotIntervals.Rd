@@ -21,13 +21,14 @@ plotIntervals(
 \item{Yp}{A set of 1D points which constitute the end points of the intervals which
 partition the real line.}
 
-\item{main}{An overall title for the plot (default="")}
+\item{main}{An overall title for the plot (default="").}
 
 \item{xlab, ylab}{Titles for the x and y axes, respectively (default="" for both).}
 
-\item{xlim, ylim}{Numeric vectors of length 2, giving the x- and y-coordinate ranges (default=\code{NULL} for both)}
+\item{xlim, ylim}{Numeric vectors of length 2, giving the x- and y-coordinate ranges
+(default=\code{NULL} for both).}
 
-\item{\dots}{Additional \code{plot} parameters}
+\item{\dots}{Additional \code{plot} parameters.}
 }
 \value{
 Plot of the intervals based on \code{Yp} points and also scatter plot of \code{Xp} points

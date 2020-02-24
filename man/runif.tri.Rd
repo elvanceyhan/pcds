@@ -2,16 +2,14 @@
 % Please edit documentation in R/PCDFunctions.r
 \name{runif.tri}
 \alias{runif.tri}
-\title{An object of class "Uniform":
-
-Generation of Uniform Points in a triangle}
+\title{Generation of Uniform Points in a triangle}
 \usage{
 runif.tri(k, tri)
 }
 \arguments{
-\item{k}{A positive integer representing the number of uniform points to be generated in the triangle}
+\item{k}{A positive integer representing the number of uniform points to be generated in the triangle.}
 
-\item{tri}{Three 2D points, stacked row-wise, each row representing a vertex of the triangle}
+\item{tri}{Three 2D points, stacked row-wise, each row representing a vertex of the triangle.}
 }
 \value{
 A list with the elements
@@ -28,6 +26,7 @@ of vertices of the support points (here it is 3).}
 \item{xlimit,ylimit}{The ranges of the x- and y-coordinates of the support, \code{tri}}
 }
 \description{
+An object of class "Uniform".
 Generates \code{k} points uniformly in a given triangle, \code{tri}
 }
 \examples{

@@ -7,15 +7,15 @@
 NumArcsCStri(Dt, tri, t, M = c(1, 1, 1))
 }
 \arguments{
-\item{Dt}{A set of 2D points which constitute the vertices of CS-PCD}
+\item{Dt}{A set of 2D points which constitute the vertices of CS-PCD.}
 
-\item{tri}{Three 2D points, stacked row-wise, each row representing a vertex of the triangle}
+\item{tri}{Three 2D points, stacked row-wise, each row representing a vertex of the triangle.}
 
-\item{t}{A positive real number which serves as the expansion parameter in CS proximity region}
+\item{t}{A positive real number which serves as the expansion parameter in CS proximity region.}
 
 \item{M}{A 2D point in Cartesian coordinates or a 3D point in barycentric coordinates
 which serves as a center in the interior of the triangle \code{tri}; default is \eqn{M=(1,1,1)} i.e.
-the center of mass of \code{tri}}
+the center of mass of \code{tri}.}
 }
 \value{
 Number of arcs for the CS-PCD with vertices being 2D data set, \code{dat}, in \code{tri}

@@ -18,22 +18,23 @@ Gam2ASbastri(
 )
 }
 \arguments{
-\item{pt1, pt2}{Two 2D points to be tested for constituting a dominating set of the AS-PCD}
+\item{pt1, pt2}{Two 2D points to be tested for constituting a dominating set of the AS-PCD.}
 
-\item{Dt}{A set of 2D points which constitutes the vertices of the AS-PCD}
+\item{Dt}{A set of 2D points which constitutes the vertices of the AS-PCD.}
 
 \item{c1, c2}{Positive real numbers which constitute the vertex of the basic triangle
-adjacent to the shorter edges; \code{c1} must be in \eqn{[0,1/2]}, \eqn{c_2>0} and \eqn{(1-c_1)^2+c_2^2 \le 1}}
+adjacent to the shorter edges; \code{c1} must be in \eqn{[0,1/2]}, \eqn{c_2>0} and \eqn{(1-c_1)^2+c_2^2 \le 1}.}
 
-\item{M}{"CC" which stands for circumcenter of the triangle \eqn{T_b} or a 2D point in Cartesian coordinates or
+\item{M}{The center of the triangle. "CC" stands for circumcenter of the triangle \eqn{T_b} or a 2D point in Cartesian coordinates or
 a 3D point in barycentric coordinates which serves as a center in the interior of the triangle \eqn{T_b};
-default is \code{M}="CC" i.e. the circumcenter of \eqn{T_b}}
+default is \code{M}="CC" i.e. the circumcenter of \eqn{T_b}.}
 
 \item{rv1, rv2}{The indices of the vertices whose regions contains \code{pt1} and \code{pt2}, respectively.
-They take the vertex labels as 1,2,3 as in the row order of the vertices in \eqn{T_b} (default is \code{NULL} for both)}
+They take the vertex labels as 1,2,3 as in the row order of the vertices in \eqn{T_b}
+(default is \code{NULL} for both).}
 
 \item{ch.data.pnts}{A logical argument for checking whether points \code{pt1} and \code{pt2} are data points in \code{Dt} or not
-(default is \code{FALSE})}
+(default is \code{FALSE}).}
 }
 \value{
 I(\{\code{pt1,pt2}\} is a dominating set of the AS-PCD) where the vertices of AS-PCD are the 2D data set \code{Dt}),

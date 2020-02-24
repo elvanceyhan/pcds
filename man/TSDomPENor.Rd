@@ -2,9 +2,7 @@
 % Please edit documentation in R/PCDFunctions.r
 \name{TSDomPENor}
 \alias{TSDomPENor}
-\title{An object of class "htest":
-
-A test of segregation/association based on domination number of Proportional Edge Proximity Catch Digraph
+\title{A test of segregation/association based on domination number of Proportional Edge Proximity Catch Digraph
 (PE-PCD) for 2D data - Normal Approximation}
 \usage{
 TSDomPENor(
@@ -18,17 +16,17 @@ TSDomPENor(
 )
 }
 \arguments{
-\item{Xp}{A set of 2D points which constitute the vertices of the PE-PCD}
+\item{Xp}{A set of 2D points which constitute the vertices of the PE-PCD.}
 
-\item{Yp}{A set of 2D points which constitute the vertices of the Delaunay triangles}
+\item{Yp}{A set of 2D points which constitute the vertices of the Delaunay triangles.}
 
 \item{r}{A positive real number which serves as the expansion parameter in PE proximity region;
-must be in \eqn{(1,1.5]}}
+must be in \eqn{(1,1.5]}.}
 
 \item{ch.cor}{A logical argument for convex hull correction, default \code{ch.cor}=\code{FALSE},
-recommended when both \code{Xp} and \code{Yp} have the same rectangular support}
+recommended when both \code{Xp} and \code{Yp} have the same rectangular support.}
 
-\item{nt}{Number of Delaunay triangles based on \code{Yp} points, default is \code{NULL}}
+\item{nt}{Number of Delaunay triangles based on \code{Yp} points, default is \code{NULL}.}
 
 \item{alternative}{Type of the alternative hypothesis in the test, one of "two.sided", "less", "greater".}
 
@@ -38,10 +36,10 @@ PE-PCD whose vertices are the 2D data set \code{Xp}.}
 \value{
 A list with the elements
 \item{statistic}{Test statistic}
-\item{p.value}{\eqn{p}-value for the hypothesis test for the corresponding alternative}
+\item{p.value}{The \eqn{p}-value for the hypothesis test for the corresponding alternative}
 \item{conf.int}{Confidence interval for the domination number at the given level \code{conf.level} and
 depends on the type of \code{alternative}.}
-\item{estimate}{a vector with two entries: first is the domination number,
+\item{estimate}{A vector with two entries: first is the domination number,
 and second is the estimate of the parameter, i.e., Pr(Domination Number=3)}
 \item{null.value}{Hypothesized value for the parameter, i.e., the null value for expected domination number}
 \item{alternative}{Type of the alternative hypothesis in the test, one of "two.sided", "less", "greater"}
@@ -49,7 +47,7 @@ and second is the estimate of the parameter, i.e., Pr(Domination Number=3)}
 \item{data.name}{Name of the data set}
 }
 \description{
-This is an "htest" (i.e., hypothesis test) function which performs a hypothesis test of complete spatial
+An object of class "htest" (i.e., hypothesis test) function which performs a hypothesis test of complete spatial
 randomness (CSR) or uniformity of \code{Xp} points in the convex hull of \code{Yp} points against the alternatives
 of segregation (where \code{Xp} points cluster away from \code{Yp} points i.e. cluster around the centers of the Delaunay
 triangles) and association (where \code{Xp} points cluster around \code{Yp} points) based on the normal approximation

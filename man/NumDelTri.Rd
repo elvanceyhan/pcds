@@ -7,14 +7,15 @@
 NumDelTri(Yp)
 }
 \arguments{
-\item{Yp}{A set of 2D points which constitute the vertices of Delaunay triangles}
+\item{Yp}{A set of 2D points which constitute the vertices of Delaunay triangles.}
 }
 \value{
 Number of Delaunay triangles based on \code{Yp} points.
 }
 \description{
 Returns the number of Delaunay triangles based on the 2D set of points \code{Yp} .
-See (\insertCite{okabe:2000,sinclair:2016;textual}{pcds}) for more on Delaunay triangulation and the corresponding algorithm.
+See (\insertCite{okabe:2000,sinclair:2016;textual}{pcds}) for more on Delaunay triangulation and
+the corresponding algorithm.
 }
 \examples{
 ny<-10

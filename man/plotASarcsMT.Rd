@@ -19,25 +19,26 @@ plotASarcsMT(
 )
 }
 \arguments{
-\item{Xp}{A set of 2D points which constitute the vertices of the AS-PCD}
+\item{Xp}{A set of 2D points which constitute the vertices of the AS-PCD.}
 
 \item{Yp}{A set of 2D points which constitute the vertices of the Delaunay triangulation. The Delaunay
 triangles partition the convex hull of \code{Yp} points.}
 
-\item{M}{"CC" which stands for circumcenter of each Delaunay triangle \code{tri} or 3D point in barycentric
-coordinates which serves as a center in the interior of each Delaunay triangle;
-default is \code{M}="CC" i.e. the circumcenter of each triangle}
+\item{M}{The center of the triangle. "CC" stands for circumcenter of each Delaunay triangle \code{tri}
+or 3D point in barycentric coordinates which serves as a center in the interior of each Delaunay triangle;
+default is \code{M}="CC" i.e. the circumcenter of each triangle.}
 
-\item{asp}{a numeric value, giving the aspect ratio for y axis to x-axis y/x (default is \code{NA}),
-see the official help for \code{asp} by typing "? asp"}
+\item{asp}{A numeric value, giving the aspect ratio for y axis to x-axis y/x (default is \code{NA}),
+see the official help for \code{asp} by typing "? asp".}
 
-\item{main}{An overall title for the plot (default="")}
+\item{main}{An overall title for the plot (default="").}
 
-\item{xlab, ylab}{Titles for the x and y axes, respectively (default="" for both)}
+\item{xlab, ylab}{Titles for the x and y axes, respectively (default="" for both).}
 
-\item{xlim, ylim}{Numeric vectors of length 2, giving the x- and y-coordinate ranges (default=\code{NULL} for both)}
+\item{xlim, ylim}{Numeric vectors of length 2, giving the x- and y-coordinate ranges
+(default=\code{NULL} for both).}
 
-\item{\dots}{Additional \code{plot} parameters}
+\item{\dots}{Additional \code{plot} parameters.}
 }
 \value{
 A plot of the arcs of the AS-PCD for a 2D data set \code{Xp} where AS proximity regions

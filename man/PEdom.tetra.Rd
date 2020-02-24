@@ -7,14 +7,15 @@
 PEdom.tetra(Xp, th, r, M = "CM")
 }
 \arguments{
-\item{Xp}{A set of 3D points which constitute the vertices of the digraph}
+\item{Xp}{A set of 3D points which constitute the vertices of the digraph.}
 
-\item{th}{Four 3D points, stacked row-wise, each row representing a vertex of the tetrahedron}
+\item{th}{Four 3D points, stacked row-wise, each row representing a vertex of the tetrahedron.}
 
-\item{r}{A positive real number which serves as the expansion parameter in PE proximity region; must be \eqn{\ge 1}}
+\item{r}{A positive real number which serves as the expansion parameter in PE proximity region;
+must be \eqn{\ge 1}.}
 
 \item{M}{The center to be used in the construction of the vertex regions in the tetrahedron, \code{th}.
-Currently it only takes "CC" for circumcenter and "CM" for center of mass; default="CM"}
+Currently it only takes "CC" for circumcenter and "CM" for center of mass; default="CM".}
 }
 \value{
 A list with two elements

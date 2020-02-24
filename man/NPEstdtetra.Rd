@@ -7,11 +7,13 @@
 NPEstdtetra(pt, r, rv = NULL)
 }
 \arguments{
-\item{pt}{A 3D point whose PE proximity region is to be computed}
+\item{pt}{A 3D point whose PE proximity region is to be computed.}
 
-\item{r}{A positive real number which serves as the expansion parameter in PE proximity region; must be \eqn{\ge 1}}
+\item{r}{A positive real number which serves as the expansion parameter in PE proximity region;
+must be \eqn{\ge 1}.}
 
-\item{rv}{Index of the vertex region containing the point, either 1, 2, 3, 4 or \code{NULL} (defaut is \code{NULL})}
+\item{rv}{Index of the vertex region containing the point, either 1, 2, 3, 4 or \code{NULL}
+(defaut is \code{NULL}).}
 }
 \value{
 Vertices of the tetrahedron which constitutes the PE proximity region with expansion parameter

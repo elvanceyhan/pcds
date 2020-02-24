@@ -7,11 +7,11 @@
 NumArcsCSend1D(dat, t, int)
 }
 \arguments{
-\item{dat}{A vector of 1D points which constitute the vertices of the digraph}
+\item{dat}{A vector of 1D points which constitute the vertices of the digraph.}
 
-\item{t}{A positive real number which serves as the expansion parameter in CS proximity region}
+\item{t}{A positive real number which serves as the expansion parameter in CS proximity region.}
 
-\item{int}{A vector of two real numbers representing an interval}
+\item{int}{A vector of two real numbers representing an interval.}
 }
 \value{
 Number of arcs for the CS-PCD with vertices being 1D data set, \code{dat},

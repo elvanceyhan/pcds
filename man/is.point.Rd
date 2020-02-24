@@ -2,7 +2,7 @@
 % Please edit documentation in R/PCDFunctions.r
 \name{is.point}
 \alias{is.point}
-\title{Check the argument is a point of a given dimension.}
+\title{Check the argument is a point of a given dimension}
 \usage{
 is.point(p, dim = 2)
 }

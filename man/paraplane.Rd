@@ -2,20 +2,18 @@
 % Please edit documentation in R/PCDFunctions.r
 \name{paraplane}
 \alias{paraplane}
-\title{An object of class "Planes":
-
-The plane paralel to the plane spanned by three distinct 3D points \code{a}, \code{b}, and \code{c}}
+\title{The plane paralel to the plane spanned by three distinct 3D points \code{a}, \code{b}, and \code{c}}
 \usage{
 paraplane(p, a, b, c, x, y)
 }
 \arguments{
 \item{p}{A 3D point which the plane parallel to the plane spanned by
-three distinct 3D points \code{a}, \code{b}, and \code{c} crosses}
+three distinct 3D points \code{a}, \code{b}, and \code{c} crosses.}
 
-\item{a, b, c}{3D points that determine the plane to which the plane crossing point \code{p} is parallel}
+\item{a, b, c}{3D points that determine the plane to which the plane crossing point \code{p} is parallel to.}
 
 \item{x, y}{A scalar or a vector of scalars representing the x- and y-coordinates of the plane parallel to
-the plane spanned by points \code{a}, \code{b}, and \code{c} and passing through point \code{p}}
+the plane spanned by points \code{a}, \code{b}, and \code{c} and passing through point \code{p}.}
 }
 \value{
 A list with the elements
@@ -35,6 +33,7 @@ containing the z-coordinate for each pair of \code{x} and \code{y} values.}
 \item{equation2}{Equation of the plane in short form, to be inserted on the plot}
 }
 \description{
+An object of class "Planes".
 Returns the equation and z-coordinates of the plane passing through point \code{p} and parallel to the plane spanned
 by three distinct 3D points \code{a}, \code{b}, and \code{c} with x- and y-coordinates are provided in vectors \code{x} and \code{y},
 respectively.

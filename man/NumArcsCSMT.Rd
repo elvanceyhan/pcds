@@ -7,17 +7,17 @@
 NumArcsCSMT(Xp, Yp, t, M = c(1, 1, 1))
 }
 \arguments{
-\item{Xp}{A set of 2D points which constitute the vertices of the CS-PCD}
+\item{Xp}{A set of 2D points which constitute the vertices of the CS-PCD.}
 
-\item{Yp}{A set of 2D points which constitute the vertices of the Delaunay triangles}
+\item{Yp}{A set of 2D points which constitute the vertices of the Delaunay triangles.}
 
-\item{t}{A positive real number which serves as the expansion parameter in CS proximity region}
+\item{t}{A positive real number which serves as the expansion parameter in CS proximity region.}
 
 \item{M}{A 3D point in barycentric coordinates which serves as a center in the interior of each Delaunay
-triangle, default for \eqn{M=(1,1,1)} which is the center of mass of each triangle}
+triangle, default for \eqn{M=(1,1,1)} which is the center of mass of each triangle.}
 }
 \value{
-A list of elements
+A list with the elements
 \item{num.arcs}{Total number of arcs in all triangles}
 \item{num.in.conhull}{Number of \code{Xp} points in the convex hull of \code{Yp} points}
 \item{weight.vec}{The vector of the areas of Delaunay triangles based on \code{Yp} points}

@@ -7,9 +7,10 @@
 dp2pl(p, a, b, c)
 }
 \arguments{
-\item{p}{A 3D point, distance from \code{p} to the plane passing through points \code{a}, \code{b}, and \code{c} are to be computed.}
+\item{p}{A 3D point, distance from \code{p} to the plane passing through points \code{a}, \code{b},
+and \code{c} are to be computed.}
 
-\item{a, b, c}{3D points that determine the plane (i.e., through which the plane is passing)}
+\item{a, b, c}{3D points that determine the plane (i.e., through which the plane is passing).}
 }
 \value{
 A list with two elements

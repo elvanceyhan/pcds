@@ -8,12 +8,12 @@ redges.tri.cent(Dt, tri, M)
 }
 \arguments{
 \item{Dt}{A set of 2D points representing the set of data points for which indices of the edge regions
-containing them are to be determined}
+containing them are to be determined.}
 
-\item{tri}{Three 2D points, stacked row-wise, each row representing a vertex of the triangle}
+\item{tri}{Three 2D points, stacked row-wise, each row representing a vertex of the triangle.}
 
 \item{M}{A 2D point in Cartesian coordinates or a 3D point in barycentric coordinates
-which serves as a center in the interior of the triangle \code{tri}}
+which serves as a center in the interior of the triangle \code{tri}.}
 }
 \value{
 A list with the elements

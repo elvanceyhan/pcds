@@ -2,17 +2,15 @@
 % Please edit documentation in R/PCDFunctions.r
 \name{rascIITe}
 \alias{rascIITe}
-\title{An object of class "Patterns":
-
-Generation of points associated (in a Type II fashion) with the edges of \eqn{T_e}}
+\title{Generation of points associated (in a Type II fashion) with the edges of \eqn{T_e}}
 \usage{
 rascIITe(k, eps)
 }
 \arguments{
-\item{k}{A positive integer representing the number of points to be generated}
+\item{k}{A positive integer representing the number of points to be generated.}
 
 \item{eps}{A positive real number representing the parameter of type II association (where \eqn{\sqrt{3}/6-eps}
-is the distance from the interior triangle distance from the interior triangle to \eqn{T_e}.)}
+is the distance from the interior triangle distance from the interior triangle to \eqn{T_e}).}
 }
 \value{
 A list with the elements
@@ -32,6 +30,7 @@ the number of reference (i.e., \code{Y}) points, which is 3 here.}
 vertices of \eqn{T_e} here}
 }
 \description{
+An object of class "Patterns".
 Generates \code{k} points uniformly in the standard equilateral triangle \eqn{T_e=T((0,0),(1,0),(1/2,\sqrt{3}/2))}
 under the type II association alternative for \code{eps} in \eqn{(0,\sqrt{3}/6=0.2886751]}.
 

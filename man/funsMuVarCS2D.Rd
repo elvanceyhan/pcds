@@ -4,9 +4,7 @@
 \alias{funsMuVarCS2D}
 \alias{muCS2D}
 \alias{asyvarCS2D}
-\title{Two functions: \code{muCS2D} and \code{asyvarCS2D} ---
-
-Returns the mean and (asymptotic) variance of arc density of  Central Similarity Proximity Catch Digraph (CS-PCD)
+\title{Returns the mean and (asymptotic) variance of arc density of  Central Similarity Proximity Catch Digraph (CS-PCD)
 for 2D uniform data in one triangle}
 \usage{
 muCS2D(t)
@@ -14,13 +12,15 @@ muCS2D(t)
 asyvarCS2D(t)
 }
 \arguments{
-\item{t}{A positive real number which serves as the expansion parameter in CS proximity region}
+\item{t}{A positive real number which serves as the expansion parameter in CS proximity region.}
 }
 \value{
 \code{muCS2D} returns the mean and \code{asyvarCS2D} returns the (asymptotic) variance of the
 arc density of CS-PCD for uniform data in any triangle
 }
 \description{
+Two functions: \code{muCS2D} and \code{asyvarCS2D}.
+
 \code{muCS2D} returns the mean of the (arc) density of CS-PCD
 and \code{asyvarCS2D} returns the asymptotic variance of the arc density of CS-PCD
 with expansion parameter \eqn{t>0} for 2D uniform data in a triangle.

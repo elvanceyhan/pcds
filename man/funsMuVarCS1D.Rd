@@ -4,9 +4,7 @@
 \alias{funsMuVarCS1D}
 \alias{muCS1D}
 \alias{asyvarCS1D}
-\title{Two functions: \code{muCS1D} and \code{asyvarCS1D} ---
-
-Returning the mean and (asymptotic) variance of arc density of Central Similarity Proximity Catch Digraph (CS-PCD)
+\title{Returning the mean and (asymptotic) variance of arc density of Central Similarity Proximity Catch Digraph (CS-PCD)
 for 1D data - middle interval case}
 \usage{
 muCS1D(t, c)
@@ -14,16 +12,18 @@ muCS1D(t, c)
 asyvarCS1D(t, c)
 }
 \arguments{
-\item{t}{A positive real number which serves as the expansion parameter in CS proximity region}
+\item{t}{A positive real number which serves as the expansion parameter in CS proximity region.}
 
 \item{c}{A positive real number in \eqn{(0,1)} parameterizing the center inside \eqn{int=(a,b)}.
-For the interval, \eqn{int=(a,b)}, the parameterized center is \eqn{M_c=a+c(b-a)}}
+For the interval, \eqn{int=(a,b)}, the parameterized center is \eqn{M_c=a+c(b-a)}.}
 }
 \value{
 \code{muCS1D} returns the mean and \code{asyvarCS1D} returns the asymptotic variance of the
 arc density of CS-PCD for uniform data in an interval
 }
 \description{
+Two functions: \code{muCS1D} and \code{asyvarCS1D}.
+
 \code{muCS1D} returns the mean of the (arc) density of CS-PCD
 and \code{asyvarCS1D} returns the (asymptotic) variance of the arc density of CS-PCD
 for a given centrality parameter \code{c} in \eqn{(0,1)} and an expansion parameter \eqn{t>0} and 1D uniform data in a

@@ -7,7 +7,7 @@
 \method{summary}{Uniform}(object, ...)
 }
 \arguments{
-\item{object}{Object of class \code{Uniform}}
+\item{object}{Object of class \code{Uniform}.}
 
 \item{\dots}{Additional parameters for \code{summary}.}
 }

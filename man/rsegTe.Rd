@@ -2,17 +2,15 @@
 % Please edit documentation in R/PCDFunctions.r
 \name{rsegTe}
 \alias{rsegTe}
-\title{An object of class "Patterns":
-
-Generation of points segregated (in a Type I fashion) from the vertices of \eqn{T_e}}
+\title{Generation of points segregated (in a Type I fashion) from the vertices of \eqn{T_e}}
 \usage{
 rsegTe(k, eps)
 }
 \arguments{
-\item{k}{A positive integer representing the number of points to be generated}
+\item{k}{A positive integer representing the number of points to be generated.}
 
 \item{eps}{A positive real number representing the parameter of type I segregation (which is the
-height of the triangular forbidden regions around the vertices)}
+height of the triangular forbidden regions around the vertices).}
 }
 \value{
 A list with the elements
@@ -32,6 +30,7 @@ the number of reference (i.e., \code{Y}) points, which is 3 here.}
 vertices of \eqn{T_e} here}
 }
 \description{
+An object of class "Patterns".
 Generates \code{k} points uniformly in the standard equilateral triangle \eqn{T_e=T((0,0),(1,0),(1/2,\sqrt{3}/2))}
 under the type I segregation alternative for \code{eps} in \eqn{(0,\sqrt{3}/3=0.5773503]}.
 

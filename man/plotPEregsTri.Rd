@@ -19,25 +19,28 @@ plotPEregsTri(
 )
 }
 \arguments{
-\item{Xp}{A set of 2D points for which PE proximity regions are constructed}
+\item{Xp}{A set of 2D points for which PE proximity regions are constructed.}
 
-\item{tri}{Three 2D points, stacked row-wise, each row representing a vertex of the triangle}
+\item{tri}{Three 2D points, stacked row-wise, each row representing a vertex of the triangle.}
 
-\item{r}{A positive real number which serves as the expansion parameter in PE proximity region; must be \eqn{\ge 1}}
+\item{r}{A positive real number which serves as the expansion parameter in PE proximity region;
+must be \eqn{\ge 1}.}
 
 \item{M}{A 2D point in Cartesian coordinates or a 3D point in barycentric coordinates
 which serves as a center in the interior of the triangle \code{tri} or the circumcenter of \code{tri};
-default is \eqn{M=(1,1,1)} i.e. the center of mass of \code{tri}}
+default is \eqn{M=(1,1,1)} i.e. the center of mass of \code{tri}.}
 
-\item{asp}{a numeric value, giving the aspect ratio y/x (default is \code{NA}), see the official help for \code{asp} by typing "? asp"}
+\item{asp}{A numeric value, giving the aspect ratio y/x (default is \code{NA}),
+see the official help for \code{asp} by typing "? asp".}
 
-\item{main}{An overall title for the plot (default="")}
+\item{main}{An overall title for the plot (default="").}
 
-\item{xlab, ylab}{Titles for the x and y axes, respectively (default="" for both)}
+\item{xlab, ylab}{Titles for the x and y axes, respectively (default="" for both).}
 
-\item{xlim, ylim}{Numeric vectors of length 2, giving the x- and y-coordinate ranges (default=\code{NULL} for both)}
+\item{xlim, ylim}{Numeric vectors of length 2, giving the x- and y-coordinate ranges
+(default=\code{NULL} for both).}
 
-\item{\dots}{Additional \code{plot} parameters}
+\item{\dots}{Additional \code{plot} parameters.}
 }
 \value{
 Plot of the PE proximity regions for points inside the triangle \code{tri}

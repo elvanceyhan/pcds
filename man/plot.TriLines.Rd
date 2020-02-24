@@ -7,9 +7,9 @@
 \method{plot}{TriLines}(x, xlab = "x", ylab = "y", ...)
 }
 \arguments{
-\item{x}{Object of class \code{TriLines}}
+\item{x}{Object of class \code{TriLines}.}
 
-\item{xlab, ylab}{Titles for the x and y axes, respectively (default is \code{xlab}="x" and \code{ylab}="y".)}
+\item{xlab, ylab}{Titles for the x and y axes, respectively (default is \code{xlab}="x" and \code{ylab}="y").}
 
 \item{\dots}{Additional parameters for \code{plot}.}
 }

@@ -8,7 +8,7 @@ radius(pt, Y)
 }
 \arguments{
 \item{pt}{A d-dimensional point for which radius is computed. Radius of \code{pt} equals to the
-distance to the closest \code{Y} point to pt.}
+distance to the closest \code{Y} point to \code{pt}.}
 
 \item{Y}{A set of d-dimensional points representing the reference points for the balls. That is, radius
 of the point \code{pt} is defined as the minimum distance to the \code{Y} points.}

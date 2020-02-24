@@ -7,10 +7,9 @@
 rv.triCM(p, tri)
 }
 \arguments{
-\item{p}{A 2D point for which CM-vertex region it resides in is to be determined in the triangle
-tri}
+\item{p}{A 2D point for which CM-vertex region it resides in is to be determined in the triangle \code{tri}.}
 
-\item{tri}{Three 2D points, stacked row-wise, each row representing a vertex of the triangle}
+\item{tri}{Three 2D points, stacked row-wise, each row representing a vertex of the triangle.}
 }
 \value{
 A list with two elements

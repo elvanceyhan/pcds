@@ -8,19 +8,19 @@
 Gam1CSTet1(p, Dt, re = NULL, ch.data.pnt = FALSE)
 }
 \arguments{
-\item{p}{A 2D point that is to be tested for being a dominating point or not of the CS-PCD}
+\item{p}{A 2D point that is to be tested for being a dominating point or not of the CS-PCD.}
 
-\item{Dt}{A set of 2D points which constitutes the vertices of the CS-PCD}
+\item{Dt}{A set of 2D points which constitutes the vertices of the CS-PCD.}
 
 \item{re}{The index of the edge region in \eqn{T_e} containing the point, either 1, 2, 3 or \code{NULL}
-(default is \code{NULL})}
+(default is \code{NULL}).}
 
 \item{ch.data.pnt}{A logical argument for checking whether point \code{p} is a data point
-in \code{Dt} or not (default is \code{FALSE})}
+in \code{Dt} or not (default is \code{FALSE}).}
 }
 \value{
 I(\code{p} is a dominating point of the CS-PCD) where the vertices of the CS-PCD are the 2D data set \code{Dt},
-that is, returns 1 if \code{p} is a dominating point, returns 0 otherwise
+that is, returns 1 if \code{p} is a dominating point, returns 0 otherwise.
 }
 \description{
 Returns I(\code{p} is a dominating point of the CS-PCD) where the vertices of the CS-PCD are the 2D data set \code{Dt} in the standard equilateral

@@ -7,19 +7,20 @@
 NASbastri(pt, c1, c2, M = "CC", rv = NULL, dec = 4)
 }
 \arguments{
-\item{pt}{A 2D point whose AS proximity region is to be computed}
+\item{pt}{A 2D point whose AS proximity region is to be computed.}
 
 \item{c1, c2}{Positive real numbers representing the top vertex in basic triangle \eqn{T_b=T((0,0),(1,0),(c_1,c_2))},
-\code{c1} must be in \eqn{[0,1/2]}, \eqn{c_2>0} and \eqn{(1-c_1)^2+c_2^2 \le 1}}
+\code{c1} must be in \eqn{[0,1/2]}, \eqn{c_2>0} and \eqn{(1-c_1)^2+c_2^2 \le 1}.}
 
-\item{M}{"CC" which stands for circumcenter of the triangle \eqn{T_b} or a 2D point in Cartesian coordinates or
+\item{M}{The center of the triangle. "CC" stands for circumcenter of the triangle \eqn{T_b} or a 2D point in Cartesian coordinates or
 a 3D point in barycentric coordinates which serves as a center in the interior of the triangle \eqn{T_b};
-default is \code{M}="CC" i.e. the circumcenter of \eqn{T_b}}
+default is \code{M}="CC" i.e. the circumcenter of \eqn{T_b}.}
 
-\item{rv}{The index of the \code{M}-vertex region containing the point, either 1, 2, 3 or \code{NULL} (default is \code{NULL})}
+\item{rv}{The index of the \code{M}-vertex region containing the point, either 1, 2, 3 or \code{NULL}
+(default is \code{NULL}).}
 
 \item{dec}{a positive integer the number of decimals (default is 4) to round the barycentric coordinates when checking whether
-the end points fall on the boundary of the triangle \eqn{T_b} or not}
+the end points fall on the boundary of the triangle \eqn{T_b} or not.}
 }
 \value{
 A list with the elements

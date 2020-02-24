@@ -13,9 +13,10 @@ IndNPEstdtetra(pt1, pt2, r, rv = NULL)
 \item{pt2}{A 3D point. The function determines whether \code{pt2} is inside the PE proximity region of
 \code{pt1} or not.}
 
-\item{r}{A positive real number which serves as the expansion parameter in PE proximity region; must be \eqn{\ge 1}}
+\item{r}{A positive real number which serves as the expansion parameter in PE proximity region;
+must be \eqn{\ge 1}.}
 
-\item{rv}{Index of the vertex region containing the point, either 1, 2, 3, 4 (defualt is \code{NULL})}
+\item{rv}{Index of the vertex region containing the point, either 1, 2, 3, 4 (defualt is \code{NULL}).}
 }
 \value{
 I(\code{pt2} is in \eqn{NPE(pt1,r)}) for points \code{pt1} and \code{pt2}, that is, returns 1 if \code{pt2} is in \eqn{NPE(pt1,r)},

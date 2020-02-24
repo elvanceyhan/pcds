@@ -7,11 +7,11 @@
 int.circ.line(pt1, pt2, cent, rad)
 }
 \arguments{
-\item{pt1, pt2}{2D points that determine the straight line (i.e., through which the straight line passes)}
+\item{pt1, pt2}{2D points that determine the straight line (i.e., through which the straight line passes).}
 
-\item{cent}{A 2D point representing the center of the circle}
+\item{cent}{A 2D point representing the center of the circle.}
 
-\item{rad}{A positive real number representing the radius of the circle}
+\item{rad}{A positive real number representing the radius of the circle.}
 }
 \value{
 point(s) of intersection between the circle and the line (if they do not intersect, the function

@@ -8,16 +8,16 @@ Catch Digraphs (PE-PCDs) - standard equilateral triangle case}
 IndNPETe.domset(S, Dt, r, M = c(1, 1, 1))
 }
 \arguments{
-\item{S}{A set of 2D points whose PE proximity regions are considered}
+\item{S}{A set of 2D points whose PE proximity regions are considered.}
 
-\item{Dt}{A set of 2D points which constitutes the vertices of the PE-PCD}
+\item{Dt}{A set of 2D points which constitutes the vertices of the PE-PCD.}
 
 \item{r}{A positive real number which serves as the expansion parameter in PE proximity region in the
-standard equilateral triangle \eqn{T_e=T((0,0),(1,0),(1/2,\sqrt{3}/2))}; must be \eqn{\ge 1}}
+standard equilateral triangle \eqn{T_e=T((0,0),(1,0),(1/2,\sqrt{3}/2))}; must be \eqn{\ge 1}.}
 
 \item{M}{A 2D point in Cartesian coordinates or a 3D point in barycentric coordinates
 which serves as a center in the interior of the standard equilateral triangle \eqn{T_e}; default is \eqn{M=(1,1,1)} i.e.
-the center of mass of \eqn{T_e}}
+the center of mass of \eqn{T_e}.}
 }
 \value{
 I(\code{S} a dominating set of PE-PCD), that is, returns 1 if \code{S} is a dominating set of PE-PCD,

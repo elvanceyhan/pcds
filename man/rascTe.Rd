@@ -2,17 +2,15 @@
 % Please edit documentation in R/PCDFunctions.r
 \name{rascTe}
 \alias{rascTe}
-\title{An object of class "Patterns":
-
-Generation of points associated (in a Type I fashion) with the vertices of \eqn{T_e}}
+\title{Generation of points associated (in a Type I fashion) with the vertices of \eqn{T_e}}
 \usage{
 rascTe(k, eps)
 }
 \arguments{
-\item{k}{A positive integer representing the number of points to be generated}
+\item{k}{A positive integer representing the number of points to be generated.}
 
 \item{eps}{A positive real number representing the parameter of type I association (where \eqn{\sqrt{3}/3-eps}
-serves as the height of the triangular support regions around the vertices)}
+serves as the height of the triangular support regions around the vertices).}
 }
 \value{
 A list with the elements
@@ -32,6 +30,7 @@ which are the number of generated points and the number of reference (i.e., \cod
 vertices of \eqn{T_e} here}
 }
 \description{
+An object of class "Patterns".
 Generates \code{k} points uniformly in the standard equilateral triangle \eqn{T_e=T((0,0),(1,0),(1/2,\sqrt{3}/2))}
 under the type I association alternative for \code{eps} in \eqn{(0,\sqrt{3}/3=0.5773503]}.
 The allowed triangular regions around the vertices are determined by the parameter \code{eps}.

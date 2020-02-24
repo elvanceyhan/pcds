@@ -2,23 +2,21 @@
 % Please edit documentation in R/PCDFunctions.r
 \name{rsegMT}
 \alias{rsegMT}
-\title{An object of class "Patterns":
-
-Generation of points segregated (in a Type I fashion) from a given set of points.}
+\title{Generation of points segregated (in a Type I fashion) from a given set of points}
 \usage{
 rsegMT(n, Yp, delta, DTmesh = NULL, DTr = NULL)
 }
 \arguments{
-\item{n}{A positive integer representing the number of points to be generated}
+\item{n}{A positive integer representing the number of points to be generated.}
 
-\item{Yp}{A set of 2D points from which Delaunay triangulation is constructed}
+\item{Yp}{A set of 2D points from which Delaunay triangulation is constructed.}
 
 \item{delta}{A positive real number in (0,4/9). \code{delta} is the parameter of segregation (that is, \eqn{\delta 100} %
 area around each vertex in each Delaunay triangle is forbidden for point generation).}
 
 \item{DTmesh}{Delaunay triangulation of \code{Yp}, default is \code{NULL}, which is computed via \code{\link[interp]{tri.mesh}} function
 in \code{interp} package. \code{\link[interp]{tri.mesh}} function yields the triangulation nodes with their neigbours, and
-creates a triangulation object}
+creates a triangulation object.}
 
 \item{DTr}{Delaunay triangles based on \code{Yp}, default is \code{NULL}, which is computed via \code{\link[interp]{tri.mesh}} function
 in \code{interp} package. \code{\link[interp]{triangles}} function yields a triangulation data structure from the triangulation object created
@@ -41,6 +39,7 @@ and the number of reference (i.e., \code{Yp}) points.}
 \code{Yp} points}
 }
 \description{
+An object of class "Patterns".
 Generates \code{n} points uniformly in the support for Type I segregation in the convex hull of
 set of points, \code{Yp}.
 

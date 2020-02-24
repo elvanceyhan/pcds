@@ -8,16 +8,16 @@ Catch Digraph (CS-PCD) by the exact algorithm - standard equilateral triangle ca
 IndCSdomUBTe(Dt, k, t, M = c(1, 1, 1))
 }
 \arguments{
-\item{Dt}{A set of 2D points which constitute the vertices of CS-PCD}
+\item{Dt}{A set of 2D points which constitute the vertices of CS-PCD.}
 
-\item{k}{A positive integer representing an upper bound for the domination number of CS-PCD}
+\item{k}{A positive integer representing an upper bound for the domination number of CS-PCD.}
 
 \item{t}{A positive real number which serves as the expansion parameter in CS proximity region in the
-standard equilateral triangle \eqn{T_e=T((0,0),(1,0),(1/2,\sqrt{3}/2))}}
+standard equilateral triangle \eqn{T_e=T((0,0),(1,0),(1/2,\sqrt{3}/2))}.}
 
 \item{M}{A 2D point in Cartesian coordinates or a 3D point in barycentric coordinates
 which serves as a center in the interior of the standard equilateral triangle \eqn{T_e}; default is \eqn{M=(1,1,1)} i.e.
-the center of mass of \eqn{T_e}}
+the center of mass of \eqn{T_e}.}
 }
 \value{
 A list with two elements

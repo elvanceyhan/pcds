@@ -8,17 +8,17 @@ Central Similarity  Proximity Catch Digraphs (CS-PCDs) - one interval case}
 IndNCSint(x1, x2, t, c = 0.5, int)
 }
 \arguments{
-\item{x1}{A 1D point for which the proximity region is constructed}
+\item{x1}{A 1D point for which the proximity region is constructed.}
 
 \item{x2}{A 1D point for which it is checked whether it resides in the proximity region
-of \code{x1} or not}
+of \code{x1} or not.}
 
-\item{t}{A positive real number which serves as the expansion parameter in CS proximity region}
+\item{t}{A positive real number which serves as the expansion parameter in CS proximity region.}
 
 \item{c}{A positive real number in \eqn{(0,1)} parameterizing the center inside \eqn{int=(a,b)}.
-For the interval, \eqn{int=(a,b)}, the parameterized center is \eqn{M_c=a+c(b-a)}, and default=.5}
+For the interval, \eqn{int=(a,b)}, the parameterized center is \eqn{M_c=a+c(b-a)}, and default=0.5.}
 
-\item{int}{A vector of two real numbers representing an interval}
+\item{int}{A vector of two real numbers representing an interval.}
 }
 \value{
 I(\code{x2} in \eqn{NCS(x1,t,c)}) for x2, that is, returns 1 if \code{x2} in \eqn{NCS(x1,t,c)}, returns 0 otherwise

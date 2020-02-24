@@ -2,19 +2,18 @@
 % Please edit documentation in R/PCDFunctions.r
 \name{runifMT}
 \alias{runifMT}
-\title{An object of class "Uniform":
-
-Generation of Uniform Points in the convex hull of points}
+\title{Generation of Uniform Points in the Convex Hull of Points}
 \usage{
 runifMT(n, Yp, DTmesh = NULL)
 }
 \arguments{
 \item{n}{A positive integer representing the number of uniform points to be generated in the convex hull
-of the point set \code{Yp}}
+of the point set \code{Yp}.}
 
-\item{Yp}{A set of 2D points whose convex hull is the support of the uniform points to be generated}
+\item{Yp}{A set of 2D points whose convex hull is the support of the uniform points to be generated.}
 
-\item{DTmesh}{Triangulation nodes with neigbours (result of \code{\link[interp]{tri.mesh}} function from \code{interp} package)}
+\item{DTmesh}{Triangulation nodes with neigbours (result of \code{\link[interp]{tri.mesh}} function from
+\code{interp} package).}
 }
 \value{
 A list with the elements
@@ -31,6 +30,7 @@ the number of vertices in the triangulation (i.e., size of \code{Yp}) points.}
 \item{xlimit,ylimit}{The ranges of the x- and y-coordinates of the points in Yp}
 }
 \description{
+An object of class "Uniform".
 Generates \code{n} points uniformly in the Convex Hull of set of points, \code{Yp}. That is, generates
 uniformly in each of the triangles in the Delaunay triangulation of \code{Yp}, i.e., in the multiple
 triangles partitioning the convex hull of \code{Yp}.

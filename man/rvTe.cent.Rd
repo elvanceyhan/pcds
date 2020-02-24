@@ -8,10 +8,10 @@ rvTe.cent(pt, M)
 }
 \arguments{
 \item{pt}{A 2D point for which \code{M}-vertex region it resides in is to be determined in the
-standard equilateral triangle \eqn{T_e}}
+standard equilateral triangle \eqn{T_e}.}
 
 \item{M}{A 2D point in Cartesian coordinates or a 3D point in barycentric coordinates
-which serves as a center in the interior of the standard equilateral triangle \eqn{T_e}}
+which serves as a center in the interior of the standard equilateral triangle \eqn{T_e}.}
 }
 \value{
 A list with two elements

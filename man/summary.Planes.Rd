@@ -7,7 +7,7 @@
 \method{summary}{Planes}(object, ...)
 }
 \arguments{
-\item{object}{Object of class \code{Planes}}
+\item{object}{Object of class \code{Planes}.}
 
 \item{\dots}{Additional parameters for \code{summary}.}
 }

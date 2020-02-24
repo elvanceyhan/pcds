@@ -9,7 +9,7 @@ in.tetrahedron(p, th, boundary = FALSE)
 \arguments{
 \item{p}{A 3D point to be checked whether it is inside the tetrahedron or not.}
 
-\item{th}{Four 3D points, stacked row-wise, each row representing a vertex of the tetrahedron}
+\item{th}{Four 3D points, stacked row-wise, each row representing a vertex of the tetrahedron.}
 
 \item{boundary}{A logical parameter (default=\code{FALSE}) to include boundary or not, so if it is \code{TRUE},
 the function checks if the point, \code{p}, lies in the closure of the tetrahedron (i.e. interior and boundary

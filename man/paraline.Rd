@@ -2,16 +2,14 @@
 % Please edit documentation in R/PCDFunctions.r
 \name{paraline}
 \alias{paraline}
-\title{An object of class "Lines":
-
-The line paralel to the line segment joining two distinct 2D points \code{a} and \code{b}}
+\title{The line paralel to the line segment joining two distinct 2D points \code{a} and \code{b}}
 \usage{
 paraline(p, a, b, x)
 }
 \arguments{
 \item{p}{A 2D point at which the parallel line to line segment joining \code{a} and \code{b} crosses.}
 
-\item{a, b}{2D points that determine the line segment (the line will be parallel to this line segment)}
+\item{a, b}{2D points that determine the line segment (the line will be parallel to this line segment).}
 
 \item{x}{A scalar or a vector of scalars representing the x-coordinates of the line parallel to
 ab and crossing \code{p}.}
@@ -40,6 +38,7 @@ joining \code{a} and \code{b}}
 \code{a} and \code{b}}
 }
 \description{
+An object of class "Lines".
 Returns the \code{equation, slope, intercept}, and y-coordinates of the line crossing the
 point \code{p} and parallel to the line passing through the points \code{a} and \code{b} with
 x-coordinates are provided in vector \code{x}.

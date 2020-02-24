@@ -2,16 +2,14 @@
 % Please edit documentation in R/PCDFunctions.r
 \name{Kfr2vVRCC}
 \alias{Kfr2vVRCC}
-\title{An object of class "Extrema":
-
-The \code{k} furthest points in a data set from vertices in each CC-vertex region in a triangle.}
+\title{The \code{k} furthest points in a data set from vertices in each CC-vertex region in a triangle}
 \usage{
 Kfr2vVRCC(Dt, tri, k, ch.all.intri = FALSE)
 }
 \arguments{
-\item{Dt}{A set of 2D points representing the set of data points}
+\item{Dt}{A set of 2D points representing the set of data points.}
 
-\item{tri}{Three 2D points, stacked row-wise, each row representing a vertex of the triangle}
+\item{tri}{Three 2D points, stacked row-wise, each row representing a vertex of the triangle.}
 
 \item{k}{A positive integer. \code{k} furthest data points in each CC-vertex region are to be found if exists, else
 \code{NA} are provided for (some of) the \code{k} furthest points.}
@@ -29,7 +27,7 @@ A list with the elements
 \item{type}{Type of the extrema points}
 \item{desc}{A short description of the extrema points}
 \item{mtitle}{The "main" title for the plot of the exrema}
-\item{Ext}{The extrema points, here, \code{k} furthest points from vertices in each CC-vertex region in
+\item{ext}{The extrema points, here, \code{k} furthest points from vertices in each CC-vertex region in
 the triangle \code{tri}.}
 \item{X}{The input data, \code{Dt}, can be a matrix or data frame}
 \item{num.points}{The number of data points, i.e., size of \code{Dt}}
@@ -46,6 +44,7 @@ points from vertex 2 to vertex 2, and the last \code{k} entries are the distance
 from vertex 3 to vertex 3.}
 }
 \description{
+An object of class "Extrema".
 Returns the \code{k} furthest data points among the data set, \code{Dt}, in each CC-vertex region from the vertex in the
 triangle, \eqn{tri=T(A,B,C)}, vertices are stacked row-wise. Vertex region labels/numbers correspond to the
 row number of the vertex in \code{tri}.
@@ -57,7 +56,7 @@ If some of the data points are not inside \code{tri} and \code{ch.all.intri}=\co
 the closest points to edges among the data points inside \code{tri} (yields \code{NA} if there are no data points
 inside \code{tri}).
 
-In the extrema, \eqn{Ext}, in the output, the first \code{k} entries are the \code{k} furthest points from vertex 1,
+In the extrema, \eqn{ext}, in the output, the first \code{k} entries are the \code{k} furthest points from vertex 1,
 second \code{k} entries are \code{k} furthest points are from vertex 2, and
 last \code{k} entries are the \code{k} furthest points from vertex 3.
 If data size does not allow, NA's are inserted for some or all of the \code{k} furthest points for each vertex.
@@ -98,7 +97,7 @@ polygon(Tr)
 L<-matrix(rep(CC,3),ncol=2,byrow=TRUE); R<-Ds
 segments(L[,1], L[,2], R[,1], R[,2], lty=2)
 points(dat)
-points(kf2v$Ext,pch=4,col=2)
+points(kf2v$ext,pch=4,col=2)
 
 txt<-rbind(Tr,CC,Ds)
 xc<-txt[,1]+c(-.06,.08,.05,.12,-.1,-.1,-.09)

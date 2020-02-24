@@ -9,14 +9,16 @@ IndNPEmid1D(x1, x2, r, c, int, rv = NULL)
 }
 \arguments{
 \item{x1, x2}{1D points; \code{x1} is the point for which the proximity region, \eqn{NPE(x1,r,c)} is
-constructed and \code{x2} is the point which the function is checking whether its inside \eqn{NPE(x1,r,c)} or not}
+constructed and \code{x2} is the point which the function is checking whether its inside
+\eqn{NPE(x1,r,c)} or not.}
 
-\item{r}{A positive real number which serves as the expansion parameter in PE proximity region; must be \eqn{\ge 1}}
+\item{r}{A positive real number which serves as the expansion parameter in PE proximity region;
+must be \eqn{\ge 1}.}
 
 \item{c}{A positive real number in \eqn{(0,1)} parameterizing the center inside \eqn{int=(a,b)}.
-For the interval, \eqn{int=(a,b)}, the parameterized center is \eqn{M_c=a+c(b-a)}}
+For the interval, \eqn{int=(a,b)}, the parameterized center is \eqn{M_c=a+c(b-a)}.}
 
-\item{int}{A vector of two real numbers representing an interval}
+\item{int}{A vector of two real numbers representing an interval.}
 
 \item{rv}{The index of the vertex region \code{x1} resides, with default=\code{NULL}.}
 }

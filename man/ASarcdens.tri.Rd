@@ -7,17 +7,17 @@
 ASarcdens.tri(Xp, tri, M = "CC", tri.cor = TRUE)
 }
 \arguments{
-\item{Xp}{A set of 2D points which constitute the vertices of the AS-PCD}
+\item{Xp}{A set of 2D points which constitute the vertices of the AS-PCD.}
 
-\item{tri}{Three 2D points, stacked row-wise, each row representing a vertex of the triangle}
+\item{tri}{Three 2D points, stacked row-wise, each row representing a vertex of the triangle.}
 
-\item{M}{"CC" which stands for circumcenter of the triangle \code{tri} or a 2D point in Cartesian coordinates or
+\item{M}{The center of the triangle. "CC" stands for circumcenter of the triangle \code{tri} or a 2D point in Cartesian coordinates or
 a 3D point in barycentric coordinates which serves as a center in the interior of \code{tri};
-default is \code{M}="CC" i.e. the circumcenter of \code{tri}}
+default is \code{M}="CC" i.e. the circumcenter of \code{tri}.}
 
 \item{tri.cor}{A logical argument for computing the arc density for only the points inside the triangle, \code{tri}
 (default=\code{TRUE}), i.e., if \code{TRUE} only the induced digraph with the vertices inside \code{tri} are considered in the
-computation of arc density}
+computation of arc density.}
 }
 \value{
 Arc density of AS-PCD whose vertices are the 2D numerical data set, \code{Xp};

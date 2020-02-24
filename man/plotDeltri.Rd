@@ -16,17 +16,17 @@ plotDeltri(
 )
 }
 \arguments{
-\item{Xp}{A set of 2D points whose scatterplot is to be plotted}
+\item{Xp}{A set of 2D points whose scatterplot is to be plotted.}
 
-\item{Yp}{A set of 2D points which constitute the vertices of the Delaunay triangles}
+\item{Yp}{A set of 2D points which constitute the vertices of the Delaunay triangles.}
 
-\item{main}{An overall title for the plot (default="")}
+\item{main}{An overall title for the plot (default="").}
 
-\item{xlab, ylab}{Titles for the x and y axes, respectively (default="" for both)}
+\item{xlab, ylab}{Titles for the x and y axes, respectively (default="" for both).}
 
 \item{xlim, ylim}{Numeric vectors of length 2, giving the x- and y-coordinate ranges (default=\code{NULL} for both)}
 
-\item{\dots}{Additional \code{plot} parameters}
+\item{\dots}{Additional \code{plot} parameters.}
 }
 \value{
 A scatterplot of \code{Xp} points and the Delaunay triangulation of \code{Yp} points.

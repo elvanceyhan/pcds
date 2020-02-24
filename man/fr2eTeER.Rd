@@ -2,18 +2,17 @@
 % Please edit documentation in R/PCDFunctions.r
 \name{fr2eTeER}
 \alias{fr2eTeER}
-\title{An object of class "Extrema":
-
-The furthest points in a data set from edges in each CM-edge region in the standard
+\title{The furthest points in a data set from edges in each CM-edge region in the standard
 equilateral triangle}
 \usage{
 fr2eTeER(Dt, ch.all.intri = FALSE)
 }
 \arguments{
-\item{Dt}{A set of 2D points, some could be inside and some could be outside standard equilateral triangle \eqn{T_e}}
+\item{Dt}{A set of 2D points, some could be inside and some could be outside standard equilateral triangle
+\eqn{T_e}.}
 
 \item{ch.all.intri}{A logical argument used for checking whether all data points are inside \eqn{T_e}
-(default is \code{FALSE})}
+(default is \code{FALSE}).}
 }
 \value{
 A list with the elements
@@ -22,7 +21,7 @@ A list with the elements
 \item{type}{Type of the extrema points}
 \item{desc}{A short description of the extrema points}
 \item{mtitle}{The "main" title for the plot of the exrema}
-\item{Ext}{The extrema points, here, furthest points from edges in each edge region.}
+\item{ext}{The extrema points, here, furthest points from edges in each edge region.}
 \item{X}{The input data, \code{Dt}, can be a matrix or data frame}
 \item{num.points}{The number of data points, i.e., size of \code{Dt}}
 \item{supp}{Support of the data points, here, it is \eqn{T_e}.}
@@ -34,6 +33,7 @@ A list with the elements
 \item{dist2ref}{Distances from furthest points in each edge region to the corresponding edge.}
 }
 \description{
+An object of class "Extrema".
 Returns the furthest data points among the data set, \code{Dt}, in each CM-edge region from the edge in the
 standard equilateral triangle \eqn{T_e=T(A=(0,0),B=(1,0),C=(1/2,\sqrt{3}/2))}.
 
@@ -75,7 +75,7 @@ polygon(Te)
 L<-Te; R<-matrix(rep(CM,3),ncol=2,byrow=TRUE)
 segments(L[,1], L[,2], R[,1], R[,2], lty=2)
 points(dat,xlab="",ylab="")
-points(ed.far$Ext,pty=2,pch=4,col="red")
+points(ed.far$ext,pty=2,pch=4,col="red")
 
 txt<-rbind(Te,CM,p1,p2,p3)
 xc<-txt[,1]+c(-.03,.03,.03,-.06,0,0,0)

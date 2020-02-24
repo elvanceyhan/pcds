@@ -9,7 +9,7 @@ Pg2PEtri(r)
 }
 \arguments{
 \item{r}{A positive real number which serves as the expansion parameter in PE proximity region;
-must be in \eqn{(1,1.5]} to attain non-degenerate asymptotic distribution for the domination number}
+must be in \eqn{(1,1.5]} to attain non-degenerate asymptotic distribution for the domination number.}
 }
 \value{
 P(domination number=2) for PE-PCD for uniform data on an triangle as the sample size n

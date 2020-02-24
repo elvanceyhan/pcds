@@ -7,18 +7,19 @@
 NumArcsPEMT(Xp, Yp, r, M = c(1, 1, 1))
 }
 \arguments{
-\item{Xp}{A set of 2D points which constitute the vertices of the PE-PCD}
+\item{Xp}{A set of 2D points which constitute the vertices of the PE-PCD.}
 
-\item{Yp}{A set of 2D points which constitute the vertices of the Delaunay triangles}
+\item{Yp}{A set of 2D points which constitute the vertices of the Delaunay triangles.}
 
-\item{r}{A positive real number which serves as the expansion parameter in PE proximity region; must be \eqn{\ge 1}}
+\item{r}{A positive real number which serves as the expansion parameter in PE proximity region;
+must be \eqn{\ge 1}.}
 
 \item{M}{A 3D point in barycentric coordinates which serves as a center in the interior of each Delaunay
 triangle or circumcenter of each Delaunay triangle (for this argument should be set as \code{M}="CC"),
-default for \eqn{M=(1,1,1)} which is the center of mass of each triangle}
+default for \eqn{M=(1,1,1)} which is the center of mass of each triangle.}
 }
 \value{
-A list of elements
+A list with the elements
 \item{num.arcs}{Total number of arcs in all triangles}
 \item{num.in.conhull}{Number of \code{Xp} points in the convex hull of \code{Yp} points}
 \item{weight.vec}{The vector of the areas of Delaunay triangles based on \code{Yp} points}

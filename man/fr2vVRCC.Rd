@@ -2,16 +2,14 @@
 % Please edit documentation in R/PCDFunctions.r
 \name{fr2vVRCC}
 \alias{fr2vVRCC}
-\title{An object of class "Extrema":
-
-The furthest points in a data set from vertices in each CC-vertex region in a triangle}
+\title{The furthest points in a data set from vertices in each CC-vertex region in a triangle}
 \usage{
 fr2vVRCC(Dt, tri, ch.all.intri = FALSE)
 }
 \arguments{
-\item{Dt}{A set of 2D points representing the set of data points}
+\item{Dt}{A set of 2D points representing the set of data points.}
 
-\item{tri}{Three 2D points, stacked row-wise, each row representing a vertex of the triangle}
+\item{tri}{Three 2D points, stacked row-wise, each row representing a vertex of the triangle.}
 
 \item{ch.all.intri}{A logical argument (default=\code{FALSE}) to check whether all data points are inside
 the triangle \code{tri}. So if it is \code{TRUE},
@@ -25,7 +23,7 @@ A list with the elements
 \item{type}{Type of the extrema points}
 \item{desc}{A short description of the extrema points}
 \item{mtitle}{The "main" title for the plot of the exrema}
-\item{Ext}{The extrema points, here, furthest points from vertices in each CC-vertex region in the
+\item{ext}{The extrema points, here, furthest points from vertices in each CC-vertex region in the
 triangle \code{tri}.}
 \item{X}{The input data, \code{Dt}, can be a matrix or data frame}
 \item{num.points}{The number of data points, i.e., size of \code{Dt}}
@@ -38,6 +36,7 @@ triangle \code{tri}.}
 \item{dist2ref}{Distances from furthest points in each vertex region to the corresponding vertex}
 }
 \description{
+An object of class "Extrema".
 Returns the furthest data points among the data set, \code{Dt}, in each CC-vertex region from the vertex in the
 triangle, \eqn{tri=T(A,B,C)}. Vertex region labels/numbers correspond to the row number of the vertex in \code{tri}.
 \code{ch.all.intri} is for checking whether all data points are inside \code{tri} (default is \code{FALSE}).
@@ -80,7 +79,7 @@ polygon(Tr)
 L<-matrix(rep(CC,3),ncol=2,byrow=TRUE); R<-Ds
 segments(L[,1], L[,2], R[,1], R[,2], lty=2)
 points(dat)
-points(rbind(f2v$Ext),pch=4,col=2)
+points(rbind(f2v$ext),pch=4,col=2)
 
 txt<-rbind(Tr,CC,Ds)
 xc<-txt[,1]+c(-.06,.08,.05,.12,-.1,-.1,-.09)

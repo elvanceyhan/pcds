@@ -12,7 +12,8 @@ PEdom1D(Xp, Yp, r, c = 0.5)
 \item{Yp}{A set of 1D points which constitute the end points of the intervals which
 partition the real line.}
 
-\item{r}{A positive real number which serves as the expansion parameter in PE proximity region; must be \eqn{\ge 1}.}
+\item{r}{A positive real number which serves as the expansion parameter in PE proximity region;
+must be \eqn{\ge 1}.}
 
 \item{c}{A positive real number in \eqn{(0,1)} parameterizing the center inside \code{int} (default c=.5).}
 }

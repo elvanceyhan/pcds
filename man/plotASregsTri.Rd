@@ -17,21 +17,22 @@ plotASregsTri(
 )
 }
 \arguments{
-\item{Xp}{A set of 2D points for which AS proximity regions are constructed}
+\item{Xp}{A set of 2D points for which AS proximity regions are constructed.}
 
-\item{tri}{Three 2D points, stacked row-wise, each row representing a vertex of the triangle}
+\item{tri}{Three 2D points, stacked row-wise, each row representing a vertex of the triangle.}
 
-\item{M}{"CC" which stands for circumcenter of the triangle \code{tri} or a 2D point in Cartesian coordinates or a 3D point in
+\item{M}{The center of the triangle. "CC" stands for circumcenter of the triangle \code{tri} or a 2D point in Cartesian coordinates or a 3D point in
 barycentric coordinates which serves as a center in the interior of the triangle \eqn{T_b};
-default is \code{M}="CC" i.e. the circumcenter of \code{tri}}
+default is \code{M}="CC" i.e. the circumcenter of \code{tri}.}
 
-\item{main}{An overall title for the plot (default="")}
+\item{main}{An overall title for the plot (default="").}
 
 \item{xlab, ylab}{Titles for the x and y axes, respectively (default="" for both).}
 
-\item{xlim, ylim}{Numeric vectors of length 2, giving the x- and y-coordinate ranges (default=\code{NULL} for both)}
+\item{xlim, ylim}{Numeric vectors of length 2, giving the x- and y-coordinate ranges
+(default=\code{NULL} for both).}
 
-\item{\dots}{Additional \code{plot} parameters}
+\item{\dots}{Additional \code{plot} parameters.}
 }
 \value{
 Plot of the AS proximity regions for points inside the triangle \code{tri} (and only the points outside \code{tri})

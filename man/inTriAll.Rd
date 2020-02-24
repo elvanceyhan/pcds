@@ -7,9 +7,9 @@
 inTriAll(Dt, tri, boundary = FALSE)
 }
 \arguments{
-\item{Dt}{A set of 2D points representing the set of data points}
+\item{Dt}{A set of 2D points representing the set of data points.}
 
-\item{tri}{Three 2D points, stacked row-wise, each row representing a vertex of the triangle}
+\item{tri}{Three 2D points, stacked row-wise, each row representing a vertex of the triangle.}
 
 \item{boundary}{A logical parameter (default=\code{FALSE}) to include boundary or not, so if it is \code{TRUE},
 the function checks if a point lies in the closure of the triangle (i.e. interior and boundary combined)

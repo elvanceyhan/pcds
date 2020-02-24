@@ -15,9 +15,7 @@
 \alias{PG2C}
 \alias{PG2Csym}
 \alias{Pg2PE1D}
-\title{The function \code{Pg2PE1D} and its auxiliary functions ---
-
-The functions for probability of domination number=2 for Proportional Edge Proximity Catch Digraphs
+\title{The functions for probability of domination number=2 for Proportional Edge Proximity Catch Digraphs
 (PE-PCDs) - middle interval case}
 \usage{
 PG2AI(r, c, n)
@@ -47,18 +45,21 @@ PG2Csym(r, c, n)
 Pg2PE1D(r, c, n)
 }
 \arguments{
-\item{r}{A positive real number which serves as the expansion parameter in PE proximity region; must be \eqn{\ge 1}}
+\item{r}{A positive real number which serves as the expansion parameter in PE proximity region;
+must be \eqn{\ge 1}.}
 
 \item{c}{A positive real number in \eqn{(0,1)} parameterizing the center inside \eqn{int=(a,b)}.
-For the interval, \eqn{int=(a,b)}, the parameterized center is \eqn{M_c=a+c(b-a)}}
+For the interval, \eqn{int=(a,b)}, the parameterized center is \eqn{M_c=a+c(b-a)}.}
 
-\item{n}{A positive integer representing the size of the uniform data set}
+\item{n}{A positive integer representing the size of the uniform data set.}
 }
 \value{
 P(domination number=2) for PE-PCD whose vertices are a uniform data set of size \code{n} in a finite
 interval \eqn{(a,b)}
 }
 \description{
+The function \code{Pg2PE1D} and its auxiliary functions.
+
 Returns \eqn{P(\gamma=2)} for PE-PCD whose vertices are a uniform data set of size \code{n} in a finite interval
 (a,b)where \eqn{\gamma} stans for the domination number.
 
@@ -68,11 +69,23 @@ and expansion parameter \eqn{r \ge 1}.
 To compute the probability \eqn{P(\gamma=2)} for PE-PCD in the 1D case,
 we partition the domain \eqn{(r,c)=(1,\infty) \times (0,1)}, and compute the probability for each partition
 set. The sample size (i.e. number of vertices or data points) is a positive integer, \code{n}.
+}
+\section{Auxiliary Functions for \code{Pg2PE1D}}{
 
 The auxiliary functions are \code{PG2AI, PG2AII, PG2AIII, PG2AIV, PG2A, PG2Asym, PG2BIII, PG2B, PG2B,
-PG2Bsym, PG2CIV, PG2C}, and \code{PG2Csym}, each corresponding to a partition of the domain of \code{r} and \code{c}.
-In particular, in
-CASE A: \code{c} in \eqn{((3-\sqrt{5})/2, 1/2)}, we compute \eqn{P(\gamma=2)} with
+PG2Bsym, PG2CIV, PG2C}, and \code{PG2Csym}, each corresponding to a partition of the domain of
+\code{r} and \code{c}. In particular, the domain partition is handled in 3 cases as
+
+CASE A: \code{c} in \eqn{((3-\sqrt{5})/2, 1/2)}
+
+CASE B: \code{c} in \eqn{(1/4,(3-\sqrt{5})/2)} and
+
+CASE C: \code{c} in \eqn{(0,1/4)}.
+}
+
+\section{Case A - \code{c} in \eqn{((3-\sqrt{5})/2, 1/2)}}{
+
+In Case A, we compute \eqn{P(\gamma=2)} with
 
 PG2AIV(r,c,n) if \eqn{1 < r < (1-c)/c};
 
@@ -82,7 +95,7 @@ PG2AII(r,c,n) if \eqn{1/(1-c)< r < 1/c};
 
 and PG2AI(r,c,n) otherwise.
 
-PG2A(r,c,n) combines these functions in CASE A: \code{c} in \eqn{((3-\sqrt{5})/2,1/2)}.
+PG2A(r,c,n) combines these functions in Case A: \code{c} in \eqn{((3-\sqrt{5})/2,1/2)}.
 Due to the symmetry in the PE proximity regions, we use PG2Asym(r,c,n) for \code{c} in
 \eqn{(1/2,(\sqrt{5}-1)/2)} with the same auxiliary functions
 
@@ -93,8 +106,12 @@ PG2AIII(r,1-c,n) if \eqn{(c/(1-c) < r < 1/c};
 PG2AII(r,1-c,n) if \eqn{1/c < r < 1/(1-c)};
 
 and PG2AI(r,1-c,n) otherwise.
+}
 
-In CASE B: \code{c} in \eqn{(1/4,(3-\sqrt{5})/2)}, we compute \eqn{P(\gamma=2)} with
+\section{Case B - \code{c} in \eqn{(1/4,(3-\sqrt{5})/2)}}{
+
+
+In Case B, we compute \eqn{P(\gamma=2)} with
 
 PG2AIV(r,c,n) if \eqn{1 < r < 1/(1-c)};
 
@@ -104,7 +121,7 @@ PG2AII(r,c,n) if \eqn{(1-c)/c < r < 1/c};
 
 and PG2AI(r,c,n) otherwise.
 
-PG2B(r,c,n) combines these functions in CASE B: \code{c} in \eqn{(1/4,(3-\sqrt{5})/2)}.
+PG2B(r,c,n) combines these functions in Case B: \code{c} in \eqn{(1/4,(3-\sqrt{5})/2)}.
 Due to the symmetry in the PE proximity regions, we use PG2Bsym(r,c,n) for \code{c} in
 \eqn{((\sqrt{5}-1)/2,3/4)} with the same auxiliary functions
 
@@ -115,8 +132,12 @@ PG2BIII(r,1-c,n) if \eqn{1/c < r < c/(1-c)};
 PG2AII(r,1-c,n) if \eqn{c/(1-c) < r < 1/(1-c)};
 
 and PG2AI(r,1-c,n) otherwise.
+}
 
-In CASE C: \code{c} in \eqn{(0,1/4)}, we compute \eqn{P(\gamma=2)} with
+\section{Case C - \code{c} in \eqn{(0,1/4)}}{
+
+
+In Case C, we compute \eqn{P(\gamma=2)} with
 
 PG2AIV(r,c,n) if \eqn{1< r < 1/(1-c)};
 
@@ -130,7 +151,7 @@ PG2AII(r,c,n) if \eqn{1/(1-c) < r < 1/c};
 
 and PG2AI(r,c,n) otherwise.
 
-PG2C(r,c,n) combines these functions in CASE C: \code{c} in \eqn{(0,1/4)}.
+PG2C(r,c,n) combines these functions in CaseE C: \code{c} in \eqn{(0,1/4)}.
 Due to the symmetry in the PE proximity regions, we use PG2Csym(r,c,n) for \code{c} in \eqn{(3/4,1)}
 with the same auxiliary functions
 
@@ -146,9 +167,10 @@ PG2AII(r,1-c,n) if \eqn{c/(1-c)< r < 1/(1-c)};
 
 and PG2AI(r,1-c,n) otherwise.
 
-Combining CASES A, B, AND C, we get our main function \code{Pg2PE1D} which computes \eqn{P(\gamma=2)}
+Combining Cases A, B, and C, we get our main function \code{Pg2PE1D} which computes \eqn{P(\gamma=2)}
 for any (\code{r,c}) in its domain.
 }
+
 \examples{
 #Examples for the auxiliary functions
 \donttest{

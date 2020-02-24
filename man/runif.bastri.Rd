@@ -2,17 +2,16 @@
 % Please edit documentation in R/PCDFunctions.r
 \name{runif.bastri}
 \alias{runif.bastri}
-\title{An object of class "Uniform":
-
-Generation of Uniform Points in the basic triangle}
+\title{Generation of Uniform Points in the basic triangle}
 \usage{
 runif.bastri(k, c1, c2)
 }
 \arguments{
-\item{k}{A positive integer representing the number of uniform points to be generated in the basic triangle}
+\item{k}{A positive integer representing the number of uniform points to be generated in the basic triangle.}
 
-\item{c1, c2}{Positive real numbers representing the top vertex in basic triangle \eqn{T_b=T((0,0),(1,0),(c_1,c_2))},
-\code{c1} must be in \eqn{[0,1/2]}, \eqn{c_2>0} and \eqn{(1-c_1)^2+c_2^2 \le 1}.}
+\item{c1, c2}{Positive real numbers representing the top vertex in basic triangle
+\eqn{T_b=T((0,0),(1,0),(c_1,c_2))}, \code{c1} must be in \eqn{[0,1/2]}, \eqn{c_2>0} and
+\eqn{(1-c_1)^2+c_2^2 \le 1}.}
 }
 \value{
 A list with the elements
@@ -29,6 +28,7 @@ of vertices of the support points (here it is 3).}
 \item{xlimit,ylimit}{The ranges of the x- and y-coordinates of the support, Tb}
 }
 \description{
+An object of class "Uniform".
 Generates \code{k} points uniformly in the basic triangle \eqn{T_b=T((0,0),(1,0),(c_1,c_2))}
 where \code{c1} is in \eqn{[0,1/2]}, \eqn{c_2>0} and \eqn{(1-c_1)^2+c_2^2 \le 1}.
 

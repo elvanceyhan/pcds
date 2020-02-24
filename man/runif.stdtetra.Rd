@@ -2,15 +2,13 @@
 % Please edit documentation in R/PCDFunctions.r
 \name{runif.stdtetra}
 \alias{runif.stdtetra}
-\title{An object of class "Uniform":
-
-Generation of Uniform Points in the Standard Regular Tetrahedron \eqn{T_h}}
+\title{Generation of Uniform Points in the Standard Regular Tetrahedron \eqn{T_h}}
 \usage{
 runif.stdtetra(k)
 }
 \arguments{
 \item{k}{A positive integer representing the number of uniform points to be generated in the
-standard regular tetrahedron \eqn{T_h}}
+standard regular tetrahedron \eqn{T_h}.}
 }
 \value{
 A list with the elements
@@ -27,6 +25,7 @@ of vertices of the support points (here it is 4).}
 \item{xlimit,ylimit,zlimit}{The ranges of the x-, y-, and z-coordinates of the support, \eqn{T_h}}
 }
 \description{
+An object of class "Uniform".
 Generates \code{k} points uniformly in the standard regular tetrahedron
 \eqn{T_h=T((0,0,0),(1,0,0),(1/2,sqrt(3)/2,0),(1/2,\sqrt{3}/6,\sqrt{6}/3))}.
 }

@@ -7,12 +7,12 @@
 \method{plot}{Lines}(x, asp = NA, xlab = "x", ylab = "y", ...)
 }
 \arguments{
-\item{x}{Object of class \code{Lines}}
+\item{x}{Object of class \code{Lines}.}
 
 \item{asp}{A numeric value, giving the aspect ratio for y axis to x-axis y/x (default is \code{NA}),
-see the official help for \code{asp} by typing "? asp"}
+see the official help for \code{asp} by typing "? asp".}
 
-\item{xlab, ylab}{Titles for the x and y axes, respectively (default is \code{xlab}="x" and \code{ylab}="y".)}
+\item{xlab, ylab}{Titles for the x and y axes, respectively (default is \code{xlab}="x" and \code{ylab}="y").}
 
 \item{\dots}{Additional parameters for \code{plot}.}
 }

@@ -4,9 +4,7 @@
 \alias{funsMuVarPE2D}
 \alias{muPE2D}
 \alias{asyvarPE2D}
-\title{Two functions: \code{muPE2D} and \code{asyvarPE2D} ---
-
-Returns the mean and (asymptotic) variance of arc density of Proportional Edge Proximity Catch Digraph (PE-PCD)
+\title{Returns the mean and (asymptotic) variance of arc density of Proportional Edge Proximity Catch Digraph (PE-PCD)
 for 2D uniform data in one triangle}
 \usage{
 muPE2D(r)
@@ -14,13 +12,16 @@ muPE2D(r)
 asyvarPE2D(r)
 }
 \arguments{
-\item{r}{A positive real number which serves as the expansion parameter in PE proximity region; must be \eqn{\ge 1}}
+\item{r}{A positive real number which serves as the expansion parameter in PE proximity region;
+must be \eqn{\ge 1}.}
 }
 \value{
 \code{muPE2D} returns the mean and \code{asyvarPE2D} returns the (asymptotic) variance of the
 arc density of PE-PCD for uniform data in any triangle
 }
 \description{
+Two functions: \code{muPE2D} and \code{asyvarPE2D}.
+
 \code{muPE2D} returns the mean of the (arc) density of PE-PCD
 and \code{asyvarPE2D} returns the asymptotic variance of the arc density of PE-PCD
 with expansion parameter \eqn{r \ge 1} for 2D uniform data in a triangle.

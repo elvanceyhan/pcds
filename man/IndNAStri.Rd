@@ -13,14 +13,14 @@ IndNAStri(pt1, pt2, tri, M = "CC", rv = NULL)
 \item{pt2}{A 2D point. The function determines whether \code{pt2} is inside the AS proximity region of
 \code{pt1} or not.}
 
-\item{tri}{Three 2D points, stacked row-wise, each row representing a vertex of the triangle}
+\item{tri}{Three 2D points, stacked row-wise, each row representing a vertex of the triangle.}
 
-\item{M}{"CC" which stands for circumcenter of the triangle \code{tri} or a 2D point in Cartesian coordinates or
+\item{M}{The center of the triangle. "CC" stands for circumcenter of the triangle \code{tri} or a 2D point in Cartesian coordinates or
 a 3D point in barycentric coordinates which serves as a center in the interior of \code{tri};
-default is \code{M}="CC" i.e. the circumcenter of \code{tri}}
+default is \code{M}="CC" i.e. the circumcenter of \code{tri}.}
 
 \item{rv}{The index of the \code{M}-vertex region in \code{tri} containing the point, either 1, 2, 3 or \code{NULL}
-(default is \code{NULL})}
+(default is \code{NULL}).}
 }
 \value{
 \eqn{I(pt2 \in N_{AS}(pt1))} for \code{pt1}, that is, returns 1 if \code{pt2} is in NAS(\code{pt1}), returns 0 otherwise

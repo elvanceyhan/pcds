@@ -8,7 +8,7 @@ reTeCM(pt)
 }
 \arguments{
 \item{pt}{A 2D point for which CM-edge region it resides in is to be determined in the
-the standard equilateral triangle \eqn{T_e}}
+the standard equilateral triangle \eqn{T_e}.}
 }
 \value{
 A list with three elements

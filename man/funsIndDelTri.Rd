@@ -4,9 +4,7 @@
 \alias{funsIndDelTri}
 \alias{ind.Del.tri}
 \alias{indices.Del.tri}
-\title{Two functions: ind.Del.tri and indices.Del.tri ---
-
-Functions provide the indices of the Delaunay triangles where the points reside.}
+\title{Functions provide the indices of the Delaunay triangles where the points reside}
 \usage{
 ind.Del.tri(pt, Yp, DTmesh = NULL)
 
@@ -14,16 +12,17 @@ indices.Del.tri(dat, Yp, DTmesh = NULL)
 }
 \arguments{
 \item{pt}{A 2D point; the index of the Delaunay triangle in which \code{pt} resides is to be
-determined. It is an argument for \code{ind.Del.tri}}
+determined. It is an argument for \code{ind.Del.tri}.}
 
-\item{Yp}{A set of 2D points from which Delaunay triangulation is constructed}
+\item{Yp}{A set of 2D points from which Delaunay triangulation is constructed.}
 
-\item{DTmesh}{Delaunay triangles based on \code{Yp}, default is \code{NULL}, which is computed via \code{\link[interp]{tri.mesh}} function
+\item{DTmesh}{Delaunay triangles based on \code{Yp}, default is \code{NULL},
+which is computed via \code{\link[interp]{tri.mesh}} function
 in \code{interp} package. \code{\link[interp]{triangles}} function yields a triangulation data structure from the triangulation object
 created by \code{tri.mesh}.}
 
 \item{dat}{A set of 2D points representing the set of data points for which the indices of the Delaunay
-triangles they reside is to be determined. It is an argument for \code{indices.Del.tri}}
+triangles they reside is to be determined. It is an argument for \code{indices.Del.tri}.}
 }
 \value{
 ind.Del.tri returns the index of the Delaunay triangle in which the given point, \code{pt}, resides
@@ -31,9 +30,11 @@ and indices.Del.tri returns the vector of indices of the Delaunay triangles in w
 set, dat, reside
 }
 \description{
-ind.Del.tri finds the index of the Delaunay triangle in which the given point, \code{pt}, resides.
+Two functions: \code{ind.Del.tri} and \code{indices.Del.tri}.
 
-indices.Del.tri finds the indices of triangles for all the points in data set, \code{dat}, as a vector.
+\code{ind.Del.tri} finds the index of the Delaunay triangle in which the given point, \code{pt}, resides.
+
+\code{indices.Del.tri} finds the indices of triangles for all the points in data set, \code{dat}, as a vector.
 
 Delaunay triangulation is based on \code{Yp} and \code{DTmesh} are the Delaunay triangles with default \code{NULL}.
 The function returns \code{NA} for a point not inside the convex hull of \code{Yp}.

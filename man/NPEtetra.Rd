@@ -7,16 +7,17 @@
 NPEtetra(pt, r, th, M = "CM", rv = NULL)
 }
 \arguments{
-\item{pt}{A 3D point whose PE proximity region is to be computed}
+\item{pt}{A 3D point whose PE proximity region is to be computed.}
 
-\item{r}{A positive real number which serves as the expansion parameter in PE proximity region; must be \eqn{\ge 1}}
+\item{r}{A positive real number which serves as the expansion parameter in PE proximity region;
+must be \eqn{\ge 1}.}
 
-\item{th}{Four 3D points, stacked row-wise, each row representing a vertex of the tetrahedron}
+\item{th}{Four 3D points, stacked row-wise, each row representing a vertex of the tetrahedron.}
 
 \item{M}{The center to be used in the construction of the vertex regions in the tetrahedron, \code{th}.
-Currently it only takes "CC" for circumcenter and "CM" for center of mass; default="CM"}
+Currently it only takes "CC" for circumcenter and "CM" for center of mass; default="CM".}
 
-\item{rv}{Index of the vertex region containing the point, either 1, 2, 3, 4 (default is \code{NULL})}
+\item{rv}{Index of the vertex region containing the point, either 1, 2, 3, 4 (default is \code{NULL}).}
 }
 \value{
 Vertices of the tetrahedron which constitutes the PE proximity region with expansion parameter

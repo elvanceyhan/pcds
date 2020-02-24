@@ -8,9 +8,9 @@ rverts.triCC(Dt, tri)
 }
 \arguments{
 \item{Dt}{A set of 2D points representing the set of data points for which indices of the vertex regions
-containing them are to be determined}
+containing them are to be determined.}
 
-\item{tri}{Three 2D points, stacked row-wise, each row representing a vertex of the triangle}
+\item{tri}{Three 2D points, stacked row-wise, each row representing a vertex of the triangle.}
 }
 \value{
 A list with two elements

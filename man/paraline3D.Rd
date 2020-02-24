@@ -2,20 +2,19 @@
 % Please edit documentation in R/PCDFunctions.r
 \name{paraline3D}
 \alias{paraline3D}
-\title{An object of class "Lines3D":
-
-The line crossing the 3D point \code{P} and parallel to line joining 3D points \code{A} and \code{B}}
+\title{The line crossing the 3D point \code{P} and parallel to line joining 3D points \code{A} and \code{B}}
 \usage{
 paraline3D(P, A, B, t)
 }
 \arguments{
-\item{P}{A 3D point through which the straight line passes}
+\item{P}{A 3D point through which the straight line passes.}
 
 \item{A, B}{3D points which determine the straight line to which the line passing through point \code{P} would be
-parallel (i.e. B-A determines the direction of the straight line passing through \code{P})}
+parallel (i.e. B-A determines the direction of the straight line passing through \code{P}).}
 
 \item{t}{A scalar or a vector of scalars representing the parameter of the coordinates of the line
-(for the form: \eqn{x=x_0 + a t}, \eqn{y=y_0 + b t}, and \eqn{z=z_0 + c t}  where \eqn{P=(x_0,y_0,z_0)} and \eqn{B-A=(a,b,c)})}
+(for the form: \eqn{x=x_0 + a t}, \eqn{y=y_0 + b t}, and \eqn{z=z_0 + c t}  where \eqn{P=(x_0,y_0,z_0)}
+and \eqn{B-A=(a,b,c)}).}
 }
 \value{
 A list with the elements
@@ -35,6 +34,7 @@ determined by points \code{A} and \code{B}.}
 \eqn{z=z_0 + c t} where \eqn{P=(x_0,y_0,z_0)} and \eqn{B-A=(a,b,c)}.}
 }
 \description{
+An object of class "Lines3D".
 Returns the equation, x-, y-, and z-coordinates of the line crossing 3D point \code{P} and parallel to the line
 joining 3D points \code{A} and \code{B} (i.e., the line is in the direction of vector \code{B}-\code{A})
 with the parameter \code{t} being provided in vector \code{t}.

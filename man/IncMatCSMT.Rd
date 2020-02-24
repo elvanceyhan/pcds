@@ -7,14 +7,14 @@
 IncMatCSMT(Xp, Yp, t, M = c(1, 1, 1))
 }
 \arguments{
-\item{Xp}{A set of 2D points which constitute the vertices of the CS-PCD}
+\item{Xp}{A set of 2D points which constitute the vertices of the CS-PCD.}
 
-\item{Yp}{A set of 2D points which constitute the vertices of the Delaunay triangles}
+\item{Yp}{A set of 2D points which constitute the vertices of the Delaunay triangles.}
 
-\item{t}{A positive real number which serves as the expansion parameter in CS proximity region}
+\item{t}{A positive real number which serves as the expansion parameter in CS proximity region.}
 
 \item{M}{A 3D point in barycentric coordinates which serves as a center in the interior of each Delaunay
-triangle, default for \eqn{M=(1,1,1)} which is the center of mass of each triangle}
+triangle, default for \eqn{M=(1,1,1)} which is the center of mass of each triangle.}
 }
 \value{
 Incidence matrix for the CS-PCD with vertices being 2D data set, \code{Xp}.

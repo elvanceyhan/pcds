@@ -7,7 +7,7 @@
 \method{summary}{TriLines}(object, ...)
 }
 \arguments{
-\item{object}{Object of class \code{TriLines}}
+\item{object}{Object of class \code{TriLines}.}
 
 \item{\dots}{Additional parameters for \code{summary}.}
 }

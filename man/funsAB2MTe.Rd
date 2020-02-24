@@ -5,9 +5,7 @@
 \alias{lA_M.Te}
 \alias{lB_M.Te}
 \alias{lC_M.Te}
-\title{Three functions, \code{lA_M.Te}, \code{lB_M.Te} and \code{lC_M.Te} of class "TriLines" ---
-
-The lines joining the three vertices of the standard equilateral triangle to a center, \code{M}, of it.}
+\title{The lines joining the three vertices of the standard equilateral triangle to a center, \code{M}, of it}
 \usage{
 lA_M.Te(x, M)
 
@@ -16,10 +14,10 @@ lB_M.Te(x, M)
 lC_M.Te(x, M)
 }
 \arguments{
-\item{x}{A single scalar or a vector of scalars}
+\item{x}{A single scalar or a vector of scalars.}
 
 \item{M}{A 2D point in Cartesian coordinates or a 3D point in barycentric coordinates
-which serves as a center in the interior of the standard equilateral triangle}
+which serves as a center in the interior of the standard equilateral triangle.}
 }
 \value{
 A list with the elements
@@ -38,6 +36,7 @@ a vector of scalar, constitutes the y-coordinates of the point(s) of interest on
 \item{equation}{Equation of the line.}
 }
 \description{
+Three functions, \code{lA_M.Te}, \code{lB_M.Te} and \code{lC_M.Te} of class "TriLines".
 Returns the \code{equation, slope, intercept}, and y-coordinates of the lines joining A and \code{M},
 B and \code{M}, and also C and \code{M}.
 

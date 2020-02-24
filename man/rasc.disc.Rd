@@ -2,9 +2,7 @@
 % Please edit documentation in R/PCDFunctions.r
 \name{rasc.disc}
 \alias{rasc.disc}
-\title{An object of class "Patterns":
-
-Generation of points associated (in a radial or circular fashion) with a given set of points}
+\title{Generation of points associated (in a radial or circular fashion) with a given set of points}
 \usage{
 rasc.disc(
   n,
@@ -17,19 +15,19 @@ rasc.disc(
 )
 }
 \arguments{
-\item{n}{A positive integer representing the number of points to be generated}
+\item{n}{A positive integer representing the number of points to be generated.}
 
 \item{Y}{A set of 2D points representing the reference points. The generated points are associated
 (in a circular/radial fashion) with these points.}
 
 \item{e}{A positive real number representing the radius of the balls centered at \code{Y} points. Only these
-balls are allowed for the generated points (i.e., generated points would be in the union of these balls)}
+balls are allowed for the generated points (i.e., generated points would be in the union of these balls).}
 
 \item{a1, a2}{Real numbers representing the range of x-coordinates in the region
-(default is the range of x-coordinates of the \code{Y} points)}
+(default is the range of x-coordinates of the \code{Y} points).}
 
 \item{b1, b2}{Real numbers representing the range of y-coordinates in the region
-(default is the range of y-coordinates of the \code{Y} points)}
+(default is the range of y-coordinates of the \code{Y} points).}
 }
 \value{
 A list with the elements
@@ -44,10 +42,10 @@ if \code{TRUE} triangulation based on \code{Y} points is to be implemented (defa
 \item{desc.pat}{Description of the point pattern}
 \item{num.points}{The vector of two numbers, which are the number of generated points and the number of
 attraction (i.e., \code{Y}) points.}
-\item{xlimit}{The possible range of the x-coordinates of the generated points.}
-\item{ylimit}{The possible range of the y-coordinates of the generated points.}
+\item{xlimit,ylimit}{The possible range of the x- and y-coordinates of the generated points.}
 }
 \description{
+An object of class "Patterns".
 Generates \code{n} 2D points uniformly in \eqn{(a1-e,a1+e)x(a1-e,a1+e) \cap U_i B(y_i,e)} where
 \eqn{Y=(y_1,y_2,...,y_{n_y})} with
 \eqn{n_y} being number of \code{Y} points for various values of e under the association pattern

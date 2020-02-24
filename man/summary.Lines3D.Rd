@@ -7,7 +7,7 @@
 \method{summary}{Lines3D}(object, ...)
 }
 \arguments{
-\item{object}{Object of class \code{Lines3D}}
+\item{object}{Object of class \code{Lines3D}.}
 
 \item{\dots}{Additional parameters for \code{summary}.}
 }

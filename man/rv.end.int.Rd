@@ -7,9 +7,9 @@
 rv.end.int(pt, int)
 }
 \arguments{
-\item{pt}{A 1D point whose end interval region is provided by the function}
+\item{pt}{A 1D point whose end interval region is provided by the function.}
 
-\item{int}{A vector of two real numbers representing an interval}
+\item{int}{A vector of two real numbers representing an interval.}
 }
 \value{
 A list with two elements

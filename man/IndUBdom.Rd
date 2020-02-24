@@ -7,10 +7,10 @@
 IndUBdom(Inc.Mat, k)
 }
 \arguments{
-\item{Inc.Mat}{A square matrix consisting of 0s and 1s which represents the incidence matrix of
-a graph or digraph}
+\item{Inc.Mat}{A square matrix consisting of 0's and 1's which represents the incidence matrix of
+a graph or digraph.}
 
-\item{k}{A positive integer for the upper bound (to be checked) for the domination number}
+\item{k}{A positive integer for the upper bound (to be checked) for the domination number.}
 }
 \value{
 A list with two elements

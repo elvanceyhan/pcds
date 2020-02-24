@@ -7,7 +7,7 @@
 \method{summary}{Extrema}(object, ...)
 }
 \arguments{
-\item{object}{Object of class \code{Extrema}}
+\item{object}{Object of class \code{Extrema}.}
 
 \item{\dots}{Additional parameters for \code{summary}.}
 }

@@ -2,9 +2,7 @@
 % Please edit documentation in R/PCDFunctions.r
 \name{TSArcDensCS1D}
 \alias{TSArcDensCS1D}
-\title{An object of class "htest":
-
-A test of uniformity of 1D data in a given interval based on Central Similarity Proximity Catch Digraph
+\title{A test of uniformity of 1D data in a given interval based on Central Similarity Proximity Catch Digraph
 (CS-PCD)}
 \usage{
 TSArcDensCS1D(
@@ -17,14 +15,14 @@ TSArcDensCS1D(
 )
 }
 \arguments{
-\item{dat}{A set or vector of 1D points which constitute the vertices of CS-PCD}
+\item{dat}{A set or vector of 1D points which constitute the vertices of CS-PCD.}
 
-\item{t}{A positive real number which serves as the expansion parameter in CS proximity region}
+\item{t}{A positive real number which serves as the expansion parameter in CS proximity region.}
 
 \item{c}{A positive real number in \eqn{(0,1)} parameterizing the center inside \eqn{int=(a,b)}.
-For the interval, \eqn{int=(a,b)}, the parameterized center is \eqn{M_c=a+c(b-a)}}
+For the interval, \eqn{int=(a,b)}, the parameterized center is \eqn{M_c=a+c(b-a)}.}
 
-\item{int}{A vector of two real numbers representing an interval}
+\item{int}{A vector of two real numbers representing an interval.}
 
 \item{alternative}{Type of the alternative hypothesis in the test, one of "two.sided", "less", "greater".}
 
@@ -34,7 +32,7 @@ the 1D data set \code{dat}.}
 \value{
 A list with the elements
 \item{statistic}{Test statistic}
-\item{p.value}{\eqn{p}-value for the hypothesis test for the corresponding alternative}
+\item{p.value}{The \eqn{p}-value for the hypothesis test for the corresponding alternative}
 \item{conf.int}{Confidence interval for the arc density at the given level \code{conf.level} and
 depends on the type of \code{alternative}.}
 \item{estimate}{Estimate of the parameter, i.e., arc density}
@@ -45,7 +43,7 @@ mean arc density under uniform distribution.}
 \item{data.name}{Name of the data set}
 }
 \description{
-This is an "htest" (i.e., hypothesis test) function which performs a hypothesis test of uniformity of 1D
+An object of class "htest" (i.e., hypothesis test) function which performs a hypothesis test of uniformity of 1D
 data in one interval based on the normal approximation of the arc density of the CS-PCD with expansion
 parameter \eqn{t>0} and centrality parameter \code{c} in \eqn{(0,1)}.
 

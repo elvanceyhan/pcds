@@ -2,16 +2,14 @@
 % Please edit documentation in R/PCDFunctions.r
 \name{cl2eVRCM}
 \alias{cl2eVRCM}
-\title{An object of class "Extrema":
-
-The closest points in a data set to edges in each CM-vertex region in a triangle}
+\title{The closest points in a data set to edges in each CM-vertex region in a triangle}
 \usage{
 cl2eVRCM(dat, tri)
 }
 \arguments{
-\item{dat}{A set of 2D points representing the set of data points}
+\item{dat}{A set of 2D points representing the set of data points.}
 
-\item{tri}{Three 2D points, stacked row-wise, each row representing a vertex of the triangle}
+\item{tri}{Three 2D points, stacked row-wise, each row representing a vertex of the triangle.}
 }
 \value{
 A list with the elements
@@ -21,7 +19,7 @@ CM-Vertex Regions".}
 \item{type}{Type of the extrema points}
 \item{desc}{A short description of the extrema points}
 \item{mtitle}{The "main" title for the plot of the exrema}
-\item{Ext}{The extrema points, here, closest points to edges in the respective vertex region.}
+\item{ext}{The extrema points, here, closest points to edges in the respective vertex region.}
 \item{X}{The input data, \code{dat}, can be a matrix or data frame}
 \item{num.points}{The number of data points, i.e., size of \code{dat}}
 \item{supp}{Support of the data points, here, it is \code{tri}}
@@ -33,6 +31,7 @@ CM-Vertex Regions".}
 \item{dist2ref}{Distances of closest points in the vertex regions to corresponding edges}
 }
 \description{
+An object of class "Extrema".
 Returns the closest data points among the data set, \code{dat}, to edge \eqn{j} in CM-vertex region \eqn{j} for \eqn{j=1,2,3}
 in the triangle, \eqn{tri=T(A,B,C)}, where CM stands for center of mass. Vertex labels are A=1, B=2, and C=3,
 and corresponding edge labels are BC=1, AC=2, and AB=3.
@@ -78,7 +77,7 @@ text(xc,yc,txt.str)
 points(dat,pch=1,col=1)
 L<-matrix(rep(CM,3),ncol=2,byrow=TRUE); R<-Ds
 segments(L[,1], L[,2], R[,1], R[,2], lty=2)
-points(cl2e$Ext,pch=3,col=2)
+points(cl2e$ext,pch=3,col=2)
 
 txt<-rbind(CM,Ds)
 xc<-txt[,1]+c(-.04,.04,-.03,0)

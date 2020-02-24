@@ -8,9 +8,9 @@ rv.tetraCC(p, th)
 }
 \arguments{
 \item{p}{A 3D point for which CC-vertex region it resides in is to be determined in the
-tetrahedron \code{th}}
+tetrahedron \code{th}.}
 
-\item{th}{Four 3D points, stacked row-wise, each row representing a vertex of the tetrahedron}
+\item{th}{Four 3D points, stacked row-wise, each row representing a vertex of the tetrahedron.}
 }
 \value{
 A list with two elements

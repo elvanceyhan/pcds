@@ -8,11 +8,12 @@ non-degeneracy centers - multiple triangle case}
 PEdomMTnd(Xp, Yp, r)
 }
 \arguments{
-\item{Xp}{A set of 2D points which constitute the vertices of the PE-PCD}
+\item{Xp}{A set of 2D points which constitute the vertices of the PE-PCD.}
 
-\item{Yp}{A set of 2D points which constitute the vertices of the Delaunay triangles}
+\item{Yp}{A set of 2D points which constitute the vertices of the Delaunay triangles.}
 
-\item{r}{A positive real number which serves as the expansion parameter in PE proximity region; must be \eqn{\ge 1}}
+\item{r}{A positive real number which serves as the expansion parameter in PE proximity region;
+must be \eqn{\ge 1}.}
 }
 \value{
 A list with two elements

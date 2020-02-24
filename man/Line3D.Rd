@@ -2,25 +2,24 @@
 % Please edit documentation in R/PCDFunctions.r
 \name{Line3D}
 \alias{Line3D}
-\title{An object of class "Lines3D":
-
-The line crossing 3D point \code{r0} in the direction of vector \code{v} (or if \code{v} is a point, in direction of \eqn{v-r0})}
+\title{The line crossing 3D point \code{r0} in the direction of vector \code{v} (or if \code{v} is a point,
+in direction of \eqn{v-r0})}
 \usage{
 Line3D(r0, v, t, dir.vec = TRUE)
 }
 \arguments{
-\item{r0}{A 3D point through which the straight line passes}
+\item{r0}{A 3D point through which the straight line passes.}
 
 \item{v}{A 3D vector which determines the direction of the straight line (i.e., the straight line would be
 parallel to this vector) if the \code{dir.vec}=T, otherwise it is 3D point and \eqn{v-r0} determines the direction of the
-the straight line}
+the straight line.}
 
 \item{t}{A scalar or a vector of scalars representing the parameter of the coordinates of the line
-(for the form: \eqn{x=x_0 + a t}, \eqn{y=y_0 + b t}, and \eqn{z=z_0 + c t} where \eqn{r_0=(x_0,y_0,z_0)} and \eqn{v=(a,b,c)} if \code{dir.vec}=T, else
-\eqn{v-r0=(a,b,c)})}
+(for the form: \eqn{x=x_0 + a t}, \eqn{y=y_0 + b t}, and \eqn{z=z_0 + c t} where \eqn{r_0=(x_0,y_0,z_0)}
+and \eqn{v=(a,b,c)} if \code{dir.vec}=T, else \eqn{v-r0=(a,b,c)}).}
 
-\item{dir.vec}{A logical argument about \code{v}, if \code{TRUE} \code{v} is treated as a vector, else \code{v} is treated as a point
-and so the direction vector is taken to be \eqn{v-r0}}
+\item{dir.vec}{A logical argument about \code{v}, if \code{TRUE} \code{v} is treated as a vector,
+else \code{v} is treated as a point and so the direction vector is taken to be \eqn{v-r0}.}
 }
 \value{
 A list with the elements
@@ -39,6 +38,7 @@ else in the direction of \eqn{v-r0}. The line equation is in the form: \eqn{x=x_
 \eqn{r_0=(x_0,y_0,z_0)} and \eqn{v=(a,b,c)} if \code{dir.vec}=T, else \eqn{v-r0=(a,b,c)}.}
 }
 \description{
+An object of class "Lines3D".
 Returns the equation, x-, y-, and z-coordinates of the line crossing 3D point \code{r0}
 in the direction of vector \code{v} (of if \code{v} is a point, in the direction of \eqn{v-r0})
 with the parameter \code{t} being provided in vector \code{t}.

@@ -2,19 +2,17 @@
 % Please edit documentation in R/PCDFunctions.r
 \name{cl2eVRcent}
 \alias{cl2eVRcent}
-\title{An object of class "Extrema":
-
-The closest points among a data set in the vertex regions to the respective edges in a triangle}
+\title{The closest points among a data set in the vertex regions to the respective edges in a triangle}
 \usage{
 cl2eVRcent(Dt, tri, M)
 }
 \arguments{
-\item{Dt}{A set of 2D points representing the set of data points}
+\item{Dt}{A set of 2D points representing the set of data points.}
 
-\item{tri}{Three 2D points, stacked row-wise, each row representing a vertex of the triangle}
+\item{tri}{Three 2D points, stacked row-wise, each row representing a vertex of the triangle.}
 
 \item{M}{A 2D point in Cartesian coordinates or a 3D point in barycentric coordinates
-which serves as a center in the interior of the triangle \code{tri} or the circumcenter of \code{tri}}
+which serves as a center in the interior of the triangle \code{tri} or the circumcenter of \code{tri}.}
 }
 \value{
 A list with the elements
@@ -23,7 +21,7 @@ A list with the elements
 \item{type}{Type of the extrema points}
 \item{desc}{A short description of the extrema points}
 \item{mtitle}{The "main" title for the plot of the exrema}
-\item{Ext}{The extrema points, here, closest points to edges in the respective vertex region.}
+\item{ext}{The extrema points, here, closest points to edges in the respective vertex region.}
 \item{X}{The input data, \code{Dt}, can be a matrix or data frame}
 \item{num.points}{The number of data points, i.e., size of \code{Dt}}
 \item{supp}{Support of the data points, here, it is \code{tri}}
@@ -35,6 +33,7 @@ A list with the elements
 \item{dist2ref}{Distances of closest points in the \code{M}-vertex regions to corresponding edges.}
 }
 \description{
+An object of class "Extrema".
 Returns the closest data points among the data set, \code{Dt}, to edge \eqn{i} in \code{M}-vertex region \eqn{i} for \eqn{i=1,2,3}
 in the triangle \eqn{tri=T(A,B,C)}. Vertex labels are A=1, B=2, and C=3, and corresponding edge labels are
 BC=1, AC=2, and AB=3.
@@ -81,7 +80,7 @@ polygon(Tr)
 points(dat,pch=1,col=1)
 L<-rbind(M,M,M); R<-Ds
 segments(L[,1], L[,2], R[,1], R[,2], lty=2)
-points(cl2e$Ext,pch=3,col=2)
+points(cl2e$ext,pch=3,col=2)
 
 xc<-Tr[,1]+c(-.02,.03,.02)
 yc<-Tr[,2]+c(.02,.02,.04)

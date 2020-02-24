@@ -7,14 +7,14 @@
 \method{plot}{Extrema}(x, asp = NA, xlab = " ", ylab = " ", zlab = "", ...)
 }
 \arguments{
-\item{x}{Object of class \code{Extrema}}
+\item{x}{Object of class \code{Extrema}.}
 
 \item{asp}{A numeric value, giving the aspect ratio for y axis to x-axis y/x for the 2D case,
 it is redundant in the 3D case (default is \code{NA}),
-see the official help for \code{asp} by typing "? asp"}
+see the official help for \code{asp} by typing "? asp".}
 
 \item{xlab, ylab, zlab}{Titles for the x and y axes in the 2D case, and x, y, and z axes in the 3D case,
-respectively (default is "" for all.)}
+respectively (default is "" for all).}
 
 \item{\dots}{Additional parameters for \code{plot}.}
 }

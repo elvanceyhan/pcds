@@ -7,14 +7,14 @@
 \method{plot}{Uniform}(x, asp = NA, xlab = "x", ylab = "y", zlab = "z", ...)
 }
 \arguments{
-\item{x}{Object of class \code{Uniform}}
+\item{x}{Object of class \code{Uniform}.}
 
 \item{asp}{A numeric value, giving the aspect ratio for y axis to x-axis y/x for the 2D case,
 it is redundant in the 3D case (default is \code{NA}),
-see the official help for \code{asp} by typing "? asp"}
+see the official help for \code{asp} by typing "? asp".}
 
 \item{xlab, ylab, zlab}{Titles for the x and y axes in the 2D case, and x, y, and z axes in the 3D case,
-respectively (default is \code{xlab}="x", \code{ylab}="y", and \code{zlab}="z".)}
+respectively (default is \code{xlab}="x", \code{ylab}="y", and \code{zlab}="z").}
 
 \item{\dots}{Additional parameters for \code{plot}.}
 }

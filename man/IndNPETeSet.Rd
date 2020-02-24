@@ -15,11 +15,11 @@ by the function.}
 by the function.}
 
 \item{r}{A positive real number which serves as the expansion parameter in PE proximity region in the
-standard equilateral triangle \eqn{T_e=T((0,0),(1,0),(1/2,\sqrt{3}/2))}; must be \eqn{\ge 1}}
+standard equilateral triangle \eqn{T_e=T((0,0),(1,0),(1/2,\sqrt{3}/2))}; must be \eqn{\ge 1}.}
 
 \item{M}{A 2D point in Cartesian coordinates or a 3D point in barycentric coordinates
 which serves as a center in the interior of the standard equilateral triangle \eqn{T_e}; default is \eqn{M=(1,1,1)}
-i.e. the center of mass of \eqn{T_e}}
+i.e. the center of mass of \eqn{T_e}.}
 }
 \value{
 I(\code{pt} is in U_{x in \code{S}} NPE(x,r)), that is, returns 1 if \code{pt} is in \code{S} or inside \eqn{NPE(x,r)} for at least

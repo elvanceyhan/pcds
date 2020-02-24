@@ -7,18 +7,20 @@
 NAStri(pt, tri, M = "CC", rv = NULL, dec = 4)
 }
 \arguments{
-\item{pt}{A 2D point whose AS proximity region is to be computed}
+\item{pt}{A 2D point whose AS proximity region is to be computed.}
 
-\item{tri}{Three 2D points, stacked row-wise, each row representing a vertex of the triangle}
+\item{tri}{Three 2D points, stacked row-wise, each row representing a vertex of the triangle.}
 
-\item{M}{"CC" which stands for circumcenter of the triangle \code{tri} or a 2D point in Cartesian coordinates or a 3D point in
+\item{M}{The center of the triangle. "CC" stands for circumcenter of the triangle \code{tri} or a 2D point in Cartesian coordinates or a 3D point in
 barycentric coordinates which serves as a center in the interior of the triangle \code{tri};
-default is \code{M}="CC" i.e. the circumcenter of \code{tri}}
+default is \code{M}="CC" i.e. the circumcenter of \code{tri}.}
 
-\item{rv}{Index of the \code{M}-vertex region containing the point \code{pt}, either 1, 2, 3 or \code{NULL} (default is \code{NULL})}
+\item{rv}{Index of the \code{M}-vertex region containing the point \code{pt}, either 1, 2, 3 or
+\code{NULL} (default is \code{NULL}).}
 
-\item{dec}{a positive integer the number of decimals (default is 4) to round the barycentric coordinates when checking whether
-the end points fall on the boundary of the triangle \code{tri} or not}
+\item{dec}{a positive integer the number of decimals (default is 4) to round the
+barycentric coordinates when checking whether
+the end points fall on the boundary of the triangle \code{tri} or not.}
 }
 \value{
 A list with the elements

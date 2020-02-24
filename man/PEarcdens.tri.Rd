@@ -7,22 +7,24 @@
 PEarcdens.tri(Xp, tri, r, M = c(1, 1, 1), tri.cor = TRUE)
 }
 \arguments{
-\item{Xp}{A set of 2D points which constitute the vertices of the PE-PCD}
+\item{Xp}{A set of 2D points which constitute the vertices of the PE-PCD.}
 
-\item{tri}{Three 2D points, stacked row-wise, each row representing a vertex of the triangle}
+\item{tri}{Three 2D points, stacked row-wise, each row representing a vertex of the triangle.}
 
-\item{r}{A positive real number which serves as the expansion parameter in PE proximity region; must be \eqn{\ge 1}}
+\item{r}{A positive real number which serves as the expansion parameter in PE proximity region;
+must be \eqn{\ge 1}.}
 
 \item{M}{A 2D point in Cartesian coordinates or a 3D point in barycentric coordinates
 which serves as a center in the interior of the triangle \code{tri} or the circumcenter of \code{tri};
-default is \eqn{M=(1,1,1)} i.e. the center of mass of \code{tri}}
+default is \eqn{M=(1,1,1)} i.e. the center of mass of \code{tri}.}
 
-\item{tri.cor}{A logical argument for computing the arc density for only the points inside the triangle, \code{tri}
+\item{tri.cor}{A logical argument for computing the arc density for only the points inside the triangle,
+\code{tri}.
 (default=\code{TRUE}), i.e., if \code{TRUE} only the induced digraph with the vertices inside \code{tri} are considered in the
-computation of arc density}
+computation of arc density.}
 }
 \value{
-A list of elements
+A list with the elements
 \item{arc.dens}{Arc density of PE-PCD whose vertices are the 2D numerical data set, \code{Xp};
 PE proximity regions are defined with respect to the triangle \code{tri} and \code{M}-vertex regions}
 \item{std.arc.dens}{Arc density standardized by the mean and asymptotic variance of the arc

@@ -8,7 +8,7 @@ radii(x, y)
 }
 \arguments{
 \item{x}{A set of d-dimensional points for which the radii are computed. Radius of an \code{x} point equals to the
-distance to the closest \code{y} point}
+distance to the closest \code{y} point.}
 
 \item{y}{A set of d-dimensional points representing the reference points for the balls. That is, radius
 of an \code{x} point is defined as the minimum distance to the \code{y} points.}

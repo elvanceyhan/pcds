@@ -20,23 +20,24 @@ plotPEregsTH(
 )
 }
 \arguments{
-\item{Xp}{A set of 3D points for which PE proximity regions are constructed}
+\item{Xp}{A set of 3D points for which PE proximity regions are constructed.}
 
-\item{r}{A positive real number which serves as the expansion parameter in PE proximity region; must be \eqn{\ge 1}}
+\item{r}{A positive real number which serves as the expansion parameter in PE proximity region;
+must be \eqn{\ge 1}.}
 
-\item{th}{Four 3D points, stacked row-wise, each row representing a vertex of the tetrahedron}
+\item{th}{Four 3D points, stacked row-wise, each row representing a vertex of the tetrahedron.}
 
 \item{M}{The center to be used in the construction of the vertex regions in the tetrahedron, \code{th}.
-Currently it only takes "CC" for circumcenter and "CM" for center of mass; default="CM"}
+Currently it only takes "CC" for circumcenter and "CM" for center of mass; default="CM".}
 
-\item{main}{An overall title for the plot (default="")}
+\item{main}{An overall title for the plot (default="").}
 
-\item{xlab, ylab, zlab}{Titles for the x, y and z axes, respectively  (default="" for all)}
+\item{xlab, ylab, zlab}{Titles for the x, y and z axes, respectively  (default="" for all).}
 
 \item{xlim, ylim, zlim}{Numeric vectors of length 2, giving the x-, y- and z-coordinate ranges
-(default=\code{NULL} for all)}
+(default=\code{NULL} for all).}
 
-\item{\dots}{Additional \code{scatter3D} parameters}
+\item{\dots}{Additional \code{scatter3D} parameters.}
 }
 \value{
 Plot of the PE proximity regions for points inside the tetrahedron \code{th}

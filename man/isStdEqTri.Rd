@@ -7,7 +7,7 @@
 isStdEqTri(tri)
 }
 \arguments{
-\item{tri}{Three 2D points, stacked row-wise, each row representing a vertex of the triangle}
+\item{tri}{Three 2D points, stacked row-wise, each row representing a vertex of the triangle.}
 }
 \value{
 \code{TRUE} if \code{tri} is a standard equilateral triangle, else \code{FALSE}.

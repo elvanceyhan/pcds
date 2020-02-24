@@ -8,7 +8,7 @@ rvTeCM(pt)
 }
 \arguments{
 \item{pt}{A 2D point for which CM-vertex region it resides in is to be determined in the
-standard equilateral triangle \eqn{T_e}}
+standard equilateral triangle \eqn{T_e}.}
 }
 \value{
 A list with two elements

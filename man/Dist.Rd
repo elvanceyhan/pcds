@@ -7,7 +7,7 @@
 Dist(x, y)
 }
 \arguments{
-\item{x, y}{Vectors, matrices or data frames (both should be of the same type)}
+\item{x, y}{Vectors, matrices or data frames (both should be of the same type).}
 }
 \value{
 Euclidean distance between \code{x} and \code{y}

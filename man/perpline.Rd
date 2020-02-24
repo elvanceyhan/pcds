@@ -2,16 +2,14 @@
 % Please edit documentation in R/PCDFunctions.r
 \name{perpline}
 \alias{perpline}
-\title{An object of class "Lines":
-
-The line passing thru a point and perpendicular to the line segment joining two points}
+\title{The line passing thru a point and perpendicular to the line segment joining two points}
 \usage{
 perpline(p, a, b, x)
 }
 \arguments{
 \item{p}{A 2D point at which the perpendicular line to line segment joining \code{a} and \code{b} crosses.}
 
-\item{a, b}{2D points that determine the line segment (the line will be perpendicular to this line segment)}
+\item{a, b}{2D points that determine the line segment (the line will be perpendicular to this line segment).}
 
 \item{x}{A scalar or a vector of scalars representing the x-coordinates of the line perpendicular to
 line joing \code{a} and \code{b} and crossing \code{p}.}
@@ -39,6 +37,7 @@ then \code{y} will be a vector of scalars.}
 \code{a} and \code{b}}
 }
 \description{
+An object of class "Lines".
 Returns the \code{equation, slope, intercept}, and y-coordinates of the line crossing
 the point \code{p} and perpendicular to the line passing through the points \code{a} and \code{b}
 with x-coordinates are provided in vector \code{x}.

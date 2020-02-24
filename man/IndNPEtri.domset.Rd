@@ -8,18 +8,18 @@ Catch Digraphs (PE-PCDs) - one triangle case}
 IndNPEtri.domset(S, Dt, r, tri, M = c(1, 1, 1))
 }
 \arguments{
-\item{S}{A set of 2D points which is to be tested for being a dominating set for the PE-PCDs}
+\item{S}{A set of 2D points which is to be tested for being a dominating set for the PE-PCDs.}
 
-\item{Dt}{A set of 2D points which constitute the vertices of the PE-PCD}
+\item{Dt}{A set of 2D points which constitute the vertices of the PE-PCD.}
 
 \item{r}{A positive real number which serves as the expansion parameter in PE proximity region
-constructed in the triangle \code{tri}; must be \eqn{\ge 1}}
+constructed in the triangle \code{tri}; must be \eqn{\ge 1}.}
 
-\item{tri}{Three 2D points, stacked row-wise, each row representing a vertex of the triangle}
+\item{tri}{Three 2D points, stacked row-wise, each row representing a vertex of the triangle.}
 
 \item{M}{A 2D point in Cartesian coordinates or a 3D point in barycentric coordinates
 which serves as a center in the interior of the triangle \code{tri} or the circumcenter of \code{tri};
-default is \eqn{M=(1,1,1)} i.e. the center of mass of \code{tri}}
+default is \eqn{M=(1,1,1)} i.e. the center of mass of \code{tri}.}
 }
 \value{
 I(\code{S} a dominating set of PE-PCD), that is, returns 1 if \code{S} is a dominating set of PE-PCD whose

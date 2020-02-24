@@ -7,9 +7,9 @@
 XinCHY(Xp, Yp)
 }
 \arguments{
-\item{Xp}{A set of 2D points which constitute the data set}
+\item{Xp}{A set of 2D points which constitute the data set.}
 
-\item{Yp}{A set of 2D points which constitute the vertices of the Delaunay triangles}
+\item{Yp}{A set of 2D points which constitute the vertices of the Delaunay triangles.}
 }
 \value{
 \code{Xp} points inside the convex hull of \code{Yp} points

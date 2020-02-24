@@ -21,29 +21,31 @@ plotPEarcs1D(
 )
 }
 \arguments{
-\item{Xp}{A vector of 1D points constituting the vertices of the PE-PCD}
+\item{Xp}{A vector of 1D points constituting the vertices of the PE-PCD.}
 
-\item{Yp}{A vector of 1D points constituting the end points of the intervals}
+\item{Yp}{A vector of 1D points constituting the end points of the intervals.}
 
-\item{r}{A positive real number which serves as the expansion parameter in PE proximity region; must be \eqn{\ge 1}}
+\item{r}{A positive real number which serves as the expansion parameter in PE proximity region;
+must be \eqn{\ge 1}.}
 
 \item{c}{A positive real number in \eqn{(0,1)} parameterizing the center inside \eqn{int=(a,b)}.
-For the interval, \eqn{int=(a,b)}, the parameterized center is \eqn{M_c=a+c(b-a)}}
+For the interval, \eqn{int=(a,b)}, the parameterized center is \eqn{M_c=a+c(b-a)}.}
 
-\item{Jit}{A positive real number that determines the amount of jitter along the y-axis, default is .1 and
+\item{Jit}{A positive real number that determines the amount of jitter along the y-axis, default is 0.1 and
 \code{Xp} points are jittered according to \eqn{U(-Jit,Jit)} distribution along the y-axis where \code{Jit} equals to the range of \code{Xp} and \code{Yp} multiplied by
-\code{Jit}.)}
+\code{Jit}).}
 
-\item{main}{Title of the main heading of the plot}
+\item{main}{Title of the main heading of the plot.}
 
-\item{xlab, ylab}{Titles of the x and y axes in the plot (default="" for both)}
+\item{xlab, ylab}{Titles of the x and y axes in the plot (default="" for both).}
 
-\item{xlim, ylim}{Numeric vectors of length 2, giving the x- and y-coordinate ranges (default=\code{NULL} for both)}
+\item{xlim, ylim}{Numeric vectors of length 2, giving the x- and y-coordinate ranges
+(default=\code{NULL} for both).}
 
 \item{centers}{A logical argument, if \code{TRUE}, plot includes the centers of the intervals
 as vertical lines in the plot, else centers of the intervals are not plotted.}
 
-\item{\dots}{Additional \code{plot} parameters}
+\item{\dots}{Additional \code{plot} parameters.}
 }
 \value{
 A plot of the arcs of PE-PCD whose vertices are the 1D data set \code{Xp} in which vertices are jittered

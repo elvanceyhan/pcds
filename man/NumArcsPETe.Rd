@@ -8,13 +8,14 @@ equilateral triangle case}
 NumArcsPETe(dat, r, M = c(1, 1, 1))
 }
 \arguments{
-\item{dat}{A set of 2D points which constitute the vertices of the PE-PCD}
+\item{dat}{A set of 2D points which constitute the vertices of the PE-PCD.}
 
-\item{r}{A positive real number which serves as the expansion parameter for PE proximity region; must be \eqn{\ge 1}}
+\item{r}{A positive real number which serves as the expansion parameter for PE proximity region;
+must be \eqn{\ge 1}.}
 
 \item{M}{A 2D point in Cartesian coordinates or a 3D point in barycentric coordinates
 which serves as a center in the interior of the standard equilateral triangle \eqn{T_e}; default is \eqn{M=(1,1,1)} i.e.
-the center of mass of \eqn{T_e}}
+the center of mass of \eqn{T_e}.}
 }
 \value{
 Number of arcs for the PE-PCD with vertices being 2D data set, \code{dat}, in \eqn{T_e}

@@ -8,15 +8,15 @@ for 1D data - multiple interval case}
 IncMatCS1D(Xp, Yp, t, c)
 }
 \arguments{
-\item{Xp}{a set of 1D points which constitutes the vertices of the digraph}
+\item{Xp}{a set of 1D points which constitutes the vertices of the digraph.}
 
 \item{Yp}{a set of 1D points which constitutes the end points of the intervals
 that partition the real line.}
 
-\item{t}{A positive real number which serves as the expansion parameter in CS proximity region}
+\item{t}{A positive real number which serves as the expansion parameter in CS proximity region.}
 
 \item{c}{A positive real number in \eqn{(0,1)} parameterizing the center inside \eqn{int=(a,b)}.
-For the interval, \eqn{int=(a,b)}, the parameterized center is \eqn{M_c=a+c(b-a)}}
+For the interval, \eqn{int=(a,b)}, the parameterized center is \eqn{M_c=a+c(b-a)}.}
 }
 \value{
 Incidence matrix for the CS-PCD with vertices being 1D data set, \code{Xp},

@@ -9,7 +9,7 @@ in.triangle(p, tri, boundary = FALSE)
 \arguments{
 \item{p}{A 2D point to be checked whether it is inside the triangle or not.}
 
-\item{tri}{Three 2D points, stacked row-wise, each row representing a vertex of the triangle}
+\item{tri}{Three 2D points, stacked row-wise, each row representing a vertex of the triangle.}
 
 \item{boundary}{A logical parameter (default=\code{FALSE}) to include boundary or not, so if it is \code{TRUE},
 the function checks if the point, \code{p}, lies in the closure of the triangle (i.e. interior and boundary

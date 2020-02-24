@@ -8,21 +8,21 @@
 Gam1AStri(p, Dt, tri, M = "CC", rv = NULL, ch.data.pnt = FALSE)
 }
 \arguments{
-\item{p}{A 2D point that is to be tested for being a dominating point or not of the AS-PCD}
+\item{p}{A 2D point that is to be tested for being a dominating point or not of the AS-PCD.}
 
-\item{Dt}{A set of 2D points which constitutes the vertices of the AS-PCD}
+\item{Dt}{A set of 2D points which constitutes the vertices of the AS-PCD.}
 
-\item{tri}{Three 2D points, stacked row-wise, each row representing a vertex of the triangle}
+\item{tri}{Three 2D points, stacked row-wise, each row representing a vertex of the triangle.}
 
-\item{M}{"CC" which stands for circumcenter of the triangle \code{tri} or a 2D point in Cartesian coordinates or
+\item{M}{The center of the triangle. "CC" stands for circumcenter of the triangle \code{tri} or a 2D point in Cartesian coordinates or
 a 3D point in  barycentric coordinates which serves as a center in the interior of the triangle \eqn{T_b};
-default is \code{M}="CC" i.e. the circumcenter of \code{tri}}
+default is \code{M}="CC" i.e. the circumcenter of \code{tri}.}
 
 \item{rv}{Index of the vertex whose region contains point \code{p}, \code{rv} takes the vertex labels as 1,2,3 as
-in the row order of the vertices in \code{tri}}
+in the row order of the vertices in \code{tri}.}
 
 \item{ch.data.pnt}{A logical argument for checking whether point \code{p} is a data point in \code{Dt} or not
-(default is \code{FALSE})}
+(default is \code{FALSE}).}
 }
 \value{
 I(\code{p} is a dominating point of the AS-PCD whose vertices are the 2D data set \code{Dt}),

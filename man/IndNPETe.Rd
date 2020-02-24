@@ -13,14 +13,15 @@ IndNPETe(pt1, pt2, r, M = c(1, 1, 1), rv = NULL)
 \item{pt2}{A 2D point. The function determines whether \code{pt2} is inside the PE proximity region of
 \code{pt1} or not.}
 
-\item{r}{A positive real number which serves as the expansion parameter in PE proximity region; must be \eqn{\ge 1}}
+\item{r}{A positive real number which serves as the expansion parameter in PE proximity region;
+must be \eqn{\ge 1}.}
 
 \item{M}{A 2D point in Cartesian coordinates or a 3D point in barycentric coordinates
 which serves as a center in the interior of the standard equilateral triangle \eqn{T_e}; default is \eqn{M=(1,1,1)} i.e.
-the center of mass of \eqn{T_e}}
+the center of mass of \eqn{T_e}.}
 
 \item{rv}{The index of the vertex region in \eqn{T_e} containing the point, either 1, 2, 3 or \code{NULL}
-(default is \code{NULL})}
+(default is \code{NULL}).}
 }
 \value{
 I(\code{pt2} is in \eqn{NPE(pt1,r)}) for points \code{pt1} and \code{pt2}, that is, returns 1 if \code{pt2} is in \eqn{NPE(pt1,r)},

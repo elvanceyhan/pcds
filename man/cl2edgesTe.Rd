@@ -2,14 +2,12 @@
 % Please edit documentation in R/PCDFunctions.r
 \name{cl2edgesTe}
 \alias{cl2edgesTe}
-\title{An object of class "Extrema":
-
-The closest points in a data set to edges in the standard equilateral triangle}
+\title{The closest points in a data set to edges in the standard equilateral triangle}
 \usage{
 cl2edgesTe(Dt, ch.all.intri = FALSE)
 }
 \arguments{
-\item{Dt}{A set of 2D points representing the set of data points}
+\item{Dt}{A set of 2D points representing the set of data points.}
 
 \item{ch.all.intri}{A logical argument (default=\code{FALSE}) to check whether all data points are inside
 the standard equilateral triangle \eqn{T_e}. So if it is \code{TRUE},
@@ -23,7 +21,7 @@ A list with the elements
 \item{type}{Type of the extrema points}
 \item{desc}{A short description of the extrema points}
 \item{mtitle}{The "main" title for the plot of the exrema}
-\item{Ext}{The extrema points, i.e., closest points to edges}
+\item{ext}{The extrema points, i.e., closest points to edges}
 \item{X}{The input data, \code{Dt}, which can be a matrix or data frame}
 \item{num.points}{The number of data points, i.e., size of \code{Dt}}
 \item{supp}{Support of the data points, i.e., the standard equilateral triangle \eqn{T_e}}
@@ -39,6 +37,7 @@ hence it is \code{NULL} for this function}
 \item{dist2ref}{Distances from closest points in each edge region to the corresponding edge}
 }
 \description{
+An object of class "Extrema".
 Returns the closest points from the 2D data set, \code{Dt}, to the edges in the
 standard equilateral triangle \eqn{T_e=T(A=(0,0),B=(1,0),C=(1/2,\sqrt{3}/2))}.
 
@@ -84,7 +83,7 @@ yd<-Ylim[2]-Ylim[1]
 plot(A,pch=".",xlab="",ylab="",axes=TRUE,xlim=Xlim+xd*c(-.05,.05),ylim=Ylim+yd*c(-.05,.05))
 polygon(Te)
 points(dat,xlab="",ylab="")
-points(ed.clo$Ext,pty=2,pch=4,col="red")
+points(ed.clo$ext,pty=2,pch=4,col="red")
 
 txt<-rbind(Te,p1,p2,p3)
 xc<-txt[,1]+c(-.03,.03,.03,0,0,0)

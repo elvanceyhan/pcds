@@ -8,17 +8,18 @@ Proportional Edge Proximity Catch Digraphs (PE-PCDs) - one interval case}
 IndNPEint(x1, x2, r, c = 0.5, int)
 }
 \arguments{
-\item{x1}{A 1D point for which the proximity region is constructed}
+\item{x1}{A 1D point for which the proximity region is constructed.}
 
 \item{x2}{A 1D point for which it is checked whether it resides in the proximity region
-of \code{x1} or not}
+of \code{x1} or not.}
 
-\item{r}{A positive real number which serves as the expansion parameter in PE proximity region; must be \eqn{\ge 1}}
+\item{r}{A positive real number which serves as the expansion parameter in PE proximity region
+must be \eqn{\ge 1}.}
 
 \item{c}{A positive real number in \eqn{(0,1)} parameterizing the center inside \eqn{int=(a,b)}.
-For the interval, \eqn{int=(a,b)}, the parameterized center is \eqn{M_c=a+c(b-a)}, and default=.5}
+For the interval, \eqn{int=(a,b)}, the parameterized center is \eqn{M_c=a+c(b-a)}, and default=0.5}
 
-\item{int}{A vector of two real numbers representing an interval}
+\item{int}{A vector of two real numbers representing an interval.}
 }
 \value{
 I(\code{x2} in \eqn{NPE(x1,r,c)}) for x2, that is, returns 1 if \code{x2} in \eqn{NPE(x1,r,c)}, returns 0 otherwise

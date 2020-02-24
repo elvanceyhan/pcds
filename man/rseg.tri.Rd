@@ -2,9 +2,7 @@
 % Please edit documentation in R/PCDFunctions.r
 \name{rseg.tri}
 \alias{rseg.tri}
-\title{An object of class "Patterns":
-
-Generation of points segregated (in a Type I fashion) from the vertices of a triangle}
+\title{Generation of points segregated (in a Type I fashion) from the vertices of a triangle}
 \usage{
 rseg.tri(k, tri, delta)
 }
@@ -12,7 +10,7 @@ rseg.tri(k, tri, delta)
 \item{k}{A positive integer representing the number of points to be generated from the segregation pattern
 in the triangle, \code{tri}.}
 
-\item{tri}{Three 2D points, stacked row-wise, each row representing a vertex of the triangle}
+\item{tri}{Three 2D points, stacked row-wise, each row representing a vertex of the triangle.}
 
 \item{delta}{A positive real number in (0,4/9). \code{delta} is the parameter of segregation (that is,
 \eqn{\delta 100} \% area around each vertex in each Delaunay triangle is forbidden for point generation).}
@@ -35,6 +33,7 @@ and the number of reference (i.e., vertice of \code{tri}, which is 3 here).}
 vertice so the triangle \code{tri}}
 }
 \description{
+An object of class "Patterns".
 Generates \code{k} points uniformly in the support for Type I segregation in
 a given triangle, \code{tri}.
 

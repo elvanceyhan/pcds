@@ -7,13 +7,13 @@
 NumArcsAStri(dat, tri, M = "CC")
 }
 \arguments{
-\item{dat}{A set of 2D points which constitute the vertices of the digraph (i.e., AS-PCD)}
+\item{dat}{A set of 2D points which constitute the vertices of the digraph (i.e., AS-PCD).}
 
-\item{tri}{Three 2D points, stacked row-wise, each row representing a vertex of the triangle}
+\item{tri}{Three 2D points, stacked row-wise, each row representing a vertex of the triangle.}
 
-\item{M}{"CC" which stands for circumcenter of the triangle \code{tri} or a 2D point in Cartesian coordinates or
+\item{M}{The center of the triangle. "CC" stands for circumcenter of the triangle \code{tri} or a 2D point in Cartesian coordinates or
 a 3D point in barycentric coordinates which serves as a center in the interior of \code{tri};
-default is \code{M}="CC" i.e. the circumcenter of \code{tri}}
+default is \code{M}="CC" i.e. the circumcenter of \code{tri}.}
 }
 \value{
 The number of arcs of Arc Slice Proximity Catch Digraphs (AS-PCDs)

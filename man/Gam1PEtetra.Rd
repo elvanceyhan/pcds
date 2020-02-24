@@ -8,22 +8,23 @@
 Gam1PEtetra(p, Dt, r, th, M = "CM", rv = NULL, ch.data.pnt = FALSE)
 }
 \arguments{
-\item{p}{A 3D point that is to be tested for being a dominating point or not of the PE-PCD}
+\item{p}{A 3D point that is to be tested for being a dominating point or not of the PE-PCD.}
 
-\item{Dt}{A set of 3D points which constitutes the vertices of the PE-PCD}
+\item{Dt}{A set of 3D points which constitutes the vertices of the PE-PCD.}
 
-\item{r}{A positive real number which serves as the expansion parameter in PE proximity region; must be \eqn{\ge 1}}
+\item{r}{A positive real number which serves as the expansion parameter in PE proximity region;
+must be \eqn{\ge 1}.}
 
-\item{th}{Four 3D points, stacked row-wise, each row representing a vertex of the tetrahedron}
+\item{th}{Four 3D points, stacked row-wise, each row representing a vertex of the tetrahedron.}
 
 \item{M}{The center to be used in the construction of the vertex regions in the tetrahedron, \code{th}.
-Currently it only takes "CC" for circumcenter and "CM" for center of mass; default="CM"}
+Currently it only takes "CC" for circumcenter and "CM" for center of mass; default="CM".}
 
 \item{rv}{Index of the vertex whose region contains point \code{p}, \code{rv} takes the vertex labels as 1,2,3,4 as
-in the row order of the vertices in standard tetrahedron, default is \code{NULL}}
+in the row order of the vertices in standard tetrahedron, default is \code{NULL}.}
 
 \item{ch.data.pnt}{A logical argument for checking whether point \code{p} is a data point
-in \code{Dt} or not (default is \code{FALSE})}
+in \code{Dt} or not (default is \code{FALSE}).}
 }
 \value{
 I(\code{p} is a dominating point of the PE-PCD) where the vertices of the PE-PCD are the 2D data set \code{Dt},

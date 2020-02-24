@@ -7,12 +7,12 @@
 dist.pt2set(x, Y)
 }
 \arguments{
-\item{x}{A vector (i.e., a point in \eqn{R^d})}
+\item{x}{A vector (i.e., a point in \eqn{R^d}).}
 
-\item{Y}{A set of d-dimensional points}
+\item{Y}{A set of d-dimensional points.}
 }
 \value{
-A list of elements
+A list with the elements
 \item{distance}{Distance from point \code{x} to set \code{Y}}
 \item{ind.cl.point}{Index of the closest point in set \code{Y} to the point \code{x}}
 \item{closest.point}{The closest point in set \code{Y} to the point \code{x}}

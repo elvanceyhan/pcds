@@ -2,12 +2,12 @@
 % Please edit documentation in R/PCDFunctions.r
 \name{rel.six.Te}
 \alias{rel.six.Te}
-\title{Region index inside the Gamma-1 region.}
+\title{Region index inside the Gamma-1 region}
 \usage{
 rel.six.Te(Pt)
 }
 \arguments{
-\item{Pt}{A 2D point.}
+\item{Pt}{A 2D point whose index for the 6 regions in sandard equilateral triangle \eqn{T_e} is determined.}
 }
 \value{
 rel An integer between 1-6 (inclusive) or \code{NA}
