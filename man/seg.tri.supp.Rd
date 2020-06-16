@@ -25,7 +25,7 @@ Caveat: the vertices of this triangle may be outside the triangle, \code{tri}, d
 \code{delta} (i.e., for small values of \code{delta}).
 }
 \examples{
-\donttest{
+\dontrun{
 #the standard equilateral triangle
 A<-c(0,0); B<-c(1,0); C<-c(1/2,sqrt(3)/2);
 Te<-rbind(A,B,C);

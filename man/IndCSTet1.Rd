@@ -28,7 +28,7 @@ If \code{pt1} and \code{pt2} are distint and either are outside \eqn{T_e}, it re
 but if they are identical, then it returns 1 regardless of their locations (i.e., it allows loops).
 }
 \examples{
-\donttest{
+\dontrun{
 A<-c(0,0); B<-c(1,0); C<-c(1/2,sqrt(3)/2);
 Te<-rbind(A,B,C);
 n<-10

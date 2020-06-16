@@ -28,7 +28,7 @@ If \code{pt1} and \code{pt2} are distint and \code{pt1} is outside of \eqn{T(A,D
 but if they are identical, then it returns 1 regardless of their locations (i.e., it allows loops).
 }
 \examples{
-\donttest{
+\dontrun{
 n<-5
 
 set.seed(1)

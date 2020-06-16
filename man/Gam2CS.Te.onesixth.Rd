@@ -35,7 +35,7 @@ dominating set if they actually were in the data set.
 See also (\insertCite{ceyhan:Phd-thesis;textual}{pcds}).
 }
 \examples{
-\donttest{
+\dontrun{
 n<-5
 
 set.seed(1)
@@ -63,9 +63,7 @@ Gam2CS.Te.onesixth(P1,c(.4,.2),dat)
 
 dat.fr<-data.frame(a=dat)
 Gam2CS.Te.onesixth(c(.4,.2),P2,dat.fr)
-}
 
-\dontrun{
 Gam2CS.Te.onesixth(c(.2,.2),dat[2,],dat,ch.data.pnts = TRUE)
 #gives an error message since not both points are data points in Dt
 }

@@ -54,7 +54,7 @@ See also (\insertCite{ceyhan:Phd-thesis,ceyhan:comp-geo-2010,ceyhan:mcap2012;tex
 }
 \examples{
 #Examples for Gam2CSTe
-\donttest{
+\dontrun{
 t<-1.5
 n<-10
 
@@ -86,9 +86,7 @@ Gam2CSTe(P1,P2,dat,t)
 
 dat.fr<-data.frame(a=dat)
 Gam2CSTe(P1,P2,dat.fr,t)
-}
 
-\dontrun{
 Gam2CSTe(c(.2,.2),dat[2,],dat,t,ch.data.pnts = TRUE)
 #gives an error message since not both points are data points in Dt
 Gam2CSTe(c(.2,.2),c(.2,.3),dat,t,ch.data.pnts = TRUE)
@@ -96,7 +94,7 @@ Gam2CSTe(c(.2,.2),c(.2,.3),dat,t,ch.data.pnts = TRUE)
 }
 
 #Examples for Gam3CSTe
-\donttest{
+\dontrun{
 t<-1.5
 n<-10
 
@@ -126,15 +124,13 @@ Gam3CSTe(P1,P2,P3,dat,t)
 
 dat.fr<-data.frame(a=dat)
 Gam3CSTe(P1,P2,P3,dat.fr,t)
-}
 
-\dontrun{
 Gam3CSTe(c(.2,.2),dat[2,],dat[3,],dat,t,ch.data.pnts = TRUE)
 #gives an error message since not all points, pt1, pt2, and pt3, are data points in Dt
 }
 
 #Examples for Gam4CSTe
-\donttest{
+\dontrun{
 t<-1.5
 n<-10
 
@@ -166,15 +162,13 @@ Gam4CSTe(P1,P2,P3,P4,dat,t)
 
 dat.fr<-data.frame(a=dat)
 Gam4CSTe(P1,P2,P3,P4,dat.fr,t)
-}
 
-\dontrun{
 Gam4CSTe(c(.2,.2),dat[2,],dat[3,],dat[4,],dat,t,ch.data.pnts = TRUE)
 #gives an error message since not all points are data points in Dt
 }
 
 #Examples for Gam5CSTe
-\donttest{
+\dontrun{
 t<-1.5
 n<-10
 
@@ -203,15 +197,13 @@ Gam5CSTe(P1,P2,P3,P4,P5,dat,t)
 
 dat.fr<-data.frame(a=dat)
 Gam5CSTe(P1,P2,P3,P4,P5,dat.fr,t)
-}
 
-\dontrun{
 Gam5CSTe(c(.2,.2),dat[2,],dat[3,],dat[4,],dat[5,],dat,t,ch.data.pnts = TRUE)
 #gives an error message since not all points are data points in Dt
 }
 
 #Examples for Gam6CSTe
-\donttest{
+\dontrun{
 t<-1.5
 n<-10
 
@@ -241,9 +233,7 @@ Gam6CSTe(P1,P2,P3,P4,P5,P6,dat,t)
 
 dat.fr<-data.frame(a=dat)
 Gam6CSTe(P1,P2,P3,P4,P5,P6,dat.fr,t)
-}
 
-\dontrun{
 Gam6CSTe(c(.2,.2),dat[2,],dat[3,],dat[4,],dat[5,],dat[6,],dat,t,ch.data.pnts = TRUE)
 #gives an error message since not all points are data points in Dt
 }

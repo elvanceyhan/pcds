@@ -41,14 +41,17 @@ in.tetrahedron(P,tetra,boundary=FALSE)
 in.tetrahedron(C,tetra,boundary=FALSE)
 in.tetrahedron(C,tetra,boundary=TRUE)
 
-n<-10  #try also n<-40
-Dt<-cbind(runif(n),runif(n,0,sqrt(3)/2),runif(n,0,sqrt(6)/3))
+n1<-5; n2<-5; n<-n1+n2
+Dt<-rbind(cbind(runif(n1),runif(n1,0,sqrt(3)/2),runif(n1,0,sqrt(6)/3)),
+          runif.tetra(n2,tetra)$g)
 
 in.tetra<-vector()
 for (i in 1:n)
 {in.tetra<-c(in.tetra,in.tetrahedron(Dt[i,],tetra,boundary=TRUE)$in.tetra) }
+
 in.tetra
 Dt.tet<-Dt[in.tetra,]
+if (is.vector(Dt.tet)) {Dt.tet<-matrix(Dt.tet,nrow=1)}
 
 Xlim<-range(tetra[,1],Dt[,1])
 Ylim<-range(tetra[,2],Dt[,2])
@@ -57,9 +60,8 @@ xd<-Xlim[2]-Xlim[1]
 yd<-Ylim[2]-Ylim[1]
 zd<-Zlim[2]-Zlim[1]
 
-plot3D::scatter3D(Dt[,1],Dt[,2],Dt[,3], phi =40,theta=40, bty = "g", pch = 20, cex = 1,
-ticktype = "detailed", xlim=Xlim+xd*c(-.05,.05),ylim=Ylim+yd*c(-.05,.05),
-zlim=Zlim+zd*c(-.05,.05))
+plot3D::scatter3D(Dt[,1],Dt[,2],Dt[,3], phi=40,theta=40, bty = "g", pch = 20, cex = 1,
+ticktype="detailed",xlim=Xlim+xd*c(-.05,.05),ylim=Ylim+yd*c(-.05,.05),zlim=Zlim+zd*c(-.05,.05))
 #add the vertices of the tetrahedron
 plot3D::points3D(tetra[,1],tetra[,2],tetra[,3], add=TRUE)
 plot3D::points3D(Dt.tet[,1],Dt.tet[,2],Dt.tet[,3],pch=4, add=TRUE)
@@ -68,9 +70,9 @@ plot3D::segments3D(L[,1], L[,2], L[,3], R[,1], R[,2],R[,3], add=TRUE,lwd=2)
 
 plot3D::text3D(tetra[,1],tetra[,2],tetra[,3], labels=c("A","B","C","D"), add=TRUE)
 
-in.tetrahedron(P,tetra)
+in.tetrahedron(P,tetra) #this works fine
 
-dat.fr<-data.frame(a=tetra)
+dat.fr<-data.frame(a=tetra) #this works fine
 in.tetrahedron(P,dat.fr)
 }
 

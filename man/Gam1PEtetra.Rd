@@ -48,7 +48,7 @@ if it actually were in the data set.
 See also (\insertCite{ceyhan:Phd-thesis,ceyhan:comp-geo-2010;textual}{pcds}).
 }
 \examples{
-\donttest{
+\dontrun{
 A<-c(0,0,0); B<-c(1,0,0); C<-c(1/2,sqrt(3)/2,0); D<-c(1/2,sqrt(3)/6,sqrt(6)/3)
 tetra<-rbind(A,B,C,D)
 n<-20
@@ -111,9 +111,7 @@ Gam1PEtetra(P,dat,r,tetra,M)
 
 dat.fr<-data.frame(a=dat)
 Gam1PEtetra(P,dat.fr,r,tetra,M)
-}
 
-\dontrun{
 Gam1PEtetra(c(-1,-1,-1),dat,r,tetra,M,ch.data.pnt = TRUE)
 #gives an error message since p is not a data point
 }

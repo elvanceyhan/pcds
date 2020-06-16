@@ -42,7 +42,7 @@ standard equilateral triangle \eqn{T_e=T(A=(0,0),B=(1,0),C=(1/2,\sqrt{3}/2))}.
 See also (\insertCite{ceyhan:Phd-thesis;textual}{pcds}).
 }
 \examples{
-\donttest{
+\dontrun{
 n<-20
 dat<-runifTe(n)$gen.points
 

@@ -14,7 +14,7 @@
 \alias{PG2CIV}
 \alias{PG2C}
 \alias{PG2Csym}
-\alias{Pg2PE1D}
+\alias{PG2PE1D}
 \title{The functions for probability of domination number=2 for Proportional Edge Proximity Catch Digraphs
 (PE-PCDs) - middle interval case}
 \usage{
@@ -42,7 +42,7 @@ PG2C(r, c, n)
 
 PG2Csym(r, c, n)
 
-Pg2PE1D(r, c, n)
+PG2PE1D(r, c, n)
 }
 \arguments{
 \item{r}{A positive real number which serves as the expansion parameter in PE proximity region;
@@ -58,7 +58,7 @@ P(domination number=2) for PE-PCD whose vertices are a uniform data set of size 
 interval \eqn{(a,b)}
 }
 \description{
-The function \code{Pg2PE1D} and its auxiliary functions.
+The function \code{PG2PE1D} and its auxiliary functions.
 
 Returns \eqn{P(\gamma=2)} for PE-PCD whose vertices are a uniform data set of size \code{n} in a finite interval
 (a,b)where \eqn{\gamma} stans for the domination number.
@@ -70,7 +70,7 @@ To compute the probability \eqn{P(\gamma=2)} for PE-PCD in the 1D case,
 we partition the domain \eqn{(r,c)=(1,\infty) \times (0,1)}, and compute the probability for each partition
 set. The sample size (i.e. number of vertices or data points) is a positive integer, \code{n}.
 }
-\section{Auxiliary Functions for \code{Pg2PE1D}}{
+\section{Auxiliary Functions for \code{PG2PE1D}}{
 
 The auxiliary functions are \code{PG2AI, PG2AII, PG2AIII, PG2AIV, PG2A, PG2Asym, PG2BIII, PG2B, PG2B,
 PG2Bsym, PG2CIV, PG2C}, and \code{PG2Csym}, each corresponding to a partition of the domain of
@@ -167,70 +167,70 @@ PG2AII(r,1-c,n) if \eqn{c/(1-c)< r < 1/(1-c)};
 
 and PG2AI(r,1-c,n) otherwise.
 
-Combining Cases A, B, and C, we get our main function \code{Pg2PE1D} which computes \eqn{P(\gamma=2)}
+Combining Cases A, B, and C, we get our main function \code{PG2PE1D} which computes \eqn{P(\gamma=2)}
 for any (\code{r,c}) in its domain.
 }
 
 \examples{
 #Examples for the auxiliary functions
-\donttest{
+\dontrun{
 PG2AI(2.25,.45,10)
 }
 
-\donttest{
+\dontrun{
 PG2AII(2.2,.4,10)
 }
 
-\donttest{
+\dontrun{
 PG2AIII(1.2,.25,10)
 }
 
-\donttest{
+\dontrun{
 PG2AIV(1.2,.25,10)
 }
 
-\donttest{
+\dontrun{
 PG2A(1.2,.25,10)
 }
 
-\donttest{
+\dontrun{
 PG2Asym(1.2,.75,10)
 }
 
-\donttest{
+\dontrun{
 PG2BIII(1.5,.45,10)
 }
 
-\donttest{
+\dontrun{
 PG2B(1.5,.30,10)
 }
 
-\donttest{
+\dontrun{
 PG2Bsym(1.5,.70,10)
 }
 
-\donttest{
+\dontrun{
 PG2CIV(1.5,.2,10)
 }
 
-\donttest{
+\dontrun{
 PG2C(1.5,.2,10)
 }
 
-\donttest{
+\dontrun{
 PG2Csym(1.5,.8,10)
 }
 
-#Examples for the main function Pg2PE1D
+#Examples for the main function PG2PE1D
 r<-2
 c<-.5
 n<-10
 
-Pg2PE1D(r,c,n)
+PG2PE1D(r,c,n)
 
-Pg2PE1D(r=1.5,c=1/1.5,n=100)
+PG2PE1D(r=1.5,c=1/1.5,n=100)
 
 }
 \seealso{
-\code{\link{Pg2PEtri}} and  \code{\link{Pg2PE1D.asy}}
+\code{\link{PG2PEtri}} and  \code{\link{PG2PE1D.asy}}
 }

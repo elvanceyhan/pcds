@@ -49,7 +49,7 @@ of the arc density of PE-PCD for \code{c} in (0,1/4) and \eqn{r \ge 1}.
 See also (\insertCite{ceyhan:metrika-2012;textual}{pcds}).
 }
 \examples{
-\donttest{
+\dontrun{
 mu1PE1D(2.25,.45)
 }
 
@@ -73,11 +73,11 @@ for (i in 1:lrseq)
 persp(rseq,cseq,mu.grid, xlab="r", ylab="c", zlab="mu(r,c)", theta = -30, phi = 30,
 expand = 0.5, col = "lightblue", ltheta = 120, shade = 0.05, ticktype = "detailed")
 
-\donttest{
+\dontrun{
 fvar1(2.25,.45)
 }
 
-\donttest{
+\dontrun{
 fvar2(2.25,.15)
 }
 

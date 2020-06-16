@@ -52,7 +52,7 @@ if it actually were in the data set.
 See also (\insertCite{ceyhan:Phd-thesis,ceyhan:comp-geo-2010,ceyhan:mcap2012;textual}{pcds}).
 }
 \examples{
-\donttest{
+\dontrun{
 c1<-.4; c2<-.6;
 A<-c(0,0); B<-c(1,0); C<-c(c1,c2);
 Tb<-rbind(A,B,C)
@@ -124,8 +124,7 @@ dat.fr<-data.frame(a=dat)
 Gam1ASbastri(c(.4,.2),dat.fr,c1,c2,M)
 
 Gam1ASbastri(c(.5,.11),dat,c1,c2,M)
-}
-\dontrun{
+
 Gam1ASbastri(c(.5,.11),dat,c1,c2,M,ch.data.pnt=TRUE)
 #gives an error message since the point is not in the basic triangle
 }

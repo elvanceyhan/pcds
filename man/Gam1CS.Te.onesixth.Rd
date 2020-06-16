@@ -36,7 +36,7 @@ set.
 See also (\insertCite{ceyhan:Phd-thesis;textual}{pcds}).
 }
 \examples{
-\donttest{
+\dontrun{
 n<-5
 set.seed(1)
 dat<-rbind(runifTe.onesixth(n)$gen.points,runifTe(n)$gen.points)
@@ -91,9 +91,7 @@ Gam1CS.Te.onesixth(c(.4,.2),dat)
 
 dat.fr<-data.frame(a=dat)
 Gam1CS.Te.onesixth(c(.4,.2),dat.fr)
-}
 
-\dontrun{
 Gam1CS.Te.onesixth(c(.49,.49),dat,ch.data.pnt = TRUE)
 #gives an error message since point, p, is not a data point in Dt
 }

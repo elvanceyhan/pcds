@@ -36,8 +36,8 @@ in increasing distances.
 as in \code{rank.d2e.Te}.
 }
 \examples{
-\donttest{
 #Examples for rank.d2e.Te
+\dontrun{
 n<-20
 set.seed(1)
 dat<-runifTe(n)$gen.points
@@ -80,8 +80,8 @@ dat.fr<-data.frame(a=dat)
 rank.d2e.Te(dat.fr)
 }
 
-\donttest{
 #Examples for order.d2e.Te
+\dontrun{
 n<-20
 set.seed(1)
 dat<-runifTe(n)$gen.points  #try also dat<-cbind(runif(n),runif(n))

@@ -48,7 +48,7 @@ x-coordinates are provided in vector \code{x}.
 }
 \examples{
 #Examples for lD1CCinTb
-\donttest{
+\dontrun{
 c1<-.4; c2<-.6;
 A<-c(0,0); B<-c(1,0); C<-c(c1,c2);  #the vertices of the basic triangle Tb
 
@@ -95,7 +95,7 @@ lD1CCinTb(x1,c1,c2)
 }
 
 #Examples for lD2CCinTb
-\donttest{
+\dontrun{
 c1<-.4; c2<-.6;
 A<-c(0,0); B<-c(1,0); C<-c(c1,c2);  #the vertices of the basic triangle Tb
 

@@ -31,8 +31,8 @@ An object of class "Lines".
 Returns the \code{equation, slope, intercept}, and y-coordinates of the line crossing two
 distinct 2D points \code{a} and \code{b} with x-coordinates provided in vector \code{x}.
 
-This function is
-different from the \code{\link[stats]{line}} function in the standard \code{stats} package in R in the sense that \code{Line(a,b,x)} fits the line passing
+This function is different from the \code{\link[stats]{line}} function in the standard \code{stats} package
+in R in the sense that \code{Line(a,b,x)} fits the line passing
 through points \code{a} and \code{b} and returns various quantities (see below) for this line and \code{x} is
 the x-coordinates of the points we want to find on the \code{Line(a,b,x)} while \code{line(a,b)} fits the line robustly
 whose x-coordinates are in \code{a} and y-coordinates are in \code{b}.

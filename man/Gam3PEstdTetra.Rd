@@ -57,7 +57,7 @@ if they actually were all in the data set.
 See also (\insertCite{ceyhan:Phd-thesis,ceyhan:comp-geo-2010;textual}{pcds}).
 }
 \examples{
-\donttest{
+\dontrun{
 A<-c(0,0,0); B<-c(1,0,0); C<-c(1/2,sqrt(3)/2,0); D<-c(1/2,sqrt(3)/6,sqrt(6)/3)
 tetra<-rbind(A,B,C,D)
 
@@ -102,9 +102,7 @@ Gam3PEstdTetra(P1,P2,P3,dat,r)
 
 dat.fr<-data.frame(a=dat)
 Gam3PEstdTetra(P1,P2,P3,dat.fr,r)
-}
 
-\dontrun{
 Gam3PEstdTetra(dat[1,],c(1,1,1),dat[3,],dat,r,ch.data.pnts = TRUE)
 #gives an error message since not all points, pt1, pt2 and pt3, are data points in Dt
 }

@@ -25,7 +25,7 @@ A list with two elements
 An alternative function to the function \code{\link{rverts.tri.cent}}
 }
 \examples{
-\donttest{
+\dontrun{
 A<-c(1,1); B<-c(2,0); C<-c(1.5,2);
 Tr<-rbind(A,B,C);
 M<-c(1.6,1.0)

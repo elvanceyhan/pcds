@@ -45,8 +45,8 @@ and \code{lC_M.Te} is the line joining C to \code{M}, in the standard equilatera
 with \eqn{A=(0,0)};  \eqn{B=(1,0)}; \eqn{C=(1/2,sqrt{3}/2)}; x-coordinates are provided in vector \code{x}
 }
 \examples{
-\donttest{
 #Examples for lA_M.Te
+\dontrun{
 A<-c(0,0); B<-c(1,0); C<-c(1/2,sqrt(3)/2);
 Te<-rbind(A,B,C)
 
@@ -87,8 +87,8 @@ text(xc,yc,txt.str)
 lA_M.Te(.25,M)
 }
 
-\donttest{
 #Examples for lB_M.Te
+\dontrun{
 A<-c(0,0); B<-c(1,0); C<-c(1/2,sqrt(3)/2);
 Te<-rbind(A,B,C)
 
@@ -105,8 +105,8 @@ plot(lnBM)
 lB_M.Te(.25,M)
 }
 
-\donttest{
 #Examples for lC_M.Te
+\dontrun{
 A<-c(0,0); B<-c(1,0); C<-c(1/2,sqrt(3)/2);
 Te<-rbind(A,B,C)
 

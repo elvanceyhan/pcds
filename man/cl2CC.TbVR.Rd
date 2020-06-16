@@ -41,7 +41,7 @@ in the basic triangle \eqn{T_b=T(A=(0,0),B=(1,0),C=(c_1,c_2))}=(vertex 1,vertex 
 See also (\insertCite{ceyhan:Phd-thesis,ceyhan:mcap2012;textual}{pcds}).
 }
 \examples{
-\donttest{
+\dontrun{
 c1<-.4; c2<-.6;
 A<-c(0,0); B<-c(1,0); C<-c(c1,c2);
 Tb<-rbind(A,B,C)
@@ -90,8 +90,7 @@ cl2CC.TbVR(dat.fr,c1,c2)
 
 dat2<-rbind(dat,c(.2,.4))
 cl2CC.TbVR(dat2,c1,c2)
-}
-\dontrun{
+
 cl2CC.TbVR(dat2,c1,c2,ch.all.intri = TRUE)
 #gives an error message since not all points are in the basic triangle
 }

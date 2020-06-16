@@ -36,15 +36,14 @@ Two functions, \code{lA_CM.Te} and \code{lB_CM.Te} of class "TriLines".
 Returns the \code{equation, slope, intercept}, and y-coordinates of the lines joining A and CM and
 also B and CM.
 
-\code{lA_CM.Te} is the line joining A to the center of mass, CM,
-and
+\code{lA_CM.Te} is the line joining A to the center of mass, CM, and
 
 \code{lB_CM.Te} is the line joining B to the center of mass, CM, in the standard equilateral triangle \eqn{T_e=(A,B,C)}
 with \eqn{A=(0,0)};  \eqn{B=(1,0)}; \eqn{C=(1/2,\sqrt{3}/2)}; x-coordinates are provided in vector \code{x}.
 }
 \examples{
-\donttest{
 #Examples for lA_CM.Te
+\dontrun{
 A<-c(0,0); B<-c(1,0); C<-c(1/2,sqrt(3)/2);
 Te<-rbind(A,B,C)
 xfence<-abs(A[1]-B[1])*.25 #how far to go at the lower and upper ends in the x-coordinate
@@ -78,8 +77,8 @@ text(xc,yc,txt.str)
 lA_CM.Te(.25)$y
 }
 
-\donttest{
 #Examples for lB_CM.Te
+\dontrun{
 A<-c(0,0); B<-c(1,0); C<-c(1/2,sqrt(3)/2);
 Te<-rbind(A,B,C)
 xfence<-abs(A[1]-B[1])*.25 #how far to go at the lower and upper ends in the x-coordinate

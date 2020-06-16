@@ -47,7 +47,7 @@ See the example for this function or example for
 \code{ch.all.intri} is for checking whether all data points are in \eqn{T_e} (default is \code{FALSE}).
 }
 \examples{
-\donttest{
+\dontrun{
 n<-10  #try also n<-100
 dat<-runifTe(n)$gen.points
 
@@ -95,9 +95,7 @@ six.ext(dat.fr)
 
 dat2<-rbind(dat,c(.8,.8))
 six.ext(dat2)
-}
 
-\dontrun{
 six.ext(dat2,ch.all.intri = TRUE)
 #gives an error message since not all data points are in the std equilateral triangle
 }

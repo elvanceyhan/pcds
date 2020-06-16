@@ -33,7 +33,7 @@ Edge region for BCA is the triangle \eqn{T(B,C,CM)}, edge region CAB is \eqn{T(A
 See also (\insertCite{ceyhan:Phd-thesis,ceyhan:comp-geo-2010,ceyhan:mcap2012;textual}{pcds}).
 }
 \examples{
-\donttest{
+\dontrun{
 A<-c(1,1); B<-c(2,0); C<-c(1.5,2);
 Tr<-rbind(A,B,C);
 

@@ -52,7 +52,7 @@ See also (\insertCite{ceyhan:Phd-thesis,ceyhan:comp-geo-2010;textual}{pcds}).
 }
 \examples{
 #Examples for IndCSTeRAB
-\donttest{
+\dontrun{
 A<-c(0,0); B<-c(1,0); C<-c(1/2,sqrt(3)/2);
 CM<-(A+B+C)/3
 T3<-rbind(A,B,CM);
@@ -77,7 +77,7 @@ IndCSTeRAB(dat[1,],dat[2,],t,M)
 }
 
 #Examples for IndCSTeRBC
-\donttest{
+\dontrun{
 A<-c(0,0); B<-c(1,0); C<-c(1/2,sqrt(3)/2);
 CM<-(A+B+C)/3
 T1<-rbind(B,C,CM);
@@ -104,7 +104,7 @@ IndCSTeRBC(dat[1,],dat[2,],t,M)
 }
 
 #Examples for IndCSTeRAC
-\donttest{
+\dontrun{
 A<-c(0,0); B<-c(1,0); C<-c(1/2,sqrt(3)/2);
 CM<-(A+B+C)/3
 T2<-rbind(A,C,CM);

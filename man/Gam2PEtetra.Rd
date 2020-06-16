@@ -59,7 +59,7 @@ if they actually were both in the data set.
 See also (\insertCite{ceyhan:Phd-thesis,ceyhan:comp-geo-2010;textual}{pcds}).
 }
 \examples{
-\donttest{
+\dontrun{
 A<-c(0,0,0); B<-c(1,0,0); C<-c(1/2,sqrt(3)/2,0); D<-c(1/2,sqrt(3)/6,sqrt(6)/3)
 tetra<-rbind(A,B,C,D)
 n<-20
@@ -103,9 +103,7 @@ Gam2PEtetra(P1,P2,dat,r,tetra,M)
 
 dat.fr<-data.frame(a=dat)
 Gam2PEtetra(P1,P2,dat.fr,r,tetra,M)
-}
 
-\dontrun{
 Gam2PEtetra(c(-1,-1,-1),dat[2,],dat,r,tetra,M,ch.data.pnts = TRUE)
 #gives an error message since not both points, pt1 and pt2, are data points in Dt
 }

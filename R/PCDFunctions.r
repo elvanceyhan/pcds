@@ -146,8 +146,8 @@ slope<-function(a,b)
 #' Returns the \code{equation, slope, intercept}, and y-coordinates of the line crossing two
 #' distinct 2D points \code{a} and \code{b} with x-coordinates provided in vector \code{x}.
 #'
-#' This function is
-#' different from the \code{\link[stats]{line}} function in the standard \code{stats} package in R in the sense that \code{Line(a,b,x)} fits the line passing
+#' This function is different from the \code{\link[stats]{line}} function in the standard \code{stats} package
+#' in R in the sense that \code{Line(a,b,x)} fits the line passing
 #' through points \code{a} and \code{b} and returns various quantities (see below) for this line and \code{x} is
 #' the x-coordinates of the points we want to find on the \code{Line(a,b,x)} while \code{line(a,b)} fits the line robustly
 #' whose x-coordinates are in \code{a} and y-coordinates are in \code{b}.
@@ -278,6 +278,7 @@ Line<-function(a,b,x)
   res$call <-match.call()
   res
 } #end of the function
+#'
 
 #################################################################
 
@@ -356,6 +357,7 @@ int.2lines<-function(p1,q1,p2,q2)
   int.pnt
 } #end of the function
 #'
+
 #################################################################
 
 #' @title The distance from a point to a line
@@ -509,9 +511,10 @@ Dist<-function(x,y)
 
   dis
 } #end of the function
+#'
 
 #################################################################
-#'
+
 #' @title Distance from a point to a set of finite cardinality
 #'
 #' @description Returns the Euclidean distance between a point \code{x} and set of points \code{Y} and the
@@ -598,6 +601,7 @@ dist.pt2set<-function(x,Y)
   )
 } #end of the function
 #'
+
 #################################################################
 
 #' @title Generation of points segregated (in a radial or circular fashion) from a given set of points
@@ -742,6 +746,7 @@ rseg.disc<-function(n,Y,e,a1=min(Y[,1]),a2=max(Y[,1]),b1=min(Y[,2]),b2=max(Y[,2]
   res
 } #end of the function
 #'
+
 #################################################################
 
 #' @title Generation of points associated (in a radial or circular fashion) with a given set of points
@@ -1094,7 +1099,7 @@ rasc.matern<-function(n,Y,e)
 #' @seealso \code{\link{runifTe}}, \code{\link{runif.bastri}}, \code{\link{runif.tri}}, and \code{\link{runifMT}}
 #'
 #' @examples
-#' \donttest{
+#' \dontrun{
 #' A<-c(0,0); B<-c(1,0); C<-c(1/2,sqrt(3)/2);
 #' Te<-rbind(A,B,C);
 #' CM<-(A+B+C)/3;
@@ -1180,6 +1185,7 @@ runifTe.onesixth<-function(k)
   res
 } #end of the function
 #'
+
 #################################################################
 
 #' @title The line paralel to the line segment joining two distinct 2D points \code{a} and \code{b}
@@ -1333,8 +1339,7 @@ paraline<-function(p,a,b,x)
 #' Returns the \code{equation, slope, intercept}, and y-coordinates of the lines joining A and CM and
 #' also B and CM.
 #'
-#' \code{lA_CM.Te} is the line joining A to the center of mass, CM,
-#' and
+#' \code{lA_CM.Te} is the line joining A to the center of mass, CM, and
 #'
 #' \code{lB_CM.Te} is the line joining B to the center of mass, CM, in the standard equilateral triangle \eqn{T_e=(A,B,C)}
 #' with \eqn{A=(0,0)};  \eqn{B=(1,0)}; \eqn{C=(1/2,\sqrt{3}/2)}; x-coordinates are provided in vector \code{x}.
@@ -1366,8 +1371,8 @@ NULL
 #' @rdname funsAB2CMTe
 #'
 #' @examples
-#' \donttest{
 #' #Examples for lA_CM.Te
+#' \dontrun{
 #' A<-c(0,0); B<-c(1,0); C<-c(1/2,sqrt(3)/2);
 #' Te<-rbind(A,B,C)
 #' xfence<-abs(A[1]-B[1])*.25 #how far to go at the lower and upper ends in the x-coordinate
@@ -1443,8 +1448,8 @@ lA_CM.Te<-function(x)
 #'
 #' @rdname funsAB2CMTe
 #' @examples
-#' \donttest{
 #' #Examples for lB_CM.Te
+#' \dontrun{
 #' A<-c(0,0); B<-c(1,0); C<-c(1/2,sqrt(3)/2);
 #' Te<-rbind(A,B,C)
 #' xfence<-abs(A[1]-B[1])*.25 #how far to go at the lower and upper ends in the x-coordinate
@@ -1497,6 +1502,7 @@ lB_CM.Te<-function(x)
   res$call <-match.call()
   res
 } #end of the function
+#'
 
 #################################################################
 
@@ -1539,8 +1545,8 @@ NULL
 #'
 #' @rdname funsAB2MTe
 #' @examples
-#' \donttest{
 #' #Examples for lA_M.Te
+#' \dontrun{
 #' A<-c(0,0); B<-c(1,0); C<-c(1/2,sqrt(3)/2);
 #' Te<-rbind(A,B,C)
 #'
@@ -1636,8 +1642,8 @@ lA_M.Te<-function(x,M)
 #' @rdname funsAB2MTe
 #'
 #' @examples
-#' \donttest{
 #' #Examples for lB_M.Te
+#' \dontrun{
 #' A<-c(0,0); B<-c(1,0); C<-c(1/2,sqrt(3)/2);
 #' Te<-rbind(A,B,C)
 #'
@@ -1708,8 +1714,8 @@ lB_M.Te<-function(x,M)
 #' @rdname funsAB2MTe
 #'
 #' @examples
-#' \donttest{
 #' #Examples for lC_M.Te
+#' \dontrun{
 #' A<-c(0,0); B<-c(1,0); C<-c(1/2,sqrt(3)/2);
 #' Te<-rbind(A,B,C)
 #'
@@ -1776,6 +1782,7 @@ lC_M.Te<-function(x,M)
   res$call <-match.call()
   res
 } #end of the function
+#'
 
 #################################################################
 
@@ -2037,7 +2044,7 @@ in.circle<-function(pt,cent,rad,boundary=FALSE)
   {ind.circ<-ifelse(Dist(pt,cent)<=rad, TRUE, FALSE)
   }
   ind.circ
-} #end of function
+} #end of the function
 #'
 
 #################################################################
@@ -2146,7 +2153,7 @@ in.triangle<-function(p,tri,boundary=FALSE)
     in.tri=ind.tri,
     barycentric=c(alpha,beta,gamma)
   )
-} #end of function
+} #end of the function
 #'
 
 #################################################################
@@ -2240,6 +2247,7 @@ inTriAll<-function(Dt,tri,boundary=FALSE)
   intri
 } #end of the function
 #'
+
 #################################################################
 
 #' @title Generation of Uniform Points in a triangle
@@ -3010,7 +3018,6 @@ rasc.tri<-function(k,tri,delta)
 } #end of the function
 #'
 
-
 #################################################################
 
 #' @title Generation of points associated (in a Type II fashion) with the edges of \eqn{T_e}
@@ -3133,6 +3140,7 @@ rascIITe<-function(k,eps)
   res
 } #end of the function
 #'
+
 #################################################################
 
 #' @title The line passing thru a point and perpendicular to the line segment joining two points
@@ -3277,6 +3285,7 @@ perpline<-function(p,a,b,x)
   res
 } #end of the function
 #'
+
 #################################################################
 
 # funsRankOrderTe
@@ -3311,8 +3320,8 @@ NULL
 #' @rdname funsRankOrderTe
 #'
 #' @examples
-#' \donttest{
 #' #Examples for rank.d2e.Te
+#' \dontrun{
 #' n<-20
 #' set.seed(1)
 #' dat<-runifTe(n)$gen.points
@@ -3391,8 +3400,8 @@ rank.d2e.Te<-function(Dt,dec=TRUE)
 #' @rdname funsRankOrderTe
 #'
 #' @examples
-#' \donttest{
 #' #Examples for order.d2e.Te
+#' \dontrun{
 #' n<-20
 #' set.seed(1)
 #' dat<-runifTe(n)$gen.points  #try also dat<-cbind(runif(n),runif(n))
@@ -3526,6 +3535,7 @@ isStdEqTri<-function(tri)
   eq.tri
 } #end of the function
 #'
+
 #################################################################
 
 #' @title The radii of points from one class with respect to points from the other class
@@ -3728,6 +3738,7 @@ radius<-function(pt,Y)
   )
 } #end of the function
 #'
+
 #################################################################
 
 #' @title The index of the CM-vertex region in a triangle that contains a given point
@@ -3863,6 +3874,7 @@ rv.triCM<-function(p,tri)
   )
 } #end of the function
 #'
+
 #################################################################
 
 #' @title The labels of the vertices of a triangle in the (unscaled) basic triangle form
@@ -3888,7 +3900,7 @@ rv.triCM<-function(p,tri)
 #' when converted to the scaled version of the basic triangle}
 #'
 #' @examples
-#' \donttest{
+#' \dontrun{
 #' c1<-.4; c2<-.6
 #' A<-c(0,0); B<-c(1,0); C<-c(c1,c2);
 #'
@@ -5042,7 +5054,7 @@ reTeCM<-function(pt)
 #' \insertAllCited{}
 #'
 #' @examples
-#' \donttest{
+#' \dontrun{
 #' n<-20
 #' dat<-runifTe(n)$gen.points
 #'
@@ -5346,7 +5358,7 @@ cl2edgesTe<-function(Dt,ch.all.intri=FALSE)
 #' @seealso \code{\link{runifTe.onesixth}}
 #'
 #' @examples
-#' \donttest{
+#' \dontrun{
 #' P<-c(.4,.2)
 #' rel.six.Te(P)
 #'
@@ -5507,7 +5519,7 @@ rel.six.Te<-function(Pt)
 #' @seealso \code{\link{rel.six.Te}} and \code{\link{cl2edgesTe}}
 #'
 #' @examples
-#' \donttest{
+#' \dontrun{
 #' n<-10  #try also n<-100
 #' dat<-runifTe(n)$gen.points
 #'
@@ -5555,9 +5567,7 @@ rel.six.Te<-function(Pt)
 #'
 #' dat2<-rbind(dat,c(.8,.8))
 #' six.ext(dat2)
-#' }
 #'
-#' \dontrun{
 #' six.ext(dat2,ch.all.intri = TRUE)
 #' #gives an error message since not all data points are in the std equilateral triangle
 #' }
@@ -5981,6 +5991,7 @@ indices.Del.tri<-function(dat,Yp,DTmesh=NULL)
   ind.set
 } #end of the function
 #'
+
 #################################################################
 
 #' @title The auxiliary triangle to define the support of type I segregation
@@ -6002,7 +6013,7 @@ indices.Del.tri<-function(dat,Yp,DTmesh=NULL)
 #' @seealso \code{\link{rsegTe}} and \code{\link{rsegMT}}
 #'
 #' @examples
-#' \donttest{
+#' \dontrun{
 #' #the standard equilateral triangle
 #' A<-c(0,0); B<-c(1,0); C<-c(1/2,sqrt(3)/2);
 #' Te<-rbind(A,B,C);
@@ -6092,6 +6103,7 @@ seg.tri.supp<-function(delta,tri)
   TRI
 } #end of the function
 #'
+
 #################################################################
 
 #' @title Generation of points segregated (in a Type I fashion) from a given set of points
@@ -6916,7 +6928,7 @@ NULL
 #'
 #' @examples
 #' #Examples for lD1CCinTb
-#' \donttest{
+#' \dontrun{
 #' c1<-.4; c2<-.6;
 #' A<-c(0,0); B<-c(1,0); C<-c(c1,c2);  #the vertices of the basic triangle Tb
 #'
@@ -7010,7 +7022,7 @@ lD1CCinTb<-function(x,c1,c2)
 #'
 #' @examples
 #' #Examples for lD2CCinTb
-#' \donttest{
+#' \dontrun{
 #' c1<-.4; c2<-.6;
 #' A<-c(0,0); B<-c(1,0); C<-c(c1,c2);  #the vertices of the basic triangle Tb
 #'
@@ -7096,6 +7108,7 @@ lD2CCinTb<-function(x,c1,c2)
   res
 } #end of the function
 #'
+
 #################################################################
 
 #' @title The index of the CC-vertex region in a basic triangle that contains a point
@@ -7520,7 +7533,7 @@ rverts.triCC<-function(Dt,tri)
 } #end of the function
 #'
 
-################################################
+#################################################################
 
 #' @title The angle between two line segments
 #'
@@ -7592,7 +7605,7 @@ angle3pnts<-function(a,b,c,radian=TRUE)
 } #end of the function
 #'
 
-################################################
+#################################################################
 
 #' @title The angles to draw arcs between two line segments
 #'
@@ -7720,7 +7733,7 @@ angle.str2end<-function(a,b,c,radian=TRUE)
 } #end of the function
 #'
 
-################################################
+#################################################################
 
 #' @title The points of intersection of a line and a circle
 #'
@@ -7855,7 +7868,8 @@ int.circ.line<-function(pt1,pt2,cent,rad)
   int.pts
 } #end of the function
 #'
-################################################
+
+#################################################################
 
 #' @title The vertices of the Arc Slice (AS) Proximity Region in the basic triangle
 #'
@@ -8191,6 +8205,7 @@ NASbastri<-function(pt,c1,c2,M="CC",rv=NULL,dec=4)
        Arc.Slices=Arc.Pts)
 } #end of the function
 #'
+
 #################################################################
 
 #' @title The index of the vertex region in a basic triangle that contains a given point
@@ -8348,7 +8363,7 @@ rv.bastri.cent<-function(p,c1,c2,M)
 #'
 
 #################################################################
-#'
+
 #' @title Projections of a point inside the basic triangle to its edges
 #'
 #' @description Returns the projections from a general center \eqn{M=(m_1,m_2)} in Cartesian coordinates or \eqn{M=(\alpha,\beta,\gamma)} in
@@ -8456,8 +8471,7 @@ cp2e.bastri<-function(c1,c2,M)
 } #end of the function
 #'
 
-
-################################################
+#################################################################
 
 #' @title The indicator for the presence of an arc from a point to another for Arc Slice Proximity Catch Digraphs
 #' (AS-PCDs) - basic triangle case
@@ -9067,6 +9081,7 @@ IndNAStri<-function(pt1,pt2,tri,M="CC",rv=NULL)
   arc
 } #end of the function
 #'
+
 #################################################################
 
 #' @title The index of the vertex region in a triangle that contains a given point
@@ -9216,6 +9231,7 @@ rv.tri.cent<-function(p,tri,M)
   )
 } #end of the function
 #'
+
 #################################################################
 
 #' @title Projections of a point inside a triangle to its edges
@@ -9324,6 +9340,7 @@ cp2e.tri<-function(tri,M)
   Ds
 } #end of the function
 #'
+
 #################################################################
 
 #' @title Number of arcs of Arc Slice Proximity Catch Digraphs (AS-PCDs) - one triangle case
@@ -9433,6 +9450,7 @@ NumArcsAStri<-function(dat,tri,M="CC")
   arcs
 } #end of the function
 #'
+
 #################################################################
 
 #' @title Arc density of Arc Slice Proximity Catch Digraphs (AS-PCDs) - one triangle case
@@ -9557,6 +9575,7 @@ ASarcdens.tri<-function(Xp,tri,M="CC",tri.cor=TRUE)
 rho
 } #end of the function
 #'
+
 #################################################################
 
 #' @title The indicator for the presence of an arc from a point in set \code{S} to the point \code{pt} for
@@ -9944,6 +9963,7 @@ IndASdomUBtri<-function(Dt,k,tri,M="CC")
   )
 } #end of the function
 #'
+
 #################################################################
 
 #' @title Number of arcs of Arc Slice Proximity Catch Digraphs (AS-PCDs) - multiple triangle case
@@ -10086,6 +10106,7 @@ NumArcsASMT<-function(Xp,Yp,M="CC")
   res
 } #end of the function
 #'
+
 #################################################################
 
 #' @title The scatterplot of points from one class and plot of the Delaunay triangulation of the other class
@@ -10175,9 +10196,9 @@ plotDeltri<-function(Xp,Yp,main="",xlab="",ylab="",xlim=NULL,ylim=NULL, ...)
   }
 } #end of the function
 #'
+
 #################################################################
 
-#'
 #' @title Incidence matrix for Arc Slice Proximity Catch Digraphs (AS-PCDs) - one triangle case
 #'
 #' @description Returns the incidence matrix for the AS-PCD whose vertices are the given 2D numerical data set, \code{dat}.
@@ -10402,6 +10423,7 @@ IncMatASMT<-function(Xp,Yp,M="CC")
   inc.mat
 } #end of the function
 #'
+
 #################################################################
 
 #' @title The furthest points from vertices in each CC-vertex region in a basic triangle
@@ -10449,7 +10471,7 @@ IncMatASMT<-function(Xp,Yp,M="CC")
 #' \insertAllCited{}
 #'
 #' @examples
-#' \donttest{
+#' \dontrun{
 #' c1<-.4; c2<-.6;
 #' A<-c(0,0); B<-c(1,0); C<-c(c1,c2);
 #' Tb<-rbind(A,B,C)
@@ -10789,7 +10811,6 @@ fr2vVRCC<-function(Dt,tri,ch.all.intri=FALSE)
 
 #################################################################
 
-#'
 #' @title The \code{k} furthest points from vertices in each CC-vertex region in a basic triangle
 #'
 #' @description
@@ -10837,7 +10858,7 @@ fr2vVRCC<-function(Dt,tri,ch.all.intri=FALSE)
 #' @seealso \code{\link{fr2vTbVRCC}}, \code{\link{fr2vVRCC}}, \code{\link{fr2eTeER}}, and \code{\link{Kfr2vVRCC}}
 #'
 #' @examples
-#' \donttest{
+#' \dontrun{
 #' c1<-.4; c2<-.6;
 #' A<-c(0,0); B<-c(1,0); C<-c(c1,c2);
 #' Tb<-rbind(A,B,C)
@@ -10888,9 +10909,7 @@ fr2vVRCC<-function(Dt,tri,ch.all.intri=FALSE)
 #'
 #' dat2<-rbind(dat,c(.2,.4))
 #' Kfr2vTbVRCC(dat2,c1,c2,k)
-#' }
 #'
-#' \dontrun{
 #' Kfr2vTbVRCC(dat2,c1,c2,k,ch.all.intri = TRUE)
 #' #gives an error message since not all points are in the basic triangle
 #' }
@@ -11286,7 +11305,7 @@ Kfr2vVRCC<-function(Dt,tri,k,ch.all.intri=FALSE)
 #' \insertAllCited{}
 #'
 #' @examples
-#' \donttest{
+#' \dontrun{
 #' c1<-.4; c2<-.6;
 #' A<-c(0,0); B<-c(1,0); C<-c(c1,c2);
 #' Tb<-rbind(A,B,C)
@@ -11335,8 +11354,7 @@ Kfr2vVRCC<-function(Dt,tri,k,ch.all.intri=FALSE)
 #'
 #' dat2<-rbind(dat,c(.2,.4))
 #' cl2CC.TbVR(dat2,c1,c2)
-#' }
-#' \dontrun{
+#'
 #' cl2CC.TbVR(dat2,c1,c2,ch.all.intri = TRUE)
 #' #gives an error message since not all points are in the basic triangle
 #' }
@@ -11626,9 +11644,9 @@ cl2CC.VR<-function(Dt,tri,ch.all.intri=FALSE)
   res
 } #end of the function
 #'
+
 #################################################################
 
-#'
 #' @title The indicator for a point being a dominating point for Arc Slice Proximity Catch Digraphs
 #' (AS-PCDs) - basic triangle case
 #'
@@ -11674,7 +11692,7 @@ cl2CC.VR<-function(Dt,tri,ch.all.intri=FALSE)
 #' \insertAllCited{}
 #'
 #' @examples
-#' \donttest{
+#' \dontrun{
 #' c1<-.4; c2<-.6;
 #' A<-c(0,0); B<-c(1,0); C<-c(c1,c2);
 #' Tb<-rbind(A,B,C)
@@ -11746,8 +11764,7 @@ cl2CC.VR<-function(Dt,tri,ch.all.intri=FALSE)
 #' Gam1ASbastri(c(.4,.2),dat.fr,c1,c2,M)
 #'
 #' Gam1ASbastri(c(.5,.11),dat,c1,c2,M)
-#' }
-#' \dontrun{
+#'
 #' Gam1ASbastri(c(.5,.11),dat,c1,c2,M,ch.data.pnt=TRUE)
 #' #gives an error message since the point is not in the basic triangle
 #' }
@@ -11823,7 +11840,7 @@ Gam1ASbastri<-function(p,Dt,c1,c2,M="CC",rv=NULL,ch.data.pnt=FALSE)
 #'
 
 #################################################################
-#'
+
 #' @title The indicator for a point being a dominating point for Arc Slice Proximity Catch Digraphs
 #' (AS-PCDs) - one triangle case
 #'
@@ -12014,6 +12031,7 @@ Gam1AStri<-function(p,Dt,tri,M="CC",rv=NULL,ch.data.pnt=FALSE)
   dom
 } #end of the function
 #'
+
 #################################################################
 
 #' @title Check a point belong to a given data set
@@ -12135,9 +12153,9 @@ is.in.data<-function(p,Dt)
   ins
 } #end of the function
 #'
+
 #################################################################
 
-#'
 #' @title The indicator for two points being a dominating set for Arc Slice Proximity Catch Digraphs
 #' (AS-PCDs) - basic triangle case
 #'
@@ -12188,7 +12206,7 @@ is.in.data<-function(p,Dt)
 #' \insertAllCited{}
 #'
 #' @examples
-#' \donttest{
+#' \dontrun{
 #' c1<-.4; c2<-.6;
 #' A<-c(0,0); B<-c(1,0); C<-c(c1,c2);
 #' Tb<-rbind(A,B,C)
@@ -12685,6 +12703,7 @@ ArcsAStri<-function(Xp,tri,M="CC")
   res
 } #end of the function
 #'
+
 #################################################################
 
 #' @title The plot of the arcs of Arc Slice Proximity Catch Digraph (AS-PCD) for a 2D data set - one triangle case
@@ -12950,6 +12969,7 @@ plotASregsTri<-function(Xp,tri,M="CC",main="",xlab="",ylab="",xlim=NULL,ylim=NUL
   }
 } #end of the function
 #'
+
 #################################################################
 
 #' @title The arcs of Arc Slice Proximity Catch Digraph (AS-PCD) for a 2D data set - multiple triangle case
@@ -13334,6 +13354,7 @@ rverts.tri.cent<-function(Dt,tri,M)
   )
 } #end of the function
 #'
+
 #################################################################
 
 #' @title The plot of the arcs of Arc Slice Proximity Catch Digraph (AS-PCD) for a 2D data set -
@@ -13666,7 +13687,7 @@ centMc<-function(int,c)
 } #end of the function
 #'
 
-######################################
+#################################################################
 
 #' @title Parameterized centers of intervals
 #'
@@ -13719,7 +13740,7 @@ centersMc<-function(x,c)
 } #end of the function
 #'
 
-######################################
+#################################################################
 
 #' @title The index of the vertex region in a middle interval that contains a given point
 #'
@@ -13918,6 +13939,7 @@ IndNPEmid1D<-function(x1,x2,r,c,int,rv=NULL)
   arc
 } #end of the function
 #'
+
 #################################################################
 
 #' @title Number of Arcs for Proportional Edge Proximity Catch Digraphs (PE-PCDs) - middle interval case
@@ -14018,6 +14040,7 @@ NumArcsPEmid1D<-function(dat,r,c,int)
   arcs
 } #end of the function
 #'
+
 #################################################################
 
 #' @title The closest points to center in each vertex region in an interval
@@ -14213,7 +14236,7 @@ NULL
 #' \insertAllCited{}
 #'
 #' @examples
-#' \donttest{
+#' \dontrun{
 #' mu1PE1D(2.25,.45)
 #' }
 #'
@@ -14278,7 +14301,7 @@ muPE1D<-function(r,c)
 #' @rdname funsMuVarPE1D
 #'
 #' @examples
-#' \donttest{
+#' \dontrun{
 #' fvar1(2.25,.45)
 #' }
 #'
@@ -14301,7 +14324,7 @@ fvar1<-function(r,c)
 #' @rdname funsMuVarPE1D
 #'
 #' @examples
-#' \donttest{
+#' \dontrun{
 #' fvar2(2.25,.15)
 #' }
 #'
@@ -14743,11 +14766,10 @@ ArcsPEmid1D<-function(Xp,Yp,r,c)
 } #end of the function
 #'
 
-######################################
-#the case of end intervals
-######################################
+#################################################################
+#The case of end intervals
+#################################################################
 
-#'
 #' @title The index of the vertex region in an end-interval that contains a given point
 #'
 #' @description Returns the index of the vertex in the interval, \code{int}, whose end interval contains the 1D point \code{pt},
@@ -15819,6 +15841,7 @@ NumArcsPEint<-function(dat,r,c=.5,int)
   arcs
 } #end of the function
 #'
+
 #################################################################
 
 #' @title The arcs of Proportional Edge Proximity Catch Digraph (PE-PCD) for 1D data - multiple interval case
@@ -16416,6 +16439,7 @@ plotPEregsMI<-function(Xp,Yp,r,c,Jit=.1,main="",xlab="",ylab="",xlim=NULL,ylim=N
   }
 } #end of the function
 #'
+
 #################################################################
 
 #' @title The indicator for a point being a dominating point for Proportional Edge
@@ -16553,7 +16577,7 @@ Gam1PE1D<-function(p,Dt,r,c,int,rv=NULL,ch.data.pnt=FALSE)
 #' (PE-PCDs) - middle interval case
 #'
 #' @description
-#' The function \code{Pg2PE1D} and its auxiliary functions.
+#' The function \code{PG2PE1D} and its auxiliary functions.
 #'
 #' Returns \eqn{P(\gamma=2)} for PE-PCD whose vertices are a uniform data set of size \code{n} in a finite interval
 #' (a,b)where \eqn{\gamma} stans for the domination number.
@@ -16565,7 +16589,7 @@ Gam1PE1D<-function(p,Dt,r,c,int,rv=NULL,ch.data.pnt=FALSE)
 #' we partition the domain \eqn{(r,c)=(1,\infty) \times (0,1)}, and compute the probability for each partition
 #' set. The sample size (i.e. number of vertices or data points) is a positive integer, \code{n}.
 #'
-#' @section Auxiliary Functions for \code{Pg2PE1D}:
+#' @section Auxiliary Functions for \code{PG2PE1D}:
 #' The auxiliary functions are \code{PG2AI, PG2AII, PG2AIII, PG2AIV, PG2A, PG2Asym, PG2BIII, PG2B, PG2B,
 #' PG2Bsym, PG2CIV, PG2C}, and \code{PG2Csym}, each corresponding to a partition of the domain of
 #' \code{r} and \code{c}. In particular, the domain partition is handled in 3 cases as
@@ -16656,7 +16680,7 @@ Gam1PE1D<-function(p,Dt,r,c,int,rv=NULL,ch.data.pnt=FALSE)
 #'
 #' and PG2AI(r,1-c,n) otherwise.
 #'
-#' Combining Cases A, B, and C, we get our main function \code{Pg2PE1D} which computes \eqn{P(\gamma=2)}
+#' Combining Cases A, B, and C, we get our main function \code{PG2PE1D} which computes \eqn{P(\gamma=2)}
 #' for any (\code{r,c}) in its domain.
 #'
 #' @param r A positive real number which serves as the expansion parameter in PE proximity region;
@@ -16671,12 +16695,12 @@ Gam1PE1D<-function(p,Dt,r,c,int,rv=NULL,ch.data.pnt=FALSE)
 #' @name funsPG2PE1D
 NULL
 #'
-#' @seealso \code{\link{Pg2PEtri}} and  \code{\link{Pg2PE1D.asy}}
+#' @seealso \code{\link{PG2PEtri}} and  \code{\link{PG2PE1D.asy}}
 #'
 #' @rdname funsPG2PE1D
 #' @examples
 #' #Examples for the auxiliary functions
-#' \donttest{
+#' \dontrun{
 #' PG2AI(2.25,.45,10)
 #' }
 #'
@@ -16687,7 +16711,7 @@ PG2AI<-function(r,c,n)
 #'
 #' @rdname funsPG2PE1D
 #' @examples
-#' \donttest{
+#' \dontrun{
 #' PG2AII(2.2,.4,10)
 #' }
 #'
@@ -16698,7 +16722,7 @@ PG2AII<-function(r,c,n)
 #'
 #' @rdname funsPG2PE1D
 #' @examples
-#' \donttest{
+#' \dontrun{
 #' PG2AIII(1.2,.25,10)
 #' }
 #'
@@ -16709,7 +16733,7 @@ PG2AIII<-function(r,c,n)
 #'
 #' @rdname funsPG2PE1D
 #' @examples
-#' \donttest{
+#' \dontrun{
 #' PG2AIV(1.2,.25,10)
 #' }
 #'
@@ -16720,7 +16744,7 @@ PG2AIV<-function(r,c,n)
 #'
 #' @rdname funsPG2PE1D
 #' @examples
-#' \donttest{
+#' \dontrun{
 #' PG2A(1.2,.25,10)
 #' }
 #'
@@ -16748,7 +16772,7 @@ PG2A<-function(r,c,n)
 #'
 #' @rdname funsPG2PE1D
 #' @examples
-#' \donttest{
+#' \dontrun{
 #' PG2Asym(1.2,.75,10)
 #' }
 #'
@@ -16776,7 +16800,7 @@ PG2Asym<-function(r,c,n)
 #'
 #' @rdname funsPG2PE1D
 #' @examples
-#' \donttest{
+#' \dontrun{
 #' PG2BIII(1.5,.45,10)
 #' }
 #'
@@ -16787,7 +16811,7 @@ PG2BIII<-function(r,c,n)
 #'
 #' @rdname funsPG2PE1D
 #' @examples
-#' \donttest{
+#' \dontrun{
 #' PG2B(1.5,.30,10)
 #' }
 #'
@@ -16815,7 +16839,7 @@ PG2B<-function(r,c,n)
 #'
 #' @rdname funsPG2PE1D
 #' @examples
-#' \donttest{
+#' \dontrun{
 #' PG2Bsym(1.5,.70,10)
 #' }
 #'
@@ -16843,7 +16867,7 @@ PG2Bsym<-function(r,c,n)
 #'
 #' @rdname funsPG2PE1D
 #' @examples
-#' \donttest{
+#' \dontrun{
 #' PG2CIV(1.5,.2,10)
 #' }
 #'
@@ -16854,7 +16878,7 @@ PG2CIV<-function(r,c,n)
 #'
 #' @rdname funsPG2PE1D
 #' @examples
-#' \donttest{
+#' \dontrun{
 #' PG2C(1.5,.2,10)
 #' }
 #'
@@ -16890,7 +16914,7 @@ PG2C<-function(r,c,n)
 #'
 #' @rdname funsPG2PE1D
 #' @examples
-#' \donttest{
+#' \dontrun{
 #' PG2Csym(1.5,.8,10)
 #' }
 #'
@@ -16926,17 +16950,17 @@ PG2Csym<-function(r,c,n)
 #'
 #' @rdname funsPG2PE1D
 #' @examples
-#' #Examples for the main function Pg2PE1D
+#' #Examples for the main function PG2PE1D
 #' r<-2
 #' c<-.5
 #' n<-10
 #'
-#' Pg2PE1D(r,c,n)
+#' PG2PE1D(r,c,n)
 #'
-#' Pg2PE1D(r=1.5,c=1/1.5,n=100)
+#' PG2PE1D(r=1.5,c=1/1.5,n=100)
 #'
-#' @export Pg2PE1D
-Pg2PE1D<-function(r,c,n)
+#' @export PG2PE1D
+PG2PE1D<-function(r,c,n)
 {
   if (!is.point(r,1) || r<1)
   {stop('r must be a scalar >= 1')}
@@ -16990,19 +17014,19 @@ Pg2PE1D<-function(r,c,n)
 #' @return The asymptotic P(domination number=2) for PE-PCD whose vertices are a uniform data set in a finite
 #' interval \eqn{(a,b)}
 #'
-#' @seealso \code{\link{Pg2PE1D}} and \code{\link{Pg2PEtri}}
+#' @seealso \code{\link{PG2PE1D}} and \code{\link{PG2PEtri}}
 #'
 #' @examples
 #' c<-.5
 #'
-#' Pg2PE1D.asy(c)
+#' PG2PE1D.asy(c)
 #'
-#' Pg2PE1D.asy(c=1/1.5)
-#' Pg2PE1D(r=1.5,c=1/1.5,n=10)
-#' Pg2PE1D(r=1.5,c=1/1.5,n=100)
+#' PG2PE1D.asy(c=1/1.5)
+#' PG2PE1D(r=1.5,c=1/1.5,n=10)
+#' PG2PE1D(r=1.5,c=1/1.5,n=100)
 #'
-#' @export Pg2PE1D.asy
-Pg2PE1D.asy<-function(c)
+#' @export PG2PE1D.asy
+PG2PE1D.asy<-function(c)
 {
   if (!is.point(c,1) || c<=0 || c>=1)
   {stop('c must be a scalar in (0,1)')}
@@ -17337,15 +17361,15 @@ TSDomPEBin1D<-function(Xp,Yp=NULL,int,c=.5,asy.bin=FALSE,end.int.cor=FALSE,
   { nint<-round(sqrt(nx),0)
   Yp<-(int[2]-int[1])*(0:nint)/nint #Y points (ends of the subintervals)
   if (asy.bin==T)
-  {p<-Pg2PE1D.asy(c)
+  {p<-PG2PE1D.asy(c)
   } else
   {
     Enx<-nx/nint
-    p<-Pg2PE1D(rstar,c,Enx)  #p: prob of success; on average n/nint X points fall on each interval
+    p<-PG2PE1D(rstar,c,Enx)  #p: prob of success; on average n/nint X points fall on each interval
   }
   } else
   {
-    p<-Pg2PE1D.asy(c)  #asymptotic probability of success, used when Yp is provided or when asy.bin=F
+    p<-PG2PE1D.asy(c)  #asymptotic probability of success, used when Yp is provided or when asy.bin=F
   }
 
   if (length(Yp)<2)
@@ -17720,6 +17744,7 @@ IndNPEbastri<-function(pt1,pt2,r,c1,c2,M=c(1,1,1),rv=NULL)
   arc
 } #end of the function
 #'
+
 #################################################################
 
 #' @title The index of the CM-vertex region in the standard equilateral triangle that contains a given point
@@ -17941,6 +17966,7 @@ rvTe.cent<-function(pt,M)
   )
 } #end of the function
 #'
+
 #################################################################
 
 #' @title The closest points among a data set in the vertex regions to the corresponding edges in a basic triangle
@@ -17991,7 +18017,7 @@ rvTe.cent<-function(pt,M)
 #' \insertAllCited{}
 #'
 #' @examples
-#' \donttest{
+#' \dontrun{
 #' c1<-.4;  c2<-.6
 #' A<-c(0,0); B<-c(1,0); C<-c(c1,c2);
 #' Tb<-rbind(A,B,C);
@@ -18152,7 +18178,6 @@ cl2eTbVRcent<-function(Dt,c1,c2,M)
 
 #################################################################
 
-#'
 #' @title The closest points among a data set in the vertex regions to the respective edges in a triangle
 #'
 #' @description
@@ -18362,7 +18387,6 @@ cl2eVRcent<-function(Dt,tri,M)
 
 #################################################################
 
-#'
 #' @title An alternative function to the function \code{\link{cl2eVRcent}} which finds the closest points among a data set in the
 #' vertex regions to the respective edges in a triangle
 #'
@@ -18395,7 +18419,7 @@ cl2eVRcent<-function(Dt,tri,M)
 #' @seealso \code{\link{cl2eVRcent}}
 #'
 #' @examples
-#' \donttest{
+#' \dontrun{
 #' A<-c(1,1); B<-c(2,0); C<-c(1.5,2);
 #' Tr<-rbind(A,B,C);
 #' M<-c(1.6,1.0)  #try also M<-c(1.3,1.3)
@@ -18552,6 +18576,7 @@ cl2eVRcent.alt<-function(dat,tri,M)
   res
 } #end of the function
 #'
+
 #################################################################
 
 #' @title The indicator for the presence of an arc from a point to another for Proportional Edge Proximity Catch
@@ -18676,7 +18701,6 @@ IndNPETe<-function(pt1,pt2,r,M=c(1,1,1),rv=NULL)
 
 #################################################################
 
-#'
 #' @title Number of arcs of Proportional Edge Proximity Catch Digraphs (PE-PCDs) - standard
 #' equilateral triangle case
 #'
@@ -18788,7 +18812,6 @@ NumArcsPETe<-function(dat,r,M=c(1,1,1))
 
 #################################################################
 
-#'
 #' @title Incidence matrix for Proportional Edge Proximity Catch Digraphs (PE-PCDs) - standard
 #' equilateral triangle case
 #'
@@ -18894,8 +18917,6 @@ IncMatPETe<-function(dat,r,M=c(1,1,1))
   inc.mat
 } #end of the function
 #'
-
-
 
 #################################################################
 
@@ -19014,7 +19035,6 @@ asyvarPE2D<-function(r)
 
 #################################################################
 
-#'
 #' @title The indicator for a point being a dominating point or not for Proportional Edge Proximity Catch
 #' Digraphs (PE-PCDs) - basic triangle case
 #'
@@ -19766,6 +19786,7 @@ cp2edges.nd<-function(tri,r,cent=1)
   Ds
 } #end of the function
 #'
+
 #################################################################
 
 #' @title The indices of the vertex regions in a triangle that contains the points in a give data set
@@ -19925,7 +19946,6 @@ rverts.tri.nd<-function(Dt,tri,r,cent=1)
 } #end of the function
 #'
 
-
 #################################################################
 
 #' @title The alternative function for the indices of the vertex regions in a triangle that contains the points
@@ -19949,7 +19969,7 @@ rverts.tri.nd<-function(Dt,tri,r,cent=1)
 #' \insertAllCited{}
 #'
 #' @examples
-#' \donttest{
+#' \dontrun{
 #' A<-c(1,1); B<-c(2,0); C<-c(1.5,2);
 #' Tr<-rbind(A,B,C);
 #' M<-c(1.6,1.0)
@@ -20495,6 +20515,7 @@ cl2eVRCC<-function(dat,tri)
   res
 } #end of the function
 #'
+
 #################################################################
 
 #' @title The vertices of the Proportional Edge (PE) Proximity Region in a general triangle
@@ -21045,7 +21066,6 @@ PEarcdens.tri<-function(Xp,tri,r,M=c(1,1,1),tri.cor=TRUE)
 } #end of the function
 #'
 
-
 #################################################################
 
 #' @title Number of arcs of Proportional Edge Proximity Catch Digraphs (PE-PCDs) - multiple triangle case
@@ -21413,9 +21433,9 @@ TSArcDensPEMT<-function(Xp,Yp,r,ch.cor=FALSE,alternative = c("two.sided", "less"
   return(rval)
 } #end of the function
 #'
+
 #################################################################
 
-#'
 #' @title Incidence matrix for Proportional Edge Proximity Catch Digraphs (PE-PCDs) - one triangle case
 #'
 #' @description Returns the incidence matrix for the PE-PCD whose vertices are the given 2D numerical data set, \code{dat},
@@ -21533,7 +21553,6 @@ IncMatPEtri<-function(dat,tri,r,M=c(1,1,1))
 
 #################################################################
 
-#'
 #' @title The indicator for a point being a dominating point for Proportional Edge Proximity Catch Digraphs (PE-PCDs)
 #' - one triangle case
 #'
@@ -21721,7 +21740,6 @@ Gam1PEtri<-function(p,Dt,tri,r,M=c(1,1,1),rv=NULL,ch.data.pnt=FALSE)
 
 #################################################################
 
-#'
 #' @title The indicator for two points constituting a dominating set for Proportional Edge Proximity Catch Digraphs
 #' (PE-PCDs) - one triangle case
 #'
@@ -22038,6 +22056,7 @@ PEdomtri<-function(Xp,tri,r,M=c(1,1,1))
   )
 } #end of the function
 #'
+
 #################################################################
 
 #' @title The indicator for the presence of an arc from a point in set \code{S} to the point \code{pt} for Proportional Edge
@@ -22552,6 +22571,7 @@ IndNPEtri.domset<-function(S,Dt,r,tri,M=c(1,1,1))
   dom
 } #end of the function
 #'
+
 #################################################################
 
 #' @title The arcs of Proportional Edge Proximity Catch Digraph (PE-PCD) for 2D data - one triangle case
@@ -24066,16 +24086,16 @@ PEdomMTnd<-function(Xp,Yp,r)
 #' @return P(domination number=2) for PE-PCD for uniform data on an triangle as the sample size n
 #' goes to infinity
 #'
-#' @seealso \code{\link{Pg2PE1D}}
+#' @seealso \code{\link{PG2PE1D}}
 #'
 #' @references
 #' \insertAllCited{}
 #'
 #' @examples
-#' Pg2PEtri(r=1.5)
-#' Pg2PEtri(r=1.4999999999)
+#' PG2PEtri(r=1.5)
+#' PG2PEtri(r=1.4999999999)
 #'
-#' Pg2PEtri(r=1.5) / Pg2PEtri(r=1.4999999999)
+#' PG2PEtri(r=1.5) / PG2PEtri(r=1.4999999999)
 #'
 #' rseq<-seq(1.01,1.49999999999,l=20)  #try also l=100
 #' lrseq<-length(rseq)
@@ -24083,15 +24103,15 @@ PEdomMTnd<-function(Xp,Yp,r)
 #' pg2<-vector()
 #' for (i in 1:lrseq)
 #' {
-#'   pg2<-c(pg2,Pg2PEtri(rseq[i]))
+#'   pg2<-c(pg2,PG2PEtri(rseq[i]))
 #' }
 #'
 #' plot(rseq, pg2,type="l",xlab="r",ylab=expression(paste("P(", gamma, "=2)")),
 #'      lty=1,xlim=range(rseq)+c(0,.01),ylim=c(0,1))
-#' points(rbind(c(1.50,Pg2PEtri(1.50))),pch=".",cex=3)
+#' points(rbind(c(1.50,PG2PEtri(1.50))),pch=".",cex=3)
 #'
-#' @export Pg2PEtri
-Pg2PEtri<-function(r)
+#' @export PG2PEtri
+PG2PEtri<-function(r)
 {
   if (!is.point(r,1) || r<=1 || r>1.5)
   {stop('the argument must be a scalar in (1,1.5]')}
@@ -24321,7 +24341,7 @@ TSDomPEBin<-function(Xp,Yp,r,ch.cor=F,nt=NULL,alternative=c("two.sided", "less",
     method <-c("Exact Binomial Test for the Domination Number for Testing Uniformness of 2D Data \n with Convex Hull Correction")
   }
 
-  pg2<-Pg2PEtri(r)
+  pg2<-PG2PEtri(r)
   p<-1-pg2
   x<-round(Bm)
   pval <-switch(alternative, less = pbinom(x, nt, p),
@@ -24516,7 +24536,7 @@ TSDomPENor<-function(Xp,Yp,r,ch.cor=F,nt=NULL,alternative=c("two.sided", "less",
 
   Gam<-PEdomMTnd(Xp,Yp,r)$d #domination number
   estimate1<-Gam
-  p<-Pg2PEtri(r)
+  p<-PG2PEtri(r)
   Exp.Gam <-nt*(3-p)  #expected domination number
   estimate2<-1-p #Pr(gamma=3)
   TS0<-(Gam-Exp.Gam)/sqrt(nt*p*(1-p))  #the standardized test statistic
@@ -25028,6 +25048,7 @@ perp.ln2pl<-function(P,A,B,C,t)
   res
 } #end of the function
 #'
+
 #################################################################
 
 #' @title The point of intersection of a line and a plane
@@ -25258,6 +25279,7 @@ Plane<-function(a,b,c,x,y)
   res
 } #end of the function
 #'
+
 #################################################################
 
 #' @title The distance from a point to a plane
@@ -25347,6 +25369,7 @@ dp2pl<-function(p,a,b,c)
   )
 } #end of the function
 #'
+
 #################################################################
 
 #' @title Generation of Uniform Points in the Standard Regular Tetrahedron \eqn{T_h}
@@ -25567,9 +25590,9 @@ paraplane<-function(p,a,b,c,x,y)
   b1<-b[1]; b2<-b[2]; b3<-b[3];
   c1<-c[1]; c2<-c[2]; c3<-c[3];
 
-  A = (-a2*b3+a2*c3+a3*b2-a3*c2-b2*c3+b3*c2)/(a1*b2-a1*c2-a2*b1+a2*c1+b1*c2-b2*c1)
-  B = (a1*b3-a1*c3-a3*b1+a3*c1+b1*c3-b3*c1)/(a1*b2-a1*c2-a2*b1+a2*c1+b1*c2-b2*c1)
-  C = (a1*b2*p3-a1*b3*p2-a1*c2*p3+a1*c3*p2-a2*b1*p3+a2*b3*p1+a2*c1*p3-a2*c3*p1+a3*b1*p2-a3*b2*p1-a3*c1*p2+a3*c2*p1+b1*c2*p3-b1*c3*p2-b2*c1*p3+b2*c3*p1+b3*c1*p2-b3*c2*p1)/(a1*b2-a1*c2-a2*b1+a2*c1+b1*c2-b2*c1)
+  A <- (-a2*b3+a2*c3+a3*b2-a3*c2-b2*c3+b3*c2)/(a1*b2-a1*c2-a2*b1+a2*c1+b1*c2-b2*c1)
+  B <- (a1*b3-a1*c3-a3*b1+a3*c1+b1*c3-b3*c1)/(a1*b2-a1*c2-a2*b1+a2*c1+b1*c2-b2*c1)
+  C <- (a1*b2*p3-a1*b3*p2-a1*c2*p3+a1*c3*p2-a2*b1*p3+a2*b3*p1+a2*c1*p3-a2*c3*p1+a3*b1*p2-a3*b2*p1-a3*c1*p2+a3*c2*p1+b1*c2*p3-b1*c3*p2-b2*c1*p3+b2*c3*p1+b3*c1*p2-b3*c2*p1)/(a1*b2-a1*c2-a2*b1+a2*c1+b1*c2-b2*c1)
 
   lx<-length(x)
   ly<-length(y)
@@ -25648,14 +25671,17 @@ paraplane<-function(p,a,b,c,x,y)
 #' in.tetrahedron(C,tetra,boundary=FALSE)
 #' in.tetrahedron(C,tetra,boundary=TRUE)
 #'
-#' n<-10  #try also n<-40
-#' Dt<-cbind(runif(n),runif(n,0,sqrt(3)/2),runif(n,0,sqrt(6)/3))
+#' n1<-5; n2<-5; n<-n1+n2
+#' Dt<-rbind(cbind(runif(n1),runif(n1,0,sqrt(3)/2),runif(n1,0,sqrt(6)/3)),
+#'           runif.tetra(n2,tetra)$g)
 #'
 #' in.tetra<-vector()
 #' for (i in 1:n)
 #' {in.tetra<-c(in.tetra,in.tetrahedron(Dt[i,],tetra,boundary=TRUE)$in.tetra) }
+#'
 #' in.tetra
 #' Dt.tet<-Dt[in.tetra,]
+#' if (is.vector(Dt.tet)) {Dt.tet<-matrix(Dt.tet,nrow=1)}
 #'
 #' Xlim<-range(tetra[,1],Dt[,1])
 #' Ylim<-range(tetra[,2],Dt[,2])
@@ -25664,9 +25690,8 @@ paraplane<-function(p,a,b,c,x,y)
 #' yd<-Ylim[2]-Ylim[1]
 #' zd<-Zlim[2]-Zlim[1]
 #'
-#' plot3D::scatter3D(Dt[,1],Dt[,2],Dt[,3], phi =40,theta=40, bty = "g", pch = 20, cex = 1,
-#' ticktype = "detailed", xlim=Xlim+xd*c(-.05,.05),ylim=Ylim+yd*c(-.05,.05),
-#' zlim=Zlim+zd*c(-.05,.05))
+#' plot3D::scatter3D(Dt[,1],Dt[,2],Dt[,3], phi=40,theta=40, bty = "g", pch = 20, cex = 1,
+#' ticktype="detailed",xlim=Xlim+xd*c(-.05,.05),ylim=Ylim+yd*c(-.05,.05),zlim=Zlim+zd*c(-.05,.05))
 #' #add the vertices of the tetrahedron
 #' plot3D::points3D(tetra[,1],tetra[,2],tetra[,3], add=TRUE)
 #' plot3D::points3D(Dt.tet[,1],Dt.tet[,2],Dt.tet[,3],pch=4, add=TRUE)
@@ -25675,9 +25700,9 @@ paraplane<-function(p,a,b,c,x,y)
 #'
 #' plot3D::text3D(tetra[,1],tetra[,2],tetra[,3], labels=c("A","B","C","D"), add=TRUE)
 #'
-#' in.tetrahedron(P,tetra)
+#' in.tetrahedron(P,tetra) #this works fine
 #'
-#' dat.fr<-data.frame(a=tetra)
+#' dat.fr<-data.frame(a=tetra) #this works fine
 #' in.tetrahedron(P,dat.fr)
 #' }
 #'
@@ -25850,6 +25875,7 @@ runif.tetra<-function(k,th)
   res
 } #end of the function
 #'
+
 #################################################################
 
 #' @title Circumcenter of a general tetrahedron
@@ -26387,6 +26413,7 @@ cl2fVRth<-function(Dt,th,M="CM")
   res
 } #end of the function
 #'
+
 #################################################################
 
 #' @title The vertices of the Proportional Edge (PE) Proximity Region in the standard regular tetrahedron
@@ -26943,9 +26970,9 @@ IndNPEtetra<-function(pt1,pt2,r,th,M="CM",rv=NULL)
   arc
 } #end of the function
 #'
+
 ################################################################
 
-#'
 #' @title Incidence matrix for Proportional Edge Proximity Catch Digraphs (PE-PCDs) - one tetrahedron case
 #'
 #' @description Returns the incidence matrix for the PE-PCD whose vertices are the given 3D numerical data set, \code{dat},
@@ -27183,9 +27210,9 @@ plotPEregsTH<-function(Xp,r,th,M="CM",main="",xlab="",ylab="",zlab="",xlim=NULL,
   }
 } #end of the function
 #'
+
 #################################################################
 
-#'
 #' @title The indicator for a 3D point being a dominating point for Proportional Edge Proximity Catch Digraphs
 #' (PE-PCDs) - standard regular tetrahedron case
 #'
@@ -27223,7 +27250,7 @@ plotPEregsTH<-function(Xp,r,th,M="CM",main="",xlab="",ylab="",zlab="",xlim=NULL,
 #' \insertAllCited{}
 #'
 #' @examples
-#' \donttest{
+#' \dontrun{
 #' A<-c(0,0,0); B<-c(1,0,0); C<-c(1/2,sqrt(3)/2,0); D<-c(1/2,sqrt(3)/6,sqrt(6)/3)
 #' tetra<-rbind(A,B,C,D)
 #'
@@ -27283,9 +27310,7 @@ plotPEregsTH<-function(Xp,r,th,M="CM",main="",xlab="",ylab="",zlab="",xlim=NULL,
 #'
 #' dat.fr<-data.frame(a=dat)
 #' Gam1PEstdTetra(P,dat.fr,r)
-#' }
 #'
-#' \dontrun{
 #' Gam1PEstdTetra(c(-1,-1,-1),dat,r,ch.data.pnt = TRUE)
 #' #gives an error message since p is not a data point
 #' }
@@ -27343,7 +27368,6 @@ Gam1PEstdTetra<-function(p,Dt,r,rv=NULL,ch.data.pnt=FALSE)
 
 #################################################################
 
-#'
 #' @title The indicator for two 3D points constituting a dominating set for Proportional Edge Proximity Catch Digraphs
 #' (PE-PCDs) - standard regular tetrahedron case
 #'
@@ -27383,7 +27407,7 @@ Gam1PEstdTetra<-function(p,Dt,r,rv=NULL,ch.data.pnt=FALSE)
 #' \insertAllCited{}
 #'
 #' @examples
-#' \donttest{
+#' \dontrun{
 #' A<-c(0,0,0); B<-c(1,0,0); C<-c(1/2,sqrt(3)/2,0); D<-c(1/2,sqrt(3)/6,sqrt(6)/3)
 #' tetra<-rbind(A,B,C,D)
 #'
@@ -27426,9 +27450,7 @@ Gam1PEstdTetra<-function(p,Dt,r,rv=NULL,ch.data.pnt=FALSE)
 #'
 #' dat.fr<-data.frame(a=dat)
 #' Gam2PEstdTetra(P1,P2,dat.fr,r)
-#' }
 #'
-#' \dontrun{
 #' Gam2PEstdTetra(c(-1,-1,-1),dat[2,],dat,r,ch.data.pnts = TRUE)
 #' #gives an error message since not both points, pt1 and pt2, are data points in Dt
 #' }
@@ -27484,7 +27506,6 @@ Gam2PEstdTetra<-function(pt1,pt2,Dt,r,rv1=NULL,rv2=NULL,ch.data.pnts=FALSE)
 
 #################################################################
 
-#'
 #' @title The indicator for three 3D points constituting a dominating set for Proportional Edge Proximity Catch Digraphs
 #' (PE-PCDs) - standard regular tetrahedron case
 #'
@@ -27526,7 +27547,7 @@ Gam2PEstdTetra<-function(pt1,pt2,Dt,r,rv1=NULL,rv2=NULL,ch.data.pnts=FALSE)
 #' \insertAllCited{}
 #'
 #' @examples
-#' \donttest{
+#' \dontrun{
 #' A<-c(0,0,0); B<-c(1,0,0); C<-c(1/2,sqrt(3)/2,0); D<-c(1/2,sqrt(3)/6,sqrt(6)/3)
 #' tetra<-rbind(A,B,C,D)
 #'
@@ -27571,9 +27592,7 @@ Gam2PEstdTetra<-function(pt1,pt2,Dt,r,rv1=NULL,rv2=NULL,ch.data.pnts=FALSE)
 #'
 #' dat.fr<-data.frame(a=dat)
 #' Gam3PEstdTetra(P1,P2,P3,dat.fr,r)
-#' }
 #'
-#' \dontrun{
 #' Gam3PEstdTetra(dat[1,],c(1,1,1),dat[3,],dat,r,ch.data.pnts = TRUE)
 #' #gives an error message since not all points, pt1, pt2 and pt3, are data points in Dt
 #' }
@@ -27634,7 +27653,6 @@ Gam3PEstdTetra<-function(pt1,pt2,pt3,Dt,r,rv1=NULL,rv2=NULL,rv3=NULL,ch.data.pnt
 
 #################################################################
 
-#'
 #' @title The indicator for a 3D point being a dominating point for Proportional Edge Proximity Catch Digraphs (PE-PCDs)
 #' - one tetrahedron case
 #'
@@ -27675,7 +27693,7 @@ Gam3PEstdTetra<-function(pt1,pt2,pt3,Dt,r,rv1=NULL,rv2=NULL,rv3=NULL,ch.data.pnt
 #' \insertAllCited{}
 #'
 #' @examples
-#' \donttest{
+#' \dontrun{
 #' A<-c(0,0,0); B<-c(1,0,0); C<-c(1/2,sqrt(3)/2,0); D<-c(1/2,sqrt(3)/6,sqrt(6)/3)
 #' tetra<-rbind(A,B,C,D)
 #' n<-20
@@ -27738,9 +27756,7 @@ Gam3PEstdTetra<-function(pt1,pt2,pt3,Dt,r,rv1=NULL,rv2=NULL,rv3=NULL,ch.data.pnt
 #'
 #' dat.fr<-data.frame(a=dat)
 #' Gam1PEtetra(P,dat.fr,r,tetra,M)
-#' }
 #'
-#' \dontrun{
 #' Gam1PEtetra(c(-1,-1,-1),dat,r,tetra,M,ch.data.pnt = TRUE)
 #' #gives an error message since p is not a data point
 #' }
@@ -27808,7 +27824,6 @@ Gam1PEtetra<-function(p,Dt,r,th,M="CM",rv=NULL,ch.data.pnt=FALSE)
 
 #################################################################
 
-#'
 #' @title The indicator for two 3D points constituting a dominating set for Proportional Edge Proximity Catch Digraphs
 #' (PE-PCDs) - one tetrahedron case
 #'
@@ -27850,7 +27865,7 @@ Gam1PEtetra<-function(p,Dt,r,th,M="CM",rv=NULL,ch.data.pnt=FALSE)
 #' \insertAllCited{}
 #'
 #' @examples
-#' \donttest{
+#' \dontrun{
 #' A<-c(0,0,0); B<-c(1,0,0); C<-c(1/2,sqrt(3)/2,0); D<-c(1/2,sqrt(3)/6,sqrt(6)/3)
 #' tetra<-rbind(A,B,C,D)
 #' n<-20
@@ -27894,9 +27909,7 @@ Gam1PEtetra<-function(p,Dt,r,th,M="CM",rv=NULL,ch.data.pnt=FALSE)
 #'
 #' dat.fr<-data.frame(a=dat)
 #' Gam2PEtetra(P1,P2,dat.fr,r,tetra,M)
-#' }
 #'
-#' \dontrun{
 #' Gam2PEtetra(c(-1,-1,-1),dat[2,],dat,r,tetra,M,ch.data.pnts = TRUE)
 #' #gives an error message since not both points, pt1 and pt2, are data points in Dt
 #' }
@@ -27961,7 +27974,6 @@ Gam2PEtetra<-function(pt1,pt2,Dt,r,th,M="CM",rv1=NULL,rv2=NULL,ch.data.pnts=FALS
 
 #################################################################
 
-#'
 #' @title The indicator for three 3D points constituting a dominating set for Proportional Edge Proximity Catch Digraphs
 #' (PE-PCDs) - one tetrahedron case
 #'
@@ -28005,7 +28017,7 @@ Gam2PEtetra<-function(pt1,pt2,Dt,r,th,M="CM",rv1=NULL,rv2=NULL,ch.data.pnts=FALS
 #' \insertAllCited{}
 #'
 #' @examples
-#' \donttest{
+#' \dontrun{
 #' A<-c(0,0,0); B<-c(1,0,0); C<-c(1/2,sqrt(3)/2,0); D<-c(1/2,sqrt(3)/6,sqrt(6)/3)
 #' tetra<-rbind(A,B,C,D)
 #' n<-20
@@ -28051,9 +28063,7 @@ Gam2PEtetra<-function(pt1,pt2,Dt,r,th,M="CM",rv1=NULL,rv2=NULL,ch.data.pnts=FALS
 #'
 #' dat.fr<-data.frame(a=dat)
 #' Gam3PEtetra(P1,P2,P3,dat.fr,r,tetra,M)
-#' }
 #'
-#' \dontrun{
 #' Gam3PEtetra(dat[1,],c(1,1,1),dat[3,],dat,r,tetra,M,ch.data.pnts = TRUE)
 #' #gives an error message since not all points, pt1, pt2 and pts, are data points in Dt
 #' }
@@ -28119,6 +28129,7 @@ Gam3PEtetra<-function(pt1,pt2,pt3,Dt,r,th,M="CM",rv1=NULL,rv2=NULL,rv3=NULL,ch.d
   dom
 } #end of the function
 #'
+
 #################################################################
 
 #' @title The domination number of Proportional Edge Proximity Catch Digraph (PE-PCD) - one tetrahedron case
@@ -28496,6 +28507,7 @@ NumArcsCSmid1D<-function(dat,t,c,int)
   arcs
 } #end of the function
 #'
+
 #################################################################
 
 # funsMuVarCS1D
@@ -28978,6 +28990,7 @@ ArcsCSmid1D<-function(Xp,Yp,t,c)
   res
 } #end of the function
 #'
+
 #################################################################
 #The case of end intervals
 #################################################################
@@ -29965,6 +29978,7 @@ NumArcsCSint<-function(dat,t,c=.5,int)
   arcs
 } #end of the function
 #'
+
 #################################################################
 
 #' @title The arcs of Central Similarity Proximity Catch Digraph (CS-PCD) for 1D data - multiple interval case
@@ -30485,6 +30499,7 @@ plotCSregsMI<-function(Xp,Yp,t,c,Jit=.1,main="",xlab="",ylab="",xlim=NULL,ylim=N
   }
 } #end of the function
 #'
+
 #################################################################
 
 #' @title The indicator for a point being a dominating point for Central Similarity
@@ -30717,6 +30732,7 @@ asyvarCS2D<-function(t)
   asyvar
 } #end of the function
 #'
+
 #################################################################
 
 #' @title The indicator for the presence of an arc from a point to another for Central Similarity Proximity Catch
@@ -30741,7 +30757,7 @@ asyvarCS2D<-function(t)
 #' @seealso \code{\link{IndCSTe}}
 #'
 #' @examples
-#' \donttest{
+#' \dontrun{
 #' n<-5
 #'
 #' set.seed(1)
@@ -30786,7 +30802,6 @@ IndCS.Te.onesixth<-function(pt1,pt2)
 
 #################################################################
 
-#'
 #' @title The indicator for a point being a dominating point for Central Similarity Proximity Catch Digraphs (CS-PCDs)
 #' - first one sixth of the standard equilateral triangle case
 #'
@@ -30819,7 +30834,7 @@ IndCS.Te.onesixth<-function(pt1,pt2)
 #' \insertAllCited{}
 #'
 #' @examples
-#' \donttest{
+#' \dontrun{
 #' n<-5
 #' set.seed(1)
 #' dat<-rbind(runifTe.onesixth(n)$gen.points,runifTe(n)$gen.points)
@@ -30874,9 +30889,7 @@ IndCS.Te.onesixth<-function(pt1,pt2)
 #'
 #' dat.fr<-data.frame(a=dat)
 #' Gam1CS.Te.onesixth(c(.4,.2),dat.fr)
-#' }
 #'
-#' \dontrun{
 #' Gam1CS.Te.onesixth(c(.49,.49),dat,ch.data.pnt = TRUE)
 #' #gives an error message since point, p, is not a data point in Dt
 #' }
@@ -30913,7 +30926,6 @@ Gam1CS.Te.onesixth<-function(p,Dt,ch.data.pnt=FALSE)
 
 #################################################################
 
-#'
 #' @title The indicator for two points constituting a dominating set for Central Similarity Proximity Catch Digraphs
 #' (CS-PCDs) - first one sixth of the standard equilateral triangle case
 #'
@@ -30945,7 +30957,7 @@ Gam1CS.Te.onesixth<-function(p,Dt,ch.data.pnt=FALSE)
 #' \insertAllCited{}
 #'
 #' @examples
-#' \donttest{
+#' \dontrun{
 #' n<-5
 #'
 #' set.seed(1)
@@ -30973,9 +30985,7 @@ Gam1CS.Te.onesixth<-function(p,Dt,ch.data.pnt=FALSE)
 #'
 #' dat.fr<-data.frame(a=dat)
 #' Gam2CS.Te.onesixth(c(.4,.2),P2,dat.fr)
-#' }
 #'
-#' \dontrun{
 #' Gam2CS.Te.onesixth(c(.2,.2),dat[2,],dat,ch.data.pnts = TRUE)
 #' #gives an error message since not both points are data points in Dt
 #' }
@@ -31163,6 +31173,7 @@ redges.triCM<-function(Dt,tri)
        desc=edge.desc)
 } #end of the function
 #'
+
 #################################################################
 
 #' @title The indices of the \code{M}-edge regions in a triangle that contains the points in a give data set
@@ -31650,6 +31661,7 @@ IndNCStri<-function(pt1,pt2,tau,tri,M,re=NULL)
   arc
 } #end of the function
 #'
+
 #################################################################
 
 # funsCSt1EdgeRegs
@@ -31688,7 +31700,7 @@ NULL
 #'
 #' @examples
 #' #Examples for IndCSTeRABt1
-#' \donttest{
+#' \dontrun{
 #' A<-c(0,0); B<-c(1,0); C<-c(1/2,sqrt(3)/2);
 #' CM<-(A+B+C)/3
 #' T3<-rbind(A,B,CM);
@@ -31734,8 +31746,8 @@ IndCSTeRABt1<-function(pt1,pt2)
 #' @rdname funsCSt1EdgeRegs
 #'
 #' @examples
-#' \donttest{
 #' #Examples for IndCSTeRBCt1
+#' \dontrun{
 #' A<-c(0,0); B<-c(1,0); C<-c(1/2,sqrt(3)/2);
 #' CM<-(A+B+C)/3
 #' T1<-rbind(B,C,CM);
@@ -31780,8 +31792,8 @@ IndCSTeRBCt1<-function(pt1,pt2)
 #' @rdname funsCSt1EdgeRegs
 #'
 #' @examples
-#' \donttest{
 #' #Examples for IndCSTeRACt1
+#' \dontrun{
 #' A<-c(0,0); B<-c(1,0); C<-c(1/2,sqrt(3)/2);
 #' CM<-(A+B+C)/3
 #' T2<-rbind(A,C,CM);
@@ -31821,6 +31833,7 @@ IndCSTeRACt1<-function(pt1,pt2)
   {arc<-1};
   arc
 } #end of the function
+#'
 
 #################################################################
 
@@ -31846,7 +31859,7 @@ IndCSTeRACt1<-function(pt1,pt2)
 #' @seealso \code{\link{IndCSTe}}
 #'
 #' @examples
-#' \donttest{
+#' \dontrun{
 #' A<-c(0,0); B<-c(1,0); C<-c(1/2,sqrt(3)/2);
 #' Te<-rbind(A,B,C);
 #' n<-10
@@ -31939,7 +31952,7 @@ NULL
 #'
 #' @examples
 #' #Examples for IndCSTeRAB
-#' \donttest{
+#' \dontrun{
 #' A<-c(0,0); B<-c(1,0); C<-c(1/2,sqrt(3)/2);
 #' CM<-(A+B+C)/3
 #' T3<-rbind(A,B,CM);
@@ -32031,7 +32044,7 @@ IndCSTeRAB<-function(pt1,pt2,t,M)
 #'
 #' @examples
 #' #Examples for IndCSTeRBC
-#' \donttest{
+#' \dontrun{
 #' A<-c(0,0); B<-c(1,0); C<-c(1/2,sqrt(3)/2);
 #' CM<-(A+B+C)/3
 #' T1<-rbind(B,C,CM);
@@ -32125,7 +32138,7 @@ IndCSTeRBC<-function(pt1,pt2,t,M)
 #'
 #' @examples
 #' #Examples for IndCSTeRAC
-#' \donttest{
+#' \dontrun{
 #' A<-c(0,0); B<-c(1,0); C<-c(1/2,sqrt(3)/2);
 #' CM<-(A+B+C)/3
 #' T2<-rbind(A,C,CM);
@@ -32214,7 +32227,7 @@ IndCSTeRAC<-function(pt1,pt2,t,M)
   }
   arc
 } #end of the function
-
+#'
 
 #################################################################
 
@@ -32327,9 +32340,9 @@ IndCSTe<-function(pt1,pt2,t,M=c(1,1,1),re=NULL)
   arc
 } #end of the function
 #'
+
 #################################################################
 
-#'
 #' @title Incidence matrix for Central Similarity Proximity Catch Digraphs (CS-PCDs) - standard
 #' equilateral triangle case
 #'
@@ -34183,7 +34196,7 @@ plotCSregsMT<-function(Xp,Yp,t,M=c(1,1,1),asp=NA,main="",xlab="",ylab="",xlim=NU
 #'
 
 #################################################################
-#domination number functions for NCS
+#Domination number functions for NCS
 #################################################################
 
 #' @title The indicator for the presence of an arc from a point in set \code{S} to the point \code{pt} for Central Similarity
@@ -34940,6 +34953,7 @@ IndCSdomUBtri<-function(Dt,k,t,tri,M=c(1,1,1))
   )
 } #end of the function
 #'
+
 #################################################################
 
 #' @title The indicator for a point being a dominating point for Central Similarity Proximity Catch Digraphs
@@ -34977,7 +34991,7 @@ IndCSdomUBtri<-function(Dt,k,t,tri,M=c(1,1,1))
 #' \insertAllCited{}
 #'
 #' @examples
-#' \donttest{
+#' \dontrun{
 #' A<-c(0,0); B<-c(1,0); C<-c(1/2,sqrt(3)/2);
 #' CM<-(A+B+C)/3
 #' Te<-rbind(A,B,C);
@@ -35024,9 +35038,7 @@ IndCSdomUBtri<-function(Dt,k,t,tri,M=c(1,1,1))
 #'
 #' dat.fr<-data.frame(a=dat)
 #' Gam1CSTe(P,dat.fr,t)
-#' }
 #'
-#' \dontrun{
 #' Gam1CSTet1(c(1,2),dat,ch.data.pnt = TRUE)
 #' #gives an error message since p is not a data point
 #' }
@@ -35235,7 +35247,7 @@ NULL
 #'
 #' @examples
 #' #Examples for Gam2CSTe
-#' \donttest{
+#' \dontrun{
 #' t<-1.5
 #' n<-10
 #'
@@ -35267,9 +35279,7 @@ NULL
 #'
 #' dat.fr<-data.frame(a=dat)
 #' Gam2CSTe(P1,P2,dat.fr,t)
-#' }
 #'
-#' \dontrun{
 #' Gam2CSTe(c(.2,.2),dat[2,],dat,t,ch.data.pnts = TRUE)
 #' #gives an error message since not both points are data points in Dt
 #' Gam2CSTe(c(.2,.2),c(.2,.3),dat,t,ch.data.pnts = TRUE)
@@ -35316,7 +35326,7 @@ Gam2CSTe<-function(pt1,pt2,Dt,t,ch.data.pnts=FALSE)
 #'
 #' @examples
 #' #Examples for Gam3CSTe
-#' \donttest{
+#' \dontrun{
 #' t<-1.5
 #' n<-10
 #'
@@ -35346,9 +35356,7 @@ Gam2CSTe<-function(pt1,pt2,Dt,t,ch.data.pnts=FALSE)
 #'
 #' dat.fr<-data.frame(a=dat)
 #' Gam3CSTe(P1,P2,P3,dat.fr,t)
-#' }
 #'
-#' \dontrun{
 #' Gam3CSTe(c(.2,.2),dat[2,],dat[3,],dat,t,ch.data.pnts = TRUE)
 #' #gives an error message since not all points, pt1, pt2, and pt3, are data points in Dt
 #' }
@@ -35393,7 +35401,7 @@ Gam3CSTe<-function(pt1,pt2,pt3,Dt,t,ch.data.pnts=FALSE)
 #'
 #' @examples
 #' #Examples for Gam4CSTe
-#' \donttest{
+#' \dontrun{
 #' t<-1.5
 #' n<-10
 #'
@@ -35425,9 +35433,7 @@ Gam3CSTe<-function(pt1,pt2,pt3,Dt,t,ch.data.pnts=FALSE)
 #'
 #' dat.fr<-data.frame(a=dat)
 #' Gam4CSTe(P1,P2,P3,P4,dat.fr,t)
-#' }
 #'
-#' \dontrun{
 #' Gam4CSTe(c(.2,.2),dat[2,],dat[3,],dat[4,],dat,t,ch.data.pnts = TRUE)
 #' #gives an error message since not all points are data points in Dt
 #' }
@@ -35474,7 +35480,7 @@ Gam4CSTe<-function(pt1,pt2,pt3,pt4,Dt,t,ch.data.pnts=FALSE)
 #'
 #' @examples
 #' #Examples for Gam5CSTe
-#' \donttest{
+#' \dontrun{
 #' t<-1.5
 #' n<-10
 #'
@@ -35503,9 +35509,7 @@ Gam4CSTe<-function(pt1,pt2,pt3,pt4,Dt,t,ch.data.pnts=FALSE)
 #'
 #' dat.fr<-data.frame(a=dat)
 #' Gam5CSTe(P1,P2,P3,P4,P5,dat.fr,t)
-#' }
 #'
-#' \dontrun{
 #' Gam5CSTe(c(.2,.2),dat[2,],dat[3,],dat[4,],dat[5,],dat,t,ch.data.pnts = TRUE)
 #' #gives an error message since not all points are data points in Dt
 #' }
@@ -35551,7 +35555,7 @@ Gam5CSTe<-function(pt1,pt2,pt3,pt4,pt5,Dt,t,ch.data.pnts=FALSE)
 #'
 #' @examples
 #' #Examples for Gam6CSTe
-#' \donttest{
+#' \dontrun{
 #' t<-1.5
 #' n<-10
 #'
@@ -35581,9 +35585,7 @@ Gam5CSTe<-function(pt1,pt2,pt3,pt4,pt5,Dt,t,ch.data.pnts=FALSE)
 #'
 #' dat.fr<-data.frame(a=dat)
 #' Gam6CSTe(P1,P2,P3,P4,P5,P6,dat.fr,t)
-#' }
 #'
-#' \dontrun{
 #' Gam6CSTe(c(.2,.2),dat[2,],dat[3,],dat[4,],dat[5,],dat[6,],dat,t,ch.data.pnts = TRUE)
 #' #gives an error message since not all points are data points in Dt
 #' }
@@ -35626,6 +35628,7 @@ Gam6CSTe<-function(pt1,pt2,pt3,pt4,pt5,pt6,Dt,t,ch.data.pnts=FALSE)
   dom
 } #end of the function
 #'
+
 #################################################################
 
 #' @title The vertices of the CM-edge region in a triangle that contains the point
@@ -35659,7 +35662,7 @@ Gam6CSTe<-function(pt1,pt2,pt3,pt4,pt5,pt6,Dt,t,ch.data.pnts=FALSE)
 #' \insertAllCited{}
 #'
 #' @examples
-#' \donttest{
+#' \dontrun{
 #' A<-c(1,1); B<-c(2,0); C<-c(1.5,2);
 #' Tr<-rbind(A,B,C);
 #'
@@ -35774,7 +35777,7 @@ redge.triCM<-function(pt,tri)
 #' \insertAllCited{}
 #'
 #' @examples
-#' \donttest{
+#' \dontrun{
 #' A<-c(1,1); B<-c(2,0); C<-c(1.6,2);
 #' Tr<-rbind(A,B,C);
 #' t<-1.5

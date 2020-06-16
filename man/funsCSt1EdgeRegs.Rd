@@ -41,7 +41,7 @@ CS proximity region for point \eqn{x} with expansion parameter \eqn{t=1}.
 }
 \examples{
 #Examples for IndCSTeRABt1
-\donttest{
+\dontrun{
 A<-c(0,0); B<-c(1,0); C<-c(1/2,sqrt(3)/2);
 CM<-(A+B+C)/3
 T3<-rbind(A,B,CM);
@@ -59,8 +59,8 @@ IndCSTeRABt1(c(.2,.5),dat[2,])
 IndCSTeRABt1(c(.2,.5),c(.2,.5))
 }
 
-\donttest{
 #Examples for IndCSTeRBCt1
+\dontrun{
 A<-c(0,0); B<-c(1,0); C<-c(1/2,sqrt(3)/2);
 CM<-(A+B+C)/3
 T1<-rbind(B,C,CM);
@@ -80,8 +80,8 @@ IndCSTeRBCt1(c(.2,.5),c(.2,.5))
 IndCSTeRBCt1(dat[2,],dat[2,])
 }
 
-\donttest{
 #Examples for IndCSTeRACt1
+\dontrun{
 A<-c(0,0); B<-c(1,0); C<-c(1/2,sqrt(3)/2);
 CM<-(A+B+C)/3
 T2<-rbind(A,C,CM);

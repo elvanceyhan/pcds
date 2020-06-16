@@ -22,7 +22,7 @@ and also the \code{coefficients} of the line (in the form: y = slope * x + inter
 and the vertices of the triangle with respect to which the line is defined.
 }
 \examples{
-\donttest{
+\dontrun{
 A<-c(0,0); B<-c(1,0); C<-c(1/2,sqrt(3)/2);
 Te<-rbind(A,B,C)
 xfence<-abs(A[1]-B[1])*.25 #how far to go at the lower and upper ends in the x-coordinate

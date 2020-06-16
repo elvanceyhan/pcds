@@ -227,7 +227,7 @@ plot.Lines<-function (x, asp=NA, xlab="x",ylab="y",...)
 #' @seealso \code{\link{summary.TriLines}}, \code{\link{print.summary.TriLines}}, and \code{\link{plot.TriLines}}
 #'
 #' @examples
-#' \donttest{
+#' \dontrun{
 #' A<-c(0,0); B<-c(1,0); C<-c(1/2,sqrt(3)/2);
 #' Te<-rbind(A,B,C)
 #' xfence<-abs(A[1]-B[1])*.25 #how far to go at the lower and upper ends in the x-coordinate
@@ -274,7 +274,7 @@ print.TriLines <- function(x, ...)
 #' @seealso \code{\link{print.TriLines}}, \code{\link{print.summary.TriLines}}, and \code{\link{plot.TriLines}}
 #'
 #' @examples
-#' \donttest{
+#' \dontrun{
 #' A<-c(0,0); B<-c(1,0); C<-c(1/2,sqrt(3)/2);
 #' Te<-rbind(A,B,C)
 #' xfence<-abs(A[1]-B[1])*.25 #how far to go at the lower and upper ends in the x-coordinate
@@ -355,7 +355,7 @@ print.summary.TriLines <- function(x, ...)
 #' @seealso \code{\link{print.TriLines}}, \code{\link{summary.TriLines}}, and \code{\link{print.summary.TriLines}}
 #'
 #' @examples
-#' \donttest{
+#' \dontrun{
 #' A<-c(0,0); B<-c(1,0); C<-c(1/2,sqrt(3)/2);
 #' Te<-rbind(A,B,C)
 #' xfence<-abs(A[1]-B[1])*.25 #how far to go at the lower and upper ends in the x-coordinate

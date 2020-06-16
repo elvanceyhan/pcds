@@ -30,7 +30,7 @@ original triangle. Hence basic triangle is useful for simulation
 studies under the uniformness hypothesis.
 }
 \examples{
-\donttest{
+\dontrun{
 c1<-.4; c2<-.6
 A<-c(0,0); B<-c(1,0); C<-c(c1,c2);
 

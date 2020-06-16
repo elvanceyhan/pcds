@@ -20,7 +20,7 @@ These regions are in the inner hexagon which is the Gamma-1 region for CS-PCD wi
 if \code{Pt} is not in any of the 6 regions the function returns \code{NA}.
 }
 \examples{
-\donttest{
+\dontrun{
 P<-c(.4,.2)
 rel.six.Te(P)
 

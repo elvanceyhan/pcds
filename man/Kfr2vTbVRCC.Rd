@@ -53,7 +53,7 @@ second \code{k} entries are \code{k} furthest points are from vertex 2, and
 last \code{k} entries are the \code{k} furthest points from vertex 3
 }
 \examples{
-\donttest{
+\dontrun{
 c1<-.4; c2<-.6;
 A<-c(0,0); B<-c(1,0); C<-c(c1,c2);
 Tb<-rbind(A,B,C)
@@ -104,9 +104,7 @@ Kfr2vTbVRCC(dat.fr,c1,c2,k)
 
 dat2<-rbind(dat,c(.2,.4))
 Kfr2vTbVRCC(dat2,c1,c2,k)
-}
 
-\dontrun{
 Kfr2vTbVRCC(dat2,c1,c2,k,ch.all.intri = TRUE)
 #gives an error message since not all points are in the basic triangle
 }
