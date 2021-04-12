@@ -70,7 +70,7 @@ See also (\insertCite{ceyhan:Phd-thesis,ceyhan:arc-density-CS,ceyhan:test2014;te
 }
 \examples{
 #nx is number of X points (target) and ny is number of Y points (nontarget)
-nx<-40; ny<-4;  #try also nx<-40; ny<-10 or nx<-1000; ny<-10;
+nx<-30; ny<-4;  #try also nx<-40; ny<-10 or nx<-1000; ny<-10;
 
 set.seed(1)
 Xp<-cbind(runif(nx),runif(nx))

@@ -37,8 +37,8 @@ Generates \code{n} 2D points uniformly in \eqn{\cup B(y_i,e)} where \eqn{Y=(y_1,
 with \eqn{n_y} being number of \code{Y} points for various values of e under the association pattern
 and \eqn{B(y_i,e)} is the ball centered at \eqn{y_i} with radius \code{e}.
 
-The pattern resembles the Matern cluster pattern (see \code{\link[spatstat]{rMatClust}} in the
-\code{spatstat} package for further information (\insertCite{baddeley:2005;textual}{pcds}).
+The pattern resembles the Matern cluster pattern (see \code{\link[spatstat.core]{rMatClust}} in the
+\code{spatstat.core} package for further information (\insertCite{baddeley:2005;textual}{pcds}).
 \code{rMatClust(kappa, scale, mu, win)} in the simplest
 case generates a uniform Poisson point process of "parent" points with intensity \code{kappa}.
 Then each parent point is replaced by a random cluster of
@@ -47,7 +47,7 @@ being placed and uniformly inside a disc of radius scale centred on the parent p
 pattern is a realisation of the classical "stationary Matern cluster process" generated inside the
 window \code{win}.
 
-The main difference of \code{rasc.matern} and \code{\link[spatstat]{rMatClust}} is that the parent points are \code{Y} points
+The main difference of \code{rasc.matern} and \code{\link[spatstat.core]{rMatClust}} is that the parent points are \code{Y} points
 which are given beforehand and we do not discard them in the end in \code{rasc.matern} and the offspring points
 are the points associated with the reference points, \code{Y};
 \code{e} must be positive and very large values of e provide patterns close to CSR.
@@ -106,5 +106,6 @@ Xdt<-rasc.matern(nx,Y,e)
 }
 \seealso{
 \code{\link{rasc.disc}}, \code{\link{rascTe}}, \code{\link{rascIITe}},
-\code{\link{rascMT}}, \code{\link{rseg.disc}}, and \code{\link[spatstat]{rMatClust}} in the spatstat package
+\code{\link{rascMT}}, \code{\link{rseg.disc}}, and \code{\link[spatstat.core]{rMatClust}}
+in the \code{spatstat.core} package
 }

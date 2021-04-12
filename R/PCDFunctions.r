@@ -921,8 +921,8 @@ rasc.disc<-function(n,Y,e,a1=min(Y[,1]),a2=max(Y[,1]),b1=min(Y[,2]),b2=max(Y[,2]
 #' with \eqn{n_y} being number of \code{Y} points for various values of e under the association pattern
 #' and \eqn{B(y_i,e)} is the ball centered at \eqn{y_i} with radius \code{e}.
 #'
-#' The pattern resembles the Matern cluster pattern (see \code{\link[spatstat]{rMatClust}} in the
-#' \code{spatstat} package for further information (\insertCite{baddeley:2005;textual}{pcds}).
+#' The pattern resembles the Matern cluster pattern (see \code{\link[spatstat.core]{rMatClust}} in the
+#' \code{spatstat.core} package for further information (\insertCite{baddeley:2005;textual}{pcds}).
 #' \code{rMatClust(kappa, scale, mu, win)} in the simplest
 #' case generates a uniform Poisson point process of "parent" points with intensity \code{kappa}.
 #' Then each parent point is replaced by a random cluster of
@@ -931,7 +931,7 @@ rasc.disc<-function(n,Y,e,a1=min(Y[,1]),a2=max(Y[,1]),b1=min(Y[,2]),b2=max(Y[,2]
 #' pattern is a realisation of the classical "stationary Matern cluster process" generated inside the
 #' window \code{win}.
 #'
-#' The main difference of \code{rasc.matern} and \code{\link[spatstat]{rMatClust}} is that the parent points are \code{Y} points
+#' The main difference of \code{rasc.matern} and \code{\link[spatstat.core]{rMatClust}} is that the parent points are \code{Y} points
 #' which are given beforehand and we do not discard them in the end in \code{rasc.matern} and the offspring points
 #' are the points associated with the reference points, \code{Y};
 #' \code{e} must be positive and very large values of e provide patterns close to CSR.
@@ -961,7 +961,8 @@ rasc.disc<-function(n,Y,e,a1=min(Y[,1]),a2=max(Y[,1]),b1=min(Y[,2]),b2=max(Y[,2]
 #' \item{xlimit,ylimit}{The possible ranges of the x- and y-coordinates of the generated points.}
 #'
 #' @seealso \code{\link{rasc.disc}}, \code{\link{rascTe}}, \code{\link{rascIITe}},
-#' \code{\link{rascMT}}, \code{\link{rseg.disc}}, and \code{\link[spatstat]{rMatClust}} in the spatstat package
+#' \code{\link{rascMT}}, \code{\link{rseg.disc}}, and \code{\link[spatstat.core]{rMatClust}}
+#' in the \code{spatstat.core} package
 #'
 #' @references
 #' \insertAllCited{}
@@ -17268,10 +17269,10 @@ PEdom1D<-function(Xp,Yp,r,c=.5)
 #' for the PE-PCD . For this approach to work, \code{Xp} must be large for each subinterval, but 5 or more per subinterval
 #' seems to work fine in practice. Probability of success is chosen in the following way for various parameter choices.
 #'
-#' \code{asy.bin} is a logical argument for the use of aymptotic probability of success for the binomial distribution,
+#' \code{asy.bin} is a logical argument for the use of asymptotic probability of success for the binomial distribution,
 #' default is \code{asy.bin}=\code{FALSE}. It is an option only when \code{Yp} is not provided. When \code{Yp} is provided or when \code{Yp} is not provided
-#' but \code{asy.bin}=T, aymptotic probability of success for the binomial distribution is used. When \code{Yp} is not provided
-#' and \code{asy.bin}=F, the finite sample aymptotic probability of success for the binomial distribution is used with number
+#' but \code{asy.bin}=T, asymptotic probability of success for the binomial distribution is used. When \code{Yp} is not provided
+#' and \code{asy.bin}=F, the finite sample asymptotic probability of success for the binomial distribution is used with number
 #' of trials equals to expected number of \code{Xp} points per subinterval.
 #'
 #' @param Xp A set of 1D points which constitute the vertices of the PE-PCD.
@@ -17282,10 +17283,10 @@ PEdom1D<-function(Xp,Yp,r,c=.5)
 #' is tested.
 #' @param c A positive real number which serves as the centrality parameter in PE proximity region;
 #' must be in \eqn{(0,1)} (default c=.5).
-#' @param asy.bin A logical argument for the use of aymptotic probability of success for the binomial distribution,
+#' @param asy.bin A logical argument for the use of asymptotic probability of success for the binomial distribution,
 #' default \code{asy.bin}=\code{FALSE}. It is an option only when \code{Yp} is not provided. When \code{Yp} is provided or when \code{Yp} is not provided
-#' but \code{asy.bin}=T, aymptotic probability of success for the binomial distribution is used. When \code{Yp} is not provided
-#' and \code{asy.bin}=F, the finite sample aymptotic probability of success for the binomial distribution is used with number
+#' but \code{asy.bin}=T, asymptotic probability of success for the binomial distribution is used. When \code{Yp} is not provided
+#' and \code{asy.bin}=F, the finite sample asymptotic probability of success for the binomial distribution is used with number
 #' of trials equals to expected number of \code{Xp} points per subinterval.
 #' @param end.int.cor A logical argument for end interval correction, default is \code{FALSE},
 #' recommended when both \code{Xp} and \code{Yp} have the same interval support.
@@ -32900,7 +32901,7 @@ NumArcsCSMT<-function(Xp,Yp,t,M=c(1,1,1))
 #'
 #' @examples
 #' #nx is number of X points (target) and ny is number of Y points (nontarget)
-#' nx<-40; ny<-4;  #try also nx<-40; ny<-10 or nx<-1000; ny<-10;
+#' nx<-30; ny<-4;  #try also nx<-40; ny<-10 or nx<-1000; ny<-10;
 #'
 #' set.seed(1)
 #' Xp<-cbind(runif(nx),runif(nx))

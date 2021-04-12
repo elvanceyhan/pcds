@@ -29,10 +29,10 @@ is tested.}
 \item{c}{A positive real number which serves as the centrality parameter in PE proximity region;
 must be in \eqn{(0,1)} (default c=.5).}
 
-\item{asy.bin}{A logical argument for the use of aymptotic probability of success for the binomial distribution,
+\item{asy.bin}{A logical argument for the use of asymptotic probability of success for the binomial distribution,
 default \code{asy.bin}=\code{FALSE}. It is an option only when \code{Yp} is not provided. When \code{Yp} is provided or when \code{Yp} is not provided
-but \code{asy.bin}=T, aymptotic probability of success for the binomial distribution is used. When \code{Yp} is not provided
-and \code{asy.bin}=F, the finite sample aymptotic probability of success for the binomial distribution is used with number
+but \code{asy.bin}=T, asymptotic probability of success for the binomial distribution is used. When \code{Yp} is not provided
+and \code{asy.bin}=F, the finite sample asymptotic probability of success for the binomial distribution is used with number
 of trials equals to expected number of \code{Xp} points per subinterval.}
 
 \item{end.int.cor}{A logical argument for end interval correction, default is \code{FALSE},
@@ -94,10 +94,10 @@ That is, the test statistic is based on the domination number for \code{Xp} poin
 for the PE-PCD . For this approach to work, \code{Xp} must be large for each subinterval, but 5 or more per subinterval
 seems to work fine in practice. Probability of success is chosen in the following way for various parameter choices.
 
-\code{asy.bin} is a logical argument for the use of aymptotic probability of success for the binomial distribution,
+\code{asy.bin} is a logical argument for the use of asymptotic probability of success for the binomial distribution,
 default is \code{asy.bin}=\code{FALSE}. It is an option only when \code{Yp} is not provided. When \code{Yp} is provided or when \code{Yp} is not provided
-but \code{asy.bin}=T, aymptotic probability of success for the binomial distribution is used. When \code{Yp} is not provided
-and \code{asy.bin}=F, the finite sample aymptotic probability of success for the binomial distribution is used with number
+but \code{asy.bin}=T, asymptotic probability of success for the binomial distribution is used. When \code{Yp} is not provided
+and \code{asy.bin}=F, the finite sample asymptotic probability of success for the binomial distribution is used with number
 of trials equals to expected number of \code{Xp} points per subinterval.
 }
 \examples{

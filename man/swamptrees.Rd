@@ -4,7 +4,9 @@
 \name{swamptrees}
 \alias{swamptrees}
 \title{Tree Species in a Swamp Forest}
-\format{A data frame with 734 rows and 4 variables}
+\format{
+A data frame with 734 rows and 4 variables
+}
 \source{
 \href{https://pdixon.stat.iastate.edu/datasets/goodplot1.txt}{Prof. Philip Dixon's website}
 }

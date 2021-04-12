@@ -49,7 +49,7 @@ This is an "htest" (i.e., hypothesis test) function which performs a hypothesis 
 in one interval based on the normal approximation of the arc density of the PE-PCD with expansion parameter \eqn{r \ge 1}
 and centrality parameter \code{c} in \eqn{(0,1)}.
 
-The function  yields the test statistic, \eqn{p}-value for the
+The function yields the test statistic, \eqn{p}-value for the
 corresponding alternative, the confidence interval, estimate and null value for the parameter of interest
 (which is the arc density), and method and name of the data set used.
 
