@@ -12,25 +12,25 @@ of the point set \code{Yp}.}
 
 \item{Yp}{A set of 2D points whose convex hull is the support of the uniform points to be generated.}
 
-\item{DTmesh}{Triangulation nodes with neigbours (result of \code{\link[interp]{tri.mesh}} function from
+\item{DTmesh}{Triangulation nodes with neighbours (result of \code{\link[interp]{tri.mesh}} function from
 \code{interp} package).}
 }
 \value{
-A list with the elements
+A \code{list} with the elements
 \item{type}{The type of the pattern from which points are to be generated}
-\item{mtitle}{The "main" title for the plot of the point pattern}
+\item{mtitle}{The \code{"main"} title for the plot of the point pattern}
 \item{tess.points}{The points which constitute the vertices of the triangulation and
 whose convex hull determines the support of the generated points.}
 \item{gen.points}{The output set of generated points uniformly in the convex hull of \code{Yp}}
 \item{out.region}{The outer region which contains the support region, \code{NULL} for this function.}
 \item{desc.pat}{Description of the point pattern from which points are to be generated}
-\item{num.points}{The vector of two numbers, which are the number of generated points and
+\item{num.points}{The \code{vector} of two numbers, which are the number of generated points and
 the number of vertices in the triangulation (i.e., size of \code{Yp}) points.}
 \item{txt4pnts}{Description of the two numbers in \code{num.points}}
-\item{xlimit,ylimit}{The ranges of the x- and y-coordinates of the points in Yp}
+\item{xlimit,ylimit}{The ranges of the \eqn{x}- and \eqn{y}-coordinates of the points in Yp}
 }
 \description{
-An object of class "Uniform".
+An object of class \code{"Uniform"}.
 Generates \code{n} points uniformly in the Convex Hull of set of points, \code{Yp}. That is, generates
 uniformly in each of the triangles in the Delaunay triangulation of \code{Yp}, i.e., in the multiple
 triangles partitioning the convex hull of \code{Yp}.
@@ -38,8 +38,8 @@ triangles partitioning the convex hull of \code{Yp}.
 If \code{Yp} consists only of 3 points, then the function behaves like the
 function \code{\link{runif.tri}}.
 
-\code{DTmesh} is the Delaunay triangulation of \code{Yp}, default is \code{DTmesh}=\code{NULL}.
-\code{DTmesh} yields triangulation nodes with neigbours (result of \code{\link[interp]{tri.mesh}} function from \code{interp} package).
+\code{DTmesh} is the Delaunay triangulation of \code{Yp}, default is \code{DTmesh=NULL}.
+\code{DTmesh} yields triangulation nodes with neighbours (result of \code{\link[interp]{tri.mesh}} function from \code{interp} package).
 
 See (\insertCite{okabe:2000,ceyhan:comp-geo-2010,sinclair:2016;textual}{pcds}) for more on Delaunay triangulation and the corresponding algorithm.
 }
@@ -81,4 +81,7 @@ runifMT(nx,dat.fr)
 }
 \seealso{
 \code{\link{runif.tri}}, \code{\link{runifTe}}, and \code{\link{runif.bastri}},
+}
+\author{
+Elvan Ceyhan
 }

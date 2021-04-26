@@ -2,28 +2,28 @@
 % Please edit documentation in R/PCDFunctions.r
 \name{redge.triCM}
 \alias{redge.triCM}
-\title{The vertices of the CM-edge region in a triangle that contains the point}
+\title{The vertices of the \eqn{CM}-edge region in a triangle that contains the point}
 \usage{
 redge.triCM(pt, tri)
 }
 \arguments{
-\item{pt}{A 2D point for which CM-edge region it resides in is to be determined in the triangle \code{tri}.}
+\item{pt}{A 2D point for which \eqn{CM}-edge region it resides in is to be determined in the triangle \code{tri}.}
 
 \item{tri}{Three 2D points, stacked row-wise, each row representing a vertex of the triangle.}
 }
 \value{
-The CM-edge region that contains point, \code{pt}  in the triangle \code{tri}. The related edges are given as
-vertices \eqn{ABC} for \eqn{re=3}, as \eqn{BCA} for \eqn{re=1} and as \eqn{CAB} for \eqn{re=2} where edges are labeled as 3
+The \eqn{CM}-edge region that contains point, \code{pt} in the triangle \code{tri}. The related edges are given as
+vertices \code{ABC} for \eqn{re=3}, as \code{BCA} for \eqn{re=1} and as \code{CAB} for \eqn{re=2} where edges are labeled as 3
 for edge \eqn{AB}, 1 for edge \eqn{BC}, and 2 for edge \eqn{AC}.
 }
 \description{
 Returns the edge whose region contains point, \code{pt}, in
-the triangle \eqn{tri=T(A,B,C)} with edge regions based on center of mass \eqn{CM=(A+B+C)/3}.
+the triangle \code{tri}\eqn{=T(A,B,C)} with edge regions based on center of mass \eqn{CM=(A+B+C)/3}.
 
-This function is related to \code{\link{re.triCM}}, but unlike \code{\link{re.triCM}} the related edges are given as vertices \eqn{ABC}
-for \eqn{re=3}, as \eqn{BCA} for \eqn{re=1} and as \eqn{CAB} for \eqn{re=2} where edges are labeled as 3 for edge \eqn{AB}, 1 for edge \eqn{BC},
+This function is related to \code{\link{re.triCM}}, but unlike \code{\link{re.triCM}} the related edges are given as vertices \code{ABC}
+for \eqn{re=3}, as \code{BCA} for \eqn{re=1} and as \code{CAB} for \eqn{re=2} where edges are labeled as 3 for edge \eqn{AB}, 1 for edge \eqn{BC},
 and 2 for edge \eqn{AC}. The vertices are given one vertex in each row in the output, e.g., \eqn{ABC} is printed
-as \eqn{rbind(A,B,C)}, where row 1 has the entries of vertex A, row 2 has the entries of vertex B,
+as \code{rbind(A,B,C)}, where row 1 has the entries of vertex A, row 2 has the entries of vertex B,
 and row 3 has the entries of vertex C.
 
 If the point, \code{pt}, is not inside \code{tri}, then the function yields \code{NA} as output.
@@ -33,7 +33,6 @@ Edge region for BCA is the triangle \eqn{T(B,C,CM)}, edge region CAB is \eqn{T(A
 See also (\insertCite{ceyhan:Phd-thesis,ceyhan:comp-geo-2010,ceyhan:mcap2012;textual}{pcds}).
 }
 \examples{
-\dontrun{
 A<-c(1,1); B<-c(2,0); C<-c(1.5,2);
 Tr<-rbind(A,B,C);
 
@@ -69,7 +68,6 @@ text(xc,yc,txt.str)
 
 dat.fr<-data.frame(a=Tr)
 redge.triCM(P,dat.fr)
-}
 
 }
 \references{
@@ -78,4 +76,7 @@ redge.triCM(P,dat.fr)
 \seealso{
 \code{\link{re.tri.cent}}, \code{\link{re.triCM}}, \code{\link{re.bastriCM}},
 \code{\link{re.bastri.cent}}, \code{\link{reTeCM}}, and \code{\link{redge.triCM}}
+}
+\author{
+Elvan Ceyhan
 }

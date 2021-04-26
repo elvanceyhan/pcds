@@ -14,11 +14,11 @@ Gam1AStri(p, Dt, tri, M = "CC", rv = NULL, ch.data.pnt = FALSE)
 
 \item{tri}{Three 2D points, stacked row-wise, each row representing a vertex of the triangle.}
 
-\item{M}{The center of the triangle. "CC" stands for circumcenter of the triangle \code{tri} or a 2D point in Cartesian coordinates or
+\item{M}{The center of the triangle. \code{"CC"} stands for circumcenter of the triangle \code{tri} or a 2D point in Cartesian coordinates or
 a 3D point in  barycentric coordinates which serves as a center in the interior of the triangle \eqn{T_b};
-default is \code{M}="CC" i.e. the circumcenter of \code{tri}.}
+default is \code{M="CC"} i.e., the circumcenter of \code{tri}.}
 
-\item{rv}{Index of the vertex whose region contains point \code{p}, \code{rv} takes the vertex labels as 1,2,3 as
+\item{rv}{Index of the vertex whose region contains point \code{p}, \code{rv} takes the vertex labels as \eqn{1,2,3} as
 in the row order of the vertices in \code{tri}.}
 
 \item{ch.data.pnt}{A logical argument for checking whether point \code{p} is a data point in \code{Dt} or not
@@ -31,13 +31,13 @@ that is, returns 1 if \code{p} is a dominating point of the AS-PCD, returns 0 ot
 \description{
 Returns I(\code{p} is a dominating point of the AS-PCD whose vertices are the 2D data set \code{Dt}),
 that is, returns 1 if \code{p} is a dominating point of AS-PCD, returns 0 otherwise.
-Point, \code{p}, is in the region of vertex \code{rv} (default is \code{NULL}); vertices are labeled as 1,2,3
+Point, \code{p}, is in the region of vertex \code{rv} (default is \code{NULL}); vertices are labeled as \eqn{1,2,3}
 in the order they are stacked row-wise in \code{tri}.
 
 AS proximity regions are defined with respect to the
-triangle \code{tri} and vertex regions are based on the center \code{M}="CC" for circumcenter of \code{tri}; or \eqn{M=(m_1,m_2)} in Cartesian coordinates
+triangle \code{tri} and vertex regions are based on the center \code{M="CC"} for circumcenter of \code{tri}; or \eqn{M=(m_1,m_2)} in Cartesian coordinates
 or \eqn{M=(\alpha,\beta,\gamma)} in barycentric coordinates in the interior of the triangle \code{tri};
-default is \code{M}="CC" the circumcenter of \code{tri}.
+default is \code{M="CC"} the circumcenter of \code{tri}.
 
 \code{ch.data.pnt} is for checking whether point \code{p} is a data point in \code{Dt} or not (default is \code{FALSE}),
 so by default this function checks whether the point \code{p} would be a dominating point
@@ -121,10 +121,9 @@ dat.fr<-data.frame(a=Tr)
 Gam1AStri(c(1.5,1.1),dat,dat.fr,M)
 
 Gam1AStri(c(1.5,1.1),dat,Tr,M)
-\dontrun{
-Gam1AStri(c(1.5,1.1),dat,Tr,M,ch.data.pnt=TRUE)
-#gives an error message since point p is not a data point in Dt
-}
+
+Gam1AStri(c(1.5,1.1),dat,Tr,M,ch.data.pnt=FALSE)
+#gives an error message if ch.data.pnt=TRUE since point p is not a data point in Dt
 
 }
 \references{
@@ -132,4 +131,7 @@ Gam1AStri(c(1.5,1.1),dat,Tr,M,ch.data.pnt=TRUE)
 }
 \seealso{
 \code{\link{Gam1ASbastri}}
+}
+\author{
+Elvan Ceyhan
 }

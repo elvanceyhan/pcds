@@ -11,11 +11,11 @@ NAStri(pt, tri, M = "CC", rv = NULL, dec = 4)
 
 \item{tri}{Three 2D points, stacked row-wise, each row representing a vertex of the triangle.}
 
-\item{M}{The center of the triangle. "CC" stands for circumcenter of the triangle \code{tri} or a 2D point in Cartesian coordinates or a 3D point in
+\item{M}{The center of the triangle. \code{"CC"} stands for circumcenter of the triangle \code{tri} or a 2D point in Cartesian coordinates or a 3D point in
 barycentric coordinates which serves as a center in the interior of the triangle \code{tri};
-default is \code{M}="CC" i.e. the circumcenter of \code{tri}.}
+default is \code{M="CC"} i.e., the circumcenter of \code{tri}.}
 
-\item{rv}{Index of the \code{M}-vertex region containing the point \code{pt}, either 1, 2, 3 or
+\item{rv}{Index of the \code{M}-vertex region containing the point \code{pt}, either \code{1,2,3} or
 \code{NULL} (default is \code{NULL}).}
 
 \item{dec}{a positive integer the number of decimals (default is 4) to round the
@@ -23,20 +23,20 @@ barycentric coordinates when checking whether
 the end points fall on the boundary of the triangle \code{tri} or not.}
 }
 \value{
-A list with the elements
+A \code{list} with the elements
 \item{L,R}{End points of the line segments on the boundary of the AS proximity region.
- Each row in \code{L} and \code{R} constitute a line segment on the boundary. }
+ Each row in \code{L} and \code{R} constitute a line segment on the boundary.}
 \item{Arc.Slices}{The end points of the arc-slices on the circular parts of the AS proximity region.
 Here points in row 1 and row 2 constitute the end points of one arc-slice, points on row 3 and row 4
-constitute the end points for the next arc-slice and so on}
+constitute the end points for the next arc-slice and so on.}
 }
 \description{
 Returns the end points of the line segments and arc-slices that constitute the boundary of AS proximity
-region for a point in the triangle \eqn{tri=T(A,B,C)=(rv=1,rv=2,rv=3)}.
+region for a point in the triangle \code{tri}\eqn{=T(A,B,C)=}\code{(rv=1,rv=2,rv=3)}.
 
-Vertex regions are based on the center \code{M}="CC" for circumcenter of \code{tri}; or \eqn{M=(m_1,m_2)} in Cartesian coordinates
+Vertex regions are based on the center \code{M="CC"} for circumcenter of \code{tri}; or \eqn{M=(m_1,m_2)} in Cartesian coordinates
 or \eqn{M=(\alpha,\beta,\gamma)} in barycentric coordinates in the interior of the triangle \code{tri};
-default is \code{M}="CC" the circumcenter of \code{tri}. \code{rv} is the index of the vertex region \code{pt1} resides,
+default is \code{M="CC"} the circumcenter of \code{tri}. \code{rv} is the index of the vertex region \code{pt1} resides,
 with default=\code{NULL}.
 
 If \code{pt} is outside of \code{tri}, it returns \code{NULL} for the proximity region.
@@ -124,7 +124,7 @@ if (!is.null(Arcs))
 IP.txt<-intpts<-c()
 if (!is.null(Int.Pts$A))
 {
-  intpts<-unique(round(Int.Pts$A,7))
+ intpts<-unique(round(Int.Pts$A,7))
   #this part is for labeling the intersection points of the spherical
   for (i in 1:(length(intpts)/2))
     IP.txt<-c(IP.txt,paste("I",i+1, sep = ""))
@@ -142,4 +142,7 @@ NAStri(P1,Tr,M)
 }
 \seealso{
 \code{\link{NASbastri}}, \code{\link{NPEtri}}, \code{\link{NCStri}} and \code{\link{IndNAStri}}
+}
+\author{
+Elvan Ceyhan
 }

@@ -17,7 +17,7 @@ containing them are to be determined.}
 which serves as a center in the interior of the triangle \code{tri} or the circumcenter of \code{tri}.}
 }
 \value{
-A list with two elements
+A \code{list} with two elements
 \item{rv}{Indices of the vertices whose regions contains points in \code{Dt}.}
 \item{tri}{The vertices of the triangle, where row number corresponds to the vertex index in \code{rv}.}
 }
@@ -25,7 +25,6 @@ A list with two elements
 An alternative function to the function \code{\link{rverts.tri.cent}}
 }
 \examples{
-\dontrun{
 A<-c(1,1); B<-c(2,0); C<-c(1.5,2);
 Tr<-rbind(A,B,C);
 M<-c(1.6,1.0)
@@ -85,7 +84,6 @@ rverts.tri.cent.alt(dat.fr,Tr,M)
 
 dat.fr<-data.frame(a=Tr)
 rverts.tri.cent.alt(dat,dat.fr,M)
-}
 
 }
 \references{
@@ -93,4 +91,7 @@ rverts.tri.cent.alt(dat,dat.fr,M)
 }
 \seealso{
 \code{\link{rverts.tri.cent}}
+}
+\author{
+Elvan Ceyhan
 }

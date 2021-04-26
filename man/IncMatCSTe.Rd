@@ -27,7 +27,7 @@ in the standard equilateral triangle \eqn{T_e=T(v=1,v=2,v=3)=T((0,0),(1,0),(1/2,
 CS proximity region is defined with respect to the standard equilateral triangle
 \eqn{T_e=T(v=1,v=2,v=3)=T((0,0),(1,0),(1/2,\sqrt{3}/2))} and edge regions are based on the center \eqn{M=(m_1,m_2)}
 in Cartesian coordinates or \eqn{M=(\alpha,\beta,\gamma)} in barycentric coordinates in the interior of \eqn{T_e};
-default is \eqn{M=(1,1,1)} i.e. the center of mass of \eqn{T_e}.
+default is \eqn{M=(1,1,1)} i.e., the center of mass of \eqn{T_e}.
 Loops are allowed, so the diagonal entries are all equal to 1.
 
 See also (\insertCite{ceyhan:Phd-thesis,ceyhan:arc-density-CS,ceyhan:test2014;textual}{pcds}).
@@ -71,4 +71,7 @@ IncMatCSTe(dat.fr,t=1.5,M);
 }
 \seealso{
 \code{\link{IncMatCStri}}, \code{\link{IncMatCSMT}} and \code{\link{IncMatPETe}}
+}
+\author{
+Elvan Ceyhan
 }

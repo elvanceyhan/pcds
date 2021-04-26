@@ -20,16 +20,16 @@ the center of mass of \code{tri}.}
 \value{
 Number of arcs for the CS-PCD with vertices being 2D data set, \code{dat}, in \code{tri}
 with expansion parameter, \eqn{t>0}, and center of mass CM. CS proximity regions are defined only
-for \code{Dt} points inside \code{tri}, i.e. arcs are possible for such points only.
+for \code{Dt} points inside \code{tri}, i.e., arcs are possible for such points only.
 }
 \description{
 Returns the number of arcs of Central Similarity Proximity Catch Digraphs (CS-PCDs) whose vertices are the
 given 2D numerical data set, \code{dat}.
 
-CS proximity region NCS(x,r) is defined with respect to the triangle, \code{tri}  with expansion parameter \eqn{t>0}
+CS proximity region \eqn{N_{CS}(x,t)} is defined with respect to the triangle, \code{tri}  with expansion parameter \eqn{t>0}
 and edge regions are based on the center \eqn{M=(m_1,m_2)}
 in Cartesian coordinates or \eqn{M=(\alpha,\beta,\gamma)} in barycentric coordinates in the interior of \code{tri};
-default is \eqn{M=(1,1,1)} i.e. the center of mass of \code{tri}.
+default is \eqn{M=(1,1,1)} i.e., the center of mass of \code{tri}.
 For the number of arcs, loops are not allowed so
 arcs are only possible for points inside \code{tri} for this function.
 
@@ -67,4 +67,7 @@ NumArcsCStri(dat,dat.fr,t,M)
 \seealso{
 \code{\link{NumArcsCSTe}}, \code{\link{NumArcsCSMT}}, \code{\link{NumArcsPEtri}},
 and \code{\link{NumArcsAStri}}
+}
+\author{
+Elvan Ceyhan
 }

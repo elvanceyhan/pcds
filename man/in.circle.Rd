@@ -14,7 +14,7 @@ in.circle(pt, cent, rad, boundary = FALSE)
 \item{rad}{A positive real number which serves as the radius of the circle.}
 
 \item{boundary}{A logical parameter (default=\code{FALSE}) to include boundary or not, so if it is \code{TRUE},
-the function checks if the point, \code{pt}, lies in the closure of the circle (i.e. interior and
+the function checks if the point, \code{pt}, lies in the closure of the circle (i.e., interior and
 boundary combined) else it checks if \code{pt} lies in the interior of the circle.}
 }
 \value{
@@ -26,7 +26,7 @@ Checks if the point \code{pt} lies in the circle with center \code{cent} and rad
 denoted as \code{C(cent,rad)}. So, it returns 1 or \code{TRUE} if \code{pt} is inside the circle, and 0 otherwise.
 
 \code{boundary} is a logical argument (default=\code{FALSE}) to include boundary or not, so if it is \code{TRUE},
-the function checks if the point, \code{pt}, lies in the closure of the circle (i.e. interior and
+the function checks if the point, \code{pt}, lies in the closure of the circle (i.e., interior and
 boundary combined) else it checks if \code{pt} lies in the interior of the circle.
 }
 \examples{
@@ -50,4 +50,7 @@ in.circle(p,cent,rad)
 \seealso{
 \code{\link{in.triangle}}, \code{\link{in.tetrahedron}},  and
 \code{\link[interp]{on.convex.hull}} from the \code{interp} package for documentation for \code{in.convex.hull}
+}
+\author{
+Elvan Ceyhan
 }

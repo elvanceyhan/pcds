@@ -8,30 +8,29 @@ Catch Digraphs (AS-PCDs) - one triangle case}
 IndNAStri.domset(S, Dt, tri, M = "CC")
 }
 \arguments{
-\item{S}{A set of 2D points which is to be tested for being a dominating set for the
-AS-PCDs.}
+\item{S}{A set of 2D points which is to be tested for being a dominating set for the AS-PCDs.}
 
 \item{Dt}{A set of 2D points which constitute the vertices of the AS-PCD.}
 
 \item{tri}{Three 2D points, stacked row-wise, each row representing a vertex of the triangle.}
 
-\item{M}{The center of the triangle. "CC" stands for circumcenter of the triangle \code{tri} or a 2D point in Cartesian coordinates or
+\item{M}{The center of the triangle. \code{"CC"} stands for circumcenter of the triangle \code{tri} or a 2D point in Cartesian coordinates or
 a 3D point in barycentric coordinates which serves as a center in the interior of \code{tri};
-default is \code{M}="CC" i.e. the circumcenter of \code{tri}.}
+default is \code{M="CC"} i.e., the circumcenter of \code{tri}.}
 }
 \value{
-I(\code{S} a dominating set of AS-PCD), that is, returns 1 if \code{S} is a dominating set of AS-PCD whose
+\eqn{I(}\code{S} a dominating set of AS-PCD\eqn{)}, that is, returns 1 if \code{S} is a dominating set of AS-PCD whose
 vertices are the data points in \code{Dt}; returns 0 otherwise, where AS proximity region is constructed in
 the triangle \code{tri}.
 }
 \description{
-Returns I(\code{S} a dominating set of AS-PCD), that is, returns 1 if \code{S} is a dominating set of AS-PCD,
+Returns \eqn{I(}\code{S} a dominating set of AS-PCD\eqn{)}, that is, returns 1 if \code{S} is a dominating set of AS-PCD,
 returns 0 otherwise.
 
 AS-PCD has vertex set \code{Dt} and AS proximity region is constructed with vertex
-regions based on the center \code{M}="CC" for circumcenter of \code{tri};
+regions based on the center \code{M="CC"} for circumcenter of \code{tri};
 or \eqn{M=(m_1,m_2)} in Cartesian coordinates or \eqn{M=(\alpha,\beta,\gamma)} in barycentric coordinates in the
-interior of the triangle \code{tri}; default is \code{M}="CC" i.e. circumcenter of \code{tri}
+interior of the triangle \code{tri}; default is \code{M="CC"} i.e., circumcenter of \code{tri}
 whose vertices are also labeled as edges 1, 2, and 3, respectively.
 
 See also (\insertCite{ceyhan:Phd-thesis,ceyhan:comp-geo-2010,ceyhan:mcap2012;textual}{pcds}).
@@ -82,4 +81,7 @@ IndNAStri.domset(S,dat.fr,Tr,M)
 }
 \seealso{
 \code{\link{IndNAStriSet}}, \code{\link{IndNPEtri.domset}} and \code{\link{IndNCStri.domset}}
+}
+\author{
+Elvan Ceyhan
 }

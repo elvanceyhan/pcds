@@ -2,17 +2,17 @@
 % Please edit documentation in R/AuxRFuncs4PCDClasses.r
 \name{plot.Patterns}
 \alias{plot.Patterns}
-\title{Plot a \code{Patterns} object}
+\title{Plot a \code{Patterns} \code{object}}
 \usage{
 \method{plot}{Patterns}(x, asp = NA, xlab = "x", ylab = "y", ...)
 }
 \arguments{
 \item{x}{Object of class \code{Patterns}.}
 
-\item{asp}{A numeric value, giving the aspect ratio for y axis to x-axis y/x (default is \code{NA}),
-see the official help for \code{asp} by typing "? asp".}
+\item{asp}{A \code{numeric} value, giving the aspect ratio for \eqn{y}-axis to \eqn{x}-axis \eqn{y/x} (default is \code{NA}),
+see the official help for \code{asp} by typing "\code{? asp}".}
 
-\item{xlab, ylab}{Titles for the x and y axes, respectively (default is \code{xlab}="x" and \code{ylab}="y").}
+\item{xlab, ylab}{Titles for the \eqn{x} and \eqn{y} axes, respectively (default is \code{xlab="x"} and \code{ylab="y"}).}
 
 \item{\dots}{Additional parameters for \code{plot}.}
 }

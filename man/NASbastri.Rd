@@ -10,34 +10,34 @@ NASbastri(pt, c1, c2, M = "CC", rv = NULL, dec = 4)
 \item{pt}{A 2D point whose AS proximity region is to be computed.}
 
 \item{c1, c2}{Positive real numbers representing the top vertex in basic triangle \eqn{T_b=T((0,0),(1,0),(c_1,c_2))},
-\code{c1} must be in \eqn{[0,1/2]}, \eqn{c_2>0} and \eqn{(1-c_1)^2+c_2^2 \le 1}.}
+\eqn{c_1} must be in \eqn{[0,1/2]}, \eqn{c_2>0} and \eqn{(1-c_1)^2+c_2^2 \le 1}.}
 
-\item{M}{The center of the triangle. "CC" stands for circumcenter of the triangle \eqn{T_b} or a 2D point in Cartesian coordinates or
+\item{M}{The center of the triangle. \code{"CC"} stands for circumcenter of the triangle \eqn{T_b} or a 2D point in Cartesian coordinates or
 a 3D point in barycentric coordinates which serves as a center in the interior of the triangle \eqn{T_b};
-default is \code{M}="CC" i.e. the circumcenter of \eqn{T_b}.}
+default is \code{M="CC"} i.e., the circumcenter of \eqn{T_b}.}
 
-\item{rv}{The index of the \code{M}-vertex region containing the point, either 1, 2, 3 or \code{NULL}
+\item{rv}{The index of the \code{M}-vertex region containing the point, either \code{1,2,3} or \code{NULL}
 (default is \code{NULL}).}
 
 \item{dec}{a positive integer the number of decimals (default is 4) to round the barycentric coordinates when checking whether
 the end points fall on the boundary of the triangle \eqn{T_b} or not.}
 }
 \value{
-A list with the elements
+A \code{list} with the elements
 \item{L,R}{The end points of the line segments on the boundary of the AS proximity region.
- Each row in \code{L} and \code{R} constitute a line segment on the boundary. }
+ Each row in \code{L} and \code{R} constitute a line segment on the boundary.}
 \item{Arc.Slices}{The end points of the arc-slices on the circular parts of the AS proximity region.
 Here points in row 1 and row 2 constitute the end points of one arc-slice, points on row 3 and row 4
-constitute the end points for the next arc-slice and so on}
+constitute the end points for the next arc-slice and so on.}
 }
 \description{
 Returns the end points of the line segments and arc-slices that constitute the boundary of
 AS proximity region for a point in the basic triangle \eqn{T_b=T((0,0),(1,0),(c_1,c_2))}
-where \code{c1} is in \eqn{[0,1/2]}, \eqn{c_2>0} and \eqn{(1-c_1)^2+c_2^2 \le 1}.
+where \eqn{c_1} is in \eqn{[0,1/2]}, \eqn{c_2>0} and \eqn{(1-c_1)^2+c_2^2 \le 1}.
 
-Vertex regions are based on the center \code{M}="CC" for circumcenter of \eqn{T_b}; or \eqn{M=(m_1,m_2)} in Cartesian
+Vertex regions are based on the center \code{M="CC"} for circumcenter of \eqn{T_b}; or \eqn{M=(m_1,m_2)} in Cartesian
 coordinates or \eqn{M=(\alpha,\beta,\gamma)} in barycentric coordinates in the interior of \eqn{T_b};
-default is \code{M}="CC" the circumcenter of \eqn{T_b}.
+default is \code{M="CC"} the circumcenter of \eqn{T_b}.
 \code{rv} is the index of the vertex region \code{pt} resides, with default=\code{NULL}.
 
 If \code{pt} is outside \eqn{T_b}, it returns \code{NULL} for the proximity region.
@@ -48,7 +48,7 @@ due to precision in the decimals).
 Any given triangle can be mapped to the basic triangle
 by a combination of rigid body motions (i.e., translation, rotation and reflection) and scaling,
 preserving uniformity of the points in the original triangle. Hence basic triangle is useful for simulation
-studies under the uniformness hypothesis.
+studies under the uniformity hypothesis.
 
 See also (\insertCite{ceyhan:Phd-thesis,ceyhan:comp-geo-2010,ceyhan:mcap2012;textual}{pcds}).
 }
@@ -129,7 +129,7 @@ if (!is.null(Arcs))
 IP.txt<-intpts<-c()
 if (!is.null(Int.Pts$A))
 {
-  intpts<-unique(round(Int.Pts$A,7))
+ intpts<-unique(round(Int.Pts$A,7))
   #this part is for labeling the intersection points of the spherical
   for (i in 1:(length(intpts)/2))
     IP.txt<-c(IP.txt,paste("I",i+1, sep = ""))
@@ -148,4 +148,7 @@ NASbastri(P1,c1,c2,M)
 }
 \seealso{
 \code{\link{NAStri}} and \code{\link{IndNASbastri}}
+}
+\author{
+Elvan Ceyhan
 }

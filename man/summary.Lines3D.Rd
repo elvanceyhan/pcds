@@ -2,26 +2,26 @@
 % Please edit documentation in R/AuxRFuncs4PCDClasses.r
 \name{summary.Lines3D}
 \alias{summary.Lines3D}
-\title{Return a summary of a \code{Lines3D} object}
+\title{Return a summary of a \code{Lines3D} \code{object}}
 \usage{
 \method{summary}{Lines3D}(object, ...)
 }
 \arguments{
-\item{object}{Object of class \code{Lines3D}.}
+\item{object}{An \code{object} of class \code{Lines3D}.}
 
 \item{\dots}{Additional parameters for \code{summary}.}
 }
 \value{
 \code{call} of the function defining the \code{object}, the defining vectors (i.e., initial and direction vectors),
-selected x, y and z points on the line,
+selected \eqn{x}, \eqn{y}, and \eqn{z} points on the line,
 equation of the line (in parametric form), and \code{coefficients} of the line
-(for the form: x=x0 + a*t, y=y0 + b*t, and z=z0 + c*t).
+(for the form: \code{x=x0 + a*t}, \code{y=y0 + b*t}, and \code{z=z0 + c*t}).
 }
 \description{
 Returns the below information about the \code{object}:
 
 \code{call} of the function defining the \code{object}, the defining vectors (i.e., initial and direction vectors),
-selected x, y and z points on the line,
+selected \eqn{x}, \eqn{y}, and \eqn{z} points on the line,
 equation of the line (in parametric form), and \code{coefficients} of the line.
 }
 \examples{

@@ -2,23 +2,23 @@
 % Please edit documentation in R/AuxRFuncs4PCDClasses.r
 \name{print.TriLines}
 \alias{print.TriLines}
-\title{Print a \code{TriLines} object}
+\title{Print a \code{TriLines} \code{object}}
 \usage{
 \method{print}{TriLines}(x, ...)
 }
 \arguments{
-\item{x}{A \code{TriLines} object.}
+\item{x}{A \code{TriLines} \code{object}.}
 
-\item{\dots}{Additional arguments for the S3 method '\code{print}'.}
+\item{\dots}{Additional arguments for the S3 method \code{'print'}.}
 }
 \value{
-The \code{call} of the object of class '\code{TriLines}' ,
-the \code{coefficients} of the line (in the form: y = slope * x + intercept),
+The \code{call} of the \code{object} of class \code{"TriLines"} ,
+the \code{coefficients} of the line (in the form: \code{y = slope * x + intercept}),
 and the vertices of the triangle with respect to which the line is defined.
 }
 \description{
-Prints the \code{call} of the object of class '\code{TriLines}'
-and also the \code{coefficients} of the line (in the form: y = slope * x + intercept),
+Prints the \code{call} of the \code{object} of class \code{"TriLines"}
+and also the \code{coefficients} of the line (in the form: \code{y = slope * x + intercept}),
 and the vertices of the triangle with respect to which the line is defined.
 }
 \examples{

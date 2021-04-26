@@ -13,12 +13,13 @@ computed.}
 \item{a, b}{2D points that determine the straight line (i.e., through which the straight line passes).}
 }
 \value{
-A list with two elements
+A \code{list} with two elements
 \item{dis}{Distance from point \code{p} to the line passing through \code{a} and \code{b}}
 \item{cl2p}{The closest point on the line passing through \code{a} and \code{b} to the point \code{p}}
 }
 \description{
-Returns the distance from a point \code{p} to the line joining points \code{a} and \code{b} in 2D space.
+Returns the distance from a point \code{p} to the line joining
+points \code{a} and \code{b} in 2D space.
 }
 \examples{
 A<-c(1,2); B<-c(2,3); P<-c(3,1.5)
@@ -73,4 +74,7 @@ dp2l(P,A,B);
 }
 \seealso{
 \code{\link{dp2pl}}, \code{\link{dist.pt2set}} and \code{\link{Dist}}
+}
+\author{
+Elvan Ceyhan
 }

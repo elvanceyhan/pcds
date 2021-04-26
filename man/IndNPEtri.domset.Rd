@@ -19,23 +19,23 @@ constructed in the triangle \code{tri}; must be \eqn{\ge 1}.}
 
 \item{M}{A 2D point in Cartesian coordinates or a 3D point in barycentric coordinates
 which serves as a center in the interior of the triangle \code{tri} or the circumcenter of \code{tri};
-default is \eqn{M=(1,1,1)} i.e. the center of mass of \code{tri}.}
+default is \eqn{M=(1,1,1)} i.e., the center of mass of \code{tri}.}
 }
 \value{
-I(\code{S} a dominating set of PE-PCD), that is, returns 1 if \code{S} is a dominating set of PE-PCD whose
+\eqn{I(}\code{S} a dominating set of PE-PCD\eqn{)}, that is, returns 1 if \code{S} is a dominating set of PE-PCD whose
 vertices are the data points in \code{Dt}; returns 0 otherwise, where PE proximity region is constructed in
 the triangle \code{tri}
 }
 \description{
-Returns I(\code{S} a dominating set of PE-PCD whose vertices are the data set \code{Dt}), that is,
+Returns \eqn{I(}\code{S} a dominating set of PE-PCD whose vertices are the data set \code{Dt}\eqn{)}, that is,
 returns 1 if \code{S} is a dominating set of PE-PCD, returns 0 otherwise.
 
 PE proximity region is constructed with
 respect to the triangle \code{tri} with the expansion parameter \eqn{r \ge 1} and vertex regions are based
 on the center \eqn{M=(m_1,m_2)} in Cartesian coordinates or \eqn{M=(\alpha,\beta,\gamma)} in barycentric coordinates
 in the interior of the triangle \code{tri} or based on the circumcenter of \code{tri};
-default is \eqn{M=(1,1,1)} i.e. the center of mass of \code{tri}.
-The triangle \code{tri}=\eqn{T(A,B,C)} has edges \eqn{AB}, \eqn{BC}, \eqn{AC} which are also labeled as edges 3, 1, and 2, respectively.
+default is \eqn{M=(1,1,1)} i.e., the center of mass of \code{tri}.
+The triangle \code{tri}\eqn{=T(A,B,C)} has edges \eqn{AB}, \eqn{BC}, \eqn{AC} which are also labeled as edges 3, 1, and 2, respectively.
 
 See also (\insertCite{ceyhan:Phd-thesis,ceyhan:masa-2007,ceyhan:dom-num-NPE-Spat2011,ceyhan:mcap2012;textual}{pcds}).
 }
@@ -86,4 +86,7 @@ IndNPEtri.domset(S,dat.fr,r,Tr,M)
 \seealso{
 \code{\link{IndNPETe.domset}}, \code{\link{IndNPEtriSet}}, \code{\link{IndNCStri.domset}}
 and \code{\link{IndNAStri.domset}}
+}
+\author{
+Elvan Ceyhan
 }

@@ -2,17 +2,17 @@
 % Please edit documentation in R/AuxRFuncs4PCDClasses.r
 \name{summary.Uniform}
 \alias{summary.Uniform}
-\title{Return a summary of a \code{Uniform} object}
+\title{Return a summary of a \code{Uniform} \code{object}}
 \usage{
 \method{summary}{Uniform}(object, ...)
 }
 \arguments{
-\item{object}{Object of class \code{Uniform}.}
+\item{object}{An \code{object} of class \code{Uniform}.}
 
 \item{\dots}{Additional parameters for \code{summary}.}
 }
 \value{
-The \code{call} of the object of class '\code{Uniform}', the \code{type} of the pattern (i.e. the description
+The \code{call} of the \code{object} of class \code{"Uniform"}, the \code{type} of the pattern (i.e. the description
 of the uniform distribution), study window, vertices of the support of the Uniform distribution,
 some sample points generated from the uniform distribution, and the number of points (i.e., number of generated
 points and the number of vertices of the support of the uniform distribution.)

@@ -14,21 +14,20 @@ IndCSTet1(pt1, pt2)
 \code{pt1} or not.}
 }
 \value{
-I(\code{pt2} is in \eqn{NCS(pt1,t=1)}) for \code{pt1} in \eqn{T_e} that is, returns 1 if \code{pt2}
-is in \eqn{NCS(pt1,t=1)}, returns 0 otherwise
+\eqn{I(}\code{pt2} is in \eqn{N_{CS}(pt1,t=1))} for \code{pt1} in \eqn{T_e} that is, returns 1 if \code{pt2}
+is in \eqn{N_{CS}(pt1,t=1)}, returns 0 otherwise
 }
 \description{
-Returns I(\code{pt2} is in \eqn{NCS(pt1,t=1)}) for points \code{pt1} and \code{pt2}, that is, returns 1 if \code{pt2} is in \eqn{NCS(pt1,t=1)},
-returns 0 otherwise, where \eqn{NCS(x,t=1)} is the CS proximity region for point \eqn{x} with expansion parameter \eqn{t=1}.
+Returns \eqn{I(}\code{pt2} is in \eqn{N_{CS}(pt1,t=1))} for points \code{pt1} and \code{pt2}, that is, returns 1 if \code{pt2} is in \eqn{N_{CS}(pt1,t=1)},
+returns 0 otherwise, where \eqn{N_{CS}(x,t=1)} is the CS proximity region for point \eqn{x} with expansion parameter \eqn{t=1}.
 
 CS proximity region is defined with respect to the standard equilateral triangle
 \eqn{T_e=T(A,B,C)=T((0,0),(1,0),(1/2,\sqrt{3}/2))} and edge regions are based on the center of mass \eqn{CM=(1/2,\sqrt{3}/6)}.
 
-If \code{pt1} and \code{pt2} are distint and either are outside \eqn{T_e}, it returns 0,
+If \code{pt1} and \code{pt2} are distinct and either are outside \eqn{T_e}, it returns 0,
 but if they are identical, then it returns 1 regardless of their locations (i.e., it allows loops).
 }
 \examples{
-\dontrun{
 A<-c(0,0); B<-c(1,0); C<-c(1/2,sqrt(3)/2);
 Te<-rbind(A,B,C);
 n<-10
@@ -45,9 +44,11 @@ IndCSTet1(c(.2,.5),dat[2,])
 IndCSTet1(c(.2,.5),c(.2,.5))
 
 IndCSTet1(dat[1,],dat[7,])
-}
 
 }
 \seealso{
 \code{\link{IndCSTe}}
+}
+\author{
+Elvan Ceyhan
 }

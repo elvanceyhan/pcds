@@ -2,7 +2,7 @@
 % Please edit documentation in R/PCDFunctions.r
 \name{cl2CC.TbVR}
 \alias{cl2CC.TbVR}
-\title{The closest points to circumcenter in each CC-vertex region in a basic triangle}
+\title{The closest points to circumcenter in each \eqn{CC}-vertex region in a basic triangle}
 \usage{
 cl2CC.TbVR(Dt, c1, c2, ch.all.intri = FALSE)
 }
@@ -10,38 +10,37 @@ cl2CC.TbVR(Dt, c1, c2, ch.all.intri = FALSE)
 \item{Dt}{A set of 2D points representing the set of data points.}
 
 \item{c1, c2}{Positive real numbers which constitute the vertex of the basic triangle.
-adjacent to the shorter edges; \code{c1} must be in \eqn{[0,1/2]}, \eqn{c_2>0} and \eqn{(1-c_1)^2+c_2^2 \le 1}}
+adjacent to the shorter edges; \eqn{c_1} must be in \eqn{[0,1/2]}, \eqn{c_2>0} and \eqn{(1-c_1)^2+c_2^2 \le 1}}
 
 \item{ch.all.intri}{A logical argument for checking whether all data points are inside \eqn{T_b}
 (default is \code{FALSE}).}
 }
 \value{
-A list with the elements
-\item{txt1}{Vertex labels are A=1, B=2, and C=3 (corresponds to row number in Extrema Points).}
-\item{txt2}{A short description of the distances as "Distances to CC".}
+A \code{list} with the elements
+\item{txt1}{Vertex labels are \eqn{A=1}, \eqn{B=2}, and \eqn{C=3} (corresponds to row number in Extremum Points).}
+\item{txt2}{A short description of the distances as \code{"Distances from closest points to ..."}.}
 \item{type}{Type of the extrema points}
-\item{mtitle}{The "main" title for the plot of the exrema}
-\item{ext}{The extrema points, here, closest points to CC in each vertex region.}
-\item{X}{The input data, \code{Dt}, can be a matrix or data frame}
+\item{mtitle}{The \code{"main"} title for the plot of the extrema}
+\item{ext}{The extrema points, here, closest points to \eqn{CC} in each vertex region.}
+\item{X}{The input data, \code{Dt}, can be a \code{matrix} or \code{data frame}}
 \item{num.points}{The number of data points, i.e., size of \code{Dt}}
 \item{supp}{Support of the data points, here, it is \eqn{T_b}.}
 \item{cent}{The center point used for construction of vertex regions}
-\item{ncent}{Name of the center, \code{cent}, it is "CC" for this function.}
+\item{ncent}{Name of the center, \code{cent}, it is \code{"CC"} for this function.}
 \item{regions}{Vertex regions inside the triangle, \eqn{T_b}, provided as a list.}
-\item{region.names}{Names of the vertex regions as "vr=1","vr=2","vr=3"}
+\item{region.names}{Names of the vertex regions as \code{"vr=1"}, \code{"vr=2"}, and \code{"vr=3"}}
 \item{region.centers}{Centers of mass of the vertes regions inside \eqn{T_b}.}
 \item{dist2ref}{Distances from closest points in each vertex region to CC.}
 }
 \description{
-An object of class "Extrema".
-Returns the closest data points among the data set, \code{Dt}, to circumcenter, CC, in each CC-vertex region
-in the basic triangle \eqn{T_b=T(A=(0,0),B=(1,0),C=(c_1,c_2))}=(vertex 1,vertex 2,vertex 3).
+An object of class \code{"Extrema"}.
+Returns the closest data points among the data set, \code{Dt}, to circumcenter, \eqn{CC}, in each \eqn{CC}-vertex region
+in the basic triangle \eqn{T_b=T(A=(0,0),B=(1,0),C=(c_1,c_2))=}(vertex 1,vertex 2,vertex 3).
 \code{ch.all.intri} is for checking whether all data points are inside \eqn{T_b} (default is \code{FALSE}).
 
 See also (\insertCite{ceyhan:Phd-thesis,ceyhan:mcap2012;textual}{pcds}).
 }
 \examples{
-\dontrun{
 c1<-.4; c2<-.6;
 A<-c(0,0); B<-c(1,0); C<-c(c1,c2);
 Tb<-rbind(A,B,C)
@@ -91,10 +90,9 @@ cl2CC.TbVR(dat.fr,c1,c2)
 dat2<-rbind(dat,c(.2,.4))
 cl2CC.TbVR(dat2,c1,c2)
 
-cl2CC.TbVR(dat2,c1,c2,ch.all.intri = TRUE)
-#gives an error message since not all points are in the basic triangle
-}
-
+cl2CC.TbVR(dat2,c1,c2,ch.all.intri = FALSE)
+#gives an error message if ch.all.intri = TRUE
+#since not all points are in the basic triangle
 
 }
 \references{
@@ -103,4 +101,7 @@ cl2CC.TbVR(dat2,c1,c2,ch.all.intri = TRUE)
 \seealso{
 \code{\link{cl2CC.VR}}, \code{\link{cl2eTbVRcent}}, \code{\link{cl2eVRcent}}, \code{\link{cl2eVRCM}}
 and \code{\link{fr2eTeER}}
+}
+\author{
+Elvan Ceyhan
 }

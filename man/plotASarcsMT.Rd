@@ -24,18 +24,18 @@ plotASarcsMT(
 \item{Yp}{A set of 2D points which constitute the vertices of the Delaunay triangulation. The Delaunay
 triangles partition the convex hull of \code{Yp} points.}
 
-\item{M}{The center of the triangle. "CC" stands for circumcenter of each Delaunay triangle \code{tri}
+\item{M}{The center of the triangle. \code{"CC"} stands for circumcenter of each Delaunay triangle \code{tri}
 or 3D point in barycentric coordinates which serves as a center in the interior of each Delaunay triangle;
-default is \code{M}="CC" i.e. the circumcenter of each triangle.}
+default is \code{M="CC"} i.e., the circumcenter of each triangle.}
 
-\item{asp}{A numeric value, giving the aspect ratio for y axis to x-axis y/x (default is \code{NA}),
-see the official help for \code{asp} by typing "? asp".}
+\item{asp}{A \code{numeric} value, giving the aspect ratio for \eqn{y} axis to \eqn{x}-axis \eqn{y/x} (default is \code{NA}),
+see the official help page for \code{asp} by typing "\code{? asp}".}
 
-\item{main}{An overall title for the plot (default="").}
+\item{main}{An overall title for the plot (default=\code{""}).}
 
-\item{xlab, ylab}{Titles for the x and y axes, respectively (default="" for both).}
+\item{xlab, ylab}{Titles for the \eqn{x} and \eqn{y} axes, respectively (default=\code{""} for both).}
 
-\item{xlim, ylim}{Numeric vectors of length 2, giving the x- and y-coordinate ranges
+\item{xlim, ylim}{Two \code{numeric} vectors of length 2, giving the \eqn{x}- and \eqn{y}-coordinate ranges
 (default=\code{NULL} for both).}
 
 \item{\dots}{Additional \code{plot} parameters.}
@@ -43,7 +43,7 @@ see the official help for \code{asp} by typing "? asp".}
 \value{
 A plot of the arcs of the AS-PCD for a 2D data set \code{Xp} where AS proximity regions
 are defined with respect to the Delaunay triangles based on \code{Yp} points; also plots the Delaunay triangles
-based on \code{Yp} points
+based on \code{Yp} points.
 }
 \description{
 Plots the arcs of AS-PCD whose vertices are the data points in \code{Xp} and Delaunay triangles based on \code{Yp} points.
@@ -52,9 +52,9 @@ AS proximity regions are constructed with respect to the Delaunay triangles base
 AS proximity regions are defined only for \code{Xp} points inside the convex hull of \code{Yp} points.
 That is, arcs may exist for \code{Xp} points only inside the convex hull of \code{Yp} points.
 
-Vertex regions are based on the center \code{M}="CC"
+Vertex regions are based on the center \code{M="CC"}
 for circumcenter of each Delaunay triangle or \eqn{M=(\alpha,\beta,\gamma)} in barycentric coordinates in the
-interior of each Delaunay triangle; default is \code{M}="CC" i.e. circumcenter of each triangle.
+interior of each Delaunay triangle; default is \code{M="CC"} i.e., circumcenter of each triangle.
 
 See (\insertCite{ceyhan:Phd-thesis,ceyhan:comp-geo-2010,ceyhan:mcap2012;textual}{pcds}) for more on AS-PCDs.
 Also see (\insertCite{okabe:2000,ceyhan:comp-geo-2010,sinclair:2016;textual}{pcds}) for more on Delaunay triangulation and the corresponding algorithm.
@@ -89,4 +89,7 @@ plotASarcsMT(Xp,Yp,M,asp=1,xlab="",ylab="",xlim=Xlim+xd*c(-.01,.01),ylim=Ylim+yd
 \seealso{
 \code{\link{plotASarcsTri}}, \code{\link{plotPEarcsTri}}, \code{\link{plotPEarcsMT}},
 \code{\link{plotCSarcsTri}}, and \code{\link{plotCSarcsMT}}
+}
+\author{
+Elvan Ceyhan
 }

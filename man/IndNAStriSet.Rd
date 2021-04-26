@@ -15,24 +15,24 @@ regions of points in \code{S} or not.}
 
 \item{tri}{Three 2D points, stacked row-wise, each row representing a vertex of the triangle.}
 
-\item{M}{The center of the triangle. "CC" stands for circumcenter of the triangle \code{tri} or a 2D point in Cartesian coordinates or
+\item{M}{The center of the triangle. \code{"CC"} stands for circumcenter of the triangle \code{tri} or a 2D point in Cartesian coordinates or
 a 3D point in barycentric coordinates which serves as a center in the interior of \code{tri};
-default is \code{M}="CC" i.e. the circumcenter of \code{tri}.}
+default is \code{M="CC"} i.e., the circumcenter of \code{tri}.}
 }
 \value{
-I(\code{pt} in U_{x in \code{S}}NAS(x,r)), that is, returns 1 if \code{pt} is in \code{S} or inside NAS(x) for at least
-one x in \code{S}, returns 0 otherwise, where AS proximity region is constructed in tri
+\eqn{I(pt \in \cup_{x in S}N_{AS}(x,r))}, that is, returns 1 if \code{pt} is in \code{S} or inside \eqn{N_{AS}(x)} for at least
+one \eqn{x} in \code{S}, returns 0 otherwise, where AS proximity region is constructed in \code{tri}
 }
 \description{
-Returns I(\eqn{pt \in N_{AS}(x)} for some \eqn{x \in S}), that is, returns 1 if \code{pt} is in \eqn{\cup_{x \in S}NAS(x)},
+Returns I(\eqn{pt \in N_{AS}(x)} for some \eqn{x \in S}), that is, returns 1 if \eqn{pt} is in \eqn{\cup_{x \in S}N_{AS}(x)},
 returns 0 otherwise, where \eqn{N_{AS}(x)} is the AS proximity region for point \eqn{x}.
 
-AS proximity regions are constructed with respect to the triangle, \eqn{tri=T(A,B,C)=(rv=1,rv=2,rv=3)},
+AS proximity regions are constructed with respect to the triangle, \code{tri}\eqn{=T(A,B,C)=}\code{(rv=1,rv=2,rv=3)},
 and vertices of \code{tri} are also labeled as 1,2, and 3, respectively.
 
-Vertex regions are based on the center \code{M}="CC" for circumcenter of \code{tri};
+Vertex regions are based on the center \code{M="CC"} for circumcenter of \code{tri};
 or \eqn{M=(m_1,m_2)} in Cartesian coordinates or \eqn{M=(\alpha,\beta,\gamma)} in barycentric coordinates in the
-interior of the triangle \code{tri}; default is \code{M}="CC" i.e. circumcenter of \code{tri}.
+interior of the triangle \code{tri}; default is \code{M="CC"} i.e., circumcenter of \code{tri}.
 
 If \code{pt} is not in \code{S} and either \code{pt} or all points in \code{S} are outside \code{tri}, it returns 0,
 but if \code{pt} is in \code{S}, then it always returns 1 (i.e., loops are allowed).
@@ -86,4 +86,7 @@ IndNAStriSet(dat.fr,P,Tr,M)
 }
 \seealso{
 \code{\link{IndNAStri}}, \code{\link{IndNAStriSet}}, and \code{\link{IndNCStriSet}}
+}
+\author{
+Elvan Ceyhan
 }

@@ -2,7 +2,7 @@
 % Please edit documentation in R/PCDFunctions.r
 \name{fr2vVRCC}
 \alias{fr2vVRCC}
-\title{The furthest points in a data set from vertices in each CC-vertex region in a triangle}
+\title{The furthest points in a data set from vertices in each \eqn{CC}-vertex region in a triangle}
 \usage{
 fr2vVRCC(Dt, tri, ch.all.intri = FALSE)
 }
@@ -12,38 +12,38 @@ fr2vVRCC(Dt, tri, ch.all.intri = FALSE)
 \item{tri}{Three 2D points, stacked row-wise, each row representing a vertex of the triangle.}
 
 \item{ch.all.intri}{A logical argument (default=\code{FALSE}) to check whether all data points are inside
-the triangle \code{tri}. So if it is \code{TRUE},
-the function checks if all data points are inside the closure of the triangle (i.e. interior and boundary
+the triangle \code{tri}. So, if it is \code{TRUE},
+the function checks if all data points are inside the closure of the triangle (i.e., interior and boundary
 combined) else it does not.}
 }
 \value{
-A list with the elements
-\item{txt1}{Vertex labels are A=1, B=2, and C=3 (corresponds to row number in Extrema Points).}
-\item{txt2}{A short description of the distances as "Distances to Vertices...".}
+A \code{list} with the elements
+\item{txt1}{Vertex labels are \eqn{A=1}, \eqn{B=2}, and \eqn{C=3} (corresponds to row number in Extremum Points).}
+\item{txt2}{A short description of the distances as \code{"Distances from furthest points to ..."}.}
 \item{type}{Type of the extrema points}
 \item{desc}{A short description of the extrema points}
-\item{mtitle}{The "main" title for the plot of the exrema}
-\item{ext}{The extrema points, here, furthest points from vertices in each CC-vertex region in the
+\item{mtitle}{The \code{"main"} title for the plot of the extrema}
+\item{ext}{The extrema points, here, furthest points from vertices in each \eqn{CC}-vertex region in the
 triangle \code{tri}.}
-\item{X}{The input data, \code{Dt}, can be a matrix or data frame}
+\item{X}{The input data, \code{Dt}, can be a \code{matrix} or \code{data frame}}
 \item{num.points}{The number of data points, i.e., size of \code{Dt}}
 \item{supp}{Support of the data points, here, it is the triangle \code{tri} for this function.}
 \item{cent}{The center point used for construction of edge regions.}
-\item{ncent}{Name of the center, \code{cent}, it is circumcenter "CC" for this function}
+\item{ncent}{Name of the center, \code{cent}, it is circumcenter \code{"CC"} for this function}
 \item{regions}{CC-Vertex regions inside the triangle, \code{tri}, provided as a list}
-\item{region.names}{Names of the vertex regions as "vr=1","vr=2","vr=3"}
+\item{region.names}{Names of the vertex regions as \code{"vr=1"}, \code{"vr=2"}, and \code{"vr=3"}}
 \item{region.centers}{Centers of mass of the vertex regions inside \code{tri}}
 \item{dist2ref}{Distances from furthest points in each vertex region to the corresponding vertex}
 }
 \description{
-An object of class "Extrema".
-Returns the furthest data points among the data set, \code{Dt}, in each CC-vertex region from the vertex in the
-triangle, \eqn{tri=T(A,B,C)}. Vertex region labels/numbers correspond to the row number of the vertex in \code{tri}.
+An object of class \code{"Extrema"}.
+Returns the furthest data points among the data set, \code{Dt}, in each \eqn{CC}-vertex region from the vertex in the
+triangle, \code{tri}\eqn{=T(A,B,C)}. Vertex region labels/numbers correspond to the row number of the vertex in \code{tri}.
 \code{ch.all.intri} is for checking whether all data points are inside \code{tri} (default is \code{FALSE}).
 
-If some of the data points are not inside \code{tri} and \code{ch.all.intri}=\code{TRUE}, then the function yields
+If some of the data points are not inside \code{tri} and \code{ch.all.intri=TRUE}, then the function yields
 an error message.
-If some of the data points are not inside \code{tri} and \code{ch.all.intri}=\code{FALSE}, then the function yields
+If some of the data points are not inside \code{tri} and \code{ch.all.intri=FALSE}, then the function yields
 the closest points to edges among the data points inside \code{tri} (yields \code{NA} if there are no data points
 inside \code{tri}).
 
@@ -99,10 +99,11 @@ fr2vVRCC(dat,dat.fr)
 
 dat2<-rbind(dat,c(.2,.4))
 fr2vVRCC(dat2,Tr)
-\dontrun{
-fr2vVRCC(dat2,Tr,ch.all.intri = TRUE)
-#gives an error message since not all points in the data set are in the triangle
-}
+
+fr2vVRCC(dat2,Tr,ch.all.intri = FALSE)
+#gives an error message if ch.all.intri = TRUE
+#since not all points in the data set are in the triangle
+
 
 }
 \references{
@@ -110,4 +111,7 @@ fr2vVRCC(dat2,Tr,ch.all.intri = TRUE)
 }
 \seealso{
 \code{\link{fr2vTbVRCC}}, \code{\link{fr2eTeER}}, \code{\link{Kfr2vTbVRCC}} and \code{\link{Kfr2vVRCC}}
+}
+\author{
+Elvan Ceyhan
 }

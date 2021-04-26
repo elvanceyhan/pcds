@@ -15,7 +15,7 @@ IncMatCStri(dat, tri, t, M = c(1, 1, 1))
 
 \item{M}{A 2D point in Cartesian coordinates or a 3D point in barycentric coordinates
 which serves as a center in the interior of the triangle \code{tri};
-default is \eqn{M=(1,1,1)} i.e. the center of mass of \code{tri}.}
+default is \eqn{M=(1,1,1)} i.e., the center of mass of \code{tri}.}
 }
 \value{
 Incidence matrix for the CS-PCD with vertices being 2D data set, \code{dat},
@@ -23,12 +23,12 @@ in the triangle \code{tri} with edge regions based on center \code{M}
 }
 \description{
 Returns the incidence matrix for the CS-PCD whose vertices are the given 2D numerical data set, \code{dat},
-in the triangle \eqn{tri=T(v=1,v=2,v=3)}.
+in the triangle \code{tri}\eqn{=T(v=1,v=2,v=3)}.
 
 CS proximity regions are constructed with respect to triangle \code{tri}
 with expansion parameter \eqn{t>0} and edge regions are based on the center \eqn{M=(m_1,m_2)} in Cartesian coordinates
 or \eqn{M=(\alpha,\beta,\gamma)} in barycentric coordinates in the interior of the triangle \code{tri};
-default is \eqn{M=(1,1,1)} i.e. the center of mass of \code{tri}.
+default is \eqn{M=(1,1,1)} i.e., the center of mass of \code{tri}.
 Loops are allowed, so the diagonal entries are all equal to 1.
 
 See also (\insertCite{ceyhan:Phd-thesis,ceyhan:arc-density-CS,ceyhan:test2014;textual}{pcds}).
@@ -68,4 +68,7 @@ IncMatCStri(dat,dat.fr,t,M)
 }
 \seealso{
 \code{\link{IncMatCSMT}}, \code{\link{IncMatPEtri}}, and  \code{\link{IncMatAStri}}
+}
+\author{
+Elvan Ceyhan
 }

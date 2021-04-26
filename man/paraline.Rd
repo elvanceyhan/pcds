@@ -2,7 +2,7 @@
 % Please edit documentation in R/PCDFunctions.r
 \name{paraline}
 \alias{paraline}
-\title{The line paralel to the line segment joining two distinct 2D points \code{a} and \code{b}}
+\title{The line parallel to the line segment joining two distinct 2D points \code{a} and \code{b}}
 \usage{
 paraline(p, a, b, x)
 }
@@ -11,26 +11,26 @@ paraline(p, a, b, x)
 
 \item{a, b}{2D points that determine the line segment (the line will be parallel to this line segment).}
 
-\item{x}{A scalar or a vector of scalars representing the x-coordinates of the line parallel to
-ab and crossing \code{p}.}
+\item{x}{A scalar or a \code{vector} of scalars representing the \eqn{x}-coordinates of the line parallel to
+\code{ab} and crossing \code{p}.}
 }
 \value{
-A list with the elements
+A \code{list} with the elements
 \item{desc}{Description of the line passing through point \code{p} and parallel to line segment joining
 \code{a} and \code{b}}
-\item{mtitle}{The "main" title for the plot of the line passing through point \code{p} and parallel to
+\item{mtitle}{The \code{"main"} title for the plot of the line passing through point \code{p} and parallel to
 line segment joining \code{a} and \code{b}}
-\item{points}{The input points p, a, and b (stacked row-wise,
+\item{points}{The input points \code{p}, \code{a}, and \code{b} (stacked row-wise,
 i.e., point \code{p} is in row 1, point \code{a} is in row 2 and point \code{b} is in row 3).
-Line parallel to ab crosses p.}
-\item{x}{The input vector. It can be a scalar or a vector of scalars,
-which constitute the x-coordinates of the point(s) of interest on the line passing through point
+Line parallel to \code{ab} crosses p.}
+\item{x}{The input vector. It can be a scalar or a \code{vector} of scalars,
+which constitute the \eqn{x}-coordinates of the point(s) of interest on the line passing through point
 \code{p} and parallel to line segment joining \code{a} and \code{b}.}
-\item{y}{The output scalar or vector which constitutes the y-coordinates of the point(s) of interest
+\item{y}{The output scalar or \code{vector} which constitutes the \eqn{y}-coordinates of the point(s) of interest
 on the line passing through point \code{p} and parallel to line segment joining \code{a} and \code{b}.
-If \code{x} is a scalar, then \code{y} will be a scalar and if \code{x} is a vector of scalars,
-then \code{y} will be a vector of scalars.}
-\item{slope}{Slope of the line, Inf is allowed, passing through point \code{p} and parallel to
+If \code{x} is a scalar, then \code{y} will be a scalar and if \code{x} is a \code{vector} of scalars,
+then \code{y} will be a \code{vector} of scalars.}
+\item{slope}{Slope of the line, \code{Inf} is allowed, passing through point \code{p} and parallel to
 line segment joining \code{a} and \code{b}}
 \item{intercept}{Intercept of the line passing through point \code{p} and parallel to line segment
 joining \code{a} and \code{b}}
@@ -38,10 +38,10 @@ joining \code{a} and \code{b}}
 \code{a} and \code{b}}
 }
 \description{
-An object of class "Lines".
-Returns the \code{equation, slope, intercept}, and y-coordinates of the line crossing the
+An object of class \code{"Lines"}.
+Returns the \code{equation, slope, intercept}, and \eqn{y}-coordinates of the line crossing the
 point \code{p} and parallel to the line passing through the points \code{a} and \code{b} with
-x-coordinates are provided in vector \code{x}.
+\eqn{x}-coordinates are provided in \code{vector} \code{x}.
 }
 \examples{
 A<-c(1.1,1.2); B<-c(2.3,3.4); p<-c(.51,2.5)
@@ -80,5 +80,8 @@ text(tx,ty,"line parallel to AB\n and crossing p")
 }
 \seealso{
 \code{\link{slope}}, \code{\link{Line}}, and \code{\link{perpline}}, \code{\link[stats]{line}}
-in the generic stats package, \code{\link{paraline3D}}
+in the generic \code{stats} package, \code{\link{paraline3D}}
+}
+\author{
+Elvan Ceyhan
 }

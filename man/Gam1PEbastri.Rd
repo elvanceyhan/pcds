@@ -16,39 +16,39 @@ Gam1PEbastri(p, Dt, r, c1, c2, M = c(1, 1, 1), rv = NULL, ch.data.pnt = FALSE)
 must be \eqn{\ge 1}.}
 
 \item{c1, c2}{Positive real numbers which constitute the vertex of the basic triangle
-adjacent to the shorter edges; \code{c1} must be in \eqn{[0,1/2]}, \eqn{c_2>0} and \eqn{(1-c_1)^2+c_2^2 \le 1}.}
+adjacent to the shorter edges; \eqn{c_1} must be in \eqn{[0,1/2]}, \eqn{c_2>0} and \eqn{(1-c_1)^2+c_2^2 \le 1}.}
 
 \item{M}{A 2D point in Cartesian coordinates or a 3D point in barycentric coordinates
 which serves as a center in the interior of the basic triangle \eqn{T_b} or the circumcenter of \eqn{T_b};
-default is \eqn{M=(1,1,1)} i.e. the center of mass of \eqn{T_b}.}
+default is \eqn{M=(1,1,1)} i.e., the center of mass of \eqn{T_b}.}
 
-\item{rv}{Index of the vertex whose region contains point \code{p}, \code{rv} takes the vertex labels as 1,2,3 as
+\item{rv}{Index of the vertex whose region contains point \code{p}, \code{rv} takes the vertex labels as \eqn{1,2,3} as
 in the row order of the vertices in \eqn{T_b}.}
 
 \item{ch.data.pnt}{A logical argument for checking whether point \code{p} is a data point in \code{Dt} or not
 (default is \code{FALSE}).}
 }
 \value{
-I(\code{p} is a dominating point of the PE-PCD) where the vertices of the PE-PCD are the 2D data set \code{Dt},
+\eqn{I(}\code{p} is a dominating point of the PE-PCD\eqn{)} where the vertices of the PE-PCD are the 2D data set \code{Dt},
 that is, returns 1 if \code{p} is a dominating point, returns 0 otherwise
 }
 \description{
-Returns I(\code{p} is a dominating point of the PE-PCD) where the vertices of the PE-PCD are the 2D data set \code{Dt} for data in the basic triangle
+Returns \eqn{I(}\code{p} is a dominating point of the PE-PCD\eqn{)} where the vertices of the PE-PCD are the 2D data set \code{Dt} for data in the basic triangle
 \eqn{T_b=T((0,0),(1,0),(c_1,c_2))}, that is, returns 1 if \code{p} is a dominating point of PE-PCD, returns 0 otherwise.
 
 PE proximity regions are defined with respect to the basic triangle \eqn{T_b}.
-In the basic triangle, \eqn{T_b}, \code{c1} is in \eqn{[0,1/2]}, \eqn{c_2>0} and \eqn{(1-c_1)^2+c_2^2 \le 1}.
+In the basic triangle, \eqn{T_b}, \eqn{c_1} is in \eqn{[0,1/2]}, \eqn{c_2>0} and \eqn{(1-c_1)^2+c_2^2 \le 1}.
 
 Any given triangle can be mapped to the basic triangle by a combination of rigid body motions
 (i.e., translation, rotation and reflection) and scaling, preserving uniformity of the points in the
 original triangle. Hence basic triangle is useful for simulation
-studies under the uniformness hypothesis.
+studies under the uniformity hypothesis.
 
 Vertex regions are based on center \eqn{M=(m_1,m_2)} in Cartesian
 coordinates or \eqn{M=(\alpha,\beta,\gamma)} in barycentric coordinates in the interior of a basic triangle
 to the edges on the extension of the lines joining \code{M} to the vertices or based on the circumcenter of \eqn{T_b};
-default is \eqn{M=(1,1,1)} i.e. the center of mass of \eqn{T_b}.
-Point, \code{p}, is in the vertex region of vertex \code{rv} (default is \code{NULL}); vertices are labeled as 1,2,3
+default is \eqn{M=(1,1,1)} i.e., the center of mass of \eqn{T_b}.
+Point, \code{p}, is in the vertex region of vertex \code{rv} (default is \code{NULL}); vertices are labeled as \eqn{1,2,3}
 in the order they are stacked row-wise.
 
 \code{ch.data.pnt} is for checking whether point \code{p} is a data point in \code{Dt} or not (default is \code{FALSE}),
@@ -76,10 +76,10 @@ Gam1PEbastri(P,P,r,c1,c2,M)
 Gam1PEbastri(dat[1,],dat,r,c1,c2,M)
 
 Gam1PEbastri(c(1,1),dat,r,c1,c2,M)
-\dontrun{
-Gam1PEbastri(c(1,1),dat,r,c1,c2,M,ch.data.pnt = TRUE)
-#gives an error message since point p=c(1,1) is not a data point in Dt
-}
+
+Gam1PEbastri(c(1,1),dat,r,c1,c2,M,ch.data.pnt = FALSE)
+#gives an error message if ch.data.pnt = TRUE since point p=c(1,1) is not a data point in Dt
+
 Gam1PEbastri(c(1,1),c(1,1),r,c1,c2,M)
 
 #or try
@@ -136,10 +136,8 @@ Gam1PEbastri(P,rbind(dat,dat),r,c1,c2,M)
 dat.fr<-data.frame(a=dat)
 Gam1PEbastri(P,dat.fr,r,c1,c2,M)
 
-\dontrun{
-Gam1PEbastri(c(.2,.1),dat,r,c1,c2,M,ch.data.pnt=TRUE)
-#gives an error message since point p is not a data point in Dt
-}
+Gam1PEbastri(c(.2,.1),dat,r,c1,c2,M,ch.data.pnt=FALSE)
+#gives an error message if ch.data.pnt=TRUE since point p is not a data point in Dt
 
 }
 \references{
@@ -147,4 +145,7 @@ Gam1PEbastri(c(.2,.1),dat,r,c1,c2,M,ch.data.pnt=TRUE)
 }
 \seealso{
 \code{\link{Gam1ASbastri}} and \code{\link{Gam1AStri}}
+}
+\author{
+Elvan Ceyhan
 }

@@ -2,24 +2,24 @@
 % Please edit documentation in R/AuxRFuncs4PCDClasses.r
 \name{summary.Lines}
 \alias{summary.Lines}
-\title{Return a summary of a \code{Lines} object}
+\title{Return a summary of a \code{Lines} \code{object}}
 \usage{
 \method{summary}{Lines}(object, ...)
 }
 \arguments{
-\item{object}{Object of class \code{Lines}.}
+\item{object}{An \code{object} of class \code{Lines}.}
 
 \item{\dots}{Additional parameters for \code{summary}.}
 }
 \value{
-The \code{call} of the object of class '\code{Lines}',
-the defining \code{points}, selected x and y points on the line,
-equation of the line, and \code{coefficients} of the line (in the form: y = slope * x + intercept).
+The \code{call} of the \code{object} of class \code{"Lines"},
+the defining \code{points}, selected \eqn{x} and \eqn{y} points on the line,
+equation of the line, and \code{coefficients} of the line (in the form: \code{y = slope * x + intercept}).
 }
 \description{
 Returns the below information about the \code{object}:
 
-\code{call} of the function defining the \code{object}, the defining \code{points}, selected x and y points on the line,
+\code{call} of the function defining the \code{object}, the defining \code{points}, selected \eqn{x} and \eqn{y} points on the line,
 equation of the line, and \code{coefficients} of the line.
 }
 \examples{

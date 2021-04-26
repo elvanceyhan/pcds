@@ -2,32 +2,32 @@
 % Please edit documentation in R/PCDFunctions.r
 \name{rv.tetraCC}
 \alias{rv.tetraCC}
-\title{The index of the CC-vertex region in a tetrahedron that contains a point}
+\title{The index of the \eqn{CC}-vertex region in a tetrahedron that contains a point}
 \usage{
 rv.tetraCC(p, th)
 }
 \arguments{
-\item{p}{A 3D point for which CC-vertex region it resides in is to be determined in the
+\item{p}{A 3D point for which \eqn{CC}-vertex region it resides in is to be determined in the
 tetrahedron \code{th}.}
 
 \item{th}{Four 3D points, stacked row-wise, each row representing a vertex of the tetrahedron.}
 }
 \value{
-A list with two elements
-\item{rv}{Index of the CC-vertex region that contains point, \code{p} in the tetrahedron \code{th}}
+A \code{list} with two elements
+\item{rv}{Index of the \eqn{CC}-vertex region that contains point, \code{p} in the tetrahedron \code{th}}
 \item{tri}{The vertices of the tetrahedron, where row number corresponds to the vertex index in \code{rv}.}
 }
 \description{
 Returns the index of the vertex whose region contains point \code{p} in
-a tetrahedron \eqn{th=T(A,B,C,D)} and vertex regions are based on the circumcenter CC of \code{th}.
+a tetrahedron \eqn{th=T(A,B,C,D)} and vertex regions are based on the circumcenter \eqn{CC} of \code{th}.
 (see the plots in the example for illustrations).
 
 The vertices of the tetrahedron \code{th} are labeled as
-1=A, 2=B, 3=C, and 4=C also according to the row number the vertex is recorded in \code{th}.
+\eqn{1=A}, \eqn{2=B}, \eqn{3=C}, and \eqn{4=C} also according to the row number the vertex is recorded in \code{th}.
 
 If the point, \code{p}, is not inside \code{th}, then the function yields \code{NA} as output.
 The corresponding vertex region is the polygon whose interior points are closest to that vertex.
-If \code{th} is regular tetrahedron, then CC and CM (center of mass) coincide.
+If \code{th} is regular tetrahedron, then \eqn{CC} and \eqn{CM} (center of mass) coincide.
 
 See also (\insertCite{ceyhan:Phd-thesis,ceyhan:comp-geo-2010;textual}{pcds}).
 }
@@ -105,4 +105,7 @@ rv.tetraCC(P,dat.fr)
 }
 \seealso{
 \code{\link{rv.tetraCM}} and \code{\link{rv.triCC}}
+}
+\author{
+Elvan Ceyhan
 }

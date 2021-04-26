@@ -11,11 +11,11 @@ rascMT(n, Yp, delta, DTmesh = NULL, DTr = NULL)
 
 \item{Yp}{A set of 2D points from which Delaunay triangulation is constructed.}
 
-\item{delta}{A positive real number in (0,4/9). \code{delta} is the parameter of association (that is, only
+\item{delta}{A positive real number in \eqn{(0,4/9)}. \code{delta} is the parameter of association (that is, only
 \eqn{\delta 100} \% area around each vertex in each Delaunay triangle is allowed for point generation).}
 
 \item{DTmesh}{Delaunay triangulation of \code{Yp}, default is \code{NULL}, which is computed via \code{\link[interp]{tri.mesh}} function
-in \code{interp} package. \code{\link[interp]{tri.mesh}} function yields the triangulation nodes with their neigbours, and
+in \code{interp} package. \code{\link[interp]{tri.mesh}} function yields the triangulation nodes with their neighbours, and
 creates a triangulation object.}
 
 \item{DTr}{Delaunay triangles based on \code{Yp}, default is \code{NULL}, which is computed via \code{\link[interp]{tri.mesh}} function
@@ -23,23 +23,23 @@ in \code{interp} package. \code{\link[interp]{triangles}} function yields a tria
 by \code{\link[interp]{tri.mesh}}.}
 }
 \value{
-A list with the elements
+A \code{list} with the elements
 \item{type}{The type of the pattern from which points are to be generated}
-\item{mtitle}{The "main" title for the plot of the point pattern}
-\item{parameters}{Attraction parameter, \code{delta}, of the Type I association pattern. \code{delta} is in (0,4/9)
+\item{mtitle}{The \code{"main"} title for the plot of the point pattern}
+\item{parameters}{Attraction parameter, \code{delta}, of the Type I association pattern. \code{delta} is in \eqn{(0,4/9)}
 only \eqn{\delta 100} \% of the area around each vertex in each Delaunay triangle is allowed for point generation.}
 \item{ref.points}{The input set of points \code{Yp};
 reference points, i.e., points with which generated points are associated.}
 \item{gen.points}{The output set of generated points associated with \code{Yp} points.}
 \item{tri.Y}{Logical output, \code{TRUE} if triangulation based on \code{Yp} points should be implemented.}
 \item{desc.pat}{Description of the point pattern}
-\item{num.points}{The vector of two numbers, which are the number of generated points
+\item{num.points}{The \code{vector} of two numbers, which are the number of generated points
 and the number of reference (i.e., \code{Yp}) points.}
-\item{xlimit,ylimit}{The ranges of the x- and y-coordinates of the reference points, which are the
+\item{xlimit,ylimit}{The ranges of the \eqn{x}- and \eqn{y}-coordinates of the reference points, which are the
 \code{Yp} points}
 }
 \description{
-An object of class "Patterns".
+An object of class \code{"Patterns"}.
 Generates \code{n} points uniformly in the support for Type I association in the convex hull of set of points, \code{Yp}.
 \code{delta} is the parameter of association (that is, only \eqn{\delta 100} \% area around each vertex in each Delaunay
 triangle is allowed for point generation).
@@ -54,9 +54,9 @@ function \code{\link{rasc.tri}}.
 and \code{DTr} must be the corresponding Delaunay triangles (both \code{DTmesh} and \code{DTr} are \code{NULL} by default).
 If \code{NULL}, \code{DTmesh} is computed via \code{\link[interp]{tri.mesh}} and \code{DTr} is computed via \code{\link[interp]{triangles}} function in \code{interp} package.
 
-\code{\link[interp]{tri.mesh}} function yields the triangulation nodes with their neigbours, and creates a triangulation object,
+\code{\link[interp]{tri.mesh}} function yields the triangulation nodes with their neighbours, and creates a triangulation object,
 and \code{\link[interp]{triangles}} function yields a triangulation data structure from the triangulation object created
-by \code{\link[interp]{tri.mesh}} (the first three colums are the vertex indices of the Delaunay triangles).
+by \code{\link[interp]{tri.mesh}} (the first three columns are the vertex indices of the Delaunay triangles).
 
 See (\insertCite{ceyhan:arc-density-PE,ceyhan:arc-density-CS,ceyhan:dom-num-NPE-Spat2011;textual}{pcds}) for more on the
 association pattern.
@@ -119,4 +119,7 @@ rascMT(nx,dat.fr,del)
 }
 \seealso{
 \code{\link{rasc.disc}}, \code{\link{rascTe}}, \code{\link{rascIITe}}, and \code{\link{rsegMT}}
+}
+\author{
+Elvan Ceyhan
 }

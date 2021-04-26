@@ -31,7 +31,7 @@ Ylim<-range(Tr[,2],CC[2])
 xd<-Xlim[2]-Xlim[1]
 yd<-Ylim[2]-Ylim[1]
 
-oldpar <- par(mfrow = c(1,2))
+oldpar <- par(no.readonly = TRUE)
 par(pty="s")
 plot(A,asp=1,pch=".",xlab="",ylab="",axes=TRUE,xlim=Xlim+xd*c(-.05,.05),ylim=Ylim+yd*c(-.05,.05))
 polygon(Tr)
@@ -63,4 +63,7 @@ circ.cent.tri(dat.fr)
 }
 \seealso{
 \code{\link{circ.cent.bastri}}
+}
+\author{
+Elvan Ceyhan
 }

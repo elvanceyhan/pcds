@@ -4,8 +4,8 @@
 \alias{funsMuVarPEend1D}
 \alias{muPEend1D}
 \alias{asyvarPEend1D}
-\title{Returns the mean and (asymptotic) variance of arc density of Proportional Edge Proximity Catch Digraph (PE-PCD)
-for 1D data - end interval case}
+\title{Returns the mean and (asymptotic) variance of arc density of Proportional Edge Proximity Catch Digraph
+(PE-PCD) for 1D data - end interval case}
 \usage{
 muPEend1D(r)
 
@@ -57,7 +57,7 @@ for (i in 1:lrseq)
   var.end<-c(var.end,asyvarPEend1D(rseq[i]))
 }
 
-oldpar <- par(mfrow = c(1,2))
+oldpar <- par(no.readonly = TRUE)
 par(mar=c(5,5,4,2))
 plot(rseq, var.end,type="l",
 xlab="r",ylab=expression(paste(sigma^2,"(r)")),lty=1,xlim=range(rseq))
@@ -69,4 +69,7 @@ par(oldpar)
 }
 \seealso{
 \code{\link{muCSend1D}} and \code{\link{asyvarCSend1D}}
+}
+\author{
+Elvan Ceyhan
 }

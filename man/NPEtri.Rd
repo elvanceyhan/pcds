@@ -16,9 +16,9 @@ must be \eqn{\ge 1}.}
 
 \item{M}{A 2D point in Cartesian coordinates or a 3D point in barycentric coordinates
 which serves as a center in the interior of the triangle \code{tri} or the circumcenter of \code{tri};
-default is \eqn{M=(1,1,1)} i.e. the center of mass of \code{tri}.}
+default is \eqn{M=(1,1,1)} i.e., the center of mass of \code{tri}.}
 
-\item{rv}{Index of the \code{M}-vertex region containing the point \code{pt}, either 1, 2, 3 or \code{NULL}
+\item{rv}{Index of the \code{M}-vertex region containing the point \code{pt}, either \code{1,2,3} or \code{NULL}
 (default is \code{NULL}).}
 }
 \value{
@@ -27,14 +27,14 @@ Vertices of the triangular region which constitutes the PE proximity region with
 }
 \description{
 Returns the vertices of the PE proximity region (which is itself a triangle) for a point in the
-triangle \eqn{tri=T(A,B,C)=(rv=1,rv=2,rv=3)}.
+triangle \code{tri}\eqn{=T(A,B,C)=}\code{(rv=1,rv=2,rv=3)}.
 
 PE proximity region is defined with respect to the triangle \code{tri}
 with expansion parameter \eqn{r \ge 1} and vertex regions based on center \eqn{M=(m_1,m_2)} in Cartesian coordinates or
 \eqn{M=(\alpha,\beta,\gamma)} in barycentric coordinates in the interior of the triangle \code{tri}
-or based on the circumcenter of \code{tri}; default is \eqn{M=(1,1,1)} i.e. the center of mass of \code{tri}.
+or based on the circumcenter of \code{tri}; default is \eqn{M=(1,1,1)} i.e., the center of mass of \code{tri}.
 
-Vertex regions are labeled as 1,2,3 rowwise for the vertices
+Vertex regions are labeled as \eqn{1,2,3} rowwise for the vertices
 of the triangle \code{tri}. \code{rv} is the index of the vertex region \code{pt} resides, with default=\code{NULL}.
 If \code{pt} is outside of \code{tri}, it returns \code{NULL} for the proximity region.
 
@@ -85,4 +85,7 @@ NPEtri(P2,r,dat.fr,M)
 \seealso{
 \code{\link{NPEbastri}}, \code{\link{NAStri}}, \code{\link{NCStri}}
 and \code{\link{IndNPEtri}}
+}
+\author{
+Elvan Ceyhan
 }

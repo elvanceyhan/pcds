@@ -16,22 +16,22 @@ IndNPEstdtetra(pt1, pt2, r, rv = NULL)
 \item{r}{A positive real number which serves as the expansion parameter in PE proximity region;
 must be \eqn{\ge 1}.}
 
-\item{rv}{Index of the vertex region containing the point, either 1, 2, 3, 4 (defualt is \code{NULL}).}
+\item{rv}{Index of the vertex region containing the point, either \code{1,2,3,4} (default is \code{NULL}).}
 }
 \value{
-I(\code{pt2} is in \eqn{NPE(pt1,r)}) for points \code{pt1} and \code{pt2}, that is, returns 1 if \code{pt2} is in \eqn{NPE(pt1,r)},
+\eqn{I(}\code{pt2} is in \eqn{N_{PE}(pt1,r))} for points \code{pt1} and \code{pt2}, that is, returns 1 if \code{pt2} is in \eqn{N_{PE}(pt1,r)},
 returns 0 otherwise
 }
 \description{
-Returns I(\code{pt2} is in \eqn{NPE(pt1,r)}) for points \code{pt1} and \code{pt2}, that is, returns 1 if \code{pt2} is in \eqn{NPE(pt1,r)},
-returns 0 otherwise, where \eqn{NPE(x,r)} is the PE proximity region for point \eqn{x} with expansion parameter \eqn{r \ge 1}.
+Returns \eqn{I(}\code{pt2} is in \eqn{N_{PE}(pt1,r))} for points \code{pt1} and \code{pt2}, that is, returns 1 if \code{pt2} is in \eqn{N_{PE}(pt1,r)},
+returns 0 otherwise, where \eqn{N_{PE}(x,r)} is the PE proximity region for point \eqn{x} with expansion parameter \eqn{r \ge 1}.
 
 PE proximity region is defined with respect to the standard regular tetrahedron
-\eqn{T_h=T(v=1,v=2,v=3,v=4)}=\eqn{T((0,0,0),(1,0,0),(1/2,\sqrt{3}/2,0),(1/2,\sqrt{3}/6,\sqrt{6}/3))} and vertex regions
+\eqn{T_h=T(v=1,v=2,v=3,v=4)=T((0,0,0),(1,0,0),(1/2,\sqrt{3}/2,0),(1/2,\sqrt{3}/6,\sqrt{6}/3))} and vertex regions
 are based on the circumcenter (which is equivalent to the center of mass for standard regular tetrahedron)
 of \eqn{T_h}. \code{rv} is the index of the vertex region \code{pt1} resides, with default=\code{NULL}.
 
-If \code{pt1} and \code{pt2} are distint and either of them are outside \eqn{T_h}, it returns 0,
+If \code{pt1} and \code{pt2} are distinct and either of them are outside \eqn{T_h}, it returns 0,
 but if they are identical, then it returns 1 regardless of their locations (i.e., it allows loops).
 
 See also (\insertCite{ceyhan:Phd-thesis,ceyhan:comp-geo-2010;textual}{pcds}).
@@ -70,4 +70,7 @@ IndNPEstdtetra(P1,P2,r)
 }
 \seealso{
 \code{\link{IndNPEtetra}}, \code{\link{IndNPEtri}} and \code{\link{IndNPEint}}
+}
+\author{
+Elvan Ceyhan
 }

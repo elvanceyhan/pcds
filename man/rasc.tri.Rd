@@ -12,27 +12,27 @@ in the triangle, \code{tri}.}
 
 \item{tri}{Three 2D points, stacked row-wise, each row representing a vertex of the triangle.}
 
-\item{delta}{A positive real number in (0,4/9). \code{delta} is the parameter of association (that is, only
+\item{delta}{A positive real number in \eqn{(0,4/9)}. \code{delta} is the parameter of association (that is, only
 \eqn{\delta 100} \% area around each vertex in the triangle is allowed for point generation).}
 }
 \value{
-A list with the elements
+A \code{list} with the elements
 \item{type}{The type of the pattern from which points are to be generated}
-\item{mtitle}{The "main" title for the plot of the point pattern}
-\item{parameters}{Attraction parameter, \code{delta}, of the Type I association pattern. \code{delta} is in (0,4/9)
+\item{mtitle}{The \code{"main"} title for the plot of the point pattern}
+\item{parameters}{Attraction parameter, \code{delta}, of the Type I association pattern. \code{delta} is in \eqn{(0,4/9)}
 only \eqn{\delta 100} \% of the area around each vertex in the triangle \code{tri} is allowed for point generation.}
 \item{ref.points}{The input set of points, i.e., vertices of \code{tri};
 reference points, i.e., points with which generated points are associated.}
 \item{gen.points}{The output set of generated points associated with the vertices of \code{tri}.}
 \item{tri.Y}{Logical output, \code{TRUE} if triangulation based on \code{Yp} points should be implemented.}
 \item{desc.pat}{Description of the point pattern}
-\item{num.points}{The vector of two numbers, which are the number of generated points
+\item{num.points}{The \code{vector} of two numbers, which are the number of generated points
 and the number of reference (i.e., \code{Yp}) points.}
-\item{xlimit,ylimit}{The ranges of the x- and y-coordinates of the reference points, which are the
+\item{xlimit,ylimit}{The ranges of the \eqn{x}- and \eqn{y}-coordinates of the reference points, which are the
 \code{Yp} points}
 }
 \description{
-An object of class "Patterns".
+An object of class \code{"Patterns"}.
 Generates \code{k} points uniformly in the support for Type I association in
 a given triangle, \code{tri}.
 \code{delta} is the parameter of association (that is, only \eqn{\delta 100} \% area around each vertex in
@@ -76,4 +76,7 @@ rasc.tri(n,dat.fr,del)
 }
 \seealso{
 \code{\link{rseg.tri}}, \code{\link{rascTe}}, \code{\link{rascIITe}}, and \code{\link{rascMT}}
+}
+\author{
+Elvan Ceyhan
 }

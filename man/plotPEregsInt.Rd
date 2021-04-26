@@ -3,7 +3,7 @@
 \name{plotPEregsInt}
 \alias{plotPEregsInt}
 \title{The plot of the Proportional Edge (PE) Proximity Regions for a general interval
-(vertices jittered along y-coordinate) - one interval case}
+(vertices jittered along \eqn{y}-coordinate) - one interval case}
 \usage{
 plotPEregsInt(
   dat,
@@ -26,20 +26,20 @@ plotPEregsInt(
 \item{r}{A positive real number which serves as the expansion parameter in PE proximity region;
 must be \eqn{\ge 1}.}
 
-\item{c}{A positive real number in \eqn{(0,1)} parameterizing the center inside \eqn{int=(a,b)}.
-For the interval, \eqn{int=(a,b)}, the parameterized center is \eqn{M_c=a+c(b-a)}; default=0.5}
+\item{c}{A positive real number in \eqn{(0,1)} parameterizing the center inside \code{int}\eqn{=(a,b)}.
+For the interval, \code{int}\eqn{=(a,b)}, the parameterized center is \eqn{M_c=a+c(b-a)}; default=\code{0.5}}
 
-\item{int}{A vector of two real numbers representing an interval.}
+\item{int}{A \code{vector} of two real numbers representing an interval.}
 
-\item{Jit}{A positive real number that determines the amount of jitter along the y-axis, default is 0.1 and
-\code{dat} points are jittered according to \eqn{U(-Jit,Jit)} distribution along the y-axis where \code{Jit} equals to the range of \code{dat} and proximity region
- intervals multiplied by \code{Jit}).}
+\item{Jit}{A positive real number that determines the amount of jitter along the \eqn{y}-axis, default=\code{0.1} and
+\code{dat} points are jittered according to \eqn{U(-Jit,Jit)} distribution along the \eqn{y}-axis where \code{Jit} equals to the range of \code{dat} and proximity region
+intervals multiplied by \code{Jit}).}
 
 \item{main}{Title of the main heading of the plot.}
 
-\item{xlab, ylab}{Titles for the x and y axes, respectively (default="" for both).}
+\item{xlab, ylab}{Titles for the \eqn{x} and \eqn{y} axes, respectively (default=\code{""} for both).}
 
-\item{xlim, ylim}{Numeric vectors of length 2, giving the x- and y-coordinate ranges.}
+\item{xlim, ylim}{Two \code{numeric} vectors of length 2, giving the \eqn{x}- and \eqn{y}-coordinate ranges.}
 
 \item{centers}{A logical argument, if \code{TRUE}, plot includes the centers of the intervals
 as vertical lines in the plot, else centers of the intervals are not plotted.}
@@ -51,10 +51,11 @@ Plot of the PE proximity regions for 1D points in or outside the interval \code{
 }
 \description{
 Plots the points in and outside of the interval \code{int} and also the PE proximity regions (which are also intervals).
-PE proximity regions are constructed with expansion parameter \eqn{r \ge 1} and centrality parameter \code{c} in \eqn{(0,1)}.
+PE proximity regions are constructed with expansion parameter \eqn{r \ge 1} and centrality parameter \eqn{c \in (0,1)}.
 
-For better visualization, a uniform jitter from \eqn{U(-Jit,Jit)} (default for \eqn{Jit=.1} times range of proximity
-regions and \code{dat}) is added to  the y-direction. \code{centers} is a logical argument, if \code{TRUE}, plot includes the
+For better visualization, a uniform jitter from \eqn{U(-Jit,Jit)} (default is \eqn{Jit=.1}) times range of proximity
+regions and \code{dat}) is added to the \eqn{y}-direction.
+\code{centers} is a logical argument, if \code{TRUE}, plot includes the
 centers of the intervals as vertical lines in the plot, else centers of the intervals are not plotted.
 
 See also (\insertCite{ceyhan:metrika-2012;textual}{pcds}).
@@ -86,4 +87,7 @@ plotPEregsInt(-7,r,c,int)
 }
 \seealso{
 \code{\link{plotPEregsMI}}, \code{\link{plotCSregsInt}}, and \code{\link{plotCSregsMI}}
+}
+\author{
+Elvan Ceyhan
 }

@@ -11,23 +11,23 @@ runif.stdtetra(k)
 standard regular tetrahedron \eqn{T_h}.}
 }
 \value{
-A list with the elements
+A \code{list} with the elements
 \item{type}{The type of the pattern from which points are to be generated}
-\item{mtitle}{The "main" title for the plot of the point pattern}
+\item{mtitle}{The \code{"main"} title for the plot of the point pattern}
 \item{tess.points}{The vertices of the support region of the uniformly generated points, it is the
 standard regular tetrahedron \eqn{T_h} for this function}
 \item{gen.points}{The output set of generated points uniformly in the standard regular tetrahedron \eqn{T_h}.}
 \item{out.region}{The outer region which contains the support region, \code{NULL} for this function.}
 \item{desc.pat}{Description of the point pattern from which points are to be generated}
-\item{num.points}{The vector of two numbers, which are the number of generated points and the number
+\item{num.points}{The \code{vector} of two numbers, which are the number of generated points and the number
 of vertices of the support points (here it is 4).}
 \item{txt4pnts}{Description of the two numbers in \code{num.points}}
-\item{xlimit,ylimit,zlimit}{The ranges of the x-, y-, and z-coordinates of the support, \eqn{T_h}}
+\item{xlimit,ylimit,zlimit}{The ranges of the \eqn{x}-, \eqn{y}-, and \eqn{z}-coordinates of the support, \eqn{T_h}}
 }
 \description{
-An object of class "Uniform".
+An object of class \code{"Uniform"}.
 Generates \code{k} points uniformly in the standard regular tetrahedron
-\eqn{T_h=T((0,0,0),(1,0,0),(1/2,sqrt(3)/2,0),(1/2,\sqrt{3}/6,\sqrt{6}/3))}.
+\eqn{T_h=T((0,0,0),(1,0,0),(1/2,\sqrt{3}/2,0),(1/2,\sqrt{3}/6,\sqrt{6}/3))}.
 }
 \examples{
 \donttest{
@@ -73,4 +73,7 @@ s3d$points3d(tetra,pch=20,col="blue")
 }
 \seealso{
 \code{\link{runif.tetra}}, \code{\link{runif.tri}} and \code{\link{runifMT}}
+}
+\author{
+Elvan Ceyhan
 }

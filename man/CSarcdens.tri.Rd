@@ -15,20 +15,20 @@ CSarcdens.tri(Xp, tri, t, M = c(1, 1, 1), tri.cor = TRUE)
 
 \item{M}{A 2D point in Cartesian coordinates or a 3D point in barycentric coordinates
 which serves as a center in the interior of the triangle \code{tri};
-default is \eqn{M=(1,1,1)} i.e. the center of mass of \code{tri}.}
+default is \eqn{M=(1,1,1)} i.e., the center of mass of \code{tri}.}
 
 \item{tri.cor}{A logical argument for computing the arc density for only the points inside the triangle,
 \code{tri} (default=\code{TRUE}), i.e., if \code{TRUE} only the induced digraph with the vertices
 inside \code{tri} are considered in the computation of arc density.}
 }
 \value{
-A list with the elements
+A \code{list} with the elements
 \item{arc.dens}{Arc density of CS-PCD whose vertices are the 2D numerical data set, \code{Xp};
 CS proximity regions are defined with respect to the triangle \code{tri} and \code{M}-edge regions}
 \item{std.arc.dens}{Arc density standardized by the mean and asymptotic variance of the arc
 density of CS-PCD for uniform data in the triangle \code{tri}.}
-\item{caveat}{The warning as "The standardized arc density is only correct when \code{M} is the center of mass
-in the current version".}
+\item{caveat}{The warning as \code{"The standardized arc density is only correct when M is the center of mass
+in the current version"}.}
 }
 \description{
 Returns the arc density of CS-PCD whose vertex set is the given 2D numerical data set, \code{Xp},
@@ -37,7 +37,7 @@ Returns the arc density of CS-PCD whose vertex set is the given 2D numerical dat
 CS proximity regions is defined with respect to \code{tri} with
 expansion parameter \eqn{t>0} and edge regions are based on center \eqn{M=(m_1,m_2)} in Cartesian coordinates or
 \eqn{M=(\alpha,\beta,\gamma)} in barycentric coordinates in the interior of the triangle \code{tri}; default is
-\eqn{M=(1,1,1)} i.e. the center of mass of \code{tri}.
+\eqn{M=(1,1,1)} i.e., the center of mass of \code{tri}.
 The function also provides arc density standardized by the mean and asymptotic variance of the arc density
 of CS-PCD for uniform data in the triangle \code{tri}. For the number of arcs, loops are not allowed.
 
@@ -84,4 +84,7 @@ CSarcdens.tri(dat,dat.fr,t,M)
 }
 \seealso{
 \code{\link{ASarcdens.tri}}, \code{\link{PEarcdens.tri}}, and \code{\link{NumArcsCStri}}
+}
+\author{
+Elvan Ceyhan
 }

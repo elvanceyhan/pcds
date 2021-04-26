@@ -19,19 +19,19 @@ standard equilateral triangle \eqn{T_e=T((0,0),(1,0),(1/2,\sqrt{3}/2))}.}
 
 \item{M}{A 2D point in Cartesian coordinates or a 3D point in barycentric coordinates
 which serves as a center in the interior of the standard equilateral triangle \eqn{T_e}; default is \eqn{M=(1,1,1)}
-i.e. the center of mass of \eqn{T_e}.}
+i.e., the center of mass of \eqn{T_e}.}
 }
 \value{
-I(\code{pt} is in \eqn{\cup_{x in S} NCS(x,t)}), that is, returns 1 if \code{pt} is in \code{S} or inside \eqn{NCS(x,t)} for at least
-one x in \code{S}, returns 0 otherwise. CS proximity region is constructed with respect to the standard
+\eqn{I(}\code{pt} is in \eqn{\cup_{x in S} N_{CS}(x,t))}, that is, returns 1 if \code{pt} is in \code{S} or inside \eqn{N_{CS}(x,t)} for at least
+one \eqn{x} in \code{S}, returns 0 otherwise. CS proximity region is constructed with respect to the standard
 equilateral triangle \eqn{T_e=T(A,B,C)=T((0,0),(1,0),(1/2,\sqrt{3}/2))} with \code{M}-edge regions.
 }
 \description{
-Returns I(\code{pt} in \eqn{NCS(x,t)} for some x in \code{S}), that is, returns 1 if \code{pt} is in \eqn{\cup_{x in S} NCS(x,t)},
+Returns \eqn{I(}\code{pt} in \eqn{N_{CS}(x,t)} for some \eqn{x} in \code{S}\eqn{)}, that is, returns 1 if \code{pt} is in \eqn{\cup_{x in S} N_{CS}(x,t)},
 returns 0 otherwise, CS proximity region is constructed with respect to the standard equilateral triangle
 \eqn{T_e=T(A,B,C)=T((0,0),(1,0),(1/2,\sqrt{3}/2))} with the expansion parameter \eqn{t>0} and edge regions are based
 on center \eqn{M=(m_1,m_2)} in Cartesian coordinates or \eqn{M=(\alpha,\beta,\gamma)} in barycentric coordinates in the
-interior of \eqn{T_e}; default is \eqn{M=(1,1,1)} i.e. the center of mass of \eqn{T_e} (which is equivalent to circumcenter of \eqn{T_e}).
+interior of \eqn{T_e}; default is \eqn{M=(1,1,1)} i.e., the center of mass of \eqn{T_e} (which is equivalent to circumcenter of \eqn{T_e}).
 
 Edges of \eqn{T_e}, \eqn{AB}, \eqn{BC}, \eqn{AC}, are also labeled as edges 3, 1, and 2, respectively.
 If \code{pt} is not in \code{S} and either \code{pt} or all points in \code{S} are outside \eqn{T_e}, it returns 0,
@@ -89,4 +89,7 @@ IndCSTeSet(dat.fr,P,t,M)
 }
 \seealso{
 \code{\link{IndNCStriSet}}, \code{\link{IndCSTe}}, \code{\link{IndNCStri}}, and \code{\link{IndNPETeSet}}
+}
+\author{
+Elvan Ceyhan
 }

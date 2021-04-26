@@ -26,3 +26,6 @@ slope(c(1,2),c(1,3))
 \seealso{
 \code{\link{Line}}, \code{\link{paraline}}, and \code{\link{perpline}}
 }
+\author{
+Elvan Ceyhan
+}

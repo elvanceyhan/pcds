@@ -21,14 +21,14 @@ IndNCStri(pt1, pt2, tau, tri, M, re = NULL)
 which serves as a center in the interior of the triangle \code{tri}.}
 
 \item{re}{Index of the \code{M}-edge region containing the point \code{pt},
-either 1, 2, 3 or \code{NULL} (default is \code{NULL}).}
+either \code{1,2,3} or \code{NULL} (default is \code{NULL}).}
 }
 \value{
 I(\code{pt2} is in \eqn{NCS(pt1,\tau)}) for \code{pt1}, that is, returns 1 if \code{pt2} is in \eqn{NCS(pt1,\tau)}, returns 0 otherwise
 }
 \description{
-Returns I(\code{pt2} is in \eqn{NCS(pt1,t)}) for points \code{pt1} and \code{pt2}, that is, returns 1 if \code{pt2} is in \eqn{NCS(pt1,\tau)},
-returns 0 otherwise, where \eqn{NCS(x,\tau)} is the CS proximity region for point \eqn{x} with the expansion parameter \eqn{\tau>0}.
+Returns \eqn{I(}\code{pt2} is in \eqn{N_{CS}(pt1,t))} for points \code{pt1} and \code{pt2}, that is, returns 1 if \code{pt2} is in \eqn{NCS(pt1,\tau)},
+returns 0 otherwise, where \eqn{N_{CS}(x,\tau)} is the CS proximity region for point \eqn{x} with the expansion parameter \eqn{\tau>0}.
 
 CS proximity region is constructed with respect to the triangle \code{tri} and
 edge regions are based on the center, \eqn{M=(m_1,m_2)} in Cartesian coordinates or
@@ -36,7 +36,7 @@ edge regions are based on the center, \eqn{M=(m_1,m_2)} in Cartesian coordinates
 or based on the circumcenter of \code{tri}.
 \code{re} is the index of the edge region \code{pt} resides, with default=\code{NULL}
 
-If \code{pt1} and \code{pt2} are distint and either of them are outside \code{tri}, it returns 0,
+If \code{pt1} and \code{pt2} are distinct and either of them are outside \code{tri}, it returns 0,
 but if they are identical, then it returns 1 regardless of their locations (i.e., it allows loops).
 
 See also (\insertCite{ceyhan:Phd-thesis,ceyhan:arc-density-CS,ceyhan:test2014;textual}{pcds}).
@@ -87,4 +87,7 @@ IndNCStri(P2,P3,tau,dat.fr,M)
 }
 \seealso{
 \code{\link{IndNAStri}}, \code{\link{IndNPEtri}}, \code{\link{IndNCStri}}, and \code{\link{IndCSTe}}
+}
+\author{
+Elvan Ceyhan
 }

@@ -27,28 +27,28 @@ must be \eqn{\ge 1}.}
 
 \item{rv1, rv2, rv3}{The indices of the vertices whose regions contains \code{pt1}, \code{pt2} and \code{pt3},
 respectively.
-They take the vertex labels as 1,2,3,4 as in the row order of the vertices in \eqn{T_h}
+They take the vertex labels as \code{1,2,3,4} as in the row order of the vertices in \eqn{T_h}
 (default is \code{NULL} for all).}
 
 \item{ch.data.pnts}{A logical argument for checking whether points \code{pt1} and \code{pt2} are
 data points in \code{Dt} or not (default is \code{FALSE}).}
 }
 \value{
-I(\{\code{pt1,pt2,pt3}\} is a dominating set of the PE-PCD) where the vertices of the PE-PCD are the 3D data set \code{Dt}),
+\eqn{I(\{}\code{pt1,pt2,pt3}\} is a dominating set of the PE-PCD\eqn{)} where the vertices of the PE-PCD are the 3D data set \code{Dt}),
 that is, returns 1 if \{\code{pt1,pt2,pt3}\} is a dominating set of PE-PCD, returns 0 otherwise
 }
 \description{
-Returns I(\{\code{pt1,pt2,pt3}\} is a dominating set of the PE-PCD) where the vertices of the PE-PCD are the 3D data set \code{Dt} in the standard regular
+Returns \eqn{I(\{}\code{pt1,pt2,pt3}\} is a dominating set of the PE-PCD\eqn{)} where the vertices of the PE-PCD are the 3D data set \code{Dt} in the standard regular
 tetrahedron \eqn{T_h=T((0,0,0),(1,0,0),(1/2,\sqrt{3}/2,0),(1/2,\sqrt{3}/6,\sqrt{6}/3))}, that is,
 returns 1 if \{\code{pt1,pt2,pt3}\} is a dominating set of PE-PCD, returns 0 otherwise.
 
 Point, \code{pt1}, is in the region of vertex \code{rv1} (default is \code{NULL}), point, \code{pt2}, is in the region of vertex \code{rv2}
 (default is \code{NULL}); point, \code{pt3}), is in the region of vertex \code{rv3}) (default is \code{NULL}); vertices (and hence \code{rv1, rv2} and
-\code{rv3}) are labeled as 1,2,3,4 in the order they are stacked row-wise in \eqn{T_h}.
+\code{rv3}) are labeled as \code{1,2,3,4} in the order they are stacked row-wise in \eqn{T_h}.
 
 PE proximity region is constructed with
 respect to the tetrahedron \eqn{T_h} with expansion parameter \eqn{r \ge 1}
-and vertex regions are based on center of mass CM (equivalent to circumcenter in this case).
+and vertex regions are based on center of mass \eqn{CM} (equivalent to circumcenter in this case).
 
  \code{ch.data.pnts} is for checking whether points \code{pt1}, \code{pt2} and \code{pt3} are all data points in \code{Dt} or not (default is \code{FALSE}),
 so by default this function checks whether the points \code{pt1}, \code{pt2} and \code{pt3} would constitute a dominating set
@@ -57,11 +57,10 @@ if they actually were all in the data set.
 See also (\insertCite{ceyhan:Phd-thesis,ceyhan:comp-geo-2010;textual}{pcds}).
 }
 \examples{
-\dontrun{
+set.seed(123)
 A<-c(0,0,0); B<-c(1,0,0); C<-c(1/2,sqrt(3)/2,0); D<-c(1/2,sqrt(3)/6,sqrt(6)/3)
 tetra<-rbind(A,B,C,D)
-
-n<-20
+n<-10 #try 20, 40, 100 (larger n may take a long time)
 dat<-runif.stdtetra(n)$g  #try also dat<-cbind(runif(n),runif(n),runif(n))
 r<-1.25
 
@@ -78,7 +77,7 @@ for (i in 1:(n-2))
  for (j in (i+1):(n-1))
    for (k in (j+1):n)
  {if (Gam3PEstdTetra(dat[i,],dat[j,],dat[k,],dat,r)==1)
-   ind.gam3<-rbind(ind.gam3,c(i,j,k))}
+  ind.gam3<-rbind(ind.gam3,c(i,j,k))}
 
 ind.gam3
 
@@ -103,9 +102,8 @@ Gam3PEstdTetra(P1,P2,P3,dat,r)
 dat.fr<-data.frame(a=dat)
 Gam3PEstdTetra(P1,P2,P3,dat.fr,r)
 
-Gam3PEstdTetra(dat[1,],c(1,1,1),dat[3,],dat,r,ch.data.pnts = TRUE)
-#gives an error message since not all points, pt1, pt2 and pt3, are data points in Dt
-}
+Gam3PEstdTetra(dat[1,],c(1,1,1),dat[3,],dat,r,ch.data.pnts = FALSE)
+#gives an error message if ch.data.pnts = TRUE since not all points are data points in Dt
 
 }
 \references{
@@ -113,4 +111,7 @@ Gam3PEstdTetra(dat[1,],c(1,1,1),dat[3,],dat,r,ch.data.pnts = TRUE)
 }
 \seealso{
 \code{\link{Gam3PEtetra}}
+}
+\author{
+Elvan Ceyhan
 }

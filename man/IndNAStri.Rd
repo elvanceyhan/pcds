@@ -15,27 +15,27 @@ IndNAStri(pt1, pt2, tri, M = "CC", rv = NULL)
 
 \item{tri}{Three 2D points, stacked row-wise, each row representing a vertex of the triangle.}
 
-\item{M}{The center of the triangle. "CC" stands for circumcenter of the triangle \code{tri} or a 2D point in Cartesian coordinates or
+\item{M}{The center of the triangle. \code{"CC"} stands for circumcenter of the triangle \code{tri} or a 2D point in Cartesian coordinates or
 a 3D point in barycentric coordinates which serves as a center in the interior of \code{tri};
-default is \code{M}="CC" i.e. the circumcenter of \code{tri}.}
+default is \code{M="CC"} i.e., the circumcenter of \code{tri}.}
 
-\item{rv}{The index of the \code{M}-vertex region in \code{tri} containing the point, either 1, 2, 3 or \code{NULL}
+\item{rv}{The index of the \code{M}-vertex region in \code{tri} containing the point, either \code{1,2,3} or \code{NULL}
 (default is \code{NULL}).}
 }
 \value{
-\eqn{I(pt2 \in N_{AS}(pt1))} for \code{pt1}, that is, returns 1 if \code{pt2} is in NAS(\code{pt1}), returns 0 otherwise
+\eqn{I(pt2 \in N_{AS}(pt1))} for \code{pt1}, that is, returns 1 if \eqn{pt2} is in \eqn{N_{AS}(pt1)}, returns 0 otherwise
 }
 \description{
-Returns \eqn{I(pt2 \in N_{AS}(pt1))} for points \code{pt1} and \code{pt2}, that is, returns 1 if \code{pt2} is in NAS(\code{pt1}), returns 0
+Returns \eqn{I(pt2 \in N_{AS}(pt1))} for points \code{pt1} and \code{pt2}, that is, returns 1 if \eqn{pt2} is in \eqn{N_{AS}(pt1)}, returns 0
 otherwise, where \eqn{N_{AS}(x)} is the AS proximity region for point \eqn{x}.
 
-AS proximity regions are constructed with respect to the triangle, \eqn{tri=T(A,B,C)=(rv=1,rv=2,rv=3)},
-and vertex regions are based on the center \code{M}="CC" for circumcenter of \code{tri};
+AS proximity regions are constructed with respect to the triangle, \code{tri}\eqn{=T(A,B,C)=}\code{(rv=1,rv=2,rv=3)},
+and vertex regions are based on the center \code{M="CC"} for circumcenter of \code{tri};
 or \eqn{M=(m_1,m_2)} in Cartesian coordinates or \eqn{M=(\alpha,\beta,\gamma)} in barycentric coordinates in the
-interior of the triangle \code{tri}; default is \code{M}="CC" i.e. circumcenter of \code{tri}.
+interior of the triangle \code{tri}; default is \code{M="CC"} i.e., circumcenter of \code{tri}.
 \code{rv} is the index of the vertex region \code{pt1} resides, with default=\code{NULL}.
 
-If \code{pt1} and \code{pt2} are distint and either of them are outside \code{tri}, the function returns 0,
+If \code{pt1} and \code{pt2} are distinct and either of them are outside \code{tri}, the function returns 0,
 but if they are identical, then it returns 1 regardless of their locations (i.e., it allows loops).
 
 See also (\insertCite{ceyhan:Phd-thesis,ceyhan:comp-geo-2010,ceyhan:mcap2012;textual}{pcds}).
@@ -83,4 +83,7 @@ IndNAStri(P1,P2,dat.fr,M)
 }
 \seealso{
 \code{\link{IndNASbastri}}, \code{\link{IndNPEtri}}, and \code{\link{IndNCStri}}
+}
+\author{
+Elvan Ceyhan
 }

@@ -22,48 +22,48 @@ TSArcDensPEMT(
 \item{r}{A positive real number which serves as the expansion parameter in PE proximity region;
 must be \eqn{\ge 1}.}
 
-\item{ch.cor}{A logical argument for convex hull correction, default \code{ch.cor}=\code{FALSE},
+\item{ch.cor}{A logical argument for convex hull correction, default \code{ch.cor=FALSE},
 recommended when both \code{Xp} and \code{Yp} have the same rectangular support.}
 
-\item{alternative}{Type of the alternative hypothesis in the test, one of "two.sided", "less", "greater".}
+\item{alternative}{Type of the alternative hypothesis in the test, one of \code{"two.sided"}, \code{"less"}, \code{"greater"}.}
 
-\item{conf.level}{Level of the confidence interval, default is 0.95, for the arc density of PE-PCD based on
+\item{conf.level}{Level of the confidence interval, default is \code{0.95}, for the arc density of PE-PCD based on
 the 2D data set \code{Xp}.}
 }
 \value{
-A list with the elements
+A \code{list} with the elements
 \item{statistic}{Test statistic}
-\item{p.value}{The \eqn{p}-value for the hypothesis test for the corresponding alternative}
+\item{p.value}{The \eqn{p}-value for the hypothesis test for the corresponding \code{alternative}}
 \item{conf.int}{Confidence interval for the arc density at the given confidence level \code{conf.level} and
 depends on the type of \code{alternative}.}
 \item{estimate}{Estimate of the parameter, i.e., arc density}
 \item{null.value}{Hypothesized value for the parameter, i.e., the null arc density, which is usually the
 mean arc density under uniform distribution.}
-\item{alternative}{Type of the alternative hypothesis in the test, one of "two.sided", "less", "greater"}
+\item{alternative}{Type of the alternative hypothesis in the test, one of \code{"two.sided"}, \code{"less"}, \code{"greater"}}
 \item{method}{Description of the hypothesis test}
 \item{data.name}{Name of the data set}
 }
 \description{
-An object of class "htest" (i.e., hypothesis test) function which performs a hypothesis test of complete spatial
+An object of class \code{"htest"} (i.e., hypothesis test) function which performs a hypothesis test of complete spatial
 randomness (CSR) or uniformity of \code{Xp} points in the convex hull of \code{Yp} points against the alternatives
 of segregation (where \code{Xp} points cluster away from \code{Yp} points) and association (where \code{Xp} points cluster around
 \code{Yp} points) based on the normal approximation of the arc density of the PE-PCD for uniform 2D data
 in the convex hull of \code{Yp} points.
 
-The function yields the test statistic, \eqn{p}-value for the corresponding alternative,
+The function yields the test statistic, \eqn{p}-value for the corresponding \code{alternative},
 the confidence interval, estimate and null value for the parameter of interest (which is the arc density),
 and method and name of the data set used.
 
 Under the null hypothesis of uniformity of \code{Xp} points in the convex hull of \code{Yp} points, arc density
 of PE-PCD whose vertices are \code{Xp} points equals to its expected value under the uniform distribution and
-\code{alternative} could be two-sided, or left-sided (i.e. data is accumulated around the \code{Yp} points, or association)
-or right-sided (i.e. data is accumulated around the centers of the triangles, or segregation).
+\code{alternative} could be two-sided, or left-sided (i.e., data is accumulated around the \code{Yp} points, or association)
+or right-sided (i.e., data is accumulated around the centers of the triangles, or segregation).
 
-PE proximity region is constructed with the expansion parameter \eqn{r \ge 1} and CM-vertex regions
-(i.e., the test is not available for a general center M at this version of the function).
+PE proximity region is constructed with the expansion parameter \eqn{r \ge 1} and \eqn{CM}-vertex regions
+(i.e., the test is not available for a general center \eqn{M} at this version of the function).
 This test is more appropriate when supports of \code{Xp} and \code{Yp} has a substantial overlap,
 
-\code{ch.cor} is for convex hull correction (default is "no convex hull correction", i.e., \code{ch.cor}=\code{FALSE})
+\code{ch.cor} is for convex hull correction (default is \code{"no convex hull correction"}, i.e., \code{ch.cor=FALSE})
 which is recommended when both \code{Xp} and \code{Yp} have the same rectangular support.
 
 See also (\insertCite{ceyhan:Phd-thesis,ceyhan:arc-density-PE;textual}{pcds}) for more on the test based on the arc
@@ -77,7 +77,7 @@ set.seed(1)
 Xp<-cbind(runif(nx),runif(nx))
 Yp<-cbind(runif(ny),runif(ny))
 
-oldpar <- par(mfrow = c(1,2))
+oldpar <- par(no.readonly = TRUE)
 plotDeltri(Xp,Yp,xlab="",ylab="")
 par(oldpar)
 
@@ -114,4 +114,7 @@ TSArcDensPEMT(Xp,dat.fr,r)
 }
 \seealso{
 \code{\link{TSArcDensCSMT}} and \code{\link{TSArcDensPE1D}}
+}
+\author{
+Elvan Ceyhan
 }

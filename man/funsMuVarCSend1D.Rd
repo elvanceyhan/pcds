@@ -44,12 +44,11 @@ for (i in 1:ltseq)
   mu.end<-c(mu.end,muCSend1D(tseq[i]))
 }
 
-oldpar <- par(mfrow = c(1,2))
+oldpar <- par(no.readonly = TRUE)
 par(mar = c(5,4,4,2) + 0.1)
 plot(tseq, mu.end,type="l",
 ylab=expression(paste(mu,"(t)")),xlab="t",lty=1,xlim=range(tseq),ylim=c(0,1))
 par(oldpar)
-
 
 #Examples for asyvarCSend1D
 asyvarCSend1D(1.2)
@@ -63,7 +62,7 @@ for (i in 1:ltseq)
   var.end<-c(var.end,asyvarCSend1D(tseq[i]))
 }
 
-oldpar <- par(mfrow = c(1,2))
+oldpar <- par(no.readonly = TRUE)
 par(mar=c(5,5,4,2))
 plot(tseq, var.end,type="l",xlab="t",ylab=expression(paste(sigma^2,"(t)")),lty=1,xlim=range(tseq))
 par(oldpar)
@@ -74,4 +73,9 @@ par(oldpar)
 }
 \seealso{
 \code{\link{muPEend1D}} and \code{\link{asyvarPEend1D}}
+}
+\author{
+Elvan Ceyhan
+
+Elvan Ceyhan
 }

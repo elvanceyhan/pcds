@@ -16,23 +16,23 @@ containing them are to be determined.}
 which serves as a center in the interior of the triangle \code{tri} or the circumcenter of \code{tri}.}
 }
 \value{
-A list with two elements
+A \code{list} with two elements
 \item{rv}{Indices of the vertices whose regions contains points in \code{Dt}.}
 \item{tri}{The vertices of the triangle, where row number corresponds to the vertex index in \code{rv}.}
 }
 \description{
 Returns the indices of the vertices whose regions contain the points in data set \code{Dt} in
-a triangle \eqn{tri=T(A,B,C)}.
+a triangle \code{tri}\eqn{=T(A,B,C)}.
 
 Vertex regions are based on center \eqn{M=(m_1,m_2)} in Cartesian
 coordinates or \eqn{M=(\alpha,\beta,\gamma)} in barycentric coordinates in the interior of the triangle
 to the edges on the extension of the lines joining \code{M} to the vertices or based on the circumcenter of \code{tri}.
-Vertices of triangle \code{tri} are labeled as 1,2,3 according to the row number the vertex is recorded.
+Vertices of triangle \code{tri} are labeled as \eqn{1,2,3} according to the row number the vertex is recorded.
 
 If a point in \code{Dt} is not inside \code{tri}, then the function yields \code{NA} as output for that entry.
 The corresponding vertex region is the polygon with the vertex, \code{M}, and
-projection points from \code{M} to the edges crossing the vertex (as the output of cp2e.tri(Tr,M))
-or CC-vertex region. (see the examples for an illustration).
+projection points from \code{M} to the edges crossing the vertex (as the output of \code{cp2e.tri(Tr,M)})
+or \eqn{CC}-vertex region. (see the examples for an illustration).
 
 See also (\insertCite{ceyhan:Phd-thesis,ceyhan:dom-num-NPE-Spat2011,ceyhan:comp-geo-2010,ceyhan:mcap2012;textual}{pcds}).
 }
@@ -111,4 +111,7 @@ rverts.tri.cent(dat,dat.fr,M)
 }
 \seealso{
 \code{\link{rverts.triCM}}, \code{\link{rverts.triCC}} and \code{\link{rverts.tri.nd}}
+}
+\author{
+Elvan Ceyhan
 }

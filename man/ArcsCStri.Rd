@@ -15,10 +15,10 @@ ArcsCStri(Xp, tri, t, M = c(1, 1, 1))
 
 \item{M}{A 2D point in Cartesian coordinates or a 3D point in barycentric coordinates
 which serves as a center in the interior of the triangle \code{tri} or the circumcenter of \code{tri};
-default is \eqn{M=(1,1,1)} i.e. the center of mass of \code{tri}.}
+default is \eqn{M=(1,1,1)} i.e., the center of mass of \code{tri}.}
 }
 \value{
-A list with the elements
+A \code{list} with the elements
 \item{type}{A description of the type of the digraph}
 \item{parameters}{Parameters of the digraph, here, it is the center used to construct the vertex regions.}
 \item{tess.points}{Points on which the tessellation of the study region is performed, here, tessellation
@@ -28,12 +28,12 @@ is the support triangle.}
 \item{vert.name}{Name of the data set which constitute the vertices of the digraph}
 \item{S}{Tails (or sources) of the arcs of CS-PCD for 2D data set \code{Xp} as vertices of the digraph}
 \item{E}{Heads (or arrow ends) of the arcs of CS-PCD for 2D data set \code{Xp} as vertices of the digraph}
-\item{mtitle}{Text for "main" title in the plot of the digraph}
+\item{mtitle}{Text for \code{"main"} title in the plot of the digraph}
 \item{quant}{Various quantities for the digraph: number of vertices, number of partition points,
 number of intervals, number of arcs, and arc density.}
 }
 \description{
-An object of class "PCDs".
+An object of class \code{"PCDs"}.
 Returns arcs as tails (or sources) and heads (or arrow ends) for data set \code{Xp} as the vertices
 of CS-PCD.
 
@@ -42,7 +42,7 @@ parameter \eqn{t>0}, i.e., arcs may exist for points only inside \code{tri}.
 It also provides various descriptions and quantities about the arcs of the CS-PCD
 such as number of arcs, arc density, etc. Edge regions are based on center \eqn{M=(m_1,m_2)}
 in Cartesian coordinates or \eqn{M=(\alpha,\beta,\gamma)} in barycentric coordinates in the interior of
-the triangle \code{tri}; default is \eqn{M=(1,1,1)} i.e. the center of mass of \code{tri}.
+the triangle \code{tri}; default is \eqn{M=(1,1,1)} i.e., the center of mass of \code{tri}.
 
 See also (\insertCite{ceyhan:Phd-thesis,ceyhan:arc-density-CS,ceyhan:test2014;textual}{pcds}).
 }
@@ -107,4 +107,7 @@ ArcsCStri(dat,dat.fr,t,M)
 }
 \seealso{
 \code{\link{ArcsCSMT}}, \code{\link{ArcsAStri}} and \code{\link{ArcsPEtri}}
+}
+\author{
+Elvan Ceyhan
 }

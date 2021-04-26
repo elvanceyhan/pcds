@@ -17,7 +17,7 @@ NCStri(pt, tau, tri, M, re = NULL)
 which serves as a center in the interior of the triangle \code{tri}.}
 
 \item{re}{Index of the \code{M}-edge region containing the point \code{pt},
-either 1, 2, 3 or \code{NULL} (default is \code{NULL}).}
+either \code{1,2,3} or \code{NULL} (default is \code{NULL}).}
 }
 \value{
 Vertices of the triangular region which constitutes the CS proximity region with expansion parameter
@@ -25,13 +25,13 @@ Vertices of the triangular region which constitutes the CS proximity region with
 }
 \description{
 Returns the vertices of the CS proximity region (which is itself a triangle) for a point in the
-triangle \eqn{tri=T(A,B,C)=(rv=1,rv=2,rv=3)}.
+triangle \code{tri}\eqn{=T(A,B,C)=}\code{(rv=1,rv=2,rv=3)}.
 
 CS proximity region is defined with respect to the triangle \code{tri}
 with expansion parameter \eqn{t>0} and edge regions based on center \eqn{M=(m_1,m_2)} in Cartesian coordinates or
 \eqn{M=(\alpha,\beta,\gamma)} in barycentric coordinates in the interior of the triangle \code{tri}.
 
-Edge regions are labeled as 1,2,3 rowwise for the corresponding vertices
+Edge regions are labeled as \code{1,2,3} rowwise for the corresponding vertices
 of the triangle \code{tri}. \code{re} is the index of the edge region \code{pt} resides, with default=\code{NULL}.
 If \code{pt} is outside of \code{tri}, it returns \code{NULL} for the proximity region.
 
@@ -72,4 +72,7 @@ NCStri(P2,tau,dat.fr,M)
 }
 \seealso{
 \code{\link{NPEtri}}, \code{\link{NAStri}}, and  \code{\link{IndNCStri}}
+}
+\author{
+Elvan Ceyhan
 }

@@ -17,23 +17,23 @@ these balls are allowed for the generated points (i.e., generated points would b
 these balls).}
 }
 \value{
-A list with the elements
+A \code{list} with the elements
 \item{type}{The type of the point pattern}
-\item{mtitle}{The "main" title for the plot of the point pattern}
-\item{parameters}{Radial (i.e. circular) attraction parameter of the association pattern.}
+\item{mtitle}{The \code{"main"} title for the plot of the point pattern}
+\item{parameters}{Radial (i.e., circular) attraction parameter of the association pattern.}
 \item{ref.points}{The input set of attraction points \code{Y},
 i.e., points with which generated points are associated.}
 \item{gen.points}{The output set of generated points associated with \code{Y} points.}
 \item{tri.Y}{Logical output for triangulation based on \code{Y} points should be implemented or not.
 if \code{TRUE} triangulation based on \code{Y} points is to be implemented (default is set to \code{FALSE}).}
 \item{desc.pat}{Description of the point pattern}
-\item{num.points}{The vector of two numbers, which are the number of generated points and the number of
+\item{num.points}{The \code{vector} of two numbers, which are the number of generated points and the number of
 attraction (i.e., \code{Y}) points.}
-\item{xlimit,ylimit}{The possible ranges of the x- and y-coordinates of the generated points.}
+\item{xlimit,ylimit}{The possible ranges of the \eqn{x}- and \eqn{y}-coordinates of the generated points.}
 }
 \description{
-An object of class "Patterns".
-Generates \code{n} 2D points uniformly in \eqn{\cup B(y_i,e)} where \eqn{Y=(y_1,y_2,...,y_{n_y})}
+An object of class \code{"Patterns"}.
+Generates \code{n} 2D points uniformly in \eqn{\cup B(y_i,e)} where \eqn{Y=(y_1,y_2,\ldots,y_{n_y})}
 with \eqn{n_y} being number of \code{Y} points for various values of e under the association pattern
 and \eqn{B(y_i,e)} is the ball centered at \eqn{y_i} with radius \code{e}.
 
@@ -43,8 +43,8 @@ The pattern resembles the Matern cluster pattern (see \code{\link[spatstat.core]
 case generates a uniform Poisson point process of "parent" points with intensity \code{kappa}.
 Then each parent point is replaced by a random cluster of
 "offspring" points, the number of points per cluster being Poisson(\code{mu}) distributed, and their positions
-being placed and uniformly inside a disc of radius scale centred on the parent point. The resulting point
-pattern is a realisation of the classical "stationary Matern cluster process" generated inside the
+being placed and uniformly inside a disc of radius scale centered on the parent point. The resulting point
+pattern is a realization of the classical "stationary Matern cluster process" generated inside the
 window \code{win}.
 
 The main difference of \code{rasc.matern} and \code{\link[spatstat.core]{rMatClust}} is that the parent points are \code{Y} points
@@ -108,4 +108,7 @@ Xdt<-rasc.matern(nx,Y,e)
 \code{\link{rasc.disc}}, \code{\link{rascTe}}, \code{\link{rascIITe}},
 \code{\link{rascMT}}, \code{\link{rseg.disc}}, and \code{\link[spatstat.core]{rMatClust}}
 in the \code{spatstat.core} package
+}
+\author{
+Elvan Ceyhan
 }

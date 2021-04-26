@@ -11,12 +11,12 @@ ArcsAStri(Xp, tri, M = "CC")
 
 \item{tri}{Three 2D points, stacked row-wise, each row representing a vertex of the triangle.}
 
-\item{M}{The center of the triangle. "CC" stands for circumcenter of the triangle \code{tri} or a 2D point in Cartesian coordinates or a 3D point in
+\item{M}{The center of the triangle. \code{"CC"} stands for circumcenter of the triangle \code{tri} or a 2D point in Cartesian coordinates or a 3D point in
 barycentric coordinates which serves as a center in the interior of the triangle \eqn{T_b};
-default is \code{M}="CC" i.e. the circumcenter of \code{tri}.}
+default is \code{M="CC"} i.e., the circumcenter of \code{tri}.}
 }
 \value{
-A list with the elements
+A \code{list} with the elements
 \item{type}{A description of the type of the digraph}
 \item{parameters}{Parameters of the digraph, here, it is the center used to construct the vertex regions
 i.e., circumcenter}
@@ -27,12 +27,12 @@ is the support triangle.}
 \item{vert.name}{Name of the data set which constitute the vertices of the digraph}
 \item{S}{Tails (or sources) of the arcs of AS-PCD for 2D data set \code{Xp} as vertices of the digraph}
 \item{E}{Heads (or arrow ends) of the arcs of AS-PCD for 2D data set \code{Xp} as vertices of the digraph}
-\item{mtitle}{Text for "main" title in the plot of the digraph}
+\item{mtitle}{Text for \code{"main"} title in the plot of the digraph}
 \item{quant}{Various quantities for the digraph: number of vertices, number of partition points,
 number of intervals, number of arcs, and arc density.}
 }
 \description{
-An object of class "PCDs".
+An object of class \code{"PCDs"}.
 Returns arcs as tails (or sources) and heads (or arrow ends) for data set \code{Xp} as the vertices
 of AS-PCD.
 
@@ -41,9 +41,9 @@ arcs may exist for points only inside \code{tri}.
 It also provides various descriptions and quantities about the arcs of the AS-PCD
 such as number of arcs, arc density, etc.
 
-Vertex regions are based on the center \code{M}="CC" for
+Vertex regions are based on the center \code{M="CC"} for
 circumcenter of \code{tri}; or \eqn{M=(m_1,m_2)} in Cartesian coordinates or \eqn{M=(\alpha,\beta,\gamma)} in barycentric
-coordinates in the interior of the triangle \code{tri}; default is \code{M}="CC" the circumcenter of \code{tri}.
+coordinates in the interior of the triangle \code{tri}; default is \code{M="CC"} the circumcenter of \code{tri}.
 
 See also (\insertCite{ceyhan:Phd-thesis,ceyhan:comp-geo-2010,ceyhan:mcap2012;textual}{pcds}).
 }
@@ -114,4 +114,7 @@ ArcsAStri(dat.fr,Tr,M)
 \seealso{
 \code{\link{ArcsASMT}}, \code{\link{ArcsPEtri}}, \code{\link{ArcsCStri}}, \code{\link{ArcsPEMT}},
 and \code{\link{ArcsCSMT}}
+}
+\author{
+Elvan Ceyhan
 }

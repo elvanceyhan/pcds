@@ -15,19 +15,19 @@ PEdom.tetra(Xp, th, r, M = "CM")
 must be \eqn{\ge 1}.}
 
 \item{M}{The center to be used in the construction of the vertex regions in the tetrahedron, \code{th}.
-Currently it only takes "CC" for circumcenter and "CM" for center of mass; default="CM".}
+Currently it only takes \code{"CC"} for circumcenter and \code{"CM"} for center of mass; default=\code{"CM"}.}
 }
 \value{
-A list with two elements
-\item{dom.num}{Domination number of PE-PCD with vertex set=\code{Xp} and expansion parameter \eqn{r \ge 1} and center \code{M}}
-\item{mds}{A minimum dominating set of PE-PCD with vertex set=\code{Xp} and expansion parameter \eqn{r \ge 1} and center \code{M}}
+A \code{list} with two elements
+\item{dom.num}{Domination number of PE-PCD with vertex set = \code{Xp} and expansion parameter \eqn{r \ge 1} and center \code{M}}
+\item{mds}{A minimum dominating set of PE-PCD with vertex set = \code{Xp} and expansion parameter \eqn{r \ge 1} and center \code{M}}
 }
 \description{
 Returns the domination number of PE-PCD whose vertices are the data points in \code{Xp}.
 
 PE proximity region is defined with respect to the tetrahedron \code{th} with expansion parameter \eqn{r \ge 1} and
-vertex regions are based on the center \code{M} which is circumcenter ("CC") or center of mass ("CM") of \code{th}
-with default="CM".
+vertex regions are based on the center \code{M} which is circumcenter (\code{"CC"}) or center of mass (\code{"CM"}) of \code{th}
+with default=\code{"CM"}.
 
 See also (\insertCite{ceyhan:Phd-thesis,ceyhan:comp-geo-2010;textual}{pcds}).
 }
@@ -56,4 +56,7 @@ PEdom.tetra(P1,tetra,r,M)
 }
 \seealso{
 \code{\link{PEdomtri}}
+}
+\author{
+Elvan Ceyhan
 }

@@ -2,17 +2,17 @@
 % Please edit documentation in R/AuxRFuncs4PCDClasses.r
 \name{summary.Patterns}
 \alias{summary.Patterns}
-\title{Return a summary of a \code{Patterns} object}
+\title{Return a summary of a \code{Patterns} \code{object}}
 \usage{
 \method{summary}{Patterns}(object, ...)
 }
 \arguments{
-\item{object}{Object of class \code{Patterns}.}
+\item{object}{An \code{object} of class \code{Patterns}.}
 
 \item{\dots}{Additional parameters for \code{summary}.}
 }
 \value{
-The \code{call} of the object of class '\code{Patterns}', the \code{type} of the pattern, \code{parameters} of the pattern,
+The \code{call} of the \code{object} of class \code{"Patterns"}, the \code{type} of the pattern, \code{parameters} of the pattern,
 study window, some sample points from the generated pattern, reference points (if any for the bivariate pattern),
 and number of points for each class
 }

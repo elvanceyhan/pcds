@@ -40,13 +40,9 @@ is.in.data(c(2,2),c(2,2))
 n<-10
 dat<-runif(n)
 
-\dontrun{
 P<-dat[7]
-is.in.data(P,dat)  #Both arguments must be of the same dimension
-#this does not work because both entries are treated as vectors of different dimensions
-}
-P<-dat[7]
-is.in.data(P,dat[7])  #this works because both entries are treated as 1D vectors
+is.in.data(P,dat[7])  #this works because both entries are treated as 1D vectors but
+#is.in.data(P,dat) does not work since entries are treated as vectors of different dimensions
 
 dat<-as.matrix(dat)
 is.in.data(P,dat)
@@ -84,4 +80,7 @@ is.in.data(P,dat)
 dat.fr<-data.frame(a=dat)
 is.in.data(P,dat.fr)
 
+}
+\author{
+Elvan Ceyhan
 }

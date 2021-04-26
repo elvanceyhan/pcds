@@ -19,7 +19,7 @@ the ranks are for decreasing distances,and if \code{FALSE} they will be in incre
 default is \code{TRUE}.}
 }
 \value{
-A list with two elements
+A \code{list} with two elements
 \item{distances}{Distances from data points to the edges of \eqn{T_e}}
 \item{dist.rank}{The ranks of the data points in decreasing distances to the edges of \eqn{T_e}}
 }
@@ -37,7 +37,6 @@ as in \code{rank.d2e.Te}.
 }
 \examples{
 #Examples for rank.d2e.Te
-\dontrun{
 n<-20
 set.seed(1)
 dat<-runifTe(n)$gen.points
@@ -78,10 +77,8 @@ rank.d2e.Te(rbind(dat,dat))
 
 dat.fr<-data.frame(a=dat)
 rank.d2e.Te(dat.fr)
-}
 
 #Examples for order.d2e.Te
-\dontrun{
 n<-20
 set.seed(1)
 dat<-runifTe(n)$gen.points  #try also dat<-cbind(runif(n),runif(n))
@@ -125,6 +122,8 @@ order.d2e.Te(rbind(dat,dat))
 
 dat.fr<-data.frame(a=dat)
 order.d2e.Te(dat.fr)
-}
 
+}
+\author{
+Elvan Ceyhan
 }

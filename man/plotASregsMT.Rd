@@ -22,15 +22,15 @@ plotASregsMT(
 \item{Yp}{A set of 2D points which constitute the vertices of the Delaunay triangulation. The Delaunay
 triangles partition the convex hull of \code{Yp} points.}
 
-\item{M}{The center of the triangle. "CC" stands for circumcenter of each Delaunay triangle \code{tri} or 3D point in barycentric
+\item{M}{The center of the triangle. \code{"CC"} stands for circumcenter of each Delaunay triangle \code{tri} or 3D point in barycentric
 coordinates which serves as a center in the interior of each Delaunay triangle;
-default is \code{M}="CC" i.e. the circumcenter of each triangle.}
+default is \code{M="CC"} i.e., the circumcenter of each triangle.}
 
-\item{main}{An overall title for the plot (default="").}
+\item{main}{An overall title for the plot (default=\code{""}).}
 
-\item{xlab, ylab}{Titles for the x and y axes, respectively (default="" for both).}
+\item{xlab, ylab}{Titles for the \eqn{x} and \eqn{y} axes, respectively (default=\code{""} for both).}
 
-\item{xlim, ylim}{Numeric vectors of length 2, giving the x- and y-coordinate ranges
+\item{xlim, ylim}{Two \code{numeric} vectors of length 2, giving the \eqn{x}- and \eqn{y}-coordinate ranges
 (default=\code{NULL} for both).}
 
 \item{\dots}{Additional \code{plot} parameters.}
@@ -47,9 +47,9 @@ AS proximity regions are constructed with respect
 to the Delaunay triangles based on \code{Yp} points (these triangles partition the convex hull of \code{Yp} points),
 i.e., AS proximity regions are only defined for \code{Xp} points inside the convex hull of \code{Yp} points.
 
-Vertex regions are based on the center \code{M}="CC"
+Vertex regions are based on the center \code{M="CC"}
 for circumcenter of each Delaunay triangle or \eqn{M=(\alpha,\beta,\gamma)} in barycentric coordinates in the
-interior of each Delaunay triangle; default is \code{M}="CC" i.e. circumcenter of each triangle.
+interior of each Delaunay triangle; default is \code{M="CC"} i.e., circumcenter of each triangle.
 
 See (\insertCite{ceyhan:Phd-thesis,ceyhan:comp-geo-2010,ceyhan:mcap2012;textual}{pcds}) for more on AS-PCDs.
 Also see (\insertCite{okabe:2000,ceyhan:comp-geo-2010,sinclair:2016;textual}{pcds}) for more on Delaunay triangulation and the corresponding algorithm.
@@ -84,4 +84,7 @@ plotASregsMT(Xp,Yp,M,xlab="",ylab="",xlim=Xlim,ylim=Ylim)
 \seealso{
 \code{\link{plotASregsTri}}, \code{\link{plotPEregsTri}}, \code{\link{plotPEregsMT}},
 \code{\link{plotCSregsTri}}, and \code{\link{plotCSregsMT}}
+}
+\author{
+Elvan Ceyhan
 }

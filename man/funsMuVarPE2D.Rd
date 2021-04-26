@@ -27,7 +27,7 @@ and \code{asyvarPE2D} returns the asymptotic variance of the arc density of PE-P
 with expansion parameter \eqn{r \ge 1} for 2D uniform data in a triangle.
 
 PE proximity regions are defined with respect to the triangle and
-vertex regions are based on center of mass, CM of the triangle.
+vertex regions are based on center of mass, \eqn{CM} of the triangle.
 
 See also (\insertCite{ceyhan:arc-density-PE;textual}{pcds}).
 }
@@ -58,7 +58,7 @@ for (i in 1:lrseq)
   avar<-c(avar,asyvarPE2D(rseq[i]))
 }
 
-oldpar <- par(mfrow = c(1,2))
+oldpar <- par(no.readonly = TRUE)
 par(mar=c(5,5,4,2))
 plot(rseq, avar,type="l",xlab="r",ylab=expression(paste(sigma^2,"(r)")),lty=1,xlim=range(rseq))
 par(oldpar)
@@ -69,4 +69,7 @@ par(oldpar)
 }
 \seealso{
 \code{\link{muCS2D}} and \code{\link{asyvarCS2D}}
+}
+\author{
+Elvan Ceyhan
 }

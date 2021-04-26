@@ -14,10 +14,10 @@ standard equilateral triangle \eqn{T_e}.}
 which serves as a center in the interior of the standard equilateral triangle \eqn{T_e}.}
 }
 \value{
-A list with two elements
-\item{rv}{Index of the vertex whose region contains point, \code{pt} }
+A \code{list} with two elements
+\item{rv}{Index of the vertex whose region contains point, \code{pt}.}
 \item{tri}{The vertices of the triangle, \eqn{T_e}, where row number corresponds to the vertex index in \code{rv}
-with row 1=(0,0), row 2=(1,0), and row 3=(1/2,sqrt(3)/2).}
+with row \eqn{1=(0,0)}, row \eqn{2=(1,0)}, and row \eqn{3=(1/2,\sqrt{3}/2)}.}
 }
 \description{
 Returns the index of the vertex whose region contains point \code{pt} in standard equilateral triangle
@@ -25,7 +25,7 @@ Returns the index of the vertex whose region contains point \code{pt} in standar
 in Cartesian coordinates or \eqn{M=(\alpha,\beta,\gamma)} in barycentric coordinates in the interior of \eqn{T_e}.
 (see the plots in the example for illustrations).
 
-The vertices of triangle, \eqn{T_e}, are labeled as 1,2,3
+The vertices of triangle, \eqn{T_e}, are labeled as \eqn{1,2,3}
 according to the row number the vertex is recorded in \eqn{T_e}. If the point, \code{pt}, is not inside \eqn{T_e}, then the
 function yields \code{NA} as output. The corresponding vertex region is the polygon with the vertex, \code{M}, and
 projections from \code{M} to the edges on the lines joining vertices and \code{M}.
@@ -85,4 +85,7 @@ rvTe.cent(c(.7,.2),M)
 \seealso{
 \code{\link{rvTeCM}}, \code{\link{rv.tri.cent}}, \code{\link{rv.triCC}},
 \code{\link{rv.bastriCC}}, \code{\link{rv.triCM}}, and \code{\link{rv.bastri.cent}}
+}
+\author{
+Elvan Ceyhan
 }

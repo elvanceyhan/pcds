@@ -7,42 +7,42 @@
 cl2Mc.int(Dt, int, c)
 }
 \arguments{
-\item{Dt}{A set or vector of 1D points from which closest points to \eqn{M_c} are found
+\item{Dt}{A set or \code{vector} of 1D points from which closest points to \eqn{M_c} are found
 in the interval \code{int}.}
 
-\item{int}{A vector of two real numbers representing an interval.}
+\item{int}{A \code{vector} of two real numbers representing an interval.}
 
-\item{c}{A positive real number in \eqn{(0,1)} parameterizing the center inside \eqn{int=(a,b)}.
-For the interval, \eqn{int=(a,b)}, the parameterized center is \eqn{M_c=a+c(b-a)}.}
+\item{c}{A positive real number in \eqn{(0,1)} parameterizing the center inside \code{int}\eqn{=(a,b)}.
+For the interval, \code{int}\eqn{=(a,b)}, the parameterized center is \eqn{M_c=a+c(b-a)}.}
 }
 \value{
-A list with the elements
-\item{txt1}{Vertex Labels are a=1 and b=2 for the interval (a,b).}
-\item{txt2}{A short description of the distances as "Distances from ..."}
+A \code{list} with the elements
+\item{txt1}{Vertex Labels are \eqn{a=1} and \eqn{b=2} for the interval \eqn{(a,b)}.}
+\item{txt2}{A short description of the distances as \code{"Distances from ..."}}
 \item{type}{Type of the extrema points}
 \item{desc}{A short description of the extrema points}
-\item{mtitle}{The "main" title for the plot of the exrema}
+\item{mtitle}{The \code{"main"} title for the plot of the extrema}
 \item{ext}{The extrema points, here, closest points to \eqn{M_c} in each vertex region}
 \item{X}{The input data vector, \code{Dt}.}
 \item{num.points}{The number of data points, i.e., size of \code{Dt}}
-\item{supp}{Support of the data points, here, it is int.}
+\item{supp}{Support of the data points, here, it is \code{int}.}
 \item{cent}{The (parameterized) center point used for construction of vertex regions.}
-\item{ncent}{Name of the (parameterized) center, \code{cent}, it is "Mc" for this function.}
+\item{ncent}{Name of the (parameterized) center, \code{cent}, it is \code{"Mc"} for this function.}
 \item{regions}{Vertex regions inside the interval, \code{int}, provided as a list.}
-\item{region.names}{Names of the vertex regions as "vr=1","vr=2"}
+\item{region.names}{Names of the vertex regions as \code{"vr=1"}, \code{"vr=2"}}
 \item{region.centers}{Centers of mass of the vertex regions inside \code{int}.}
 \item{dist2ref}{Distances from closest points in each vertex region to \eqn{M_c}.}
 }
 \description{
-An object of class "Extrema".
+An object of class \code{"Extrema"}.
 Returns the closest data points among the data set, \code{Dt}, in each \eqn{M_c}-vertex region
 i.e., finds the closest points from right and left to \eqn{M_c} among points of the 1D data set \code{Dt} which reside in
-in the interval \eqn{int=(a,b)}.
+in the interval \code{int}\eqn{=(a,b)}.
 
-\eqn{M_c} is based on the centrality parameter \code{c} in \eqn{(0,1)},
+\eqn{M_c} is based on the centrality parameter \eqn{c \in (0,1)},
 so that \eqn{100c} \% of the length of interval is to the left of \eqn{M_c} and \eqn{100(1-c)} \% of the length of the interval
-is to the right of \eqn{M_c}. That is, for the interval \eqn{(a,b)}, \eqn{M_c=a+c(b-a)}. If there are no points from Dt to
-the left of \eqn{M_c} in the interval, then it yields NA, and likewise for the right of \eqn{M_c} in the interval.
+is to the right of \eqn{M_c}. That is, for the interval \eqn{(a,b)}, \eqn{M_c=a+c(b-a)}. If there are no points from \code{Dt} to
+the left of \eqn{M_c} in the interval, then it yields \code{NA}, and likewise for the right of \eqn{M_c} in the interval.
 
 See also (\insertCite{ceyhan:metrika-2012;textual}{pcds}).
 }
@@ -95,4 +95,7 @@ cl2Mc.int(dat,int,c)
 }
 \seealso{
 \code{\link{cl2CC.TbVR}} and \code{\link{cl2CC.VR}}
+}
+\author{
+Elvan Ceyhan
 }

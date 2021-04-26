@@ -10,34 +10,34 @@ cl2eTbVRcent(Dt, c1, c2, M)
 \item{Dt}{A set of 2D points representing the set of data points.}
 
 \item{c1, c2}{Positive real numbers which constitute the vertex of the basic triangle
-adjacent to the shorter edges; \code{c1} must be in \eqn{[0,1/2]}, \eqn{c_2>0} and \eqn{(1-c_1)^2+c_2^2 \le 1}.}
+adjacent to the shorter edges; \eqn{c_1} must be in \eqn{[0,1/2]}, \eqn{c_2>0} and \eqn{(1-c_1)^2+c_2^2 \le 1}.}
 
 \item{M}{A 2D point in Cartesian coordinates or a 3D point in barycentric coordinates
 which serves as a center in the interior of the basic triangle \eqn{T_b} or the circumcenter of \eqn{T_b}.}
 }
 \value{
-A list with the elements
-\item{txt1}{Vertex labels are A=1, B=2, and C=3 (corresponds to row number in Extrema Points).}
-\item{txt2}{A short description of the distances as "Distances to Edges in the Respective M-Vertex Regions".}
+A \code{list} with the elements
+\item{txt1}{Vertex labels are \eqn{A=1}, \eqn{B=2}, and \eqn{C=3} (corresponds to row number in Extremum Points).}
+\item{txt2}{A short description of the distances as \code{"Distances to Edges in the Respective \eqn{M}-Vertex Regions"}.}
 \item{type}{Type of the extrema points}
 \item{desc}{A short description of the extrema points}
-\item{mtitle}{The "main" title for the plot of the exrema}
+\item{mtitle}{The \code{"main"} title for the plot of the extrema}
 \item{ext}{The extrema points, here, closest points to edges in the corresponding vertex region.}
-\item{X}{The input data, \code{Dt}, can be a matrix or data frame}
+\item{X}{The input data, \code{Dt}, can be a \code{matrix} or \code{data frame}}
 \item{num.points}{The number of data points, i.e., size of \code{Dt}}
 \item{supp}{Support of the data points, here, it is \eqn{T_b}.}
 \item{cent}{The center point used for construction of vertex regions}
-\item{ncent}{Name of the center, \code{cent}, it is "M" or "CC" for this function}
+\item{ncent}{Name of the center, \code{cent}, it is \code{"M"} or \code{"CC"} for this function}
 \item{regions}{Vertex regions inside the triangle, \eqn{T_b}.}
-\item{region.names}{Names of the vertex regions as "vr=1","vr=2","vr=3"}
+\item{region.names}{Names of the vertex regions as \code{"vr=1"}, \code{"vr=2"}, and \code{"vr=3"}}
 \item{region.centers}{Centers of mass of the vertex regions inside \eqn{T_b}.}
 \item{dist2ref}{Distances of closest points in the vertex regions to corresponding edges.}
 }
 \description{
-An object of class "Extrema".
+An object of class \code{"Extrema"}.
 Returns the closest data points among the data set, \code{Dt}, to edge \eqn{i} in \code{M}-vertex region \eqn{i} for \eqn{i=1,2,3}
-in the basic triangle \eqn{T_b=T(A=(0,0),B=(1,0),C=(c_1,c_2))} where \code{c1} is in \eqn{[0,1/2]}, \eqn{c_2>0} and \eqn{(1-c_1)^2+c_2^2 \le 1}.
-Vertex labels are A=1, B=2, and C=3, and corresponding edge labels are BC=1, AC=2, and AB=3.
+in the basic triangle \eqn{T_b=T(A=(0,0),B=(1,0),C=(c_1,c_2))} where \eqn{c_1} is in \eqn{[0,1/2]}, \eqn{c_2>0} and \eqn{(1-c_1)^2+c_2^2 \le 1}.
+Vertex labels are \eqn{A=1}, \eqn{B=2}, and \eqn{C=3}, and corresponding edge labels are \eqn{BC=1}, \eqn{AC=2}, and \eqn{AB=3}.
 
 Vertex regions are based on center \eqn{M=(m_1,m_2)} in Cartesian coordinates or
 \eqn{M=(\alpha,\beta,\gamma)} in barycentric coordinates in the interior of the basic triangle \eqn{T_b}
@@ -46,12 +46,11 @@ or based on the circumcenter of \eqn{T_b}.
 Any given triangle can be mapped to the basic triangle by a combination of rigid body motions
 (i.e., translation, rotation and reflection) and scaling, preserving uniformity of the points in the
 original triangle. Hence basic triangle is useful for simulation
-studies under the uniformness hypothesis.
+studies under the uniformity hypothesis.
 
 See also (\insertCite{ceyhan:Phd-thesis,ceyhan:comp-geo-2010,ceyhan:dom-num-NPE-Spat2011;textual}{pcds}).
 }
 \examples{
-\dontrun{
 c1<-.4;  c2<-.6
 A<-c(0,0); B<-c(1,0); C<-c(c1,c2);
 Tb<-rbind(A,B,C);
@@ -102,7 +101,6 @@ cl2eTbVRcent(dat,c1,c2,M)
 
 dat.fr<-data.frame(a=dat)
 cl2eTbVRcent(dat.fr,c1,c2,M)
-}
 
 }
 \references{
@@ -110,4 +108,7 @@ cl2eTbVRcent(dat.fr,c1,c2,M)
 }
 \seealso{
 \code{\link{cl2eVRCM}}, \code{\link{cl2eVRcent}}, and \code{\link{cl2edgesTe}}
+}
+\author{
+Elvan Ceyhan
 }

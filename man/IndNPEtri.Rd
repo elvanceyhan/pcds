@@ -20,26 +20,26 @@ must be \eqn{\ge 1}.}
 
 \item{M}{A 2D point in Cartesian coordinates or a 3D point in barycentric coordinates
 which serves as a center in the interior of the triangle \code{tri} or the circumcenter of \code{tri};
-default is \eqn{M=(1,1,1)} i.e. the center of mass of \code{tri}.}
+default is \eqn{M=(1,1,1)} i.e., the center of mass of \code{tri}.}
 
-\item{rv}{Index of the \code{M}-vertex region containing the point, either 1, 2, 3 or \code{NULL}
+\item{rv}{Index of the \code{M}-vertex region containing the point, either \code{1,2,3} or \code{NULL}
 (default is \code{NULL}).}
 }
 \value{
-I(\code{pt2} is in \eqn{NPE(pt1,r)}) for points \code{pt1} and \code{pt2}, that is, returns 1 if \code{pt2} is in \eqn{NPE(pt1,r)},
+\eqn{I(}\code{pt2} is in \eqn{N_{PE}(pt1,r))} for points \code{pt1} and \code{pt2}, that is, returns 1 if \code{pt2} is in \eqn{N_{PE}(pt1,r)},
 returns 0 otherwise
 }
 \description{
-Returns I(\code{pt2} is in \eqn{NPE(pt1,r)}) for points \code{pt1} and \code{pt2}, that is, returns 1 if \code{pt2} is in \eqn{NPE(pt1,r)},
-returns 0 otherwise, where \eqn{NPE(x,r)} is the PE proximity region for point \eqn{x} with the expansion parameter \eqn{r \ge 1}.
+Returns \eqn{I(}\code{pt2} is in \eqn{N_{PE}(pt1,r))} for points \code{pt1} and \code{pt2}, that is, returns 1 if \code{pt2} is in \eqn{N_{PE}(pt1,r)},
+returns 0 otherwise, where \eqn{N_{PE}(x,r)} is the PE proximity region for point \eqn{x} with the expansion parameter \eqn{r \ge 1}.
 
 PE proximity region is constructed with respect to the triangle \code{tri} and
 vertex regions are based on the center, \eqn{M=(m_1,m_2)} in Cartesian coordinates or
 \eqn{M=(\alpha,\beta,\gamma)} in barycentric coordinates in the interior of \code{tri}
-or based on the circumcenter of \code{tri}; default is \eqn{M=(1,1,1)} i.e. the center of mass of \code{tri}.
+or based on the circumcenter of \code{tri}; default is \eqn{M=(1,1,1)} i.e., the center of mass of \code{tri}.
 \code{rv} is the index of the vertex region \code{pt1} resides, with default=\code{NULL}.
 
-If \code{pt1} and \code{pt2} are distint and either of them are outside \code{tri}, it returns 0,
+If \code{pt1} and \code{pt2} are distinct and either of them are outside \code{tri}, it returns 0,
 but if they are identical, then it returns 1 regardless of their locations (i.e., it allows loops).
 
 See also (\insertCite{ceyhan:Phd-thesis,ceyhan:arc-density-PE,ceyhan:dom-num-NPE-Spat2011;textual}{pcds}).
@@ -99,4 +99,7 @@ IndNPEtri(P2,P3,r,dat.fr,M)
 }
 \seealso{
 \code{\link{IndNPEbastri}}, \code{\link{IndNPETe}}, \code{\link{IndNAStri}}, and \code{\link{IndNCStri}}
+}
+\author{
+Elvan Ceyhan
 }

@@ -12,21 +12,21 @@ NumArcsPEint(dat, r, c = 0.5, int)
 \item{r}{A positive real number which serves as the expansion parameter in PE proximity region;
 must be \eqn{\ge 1}.}
 
-\item{c}{A positive real number in \eqn{(0,1)} parameterizing the center inside \eqn{int=(a,b)}.
-For the interval, \eqn{int=(a,b)}, the parameterized center is \eqn{M_c=a+c(b-a)}; default=0.5}
+\item{c}{A positive real number in \eqn{(0,1)} parameterizing the center inside \code{int}\eqn{=(a,b)}.
+For the interval, \code{int}\eqn{=(a,b)}, the parameterized center is \eqn{M_c=a+c(b-a)}; default=\code{0.5}}
 
-\item{int}{A vector of two real numbers representing an interval.}
+\item{int}{A \code{vector} of two real numbers representing an interval.}
 }
 \value{
 Number of arcs for the PE-PCD whose vertices are the 1D data set, \code{dat},
-with expansion parameter, \eqn{r \ge 1}, and centrality parameter, \code{c} in \eqn{(0,1)}.
+with expansion parameter, \eqn{r \ge 1}, and centrality parameter, \eqn{c \in (0,1)}.
 }
 \description{
 Returns the number of arcs of Proportional Edge Proximity Catch Digraphs (PE-PCDs)
 whose vertices are the 1D data set \code{dat} in the one-interval case.
 
-The data points could be inside or outside the interval is \eqn{int=(a,b)}. PE proximity region is constructed
-with an expansion parameter \eqn{r \ge 1} and a centrality parameter \code{c} in \eqn{(0,1)}.
+The data points could be inside or outside the interval is \code{int}\eqn{=(a,b)}. PE proximity region is constructed
+with an expansion parameter \eqn{r \ge 1} and a centrality parameter \eqn{c \in (0,1)}.
 
 The PE proximity region is constructed for both points inside and outside the interval, hence
 the arcs may exist for all points inside or outside the interval.
@@ -66,4 +66,7 @@ NumArcsPEint(dat,r,c,int)
 }
 \seealso{
 \code{\link{NumArcsPEmid1D}}, \code{\link{NumArcsPEend1D}}, and \code{\link{NumArcsCSint}}
+}
+\author{
+Elvan Ceyhan
 }

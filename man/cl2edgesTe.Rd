@@ -10,19 +10,19 @@ cl2edgesTe(Dt, ch.all.intri = FALSE)
 \item{Dt}{A set of 2D points representing the set of data points.}
 
 \item{ch.all.intri}{A logical argument (default=\code{FALSE}) to check whether all data points are inside
-the standard equilateral triangle \eqn{T_e}. So if it is \code{TRUE},
-the function checks if all data points are inside the closure of the triangle (i.e. interior and boundary
+the standard equilateral triangle \eqn{T_e}. So, if it is \code{TRUE},
+the function checks if all data points are inside the closure of the triangle (i.e., interior and boundary
 combined) else it does not.}
 }
 \value{
-A list with the elements
-\item{txt1}{Edge labels as AB=3, BC=1, and AC=2 for \eqn{T_e} (corresponds to row number in Extrema Points).}
-\item{txt2}{A short description of the distances as "Distances to Edges ...".}
+A \code{list} with the elements
+\item{txt1}{Edge labels as \eqn{AB=3}, \eqn{BC=1}, and \eqn{AC=2} for \eqn{T_e} (corresponds to row number in Extremum Points).}
+\item{txt2}{A short description of the distances as \code{"Distances to Edges ..."}.}
 \item{type}{Type of the extrema points}
 \item{desc}{A short description of the extrema points}
-\item{mtitle}{The "main" title for the plot of the exrema}
+\item{mtitle}{The \code{"main"} title for the plot of the extrema}
 \item{ext}{The extrema points, i.e., closest points to edges}
-\item{X}{The input data, \code{Dt}, which can be a matrix or data frame}
+\item{X}{The input data, \code{Dt}, which can be a \code{matrix} or \code{data frame}}
 \item{num.points}{The number of data points, i.e., size of \code{Dt}}
 \item{supp}{Support of the data points, i.e., the standard equilateral triangle \eqn{T_e}}
 \item{cent}{The center point used for construction of edge regions, not required for this extrema,
@@ -37,15 +37,15 @@ hence it is \code{NULL} for this function}
 \item{dist2ref}{Distances from closest points in each edge region to the corresponding edge}
 }
 \description{
-An object of class "Extrema".
+An object of class \code{"Extrema"}.
 Returns the closest points from the 2D data set, \code{Dt}, to the edges in the
 standard equilateral triangle \eqn{T_e=T(A=(0,0),B=(1,0),C=(1/2,\sqrt{3}/2))}.
 
 \code{ch.all.intri} is for checking whether all data points are inside \eqn{T_e} (default is \code{FALSE}).
 
-If some of the data points are not inside \eqn{T_e} and \code{ch.all.intri}=\code{TRUE}, then the function yields
+If some of the data points are not inside \eqn{T_e} and \code{ch.all.intri=TRUE}, then the function yields
 an error message.
-If some of the data points are not inside \eqn{T_e} and \code{ch.all.intri}=\code{FALSE}, then the function yields
+If some of the data points are not inside \eqn{T_e} and \code{ch.all.intri=FALSE}, then the function yields
 the closest points to edges among the data points inside \eqn{T_e} (yields \code{NA} if there are no data points
 inside \eqn{T_e}).
 
@@ -100,4 +100,7 @@ cl2edgesTe(dat.fr)
 }
 \seealso{
 \code{\link{cl2eTbVRcent}}, \code{\link{cl2eVRcent}}, \code{\link{cl2eVRCM}} and \code{\link{fr2eTeER}}
+}
+\author{
+Elvan Ceyhan
 }

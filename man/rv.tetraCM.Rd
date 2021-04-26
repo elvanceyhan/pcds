@@ -2,31 +2,31 @@
 % Please edit documentation in R/PCDFunctions.r
 \name{rv.tetraCM}
 \alias{rv.tetraCM}
-\title{The index of the CM-vertex region in a tetrahedron that contains a point}
+\title{The index of the \eqn{CM}-vertex region in a tetrahedron that contains a point}
 \usage{
 rv.tetraCM(p, th)
 }
 \arguments{
-\item{p}{A 3D point for which CM-vertex region it resides in is to be determined in the
+\item{p}{A 3D point for which \eqn{CM}-vertex region it resides in is to be determined in the
 tetrahedron \code{th}.}
 
 \item{th}{Four 3D points, stacked row-wise, each row representing a vertex of the tetrahedron.}
 }
 \value{
-A list with two elements
-\item{rv}{Index of the CM-vertex region that contains point, \code{p} in the tetrahedron \code{th}}
+A \code{list} with two elements
+\item{rv}{Index of the \eqn{CM}-vertex region that contains point, \code{p} in the tetrahedron \code{th}}
 \item{th}{The vertices of the tetrahedron, where row number corresponds to the vertex index in \code{rv}.}
 }
 \description{
 Returns the index of the vertex whose region contains point \code{p} in
-a tetrahedron \eqn{th=T(A,B,C,D)} and vertex regions are based on the center of mass CM=(A+B+C+D)/4 of \code{th}.
+a tetrahedron \eqn{th=T(A,B,C,D)} and vertex regions are based on the center of mass \eqn{CM=(A+B+C+D)/4} of \code{th}.
 (see the plots in the example for illustrations).
 
 The vertices of the tetrahedron \code{th} are labeled as
-1=A, 2=B, 3=C, and 4=C also according to the row number the vertex is recorded in \code{th}.
+\eqn{1=A}, \eqn{2=B}, \eqn{3=C}, and \eqn{4=C} also according to the row number the vertex is recorded in \code{th}.
 
 If the point, \code{p}, is not inside \code{th}, then the function yields \code{NA} as output.
-The corresponding vertex region is the simplex with the vertex, CM, and
+The corresponding vertex region is the simplex with the vertex, \eqn{CM}, and
 midpoints of the edges adjacent to the vertex.
 
 See also (\insertCite{ceyhan:Phd-thesis,ceyhan:comp-geo-2010;textual}{pcds}).
@@ -104,4 +104,7 @@ rv.tetraCM(P,dat.fr)
 }
 \seealso{
 \code{\link{rv.tetraCC}} and \code{\link{rv.triCM}}
+}
+\author{
+Elvan Ceyhan
 }

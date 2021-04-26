@@ -2,39 +2,39 @@
 % Please edit documentation in R/PCDFunctions.r
 \name{rv.bastriCC}
 \alias{rv.bastriCC}
-\title{The index of the CC-vertex region in a basic triangle that contains a point}
+\title{The index of the \eqn{CC}-vertex region in a basic triangle that contains a point}
 \usage{
 rv.bastriCC(p, c1, c2)
 }
 \arguments{
-\item{p}{A 2D point for which CC-vertex region it resides in is to be determined in the
+\item{p}{A 2D point for which \eqn{CC}-vertex region it resides in is to be determined in the
 basic triangle \eqn{T_b}.}
 
 \item{c1, c2}{Positive real numbers which constitute the upper vertex of the basic triangle (i.e., the vertex
-adjacent to the shorter edges of \eqn{T_b}); \code{c1} must be in \eqn{[0,1/2]},
+adjacent to the shorter edges of \eqn{T_b}); \eqn{c_1} must be in \eqn{[0,1/2]},
 \eqn{c_2>0} and \eqn{(1-c_1)^2+c_2^2 \le 1}.}
 }
 \value{
-A list with two elements
-\item{rv}{Index of the CC-vertex region that contains point, \code{p} in the basic triangle \eqn{T_b}}
+A \code{list} with two elements
+\item{rv}{Index of the \eqn{CC}-vertex region that contains point, \code{p} in the basic triangle \eqn{T_b}}
 \item{tri}{The vertices of the triangle, where row number corresponds to the vertex index in \code{rv}
-with row 1=(0,0), row 2=(1,0), and row 3=\eqn{(c_1,c_2)}.}
+with row \eqn{1=(0,0)}, row \eqn{2=(1,0)}, and row \eqn{3=(c_1,c_2)}.}
 }
 \description{
 Returns the index of the vertex whose region contains point \code{p} in
-the basic triangle \eqn{T_b=T((0,0),(1,0),(c_1,c_2))} where \code{c1} is in \eqn{[0,1/2]}, \eqn{c_2>0} and \eqn{(1-c_1)^2+c_2^2 \le 1}
-and vertex regions are based on the circumcenter CC of \eqn{T_b}.
+the basic triangle \eqn{T_b=T((0,0),(1,0),(c_1,c_2))} where \eqn{c_1} is in \eqn{[0,1/2]}, \eqn{c_2>0} and \eqn{(1-c_1)^2+c_2^2 \le 1}
+and vertex regions are based on the circumcenter \eqn{CC} of \eqn{T_b}.
 (see the plots in the example for illustrations).
 
 The vertices of the basic triangle \eqn{T_b} are labeled as
-1=(0,0),2=(1,0),and 3=\eqn{(c_1,c_2)} also according to the row number the vertex is recorded in \eqn{T_b}.
+\eqn{1=(0,0)}, \eqn{2=(1,0)},and \eqn{3=(c_1,c_2)} also according to the row number the vertex is recorded in \eqn{T_b}.
 If the point, \code{p}, is not inside \eqn{T_b}, then the function yields \code{NA} as output.
 The corresponding vertex region is the polygon whose interior points are closest to that vertex.
 
 Any given triangle can be mapped to the basic triangle
 by a combination of rigid body motions (i.e., translation, rotation and reflection) and scaling,
 preserving uniformity of the points in the original triangle. Hence basic triangle is useful for simulation
-studies under the uniformness hypothesis.
+studies under the uniformity hypothesis.
 
 See also (\insertCite{ceyhan:Phd-thesis,ceyhan:comp-geo-2010,ceyhan:mcap2012;textual}{pcds}).
 }
@@ -121,4 +121,7 @@ rv.bastriCC(P,c1,c2)
 \seealso{
 \code{\link{rv.triCM}}, \code{\link{rv.tri.cent}}, \code{\link{rv.triCC}},
 \code{\link{rv.bastriCM}}, \code{\link{rv.bastri.cent}}, and \code{\link{rvTeCM}}
+}
+\author{
+Elvan Ceyhan
 }

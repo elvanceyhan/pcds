@@ -12,24 +12,24 @@ Gam1CSTet1(p, Dt, re = NULL, ch.data.pnt = FALSE)
 
 \item{Dt}{A set of 2D points which constitutes the vertices of the CS-PCD.}
 
-\item{re}{The index of the edge region in \eqn{T_e} containing the point, either 1, 2, 3 or \code{NULL}
+\item{re}{The index of the edge region in \eqn{T_e} containing the point, either \code{1,2,3} or \code{NULL}
 (default is \code{NULL}).}
 
 \item{ch.data.pnt}{A logical argument for checking whether point \code{p} is a data point
 in \code{Dt} or not (default is \code{FALSE}).}
 }
 \value{
-I(\code{p} is a dominating point of the CS-PCD) where the vertices of the CS-PCD are the 2D data set \code{Dt},
+\eqn{I(}\code{p} is a dominating point of the CS-PCD\eqn{)} where the vertices of the CS-PCD are the 2D data set \code{Dt},
 that is, returns 1 if \code{p} is a dominating point, returns 0 otherwise.
 }
 \description{
-Returns I(\code{p} is a dominating point of the CS-PCD) where the vertices of the CS-PCD are the 2D data set \code{Dt} in the standard equilateral
+Returns \eqn{I(}\code{p} is a dominating point of the CS-PCD\eqn{)} where the vertices of the CS-PCD are the 2D data set \code{Dt} in the standard equilateral
 triangle \eqn{T_e=T(A,B,C)=T((0,0),(1,0),(1/2,\sqrt{3}/2))}, that is, returns 1 if \code{p} is a dominating point of CS-PCD,
 returns 0 otherwise.
 
-Point, \code{p}, is in the edge region of edge re (default is \code{NULL}); vertices are labeled as 1,2,3
+Point, \code{p}, is in the edge region of edge re (default is \code{NULL}); vertices are labeled as \eqn{1,2,3}
 in the order they are stacked row-wise in \eqn{T_e}, and the opposite edges are labeled with label of the vertices
-(that is, edge numbering is 1,2,3 for edges AB,BC,AC).
+(that is, edge numbering is \code{1,2}, and \code{3} for edges \eqn{AB}, \eqn{BC}, and \eqn{AC}).
 
 CS proximity region is constructed with respect to \eqn{T_e} with expansion parameter \eqn{t=1}
 and edge regions are based on center of mass \eqn{CM=(1/2,\sqrt{3}/6)}.
@@ -40,7 +40,6 @@ function checks whether the point \code{p} would be a dominating point if it act
 See also (\insertCite{ceyhan:Phd-thesis,ceyhan:comp-geo-2010,ceyhan:mcap2012;textual}{pcds}).
 }
 \examples{
-\dontrun{
 A<-c(0,0); B<-c(1,0); C<-c(1/2,sqrt(3)/2);
 CM<-(A+B+C)/3
 Te<-rbind(A,B,C);
@@ -83,14 +82,8 @@ txt.str<-c("A","B","C","CM")
 text(xc,yc,txt.str)
 
 P<-c(.4,.2)
-Gam1CSTe(P,dat,t)
-
 dat.fr<-data.frame(a=dat)
-Gam1CSTe(P,dat.fr,t)
-
-Gam1CSTet1(c(1,2),dat,ch.data.pnt = TRUE)
-#gives an error message since p is not a data point
-}
+Gam1CSTet1(P,dat.fr)
 
 }
 \references{
@@ -98,4 +91,7 @@ Gam1CSTet1(c(1,2),dat,ch.data.pnt = TRUE)
 }
 \seealso{
 \code{\link{Gam1CSTe}}
+}
+\author{
+Elvan Ceyhan
 }

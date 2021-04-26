@@ -7,11 +7,11 @@
 NumArcsCSend1D(dat, t, int)
 }
 \arguments{
-\item{dat}{A vector of 1D points which constitute the vertices of the digraph.}
+\item{dat}{A \code{vector} of 1D points which constitute the vertices of the digraph.}
 
 \item{t}{A positive real number which serves as the expansion parameter in CS proximity region.}
 
-\item{int}{A vector of two real numbers representing an interval.}
+\item{int}{A \code{vector} of two real numbers representing an interval.}
 }
 \value{
 Number of arcs for the CS-PCD with vertices being 1D data set, \code{dat},
@@ -19,7 +19,7 @@ expansion parameter, \code{t}, for the end intervals.
 }
 \description{
 Returns the number of arcs of Central Similarity Proximity Catch Digraphs (CS-PCDs) whose
-vertices are a 1D numerical data set, \code{dat}, outside the interval \eqn{int=(a,b)}.
+vertices are a 1D numerical data set, \code{dat}, outside the interval \code{int}\eqn{=(a,b)}.
 
 CS proximity region is constructed only with expansion parameter \eqn{t>0} for points outside the interval \eqn{(a,b)}.
 
@@ -60,4 +60,7 @@ NumArcsCSend1D(dat,t,int)
 }
 \seealso{
 \code{\link{NumArcsCSmid1D}}, \code{\link{NumArcsPEmid1D}}, and \code{\link{NumArcsPEend1D}}
+}
+\author{
+Elvan Ceyhan
 }

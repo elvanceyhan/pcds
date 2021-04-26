@@ -21,22 +21,22 @@ constructed in the triangle \code{tri}.}
 
 \item{M}{A 2D point in Cartesian coordinates or a 3D point in barycentric coordinates
 which serves as a center in the interior of the triangle \code{tri};
-default is \eqn{M=(1,1,1)} i.e. the center of mass of \code{tri}.}
+default is \eqn{M=(1,1,1)} i.e., the center of mass of \code{tri}.}
 }
 \value{
-I(\code{pt} is in \eqn{\cup_{x in S} NCS(x,\tau)}), that is, returns 1 if \code{pt} is in \code{S} or inside \eqn{NCS(x,\tau)} for at least
-one x in \code{S}, returns 0 otherwise where CS proximity region is constructed with respect to the triangle \code{tri}
+I(\code{pt} is in \eqn{\cup_{x in S} N_{CS}(x,\tau)}), that is, returns 1 if \code{pt} is in \code{S} or inside \eqn{N_{CS}(x,\tau)} for at least
+one \eqn{x} in \code{S}, returns 0 otherwise where CS proximity region is constructed with respect to the triangle \code{tri}
 }
 \description{
-Returns I(\code{pt} in \eqn{NCS(x,\tau)} for some x in \code{S}), that is, returns 1 if \code{pt} in \eqn{\cup_{x in S} NCS(x,\tau)},
+Returns I(\code{pt} in \eqn{N_{CS}(x,\tau)} for some \eqn{x} in \code{S}), that is, returns 1 if \code{pt} in \eqn{\cup_{x in S} N_{CS}(x,\tau)},
 returns 0 otherwise.
 
 CS proximity region is constructed with respect to the triangle \code{tri} with
 the expansion parameter \eqn{t>0} and edge regions are based on the center, \eqn{M=(m_1,m_2)} in Cartesian coordinates
 or \eqn{M=(\alpha,\beta,\gamma)} in barycentric coordinates in the interior of the triangle \code{tri};
-default is \eqn{M=(1,1,1)} i.e. the center of mass of \code{tri}.
+default is \eqn{M=(1,1,1)} i.e., the center of mass of \code{tri}.
 
-Edges of \code{tri}=\eqn{T(A,B,C)}, \eqn{AB}, \eqn{BC}, \eqn{AC}, are also labeled as edges 3, 1, and 2, respectively.
+Edges of \code{tri}\eqn{=T(A,B,C)}, \eqn{AB}, \eqn{BC}, \eqn{AC}, are also labeled as edges 3, 1, and 2, respectively.
 If \code{pt} is not in \code{S} and either \code{pt} or all points in \code{S} are outside \code{tri}, it returns 0,
 but if \code{pt} is in \code{S}, then it always returns 1 regardless of its location (i.e., loops are allowed).
 }
@@ -88,4 +88,7 @@ IndNCStriSet(dat.fr,P,tau,Tr,M)
 }
 \seealso{
 \code{\link{IndCSTeSet}}, \code{\link{IndNCStri}}, \code{\link{IndCSTe}}, \code{\link{IndNAStriSet}}, and \code{\link{IndNPEtriSet}}
+}
+\author{
+Elvan Ceyhan
 }

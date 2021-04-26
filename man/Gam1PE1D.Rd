@@ -15,29 +15,29 @@ Gam1PE1D(p, Dt, r, c, int, rv = NULL, ch.data.pnt = FALSE)
 \item{r}{A positive real number which serves as the expansion parameter in PE proximity region;
 must be \eqn{\ge 1}.}
 
-\item{c}{A positive real number in \eqn{(0,1)} parameterizing the center inside \eqn{int=(a,b)}.
-For the interval, \eqn{int=(a,b)}, the parameterized center is \eqn{M_c=a+c(b-a)}; default c=.5.}
+\item{c}{A positive real number in \eqn{(0,1)} parameterizing the center inside \code{int}\eqn{=(a,b)}.
+For the interval, \code{int}\eqn{=(a,b)}, the parameterized center is \eqn{M_c=a+c(b-a)}; default \code{c=.5}.}
 
-\item{int}{A vector of two real numbers representing an interval.}
+\item{int}{A \code{vector} of two real numbers representing an interval.}
 
-\item{rv}{Index of the vertex region in which the point resides, either 1, 2 or \code{NULL}
+\item{rv}{Index of the vertex region in which the point resides, either \code{1,2} or \code{NULL}
 (default is \code{NULL}).}
 
 \item{ch.data.pnt}{A logical argument for checking whether point \code{p} is a data point
 in \code{Dt} or not (default is \code{FALSE}).}
 }
 \value{
-I(\code{p} is a dominating point of the PE-PCD) where the vertices of the PE-PCD are the 1D data set \code{Dt},
+\eqn{I(}\code{p} is a dominating point of the PE-PCD\eqn{)} where the vertices of the PE-PCD are the 1D data set \code{Dt},
 that is, returns 1 if \code{p} is a dominating point, returns 0 otherwise
 }
 \description{
-Returns I(\code{p} is a dominating point of the PE-PCD) where the vertices of the PE-PCD are the 1D data set \code{Dt}.
+Returns \eqn{I(}\code{p} is a dominating point of the PE-PCD\eqn{)} where the vertices of the PE-PCD are the 1D data set \code{Dt}.
 
 PE proximity region is defined with respect to the interval \code{int} with an expansion parameter, \eqn{r \ge 1},
-and a centrality parameter, \code{c} in \eqn{(0,1)}, so arcs may exist for \code{Dt} points inside the interval \eqn{int=(a,b)}.
+and a centrality parameter, \eqn{c \in (0,1)}, so arcs may exist for \code{Dt} points inside the interval \code{int}\eqn{=(a,b)}.
 
-Vertex regions are based on the center associated with the centrality parameter \code{c} in \eqn{(0,1)}.
-\code{rv} is the index of the vertex region p resides, with default=\code{NULL}.
+Vertex regions are based on the center associated with the centrality parameter \eqn{c \in (0,1)}.
+\code{rv} is the index of the vertex region \code{p} resides, with default=\code{NULL}.
 
 \code{ch.data.pnt} is for checking whether point \code{p} is a data point in \code{Dt} or not (default is \code{FALSE}),
 so by default this function checks whether the point \code{p} would be a dominating point
@@ -88,11 +88,13 @@ n<-10
 dat2<-runif(n,a+b,b+10)
 Gam1PE1D(5,dat2,r,c,int)
 
-\dontrun{
-Gam1PE1D(2,dat,r,c,int,ch.data.pnt = TRUE)  #point p is not a data point in Dt
-}
+Gam1PE1D(2,dat,r,c,int,ch.data.pnt = FALSE)
+#gives an error message if ch.data.pnt = TRUE since point p is not a data point in Dt
 
 }
 \seealso{
 \code{\link{Gam1PEtri}}
+}
+\author{
+Elvan Ceyhan
 }

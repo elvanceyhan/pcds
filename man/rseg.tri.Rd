@@ -12,14 +12,14 @@ in the triangle, \code{tri}.}
 
 \item{tri}{Three 2D points, stacked row-wise, each row representing a vertex of the triangle.}
 
-\item{delta}{A positive real number in (0,4/9). \code{delta} is the parameter of segregation (that is,
+\item{delta}{A positive real number in \eqn{(0,4/9)}. \code{delta} is the parameter of segregation (that is,
 \eqn{\delta 100} \% area around each vertex in each Delaunay triangle is forbidden for point generation).}
 }
 \value{
-A list with the elements
+A \code{list} with the elements
 \item{type}{The type of the pattern from which points are to be generated}
-\item{mtitle}{The "main" title for the plot of the point pattern}
-\item{parameters}{Exclusion parameter, \code{delta}, of the Type I segregation pattern. \code{delta} is in (0,4/9)
+\item{mtitle}{The \code{"main"} title for the plot of the point pattern}
+\item{parameters}{Exclusion parameter, \code{delta}, of the Type I segregation pattern. \code{delta} is in \eqn{(0,4/9)}
 \eqn{\delta 100} \% area around each vertex in the triangle \code{tri} is forbidden for point generation.}
 \item{ref.points}{The input set of points, i.e., vertices of \code{tri};
 reference points, i.e., points from which generated points are segregated.}
@@ -27,13 +27,13 @@ reference points, i.e., points from which generated points are segregated.}
 \item{tri.Y}{Logical output, if \code{TRUE} the triangle \code{tri} is also plotted when the
 corresponding plot function from the \code{Patterns} object is called.}
 \item{desc.pat}{Description of the point pattern}
-\item{num.points}{The vector of two numbers, which are the number of generated points
-and the number of reference (i.e., vertice of \code{tri}, which is 3 here).}
-\item{xlimit,ylimit}{The ranges of the x- and y-coordinates of the reference points, which are the
-vertice so the triangle \code{tri}}
+\item{num.points}{The \code{vector} of two numbers, which are the number of generated points
+and the number of reference (i.e., vertex of \code{tri}, which is 3 here).}
+\item{xlimit,ylimit}{The ranges of the \eqn{x}- and \eqn{y}-coordinates of the reference points, which are the
+vertices of the triangle \code{tri}}
 }
 \description{
-An object of class "Patterns".
+An object of class \code{"Patterns"}.
 Generates \code{k} points uniformly in the support for Type I segregation in
 a given triangle, \code{tri}.
 
@@ -78,4 +78,7 @@ rseg.tri(n,dat.fr,del)
 }
 \seealso{
 \code{\link{rasc.tri}}, \code{\link{rsegTe}}, \code{\link{rsegIITe}}, and \code{\link{rsegMT}}
+}
+\author{
+Elvan Ceyhan
 }

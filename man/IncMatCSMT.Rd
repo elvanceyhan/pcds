@@ -29,7 +29,7 @@ Delaunay triangles based on \code{Yp} points with expansion parameter \eqn{t>0} 
 based on the center \eqn{M=(\alpha,\beta,\gamma)} in barycentric coordinates in the interior of each Delaunay
 triangle (default for \eqn{M=(1,1,1)} which is the center of mass of the triangle).
 Each Delaunay triangle is first converted to an (unscaled) basic triangle so that \code{M} will be the same
-type of center for each Delaunay triangle (this conversion is not necessary when \code{M} is CM).
+type of center for each Delaunay triangle (this conversion is not necessary when \code{M} is \eqn{CM}).
 
 Convex hull of \code{Yp} is partitioned by the Delaunay triangles based on \code{Yp} points
 (i.e., multiple triangles are the set of these Delaunay triangles whose union constitutes the
@@ -77,4 +77,7 @@ IncMatCSMT(Xp,dat.fr,t,M)
 \seealso{
 \code{\link{IncMatCStri}}, \code{\link{IncMatCSTe}}, \code{\link{IncMatASMT}},
 and \code{\link{IncMatPEMT}}
+}
+\author{
+Elvan Ceyhan
 }

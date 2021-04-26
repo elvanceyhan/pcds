@@ -20,7 +20,7 @@ which serves as a center in the interior of the standard equilateral triangle \e
 the center of mass of \eqn{T_e}.}
 }
 \value{
-A list with two elements
+A \code{list} with two elements
 \item{domUB}{The upper bound \code{k} (to be checked) for the domination number of CS-PCD. It is prespecified
 as \code{k} in the function arguments.}
 \item{IndUBdom}{The indicator for the upper bound for domination number of CS-PCD being the
@@ -29,14 +29,14 @@ specified value \code{k} or not. It returns 1 if the upper bound is \code{k}, an
 otherwise it is \code{NULL}.}
 }
 \description{
-Returns I(domination number of CS-PCD is less than or equal to \code{k}) where the vertices of the CS-PCD are the data points \code{Dt},
+Returns \eqn{I(}domination number of CS-PCD is less than or equal to \code{k}\eqn{)} where the vertices of the CS-PCD are the data points \code{Dt},
 that is, returns 1 if the domination number of CS-PCD is less than the prespecified value \code{k}, returns 0
-otherwise. It also provides the vertices (i.e. data points) in a dominating set of size \code{k} of CS-PCD.
+otherwise. It also provides the vertices (i.e., data points) in a dominating set of size \code{k} of CS-PCD.
 
 CS proximity region is constructed with respect to the standard equilateral triangle \eqn{T_e=T(A,B,C)=T((0,0),(1,0),(1/2,\sqrt{3}/2))} with
 expansion parameter \eqn{t>0} and edge regions are based on the center \eqn{M=(m_1,m_2)}
 in Cartesian coordinates or \eqn{M=(\alpha,\beta,\gamma)} in barycentric coordinates in the interior of \eqn{T_e};
-default is \eqn{M=(1,1,1)} i.e. the center of mass of \eqn{T_e} (which is equivalent to the circumcenter of \eqn{T_e}).
+default is \eqn{M=(1,1,1)} i.e., the center of mass of \eqn{T_e} (which is equivalent to the circumcenter of \eqn{T_e}).
 
 Edges of \eqn{T_e}, \eqn{AB}, \eqn{BC}, \eqn{AC}, are also labeled as 3, 1, and 2, respectively.
 Loops are allowed in the digraph.
@@ -81,4 +81,7 @@ IndCSdomUBTe(dat.fr,1,t,M)
 \seealso{
 \code{\link{IndCSdomUBtri}}, \code{\link{IndUBdom}}, \code{\link{IndASdomUBtri}},
 and \code{\link{dom.exact}}
+}
+\author{
+Elvan Ceyhan
 }

@@ -3,7 +3,7 @@
 \name{six.ext}
 \alias{six.ext}
 \title{The closest points among a data set in the standard equilateral triangle
-to the median lines in 6 half edge regions}
+to the median lines in the six  half edge regions}
 \usage{
 six.ext(Dt, ch.all.intri = FALSE)
 }
@@ -15,39 +15,38 @@ to the median lines in 6 half edge regions.}
 (default is \code{FALSE}).}
 }
 \value{
-A list with the elements
-\item{txt1}{Region labels as r1-r6 (corresponds to row number in Extrema Points).}
-\item{txt2}{A short description of the distances as "Distances to Line Segments (A,CM), (B,CM), and (C,CM) in the six regions r1-r6".}
+A \code{list} with the elements
+\item{txt1}{Region labels as r1-r6 (corresponds to row number in Extremum Points).}
+\item{txt2}{A short description of the distances as \code{"Distances to Line Segments (A,CM), (B,CM), and (C,CM) in the six regions r1-r6"}.}
 \item{type}{Type of the extrema points}
-\item{mtitle}{The "main" title for the plot of the exrema}
-\item{ext}{The extrema points, here, closest points in each of regions r1-r6 to the line segments
-joining vertices to the center of mass, CM.}
-\item{X}{The input data, \code{Dt}, can be a matrix or data frame}
+\item{mtitle}{The \code{"main"} title for the plot of the extrema}
+\item{ext}{The extrema points, here, closest points in each of regions \code{r1-r6} to the line segments
+joining vertices to the center of mass, \eqn{CM}.}
+\item{X}{The input data, \code{Dt}, can be a \code{matrix} or \code{data frame}}
 \item{num.points}{The number of data points, i.e., size of \code{Dt}}
 \item{supp}{Support of the data points, here, it is \eqn{T_e}.}
 \item{cent}{The center point used for construction of edge regions.}
-\item{ncent}{Name of the center, \code{cent}, it is center of mass "CM" for this function.}
-\item{regions}{The six regions, r1-r6 and edge regions inside the triangle, \eqn{T_e}, provided as a list.}
-\item{region.names}{Names of the regions as "r1"-"r6" and names of the edge regions as "er=1","er=2","er=3".}
-\item{region.centers}{Centers of mass of the regions r1-r6 and of edge regions inside \eqn{T_e}.}
-\item{dist2ref}{Distances from closest points in each of regions r1-r6 to the line segments
-joining vertices to the center of mass, CM.}
+\item{ncent}{Name of the center, \code{cent}, it is center of mass \code{"CM"} for this function.}
+\item{regions}{The six regions, \code{r1-r6} and edge regions inside the triangle, \eqn{T_e}, provided as a list.}
+\item{region.names}{Names of the regions as \code{"r1"}-\code{"r6"} and names of the edge regions as \code{"er=1"}, \code{"er=2"}, and \code{"er=3"}.}
+\item{region.centers}{Centers of mass of the regions \code{r1-r6} and of edge regions inside \eqn{T_e}.}
+\item{dist2ref}{Distances from closest points in each of regions \code{r1-r6} to the line segments
+joining vertices to the center of mass, \eqn{CM}.}
 }
 \description{
-An object of class "Extrema".
+An object of class \code{"Extrema"}.
 Returns the six closest points among the data set, \code{Dt}, in the standard equilateral triangle
 \eqn{T_e=T(A=(0,0),B=(1,0),C=(1/2,\sqrt{3}/2))} in half edge regions. In particular,
-in regions \eqn{r_1} and \eqn{r_6}, it finds the closest point in each region to the line segment [A,CM]
-in regions \eqn{r_2} and \eqn{r_3}, it finds the closest point in each region to the line segment [B,CM] and
-in regions \eqn{r_4} and \eqn{r_5}, it finds the closest point in each region to the line segment [C,CM]
+in regions \eqn{r_1} and \eqn{r_6}, it finds the closest point in each region to the line segment \eqn{[A,CM]}
+in regions \eqn{r_2} and \eqn{r_3}, it finds the closest point in each region to the line segment \eqn{[B,CM]} and
+in regions \eqn{r_4} and \eqn{r_5}, it finds the closest point in each region to the line segment \eqn{[C,CM]}
 where \eqn{CM=(A+B+C)/3} is the center of mass.
 
 See the example for this function or example for
-\code{rel.six.Te} function. If there is no data point in region \eqn{r_i}, then it returns "\code{NA} \code{NA}" for ith row in the extrema.
+\code{rel.six.Te} function. If there is no data point in region \eqn{r_i}, then it returns "\code{NA} \code{NA}" for \eqn{i}-th row in the extrema.
 \code{ch.all.intri} is for checking whether all data points are in \eqn{T_e} (default is \code{FALSE}).
 }
 \examples{
-\dontrun{
 n<-10  #try also n<-100
 dat<-runifTe(n)$gen.points
 
@@ -96,11 +95,10 @@ six.ext(dat.fr)
 dat2<-rbind(dat,c(.8,.8))
 six.ext(dat2)
 
-six.ext(dat2,ch.all.intri = TRUE)
-#gives an error message since not all data points are in the std equilateral triangle
-}
-
 }
 \seealso{
 \code{\link{rel.six.Te}} and \code{\link{cl2edgesTe}}
+}
+\author{
+Elvan Ceyhan
 }

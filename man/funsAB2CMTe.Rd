@@ -11,39 +11,38 @@ lA_CM.Te(x)
 lB_CM.Te(x)
 }
 \arguments{
-\item{x}{A single scalar or a vector of scalars which is the argument of the functions
+\item{x}{A single scalar or a \code{vector} of scalars which is the argument of the functions
 \code{lA_CM.Te} and \code{lB_CM.Te}.}
 }
 \value{
-A list with the elements
+A \code{list} with the elements
 \item{txt1}{Longer description of the line.}
 \item{txt2}{Shorter description of the line (to be inserted over the line in the plot).}
-\item{mtitle}{The "main" title for the plot of the line.}
-\item{cent}{The center chosen inside the  standard equilateral triangle.}
-\item{cent.name}{The name of the center inside the  standard equilateral triangle.
-It is "CM" for these two functions.}
+\item{mtitle}{The \code{"main"} title for the plot of the line.}
+\item{cent}{The center chosen inside the standard equilateral triangle.}
+\item{cent.name}{The name of the center inside the standard equilateral triangle.
+It is \code{"CM"} for these two functions.}
 \item{tri}{The triangle (it is the standard equilateral triangle for this function).}
-\item{x}{The input vector, can be a scalar or a vector of scalars,
-which constitute the x-coordinates of the point(s) of interest on the line.}
-\item{y}{The output vector, will be a scalar if \code{x} is a scalar or a vector of scalars
-if \code{x} is a vector of scalar, constitutes the y-coordinates of the point(s) of interest on the line.}
+\item{x}{The input vector, can be a scalar or a \code{vector} of scalars,
+which constitute the \eqn{x}-coordinates of the point(s) of interest on the line.}
+\item{y}{The output vector, will be a scalar if \code{x} is a scalar or a \code{vector} of scalars
+if \code{x} is a \code{vector} of scalar, constitutes the \eqn{y}-coordinates of the point(s) of interest on the line.}
 \item{slope}{Slope of the line.}
 \item{intercept}{Intercept of the line.}
 \item{equation}{Equation of the line.}
 }
 \description{
-Two functions, \code{lA_CM.Te} and \code{lB_CM.Te} of class "TriLines".
-Returns the \code{equation, slope, intercept}, and y-coordinates of the lines joining A and CM and
-also B and CM.
+Two functions, \code{lA_CM.Te} and \code{lB_CM.Te} of class \code{"TriLines"}.
+Returns the \code{equation, slope, intercept}, and \eqn{y}-coordinates of the lines joining \eqn{A} and \eqn{CM} and
+also \eqn{B} and \eqn{CM}.
 
-\code{lA_CM.Te} is the line joining A to the center of mass, CM, and
+\code{lA_CM.Te} is the line joining \eqn{A} to the center of mass, \eqn{CM}, and
 
-\code{lB_CM.Te} is the line joining B to the center of mass, CM, in the standard equilateral triangle \eqn{T_e=(A,B,C)}
-with \eqn{A=(0,0)};  \eqn{B=(1,0)}; \eqn{C=(1/2,\sqrt{3}/2)}; x-coordinates are provided in vector \code{x}.
+\code{lB_CM.Te} is the line joining \eqn{B} to the center of mass, \eqn{CM}, in the standard equilateral triangle \eqn{T_e=(A,B,C)}
+with \eqn{A=(0,0)}, \eqn{B=(1,0)}, \eqn{C=(1/2,\sqrt{3}/2)}; \eqn{x}-coordinates are provided in \code{vector} \code{x}.
 }
 \examples{
 #Examples for lA_CM.Te
-\dontrun{
 A<-c(0,0); B<-c(1,0); C<-c(1/2,sqrt(3)/2);
 Te<-rbind(A,B,C)
 xfence<-abs(A[1]-B[1])*.25 #how far to go at the lower and upper ends in the x-coordinate
@@ -75,10 +74,8 @@ txt.str<-c("A","B","C","CM","D1","D2","D3","lA_CM.Te(x)","lB_CM.Te(x)")
 text(xc,yc,txt.str)
 
 lA_CM.Te(.25)$y
-}
 
 #Examples for lB_CM.Te
-\dontrun{
 A<-c(0,0); B<-c(1,0); C<-c(1/2,sqrt(3)/2);
 Te<-rbind(A,B,C)
 xfence<-abs(A[1]-B[1])*.25 #how far to go at the lower and upper ends in the x-coordinate
@@ -90,9 +87,11 @@ summary(lnBCM)
 plot(lnBCM,xlab="x",ylab="y")
 
 lB_CM.Te(.25)$y
-}
 
 }
 \seealso{
 \code{\link{lA_M.Te}}, \code{\link{lB_M.Te}}, and \code{\link{lC_M.Te}}
+}
+\author{
+Elvan Ceyhan
 }

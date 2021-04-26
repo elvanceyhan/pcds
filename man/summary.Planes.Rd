@@ -2,24 +2,24 @@
 % Please edit documentation in R/AuxRFuncs4PCDClasses.r
 \name{summary.Planes}
 \alias{summary.Planes}
-\title{Return a summary of a \code{Planes} object}
+\title{Return a summary of a \code{Planes} \code{object}}
 \usage{
 \method{summary}{Planes}(object, ...)
 }
 \arguments{
-\item{object}{Object of class \code{Planes}.}
+\item{object}{An \code{object} of class \code{Planes}.}
 
 \item{\dots}{Additional parameters for \code{summary}.}
 }
 \value{
-The \code{call} of the object of class '\code{Planes}',
-the defining 3D \code{points}, selected x, y and z points on the plane,
-equation of the plane, and \code{coefficients} of the plane (in the form: z = A*x + B*y + C).
+The \code{call} of the \code{object} of class \code{"Planes"},
+the defining 3D \code{points}, selected \eqn{x}, \eqn{y}, and \eqn{z} points on the plane,
+equation of the plane, and \code{coefficients} of the plane (in the form: \code{z = A*x + B*y + C}).
 }
 \description{
 Returns the below information about the \code{object}:
 
-\code{call} of the function defining the \code{object}, the defining 3D \code{points}, selected x, y and z points on
+\code{call} of the function defining the \code{object}, the defining 3D \code{points}, selected \eqn{x}, \eqn{y}, and \eqn{z} points on
 the plane, equation of the plane, and \code{coefficients} of the plane.
 }
 \examples{

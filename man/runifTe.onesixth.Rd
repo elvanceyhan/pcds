@@ -2,37 +2,36 @@
 % Please edit documentation in R/PCDFunctions.r
 \name{runifTe.onesixth}
 \alias{runifTe.onesixth}
-\title{Generation of Uniform Points in a part of standard equilateral triangle}
+\title{Generation of Uniform Points in the first one-sixth of standard equilateral triangle}
 \usage{
 runifTe.onesixth(k)
 }
 \arguments{
 \item{k}{a positive integer representing number of uniform points to be generated
-in the first one sixth of \eqn{T_e}.}
+in the first one-sixth of \eqn{T_e}.}
 }
 \value{
-A list with the elements
+A \code{list} with the elements
 \item{type}{The type of the point pattern}
-\item{mtitle}{The "main" title for the plot of the point pattern}
+\item{mtitle}{The \code{"main"} title for the plot of the point pattern}
 \item{support}{The vertices of the support of the uniformly generated points}
 \item{gen.points}{The output set of uniformly generated points in the first 1/6th of
 the standard equilateral triangle.}
-\item{out.region}{The outer region for the one-sixth of \eqn{T_e}, which is just Te here.}
+\item{out.region}{The outer region for the one-sixth of \eqn{T_e}, which is just \eqn{T_e} here.}
 \item{desc.pat}{Description of the point pattern}
-\item{num.points}{The vector of two numbers, which are the number of generated points
+\item{num.points}{The \code{vector} of two numbers, which are the number of generated points
 and the number of vertices of the support (i.e., \code{Y}) points.}
 \item{txt4pnts}{Description of the two numbers in \code{num.points}.}
-\item{xlimit,ylimit}{The ranges of the x- and y-coordinates of the generated, support and outer region points}
+\item{xlimit,ylimit}{The ranges of the \eqn{x}- and \eqn{y}-coordinates of the generated, support and outer region points}
 }
 \description{
-An object of class "Uniform".
+An object of class \code{"Uniform"}.
 Generates \code{k} points uniformly in the first 1/6th of the standard equilateral triangle \eqn{T_e=(A,B,C)}
-with vertices with \eqn{A=(0,0)}; \eqn{B=(1,0)}; \eqn{C=(1/2,sqrt{3}/2)} (see the examples below).
+with vertices with \eqn{A=(0,0)}; \eqn{B=(1,0)}, \eqn{C=(1/2,\sqrt{3}/2)} (see the examples below).
 The first 1/6th of the standard equilateral triangle is the triangle with vertices
-\eqn{A=(0,0)};  (1/2,0); \eqn{C=(1/2,\sqrt{3}/6)}.
+\eqn{A=(0,0)}, \eqn{(1/2,0)}, \eqn{C=(1/2,\sqrt{3}/6)}.
 }
 \examples{
-\dontrun{
 A<-c(0,0); B<-c(1,0); C<-c(1/2,sqrt(3)/2);
 Te<-rbind(A,B,C);
 CM<-(A+B+C)/3;
@@ -69,9 +68,11 @@ xc<-txt[,1]+c(-.02,.02,.02,.04,.05,-.03,0)
 yc<-txt[,2]+c(.02,.02,.02,.03,0,.03,-.03)
 txt.str<-c("A","B","C","CM","D1","D2","D3")
 text(xc,yc,txt.str)
-}
 
 }
 \seealso{
 \code{\link{runifTe}}, \code{\link{runif.bastri}}, \code{\link{runif.tri}}, and \code{\link{runifMT}}
+}
+\author{
+Elvan Ceyhan
 }

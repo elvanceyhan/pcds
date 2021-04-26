@@ -2,22 +2,22 @@
 % Please edit documentation in R/AuxRFuncs4PCDClasses.r
 \name{print.Lines}
 \alias{print.Lines}
-\title{Print a \code{Lines} object}
+\title{Print a \code{Lines} \code{object}}
 \usage{
 \method{print}{Lines}(x, ...)
 }
 \arguments{
-\item{x}{A \code{Lines} object.}
+\item{x}{A \code{Lines} \code{object}.}
 
-\item{\dots}{Additional arguments for the S3 method '\code{print}'.}
+\item{\dots}{Additional arguments for the S3 method \code{'print'}.}
 }
 \value{
-The \code{call} of the object of class '\code{Lines}'
-and the \code{coefficients} of the line (in the form: y = slope * x + intercept).
+The \code{call} of the \code{object} of class \code{"Lines"}
+and the \code{coefficients} of the line (in the form: \code{y = slope * x + intercept}).
 }
 \description{
-Prints the \code{call} of the object of class '\code{Lines}'
-and also the \code{coefficients} of the line (in the form: y = slope * x + intercept).
+Prints the \code{call} of the \code{object} of class \code{"Lines"}
+and also the \code{coefficients} of the line (in the form: \code{y = slope * x + intercept}).
 }
 \examples{
 A<-c(-1.22,-2.33); B<-c(2.55,3.75)

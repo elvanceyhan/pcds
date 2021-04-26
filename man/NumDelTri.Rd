@@ -13,7 +13,7 @@ NumDelTri(Yp)
 Number of Delaunay triangles based on \code{Yp} points.
 }
 \description{
-Returns the number of Delaunay triangles based on the 2D set of points \code{Yp} .
+Returns the number of Delaunay triangles based on the 2D set of points \code{Yp}.
 See (\insertCite{okabe:2000,sinclair:2016;textual}{pcds}) for more on Delaunay triangulation and
 the corresponding algorithm.
 }
@@ -35,4 +35,7 @@ NumDelTri(dat.fr)
 }
 \seealso{
 \code{\link{plotDeltri}}
+}
+\author{
+Elvan Ceyhan
 }

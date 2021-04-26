@@ -2,15 +2,15 @@
 % Please edit documentation in R/AuxRFuncs4PCDClasses.r
 \name{plot.PCDs}
 \alias{plot.PCDs}
-\title{Plot a \code{PCDs} object}
+\title{Plot a \code{PCDs} \code{object}}
 \usage{
 \method{plot}{PCDs}(x, Jit = 0.1, ...)
 }
 \arguments{
 \item{x}{Object of class \code{PCDs}.}
 
-\item{Jit}{A positive real number that determines the amount of jitter along the y-axis, default is 0.1, for the
-1D case, the vertices of the PCD are jittered according to \eqn{U(-Jit,Jit)} distribution along the y-axis where
+\item{Jit}{A positive real number that determines the amount of jitter along the \eqn{y}-axis, default is 0.1, for the
+1D case, the vertices of the PCD are jittered according to \eqn{U(-Jit,Jit)} distribution along the \eqn{y}-axis where
 \code{Jit} equals to the range of vertices and the interval end points; it is redundant in the 2D case.}
 
 \item{\dots}{Additional parameters for \code{plot}.}

@@ -20,17 +20,17 @@ the center of mass of \eqn{T_e}.}
 \value{
 Number of arcs for the PE-PCD with vertices being 2D data set, \code{dat}, in \eqn{T_e}
 with expansion parameter, \eqn{r \ge 1}, and \code{M}-vertex regions. PE proximity regions are defined only
-for \code{dat} points inside \eqn{T_e}, i.e. arcs are possible for such points only.
+for \code{dat} points inside \eqn{T_e}, i.e., arcs are possible for such points only.
 }
 \description{
 Returns the number of arcs of Proportional Edge Proximity Catch Digraphs (PE-PCDs) whose vertices are the
 given 2D numerical data set, \code{dat}.
 
-PE proximity region \eqn{NPE(x,r)} is defined with respect to the standard
+PE proximity region \eqn{N_{PE}(x,r)} is defined with respect to the standard
 equilateral triangle \eqn{T_e=T(v=1,v=2,v=3)=T((0,0),(1,0),(1/2,\sqrt{3}/2))} with expansion parameter \eqn{r \ge 1}
 and vertex regions are based on the center \eqn{M=(m_1,m_2)}
 in Cartesian coordinates or \eqn{M=(\alpha,\beta,\gamma)} in barycentric coordinates in the interior of \eqn{T_e};
-default is \eqn{M=(1,1,1)} i.e. the center of mass of \eqn{T_e}.
+default is \eqn{M=(1,1,1)} i.e., the center of mass of \eqn{T_e}.
 For the number of arcs, loops are not allowed so
 arcs are only possible for points inside \eqn{T_e} for this function.
 
@@ -63,4 +63,7 @@ NumArcsPETe(dat.fr,r=1.5,M);
 }
 \seealso{
 \code{\link{NumArcsPEtri}}, \code{\link{NumArcsPEMT}}, and \code{\link{NumArcsCSTe}}
+}
+\author{
+Elvan Ceyhan
 }

@@ -54,3 +54,6 @@ circ.cent.tetra(dat.fr)
 \seealso{
 \code{\link{circ.cent.tri}}
 }
+\author{
+Elvan Ceyhan
+}

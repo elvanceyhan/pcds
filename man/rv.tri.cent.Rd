@@ -16,11 +16,11 @@ triangle \code{tri}.}
 which serves as a center in the interior of the triangle \code{tri}.}
 }
 \value{
-A list with two elements
+A \code{list} with two elements
 \item{rv}{Index of the vertex whose region contains point, \code{p}; index of the vertex is the same as the row
 number in the triangle, \code{tri}}
 \item{tri}{The vertices of the triangle, \code{tri}, where row number corresponds to the vertex index \code{rv}
-with \eqn{rv=1} is row 1, \eqn{rv=2} is row 2, and \eqn{rv=3} is is row 3.}
+with \code{rv=1} is row 1, \code{rv=2} is row 2, and \eqn{rv=3} is is row 3.}
 }
 \description{
 Returns the index of the related vertex in the triangle, \code{tri}, whose region contains point \code{p}.
@@ -104,4 +104,7 @@ rv.tri.cent(P,dat.fr,M)
 \seealso{
 \code{\link{rv.triCM}}, \code{\link{rv.triCC}}, \code{\link{rv.bastriCC}},
 \code{\link{rv.bastriCM}}, \code{\link{rv.bastri.cent}}, and \code{\link{rvTeCM}}
+}
+\author{
+Elvan Ceyhan
 }

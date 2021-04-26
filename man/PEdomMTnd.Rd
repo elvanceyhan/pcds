@@ -16,19 +16,19 @@ PEdomMTnd(Xp, Yp, r)
 must be \eqn{\ge 1}.}
 }
 \value{
-A list with two elements
+A \code{list} with two elements
 \item{dom.num}{Domination number of the PE-PCD whose vertices are \code{Xp} points. PE proximity regions are
 constructed with respect to the Delaunay triangles based on the \code{Yp} points with expansion parameter \eqn{r \ge 1}.}
 \item{mds}{A minimum dominating set of the PE-PCD whose vertices are \code{Xp} points}
 }
 \description{
 Returns the domination number and a minimum dominating set of PE-PCD whose vertices are the data
-points in \code{Xp} in the multiple triangle case and the Delauany triangles based on \code{Yp} points.
+points in \code{Xp} in the multiple triangle case and the Delaunay triangles based on \code{Yp} points.
 
 PE proximity regions are defined with respect to the Delaunay triangles based on \code{Yp} points with
 expansion parameter \eqn{r \ge 1} and vertex regions in each triangle are based on the center \eqn{M=(\alpha,\beta,\gamma)}
 in barycentric coordinates in the interior of each Delaunay triangle or based on
-circumcenter of each Delaunay triangle (default for \eqn{M=(1,1,1)} which is the center M
+circumcenter of each Delaunay triangle (default for \eqn{M=(1,1,1)} which is the center \eqn{M}
 where \code{M} is one of the 3 centers that renders the asymptotic distribution of domination number
 to be non-degenerate for a given value of \code{r} in \eqn{(1,1.5)} and \code{M} is center of mass for \eqn{r=1.5}.
 
@@ -73,4 +73,7 @@ PEdomMTnd(Xp,dat.fr,r)
 }
 \seealso{
 \code{\link{PEdomtri}}, \code{\link{PEdom.tetra}}, \code{\link{dom.exact}}, and \code{\link{dom.greedy}}
+}
+\author{
+Elvan Ceyhan
 }

@@ -14,8 +14,8 @@ asyvarCS1D(t, c)
 \arguments{
 \item{t}{A positive real number which serves as the expansion parameter in CS proximity region.}
 
-\item{c}{A positive real number in \eqn{(0,1)} parameterizing the center inside \eqn{int=(a,b)}.
-For the interval, \eqn{int=(a,b)}, the parameterized center is \eqn{M_c=a+c(b-a)}.}
+\item{c}{A positive real number in \eqn{(0,1)} parameterizing the center inside \code{int}\eqn{=(a,b)}.
+For the interval, \code{int}\eqn{=(a,b)}, the parameterized center is \eqn{M_c=a+c(b-a)}.}
 }
 \value{
 \code{muCS1D} returns the mean and \code{asyvarCS1D} returns the asymptotic variance of the
@@ -26,8 +26,8 @@ Two functions: \code{muCS1D} and \code{asyvarCS1D}.
 
 \code{muCS1D} returns the mean of the (arc) density of CS-PCD
 and \code{asyvarCS1D} returns the (asymptotic) variance of the arc density of CS-PCD
-for a given centrality parameter \code{c} in \eqn{(0,1)} and an expansion parameter \eqn{t>0} and 1D uniform data in a
-finite interval \eqn{(a,b)}, i.e. data from \eqn{U(a,b)} distribution.
+for a given centrality parameter \eqn{c \in (0,1)} and an expansion parameter \eqn{t>0} and 1D uniform data in a
+finite interval \eqn{(a,b)}, i.e., data from \eqn{U(a,b)} distribution.
 
 See also (\insertCite{ceyhan:revstat-2016;textual}{pcds}).
 }
@@ -83,4 +83,7 @@ shade = 0.05, ticktype = "detailed")
 }
 \seealso{
 \code{\link{muPE1D}} and \code{\link{asyvarPE1D}}
+}
+\author{
+Elvan Ceyhan
 }

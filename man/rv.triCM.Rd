@@ -2,28 +2,28 @@
 % Please edit documentation in R/PCDFunctions.r
 \name{rv.triCM}
 \alias{rv.triCM}
-\title{The index of the CM-vertex region in a triangle that contains a given point}
+\title{The index of the \eqn{CM}-vertex region in a triangle that contains a given point}
 \usage{
 rv.triCM(p, tri)
 }
 \arguments{
-\item{p}{A 2D point for which CM-vertex region it resides in is to be determined in the triangle \code{tri}.}
+\item{p}{A 2D point for which \eqn{CM}-vertex region it resides in is to be determined in the triangle \code{tri}.}
 
 \item{tri}{Three 2D points, stacked row-wise, each row representing a vertex of the triangle.}
 }
 \value{
-A list with two elements
-\item{rv}{Index of the CM-vertex region that contains point, \code{p} in the triangle \code{tri}.}
+A \code{list} with two elements
+\item{rv}{Index of the \eqn{CM}-vertex region that contains point, \code{p} in the triangle \code{tri}.}
 \item{tri}{The vertices of the triangle, where row number corresponds to the vertex index in \code{rv}.}
 }
 \description{
 Returns the index of the vertex whose region contains point \code{p} in
-the triangle \code{tri}=\eqn{(y_1,y_2,y_3)} with vertex regions are constructed with center of mass \eqn{CM=(y_1+y_2+y_3)/3}
+the triangle \code{tri}\eqn{=(y_1,y_2,y_3)} with vertex regions are constructed with center of mass \eqn{CM=(y_1+y_2+y_3)/3}
 (see the plots in the example for illustrations).
 
-The vertices of triangle, \code{tri}, are labeled as 1,2,3
+The vertices of triangle, \code{tri}, are labeled as \eqn{1,2,3}
 according to the row number the vertex is recorded in \code{tri}. If the point, \code{p}, is not inside \code{tri}, then the
-function yields \code{NA} as output. The corresponding vertex region is the polygon with the vertex, CM, and
+function yields \code{NA} as output. The corresponding vertex region is the polygon with the vertex, \eqn{CM}, and
 midpoints of the edges adjacent to the vertex.
 
 See (\insertCite{ceyhan:Phd-thesis,ceyhan:comp-geo-2010,ceyhan:mcap2012;textual}{pcds})
@@ -98,4 +98,7 @@ rv.triCM(P,dat.fr)
 \seealso{
 \code{\link{rv.tri.cent}}, \code{\link{rv.triCC}}, \code{\link{rv.bastriCM}},
 \code{\link{rv.bastriCC}}, \code{\link{rv.bastri.cent}}, and \code{\link{rvTeCM}}
+}
+\author{
+Elvan Ceyhan
 }

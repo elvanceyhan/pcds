@@ -13,13 +13,13 @@ NPEbastri(pt, r, c1, c2, M = c(1, 1, 1), rv = NULL)
 must be \eqn{\ge 1}.}
 
 \item{c1, c2}{Positive real numbers representing the top vertex in basic triangle \eqn{T_b=T((0,0),(1,0),(c_1,c_2))},
-\code{c1} must be in \eqn{[0,1/2]}, \eqn{c_2>0} and \eqn{(1-c_1)^2+c_2^2 \le 1}.}
+\eqn{c_1} must be in \eqn{[0,1/2]}, \eqn{c_2>0} and \eqn{(1-c_1)^2+c_2^2 \le 1}.}
 
 \item{M}{A 2D point in Cartesian coordinates or a 3D point in barycentric coordinates
 which serves as a center in the interior of the basic triangle \eqn{T_b} or the circumcenter of \eqn{T_b};
-default is \eqn{M=(1,1,1)} i.e. the center of mass of \eqn{T_b}.}
+default is \eqn{M=(1,1,1)} i.e., the center of mass of \eqn{T_b}.}
 
-\item{rv}{Index of the \code{M}-vertex region containing the point \code{pt}, either 1, 2, 3 or \code{NULL}
+\item{rv}{Index of the \code{M}-vertex region containing the point \code{pt}, either \code{1,2,3} or \code{NULL}
 (default is \code{NULL}).}
 }
 \value{
@@ -28,14 +28,14 @@ r and center \code{M} for a point \code{pt}
 }
 \description{
 Returns the vertices of the PE proximity region (which is itself a triangle) for a point in the
-basic triangle \eqn{T_b=T((0,0),(1,0),(c1,c2))=(rv=1,rv=2,rv=3)}.
+basic triangle \eqn{T_b=T((0,0),(1,0),(c_1,c_2))=}\code{(rv=1,rv=2,rv=3)}.
 
 PE proximity region is defined with respect
 to the basic triangle \eqn{T_b} with expansion parameter \eqn{r \ge 1} and vertex regions based on center \eqn{M=(m_1,m_2)} in
 Cartesian coordinates or \eqn{M=(\alpha,\beta,\gamma)} in barycentric coordinates in the interior of the basic
-triangle \eqn{T_b} or based on the circumcenter of \eqn{T_b}; default is \eqn{M=(1,1,1)} i.e. the center of mass of \eqn{T_b}.
+triangle \eqn{T_b} or based on the circumcenter of \eqn{T_b}; default is \eqn{M=(1,1,1)} i.e., the center of mass of \eqn{T_b}.
 
-Vertex regions are labeled as 1,2,3 rowwise for the vertices
+Vertex regions are labeled as \eqn{1,2,3} rowwise for the vertices
 of the triangle \eqn{T_b}. \code{rv} is the index of the vertex region \code{pt} resides, with default=\code{NULL}.
 If \code{pt} is outside of \code{tri}, it returns \code{NULL} for the proximity region.
 
@@ -63,17 +63,12 @@ NPEbastri(P2,r,c1,c2,M)
 P3<-c(1.7,.6)
 NPEbastri(P3,r,c1,c2,M)
 
-M<-c(1.3,1.3)
 r<-2
-
-\dontrun{
 P1<-c(1.4,1.2)
 P2<-c(1.5,1.26)
-NPEbastri(P1,r,c1,c2,M)
-#gives an error since center is not the circumcenter or not in the interior of the triangle
-NPEbastri(P2,r,c1,c2,M)
-#gives an error since center is not the circumcenter or not in the interior of the triangle
-}
+NPEbastri(P1,r,c1,c2,M) #gives an error if M=c(1.3,1.3)
+#since center is not the circumcenter or not in the interior of the triangle
+NPEbastri(P2,r,c1,c2,M) #gives an error  due to same reason as above
 
 }
 \references{
@@ -81,4 +76,7 @@ NPEbastri(P2,r,c1,c2,M)
 }
 \seealso{
 \code{\link{NPEtri}}, \code{\link{NAStri}}, \code{\link{NCStri}} and \code{\link{IndNPEbastri}}
+}
+\author{
+Elvan Ceyhan
 }

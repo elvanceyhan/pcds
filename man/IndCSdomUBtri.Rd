@@ -22,7 +22,7 @@ center in the interior of the triangle \code{tri}; default is \eqn{M=(1,1,1)}, i
 the center of mass of \code{tri}.}
 }
 \value{
-A list with two elements
+A \code{list} with two elements
 \item{domUB}{The upper bound \code{k} (to be checked) for the domination number of CS-PCD. It is prespecified
 as \code{k} in the function arguments.}
 \item{IndUBdom}{The indicator for the upper bound for domination number of CS-PCD being the
@@ -31,14 +31,14 @@ specified value \code{k} or not. It returns 1 if the upper bound is \code{k}, an
 otherwise it is \code{NULL}.}
 }
 \description{
-Returns I(domination number of CS-PCD is less than or equal to \code{k}) where the vertices of the CS-PCD are the data points \code{Dt},
+Returns \eqn{I(}domination number of CS-PCD is less than or equal to \code{k}\eqn{)} where the vertices of the CS-PCD are the data points \code{Dt},
 that is, returns 1 if the domination number of CS-PCD is less than the prespecified value \code{k}, returns 0
-otherwise. It also provides the vertices (i.e. data points) in a dominating set of size \code{k} of CS-PCD.
+otherwise. It also provides the vertices (i.e., data points) in a dominating set of size \code{k} of CS-PCD.
 
-CS proximity region is constructed with respect to the triangle \eqn{tri=T(A,B,C)} with
+CS proximity region is constructed with respect to the triangle \code{tri}\eqn{=T(A,B,C)} with
 expansion parameter \eqn{t>0} and edge regions are based on the center \eqn{M=(m_1,m_2)}
 in Cartesian coordinates or \eqn{M=(\alpha,\beta,\gamma)} in barycentric coordinates in the interior of \code{tri};
-default is \eqn{M=(1,1,1)} i.e. the center of mass of \code{tri}.
+default is \eqn{M=(1,1,1)} i.e., the center of mass of \code{tri}.
 
 Edges of \code{tri}, \eqn{AB}, \eqn{BC}, \eqn{AC}, are also labeled as 3, 1, and 2, respectively.
 Loops are allowed in the digraph.
@@ -83,4 +83,7 @@ IndCSdomUBtri(dat.fr,1,t,Tr,M)
 \seealso{
 \code{\link{IndCSdomUBTe}}, \code{\link{IndUBdom}}, \code{\link{IndASdomUBtri}},
 and \code{\link{dom.exact}}
+}
+\author{
+Elvan Ceyhan
 }

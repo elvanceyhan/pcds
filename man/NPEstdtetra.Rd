@@ -12,8 +12,8 @@ NPEstdtetra(pt, r, rv = NULL)
 \item{r}{A positive real number which serves as the expansion parameter in PE proximity region;
 must be \eqn{\ge 1}.}
 
-\item{rv}{Index of the vertex region containing the point, either 1, 2, 3, 4 or \code{NULL}
-(defaut is \code{NULL}).}
+\item{rv}{Index of the vertex region containing the point, either \code{1,2,3,4} or \code{NULL}
+(default is \code{NULL}).}
 }
 \value{
 Vertices of the tetrahedron which constitutes the PE proximity region with expansion parameter
@@ -21,14 +21,14 @@ Vertices of the tetrahedron which constitutes the PE proximity region with expan
 }
 \description{
 Returns the vertices of the PE proximity region (which is itself a tetrahedron) for a point in the
-standard regular tetrahedron \eqn{T_h=T((0,0,0),(1,0,0),(1/2,\sqrt{3}/2,0),(1/2,\sqrt{3}/6,\sqrt{6}/3))=
-(rv=1,rv=2,rv=3,rv=4)}.
+standard regular tetrahedron \eqn{T_h=T((0,0,0),(1,0,0),(1/2,\sqrt{3}/2,0),(1/2,\sqrt{3}/6,\sqrt{6}/3))=}
+\code{(rv=1,rv=2,rv=3,rv=4)}.
 
 PE proximity region is defined with respect to the tetrahedron \eqn{T_h}
 with expansion parameter \eqn{r \ge 1} and vertex regions based on the circumcenter of \eqn{T_h} (which is equivalent
 to the center of mass in the standard regular tetrahedron).
 
-Vertex regions are labeled as 1,2,3,4 rowwise for the vertices of the tetrahedron \eqn{T_h}.
+Vertex regions are labeled as \code{1,2,3,4} rowwise for the vertices of the tetrahedron \eqn{T_h}.
 \code{rv} is the index of the vertex region \code{pt} resides, with default=\code{NULL}.
 If \code{pt} is outside of \eqn{T_h}, it returns \code{NULL} for the proximity region.
 
@@ -65,4 +65,7 @@ NPEstdtetra(P1,r)
 }
 \seealso{
 \code{\link{NPEtetra}}, \code{\link{NPEtri}} and \code{\link{NPEint}}
+}
+\author{
+Elvan Ceyhan
 }

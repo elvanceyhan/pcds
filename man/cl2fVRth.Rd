@@ -12,35 +12,35 @@ cl2fVRth(Dt, th, M = "CM")
 \item{th}{Four 3D points, stacked row-wise, each row representing a vertex of the tetrahedron.}
 
 \item{M}{The center to be used in the construction of the vertex regions in the tetrahedron, \code{th}.
-Currently it only takes "CC" for circumcenter and "CM" for center of mass; default="CM".}
+Currently it only takes \code{"CC"} for circumcenter and \code{"CM"} for center of mass; default=\code{"CM"}.}
 }
 \value{
-A list with the elements
-\item{txt1}{Vertex labels are A=1, B=2, C=3, and D=4 (corresponds to row number in Extrema Points).}
-\item{txt2}{A short description of the distances as "Distances from Closest Points to Faces ...".}
+A \code{list} with the elements
+\item{txt1}{Vertex labels are \eqn{A=1}, \eqn{B=2}, \eqn{C=3}, and \eqn{D=4} (corresponds to row number in Extremum Points).}
+\item{txt2}{A short description of the distances as \code{"Distances from Closest Points to Faces ..."}.}
 \item{type}{Type of the extrema points}
 \item{desc}{A short description of the extrema points}
-\item{mtitle}{The "main" title for the plot of the exrema}
+\item{mtitle}{The \code{"main"} title for the plot of the extrema}
 \item{ext}{The extrema points, here, closest points to faces in the respective vertex region.}
-\item{X}{The input data, \code{Dt}, can be a matrix or data frame}
+\item{X}{The input data, \code{Dt}, can be a \code{matrix} or \code{data frame}}
 \item{num.points}{The number of data points, i.e., size of \code{Dt}}
 \item{supp}{Support of the data points, here, it is \code{th}}
 \item{cent}{The center point used for construction of vertex regions, it is circumcenter of center of mass
 for this function}
-\item{ncent}{Name of the center, it is circumcenter "CC" or  center of mass "CM" for this function.}
+\item{ncent}{Name of the center, it is circumcenter \code{"CC"} or  center of mass \code{"CM"} for this function.}
 \item{regions}{Vertex regions inside the tetrahedron \code{th} provided as a list.}
-\item{region.names}{Names of the vertex regions as "vr=1","vr=2","vr=3","vr=4"}
+\item{region.names}{Names of the vertex regions as \code{"vr=1","vr=2","vr=3","vr=4"}}
 \item{region.centers}{Centers of mass of the vertex regions inside \code{th}.}
 \item{dist2ref}{Distances from closest points in each vertex region to the corresponding face.}
 }
 \description{
-An object of class "Extrema".
-Returns the closest data points among the data set, \code{Dt}, to face i in \code{M}-vertex region \eqn{i} for \eqn{i=1,2,3,4}
-in the tetrahedron \eqn{th=T(A,B,C,D)}. Vertex labels are A=1, B=2, C=3, and D=4 and corresponding face
-labels are BCD=1, ACD=2, ABD=3, and ABC=4.
+An object of class \code{"Extrema"}.
+Returns the closest data points among the data set, \code{Dt}, to face \eqn{i} in \code{M}-vertex region \eqn{i} for \eqn{i=1,2,3,4}
+in the tetrahedron \eqn{th=T(A,B,C,D)}. Vertex labels are \eqn{A=1}, \eqn{B=2}, \eqn{C=3}, and \eqn{D=4} and corresponding face
+labels are \eqn{BCD=1}, \eqn{ACD=2}, \eqn{ABD=3}, and \eqn{ABC=4}.
 
 Vertex regions are based on center \code{M} which can be the center
-of mass ("CM") or circumcenter ("CC") of \code{th}.
+of mass (\code{"CM"}) or circumcenter (\code{"CC"}) of \code{th}.
 }
 \examples{
 \donttest{
@@ -103,4 +103,7 @@ cl2fVRth(Dt,dat.fr,Cent)
 }
 \seealso{
 \code{\link{fr2vVRCC}}, \code{\link{fr2eTeER}}, \code{\link{Kfr2vTbVRCC}} and \code{\link{Kfr2vVRCC}}
+}
+\author{
+Elvan Ceyhan
 }

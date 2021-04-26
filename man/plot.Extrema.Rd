@@ -2,19 +2,19 @@
 % Please edit documentation in R/AuxRFuncs4PCDClasses.r
 \name{plot.Extrema}
 \alias{plot.Extrema}
-\title{Plot an \code{Extrema} object}
+\title{Plot an \code{Extrema} \code{object}}
 \usage{
 \method{plot}{Extrema}(x, asp = NA, xlab = " ", ylab = " ", zlab = "", ...)
 }
 \arguments{
 \item{x}{Object of class \code{Extrema}.}
 
-\item{asp}{A numeric value, giving the aspect ratio for y axis to x-axis y/x for the 2D case,
+\item{asp}{A \code{numeric} value, giving the aspect ratio for \eqn{y}-axis to \eqn{x}-axis \eqn{y/x} for the 2D case,
 it is redundant in the 3D case (default is \code{NA}),
-see the official help for \code{asp} by typing "? asp".}
+see the official help for \code{asp} by typing "\code{? asp}".}
 
-\item{xlab, ylab, zlab}{Titles for the x and y axes in the 2D case, and x, y, and z axes in the 3D case,
-respectively (default is "" for all).}
+\item{xlab, ylab, zlab}{Titles for the \eqn{x} and \eqn{y} axes in the 2D case, and \eqn{x}, \eqn{y}, and \eqn{z} axes in the 3D case,
+respectively (default is \code{""} for all).}
 
 \item{\dots}{Additional parameters for \code{plot}.}
 }

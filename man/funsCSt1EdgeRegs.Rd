@@ -22,26 +22,25 @@ IndCSTeRACt1(pt1, pt2)
 \code{pt1} or not.}
 }
 \value{
-Each function returns I(\code{pt2} is in \eqn{NCS(pt1,t=1)}) for \code{pt1}, that is,
-returns 1 if \code{pt2} is in \eqn{NCS(pt1,t=1)}, returns 0 otherwise
+Each function returns \eqn{I(}\code{pt2} is in \eqn{N_{CS}(pt1,t=1))} for \code{pt1}, that is,
+returns 1 if \code{pt2} is in \eqn{N_{CS}(pt1,t=1)}, returns 0 otherwise
 }
 \description{
 Three indicator functions: \code{IndCSTeRABt1}, \code{IndCSTeRBCt1} and \code{IndCSTeRACt1}.
 
-The function \code{IndCSTeRABt1} returns I(\code{pt2} is in \eqn{NCS(pt1,t=1)} for \code{pt1} in RAB
-(edge region for edge AB, i.e., edge 3) in the standard equilateral triangle \eqn{T_e=T(A,B,C)=T((0,0),(1,0),(1/2,\sqrt{3}/2))};
+The function \code{IndCSTeRABt1} returns \eqn{I(}\code{pt2} is in \eqn{N_{CS}(pt1,t=1)} for \code{pt1} in \eqn{RAB}
+(edge region for edge \eqn{AB}, i.e., edge 3) in the standard equilateral triangle \eqn{T_e=T(A,B,C)=T((0,0),(1,0),(1/2,\sqrt{3}/2))};
 
-\code{IndCSTeRBCt1} returns I(\code{pt2} is in \eqn{NCS(pt1,t=1)} for \code{pt1} in RBC (edge region for edge BC, i.e., edge 1) in \eqn{T_e};
+\code{IndCSTeRBCt1} returns \eqn{I(}\code{pt2} is in \eqn{N_{CS}(pt1,t=1)} for \code{pt1} in \eqn{RBC} (edge region for edge \eqn{BC}, i.e., edge 1) in \eqn{T_e};
 and
 
-\code{IndCSTeRACt1} returns I(\code{pt2} is in \eqn{NCS(pt1,t=1)} for \code{pt1} in RAC (edge region for edge AC, i.e., edge 2) in \eqn{T_e}.
+\code{IndCSTeRACt1} returns \eqn{I(}\code{pt2} is in \eqn{N_{CS}(pt1,t=1)} for \code{pt1} in \eqn{RAC} (edge region for edge \eqn{AC}, i.e., edge 2) in \eqn{T_e}.
 
-That is, each function returns 1 if \code{pt2} is in \eqn{NCS(pt1,t=1)}, returns 0 otherwise, where \eqn{NCS(x,t)} is the
+That is, each function returns 1 if \code{pt2} is in \eqn{N_{CS}(pt1,t=1)}, returns 0 otherwise, where \eqn{N_{CS}(x,t)} is the
 CS proximity region for point \eqn{x} with expansion parameter \eqn{t=1}.
 }
 \examples{
 #Examples for IndCSTeRABt1
-\dontrun{
 A<-c(0,0); B<-c(1,0); C<-c(1/2,sqrt(3)/2);
 CM<-(A+B+C)/3
 T3<-rbind(A,B,CM);
@@ -57,10 +56,8 @@ IndCSTeRABt1(dat[2,],dat[2,])
 IndCSTeRABt1(dat3[1,],dat3[3,])
 IndCSTeRABt1(c(.2,.5),dat[2,])
 IndCSTeRABt1(c(.2,.5),c(.2,.5))
-}
 
 #Examples for IndCSTeRBCt1
-\dontrun{
 A<-c(0,0); B<-c(1,0); C<-c(1/2,sqrt(3)/2);
 CM<-(A+B+C)/3
 T1<-rbind(B,C,CM);
@@ -78,10 +75,8 @@ IndCSTeRBCt1(c(.2,.5),dat[2,])
 IndCSTeRBCt1(c(.2,.5),c(.2,.5))
 
 IndCSTeRBCt1(dat[2,],dat[2,])
-}
 
 #Examples for IndCSTeRACt1
-\dontrun{
 A<-c(0,0); B<-c(1,0); C<-c(1/2,sqrt(3)/2);
 CM<-(A+B+C)/3
 T2<-rbind(A,C,CM);
@@ -98,9 +93,11 @@ IndCSTeRACt1(dat2[1,],dat2[3,])
 IndCSTeRACt1(c(1,2),c(1,2))
 
 IndCSTeRACt1(dat[2,],dat[2,])
-}
 
 }
 \seealso{
 \code{\link{IndCSTeRAB}}, \code{\link{IndCSTeRBC}} and \code{\link{IndCSTeRAC}}
+}
+\author{
+Elvan Ceyhan
 }

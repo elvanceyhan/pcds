@@ -2,14 +2,14 @@
 % Please edit documentation in R/AuxRFuncs4PCDClasses.r
 \name{plot.TriLines}
 \alias{plot.TriLines}
-\title{Plot a \code{TriLines} object}
+\title{Plot a \code{TriLines} \code{object}}
 \usage{
 \method{plot}{TriLines}(x, xlab = "x", ylab = "y", ...)
 }
 \arguments{
 \item{x}{Object of class \code{TriLines}.}
 
-\item{xlab, ylab}{Titles for the x and y axes, respectively (default is \code{xlab}="x" and \code{ylab}="y").}
+\item{xlab, ylab}{Titles for the \eqn{x} and \eqn{y} axes, respectively (default is \code{xlab="x"} and \code{ylab="y"}).}
 
 \item{\dots}{Additional parameters for \code{plot}.}
 }
@@ -20,7 +20,6 @@ None
 Plots the line together with the defining triangle.
 }
 \examples{
-\dontrun{
 A<-c(0,0); B<-c(1,0); C<-c(1/2,sqrt(3)/2);
 Te<-rbind(A,B,C)
 xfence<-abs(A[1]-B[1])*.25 #how far to go at the lower and upper ends in the x-coordinate
@@ -29,7 +28,6 @@ x<-seq(min(A[1],B[1])-xfence,max(A[1],B[1])+xfence,by=.01)
 lnACM<-lA_CM.Te(x)
 lnACM
 plot(lnACM)
-}
 
 }
 \seealso{

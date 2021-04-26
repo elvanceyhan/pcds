@@ -16,18 +16,18 @@ re.tri.cent(pt, tri, M)
 which serves as a center in the interior of the triangle \code{tri}.}
 }
 \value{
-A list with three elements
-\item{re}{Index of the \code{M}-edge region that contains point, \code{pt}  in the triangle \code{tri}.}
-\item{tri}{The vertices of the triangle, where row labels are A, B, and C
-with edges are labeled as 3 for edge AB, 1 for edge BC, and 2 for edge AC.}
+A \code{list} with three elements
+\item{re}{Index of the \code{M}-edge region that contains point, \code{pt} in the triangle \code{tri}.}
+\item{tri}{The vertices of the triangle, where row labels are \eqn{A}, \eqn{B}, and \eqn{C}
+with edges are labeled as 3 for edge \eqn{AB}, 1 for edge \eqn{BC}, and 2 for edge \eqn{AC}.}
 \item{desc}{Description of the edge labels}
 }
 \description{
 Returns the index of the edge whose region contains point, \code{pt}, in
-the triangle \eqn{tri=T(A,B,C)} with edge regions based on center \eqn{M=(m_1,m_2)} in Cartesian coordinates or
+the triangle \code{tri}\eqn{=T(A,B,C)} with edge regions based on center \eqn{M=(m_1,m_2)} in Cartesian coordinates or
 \eqn{M=(\alpha,\beta,\gamma)} in barycentric coordinates in the interior of the triangle \code{tri}.
 
-Edges are labeled as 3 for edge AB, 1 for edge BC, and 2 for edge AC.
+Edges are labeled as 3 for edge \eqn{AB}, 1 for edge \eqn{BC}, and 2 for edge \eqn{AC}.
 If the point, \code{pt}, is not inside \code{tri}, then the function yields \code{NA} as output.
 Edge region 1 is the triangle \eqn{T(B,C,M)}, edge region 2 is \eqn{T(A,C,M)}, and edge region 3 is \eqn{T(A,B,M)}.
 
@@ -106,4 +106,7 @@ re.tri.cent(P,dat.fr,M)
 \seealso{
 \code{\link{re.triCM}}, \code{\link{re.bastriCM}},
 \code{\link{re.bastri.cent}}, \code{\link{reTeCM}}, and \code{\link{redge.triCM}}
+}
+\author{
+Elvan Ceyhan
 }

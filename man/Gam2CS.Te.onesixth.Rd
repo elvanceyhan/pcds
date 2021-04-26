@@ -3,7 +3,7 @@
 \name{Gam2CS.Te.onesixth}
 \alias{Gam2CS.Te.onesixth}
 \title{The indicator for two points constituting a dominating set for Central Similarity Proximity Catch Digraphs
-(CS-PCDs) - first one sixth of the standard equilateral triangle case}
+(CS-PCDs) - first one-sixth of the standard equilateral triangle case}
 \usage{
 Gam2CS.Te.onesixth(pt1, pt2, Dt, ch.data.pnts = FALSE)
 }
@@ -16,11 +16,11 @@ Gam2CS.Te.onesixth(pt1, pt2, Dt, ch.data.pnts = FALSE)
 data points in \code{Dt} or not (default is \code{FALSE}).}
 }
 \value{
-I(\{\code{pt1,pt2}\} is a dominating set of the CS-PCD) where the vertices of the CS-PCD are the 2D data set \code{Dt}),
+\eqn{I(}\{\code{pt1,pt2}\} is a dominating set of the CS-PCD\eqn{)} where the vertices of the CS-PCD are the 2D data set \code{Dt}),
 that is, returns 1 if \{\code{pt1,pt2}\} is a dominating set of CS-PCD, returns 0 otherwise
 }
 \description{
-Returns I(\{\code{pt1,pt2}\} is a dominating set of the CS-PCD) where the vertices of the CS-PCD are the 2D data set \code{Dt}),
+Returns \eqn{I(}\{\code{pt1,pt2}\} is a dominating set of the CS-PCD\eqn{)} where the vertices of the CS-PCD are the 2D data set \code{Dt}),
 that is, returns 1 if \code{p} is a dominating point of CS-PCD, returns 0 otherwise.
 
 CS proximity region is
@@ -34,44 +34,12 @@ dominating set if they actually were in the data set.
 
 See also (\insertCite{ceyhan:Phd-thesis;textual}{pcds}).
 }
-\examples{
-\dontrun{
-n<-5
-
-set.seed(1)
-dat<-rbind(runifTe.onesixth(n)$gen.points,runifTe(n)$gen.points)
-
-Gam2CS.Te.onesixth(dat[1,],dat[2,],dat)
-Gam2CS.Te.onesixth(dat[1,],dat[3,],dat)
-Gam2CS.Te.onesixth(c(.2,.2),dat[2,],dat)
-
-Gam2CS.Te.onesixth(c(.2,.1),c(.3,.1),rbind(c(.2,.1),c(.3,.1)))
-Gam2CS.Te.onesixth(c(1.2,1.1),c(1.3,1.1),rbind(c(1.2,1.1),c(1.3,1.1)))
-
-n<-nrow(dat)
-ind.gam2<-vector()
-for (i in 1:(n-1))
- for (j in (i+1):n)
- {if (Gam2CS.Te.onesixth(dat[i,],dat[j,],dat)==1)
-   ind.gam2<-rbind(ind.gam2,c(i,j))}
-
-ind.gam2
-
-P1<-c(.2,.1)
-P2<-c(.3,.1)
-Gam2CS.Te.onesixth(P1,c(.4,.2),dat)
-
-dat.fr<-data.frame(a=dat)
-Gam2CS.Te.onesixth(c(.4,.2),P2,dat.fr)
-
-Gam2CS.Te.onesixth(c(.2,.2),dat[2,],dat,ch.data.pnts = TRUE)
-#gives an error message since not both points are data points in Dt
-}
-
-}
 \references{
 \insertAllCited{}
 }
 \seealso{
 \code{\link{Gam2CSTe}}
+}
+\author{
+Elvan Ceyhan
 }

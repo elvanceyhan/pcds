@@ -30,31 +30,31 @@ must be \eqn{\ge 1}.}
 \item{th}{Four 3D points, stacked row-wise, each row representing a vertex of the tetrahedron.}
 
 \item{M}{The center to be used in the construction of the vertex regions in the tetrahedron, \code{th}.
-Currently it only takes "CC" for circumcenter and "CM" for center of mass; default="CM".}
+Currently it only takes \code{"CC"} for circumcenter and \code{"CM"} for center of mass; default=\code{"CM"}.}
 
 \item{rv1, rv2, rv3}{The indices of the vertices whose regions contains \code{pt1}, \code{pt2} and \code{pt3},
 respectively.
-They take the vertex labels as 1,2,3,4 as in the row order of the vertices in \code{th}
+They take the vertex labels as \code{1,2,3,4} as in the row order of the vertices in \code{th}
 ( default is \code{NULL} for all).}
 
 \item{ch.data.pnts}{A logical argument for checking whether points \code{pt1} and \code{pt2} are
 data points in \code{Dt} or not (default is \code{FALSE}).}
 }
 \value{
-I(\{\code{pt1,pt2,pt3}\} is a dominating set of the PE-PCD) where the vertices of the PE-PCD are the 3D data set \code{Dt}),
+\eqn{I(\{}\code{pt1,pt2,pt3}\} is a dominating set of the PE-PCD\eqn{)} where the vertices of the PE-PCD are the 3D data set \code{Dt}),
 that is, returns 1 if \{\code{pt1,pt2,pt3}\} is a dominating set of PE-PCD, returns 0 otherwise
 }
 \description{
-Returns I(\{\code{pt1,pt2,pt3}\} is a dominating set of the PE-PCD) where the vertices of the PE-PCD are the 3D data set \code{Dt} in the tetrahedron \code{th}, that is,
+Returns \eqn{I(\{}\code{pt1,pt2,pt3}\} is a dominating set of the PE-PCD\eqn{)} where the vertices of the PE-PCD are the 3D data set \code{Dt} in the tetrahedron \code{th}, that is,
 returns 1 if \{\code{pt1,pt2,pt3}\} is a dominating set of PE-PCD, returns 0 otherwise.
 
 Point, \code{pt1}, is in the region of vertex \code{rv1} (default is \code{NULL}), point, \code{pt2}, is in the region of vertex \code{rv2}
 (default is \code{NULL}); point, \code{pt3}), is in the region of vertex \code{rv3}) (default is \code{NULL}); vertices (and hence \code{rv1, rv2} and
-\code{rv3}) are labeled as 1,2,3,4 in the order they are stacked row-wise in \code{th}.
+\code{rv3}) are labeled as \code{1,2,3,4} in the order they are stacked row-wise in \code{th}.
 
 PE proximity region is constructed with
 respect to the tetrahedron \code{th} with expansion parameter \eqn{r \ge 1}
-and vertex regions are based on center of mass CM (equivalent to circumcenter in this case).
+and vertex regions are based on center of mass \eqn{CM} (equivalent to circumcenter in this case).
 
 \code{ch.data.pnts} is for checking whether points \code{pt1}, \code{pt2} and \code{pt3} are all data points in \code{Dt} or not (default is \code{FALSE}),
 so by default this function checks whether the points \code{pt1}, \code{pt2} and \code{pt3} would constitute a dominating set
@@ -63,10 +63,10 @@ if they actually were all in the data set.
 See also (\insertCite{ceyhan:Phd-thesis,ceyhan:comp-geo-2010;textual}{pcds}).
 }
 \examples{
-\dontrun{
+set.seed(123)
 A<-c(0,0,0); B<-c(1,0,0); C<-c(1/2,sqrt(3)/2,0); D<-c(1/2,sqrt(3)/6,sqrt(6)/3)
 tetra<-rbind(A,B,C,D)
-n<-20
+n<-10 #try 20, 40, 100 (larger n may take a long time)
 dat<-runif.tetra(n,tetra)$g
 
 M<-"CM";  #try also M<-"CC";
@@ -85,7 +85,7 @@ for (i in 1:(n-2))
  for (j in (i+1):(n-1))
    for (k in (j+1):n)
    {if (Gam3PEtetra(dat[i,],dat[j,],dat[k,],dat,r,tetra,M)==1)
-     ind.gam3<-rbind(ind.gam3,c(i,j,k))}
+    ind.gam3<-rbind(ind.gam3,c(i,j,k))}
 
 ind.gam3
 
@@ -110,9 +110,8 @@ Gam3PEtetra(P1,P2,P3,dat,r,tetra,M)
 dat.fr<-data.frame(a=dat)
 Gam3PEtetra(P1,P2,P3,dat.fr,r,tetra,M)
 
-Gam3PEtetra(dat[1,],c(1,1,1),dat[3,],dat,r,tetra,M,ch.data.pnts = TRUE)
-#gives an error message since not all points, pt1, pt2 and pts, are data points in Dt
-}
+Gam3PEtetra(dat[1,],c(1,1,1),dat[3,],dat,r,tetra,M,ch.data.pnts = FALSE)
+#gives an error message if ch.data.pnts = TRUE since not all points are data points in Dt
 
 }
 \references{
@@ -120,4 +119,7 @@ Gam3PEtetra(dat[1,],c(1,1,1),dat[3,],dat,r,tetra,M,ch.data.pnts = TRUE)
 }
 \seealso{
 \code{\link{Gam3PEstdTetra}}
+}
+\author{
+Elvan Ceyhan
 }

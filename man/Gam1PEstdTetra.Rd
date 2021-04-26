@@ -16,25 +16,25 @@ Gam1PEstdTetra(p, Dt, r, rv = NULL, ch.data.pnt = FALSE)
 must be \eqn{\ge 1}.}
 
 \item{rv}{Index of the vertex whose region contains point \code{p}, \code{rv} takes the vertex labels
-as 1,2,3,4 as in the row order of the vertices in standard regular tetrahedron, default is \code{NULL}.}
+as \code{1,2,3,4} as in the row order of the vertices in standard regular tetrahedron, default is \code{NULL}.}
 
 \item{ch.data.pnt}{A logical argument for checking whether point \code{p} is a data point
 in \code{Dt} or not (default is \code{FALSE}).}
 }
 \value{
-I(\code{p} is a dominating point of the PE-PCD) where the vertices of teh PE-PCD are the 3D data set \code{Dt},
+\eqn{I(}\code{p} is a dominating point of the PE-PCD\eqn{)} where the vertices of the PE-PCD are the 3D data set \code{Dt},
 that is, returns 1 if \code{p} is a dominating point, returns 0 otherwise
 }
 \description{
-Returns I(\code{p} is a dominating point of the PE-PCD) where the vertices of teh PE-PCD are the 3D data set \code{Dt} in the
+Returns \eqn{I(}\code{p} is a dominating point of the PE-PCD\eqn{)} where the vertices of the PE-PCD are the 3D data set \code{Dt} in the
 standard regular tetrahedron \eqn{T_h=T((0,0,0),(1,0,0),(1/2,\sqrt{3}/2,0),(1/2,\sqrt{3}/6,\sqrt{6}/3))}, that is,
 returns 1 if \code{p} is a dominating point of PE-PCD, returns 0 otherwise.
 
-Point, \code{p}, is in the vertex region of vertex \code{rv} (default is \code{NULL}); vertices are labeled as 1,2,3,4
+Point, \code{p}, is in the vertex region of vertex \code{rv} (default is \code{NULL}); vertices are labeled as \code{1,2,3,4}
 in the order they are stacked row-wise in \eqn{T_h}.
 
 PE proximity region is constructed with respect to the tetrahedron \eqn{T_h} with expansion parameter \eqn{r \ge 1}
-and vertex regions are based on center of mass CM (equivalent to circumcenter in this case).
+and vertex regions are based on center of mass \eqn{CM} (equivalent to circumcenter in this case).
 
 \code{ch.data.pnt} is for checking whether point \code{p} is a data point in \code{Dt} or not (default is \code{FALSE}),
 so by default this function checks whether the point \code{p} would be a dominating point
@@ -43,44 +43,44 @@ if it actually were in the data set.
 See also (\insertCite{ceyhan:Phd-thesis,ceyhan:comp-geo-2010;textual}{pcds}).
 }
 \examples{
-\dontrun{
+set.seed(123)
 A<-c(0,0,0); B<-c(1,0,0); C<-c(1/2,sqrt(3)/2,0); D<-c(1/2,sqrt(3)/6,sqrt(6)/3)
 tetra<-rbind(A,B,C,D)
-
+#'
 n<-20
 dat<-runif.stdtetra(n)$g  #try also dat<-cbind(runif(n),runif(n),runif(n))
 r<-1.5
-
+#'
 P<-c(.4,.1,.2)
 Gam1PEstdTetra(P,P,r)
 Gam1PEstdTetra(dat[1,],dat,r)
 Gam1PEstdTetra(P,dat,r)
-
+#'
 Gam1PEstdTetra(dat[1,],dat,r)
 Gam1PEstdTetra(dat[1,],dat[1,],r)
-
+#'
 #or try
 RV<-rv.tetraCC(dat[1,],tetra)$rv
 Gam1PEstdTetra(dat[1,],dat,r,rv=RV)
-
+#'
 Gam1PEstdTetra(c(-1,-1,-1),dat,r)
 Gam1PEstdTetra(c(-1,-1,-1),c(-1,-1,-1),r)
-
+#'
 gam.vec<-vector()
 for (i in 1:n)
 {gam.vec<-c(gam.vec,Gam1PEstdTetra(dat[i,],dat,r))}
-
+#'
 ind.gam1<-which(gam.vec==1)
 ind.gam1
 g1.pts<-dat[ind.gam1,]
-
+#'
 Xlim<-range(tetra[,1],dat[,1])
 Ylim<-range(tetra[,2],dat[,2])
 Zlim<-range(tetra[,3],dat[,3])
 xd<-Xlim[2]-Xlim[1]
 yd<-Ylim[2]-Ylim[1]
 zd<-Zlim[2]-Zlim[1]
-
+#'
 plot3D::scatter3D(dat[,1],dat[,2],dat[,3], phi =0,theta=40, bty = "g",
 xlim=Xlim+xd*c(-.05,.05),ylim=Ylim+yd*c(-.05,.05), zlim=Zlim+zd*c(-.05,.05),
          pch = 20, cex = 1, ticktype = "detailed")
@@ -89,24 +89,25 @@ plot3D::points3D(tetra[,1],tetra[,2],tetra[,3], add=TRUE)
 L<-rbind(A,A,A,B,B,C); R<-rbind(B,C,D,C,D,D)
 plot3D::segments3D(L[,1], L[,2], L[,3], R[,1], R[,2],R[,3], add=TRUE,lwd=2)
 if (length(g1.pts)!=0)
-{plot3D::points3D(g1.pts[,1],g1.pts[,2],g1.pts[,3], pch=4,col="red", add=TRUE)}
-
+{
+  if (length(g1.pts)==3) g1.pts<-matrix(g1.pts,nrow=1)
+  plot3D::points3D(g1.pts[,1],g1.pts[,2],g1.pts[,3], pch=4,col="red", add=TRUE)}
+#'
 plot3D::text3D(tetra[,1],tetra[,2],tetra[,3], labels=c("A","B","C","D"), add=TRUE)
-
+#'
 CM<-apply(tetra,2,mean)
 D1<-(A+B)/2; D2<-(A+C)/2; D3<-(A+D)/2; D4<-(B+C)/2; D5<-(B+D)/2; D6<-(C+D)/2;
 L<-rbind(D1,D2,D3,D4,D5,D6); R<-matrix(rep(CM,6),ncol=3,byrow=TRUE)
 plot3D::segments3D(L[,1], L[,2], L[,3], R[,1], R[,2],R[,3], add=TRUE,lty=2)
-
+#'
 P<-c(.4,.1,.2)
 Gam1PEstdTetra(P,dat,r)
-
+#'
 dat.fr<-data.frame(a=dat)
 Gam1PEstdTetra(P,dat.fr,r)
-
-Gam1PEstdTetra(c(-1,-1,-1),dat,r,ch.data.pnt = TRUE)
-#gives an error message since p is not a data point
-}
+#'
+Gam1PEstdTetra(c(-1,-1,-1),dat,r,ch.data.pnt = FALSE)
+#gives an error message if ch.data.pnt = TRUE
 
 }
 \references{
@@ -114,4 +115,7 @@ Gam1PEstdTetra(c(-1,-1,-1),dat,r,ch.data.pnt = TRUE)
 }
 \seealso{
 \code{\link{Gam1PEtetra}}, \code{\link{Gam1PEtri}} and \code{\link{Gam1PEbastri}}
+}
+\author{
+Elvan Ceyhan
 }

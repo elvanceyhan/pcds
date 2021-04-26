@@ -2,7 +2,7 @@
 % Please edit documentation in R/PCDFunctions.r
 \name{plotCSregsMI}
 \alias{plotCSregsMI}
-\title{The plot of the Central Similarity (CS) Proximity Regions (vertices jittered along y-coordinate)
+\title{The plot of the Central Similarity (CS) Proximity Regions (vertices jittered along \eqn{y}-coordinate)
 - multiple interval case}
 \usage{
 plotCSregsMI(
@@ -28,18 +28,18 @@ partition the real line.}
 
 \item{t}{A positive real number which serves as the expansion parameter in CS proximity region.}
 
-\item{c}{A positive real number in \eqn{(0,1)} parameterizing the center inside \eqn{int=(a,b)}.
-For the interval, \eqn{int=(a,b)}, the parameterized center is \eqn{M_c=a+c(b-a)}; default=0.5.}
+\item{c}{A positive real number in \eqn{(0,1)} parameterizing the center inside \code{int}\eqn{=(a,b)}.
+For the interval, \code{int}\eqn{=(a,b)}, the parameterized center is \eqn{M_c=a+c(b-a)}; default=\code{0.5}.}
 
-\item{Jit}{A positive real number that determines the amount of jitter along the y-axis, default is 0.1 and
-\code{Xp} points are jittered according to \eqn{U(-Jit,Jit)} distribution along the y-axis where \code{Jit} equals to the range of \code{Xp} and \code{Yp} and the
+\item{Jit}{A positive real number that determines the amount of jitter along the \eqn{y}-axis, default=\code{0.1} and
+\code{Xp} points are jittered according to \eqn{U(-Jit,Jit)} distribution along the \eqn{y}-axis where \code{Jit} equals to the range of \code{Xp} and \code{Yp} and the
 proximity regions (intervals) multiplied by \code{Jit}).}
 
-\item{main}{An overall title for the plot (default="").}
+\item{main}{An overall title for the plot (default=\code{""}).}
 
-\item{xlab, ylab}{Titles for the x and y axes, respectively (default="" for both).}
+\item{xlab, ylab}{Titles for the \eqn{x} and \eqn{y} axes, respectively (default=\code{""} for both).}
 
-\item{xlim, ylim}{Numeric vectors of length 2, giving the x- and y-coordinate ranges
+\item{xlim, ylim}{Two \code{numeric} vectors of length 2, giving the \eqn{x}- and \eqn{y}-coordinate ranges
 (default=\code{NULL} for both).}
 
 \item{centers}{A logical argument, if \code{TRUE}, plot includes the centers of the intervals
@@ -56,9 +56,9 @@ Plots the points in and outside of the intervals based on \code{Yp} points and a
 (which are also intervals).
 
 CS proximity region is constructed with expansion parameter \eqn{t>0} and
-centrality parameter \code{c} in \eqn{(0,1)}. For better visualization, a uniform jitter from \eqn{U(-Jit,Jit)}
-(default for \eqn{Jit=.1} times range of \code{Xp} and \code{Yp} and the proximity regions (intervals)) is added to the
-y-direction.
+centrality parameter \eqn{c \in (0,1)}. For better visualization, a uniform jitter from \eqn{U(-Jit,Jit)}
+(default is \eqn{Jit=.1}) times range of \code{Xp} and \code{Yp} and the proximity regions (intervals)) is added to the
+\eqn{y}-direction.
 
 \code{centers} is a logical argument, if \code{TRUE},
 plot includes the centers of the intervals as vertical lines in the plot,
@@ -89,4 +89,7 @@ plotCSregsMI(Xp,Yp,t,c,xlab="",ylab="")
 }
 \seealso{
 \code{\link{plotCSregsInt}} and \code{\link{plotPEregsMI}}
+}
+\author{
+Elvan Ceyhan
 }

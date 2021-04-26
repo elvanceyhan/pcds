@@ -25,9 +25,9 @@ created by \code{tri.mesh}.}
 triangles they reside is to be determined. It is an argument for \code{indices.Del.tri}.}
 }
 \value{
-ind.Del.tri returns the index of the Delaunay triangle in which the given point, \code{pt}, resides
-and indices.Del.tri returns the vector of indices of the Delaunay triangles in which points in the data
-set, dat, reside
+\code{ind.Del.tri} returns the index of the Delaunay triangle in which the given point, \code{pt}, resides
+and \code{indices.Del.tri} returns the \code{vector} of indices of the Delaunay triangles in which points in the data
+set, \code{dat}, reside.
 }
 \description{
 Two functions: \code{ind.Del.tri} and \code{indices.Del.tri}.
@@ -70,7 +70,7 @@ ind.Del.tri(c(1.5,.5),Yp)
 
 ind.DT<-vector()
 for (i in 1:nx)
-  ind.DT<-c(ind.DT,ind.Del.tri(dat[i,],Yp))
+ ind.DT<-c(ind.DT,ind.Del.tri(dat[i,],Yp))
 ind.DT
 
 Xlim<-range(Yp[,1],dat[,1])
@@ -116,7 +116,7 @@ yd<-Ylim[2]-Ylim[1]
 
 #plot of the data in the convex hull of Y points together with the Delaunay triangulation
 
-oldpar <- par(mfrow = c(1,2))
+oldpar <- par(no.readonly = TRUE)
 par(pty="s")
 plot(dat,main=" ", xlab=" ", ylab=" ",xlim=Xlim+xd*c(-.05,.05),ylim=Ylim+yd*c(-.05,.05),pch=".")
 interp::plot.triSht(DTY, add=TRUE, do.points = TRUE,pch=16,col="blue")
@@ -138,4 +138,7 @@ indices.Del.tri(c(.25,.25),dat.fr)
 }
 \references{
 \insertAllCited{}
+}
+\author{
+Elvan Ceyhan
 }

@@ -12,12 +12,12 @@ ArcsASMT(Xp, Yp, M = "CC")
 \item{Yp}{A set of 2D points which constitute the vertices of the Delaunay triangulation. The Delaunay
 triangles partition the convex hull of \code{Yp} points.}
 
-\item{M}{The center of the triangle. "CC" represents the circumcenter of each Delaunay triangle \code{tri}
+\item{M}{The center of the triangle. \code{"CC"} represents the circumcenter of each Delaunay triangle \code{tri}
 or 3D point in barycentric coordinates which serves as a center in the interior of each Delaunay triangle;
-default is \code{M}="CC" i.e. the circumcenter of each triangle.}
+default is \code{M="CC"} i.e., the circumcenter of each triangle.}
 }
 \value{
-A list with the elements
+A \code{list} with the elements
 \item{type}{A description of the type of the digraph}
 \item{parameters}{Parameters of the digraph, here, it is the center used to construct the vertex regions, i.e.
 circumcenter.}
@@ -30,12 +30,12 @@ is the Delaunay triangulation based on \code{Yp} points.}
 as the vertices of the digraph}
 \item{E}{Heads (or arrow ends) of the arcs of AS-PCD for 2D data set \code{Xp} in the multiple triangle case
 as the vertices of the digraph}
-\item{mtitle}{Text for "main" title in the plot of the digraph}
+\item{mtitle}{Text for \code{"main"} title in the plot of the digraph}
 \item{quant}{Various quantities for the digraph: number of vertices, number of partition points,
 number of intervals, number of arcs, and arc density.}
 }
 \description{
-An object of class "PCDs".
+An object of class \code{"PCDs"}.
 Returns arcs as tails (or sources) and heads (or arrow ends) of AS-PCD whose vertices are the data set \code{Xp}.
 
 AS proximity regions are defined with respect to the Delaunay triangles based on
@@ -44,9 +44,9 @@ That is, arcs may exist for points only inside the convex hull of \code{Yp} poin
 It also provides various descriptions and quantities about the arcs of the AS-PCD
 such as number of arcs, arc density, etc.
 
-Vertex regions are based on the center \code{M}="CC"
+Vertex regions are based on the center \code{M="CC"}
 for circumcenter of each Delaunay triangle or \eqn{M=(\alpha,\beta,\gamma)} in barycentric coordinates in the
-interior of each Delaunay triangle; default is \code{M}="CC" i.e. circumcenter of each triangle.
+interior of each Delaunay triangle; default is \code{M="CC"} i.e., circumcenter of each triangle.
 
 See (\insertCite{ceyhan:Phd-thesis,ceyhan:comp-geo-2010,ceyhan:mcap2012;textual}{pcds}) for more on AS PCDs.
 Also see (\insertCite{okabe:2000,ceyhan:comp-geo-2010,sinclair:2016;textual}{pcds}) for more on Delaunay triangulation and the corresponding algorithm.
@@ -96,4 +96,7 @@ ArcsASMT(dat.fr,Yp,M)
 \seealso{
 \code{\link{ArcsAStri}}, \code{\link{ArcsPEtri}}, \code{\link{ArcsCStri}}, \code{\link{ArcsPEMT}},
 and \code{\link{ArcsCSMT}}
+}
+\author{
+Elvan Ceyhan
 }

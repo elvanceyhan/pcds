@@ -12,15 +12,15 @@ PG2PEtri(r)
 must be in \eqn{(1,1.5]} to attain non-degenerate asymptotic distribution for the domination number.}
 }
 \value{
-P(domination number=2) for PE-PCD for uniform data on an triangle as the sample size n
+\eqn{P(}domination number\eqn{=2)} for PE-PCD for uniform data on an triangle as the sample size n
 goes to infinity
 }
 \description{
-Returns P(domination number=2) for PE-PCD for uniform data in a triangle, when the sample size n goes to
-infinity (i.e., asymptotic probability of domination number=2).
+Returns \eqn{P(}domination number\eqn{=2)} for PE-PCD for uniform data in a triangle, when the sample size \eqn{n} goes to
+infinity (i.e., asymptotic probability of domination number \eqn{= 2}).
 
-PE proximity regions are contructed with respect to the triangle with the expansion parameter \eqn{r \ge 1} and
-M-vertex regions where M is the vertex that renders the asymptotic distribution of the domination
+PE proximity regions are constructed with respect to the triangle with the expansion parameter \eqn{r \ge 1} and
+\eqn{M}-vertex regions where \eqn{M} is the vertex that renders the asymptotic distribution of the domination
 number non-degenerate for the given value of \code{r} in \eqn{(1,1.5]}.
 
 See also (\insertCite{ceyhan:Phd-thesis,ceyhan:masa-2007,ceyhan:dom-num-NPE-Spat2011;textual}{pcds}).
@@ -50,4 +50,7 @@ points(rbind(c(1.50,PG2PEtri(1.50))),pch=".",cex=3)
 }
 \seealso{
 \code{\link{PG2PE1D}}
+}
+\author{
+Elvan Ceyhan
 }

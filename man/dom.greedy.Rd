@@ -11,19 +11,19 @@ dom.greedy(Inc.Mat)
 a graph or digraph.}
 }
 \value{
-A list with two elements
+A \code{list} with two elements
 \item{dom.num}{The cardinality of the (approximate) minimum dominating set found by the greedy algorithm.
-i.e. (approximate) domination number of the graph or digraph whose incidence matrix \code{Inc.Mat} is given
+i.e., (approximate) domination number of the graph or digraph whose incidence matrix \code{Inc.Mat} is given
 as input.}
 \item{ind.domset}{Indices of the rows in the incidence matrix \code{Inc.Mat} for the ((approximate) minimum
 dominating set). The row numbers in the incidence matrix correspond to the indices of the vertices
-(i.e. indices of the data points).}
+(i.e., indices of the data points).}
 }
 \description{
-Returns the (approximate) domination number and the indices (i.e. row numbers) for the corresponding
+Returns the (approximate) domination number and the indices (i.e., row numbers) for the corresponding
 (approximate) minimum dominating set based on the incidence matrix \code{Inc.Mat} of a graph or a digraph
 by using the greedy algorithm (\insertCite{chvatal:1979;textual}{pcds}).
-Here the row number in the incidence matrix corresponds to the index of the vertex (i.e. index of the
+Here the row number in the incidence matrix corresponds to the index of the vertex (i.e., index of the
 data point). The function works whether loops are allowed or not (i.e., whether the first diagonal
 is all 1 or all 0). This function may yield the actual domination number or overestimates it.
 }
@@ -41,4 +41,7 @@ dom.greedy(M)
 \seealso{
 \code{\link{dom.exact}}, \code{\link{PEdom1D}}, \code{\link{PEdomtri}}, \code{\link{PEdomMTnd}},
 and \code{\link{IndCSdomUBtri}}
+}
+\author{
+Elvan Ceyhan
 }

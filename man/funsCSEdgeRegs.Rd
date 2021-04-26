@@ -26,33 +26,32 @@ IndCSTeRAC(pt1, pt2, t, M)
 which serves as a center in the interior of the standard equilateral triangle \eqn{T_e}.}
 }
 \value{
-Each function returns I(\code{pt2} is in \eqn{NCS(pt1,t)}) for \code{pt1}, that is, returns 1 if \code{pt2} is in \eqn{NCS(pt1,t)},
+Each function returns \eqn{I(}\code{pt2} is in \eqn{N_{CS}(pt1,t))} for \code{pt1}, that is, returns 1 if \code{pt2} is in \eqn{N_{CS}(pt1,t)},
 returns 0 otherwise
 }
 \description{
 Three indicator functions: \code{IndCSTeRAB}, \code{IndCSTeRBC} and \code{IndCSTeRAC}.
 
-The function \code{IndCSTeRAB} returns I(\code{pt2} is in \eqn{NCS(pt1,t)} for \code{pt1} in RAB (edge region for edge AB,
+The function \code{IndCSTeRAB} returns I(\code{pt2} is in \eqn{N_{CS}(pt1,t)} for \code{pt1} in \eqn{RAB} (edge region for edge \eqn{AB},
 i.e., edge 3) in the standard equilateral triangle \eqn{T_e=T(A,B,C)=T((0,0),(1,0),(1/2,\sqrt{3}/2))};
 
-\code{IndCSTeRBC} returns I(\code{pt2} is in \eqn{NCS(pt1,t)} for \code{pt1} in RBC (edge region for edge BC, i.e., edge 1) in \eqn{T_e};
+\code{IndCSTeRBC} returns I(\code{pt2} is in \eqn{N_{CS}(pt1,t)} for \code{pt1} in \eqn{RBC} (edge region for edge \eqn{BC}, i.e., edge 1) in \eqn{T_e};
 and
 
-\code{IndCSTeRAC} returns I(\code{pt2} is in \eqn{NCS(pt1,t)} for \code{pt1} in RAC (edge region for edge AC, i.e., edge 2) in \eqn{T_e}.
-That is, each function returns 1 if \code{pt2} is in \eqn{NCS(pt1,t)}, returns 0 otherwise.
+\code{IndCSTeRAC} returns I(\code{pt2} is in \eqn{N_{CS}(pt1,t)} for \code{pt1} in \eqn{RAC} (edge region for edge \eqn{AC}, i.e., edge 2) in \eqn{T_e}.
+That is, each function returns 1 if \code{pt2} is in \eqn{N_{CS}(pt1,t)}, returns 0 otherwise.
 
 CS proximity region is defined with respect to \eqn{T_e} whose vertices are also labeled as \eqn{T_e=T(v=1,v=2,v=3)}
 with expansion parameter \eqn{t>0} and edge regions are based on the center \eqn{M=(m_1,m_2)} in Cartesian coordinates
 or \eqn{M=(\alpha,\beta,\gamma)} in barycentric coordinates in the interior of \eqn{T_e}
 
-If \code{pt1} and \code{pt2} are distint and \code{pt1} is outside the corresponding edge region and \code{pt2} is outside \eqn{T_e}, it returns 0,
+If \code{pt1} and \code{pt2} are distinct and \code{pt1} is outside the corresponding edge region and \code{pt2} is outside \eqn{T_e}, it returns 0,
 but if they are identical, then it returns 1 regardless of their location (i.e., it allows loops).
 
 See also (\insertCite{ceyhan:Phd-thesis,ceyhan:comp-geo-2010;textual}{pcds}).
 }
 \examples{
 #Examples for IndCSTeRAB
-\dontrun{
 A<-c(0,0); B<-c(1,0); C<-c(1/2,sqrt(3)/2);
 CM<-(A+B+C)/3
 T3<-rbind(A,B,CM);
@@ -74,10 +73,8 @@ IndCSTeRAB(dat3[1,],dat3[3,],t,M)
 IndCSTeRAB(c(.2,.5),dat[2,],t,M)
 
 IndCSTeRAB(dat[1,],dat[2,],t,M)
-}
 
 #Examples for IndCSTeRBC
-\dontrun{
 A<-c(0,0); B<-c(1,0); C<-c(1/2,sqrt(3)/2);
 CM<-(A+B+C)/3
 T1<-rbind(B,C,CM);
@@ -101,10 +98,8 @@ IndCSTeRBC(c(.2,.5),dat[2,],t,M)
 IndCSTeRBC(c(.2,.5),c(.2,.5),t,M)
 
 IndCSTeRBC(dat[1,],dat[2,],t,M)
-}
 
 #Examples for IndCSTeRAC
-\dontrun{
 A<-c(0,0); B<-c(1,0); C<-c(1/2,sqrt(3)/2);
 CM<-(A+B+C)/3
 T2<-rbind(A,C,CM);
@@ -128,9 +123,11 @@ IndCSTeRAC(c(.2,.5),dat[2,],t,M)
 IndCSTeRAC(c(.2,.5),c(.2,.5),t,M)
 
 IndCSTeRAC(dat[1,],dat[2,],t,M)
-}
 
 }
 \seealso{
 \code{\link{IndCSTeRABt1}}, \code{\link{IndCSTeRBCt1}} and \code{\link{IndCSTeRACt1}}
+}
+\author{
+Elvan Ceyhan
 }

@@ -4,51 +4,51 @@
 \alias{funsTbMid2CC}
 \alias{lD1CCinTb}
 \alias{lD2CCinTb}
-\title{Two functions \code{lD1CCinTb} and \code{lD2CCinTb} which are of class "TriLines" ---
+\title{Two functions \code{lD1CCinTb} and \code{lD2CCinTb} which are of class \code{"TriLines"} ---
 
-The lines joining the midpoints of edges to the circumcenter (CC) in the basic triangle.}
+The lines joining the midpoints of edges to the circumcenter (eqn{CC}) in the basic triangle.}
 \usage{
 lD1CCinTb(x, c1, c2)
 
 lD2CCinTb(x, c1, c2)
 }
 \arguments{
-\item{x}{A single scalar or a vector of scalars.}
+\item{x}{A single scalar or a \code{vector} of scalars.}
 
 \item{c1, c2}{Positive real numbers which constitute the vertex of the basic triangle
-adjacent to the shorter edges; \code{c1} must be in \eqn{[0,1/2]}, \eqn{c_2>0} and \eqn{(1-c_1)^2+c_2^2 \le 1}.}
+adjacent to the shorter edges; \eqn{c_1} must be in \eqn{[0,1/2]}, \eqn{c_2>0} and \eqn{(1-c_1)^2+c_2^2 \le 1}.}
 }
 \value{
-A list with the elements
+A \code{list} with the elements
 \item{txt1}{Longer description of the line.}
 \item{txt2}{Shorter description of the line (to be inserted over the line in the plot).}
-\item{mtitle}{The "main" title for the plot of the line.}
-\item{cent}{The center chosen inside the  standard equilateral triangle.}
+\item{mtitle}{The \code{"main"} title for the plot of the line.}
+\item{cent}{The center chosen inside the standard equilateral triangle.}
 \item{cent.name}{The name of the center inside the basic triangle.
-It is "CC" for these two functions.}
+It is \code{"CC"} for these two functions.}
 \item{tri}{The triangle (it is the basic triangle for this function).}
-\item{x}{The input vector, can be a scalar or a vector of scalars,
-which constitute the x-coordinates of the point(s) of interest on the line.}
-\item{y}{The output vector, will be a scalar if \code{x} is a scalar or a vector of scalars if \code{x} is a vector of scalar,
-constitutes the y-coordinates of the point(s) of interest on the line.}
+\item{x}{The input vector, can be a scalar or a \code{vector} of scalars,
+which constitute the \eqn{x}-coordinates of the point(s) of interest on the line.}
+\item{y}{The output vector, will be a scalar if \code{x} is a scalar or a \code{vector} of scalars if \code{x} is a \code{vector} of scalar,
+constitutes the \eqn{y}-coordinates of the point(s) of interest on the line.}
 \item{slope}{Slope of the line.}
 \item{intercept}{Intercept of the line.}
 \item{equation}{Equation of the line.}
 }
 \description{
-Returns the \code{equation, slope, intercept}, and y-coordinates of the lines joining D1 and CC and also D2 and CC,
-in the basic triangle \eqn{T_b=T(A=(0,0),B=(1,0),C=(c_1,c_2))} where \code{c1} is in \eqn{[0,1/2]}, \eqn{c_2>0} and \eqn{(1-c_1)^2+c_2^2 \le 1}.
+Returns the \code{equation, slope, intercept}, and \eqn{y}-coordinates of the lines
+joining \eqn{D_1} and \eqn{CC} and also \eqn{D_2} and \eqn{CC}, in the basic triangle \eqn{T_b=T(A=(0,0),B=(1,0),C=(c_1,c_2))}
+where \eqn{c_1} is in \eqn{[0,1/2]}, \eqn{c_2>0} and \eqn{(1-c_1)^2+c_2^2 \le 1}
+and \eqn{D_1=(B+C)/2} and \eqn{D_2=(A+C)/2} are the midpoints of edges \eqn{BC} and \eqn{AC}.
 
 Any given triangle can be mapped to the basic triangle by a combination of rigid body motions
 (i.e., translation, rotation and reflection) and scaling, preserving uniformity of the points in the
 original triangle. Hence basic triangle is useful for simulation
-studies under the uniformness hypothesis.
-Here the midpoints are \eqn{D_1=(B+C)/2} and \eqn{D_2=(A+C)/2}.
-x-coordinates are provided in vector \code{x}.
+studies under the uniformity hypothesis.
+\eqn{x}-coordinates are provided in \code{vector} \code{x}.
 }
 \examples{
 #Examples for lD1CCinTb
-\dontrun{
 c1<-.4; c2<-.6;
 A<-c(0,0); B<-c(1,0); C<-c(c1,c2);  #the vertices of the basic triangle Tb
 
@@ -92,10 +92,8 @@ text(.8,.5,"lD1CCinTb")
 c1<-.4; c2<-.6;
 x1<-seq(0,1,by=.1)  #try also by=.01
 lD1CCinTb(x1,c1,c2)
-}
 
 #Examples for lD2CCinTb
-\dontrun{
 c1<-.4; c2<-.6;
 A<-c(0,0); B<-c(1,0); C<-c(c1,c2);  #the vertices of the basic triangle Tb
 
@@ -135,10 +133,12 @@ text(xc,yc,txt.str)
 
 lines(x2,y2,type="l",lty=2)
 text(0,.5,"lD2CCinTb")
-}
 
 }
 \seealso{
 \code{\link{lA_CM.Te}}, \code{\link{lB_CM.Te}}, \code{\link{lA_M.Te}}, \code{\link{lB_M.Te}},
 and \code{\link{lC_M.Te}}
+}
+\author{
+Elvan Ceyhan
 }

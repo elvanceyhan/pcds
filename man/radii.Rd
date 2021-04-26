@@ -7,24 +7,24 @@
 radii(x, y)
 }
 \arguments{
-\item{x}{A set of d-dimensional points for which the radii are computed. Radius of an \code{x} point equals to the
+\item{x}{A set of \eqn{d}-dimensional points for which the radii are computed. Radius of an \code{x} point equals to the
 distance to the closest \code{y} point.}
 
-\item{y}{A set of d-dimensional points representing the reference points for the balls. That is, radius
+\item{y}{A set of \eqn{d}-dimensional points representing the reference points for the balls. That is, radius
 of an \code{x} point is defined as the minimum distance to the \code{y} points.}
 }
 \value{
-A list with three elements
-\item{rad}{A vector whose entries are the radius values for the \code{x} points. Radius of an \code{x} point equals to
+A \code{list} with three elements
+\item{rad}{A \code{vector} whose entries are the radius values for the \code{x} points. Radius of an \code{x} point equals to
 the distance to the closest \code{y} point}
-\item{index.of.clYp}{A vector of indices of the closest \code{y} points to the \code{x} points. The i-th entry in this
-vector is the index of the closest \code{y} point to i-th \code{x} point.}
-\item{closest.Yp}{A vector of the closest \code{y} points to the \code{x} points. The i-th entry in this
-vector or i-th row in the matrix is the closest \code{y} point to i-th \code{x} point.}
+\item{index.of.clYp}{A \code{vector} of indices of the closest \code{y} points to the \code{x} points. The \eqn{i}-th entry in this
+\code{vector} is the index of the closest \code{y} point to \eqn{i}-th \code{x} point.}
+\item{closest.Yp}{A \code{vector} of the closest \code{y} points to the \code{x} points. The \eqn{i}-th entry in this
+\code{vector} or \eqn{i}-th row in the matrix is the closest \code{y} point to \eqn{i}-th \code{x} point.}
 }
 \description{
 Returns the radii of the balls centered at \code{x} points where radius of an \code{x} point equals to the minimum distance
-to \code{y} points (i.e. distance to the closest \code{y} point). That is, for each \code{x} point \eqn{radius= \min_{y \in Y}(d(x,y))}.
+to \code{y} points (i.e., distance to the closest \code{y} point). That is, for each \code{x} point \eqn{radius= \min_{y \in Y}(d(x,y))}.
 \code{x} and \code{y} points must be of the same dimension.
 }
 \examples{
@@ -68,19 +68,13 @@ interp::circles(X[,1],X[,2],Rad$rad,lty=1,lwd=1,col=4)
 
 radii(c(1,2),c(2,3))
 
-\dontrun{
-nx<-10
-ny<-5
-X<-runif(nx)
-Y<-runif(ny)
-radii(X,Y)  #this does not work, as X and Y are treated as vectors (i.e. points)
-}
-
 nx<-10
 ny<-5
 X<-as.matrix(X)
 Y<-as.matrix(Y)
 radii(X,Y)  #this works as X and Y are treated as 1D data sets
+#but will give error if X<-runif(nx) and  Y<-runif(ny) is used
+#as X and Y are treated as vectors (i.e., points)
 
 nx<-10
 ny<-5
@@ -95,4 +89,7 @@ radii(Y,dat.fr)
 }
 \seealso{
 \code{\link{radius}}
+}
+\author{
+Elvan Ceyhan
 }

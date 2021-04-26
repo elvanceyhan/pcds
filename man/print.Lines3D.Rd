@@ -2,23 +2,23 @@
 % Please edit documentation in R/AuxRFuncs4PCDClasses.r
 \name{print.Lines3D}
 \alias{print.Lines3D}
-\title{Print a \code{Lines3D} object}
+\title{Print a \code{Lines3D} \code{object}}
 \usage{
 \method{print}{Lines3D}(x, ...)
 }
 \arguments{
-\item{x}{A \code{Lines3D} object.}
+\item{x}{A \code{Lines3D} \code{object}.}
 
-\item{\dots}{Additional arguments for the S3 method '\code{print}'.}
+\item{\dots}{Additional arguments for the S3 method \code{'print'}.}
 }
 \value{
-The \code{call} of the object of class '\code{Lines3D}',
-the \code{coefficients} of the linee (in the form: x=x0 + a*t, y=y0 + b*t, and z=z0 + c*t),
+The \code{call} of the \code{object} of class \code{"Lines3D"},
+the \code{coefficients} of the line (in the form: \code{x=x0 + a*t}, \code{y=y0 + b*t}, and \code{z=z0 + c*t}),
 and the initial point together with the direction vector.
 }
 \description{
-Prints the \code{call} of the object of class '\code{Lines3D}',
-the \code{coefficients} of the line (in the form: x=x0 + a*t, y=y0 + b*t, and z=z0 + c*t),
+Prints the \code{call} of the \code{object} of class \code{"Lines3D"},
+the \code{coefficients} of the line (in the form: \code{x=x0 + a*t}, \code{y=y0 + b*t}, and \code{z=z0 + c*t}),
 and the initial point together with the direction vector.
 }
 \examples{

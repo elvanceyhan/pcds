@@ -23,51 +23,51 @@ TSDomPENor(
 \item{r}{A positive real number which serves as the expansion parameter in PE proximity region;
 must be in \eqn{(1,1.5]}.}
 
-\item{ch.cor}{A logical argument for convex hull correction, default \code{ch.cor}=\code{FALSE},
+\item{ch.cor}{A logical argument for convex hull correction, default \code{ch.cor=FALSE},
 recommended when both \code{Xp} and \code{Yp} have the same rectangular support.}
 
 \item{nt}{Number of Delaunay triangles based on \code{Yp} points, default is \code{NULL}.}
 
-\item{alternative}{Type of the alternative hypothesis in the test, one of "two.sided", "less", "greater".}
+\item{alternative}{Type of the alternative hypothesis in the test, one of \code{"two.sided"}, \code{"less"}, \code{"greater"}.}
 
-\item{conf.level}{Level of the confidence interval, default is 0.95, for the domination number of
+\item{conf.level}{Level of the confidence interval, default is \code{0.95}, for the domination number of
 PE-PCD whose vertices are the 2D data set \code{Xp}.}
 }
 \value{
-A list with the elements
+A \code{list} with the elements
 \item{statistic}{Test statistic}
-\item{p.value}{The \eqn{p}-value for the hypothesis test for the corresponding alternative}
+\item{p.value}{The \eqn{p}-value for the hypothesis test for the corresponding \code{alternative}}
 \item{conf.int}{Confidence interval for the domination number at the given level \code{conf.level} and
 depends on the type of \code{alternative}.}
-\item{estimate}{A vector with two entries: first is the domination number,
-and second is the estimate of the parameter, i.e., Pr(Domination Number=3)}
+\item{estimate}{A \code{vector} with two entries: first is the domination number,
+and second is the estimate of the parameter, i.e., \eqn{Pr(}Domination Number\eqn{=3)}}
 \item{null.value}{Hypothesized value for the parameter, i.e., the null value for expected domination number}
-\item{alternative}{Type of the alternative hypothesis in the test, one of "two.sided", "less", "greater"}
+\item{alternative}{Type of the alternative hypothesis in the test, one of \code{"two.sided"}, \code{"less"}, \code{"greater"}}
 \item{method}{Description of the hypothesis test}
 \item{data.name}{Name of the data set}
 }
 \description{
-An object of class "htest" (i.e., hypothesis test) function which performs a hypothesis test of complete spatial
+An object of class \code{"htest"} (i.e., hypothesis test) function which performs a hypothesis test of complete spatial
 randomness (CSR) or uniformity of \code{Xp} points in the convex hull of \code{Yp} points against the alternatives
-of segregation (where \code{Xp} points cluster away from \code{Yp} points i.e. cluster around the centers of the Delaunay
+of segregation (where \code{Xp} points cluster away from \code{Yp} points i.e., cluster around the centers of the Delaunay
 triangles) and association (where \code{Xp} points cluster around \code{Yp} points) based on the normal approximation
 to the binomial distribution of the domination number of PE-PCD for uniform 2D data
 in the convex hull of \code{Yp} points
 
-The function yields the test statistic, \eqn{p}-value for the corresponding alternative,
+The function yields the test statistic, \eqn{p}-value for the corresponding \code{alternative},
 the confidence interval, estimate and null value for the parameter of interest (which is Pr(Domination
 Number=3)), and method and name of the data set used.
 
 Under the null hypothesis of uniformity of \code{Xp} points in the convex hull of \code{Yp} points, probability of success
-(i.e. Pr(Domination Number=3) ) equals to its expected value under the uniform distribution) and
-\code{alternative} could be two-sided, or left-sided (i.e. data is accumulated around the \code{Yp} points, or association)
-or right-sided (i.e. data is accumulated around the centers of the triangles, or segregation).
+(i.e., \eqn{Pr(}domination number\eqn{=3)}) equals to its expected value under the uniform distribution) and
+\code{alternative} could be two-sided, or left-sided (i.e., data is accumulated around the \code{Yp} points, or association)
+or right-sided (i.e., data is accumulated around the centers of the triangles, or segregation).
 
-PE proximity region is constructed with the expansion parameter \eqn{r \ge 1} and M-vertex regions where M
+PE proximity region is constructed with the expansion parameter \eqn{r \ge 1} and \eqn{M}-vertex regions where M
 is a center that yields non-degenerate asymptotic distribution of the domination number.
 
 The test statistic is based on the normal approximation to the binomial distribution, when domination number
-is scaled to have value  0 and 1 in the one triangle case (i.e., Domination Number - 1 for the one triangle
+is scaled to have value  0 and 1 in the one triangle case (i.e., Domination Number minus 1 for the one triangle
 case). That is, the test statistic is based on the domination number for \code{Xp} points inside convex hull of \code{Yp}
 points for the PE-PCD and default convex hull correction, \code{ch.cor}, is \code{FALSE}
 where \code{M} is the center that yields nondegenerate asymptotic distribution for the domination number.
@@ -85,7 +85,7 @@ set.seed(1)
 Xp<-cbind(runif(nx,0,1),runif(nx,0,1))
 Yp<-cbind(runif(ny,0,1),runif(ny,0,1))
 
-oldpar <- par(mfrow = c(1,2))
+oldpar <- par(no.readonly = TRUE)
 plotDeltri(Xp,Yp,xlab="",ylab="")
 par(oldpar)
 
@@ -119,4 +119,7 @@ TSDomPENor(Xp,dat.fr,r)
 }
 \seealso{
 \code{\link{TSDomPEBin}}
+}
+\author{
+Elvan Ceyhan
 }

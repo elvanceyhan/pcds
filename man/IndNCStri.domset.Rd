@@ -19,23 +19,23 @@ constructed in the triangle \code{tri}.}
 
 \item{M}{A 2D point in Cartesian coordinates or a 3D point in barycentric coordinates
 which serves as a center in the interior of the triangle \code{tri};
-default is \eqn{M=(1,1,1)} i.e. the center of mass of \code{tri}.}
+default is \eqn{M=(1,1,1)} i.e., the center of mass of \code{tri}.}
 }
 \value{
-I(\code{S} a dominating set of CS-PCD), that is, returns 1 if \code{S} is a dominating set of CS-PCD whose
+\eqn{I(}\code{S} a dominating set of the CS-PCD\eqn{)}, that is, returns 1 if \code{S} is a dominating set of CS-PCD whose
 vertices are the data points in \code{Dt}; returns 0 otherwise, where CS proximity region is constructed in
 the triangle \code{tri}
 }
 \description{
-Returns I(\code{S} a dominating set of CS-PCD whose vertices are the data set \code{Dt}), that is,
+Returns \eqn{I(}\code{S} a dominating set of CS-PCD whose vertices are the data set \code{Dt}\eqn{)}, that is,
 returns 1 if \code{S} is a dominating set of CS-PCD, returns 0 otherwise.
 
 CS proximity region is constructed with
 respect to the triangle \code{tri} with the expansion parameter \eqn{\tau>0} and edge regions are based
 on the center \eqn{M=(m_1,m_2)} in Cartesian coordinates or \eqn{M=(\alpha,\beta,\gamma)} in barycentric coordinates
-in the interior of the triangle \code{tri}; default is \eqn{M=(1,1,1)} i.e. the center of mass of \code{tri}.
+in the interior of the triangle \code{tri}; default is \eqn{M=(1,1,1)} i.e., the center of mass of \code{tri}.
 
-The triangle \code{tri}=\eqn{T(A,B,C)} has edges \eqn{AB}, \eqn{BC}, \eqn{AC} which are also labeled as edges 3, 1, and 2, respectively.
+The triangle \code{tri}\eqn{=T(A,B,C)} has edges \eqn{AB}, \eqn{BC}, \eqn{AC} which are also labeled as edges 3, 1, and 2, respectively.
 
 See also (\insertCite{ceyhan:mcap2012;textual}{pcds}).
 }
@@ -86,4 +86,7 @@ IndNCStri.domset(S,dat.fr,tau,Tr,M)
 }
 \seealso{
 \code{\link{IndCSTe.domset}}, \code{\link{IndNPEtri.domset}} and \code{\link{IndNAStri.domset}}
+}
+\author{
+Elvan Ceyhan
 }

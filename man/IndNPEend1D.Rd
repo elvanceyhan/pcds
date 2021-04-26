@@ -10,28 +10,28 @@ IndNPEend1D(x1, x2, r, int, rv = NULL)
 \arguments{
 \item{x1}{A 1D point whose PE proximity region is constructed.}
 
-\item{x2}{A 1D point. The function determines whether \code{x2} is inside the PE proximity region of
-\code{x1} or not.}
+\item{x2}{A 1D point. The function determines whether \eqn{x_2} is inside the PE proximity region of
+\eqn{x_1} or not.}
 
 \item{r}{A positive real number which serves as the expansion parameter in PE proximity region;
 must be \eqn{\ge 1}.}
 
-\item{int}{A vector of two real numbers representing an interval.}
+\item{int}{A \code{vector} of two real numbers representing an interval.}
 
-\item{rv}{Index of the end interval containing the point, either 1, 2 or \code{NULL} (default is \code{NULL}).}
+\item{rv}{Index of the end interval containing the point, either \code{1,2} or \code{NULL} (default is \code{NULL}).}
 }
 \value{
-I(\code{x2} in \eqn{NPE(x1,r)}) for points \code{x1} and \code{x2}, that is, returns 1 if \code{x2} is in \eqn{NPE(x1,r)}
-(i.e., if there is an arc from \code{x1} to \code{x2}), returns 0 otherwise
+\eqn{I(x_2 \in N_{PE}(x_1,r))} for points \eqn{x_1} and \eqn{x_2}, that is, returns 1 if \eqn{x_2} is in \eqn{N_{PE}(x_1,r)}
+(i.e., if there is an arc from \eqn{x_1} to \eqn{x_2}), returns 0 otherwise
 }
 \description{
-Returns I(\code{x2} in \eqn{NPE(x1,r)}) for points \code{x1} and \code{x2}, that is, returns 1 if \code{x2} is in \eqn{NPE(x1,r)}, returns 0
-otherwise, where \eqn{NPE(x,r)} is the PE proximity region for point \eqn{x} with expansion parameter \eqn{r \ge 1}
+Returns \eqn{I(x_2 \in N_{PE}(x_1,r))} for points \eqn{x_1} and \eqn{x_2}, that is, returns 1 if \eqn{x_2} is in \eqn{N_{PE}(x_1,r)}, returns 0
+otherwise, where \eqn{N_{PE}(x,r)} is the PE proximity region for point \eqn{x} with expansion parameter \eqn{r \ge 1}
 for the region outside the interval \eqn{(a,b)}.
 
-\code{rv} is the index of the end vertex region \code{x1} resides, with default=\code{NULL},
-and \eqn{rv=1} for left end interval and \eqn{rv=2} for the right end interval.
-If \code{x1} and \code{x2} are distint and either of them are inside interval \code{int}, it returns 0,
+\code{rv} is the index of the end vertex region \eqn{x_1} resides, with default=\code{NULL},
+and \code{rv=1} for left end interval and \code{rv=2} for the right end interval.
+If \eqn{x_1} and \eqn{x_2} are distinct and either of them are inside interval \code{int}, it returns 0,
 but if they are identical, then it returns 1 regardless of their locations (i.e., it allows loops).
 
 See also (\insertCite{ceyhan:metrika-2012;textual}{pcds}).
@@ -60,4 +60,7 @@ IndNPEend1D(15,17,r,int)
 }
 \seealso{
 \code{\link{IndNPEmid1D}}, \code{\link{IndNCSmid1D}}, and \code{\link{IndNCSend1D}}
+}
+\author{
+Elvan Ceyhan
 }

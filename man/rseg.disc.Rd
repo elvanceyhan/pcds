@@ -18,46 +18,47 @@ rseg.disc(
 \item{n}{A positive integer representing the number of points to be generated.}
 
 \item{Y}{A set of 2D points representing the reference points. The generated points are segregated
-(in a circular/radial fashion) from these points.}
+(in a circular or radial fashion) from these points.}
 
 \item{e}{A positive real number representing the radius of the balls centered at \code{Y} points. These balls
 are forbidden for the generated points (i.e., generated points would be in the complement of union of these
 balls).}
 
-\item{a1, a2}{Real numbers representing the range of x-coordinates in the region
-(default is the range of x-coordinates of the \code{Y} points).}
+\item{a1, a2}{Real numbers representing the range of \eqn{x}-coordinates in the region
+(default is the range of \eqn{x}-coordinates of the \code{Y} points).}
 
-\item{b1, b2}{Real numbers representing the range of y-coordinates in the region
-(default is the range of y-coordinates of the \code{Y} points).}
+\item{b1, b2}{Real numbers representing the range of \eqn{y}-coordinates in the region
+(default is the range of \eqn{y}-coordinates of the \code{Y} points).}
 }
 \value{
-A list with the elements
+A \code{list} with the elements
 \item{type}{The type of the point pattern}
-\item{mtitle}{The "main" title for the plot of the point pattern}
-\item{parameters}{Radial (i.e. circular) exclusion parameter of the segregation pattern}
+\item{mtitle}{The \code{"main"} title for the plot of the point pattern}
+\item{parameters}{Radial (i.e., circular) exclusion parameter of the segregation pattern}
 \item{ref.points}{The input set of reference points \code{Y}, i.e., points from which generated points are
 segregated.}
 \item{gen.points}{The output set of generated points segregated from \code{Y} points}
 \item{tri.Y}{Logical output for triangulation based on \code{Y} points should be implemented or not.
 if \code{TRUE} triangulation based on \code{Y} points is to be implemented (default is set to \code{FALSE}).}
 \item{desc.pat}{Description of the point pattern}
-\item{num.points}{The vector of two numbers, which are the number of generated points and
+\item{num.points}{The \code{vector} of two numbers, which are the number of generated points and
 the number of reference (i.e., \code{Y}) points.}
-\item{xlimit,ylimit}{The possible ranges of the x- and y-coordinates of the generated points}
+\item{xlimit,ylimit}{The possible ranges of the \eqn{x}- and \eqn{y}-coordinates of the generated points}
 }
 \description{
-An object of class "Patterns".
-Generates \code{n} 2D points uniformly in \eqn{(a1-e,a1+e)x(a1-e,a1+e) \setminus B(y_i,e)} where
-\eqn{Y=(y_1,y_2,...,y_{n_y})} with \eqn{n_y} being number of \code{Y} points for various values of \code{e}
+An object of class \code{"Patterns"}.
+Generates \code{n} 2D points uniformly in \eqn{(a_1-e,a_1+e) \times (a_1-e,a_1+e) \setminus B(y_i,e)}
+(\eqn{a_1} and \eqn{b1} are denoted as \code{a1} and \code{b1} as arguments) where
+\eqn{Y=(y_1,y_2,\ldots,y_{n_y})} with \eqn{n_y} being number of \code{Y} points for various values of \code{e}
 under the segregation pattern and \eqn{B(y_i,e)} is the ball centered at \eqn{y_i} with radius \code{e}.
 
 Positive values of \code{e} yield realizations from the segregation pattern
 and nonpositive values of \code{e} provide a type of complete spatial randomness (CSR),
 \code{e} should not be too large to make the support of generated points empty,
-\code{a1} is defaulted to the minimum of the x-coordinates of the \code{Y} points,
-\code{a2} is defaulted to the maximum of the x-coordinates of the \code{Y} points,
-\code{b1} is defaulted to the minimum of the y-coordinates of the \code{Y} points,
-\code{b2} is defaulted to the maximum of the y-coordinates of the \code{Y} points.
+\code{a1} is defaulted to the minimum of the \eqn{x}-coordinates of the \code{Y} points,
+\code{a2} is defaulted to the maximum of the \eqn{x}-coordinates of the \code{Y} points,
+\code{b1} is defaulted to the minimum of the \eqn{y}-coordinates of the \code{Y} points,
+\code{b2} is defaulted to the maximum of the \eqn{y}-coordinates of the \code{Y} points.
 }
 \examples{
 nx<-20; ny<-4;  #try also nx<-1000; ny<-10
@@ -101,4 +102,7 @@ points(Xdt)
 }
 \seealso{
 \code{\link{rasc.disc}}, \code{\link{rsegTe}}, \code{\link{rsegIITe}}, and \code{\link{rsegMT}}
+}
+\author{
+Elvan Ceyhan
 }

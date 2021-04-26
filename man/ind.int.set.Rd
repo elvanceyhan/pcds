@@ -12,7 +12,7 @@ ind.int.set(dat, Yp)
 \item{Yp}{A set of 1D points from which intervals are constructed.}
 }
 \value{
-The vector of indices of the intervals in which points in the 1D data set, \code{dat}, reside
+The \code{vector} of indices of the intervals in which points in the 1D data set, \code{dat}, reside
 }
 \description{
 Returns the indices of intervals for all the points in 1D data set, \code{dat}, as a vector.
@@ -51,4 +51,7 @@ ind.int.set(6,5)
 
 ind.int.set(Xp,Yp)
 
+}
+\author{
+Elvan Ceyhan
 }

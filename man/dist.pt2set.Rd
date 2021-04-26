@@ -7,12 +7,12 @@
 dist.pt2set(x, Y)
 }
 \arguments{
-\item{x}{A vector (i.e., a point in \eqn{R^d}).}
+\item{x}{A \code{vector} (i.e., a point in \eqn{R^d}).}
 
-\item{Y}{A set of d-dimensional points.}
+\item{Y}{A set of \eqn{d}-dimensional points.}
 }
 \value{
-A list with the elements
+A \code{list} with the elements
 \item{distance}{Distance from point \code{x} to set \code{Y}}
 \item{ind.cl.point}{Index of the closest point in set \code{Y} to the point \code{x}}
 \item{closest.point}{The closest point in set \code{Y} to the point \code{x}}
@@ -34,16 +34,10 @@ dist.pt2set(c(1,2),X2)
 dist.pt2set(C,C)
 dist.pt2set(B,C)
 
-\dontrun{
-x<-runif(1)
-y<-runif(10)
-dist.pt2set(x,y)
-#this does not work because both entries are treated as vectors
-}
-
 x<-runif(1)
 y<-as.matrix(runif(10))
 dist.pt2set(x,y)  #this works, because x is a 1D point, and y is treated as a set of 10 1D points
+#but will give an error message if y<-runif(10) is used above
 
 dat.fr<-data.frame(b=B,c=C)
 dist.pt2set(A,dat.fr)
@@ -51,4 +45,7 @@ dist.pt2set(A,dat.fr)
 }
 \seealso{
 \code{\link{dp2l}} and \code{\link{dp2pl}}
+}
+\author{
+Elvan Ceyhan
 }

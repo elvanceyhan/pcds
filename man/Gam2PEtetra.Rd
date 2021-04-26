@@ -28,29 +28,29 @@ must be \eqn{\ge 1}.}
 \item{th}{Four 3D points, stacked row-wise, each row representing a vertex of the tetrahedron.}
 
 \item{M}{The center to be used in the construction of the vertex regions in the tetrahedron, \code{th}.
-Currently it only takes "CC" for circumcenter and "CM" for center of mass; default="CM".}
+Currently it only takes \code{"CC"} for circumcenter and \code{"CM"} for center of mass; default=\code{"CM"}.}
 
 \item{rv1, rv2}{The indices of the vertices whose regions contains \code{pt1} and \code{pt2}, respectively.
-They take the vertex labels as 1,2,3,4 as in the row order of the vertices in \code{th}
+They take the vertex labels as \code{1,2,3,4} as in the row order of the vertices in \code{th}
 (default is \code{NULL} for both).}
 
 \item{ch.data.pnts}{A logical argument for checking whether both points \code{pt1} and \code{pt2} are
 data points in \code{Dt} or not (default is \code{FALSE}).}
 }
 \value{
-I(\{\code{pt1,pt2}\} is a dominating set of the PE-PCD) where the vertices of the PE-PCD are the 3D data set \code{Dt}),
+\eqn{I(}\{\code{pt1,pt2}\} is a dominating set of the PE-PCD\eqn{)} where the vertices of the PE-PCD are the 3D data set \code{Dt}),
 that is, returns 1 if \{\code{pt1,pt2}\} is a dominating set of PE-PCD, returns 0 otherwise
 }
 \description{
-Returns I(\{\code{pt1,pt2}\} is a dominating set of the PE-PCD) where the vertices of the PE-PCD are the 3D data set \code{Dt} in the tetrahedron \code{th}, that is,
+Returns \eqn{I(}\{\code{pt1,pt2}\} is a dominating set of the PE-PCD\eqn{)} where the vertices of the PE-PCD are the 3D data set \code{Dt} in the tetrahedron \code{th}, that is,
 returns 1 if \{\code{pt1,pt2}\} is a dominating set of PE-PCD, returns 0 otherwise.
 
 Point, \code{pt1}, is in the region of vertex \code{rv1} (default is \code{NULL}) and point, \code{pt2}, is in the region of vertex \code{rv2}
-(default is \code{NULL}); vertices (and hence \code{rv1} and \code{rv2}) are labeled as 1,2,3,4 in the order they are stacked
+(default is \code{NULL}); vertices (and hence \code{rv1} and \code{rv2}) are labeled as \code{1,2,3,4} in the order they are stacked
 row-wise in \code{th}.
 
 PE proximity region is constructed with respect to the tetrahedron \code{th} with expansion parameter \eqn{r \ge 1}
-and vertex regions are based on center of mass (M="CM") or circumcenter (M="CC") only.
+and vertex regions are based on center of mass (\code{M="CM"}) or circumcenter (\code{M="CC"}) only.
 
 \code{ch.data.pnts} is for checking whether points \code{pt1} and \code{pt2} are both data points in \code{Dt} or not (default is \code{FALSE}),
 so by default this function checks whether the points \code{pt1} and \code{pt2} would constitute a dominating set
@@ -59,7 +59,6 @@ if they actually were both in the data set.
 See also (\insertCite{ceyhan:Phd-thesis,ceyhan:comp-geo-2010;textual}{pcds}).
 }
 \examples{
-\dontrun{
 A<-c(0,0,0); B<-c(1,0,0); C<-c(1/2,sqrt(3)/2,0); D<-c(1/2,sqrt(3)/6,sqrt(6)/3)
 tetra<-rbind(A,B,C,D)
 n<-20
@@ -104,9 +103,9 @@ Gam2PEtetra(P1,P2,dat,r,tetra,M)
 dat.fr<-data.frame(a=dat)
 Gam2PEtetra(P1,P2,dat.fr,r,tetra,M)
 
-Gam2PEtetra(c(-1,-1,-1),dat[2,],dat,r,tetra,M,ch.data.pnts = TRUE)
-#gives an error message since not both points, pt1 and pt2, are data points in Dt
-}
+Gam2PEtetra(c(-1,-1,-1),dat[2,],dat,r,tetra,M,ch.data.pnts = FALSE)
+#gives an error message if ch.data.pnts = TRUE
+#since not both points, pt1 and pt2, are data points in Dt
 
 }
 \references{
@@ -114,4 +113,7 @@ Gam2PEtetra(c(-1,-1,-1),dat[2,],dat,r,tetra,M,ch.data.pnts = TRUE)
 }
 \seealso{
 \code{\link{Gam2PEstdTetra}}, \code{\link{Gam2PEtri}} and \code{\link{Gam2PEbastri}}
+}
+\author{
+Elvan Ceyhan
 }

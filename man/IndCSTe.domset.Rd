@@ -20,18 +20,18 @@ which serves as a center in the interior of the standard equilateral triangle \e
 the center of mass of \eqn{T_e}.}
 }
 \value{
-I(\code{S} a dominating set of CS-PCD), that is, returns 1 if \code{S} is a dominating set of CS-PCD,
+\eqn{I(}\code{S} a dominating set of the CS-PCD\eqn{)}, that is, returns 1 if \code{S} is a dominating set of CS-PCD,
 returns 0 otherwise, where CS proximity region is constructed in the standard equilateral triangle \eqn{T_e}
 }
 \description{
-Returns I(\code{S} a dominating set of the CS-PCD) where the vertices of the CS-PCD are the data set \code{Dt}), that is,
+Returns \eqn{I(}\code{S} a dominating set of the CS-PCD\eqn{)} where the vertices of the CS-PCD are the data set \code{Dt}), that is,
 returns 1 if \code{S} is a dominating set of CS-PCD, returns 0 otherwise.
 
 CS proximity region is constructed
 with respect to the standard equilateral triangle \eqn{T_e=T(A,B,C)=T((0,0),(1,0),(1/2,\sqrt{3}/2))} with
 expansion parameter \eqn{t>0} and edge regions are based on the center \eqn{M=(m_1,m_2)}
 in Cartesian coordinates or \eqn{M=(\alpha,\beta,\gamma)} in barycentric coordinates in the interior of \eqn{T_e};
-default is \eqn{M=(1,1,1)} i.e. the center of mass of \eqn{T_e} (which is equivalent to the circumcenter of \eqn{T_e}).
+default is \eqn{M=(1,1,1)} i.e., the center of mass of \eqn{T_e} (which is equivalent to the circumcenter of \eqn{T_e}).
 
 Edges of \eqn{T_e}, \eqn{AB}, \eqn{BC}, \eqn{AC}, are also labeled as 3, 1, and 2, respectively.
 
@@ -84,4 +84,7 @@ IndCSTe.domset(S,dat.fr,t,M)
 }
 \seealso{
 \code{\link{IndNCStri.domset}} and \code{\link{IndNPETe.domset}}
+}
+\author{
+Elvan Ceyhan
 }

@@ -72,3 +72,6 @@ cp2e.tri(dat.fr,M)
 \seealso{
 \code{\link{cp2e.bastri}} and \code{\link{cp2edges.nd}}
 }
+\author{
+Elvan Ceyhan
+}

@@ -2,8 +2,9 @@
 % Please edit documentation in R/PCDFunctions.r
 \name{IndNCStri.alt}
 \alias{IndNCStri.alt}
-\title{An alternative function to the function \code{\link{IndNCStri}} which yields the indicator for the presence of an arc
-from one point to another for Central Similarity Proximity Catch Digraphs (CS-PCDs)}
+\title{An alternative to the function \code{\link{IndNCStri}} which yields the indicator
+for the presence of an arc from one point to another
+for Central Similarity Proximity Catch Digraphs (CS-PCDs)}
 \usage{
 IndNCStri.alt(pt1, pt2, t, tri, re = NULL)
 }
@@ -17,30 +18,29 @@ IndNCStri.alt(pt1, pt2, t, tri, re = NULL)
 
 \item{tri}{Three 2D points, stacked row-wise, each row representing a vertex of the triangle.}
 
-\item{re}{Index of the CM-edge region containing the point \code{pt},
-either 1, 2, 3 or \code{NULL}, default=\code{NULL} but
-must be provided (row-wise) as vertices \eqn{(y_1,y_2,y_3)} for \eqn{re=3} as \eqn{(y_2,y_3,y_1)} for
-\eqn{re=1} and as \eqn{(y_1,y_3,y_2)} for \eqn{re=2} for triangle \eqn{T(y_1,y_2,y_3)}.}
+\item{re}{Index of the \eqn{CM}-edge region containing the point \code{pt},
+either \code{1,2,3} or \code{NULL}, default=\code{NULL} but
+must be provided (row-wise) as vertices \eqn{(y_1,y_2,y_3)} for \code{re=3} as \eqn{(y_2,y_3,y_1)} for
+\code{re=1} and as \eqn{(y_1,y_3,y_2)} for \code{re=2} for triangle \eqn{T(y_1,y_2,y_3)}.}
 }
 \value{
-I(\code{pt2} is in \eqn{NCS(pt1,t)}) for \code{pt1}, that is,
-returns 1 if \code{pt2} is in \eqn{NCS(pt1,t)}, returns 0 otherwise.
+\eqn{I(}\code{pt2} is in \eqn{N_{CS}(pt1,t))} for \code{pt1}, that is,
+returns 1 if \code{pt2} is in \eqn{N_{CS}(pt1,t)}, returns 0 otherwise.
 }
 \description{
-Returns I(\code{pt2} is in \eqn{NCS(pt1,t)}) for points \code{pt1} and \code{pt2}, that is, returns 1 if \code{pt2} is in \eqn{NCS(pt1,t)},
-returns 0 otherwise, where \eqn{NCS(x,t)} is the CS proximity region for point \eqn{x} with the expansion parameter \eqn{t>0}.
+Returns \eqn{I(}\code{pt2} is in \eqn{N_{CS}(pt1,t))} for points \code{pt1} and \code{pt2}, that is, returns 1 if \code{pt2} is in \eqn{N_{CS}(pt1,t)},
+returns 0 otherwise, where \eqn{N_{CS}(x,t)} is the CS proximity region for point \eqn{x} with the expansion parameter \eqn{t>0}.
 
 CS proximity region is constructed with respect to the triangle \code{tri} and edge regions are based on the
-center of mass, CM. \code{re} is the index of the CM-edge region \code{pt} resides, with default=\code{NULL} but must be provided as
+center of mass, \eqn{CM}. \code{re} is the index of the \eqn{CM}-edge region \code{pt} resides, with default=\code{NULL} but must be provided as
 vertices \eqn{(y_1,y_2,y_3)} for \eqn{re=3} as rbind(y2,y3,y1) for \eqn{re=1} and as rbind(y1,y3,y2) for \eqn{re=2} for triangle \eqn{T(y_1,y_2,y_3)}.
 
-If \code{pt1} and \code{pt2} are distint and either of them are outside \code{tri}, it returns 0,
+If \code{pt1} and \code{pt2} are distinct and either of them are outside \code{tri}, it returns 0,
 but if they are identical, then it returns 1 regardless of their locations (i.e., it allows loops).
 
 See also (\insertCite{ceyhan:Phd-thesis,ceyhan:arc-density-CS,ceyhan:test2014;textual}{pcds}).
 }
 \examples{
-\dontrun{
 A<-c(1,1); B<-c(2,0); C<-c(1.6,2);
 Tr<-rbind(A,B,C);
 t<-1.5
@@ -76,7 +76,6 @@ IndNCStri.alt(P2,P3,t,Tr)
 
 dat.fr<-data.frame(a=Tr)
 IndNCStri.alt(P2,P3,t,dat.fr)
-}
 
 }
 \references{
@@ -84,4 +83,7 @@ IndNCStri.alt(P2,P3,t,dat.fr)
 }
 \seealso{
 \code{\link{IndNAStri}}, \code{\link{IndNPEtri}}, \code{\link{IndNCStri}}, and \code{\link{IndCSTe}}
+}
+\author{
+Elvan Ceyhan
 }

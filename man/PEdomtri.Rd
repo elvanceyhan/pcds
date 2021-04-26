@@ -16,12 +16,12 @@ must be \eqn{\ge 1}.}
 
 \item{M}{A 2D point in Cartesian coordinates or a 3D point in barycentric coordinates
 which serves as a center in the interior of the triangle \code{tri} or the circumcenter of \code{tri},
-default is (1,1,1) i.e. the center of mass.}
+default is \eqn{(1,1,1)} i.e., the center of mass.}
 }
 \value{
-A list with two elements
-\item{dom.num}{Domination number of PE-PCD with vertex set=\code{Xp} and expansion parameter \eqn{r \ge 1} and center \code{M}}
-\item{mds}{A minimum dominating set of PE-PCD with vertex set=\code{Xp} and expansion parameter \eqn{r \ge 1} and center \code{M}}
+A \code{list} with two elements
+\item{dom.num}{Domination number of PE-PCD with vertex set = \code{Xp} and expansion parameter \eqn{r \ge 1} and center \code{M}}
+\item{mds}{A minimum dominating set of PE-PCD with vertex set = \code{Xp} and expansion parameter \eqn{r \ge 1} and center \code{M}}
 }
 \description{
 Returns the domination number of PE-PCD whose vertices are the data points in \code{Xp}.
@@ -66,4 +66,7 @@ PEdomtri(P1,Tr,r,M)
 }
 \seealso{
 \code{\link{PEdomMTnd}}, \code{\link{PEdomMT}} and \code{\link{PEdom1D}}
+}
+\author{
+Elvan Ceyhan
 }

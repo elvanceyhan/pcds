@@ -16,38 +16,38 @@ IndNPEbastri(pt1, pt2, r, c1, c2, M = c(1, 1, 1), rv = NULL)
 \item{r}{A positive real number which serves as the expansion parameter in PE proximity region; must be \eqn{\ge 1}}
 
 \item{c1, c2}{Positive real numbers which constitute the vertex of the basic triangle
-adjacent to the shorter edges; \code{c1} must be in \eqn{[0,1/2]}, \eqn{c_2>0} and \eqn{(1-c_1)^2+c_2^2 \le 1}.}
+adjacent to the shorter edges; \eqn{c_1} must be in \eqn{[0,1/2]}, \eqn{c_2>0} and \eqn{(1-c_1)^2+c_2^2 \le 1}.}
 
 \item{M}{A 2D point in Cartesian coordinates or a 3D point in barycentric coordinates
 which serves as a center in the interior of the basic triangle or circumcenter of \eqn{T_b};
-default is \eqn{M=(1,1,1)} i.e. the center of mass of \eqn{T_b}.}
+default is \eqn{M=(1,1,1)} i.e., the center of mass of \eqn{T_b}.}
 
-\item{rv}{The index of the vertex region in \eqn{T_b} containing the point, either 1, 2, 3 or \code{NULL}
+\item{rv}{The index of the vertex region in \eqn{T_b} containing the point, either \code{1,2,3} or \code{NULL}
 (default is \code{NULL}).}
 }
 \value{
-I(\code{pt2} is in \eqn{NPE(pt1,r)}) for points \code{pt1} and \code{pt2}, that is, returns 1 if \code{pt2} is in \eqn{NPE(pt1,r)},
+\eqn{I(}\code{pt2} is in \eqn{N_{PE}(pt1,r))} for points \code{pt1} and \code{pt2}, that is, returns 1 if \code{pt2} is in \eqn{N_{PE}(pt1,r)},
 returns 0 otherwise
 }
 \description{
-Returns I(\code{pt2} is in \eqn{NPE(pt1,r)}) for points \code{pt1} and \code{pt2}, that is, returns 1 if \code{pt2} is in \eqn{NPE(pt1,r)},
-returns 0 otherwise, where \eqn{NPE(x,r)} is the PE proximity region for point \eqn{x} with expansion parameter \eqn{r \ge 1}.
+Returns \eqn{I(}\code{pt2} is in \eqn{N_{PE}(pt1,r))} for points \code{pt1} and \code{pt2}, that is, returns 1 if \code{pt2} is in \eqn{N_{PE}(pt1,r)},
+returns 0 otherwise, where \eqn{N_{PE}(x,r)} is the PE proximity region for point \eqn{x} with expansion parameter \eqn{r \ge 1}.
 
 PE proximity region is defined with respect to the basic triangle \eqn{T_b=T((0,0),(1,0),(c_1,c_2))}
-where \code{c1} is in \eqn{[0,1/2]}, \eqn{c_2>0} and \eqn{(1-c_1)^2+c_2^2 \le 1}.
+where \eqn{c_1} is in \eqn{[0,1/2]}, \eqn{c_2>0} and \eqn{(1-c_1)^2+c_2^2 \le 1}.
 
 Vertex regions are based on the center, \eqn{M=(m_1,m_2)} in Cartesian coordinates or \eqn{M=(\alpha,\beta,\gamma)} in
 barycentric coordinates in the interior of the basic triangle \eqn{T_b} or based on circumcenter of \eqn{T_b};
-default is \eqn{M=(1,1,1)} i.e. the center of mass of \eqn{T_b}.
+default is \eqn{M=(1,1,1)} i.e., the center of mass of \eqn{T_b}.
 \code{rv} is the index of the vertex region \code{pt1} resides, with default=\code{NULL}.
 
-If \code{pt1} and \code{pt2} are distint and either of them are outside \eqn{T_b}, it returns 0,
+If \code{pt1} and \code{pt2} are distinct and either of them are outside \eqn{T_b}, it returns 0,
 but if they are identical, then it returns 1 regardless of their locations (i.e., it allows loops).
 
 Any given triangle can be mapped to the basic triangle
 by a combination of rigid body motions (i.e., translation, rotation and reflection) and scaling,
 preserving uniformity of the points in the original triangle. Hence basic triangle is useful for simulation
-studies under the uniformness hypothesis.
+studies under the uniformity hypothesis.
 
 See also (\insertCite{ceyhan:Phd-thesis,ceyhan:comp-geo-2010,ceyhan:arc-density-PE;textual}{pcds}).
 }
@@ -98,4 +98,7 @@ IndNPEbastri(P1,P2,r,c1,c2,M)
 }
 \seealso{
 \code{\link{IndNPEtri}} and \code{\link{IndNPETe}}
+}
+\author{
+Elvan Ceyhan
 }

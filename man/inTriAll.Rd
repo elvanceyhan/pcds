@@ -12,7 +12,7 @@ inTriAll(Dt, tri, boundary = FALSE)
 \item{tri}{Three 2D points, stacked row-wise, each row representing a vertex of the triangle.}
 
 \item{boundary}{A logical parameter (default=\code{FALSE}) to include boundary or not, so if it is \code{TRUE},
-the function checks if a point lies in the closure of the triangle (i.e. interior and boundary combined)
+the function checks if a point lies in the closure of the triangle (i.e., interior and boundary combined)
 else it checks if the point lies in the interior of the triangle.}
 }
 \value{
@@ -28,7 +28,7 @@ inside the triangle, if all are nonnegative with one or more are zero, then the 
 If some of the barycentric coordinates are negative, then the point falls outside the triangle.
 
 \code{boundary} is a logical argument (default=\code{FALSE}) to include boundary or not, so if it is \code{TRUE},
-the function checks if a point lies in the closure of the triangle (i.e. interior and boundary combined)
+the function checks if a point lies in the closure of the triangle (i.e., interior and boundary combined)
 else it checks if the point lies in the interior of the triangle.
 }
 \examples{
@@ -69,4 +69,7 @@ inTriAll(dat,dat.fr)
 }
 \seealso{
 \code{\link{in.triangle}} and \code{\link[interp]{on.convex.hull}} from the \code{interp} package for documentation for \code{in.convex.hull}
+}
+\author{
+Elvan Ceyhan
 }

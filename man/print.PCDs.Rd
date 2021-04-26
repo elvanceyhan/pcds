@@ -2,21 +2,21 @@
 % Please edit documentation in R/AuxRFuncs4PCDClasses.r
 \name{print.PCDs}
 \alias{print.PCDs}
-\title{Print a \code{PCDs} object}
+\title{Print a \code{PCDs} \code{object}}
 \usage{
 \method{print}{PCDs}(x, ...)
 }
 \arguments{
-\item{x}{A \code{PCDs} object.}
+\item{x}{A \code{PCDs} \code{object}.}
 
-\item{\dots}{Additional arguments for the S3 method '\code{print}'.}
+\item{\dots}{Additional arguments for the S3 method \code{'print'}.}
 }
 \value{
-The \code{call} of the object of class '\code{PCDs}'
+The \code{call} of the \code{object} of class \code{"PCDs"}
 and also the \code{type} (i.e. a brief description) of the proximity catch digraph (PCD)).
 }
 \description{
-Prints the \code{call} of the object of class '\code{PCDs}'
+Prints the \code{call} of the \code{object} of class \code{"PCDs"}
 and also the \code{type} (i.e. a brief description) of the proximity catch digraph (PCD)).
 }
 \examples{

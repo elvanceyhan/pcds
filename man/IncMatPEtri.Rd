@@ -16,7 +16,7 @@ must be \eqn{\ge 1}.}
 
 \item{M}{A 2D point in Cartesian coordinates or a 3D point in barycentric coordinates
 which serves as a center in the interior of the triangle \code{tri} or the circumcenter of \code{tri};
-default is \eqn{M=(1,1,1)} i.e. the center of mass of \code{tri}.}
+default is \eqn{M=(1,1,1)} i.e., the center of mass of \code{tri}.}
 }
 \value{
 Incidence matrix for the PE-PCD with vertices being 2D data set, \code{dat},
@@ -24,12 +24,12 @@ in the triangle \code{tri} with vertex regions based on center \code{M}
 }
 \description{
 Returns the incidence matrix for the PE-PCD whose vertices are the given 2D numerical data set, \code{dat},
-in the triangle \eqn{tri=T(v=1,v=2,v=3)}.
+in the triangle \code{tri}\eqn{=T(v=1,v=2,v=3)}.
 
 PE proximity regions are constructed with respect to triangle \code{tri}
 with expansion parameter \eqn{r \ge 1} and vertex regions are based on the center \eqn{M=(m_1,m_2)} in Cartesian coordinates
 or \eqn{M=(\alpha,\beta,\gamma)} in barycentric coordinates in the interior of the triangle \code{tri};
-default is \eqn{M=(1,1,1)} i.e. the center of mass of \code{tri}.
+default is \eqn{M=(1,1,1)} i.e., the center of mass of \code{tri}.
 Loops are allowed, so the diagonal entries are all equal to 1.
 
 See also (\insertCite{ceyhan:Phd-thesis,ceyhan:arc-density-PE,ceyhan:dom-num-NPE-Spat2011;textual}{pcds}).
@@ -70,4 +70,7 @@ IncMatPEtri(dat,dat.fr,r,M)
 }
 \seealso{
 \code{\link{IncMatPEMT}}, \code{\link{IncMatCStri}}, and  \code{\link{IncMatAStri}}
+}
+\author{
+Elvan Ceyhan
 }

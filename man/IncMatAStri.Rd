@@ -11,9 +11,9 @@ IncMatAStri(dat, tri, M = "CC")
 
 \item{tri}{Three 2D points, stacked row-wise, each row representing a vertex of the triangle.}
 
-\item{M}{The center of the triangle. "CC" stands for circumcenter of the triangle \code{tri} or a 2D point in Cartesian coordinates or
+\item{M}{The center of the triangle. \code{"CC"} stands for circumcenter of the triangle \code{tri} or a 2D point in Cartesian coordinates or
 a 3D point in barycentric coordinates which serves as a center in the interior of \code{tri};
-default is \code{M}="CC" i.e. the circumcenter of \code{tri}.}
+default is \code{M="CC"} i.e., the circumcenter of \code{tri}.}
 }
 \value{
 Incidence matrix for the AS-PCD whose vertices are 2D data set, \code{dat},
@@ -23,10 +23,10 @@ vertex regions based on circumcenter.
 \description{
 Returns the incidence matrix for the AS-PCD whose vertices are the given 2D numerical data set, \code{dat}.
 
-AS proximity regions are defined with respect to the triangle \eqn{tri=T(v=1,v=2,v=3)} and
-vertex regions based on the center \code{M}="CC" for circumcenter of \code{tri};
+AS proximity regions are defined with respect to the triangle \code{tri}\eqn{=T(v=1,v=2,v=3)} and
+vertex regions based on the center \code{M="CC"} for circumcenter of \code{tri};
 or \eqn{M=(m_1,m_2)} in Cartesian coordinates or \eqn{M=(\alpha,\beta,\gamma)} in barycentric coordinates in the
-interior of the triangle \code{tri}; default is \code{M}="CC" i.e. circumcenter of \code{tri}.
+interior of the triangle \code{tri}; default is \code{M="CC"} i.e., circumcenter of \code{tri}.
 Loops are allowed, so the diagonal entries are all equal to 1.
 
 See also (\insertCite{ceyhan:Phd-thesis,ceyhan:comp-geo-2010,ceyhan:mcap2012;textual}{pcds}).
@@ -56,4 +56,7 @@ IncMatAStri(dat.fr,Tr,M)
 }
 \seealso{
 \code{\link{IncMatASMT}}, \code{\link{IncMatPEtri}}, and \code{\link{IncMatCStri}}
+}
+\author{
+Elvan Ceyhan
 }

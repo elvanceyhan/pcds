@@ -2,7 +2,7 @@
 % Please edit documentation in R/PCDFunctions.r
 \name{dom.exact}
 \alias{dom.exact}
-\title{Exact domination number (i.e. domination number by the exact algorithm)}
+\title{Exact domination number (i.e., domination number by the exact algorithm)}
 \usage{
 dom.exact(Inc.Mat)
 }
@@ -11,17 +11,17 @@ dom.exact(Inc.Mat)
 a graph or digraph.}
 }
 \value{
-A list with two elements
-\item{dom.num}{The cardinality of the (exact) minimum dominating set i.e. (exact) domination number of the
+A \code{list} with two elements
+\item{dom.num}{The cardinality of the (exact) minimum dominating set i.e., (exact) domination number of the
 graph or digraph whose incidence matrix \code{Inc.Mat} is given as input.}
 \item{ind.mds}{Indices of the rows in the incidence matrix \code{Inc.Mat} for the (exact) minimum
 dominating set. The row numbers in the incidence matrix correspond to the indices of the vertices
-(i.e. indices of the data points).}
+(i.e., indices of the data points).}
 }
 \description{
 Returns the (exact) domination number based on the incidence matrix \code{Inc.Mat} of a graph or a digraph
-and the indices (i.e. row numbers of \code{Inc.Mat}) for the corresponding (exact) minimum dominating set.
-Here the row number in the incidence matrix corresponds to the index of the vertex (i.e. index of the data
+and the indices (i.e., row numbers of \code{Inc.Mat}) for the corresponding (exact) minimum dominating set.
+Here the row number in the incidence matrix corresponds to the index of the vertex (i.e., index of the data
 point). The function works whether loops are allowed or not (i.e., whether the first diagonal is all 1 or
 all 0). It takes a rather long time for large number of vertices (i.e., large number of row numbers).
 }
@@ -38,4 +38,7 @@ dom.exact(M)
 \seealso{
 \code{\link{dom.greedy}}, \code{\link{PEdom1D}}, \code{\link{PEdomtri}}, \code{\link{PEdomMTnd}},
 and \code{\link{IndCSdomUBtri}}
+}
+\author{
+Elvan Ceyhan
 }

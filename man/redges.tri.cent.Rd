@@ -16,22 +16,22 @@ containing them are to be determined.}
 which serves as a center in the interior of the triangle \code{tri}.}
 }
 \value{
-A list with the elements
-\item{re}{Indices (i.e., a vector of indices) of the edges whose region contains points in \code{Dt}
+A \code{list} with the elements
+\item{re}{Indices (i.e., a \code{vector} of indices) of the edges whose region contains points in \code{Dt}
 in the triangle \code{tri}}
 \item{tri}{The vertices of the triangle, where row number corresponds to the vertex index opposite to edge
 whose index is given in re.}
-\item{desc}{Description of the edge labels as "Edge labels are AB=1, BC=2, and AC=3".}
+\item{desc}{Description of the edge labels as \code{"Edge labels are AB=1, BC=2, and AC=3"}.}
 }
 \description{
 Returns the indices of the edges whose regions contain the points in data set \code{Dt} in
-a triangle \eqn{tri=T(A,B,C)} and edge regions are based on the center \eqn{M=(m_1,m_2)} in Cartesian coordinates or
+a triangle \code{tri}\eqn{=T(A,B,C)} and edge regions are based on the center \eqn{M=(m_1,m_2)} in Cartesian coordinates or
 \eqn{M=(\alpha,\beta,\gamma)} in barycentric coordinates in the interior of the triangle \code{tri}
 (see the plots in the example for illustrations).
 
 The vertices of the  triangle \code{tri} are labeled as
-1=A,2=B, and 3=C also according to the row number the vertex is recorded in \code{tri}
-and the corresponding edges are 1=BC, 2=AC, and 3=AB.
+\eqn{1=A}, \eqn{2=B}, and \eqn{3=C} also according to the row number the vertex is recorded in \code{tri}
+and the corresponding edges are \eqn{1=BC}, \eqn{2=AC}, and \eqn{3=AB}.
 
 If a point in \code{Dt} is not inside \code{tri}, then the function yields \code{NA} as output for that entry.
 The corresponding edge region is the polygon
@@ -108,4 +108,7 @@ redges.tri.cent(dat,dat.fr,M)
 }
 \seealso{
 \code{\link{redges.triCM}}, \code{\link{rverts.tri.cent}} and \code{\link{rverts.tri.nd}}
+}
+\author{
+Elvan Ceyhan
 }

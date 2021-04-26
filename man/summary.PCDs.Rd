@@ -2,17 +2,17 @@
 % Please edit documentation in R/AuxRFuncs4PCDClasses.r
 \name{summary.PCDs}
 \alias{summary.PCDs}
-\title{Return a summary of a \code{PCDs} object}
+\title{Return a summary of a \code{PCDs} \code{object}}
 \usage{
 \method{summary}{PCDs}(object, ...)
 }
 \arguments{
-\item{object}{Object of class \code{PCDs}.}
+\item{object}{An \code{object} of class \code{PCDs}.}
 
 \item{\dots}{Additional parameters for \code{summary}.}
 }
 \value{
-The \code{call} of the object of class '\code{PCDs}', the \code{type} of the proximity catch digraph (PCD),
+The \code{call} of the \code{object} of class \code{"PCDs"}, the \code{type} of the proximity catch digraph (PCD),
 (i.e. the description of the PCD), some of the partition (i.e. intervalization in the 1D case and triangulation
 in the 2D case) points (i.e., vertices of the intervals or the triangles), some of the tails (or source points)
 and the heads (or end points) of the arcs of the PCD, parameter of the PCD, and various quantitites (number of vertices,
