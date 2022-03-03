@@ -1,9 +1,9 @@
 #' pcds: A package for Proximity Catch Digraphs and Their Applications
 #'
-#' pcds is a package for generation, computation and visualization of proximity catch digraphs
+#' \code{pcds} is a package for generation, computation and visualization of proximity catch digraphs
 #' and tests based on them.
 #'
-#' The pcds package contains the functions for generating patterns of segregation, association, CSR
+#' The \code{pcds} package contains the functions for generating patterns of segregation, association, CSR
 #' (complete spatial randomness) and Uniform data in one, two and three dimensional cases,
 #' for testing these patterns based on two invariants of various families of the proximity catch digraphs (PCDs),
 #' (see (\insertCite{ceyhan:Phd-thesis;textual}{pcds}).
@@ -19,8 +19,8 @@
 #' related tools are provided for 1D and 2D data; PE-PCD related tools are provided for 1D-3D data,
 #' and CS-PCD tools are provided for 1D and 2D data.
 #'
-#' @section The pcds functions:
-#' The pcds functions can be grouped as Auxiliary Functions, AS-PCD Functions, PE-PCD Functions,
+#' @section The \code{pcds} functions:
+#' The \code{pcds} functions can be grouped as Auxiliary Functions, AS-PCD Functions, PE-PCD Functions,
 #' and CS-PCD Functions.
 #'
 #' @section Auxiliary Functions:

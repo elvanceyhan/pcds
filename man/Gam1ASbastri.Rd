@@ -13,13 +13,13 @@ Gam1ASbastri(p, Dt, c1, c2, M = "CC", rv = NULL, ch.data.pnt = FALSE)
 \item{Dt}{A set of 2D points which constitutes the vertices of the AS-PCD.}
 
 \item{c1, c2}{Positive real numbers which constitute the vertex of the basic triangle
-adjacent to the shorter edges; \code{c1} must be in \eqn{[0,1/2]}, \eqn{c_2>0} and \eqn{(1-c_1)^2+c_2^2 \le 1}.}
+adjacent to the shorter edges; \eqn{c_1} must be in \eqn{[0,1/2]}, \eqn{c_2>0} and \eqn{(1-c_1)^2+c_2^2 \le 1}.}
 
-\item{M}{The center of the triangle. "CC" stands for circumcenter of the triangle \eqn{T_b} or a 2D point in Cartesian coordinates or
+\item{M}{The center of the triangle. \code{"CC"} stands for circumcenter of the triangle \eqn{T_b} or a 2D point in Cartesian coordinates or
 a 3D point in barycentric coordinates which serves as a center in the interior of the triangle \eqn{T_b};
-default is \code{M}="CC" i.e. the circumcenter of \eqn{T_b}.}
+default is \code{M="CC"} i.e., the circumcenter of \eqn{T_b}.}
 
-\item{rv}{Index of the vertex whose region contains point \code{p}, \code{rv} takes the vertex labels as 1,2,3 as
+\item{rv}{Index of the vertex whose region contains point \code{p}, \code{rv} takes the vertex labels as \eqn{1,2,3} as
 in the row order of the vertices in \eqn{T_b}.}
 
 \item{ch.data.pnt}{A logical argument for checking whether point \code{p} is a data point in \code{Dt} or not
@@ -32,17 +32,17 @@ that is, returns 1 if \code{p} is a dominating point, returns 0 otherwise
 \description{
 Returns I(\code{p} is a dominating point of the AS-PCD) where the vertices of the AS-PCD are the 2D data set \code{Dt}, that is, returns 1 if \code{p} is a dominating
 point of AS-PCD, returns 0 otherwise. AS proximity regions are defined with respect to the basic triangle,
-\eqn{T_b}, \code{c1} is in \eqn{[0,1/2]}, \eqn{c_2>0} and \eqn{(1-c_1)^2+c_2^2 \le 1}.
+\eqn{T_b}, \eqn{c_1} is in \eqn{[0,1/2]}, \eqn{c_2>0} and \eqn{(1-c_1)^2+c_2^2 \le 1}.
 
 Any given triangle can be mapped to the basic triangle by a combination of rigid body motions
 (i.e., translation, rotation and reflection) and scaling, preserving uniformity of the points in the
 original triangle. Hence basic triangle is useful for simulation
-studies under the uniformness hypothesis.
+studies under the uniformity hypothesis.
 
-Vertex regions are based on the center \code{M}="CC" for circumcenter
+Vertex regions are based on the center \code{M="CC"} for circumcenter
 of \eqn{T_b}; or \eqn{M=(m_1,m_2)} in Cartesian coordinates or \eqn{M=(\alpha,\beta,\gamma)} in barycentric coordinates in the
-interior of \eqn{T_b}; default is \code{M}="CC".
-Point, \code{p}, is in the vertex region of vertex \code{rv} (default is \code{NULL}); vertices are labeled as 1,2,3
+interior of \eqn{T_b}; default is \code{M="CC"}.
+Point, \code{p}, is in the vertex region of vertex \code{rv} (default is \code{NULL}); vertices are labeled as \eqn{1,2,3}
 in the order they are stacked row-wise.
 
 \code{ch.data.pnt} is for checking whether point \code{p} is a data point in \code{Dt} or not (default is \code{FALSE}),
@@ -52,7 +52,6 @@ if it actually were in the data set.
 See also (\insertCite{ceyhan:Phd-thesis,ceyhan:comp-geo-2010,ceyhan:mcap2012;textual}{pcds}).
 }
 \examples{
-\dontrun{
 c1<-.4; c2<-.6;
 A<-c(0,0); B<-c(1,0); C<-c(c1,c2);
 Tb<-rbind(A,B,C)
@@ -125,9 +124,8 @@ Gam1ASbastri(c(.4,.2),dat.fr,c1,c2,M)
 
 Gam1ASbastri(c(.5,.11),dat,c1,c2,M)
 
-Gam1ASbastri(c(.5,.11),dat,c1,c2,M,ch.data.pnt=TRUE)
-#gives an error message since the point is not in the basic triangle
-}
+Gam1ASbastri(c(.5,.11),dat,c1,c2,M,ch.data.pnt=FALSE)
+#gives an error message if ch.data.pnt=TRUE since the point is not in the basic triangle
 
 }
 \references{
@@ -135,4 +133,7 @@ Gam1ASbastri(c(.5,.11),dat,c1,c2,M,ch.data.pnt=TRUE)
 }
 \seealso{
 \code{\link{Gam1AStri}} and \code{\link{Gam1PEbastri}}
+}
+\author{
+Elvan Ceyhan
 }

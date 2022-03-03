@@ -17,7 +17,7 @@ ArcsCSMT(Xp, Yp, tau, M = c(1, 1, 1))
 triangle, default for \eqn{M=(1,1,1)} which is the center of mass of each triangle.}
 }
 \value{
-A list with the elements
+A \code{list} with the elements
 \item{type}{A description of the type of the digraph}
 \item{parameters}{Parameters of the digraph, here, it is the center used to construct the vertex regions.}
 \item{tess.points}{Points on which the tessellation of the study region is performed, here, tessellation
@@ -27,12 +27,12 @@ is Delaunay triangulation based on \code{Yp} points.}
 \item{vert.name}{Name of the data set which constitute the vertices of the digraph}
 \item{S}{Tails (or sources) of the arcs of CS-PCD for 2D data set \code{Xp} as vertices of the digraph}
 \item{E}{Heads (or arrow ends) of the arcs of CS-PCD for 2D data set \code{Xp} as vertices of the digraph}
-\item{mtitle}{Text for "main" title in the plot of the digraph}
+\item{mtitle}{Text for \code{"main"} title in the plot of the digraph}
 \item{quant}{Various quantities for the digraph: number of vertices, number of partition points,
 number of intervals, number of arcs, and arc density.}
 }
 \description{
-An object of class "PCDs".
+An object of class \code{"PCDs"}.
 Returns arcs as tails (or sources) and heads (or arrow ends) of Central Similarity Proximity Catch Digraph
 (CS-PCD) whose vertices are the data points in \code{Xp} in the multiple triangle case.
 
@@ -41,7 +41,7 @@ defined with respect to the Delaunay triangles based on \code{Yp} points with ex
 edge regions in each triangle are based on the center \eqn{M=(\alpha,\beta,\gamma)} in barycentric coordinates
 in the interior of each Delaunay triangle (default for \eqn{M=(1,1,1)} which is the center of mass of
 the triangle). Each Delaunay triangle is first converted to an (unscaled) basic triangle so that
-\code{M} will be the same type of center for each Delaunay triangle (this conversion is not necessary when \code{M} is CM).
+\code{M} will be the same type of center for each Delaunay triangle (this conversion is not necessary when \code{M} is \eqn{CM}).
 
 Convex hull of \code{Yp} is partitioned by the Delaunay triangles based on \code{Yp} points
 (i.e., multiple triangles are the set of these Delaunay triangles whose union constitutes the
@@ -101,4 +101,7 @@ ArcsCSMT(Xp,dat.fr,tau,M)
 }
 \seealso{
 \code{\link{ArcsCStri}}, \code{\link{ArcsASMT}} and \code{\link{ArcsPEMT}}
+}
+\author{
+Elvan Ceyhan
 }

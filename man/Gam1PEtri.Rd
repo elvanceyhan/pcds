@@ -19,29 +19,29 @@ must be \eqn{\ge 1}.}
 
 \item{M}{A 2D point in Cartesian coordinates or a 3D point in barycentric coordinates
 which serves as a center in the interior of the triangle \code{tri} or the circumcenter of \code{tri};
-default is \eqn{M=(1,1,1)} i.e. the center of mass of \code{tri}.}
+default is \eqn{M=(1,1,1)} i.e., the center of mass of \code{tri}.}
 
-\item{rv}{Index of the vertex whose region contains point \code{p}, \code{rv} takes the vertex labels as 1,2,3 as
+\item{rv}{Index of the vertex whose region contains point \code{p}, \code{rv} takes the vertex labels as \eqn{1,2,3} as
 in the row order of the vertices in \code{tri}.}
 
 \item{ch.data.pnt}{A logical argument for checking whether point \code{p} is a data point
 in \code{Dt} or not (default is \code{FALSE}).}
 }
 \value{
-I(\code{p} is a dominating point of the PE-PCD) where the vertices of the PE-PCD are the 2D data set \code{Dt},
+\eqn{I(}\code{p} is a dominating point of the PE-PCD\eqn{)} where the vertices of the PE-PCD are the 2D data set \code{Dt},
 that is, returns 1 if \code{p} is a dominating point, returns 0 otherwise
 }
 \description{
-Returns I(\code{p} is a dominating point of the PE-PCD) where the vertices of the PE-PCD are the 2D data set \code{Dt} in the triangle \code{tri}, that is,
+Returns \eqn{I(}\code{p} is a dominating point of the PE-PCD\eqn{)} where the vertices of the PE-PCD are the 2D data set \code{Dt} in the triangle \code{tri}, that is,
 returns 1 if \code{p} is a dominating point of PE-PCD, returns 0 otherwise.
 
-Point, \code{p}, is in the vertex region of vertex \code{rv} (default is \code{NULL}); vertices are labeled as 1,2,3
+Point, \code{p}, is in the vertex region of vertex \code{rv} (default is \code{NULL}); vertices are labeled as \eqn{1,2,3}
 in the order they are stacked row-wise in \code{tri}.
 
 PE proximity region is constructed with respect to the triangle \code{tri} with expansion parameter \eqn{r \ge 1}
 and vertex regions are based on center \eqn{M=(m_1,m_2)} in Cartesian coordinates or
 \eqn{M=(\alpha,\beta,\gamma)} in barycentric coordinates in the interior of the triangle \code{tri}
-or based on the circumcenter of \code{tri}; default is \eqn{M=(1,1,1)} i.e. the center of mass of \code{tri}.
+or based on the circumcenter of \code{tri}; default is \eqn{M=(1,1,1)} i.e., the center of mass of \code{tri}.
 
 \code{ch.data.pnt} is for checking whether point \code{p} is a data point in \code{Dt} or not (default is \code{FALSE}),
 so by default this function checks whether the point \code{p} would be a dominating point
@@ -114,10 +114,8 @@ Gam1PEtri(P,dat.fr,Tr,r,M)
 dat.fr<-data.frame(a=Tr)
 Gam1PEtri(P,dat,dat.fr,r,M)
 
-\dontrun{
-Gam1PEtri(c(1,2),dat,Tr,r,M,ch.data.pnt = TRUE)
-#gives an error message since p is not a data point
-}
+Gam1PEtri(c(1,2),dat,Tr,r,M,ch.data.pnt = FALSE)
+#gives an error message if ch.data.pnt = TRUE since p is not a data point
 
 }
 \references{
@@ -125,4 +123,7 @@ Gam1PEtri(c(1,2),dat,Tr,r,M,ch.data.pnt = TRUE)
 }
 \seealso{
 \code{\link{Gam1PEbastri}} and \code{\link{Gam1AStri}}
+}
+\author{
+Elvan Ceyhan
 }

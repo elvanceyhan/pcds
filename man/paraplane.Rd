@@ -2,7 +2,7 @@
 % Please edit documentation in R/PCDFunctions.r
 \name{paraplane}
 \alias{paraplane}
-\title{The plane paralel to the plane spanned by three distinct 3D points \code{a}, \code{b}, and \code{c}}
+\title{The plane parallel to the plane spanned by three distinct 3D points \code{a}, \code{b}, and \code{c}}
 \usage{
 paraplane(p, a, b, c, x, y)
 }
@@ -12,30 +12,30 @@ three distinct 3D points \code{a}, \code{b}, and \code{c} crosses.}
 
 \item{a, b, c}{3D points that determine the plane to which the plane crossing point \code{p} is parallel to.}
 
-\item{x, y}{A scalar or a vector of scalars representing the x- and y-coordinates of the plane parallel to
+\item{x, y}{A scalar or a \code{vector} of scalars representing the \eqn{x}- and \eqn{y}-coordinates of the plane parallel to
 the plane spanned by points \code{a}, \code{b}, and \code{c} and passing through point \code{p}.}
 }
 \value{
-A list with the elements
+A \code{list} with the elements
 \item{desc}{Description of the plane passing through point \code{p} and parallel to plane spanned by points
 \code{a}, \code{b} and \code{c}}
 \item{points}{The input points \code{a}, \code{b}, \code{c}, and \code{p}. Plane is parallel to the plane spanned by \code{a}, \code{b}, and \code{c}
 and passes through point \code{p} (stacked row-wise, i.e., row 1 is point \code{a}, row 2 is point \code{b},
  row 3 is point \code{c}, and row 4 is point \code{p}).}
-\item{x,y}{The input vectors which constitutes the x- and y-coordinates of the point(s) of interest on the
+\item{x,y}{The input vectors which constitutes the \eqn{x}- and \eqn{y}-coordinates of the point(s) of interest on the
 plane. \code{x} and \code{y} can be scalars or vectors of scalars.}
-\item{z}{The output vector which constitutes the z-coordinates of the point(s) of interest on the plane.
+\item{z}{The output \code{vector} which constitutes the \eqn{z}-coordinates of the point(s) of interest on the plane.
 If \code{x} and \code{y} are scalars, \code{z} will be a scalar and
-if \code{x} and \code{y} are vectors of scalars, then \code{z} needs to be matrix of scalars,
-containing the z-coordinate for each pair of \code{x} and \code{y} values.}
-\item{coeff}{Coefficients of the Plane (in the \eqn{z = A x+B y+C} form).}
+if \code{x} and \code{y} are vectors of scalars, then \code{z} needs to be a \code{matrix} of scalars,
+containing the \eqn{z}-coordinate for each pair of \code{x} and \code{y} values.}
+\item{coeff}{Coefficients of the plane (in the \eqn{z = A x+B y+C} form).}
 \item{equation}{Equation of the plane in long form}
 \item{equation2}{Equation of the plane in short form, to be inserted on the plot}
 }
 \description{
-An object of class "Planes".
-Returns the equation and z-coordinates of the plane passing through point \code{p} and parallel to the plane spanned
-by three distinct 3D points \code{a}, \code{b}, and \code{c} with x- and y-coordinates are provided in vectors \code{x} and \code{y},
+An object of class \code{"Planes"}.
+Returns the equation and \eqn{z}-coordinates of the plane passing through point \code{p} and parallel to the plane spanned
+by three distinct 3D points \code{a}, \code{b}, and \code{c} with \eqn{x}- and \eqn{y}-coordinates are provided in vectors \code{x} and \code{y},
 respectively.
 }
 \examples{
@@ -91,4 +91,7 @@ paraplane(P,A,B,C,.1,.2)
 }
 \seealso{
 \code{\link{Plane}}
+}
+\author{
+Elvan Ceyhan
 }

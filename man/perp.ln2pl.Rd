@@ -11,36 +11,36 @@ perp.ln2pl(P, A, B, C, t)
 \item{P}{A 3D point through which the straight line passes.}
 
 \item{A, B, C}{3D points which determine the plane to which the line passing through point \code{P} would be
-perpendicular (i.e. the normal vector of this plane determines the direction of the straight line
+perpendicular (i.e., the normal \code{vector} of this plane determines the direction of the straight line
 passing through \code{P}).}
 
-\item{t}{A scalar or a vector of scalars representing the parameter of the coordinates of the line
-(for the form: \eqn{x=x_0 + a t}, \eqn{y=y_0 + b t}, and \eqn{z=z_0 + c t}  where \eqn{P=(x_0,y_0,z_0)}
-and normal vector=(a,b,c)).}
+\item{t}{A scalar or a \code{vector} of scalars representing the parameter of the coordinates of the line
+(for the form: \eqn{x=x_0 + a t}, \eqn{y=y_0 + b t}, and \eqn{z=z_0 + c t} where \eqn{P=(x_0,y_0,z_0)}
+and normal vector\eqn{=(a,b,c)}).}
 }
 \value{
-A list with the elements
+A \code{list} with the elements
 \item{desc}{A description of the line}
-\item{mtitle}{The "main" title for the plot of the line}
+\item{mtitle}{The \code{"main"} title for the plot of the line}
 \item{points}{The input points that determine the line and plane, line crosses point \code{P} and plane is determined
 by 3D points \code{A}, \code{B}, and \code{C}.}
 \item{pnames}{The names of the input points that determine the line and plane; line would be perpendicular
 to the plane.}
 \item{vecs}{The point \code{P} and normal vector.}
 \item{vec.names}{The names of the point \code{P} and the second entry is "normal vector".}
-\item{x,y,z}{The x-, y- and z-coordinates of the point(s) of interest on the line perpendicular to the plane
+\item{x,y,z}{The \eqn{x}-, \eqn{y}-, and \eqn{z}-coordinates of the point(s) of interest on the line perpendicular to the plane
 determined by points \code{A}, \code{B}, and \code{C}.}
-\item{tsq}{The scalar or the vector of the parameter in defining each coordinate of the line for the form:
-\eqn{x=x_0 + a t}, \eqn{y=y_0 + b t}, and \eqn{z=z_0 + c t} where \eqn{P=(x_0,y_0,z_0)} and normal vector=(a,b,c).}
+\item{tsq}{The scalar or the \code{vector} of the parameter in defining each coordinate of the line for the form:
+\eqn{x=x_0 + a t}, \eqn{y=y_0 + b t}, and \eqn{z=z_0 + c t} where \eqn{P=(x_0,y_0,z_0)} and normal vector\eqn{=(a,b,c)}.}
 \item{equation}{Equation of the line passing through point \code{P} and perpendicular to the plane determined by
-points \code{A}, \code{B}, and \code{C} (i.e., line is in the direction of the normal vector N of the plane). The line equation
-is in the form: \eqn{x=x_0 + a t}, \eqn{y=y_0 + b t}, and \eqn{z=z_0 + c t} where \eqn{P=(x_0,y_0,z_0)} and normal vector=(a,b,c).}
+points \code{A}, \code{B}, and \code{C} (i.e., line is in the direction of the normal \code{vector} N of the plane). The line equation
+is in the form: \eqn{x=x_0 + a t}, \eqn{y=y_0 + b t}, and \eqn{z=z_0 + c t} where \eqn{P=(x_0,y_0,z_0)} and normal vector\eqn{=(a,b,c)}.}
 }
 \description{
-An object of class "Lines3D".
-Returns the equation, x-, y-, and z-coordinates of the line crossing 3D point \code{P} and perpendicular to the plane
-spanned by 3D points \code{A}, \code{B}, and \code{C} (i.e., the line is in the direction of normal vector of this plane)
-with the parameter \code{t} being provided in vector \code{t}.
+An object of class \code{"Lines3D"}.
+Returns the equation, \eqn{x}-, \eqn{y}-, and \eqn{z}-coordinates of the line crossing 3D point \code{P} and perpendicular to the plane
+spanned by 3D points \code{A}, \code{B}, and \code{C} (i.e., the line is in the direction of normal \code{vector} of this plane)
+with the parameter \code{t} being provided in \code{vector} \code{t}.
 }
 \examples{
 \donttest{
@@ -109,4 +109,7 @@ plot3D::text3D(Dr[1]+Bv[1]/2,Dr[2]+Bv[2]/2,Dr[3]+Bv[3]/2,labels="normal vector",
 }
 \seealso{
 \code{\link{Line3D}}, \code{\link{paraline3D}} and \code{\link{perpline}}
+}
+\author{
+Elvan Ceyhan
 }

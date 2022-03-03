@@ -28,20 +28,20 @@ must be \eqn{\ge 1}.}
 \item{th}{Four 3D points, stacked row-wise, each row representing a vertex of the tetrahedron.}
 
 \item{M}{The center to be used in the construction of the vertex regions in the tetrahedron, \code{th}.
-Currently it only takes "CC" for circumcenter and "CM" for center of mass; default="CM".}
+Currently it only takes \code{"CC"} for circumcenter and \code{"CM"} for center of mass; default=\code{"CM"}.}
 
-\item{main}{An overall title for the plot (default="").}
+\item{main}{An overall title for the plot (default=\code{""}).}
 
-\item{xlab, ylab, zlab}{Titles for the x, y and z axes, respectively  (default="" for all).}
+\item{xlab, ylab, zlab}{Titles for the \eqn{x}, \eqn{y}, and \eqn{z} axes, respectively  (default=\code{""} for all).}
 
-\item{xlim, ylim, zlim}{Numeric vectors of length 2, giving the x-, y- and z-coordinate ranges
+\item{xlim, ylim, zlim}{Two \code{numeric} vectors of length 2, giving the \eqn{x}-, \eqn{y}-, and \eqn{z}-coordinate ranges
 (default=\code{NULL} for all).}
 
 \item{\dots}{Additional \code{scatter3D} parameters.}
 }
 \value{
 Plot of the PE proximity regions for points inside the tetrahedron \code{th}
-(and just the points outside th)
+(and just the points outside \code{th})
 }
 \description{
 Plots the points in and outside of the tetrahedron \code{th} and also the PE proximity regions  (which are also
@@ -49,7 +49,7 @@ tetrahedrons) for points inside the tetrahedron \code{th}.
 
 PE proximity regions are constructed with respect to
 tetrahedron \code{th} with expansion parameter \eqn{r \ge 1} and vertex regions are based on the center \code{M} which is
-circumcenter ("CC") or center of mass ("CM") of \code{th} with default="CM", so PE proximity regions are defined
+circumcenter (\code{"CC"}) or center of mass (\code{"CM"}) of \code{th} with default=\code{"CM"}, so PE proximity regions are defined
 only for points inside the tetrahedron \code{th}.
 
 See also (\insertCite{ceyhan:Phd-thesis,ceyhan:comp-geo-2010;textual}{pcds}).
@@ -86,4 +86,7 @@ plotPEregsTH(rbind(P1,P1),r,tetra,M)
 }
 \seealso{
 \code{\link{plotPEregsStdTH}}, \code{\link{plotPEregsTri}} and \code{\link{plotPEregsInt}}
+}
+\author{
+Elvan Ceyhan
 }

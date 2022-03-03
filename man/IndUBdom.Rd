@@ -13,7 +13,7 @@ a graph or digraph.}
 \item{k}{A positive integer for the upper bound (to be checked) for the domination number.}
 }
 \value{
-A list with two elements
+A \code{list} with two elements
 \item{domUB}{The upper bound (to be checked) for the domination number. It is prespecified as \code{k}
 in the function arguments.}
 \item{IndUBdom}{The indicator for the upper bound for domination number of the graph or digraph being
@@ -24,9 +24,9 @@ dominating set of size \code{k} if it exists, otherwise it yields \code{NULL}.}
 }
 \description{
 Returns 1 if the domination number is less than or equal to the prespecified value \code{k} and also the indices
-(i.e. row numbers) of a dominating set of size \code{k} based on the incidence matrix \code{Inc.Mat} of a graph or
+(i.e., row numbers) of a dominating set of size \code{k} based on the incidence matrix \code{Inc.Mat} of a graph or
 a digraph. Here the row number in the incidence matrix corresponds to the index of the vertex
-(i.e. index of the data point). The function works whether loops are allowed or not
+(i.e., index of the data point). The function works whether loops are allowed or not
 (i.e., whether the first diagonal is all 1 or all 0).
 It takes a rather long time for large number of vertices (i.e., large number of row numbers).
 }
@@ -44,4 +44,7 @@ print(c(k,IndUBdom(M,k)))
 }
 \seealso{
 \code{\link{dom.exact}} and \code{\link{dom.greedy}}
+}
+\author{
+Elvan Ceyhan
 }

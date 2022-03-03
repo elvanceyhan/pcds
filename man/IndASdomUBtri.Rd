@@ -14,12 +14,12 @@ IndASdomUBtri(Dt, k, tri, M = "CC")
 
 \item{tri}{Three 2D points, stacked row-wise, each row representing a vertex of the triangle.}
 
-\item{M}{The center of the triangle. "CC" stands for circumcenter of the triangle \code{tri} or a 2D point in Cartesian coordinates or
+\item{M}{The center of the triangle. \code{"CC"} stands for circumcenter of the triangle \code{tri} or a 2D point in Cartesian coordinates or
 a 3D point in barycentric coordinates which serves as a center in the interior of \code{tri};
-default is \code{M}="CC" i.e. the circumcenter of \code{tri}.}
+default is \code{M="CC"} i.e., the circumcenter of \code{tri}.}
 }
 \value{
-A list with the elements
+A \code{list} with the elements
 \item{domUB}{The suggested upper bound (to be checked) for the domination number of AS-PCD.
 It is prespecified as \code{k} in the function arguments.}
 \item{IndUBdom}{The indicator for the upper bound for domination number of AS-PCD being the
@@ -28,17 +28,17 @@ specified value \code{k} or not. It returns 1 if the upper bound is \code{k}, an
 otherwise it yields \code{NULL}.}
 }
 \description{
-Returns I(domination number of AS-PCD whose vertices are the data points \code{Dt} is less than or equal to \code{k}),
-that is, returns 1 if the domination number of CS-PCD is less than the prespecified value \code{k}, returns 0
-otherwise. It also provides the vertices (i.e. data points) in a dominating set of size \code{k} of AS-PCD.
+Returns \eqn{I(}domination number of AS-PCD whose vertices are the data points \code{Dt} is less than or equal to \code{k}\eqn{)},
+that is, returns 1 if the domination number of AS-PCD is less than the prespecified value \code{k}, returns 0
+otherwise. It also provides the vertices (i.e., data points) in a dominating set of size \code{k} of AS-PCD.
 
 AS proximity regions are constructed with respect to the triangle \code{tri} and
-vertex regions are based on the center \code{M}="CC" for circumcenter of \code{tri};
+vertex regions are based on the center \code{M="CC"} for circumcenter of \code{tri};
 or \eqn{M=(m_1,m_2)} in Cartesian coordinates or \eqn{M=(\alpha,\beta,\gamma)} in barycentric coordinates in the
-interior of the triangle \code{tri}; default is \code{M}="CC" i.e. circumcenter of \code{tri}.
+interior of the triangle \code{tri}; default is \code{M="CC"} i.e., circumcenter of \code{tri}.
 
 The vertices of \code{tri}angle, \code{tri},
-are labeled as 1,2,3 according to the row number the vertex is recorded in \code{tri}.
+are labeled as \eqn{1,2,3} according to the row number the vertex is recorded in \code{tri}.
 Loops are allowed in the digraph.
 It takes a long time for large number of vertices (i.e., large number of row numbers).
 }
@@ -72,4 +72,7 @@ IndASdomUBtri(dat.fr,1,Tr,M)
 \seealso{
 \code{\link{IndCSdomUBtri}}, \code{\link{IndCSdomUBTe}}, \code{\link{IndUBdom}},
 and \code{\link{dom.exact}}
+}
+\author{
+Elvan Ceyhan
 }

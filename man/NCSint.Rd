@@ -11,23 +11,23 @@ NCSint(x, t, c = 0.5, int)
 
 \item{t}{A positive real number which serves as the expansion parameter in CS proximity region.}
 
-\item{c}{A positive real number in \eqn{(0,1)} parameterizing the center inside \eqn{int=(a,b)}.
-For the interval, \eqn{int=(a,b)}, the parameterized center is \eqn{M_c=a+c(b-a)}, and default=0.5.}
+\item{c}{A positive real number in \eqn{(0,1)} parameterizing the center inside \code{int}\eqn{=(a,b)}.
+For the interval, \code{int}\eqn{=(a,b)}, the parameterized center is \eqn{M_c=a+c(b-a)}, and default=\code{0.5}.}
 
-\item{int}{A vector of two real numbers representing an interval.}
+\item{int}{A \code{vector} of two real numbers representing an interval.}
 }
 \value{
 The interval which constitutes the CS proximity region for the point \code{x}
 }
 \description{
-Returns the end points of the interval which constitutess the CS proximity region for a point in the
-interval \eqn{int=(a,b)=(rv=1,rv=2)}.
+Returns the end points of the interval which constitutes the CS proximity region for a point in the
+interval \code{int}\eqn{=(a,b)=}\code{(rv=1,rv=2)}.
 
 CS proximity region is constructed with respect to the interval \code{int}
-with expansion parameter \eqn{t>0} and centrality parameter \code{c} in \eqn{(0,1)}.
+with expansion parameter \eqn{t>0} and centrality parameter \eqn{c \in (0,1)}.
 
 Vertex regions are based on the (parameterized) center, \eqn{M_c},
-which is \eqn{M_c=a+c(b-a)} for the interval, \eqn{int=(a,b)}.
+which is \eqn{M_c=a+c(b-a)} for the interval, \code{int}\eqn{=(a,b)}.
 The CS proximity region is constructed whether \code{x} is inside or outside the interval \code{int}.
 
 See also (\insertCite{ceyhan:revstat-2016;textual}{pcds}).
@@ -52,4 +52,7 @@ NCSint(a,t,c,int)
 }
 \seealso{
 \code{\link{NPEint}} and \code{\link{NCStri}}
+}
+\author{
+Elvan Ceyhan
 }

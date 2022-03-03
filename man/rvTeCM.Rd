@@ -2,28 +2,28 @@
 % Please edit documentation in R/PCDFunctions.r
 \name{rvTeCM}
 \alias{rvTeCM}
-\title{The index of the CM-vertex region in the standard equilateral triangle that contains a given point}
+\title{The index of the \eqn{CM}-vertex region in the standard equilateral triangle that contains a given point}
 \usage{
 rvTeCM(pt)
 }
 \arguments{
-\item{pt}{A 2D point for which CM-vertex region it resides in is to be determined in the
+\item{pt}{A 2D point for which \eqn{CM}-vertex region it resides in is to be determined in the
 standard equilateral triangle \eqn{T_e}.}
 }
 \value{
-A list with two elements
+A \code{list} with two elements
 \item{rv}{Index of the vertex whose region contains point, \code{p}.}
 \item{tri}{The vertices of the triangle, \eqn{T_e}, where row number corresponds to the vertex index in \code{rv}
-with row 1=(0,0), row 2=(1,0), and row 3=(1/2,sqrt(3)/2).}
+with row \eqn{1=(0,0)}, row \eqn{2=(1,0)}, and row \eqn{3=(1/2,\sqrt{3}/2)}.}
 }
 \description{
 Returns the index of the vertex whose region contains point \code{p} in standard equilateral triangle
 \eqn{T_e=T((0,0),(1,0),(1/2,\sqrt{3}/2))} with vertex regions are constructed with center of mass CM
 (see the plots in the example for illustrations).
 
-The vertices of triangle, \eqn{T_e}, are labeled as 1,2,3
+The vertices of triangle, \eqn{T_e}, are labeled as \eqn{1,2,3}
 according to the row number the vertex is recorded in \eqn{T_e}. If the point, \code{p}, is not inside \eqn{T_e}, then the
-function yields \code{NA} as output. The corresponding vertex region is the polygon with the vertex, CM, and
+function yields \code{NA} as output. The corresponding vertex region is the polygon with the vertex, \eqn{CM}, and
 midpoints of the edges adjacent to the vertex.
 
 See also (\insertCite{ceyhan:Phd-thesis,ceyhan:comp-geo-2010,ceyhan:mcap2012;textual}{pcds}).
@@ -78,4 +78,7 @@ rvTeCM(c(.7,.2))
 \seealso{
 \code{\link{rv.bastriCM}}, \code{\link{rv.tri.cent}}, \code{\link{rv.triCC}},
 \code{\link{rv.bastriCC}}, \code{\link{rv.triCM}}, and \code{\link{rv.bastri.cent}}
+}
+\author{
+Elvan Ceyhan
 }

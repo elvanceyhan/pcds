@@ -16,21 +16,21 @@ must be \eqn{\ge 1}.}
 
 \item{M}{A 2D point in Cartesian coordinates or a 3D point in barycentric coordinates
 which serves as a center in the interior of the triangle \code{tri} or the circumcenter of \code{tri};
-default is \eqn{M=(1,1,1)} i.e. the center of mass of \code{tri}.}
+default is \eqn{M=(1,1,1)} i.e., the center of mass of \code{tri}.}
 }
 \value{
 Number of arcs of the PE-PCD with vertices being 2D data set, \code{dat}, in \code{tri}
 with expansion parameter, \eqn{r \ge 1}, and center \code{M}. PE proximity regions are defined only
-for \code{dat} points inside \code{tri}, i.e. arcs are possible for such points only.
+for \code{dat} points inside \code{tri}, i.e., arcs are possible for such points only.
 }
 \description{
 Returns the number of arcs of Proportional Edge Proximity Catch Digraphs (PE-PCDs) whose vertices are the
 given 2D numerical data set, \code{dat}.
 
-PE proximity region \eqn{NPE(x,r)} is defined with respect to the triangle, \code{tri}
+PE proximity region \eqn{N_{PE}(x,r)} is defined with respect to the triangle, \code{tri}
 for this function. PE proximity region is constructed with expansion parameter \eqn{r \ge 1} and vertex regions are
 based on the center \eqn{M=(m_1,m_2)} in Cartesian coordinates or \eqn{M=(\alpha,\beta,\gamma)} in barycentric coordinates
-in the interior of the triangle \code{tri} or based on circumcenter of \code{tri}; default is \eqn{M=(1,1,1)} i.e. the center
+in the interior of the triangle \code{tri} or based on circumcenter of \code{tri}; default is \eqn{M=(1,1,1)} i.e., the center
 of mass of \code{tri}. For the number of arcs, loops are not
 allowed so arcs are only possible for points inside the triangle \code{tri} for this function.
 
@@ -68,4 +68,7 @@ NumArcsPEtri(dat,dat.fr,r,M)
 \seealso{
 \code{\link{NumArcsPETe}}, \code{\link{NumArcsPEMT}}, \code{\link{NumArcsCStri}},
 and \code{\link{NumArcsAStri}}
+}
+\author{
+Elvan Ceyhan
 }

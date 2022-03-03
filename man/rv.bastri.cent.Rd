@@ -11,38 +11,37 @@ rv.bastri.cent(p, c1, c2, M)
 basic triangle \eqn{T_b}.}
 
 \item{c1, c2}{Positive real numbers which constitute the vertex of the basic triangle
-adjacent to the shorter edges; \code{c1} must be in \eqn{[0,1/2]}, \eqn{c_2>0} and \eqn{(1-c_1)^2+c_2^2 \le 1}.}
+adjacent to the shorter edges; \eqn{c_1} must be in \eqn{[0,1/2]}, \eqn{c_2>0} and \eqn{(1-c_1)^2+c_2^2 \le 1}.}
 
 \item{M}{A 2D point in Cartesian coordinates or a 3D point in barycentric coordinates
 which serves as a center in the interior of the basic triangle.}
 }
 \value{
-A list with two elements
+A \code{list} with two elements
 \item{rv}{Index of the vertex whose region contains point, \code{p}; index of the vertex is the same as the row
 number in the basic triangle, \eqn{T_b}}
 \item{tri}{The vertices of the basic triangle, \eqn{T_b}, where row number corresponds to the vertex index \code{rv}
-with \eqn{rv=1} is row 1=(0,0), \eqn{rv=2} is row 2=(1,0), and \eqn{rv=3} is row 3=\eqn{(c_1,c_2)}.}
+with \code{rv=1} is row \eqn{1=(0,0)}, \code{rv=2} is row \eqn{2=(1,0)}, and \eqn{rv=3} is row \eqn{3=(c_1,c_2)}.}
 }
 \description{
 Returns the index of the related vertex in the basic triangle whose region contains point \code{p}.
-The basic triangle is \eqn{T_b=T((0,0),(1,0),(c_1,c_2))} where \code{c1} is in \eqn{[0,1/2]}, \eqn{c_2>0} and \eqn{(1-c_1)^2+c_2^2 \le 1}.
+The basic triangle is \eqn{T_b=T((0,0),(1,0),(c_1,c_2))} where \eqn{c_1} is in \eqn{[0,1/2]}, \eqn{c_2>0} and \eqn{(1-c_1)^2+c_2^2 \le 1}..
 
 Vertex regions are based on the general center \eqn{M=(m_1,m_2)} in Cartesian coordinates or
 \eqn{M=(\alpha,\beta,\gamma)} in barycentric coordinates in the interior of the basic triangle \eqn{T_b}.
 Vertices of the basic triangle \eqn{T_b} are labeled according to the row number the
-vertex is recorded, i.e., as 1=(0,0), 2=(1,0),and 3=\eqn{(c_1,c_2)}.
-
+vertex is recorded, i.e., as 1=(0,0), 2=(1,0),and \eqn{3=(c_1,c_2)}.
 
 If the point, \code{p}, is not inside \eqn{T_b}, then the function yields \code{NA} as output.
 The corresponding vertex region is the polygon with the vertex, \code{M}, and projections from \code{M}
 to the edges on the lines joining vertices and \code{M}.
-That is, \eqn{rv=1} has vertices (0,0),D3,M,D2; \eqn{rv=2} has vertices (1,0),D1,M,D3; and
-\eqn{rv=3} has vertices \eqn{(c_1,c_2)},D2,M,D1 (see the illustration in the examples).
+That is, \code{rv=1} has vertices \eqn{(0,0),D_3,M,D_2}; \code{rv=2} has vertices \eqn{(1,0),D_1,M,D_3}; and
+\eqn{rv=3} has vertices \eqn{(c_1,c_2),D_2,M,D_1} (see the illustration in the examples).
 
 Any given triangle can be mapped to the basic triangle
 by a combination of rigid body motions (i.e., translation, rotation and reflection) and scaling,
 preserving uniformity of the points in the original triangle. Hence basic triangle is useful for simulation
-studies under the uniformness hypothesis.
+studies under the uniformity hypothesis.
 
 See also (\insertCite{ceyhan:Phd-thesis,ceyhan:comp-geo-2010,ceyhan:mcap2012;textual}{pcds}).
 }
@@ -112,4 +111,7 @@ rv.bastri.cent(P,c1,c2,M)
 \seealso{
 \code{\link{rv.bastriCM}}, \code{\link{rv.tri.cent}}, \code{\link{rv.triCC}},
 \code{\link{rv.bastriCC}}, \code{\link{rv.triCM}}, and \code{\link{rvTeCM}}
+}
+\author{
+Elvan Ceyhan
 }

@@ -29,14 +29,14 @@ must be \eqn{\ge 1}.}
 \item{M}{A 2D point in Cartesian coordinates or a 3D point in barycentric coordinates
 which serves as a center in the interior of the triangle \code{tri} or the circumcenter of \code{tri}.}
 
-\item{asp}{A numeric value, giving the aspect ratio y/x (default is \code{NA}),
-see the official help for \code{asp} by typing "? asp".}
+\item{asp}{A \code{numeric} value, giving the aspect ratio \eqn{y/x} (default is \code{NA}),
+see the official help page for \code{asp} by typing "\code{? asp}".}
 
-\item{main}{An overall title for the plot (default="").}
+\item{main}{An overall title for the plot (default=\code{""}).}
 
-\item{xlab, ylab}{Titles for the x and y axes, respectively (default="" for both)}
+\item{xlab, ylab}{Titles for the \eqn{x} and \eqn{y} axes, respectively (default=\code{""} for both)}
 
-\item{xlim, ylim}{Numeric vectors of length 2, giving the x- and y-coordinate ranges
+\item{xlim, ylim}{Two \code{numeric} vectors of length 2, giving the \eqn{x}- and \eqn{y}-coordinate ranges
 (default=\code{NULL} for both).}
 
 \item{\dots}{Additional \code{plot} parameters.}
@@ -50,7 +50,7 @@ Plots the points in and outside of the Delaunay triangles based on \code{Yp} poi
 the convex hull of \code{Yp} points and also plots the PE proximity regions
 for \code{Xp} points and the Delaunay triangles based on \code{Yp} points.
 
-PE proximity regions are contructed with respect to the Delaunay triangles with the expansion parameter
+PE proximity regions are constructed with respect to the Delaunay triangles with the expansion parameter
 \eqn{r \ge 1}.
 
 Vertex regions in each triangle is based on the center \eqn{M=(\alpha,\beta,\gamma)}
@@ -88,4 +88,7 @@ plotPEregsMT(Xp,Yp[1:3,],r,M,xlab="",ylab="",xlim=Xlim+xd*c(-.05,.05),ylim=Ylim+
 }
 \seealso{
 \code{\link{plotPEregsTri}}, \code{\link{plotASregsMT}} and \code{\link{plotCSregsMT}}
+}
+\author{
+Elvan Ceyhan
 }

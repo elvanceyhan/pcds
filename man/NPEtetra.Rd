@@ -15,9 +15,9 @@ must be \eqn{\ge 1}.}
 \item{th}{Four 3D points, stacked row-wise, each row representing a vertex of the tetrahedron.}
 
 \item{M}{The center to be used in the construction of the vertex regions in the tetrahedron, \code{th}.
-Currently it only takes "CC" for circumcenter and "CM" for center of mass; default="CM".}
+Currently it only takes \code{"CC"} for circumcenter and \code{"CM"} for center of mass; default=\code{"CM"}.}
 
-\item{rv}{Index of the vertex region containing the point, either 1, 2, 3, 4 (default is \code{NULL}).}
+\item{rv}{Index of the vertex region containing the point, either \code{1,2,3,4} (default is \code{NULL}).}
 }
 \value{
 Vertices of the tetrahedron which constitutes the PE proximity region with expansion parameter
@@ -28,10 +28,10 @@ Returns the vertices of the PE proximity region (which is itself a tetrahedron) 
 tetrahedron \code{th}.
 
 PE proximity region is defined with respect to the tetrahedron \code{th}
-with expansion parameter \eqn{r \ge 1} and vertex regions based on the center \code{M} which is circumcenter ("CC") or
-center of mass ("CM") of \code{th} with default="CM".
+with expansion parameter \eqn{r \ge 1} and vertex regions based on the center \code{M} which is circumcenter (\code{"CC"}) or
+center of mass (\code{"CM"}) of \code{th} with default=\code{"CM"}.
 
-Vertex regions are labeled as 1,2,3,4 rowwise for the vertices of the tetrahedron \code{th}.
+Vertex regions are labeled as \code{1,2,3,4} rowwise for the vertices of the tetrahedron \code{th}.
 \code{rv} is the index of the vertex region \code{pt} resides, with default=\code{NULL}.
 If \code{pt} is outside of \code{th}, it returns \code{NULL} for the proximity region.
 
@@ -71,4 +71,7 @@ NPEtetra(P1,r,tetra,M)
 }
 \seealso{
 \code{\link{NPEstdtetra}}, \code{\link{NPEtri}} and \code{\link{NPEint}}
+}
+\author{
+Elvan Ceyhan
 }

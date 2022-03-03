@@ -15,46 +15,46 @@ TSArcDensCS1D(
 )
 }
 \arguments{
-\item{dat}{A set or vector of 1D points which constitute the vertices of CS-PCD.}
+\item{dat}{A set or \code{vector} of 1D points which constitute the vertices of CS-PCD.}
 
 \item{t}{A positive real number which serves as the expansion parameter in CS proximity region.}
 
-\item{c}{A positive real number in \eqn{(0,1)} parameterizing the center inside \eqn{int=(a,b)}.
-For the interval, \eqn{int=(a,b)}, the parameterized center is \eqn{M_c=a+c(b-a)}.}
+\item{c}{A positive real number in \eqn{(0,1)} parameterizing the center inside \code{int}\eqn{=(a,b)}.
+For the interval, \code{int}\eqn{=(a,b)}, the parameterized center is \eqn{M_c=a+c(b-a)}.}
 
-\item{int}{A vector of two real numbers representing an interval.}
+\item{int}{A \code{vector} of two real numbers representing an interval.}
 
-\item{alternative}{Type of the alternative hypothesis in the test, one of "two.sided", "less", "greater".}
+\item{alternative}{Type of the alternative hypothesis in the test, one of \code{"two.sided"}, \code{"less"}, \code{"greater"}.}
 
-\item{conf.level}{Level of the confidence interval, default is 0.95, for the arc density of CS-PCD based on
+\item{conf.level}{Level of the confidence interval, default is \code{0.95}, for the arc density of CS-PCD based on
 the 1D data set \code{dat}.}
 }
 \value{
-A list with the elements
+A \code{list} with the elements
 \item{statistic}{Test statistic}
-\item{p.value}{The \eqn{p}-value for the hypothesis test for the corresponding alternative}
+\item{p.value}{The \eqn{p}-value for the hypothesis test for the corresponding \code{alternative}}
 \item{conf.int}{Confidence interval for the arc density at the given level \code{conf.level} and
 depends on the type of \code{alternative}.}
 \item{estimate}{Estimate of the parameter, i.e., arc density}
 \item{null.value}{Hypothesized value for the parameter, i.e., the null arc density, which is usually the
 mean arc density under uniform distribution.}
-\item{alternative}{Type of the alternative hypothesis in the test, one of "two.sided", "less", "greater"}
+\item{alternative}{Type of the alternative hypothesis in the test, one of \code{"two.sided"}, \code{"less"}, \code{"greater"}}
 \item{method}{Description of the hypothesis test}
 \item{data.name}{Name of the data set}
 }
 \description{
-An object of class "htest" (i.e., hypothesis test) function which performs a hypothesis test of uniformity of 1D
+An object of class \code{"htest"} (i.e., hypothesis test) function which performs a hypothesis test of uniformity of 1D
 data in one interval based on the normal approximation of the arc density of the CS-PCD with expansion
-parameter \eqn{t>0} and centrality parameter \code{c} in \eqn{(0,1)}.
+parameter \eqn{t>0} and centrality parameter \eqn{c \in (0,1)}.
 
 The function yields the test statistic, \eqn{p}-value for the
-corresponding alternative, the confidence interval, estimate and null value for the parameter of interest
+corresponding \code{alternative}, the confidence interval, estimate and null value for the parameter of interest
 (which is the arc density), and method and name of the data set used.
 
 The null hypothesis is that data is
-uniform in a finite interval (i.e. arc density of CS-PCD equals to its expected value under uniform
-distribution) and \code{alternative} could be two-sided, or left-sided (i.e. data is accumulated around the end
-points) or right-sided (i.e. data is accumulated around the mid point or center \eqn{M_c}).
+uniform in a finite interval (i.e., arc density of CS-PCD equals to its expected value under uniform
+distribution) and \code{alternative} could be two-sided, or left-sided (i.e., data is accumulated around the end
+points) or right-sided (i.e., data is accumulated around the mid point or center \eqn{M_c}).
 
 See also (\insertCite{ceyhan:revstat-2016;textual}{pcds}).
 }
@@ -95,4 +95,7 @@ TSArcDensCS1D(dat,t,c,int)
 }
 \seealso{
 \code{\link{TSArcDensPE1D}}
+}
+\author{
+Elvan Ceyhan
 }

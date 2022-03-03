@@ -28,16 +28,16 @@ plotCSarcsTri(
 
 \item{M}{A 2D point in Cartesian coordinates or a 3D point in barycentric coordinates
 which serves as a center in the interior of the triangle \code{tri};
-default is \eqn{M=(1,1,1)} i.e. the center of mass of \code{tri}.}
+default is \eqn{M=(1,1,1)} i.e., the center of mass of \code{tri}.}
 
-\item{asp}{A numeric value, giving the aspect ratio y/x (default is \code{NA}), see the official help for \code{asp} by
-typing "? asp".}
+\item{asp}{A \code{numeric} value, giving the aspect ratio \eqn{y/x} (default is \code{NA}), see the official help page for \code{asp} by
+typing "\code{? asp}".}
 
-\item{main}{An overall title for the plot (default="").}
+\item{main}{An overall title for the plot (default=\code{""}).}
 
-\item{xlab, ylab}{Titles for the x and y axes, respectively (default="" for both).}
+\item{xlab, ylab}{Titles for the \eqn{x} and \eqn{y} axes, respectively (default=\code{""} for both).}
 
-\item{xlim, ylim}{Numeric vectors of length 2, giving the x- and y-coordinate ranges
+\item{xlim, ylim}{Two \code{numeric} vectors of length 2, giving the \eqn{x}- and \eqn{y}-coordinate ranges
 (default=\code{NULL} for both).}
 
 \item{\dots}{Additional \code{plot} parameters.}
@@ -47,12 +47,12 @@ A plot of the arcs of the CS-PCD whose vertices are the points in data set \code
 }
 \description{
 Plots the arcs of CS-PCD whose vertices are the data points, \code{Xp} and the triangle \code{tri}. CS proximity regions
-are constructed with respect to the triangle \code{tri} with expansion parameter \eqn{t>0}, i.e. arcs may exist only
+are constructed with respect to the triangle \code{tri} with expansion parameter \eqn{t>0}, i.e., arcs may exist only
 for \code{Xp} points inside the triangle \code{tri}.
 
 Edge regions are based on center \eqn{M=(m_1,m_2)} in Cartesian coordinates
 or \eqn{M=(\alpha,\beta,\gamma)} in barycentric coordinates in the interior of the triangle \code{tri}; default
-is \eqn{M=(1,1,1)} i.e. the center of mass of \code{tri}.
+is \eqn{M=(1,1,1)} i.e., the center of mass of \code{tri}.
 
 See also (\insertCite{ceyhan:Phd-thesis,ceyhan:arc-density-CS,ceyhan:test2014;textual}{pcds}).
 }
@@ -96,4 +96,7 @@ text(xc,yc,txt.str)
 }
 \seealso{
 \code{\link{plotCSarcsMT}}, \code{\link{plotPEarcsTri}} and \code{\link{plotASarcsTri}}
+}
+\author{
+Elvan Ceyhan
 }

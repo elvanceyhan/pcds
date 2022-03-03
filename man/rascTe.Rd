@@ -9,34 +9,34 @@ rascTe(k, eps)
 \arguments{
 \item{k}{A positive integer representing the number of points to be generated.}
 
-\item{eps}{A positive real number representing the parameter of type I association (where \eqn{\sqrt{3}/3-eps}
+\item{eps}{A positive real number representing the parameter of type I association (where \eqn{\sqrt{3}/3}-\code{eps}
 serves as the height of the triangular support regions around the vertices).}
 }
 \value{
-A list with the elements
+A \code{list} with the elements
 \item{type}{The type of the point pattern}
-\item{mtitle}{The "main" title for the plot of the point pattern}
+\item{mtitle}{The \code{"main"} title for the plot of the point pattern}
 \item{parameters}{The attraction parameter of the association pattern, \code{eps},
-where \eqn{\sqrt{3}/3-eps} serves as the height of the triangular support regions around the vertices}
+where \eqn{\sqrt{3}/3}-\code{eps} serves as the height of the triangular support regions around the vertices}
 \item{ref.points}{The input set of points \code{Y};
 reference points, i.e., points with which generated points are associated (i.e., vertices of \eqn{T_e}).}
 \item{gen.points}{The output set of generated points associated with \code{Y} points (i.e., vertices of \eqn{T_e}).}
 \item{tri.Y}{Logical output for triangulation based on \code{Y} points should be implemented or not.
 if \code{TRUE} triangulation based on \code{Y} points is to be implemented (default is set to \code{FALSE}).}
 \item{desc.pat}{Description of the point pattern.}
-\item{num.points}{The vector of two numbers,
+\item{num.points}{The \code{vector} of two numbers,
 which are the number of generated points and the number of reference (i.e., \code{Y}) points.}
-\item{xlimit,ylimit}{The ranges of the x- and y-coordinates of the reference points, which are the
+\item{xlimit,ylimit}{The ranges of the \eqn{x}- and \eqn{y}-coordinates of the reference points, which are the
 vertices of \eqn{T_e} here}
 }
 \description{
-An object of class "Patterns".
+An object of class \code{"Patterns"}.
 Generates \code{k} points uniformly in the standard equilateral triangle \eqn{T_e=T((0,0),(1,0),(1/2,\sqrt{3}/2))}
 under the type I association alternative for \code{eps} in \eqn{(0,\sqrt{3}/3=0.5773503]}.
 The allowed triangular regions around the vertices are determined by the parameter \code{eps}.
 
 In the type I association, the triangular support regions around the vertices are determined by
-the parameter \code{eps} where \eqn{\sqrt{3}/3-eps} serves as the height of these triangles
+the parameter \code{eps} where \eqn{\sqrt{3}/3}-\code{eps} serves as the height of these triangles
 (see examples for a sample plot.)
 
 See also (\insertCite{ceyhan:arc-density-PE,ceyhan:arc-density-CS,ceyhan:dom-num-NPE-Spat2011;textual}{pcds}).
@@ -94,4 +94,7 @@ points(dat)
 }
 \seealso{
 \code{\link{rseg.disc}}, \code{\link{rasc.disc}},  \code{\link{rsegIITe}}, and \code{\link{rsegMT}}
+}
+\author{
+Elvan Ceyhan
 }

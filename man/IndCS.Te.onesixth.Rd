@@ -3,7 +3,7 @@
 \name{IndCS.Te.onesixth}
 \alias{IndCS.Te.onesixth}
 \title{The indicator for the presence of an arc from a point to another for Central Similarity Proximity Catch
-Digraphs (CS-PCDs) - first one sixth of the standard equilateral triangle case}
+Digraphs (CS-PCDs) - first one-sixth of the standard equilateral triangle case}
 \usage{
 IndCS.Te.onesixth(pt1, pt2)
 }
@@ -14,39 +14,23 @@ IndCS.Te.onesixth(pt1, pt2)
 \code{pt1} or not.}
 }
 \value{
-I(\code{pt2} is in \eqn{NCS(pt1,t=1)}) for \code{pt1} in the first one-sixth of \eqn{T_e}, \eqn{T(A,D_3,CM)}, that is, returns 1 if \code{pt2}
-is in \eqn{NCS(pt1,t=1)}, returns 0 otherwise
+\eqn{I(}\code{pt2} is in \eqn{N_{CS}(pt1,t=1))} for \code{pt1} in the first one-sixth of \eqn{T_e},
+\eqn{T(A,D_3,CM)}, that is, returns 1 if \code{pt2} is in \eqn{N_{CS}(pt1,t=1)}, returns 0 otherwise
 }
 \description{
-Returns I(\code{pt2} is in \eqn{NCS(pt1,t=1)}) for points \code{pt1} and \code{pt2}, that is, returns 1 if \code{pt2} is in \eqn{NCS(pt1,t=1)},
-returns 0 otherwise, where \eqn{NCS(x,t=1)} is the CS proximity region for point \eqn{x} with expansion parameter \eqn{t=1}.
+Returns \eqn{I(}\code{pt2} is in \eqn{N_{CS}(pt1,t=1))} for points \code{pt1} and \code{pt2},
+that is, returns 1 if \code{pt2} is in \eqn{N_{CS}(pt1,t=1)},
+returns 0 otherwise, where \eqn{N_{CS}(x,t=1)} is the CS proximity region for point \eqn{x} with expansion parameter \eqn{t=1}.
 
 CS proximity region is defined with respect to the standard equilateral triangle
 \eqn{T_e=T(A,B,C)=T((0,0),(1,0),(1/2,\sqrt{3}/2))} and edge regions are based on the center of mass \eqn{CM=(1/2,\sqrt{3}/6)}.
 Here \code{pt1} must lie in the first one-sixth of \eqn{T_e}, which is the triangle with vertices \eqn{T(A,D_3,CM)=T((0,0),(1/2,0),CM)}.
-If \code{pt1} and \code{pt2} are distint and \code{pt1} is outside of \eqn{T(A,D_3,CM)} or \code{pt2} is outside \eqn{T_e}, it returns 0,
+If \code{pt1} and \code{pt2} are distinct and \code{pt1} is outside of \eqn{T(A,D_3,CM)} or \code{pt2} is outside \eqn{T_e}, it returns 0,
 but if they are identical, then it returns 1 regardless of their locations (i.e., it allows loops).
-}
-\examples{
-\dontrun{
-n<-5
-
-set.seed(1)
-dat<-rbind(runifTe.onesixth(n)$gen.points,runifTe(n)$gen.points)
-
-IndCS.Te.onesixth(dat[1,],dat[2,])
-IndCS.Te.onesixth(dat[1,],dat[1,])
-IndCS.Te.onesixth(dat[1,],dat[9,])
-IndCS.Te.onesixth(c(.2,.5),dat[2,])
-IndCS.Te.onesixth(c(.2,.5),c(.2,.5))
-
-set.seed(1)
-dat<-runifTe(10)$gen.points
-
-IndCS.Te.onesixth(dat[1,],dat[2,])
-}
-
 }
 \seealso{
 \code{\link{IndCSTe}}
+}
+\author{
+Elvan Ceyhan
 }

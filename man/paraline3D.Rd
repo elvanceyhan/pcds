@@ -10,34 +10,34 @@ paraline3D(P, A, B, t)
 \item{P}{A 3D point through which the straight line passes.}
 
 \item{A, B}{3D points which determine the straight line to which the line passing through point \code{P} would be
-parallel (i.e. B-A determines the direction of the straight line passing through \code{P}).}
+parallel (i.e., \eqn{B-A} determines the direction of the straight line passing through \code{P}).}
 
-\item{t}{A scalar or a vector of scalars representing the parameter of the coordinates of the line
-(for the form: \eqn{x=x_0 + a t}, \eqn{y=y_0 + b t}, and \eqn{z=z_0 + c t}  where \eqn{P=(x_0,y_0,z_0)}
+\item{t}{A scalar or a \code{vector} of scalars representing the parameter of the coordinates of the line
+(for the form: \eqn{x=x_0 + a t}, \eqn{y=y_0 + b t}, and \eqn{z=z_0 + c t} where \eqn{P=(x_0,y_0,z_0)}
 and \eqn{B-A=(a,b,c)}).}
 }
 \value{
-A list with the elements
+A \code{list} with the elements
 \item{desc}{A description of the line}
-\item{mtitle}{The "main" title for the plot of the line}
+\item{mtitle}{The \code{"main"} title for the plot of the line}
 \item{points}{The input points that determine the line to which the line crossing point \code{P} would be parallel.}
 \item{pnames}{The names of the input points that determine the line to which the line crossing point \code{P} would
 be parallel.}
 \item{vecs}{The points \code{P}, \code{A}, and \code{B} stacked row-wise in this order.}
 \item{vec.names}{The names of the points \code{P}, \code{A}, and \code{B}.}
-\item{x,y,z}{The x-, y- and z-coordinates of the point(s) of interest on the line parallel to the line
+\item{x,y,z}{The \eqn{x}-, \eqn{y}-, and \eqn{z}-coordinates of the point(s) of interest on the line parallel to the line
 determined by points \code{A} and \code{B}.}
-\item{tsq}{The scalar or the vector of the parameter in defining each coordinate of the line for the form:
+\item{tsq}{The scalar or the \code{vector} of the parameter in defining each coordinate of the line for the form:
 \eqn{x=x_0 + a t}, \eqn{y=y_0 + b t}, and \eqn{z=z_0 + c t} where \eqn{P=(x_0,y_0,z_0)} and \eqn{B-A=(a,b,c)}.}
 \item{equation}{Equation of the line passing through point \code{P} and parallel to the line joining points \code{A} and \code{B}
-(i.e., in the direction of the vector \code{B}-\code{A}). The line equation is in the form: \eqn{x=x_0 + a t}, \eqn{y=y_0 + b t}, and
+(i.e., in the direction of the \code{vector} \code{B}-\code{A}). The line equation is in the form: \eqn{x=x_0 + a t}, \eqn{y=y_0 + b t}, and
 \eqn{z=z_0 + c t} where \eqn{P=(x_0,y_0,z_0)} and \eqn{B-A=(a,b,c)}.}
 }
 \description{
-An object of class "Lines3D".
-Returns the equation, x-, y-, and z-coordinates of the line crossing 3D point \code{P} and parallel to the line
-joining 3D points \code{A} and \code{B} (i.e., the line is in the direction of vector \code{B}-\code{A})
-with the parameter \code{t} being provided in vector \code{t}.
+An object of class \code{"Lines3D"}.
+Returns the equation, \eqn{x}-, \eqn{y}-, and \eqn{z}-coordinates of the line crossing 3D point \code{P} and parallel to the line
+joining 3D points \code{A} and \code{B} (i.e., the line is in the direction of \code{vector} \code{B}-\code{A})
+with the parameter \code{t} being provided in \code{vector} \code{t}.
 }
 \examples{
 \donttest{
@@ -93,4 +93,7 @@ plot3D::text3D(Dr[1]+Av[1]/2,Dr[2]+Av[2]/2,Dr[3]+zf+Av[3]/2,labels="B-A",add=TRU
 }
 \seealso{
 \code{\link{Line3D}}, \code{\link{perp.ln2pl}}, and \code{\link{paraline}}
+}
+\author{
+Elvan Ceyhan
 }

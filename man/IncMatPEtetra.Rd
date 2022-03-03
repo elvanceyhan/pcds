@@ -15,7 +15,7 @@ IncMatPEtetra(dat, th, r, M = "CM")
 must be \eqn{\ge 1}.}
 
 \item{M}{The center to be used in the construction of the vertex regions in the tetrahedron, \code{th}.
-Currently it only takes "CC" for circumcenter and "CM" for center of mass; default="CM".}
+Currently it only takes \code{"CC"} for circumcenter and \code{"CM"} for center of mass; default=\code{"CM"}.}
 }
 \value{
 Incidence matrix for the PE-PCD with vertices being 3D data set, \code{dat},
@@ -26,8 +26,8 @@ Returns the incidence matrix for the PE-PCD whose vertices are the given 3D nume
 in the tetrahedron \eqn{th=T(v=1,v=2,v=3,v=4)}.
 
 PE proximity regions are constructed with respect to tetrahedron
-\code{th} with expansion parameter \eqn{r \ge 1} and vertex regions are based on the center \code{M} which is circumcenter ("CC")
-or center of mass ("CM") of \code{th} with default="CM".
+\code{th} with expansion parameter \eqn{r \ge 1} and vertex regions are based on the center \code{M} which is circumcenter (\code{"CC"})
+or center of mass (\code{"CM"}) of \code{th} with default=\code{"CM"}.
 Loops are allowed, so the diagonal entries are all equal to 1.
 
 See also (\insertCite{ceyhan:Phd-thesis,ceyhan:comp-geo-2010;textual}{pcds}).
@@ -69,4 +69,7 @@ IncMatPEtetra(dat,dat.fr,r,M)
 }
 \seealso{
 \code{\link{IncMatPEtri}}, \code{\link{IncMatPE1D}}, and  \code{\link{IncMatPEMT}}
+}
+\author{
+Elvan Ceyhan
 }

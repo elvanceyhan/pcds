@@ -14,39 +14,38 @@ lB_M.Te(x, M)
 lC_M.Te(x, M)
 }
 \arguments{
-\item{x}{A single scalar or a vector of scalars.}
+\item{x}{A single scalar or a \code{vector} of scalars.}
 
 \item{M}{A 2D point in Cartesian coordinates or a 3D point in barycentric coordinates
 which serves as a center in the interior of the standard equilateral triangle.}
 }
 \value{
-A list with the elements
+A \code{list} with the elements
 \item{txt1}{Longer description of the line.}
 \item{txt2}{Shorter description of the line (to be inserted over the line in the plot).}
-\item{mtitle}{The "main" title for the plot of the line.}
-\item{cent}{The center chosen inside the  standard equilateral triangle.}
-\item{cent.name}{The name of the center inside the  standard equilateral triangle.}
+\item{mtitle}{The \code{"main"} title for the plot of the line.}
+\item{cent}{The center chosen inside the standard equilateral triangle.}
+\item{cent.name}{The name of the center inside the standard equilateral triangle.}
 \item{tri}{The triangle (it is the standard equilateral triangle for this function).}
-\item{x}{The input vector, can be a scalar or a vector of scalars,
-which constitute the x-coordinates of the point(s) of interest on the line.}
-\item{y}{The output vector, will be a scalar if \code{x} is a scalar or a vector of scalars if \code{x} is
-a vector of scalar, constitutes the y-coordinates of the point(s) of interest on the line.}
+\item{x}{The input vector, can be a scalar or a \code{vector} of scalars,
+which constitute the \eqn{x}-coordinates of the point(s) of interest on the line.}
+\item{y}{The output vector, will be a scalar if \code{x} is a scalar or a \code{vector} of scalars if \code{x} is
+a \code{vector} of scalar, constitutes the \eqn{y}-coordinates of the point(s) of interest on the line.}
 \item{slope}{Slope of the line.}
 \item{intercept}{Intercept of the line.}
 \item{equation}{Equation of the line.}
 }
 \description{
-Three functions, \code{lA_M.Te}, \code{lB_M.Te} and \code{lC_M.Te} of class "TriLines".
-Returns the \code{equation, slope, intercept}, and y-coordinates of the lines joining A and \code{M},
-B and \code{M}, and also C and \code{M}.
+Three functions, \code{lA_M.Te}, \code{lB_M.Te} and \code{lC_M.Te} of class \code{"TriLines"}.
+Returns the \code{equation, slope, intercept}, and \eqn{y}-coordinates of the lines joining \eqn{A} and \code{M},
+\eqn{B} and \code{M}, and also \eqn{C} and \code{M}.
 
-\code{lA_M.Te} is the line joining A to the center, \code{M}, \code{lB_M.Te} is the line joining B to \code{M},
+\code{lA_M.Te} is the line joining \eqn{A} to the center, \code{M}, \code{lB_M.Te} is the line joining \eqn{B} to \code{M},
 and \code{lC_M.Te} is the line joining C to \code{M}, in the standard equilateral triangle \eqn{T_e=(A,B,C)}
-with \eqn{A=(0,0)};  \eqn{B=(1,0)}; \eqn{C=(1/2,sqrt{3}/2)}; x-coordinates are provided in vector \code{x}
+with \eqn{A=(0,0)}, \eqn{B=(1,0)}, \eqn{C=(1/2,\sqrt{3}/2)}; \eqn{x}-coordinates are provided in \code{vector} \code{x}
 }
 \examples{
 #Examples for lA_M.Te
-\dontrun{
 A<-c(0,0); B<-c(1,0); C<-c(1/2,sqrt(3)/2);
 Te<-rbind(A,B,C)
 
@@ -85,10 +84,8 @@ txt.str<-c("A","B","C","M","D1","D2","D3","lA_M.Te(x)","lB_M.Te(x)","lC_M.Te(x)"
 text(xc,yc,txt.str)
 
 lA_M.Te(.25,M)
-}
 
 #Examples for lB_M.Te
-\dontrun{
 A<-c(0,0); B<-c(1,0); C<-c(1/2,sqrt(3)/2);
 Te<-rbind(A,B,C)
 
@@ -103,10 +100,8 @@ summary(lnBM)
 plot(lnBM)
 
 lB_M.Te(.25,M)
-}
 
 #Examples for lC_M.Te
-\dontrun{
 A<-c(0,0); B<-c(1,0); C<-c(1/2,sqrt(3)/2);
 Te<-rbind(A,B,C)
 
@@ -121,7 +116,6 @@ summary(lnCM)
 plot(lnCM)
 
 lC_M.Te(.25,M)
-}
 
 }
 \seealso{

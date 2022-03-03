@@ -8,32 +8,32 @@ Proximity Catch Digraphs (CS-PCDs) - middle interval case}
 IndNCSmid1D(x1, x2, t, c, int, rv = NULL)
 }
 \arguments{
-\item{x1, x2}{1D points; \code{x1} is the point for which the proximity region, \eqn{NCS(x1,t,c)} is
-constructed and \code{x2} is the point which the function is checking whether its inside
-\eqn{NCS(x1,t,c)} or not.}
+\item{x1, x2}{1D points; \eqn{x_1} is the point for which the proximity region, \eqn{N_{CS}(x_1,t,c)} is
+constructed and \eqn{x_2} is the point which the function is checking whether its inside
+\eqn{N_{CS}(x_1,t,c)} or not.}
 
 \item{t}{A positive real number which serves as the expansion parameter in CS proximity region.}
 
 \item{c}{A positive real number in \eqn{(0,1)} parameterizing the center inside \code{int}.}
 
-\item{int}{A vector of two real numbers representing an interval.}
+\item{int}{A \code{vector} of two real numbers representing an interval.}
 
-\item{rv}{Index of the end interval containing the point, either 1, 2 or \code{NULL} (default is \code{NULL}).}
+\item{rv}{Index of the end interval containing the point, either \code{1,2} or \code{NULL} (default is \code{NULL}).}
 }
 \value{
-I(\code{x2} in \eqn{NCS(x1,t,c)}) for points \code{x1} and \code{x2} that is, returns 1 if \code{x2} is in \eqn{NCS(x1,t,c)},
+\eqn{I(x_2} in \eqn{N_{CS}(x_1,t,c))} for points \eqn{x_1} and \eqn{x_2} that is, returns 1 if \eqn{x_2} is in \eqn{N_{CS}(x_1,t,c)},
 returns 0 otherwise
 }
 \description{
-Returns I(\code{x2} in \eqn{NCS(x1,t,c)}) for points \code{x1} and \code{x2}, that is, returns 1 if \code{x2} is in \eqn{NCS(x1,t,c)}, returns 0
-otherwise, where \eqn{NCS(x,t,c)} is the CS proximity region for point \eqn{x} and is constructed with expansion
-parameter \eqn{t>0} and centrality parameter \code{c} in \eqn{(0,1)} for the interval \eqn{(a,b)}.
+Returns \eqn{I(x_2} in \eqn{N_{CS}(x_1,t,c))} for points \eqn{x_1} and \eqn{x_2}, that is, returns 1 if \eqn{x_2} is in \eqn{N_{CS}(x_1,t,c)}, returns 0
+otherwise, where \eqn{N_{CS}(x,t,c)} is the CS proximity region for point \eqn{x} and is constructed with expansion
+parameter \eqn{t>0} and centrality parameter \eqn{c \in (0,1)} for the interval \eqn{(a,b)}.
 
 CS proximity regions are defined with respect to the middle interval \code{int} and vertex regions are based
-on the center associated with the centrality parameter \code{c} in \eqn{(0,1)}. For the interval, \eqn{int=(a,b)}, the
-parameterized center is \eqn{M_c=a+c(b-a)} . \code{rv} is the index of the vertex region \code{x1} resides, with default=\code{NULL}.
+on the center associated with the centrality parameter \eqn{c \in (0,1)}. For the interval, \code{int}\eqn{=(a,b)}, the
+parameterized center is \eqn{M_c=a+c(b-a)}. \code{rv} is the index of the vertex region \eqn{x_1} resides, with default=\code{NULL}.
 
-If \code{x1} and \code{x2} are distint and either of them are outside interval \code{int}, it returns 0,
+If \eqn{x_1} and \eqn{x_2} are distinct and either of them are outside interval \code{int}, it returns 0,
 but if they are identical, then it returns 1 regardless of their locations
 (i.e., loops are allowed in the digraph).
 
@@ -69,4 +69,7 @@ IndNCSmid1D(7,5,t,c,int)
 }
 \seealso{
 \code{\link{IndNCSend1D}}, \code{\link{IndNPEmid1D}}, and \code{\link{IndNPEend1D}}
+}
+\author{
+Elvan Ceyhan
 }

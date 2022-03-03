@@ -19,17 +19,17 @@ the center of mass of \eqn{T_e}.}
 \value{
 Number of arcs for the CS-PCD with vertices being 2D data set, \code{dat}, in \eqn{T_e}
 with expansion parameter, \eqn{t>0}, and center of mass CM. CS proximity regions are defined only
-for \code{dat} points inside \eqn{T_e}, i.e. arcs are possible for such points only.
+for \code{dat} points inside \eqn{T_e}, i.e., arcs are possible for such points only.
 }
 \description{
 Returns the number of arcs of Central Similarity Proximity Catch Digraphs (CS-PCDs) whose vertices are the
 given 2D numerical data set, \code{dat}.
 
-CS proximity region NCS(x,r) is defined with respect to the standard
+CS proximity region \eqn{N_{CS}(x,t)} is defined with respect to the standard
 equilateral triangle \eqn{T_e=T(v=1,v=2,v=3)=T((0,0),(1,0),(1/2,\sqrt{3}/2))} with expansion parameter \eqn{t>0}
 and edge regions are based on the center \eqn{M=(m_1,m_2)}
 in Cartesian coordinates or \eqn{M=(\alpha,\beta,\gamma)} in barycentric coordinates in the interior of \eqn{T_e};
-default is \eqn{M=(1,1,1)} i.e. the center of mass of \eqn{T_e}.
+default is \eqn{M=(1,1,1)} i.e., the center of mass of \eqn{T_e}.
 For the number of arcs, loops are not allowed so
 arcs are only possible for points inside \eqn{T_e} for this function.
 
@@ -64,4 +64,7 @@ NumArcsCSTe(dat.fr,t=1.5,M);
 }
 \seealso{
 \code{\link{NumArcsCStri}}, \code{\link{NumArcsCSMT}}, and \code{\link{NumArcsPETe}},
+}
+\author{
+Elvan Ceyhan
 }

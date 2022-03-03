@@ -21,20 +21,20 @@ constructed in the triangle \code{tri}; must be \eqn{\ge 1}.}
 
 \item{M}{A 2D point in Cartesian coordinates or a 3D point in barycentric coordinates
 which serves as a center in the interior of the triangle \code{tri} or the circumcenter of \code{tri};
-default is \eqn{M=(1,1,1)} i.e. the center of mass of \code{tri}.}
+default is \eqn{M=(1,1,1)} i.e., the center of mass of \code{tri}.}
 }
 \value{
-I(\code{pt} is in U_{x in \code{S}} NPE(x,r)), that is, returns 1 if \code{pt} is in \code{S} or inside \eqn{NPE(x,r)} for at least
-one x in \code{S}, returns 0 otherwise where PE proximity region is constructed with respect to the triangle \code{tri}
+I(\code{pt} is in U_{x in \code{S}} N_{PE}(x,r)), that is, returns 1 if \code{pt} is in \code{S} or inside \eqn{N_{PE}(x,r)} for at least
+one \eqn{x} in \code{S}, returns 0 otherwise where PE proximity region is constructed with respect to the triangle \code{tri}
 }
 \description{
-Returns I(\code{pt} in \eqn{NPE(x,r)} for some x in \code{S}), that is, returns 1 if \code{pt} is in \eqn{\cup_{x in S}NPE(x,r)},
+Returns \eqn{I(}\code{pt} in \eqn{N_{PE}(x,r)} for some \eqn{x} in \code{S}\eqn{)}, that is, returns 1 if \code{pt} is in \eqn{\cup_{x in S}N_{PE}(x,r)},
 returns 0 otherwise.
 
 PE proximity region is constructed with respect to the triangle \code{tri} with
 the expansion parameter \eqn{r \ge 1} and vertex regions are based on the center, \eqn{M=(m_1,m_2)} in Cartesian coordinates
 or \eqn{M=(\alpha,\beta,\gamma)} in barycentric coordinates in the interior of the triangle \code{tri}
-or based on the circumcenter of \code{tri}; default is \eqn{M=(1,1,1)} i.e. the center of mass of \code{tri}.
+or based on the circumcenter of \code{tri}; default is \eqn{M=(1,1,1)} i.e., the center of mass of \code{tri}.
 Vertices of \code{tri} are also labeled as 1, 2, and 3, respectively.
 
 If \code{pt} is not in \code{S} and either \code{pt} or all points in \code{S} are outside \code{tri}, it returns 0,
@@ -89,4 +89,7 @@ IndNPEtriSet(dat.fr,P,r,Tr,M)
 \seealso{
 \code{\link{IndNPETeSet}}, \code{\link{IndNPEtri}}, \code{\link{IndNPETe}},
 \code{\link{IndNAStriSet}}, and \code{\link{IndNCStriSet}}
+}
+\author{
+Elvan Ceyhan
 }

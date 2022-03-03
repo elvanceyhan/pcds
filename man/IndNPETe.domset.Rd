@@ -20,18 +20,18 @@ which serves as a center in the interior of the standard equilateral triangle \e
 the center of mass of \eqn{T_e}.}
 }
 \value{
-I(\code{S} a dominating set of PE-PCD), that is, returns 1 if \code{S} is a dominating set of PE-PCD,
+\eqn{I(}\code{S} a dominating set of PE-PCD\eqn{)}, that is, returns 1 if \code{S} is a dominating set of PE-PCD,
 returns 0 otherwise, where PE proximity region is constructed in the standard equilateral triangle \eqn{T_e}
 }
 \description{
-Returns I(\code{S} a dominating set of PE-PCD whose vertices are the data points \code{Dt}), that is,
+Returns \eqn{I(}\code{S} a dominating set of PE-PCD whose vertices are the data points \code{Dt}\eqn{)}, that is,
 returns 1 if \code{S} is a dominating set of PE-PCD, returns 0 otherwise.
 
 PE proximity region is constructed
 with respect to the standard equilateral triangle \eqn{T_e=T(A,B,C)=T((0,0),(1,0),(1/2,\sqrt{3}/2))} with
 expansion parameter \eqn{r \ge 1} and vertex regions are based on the center \eqn{M=(m_1,m_2)}
 in Cartesian coordinates or \eqn{M=(\alpha,\beta,\gamma)} in barycentric coordinates in the interior of \eqn{T_e};
-default is \eqn{M=(1,1,1)} i.e. the center of mass of \eqn{T_e} (which is equivalent to the circumcenter of \eqn{T_e}).
+default is \eqn{M=(1,1,1)} i.e., the center of mass of \eqn{T_e} (which is equivalent to the circumcenter of \eqn{T_e}).
 Vertices of \eqn{T_e} are also labeled as 1, 2, and 3, respectively.
 
 See also (\insertCite{ceyhan:Phd-thesis,ceyhan:masa-2007,ceyhan:dom-num-NPE-Spat2011,ceyhan:mcap2012;textual}{pcds}).
@@ -81,4 +81,7 @@ IndNPETe.domset(S,dat.fr,r,M)
 }
 \seealso{
 \code{\link{IndNPEtri.domset}} and \code{\link{IndCSTe.domset}}
+}
+\author{
+Elvan Ceyhan
 }

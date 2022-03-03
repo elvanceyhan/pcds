@@ -23,9 +23,9 @@ Returns the intersection point(s) of a line and a circle. The line is determined
 If the circle does not intersect the line, the function yields \code{NULL};
 if the circle intersects at only one point, it yields only that point;
 otherwise it yields both intersection points as output.
-When there are two intersection points, they are listed in the order of the x-coordinates of \code{pt1} and \code{pt2};
-and if the x-coordinates of \code{pt1} and \code{pt2} are equal, intersection points are listed in the order of
-y-coordinates of \code{pt1} and \code{pt2}.
+When there are two intersection points, they are listed in the order of the \eqn{x}-coordinates of \code{pt1} and \code{pt2};
+and if the \eqn{x}-coordinates of \code{pt1} and \code{pt2} are equal, intersection points are listed in the order of
+\eqn{y}-coordinates of \code{pt1} and \code{pt2}.
 }
 \examples{
 P1<-c(.3,.2)*100
@@ -76,4 +76,7 @@ text(txt+cbind(rep(xd*.03,nrow(txt)),rep(-yd*.03,nrow(txt))),c("A","B","M",IP.tx
 }
 \seealso{
 \code{\link{int.2lines}}
+}
+\author{
+Elvan Ceyhan
 }

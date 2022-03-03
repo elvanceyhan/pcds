@@ -11,28 +11,28 @@ IndNCSint(x1, x2, t, c = 0.5, int)
 \item{x1}{A 1D point for which the proximity region is constructed.}
 
 \item{x2}{A 1D point for which it is checked whether it resides in the proximity region
-of \code{x1} or not.}
+of \eqn{x_1} or not.}
 
 \item{t}{A positive real number which serves as the expansion parameter in CS proximity region.}
 
-\item{c}{A positive real number in \eqn{(0,1)} parameterizing the center inside \eqn{int=(a,b)}.
-For the interval, \eqn{int=(a,b)}, the parameterized center is \eqn{M_c=a+c(b-a)}, and default=0.5.}
+\item{c}{A positive real number in \eqn{(0,1)} parameterizing the center inside \code{int}\eqn{=(a,b)}.
+For the interval, \code{int}\eqn{=(a,b)}, the parameterized center is \eqn{M_c=a+c(b-a)}, and default=\code{0.5}.}
 
-\item{int}{A vector of two real numbers representing an interval.}
+\item{int}{A \code{vector} of two real numbers representing an interval.}
 }
 \value{
-I(\code{x2} in \eqn{NCS(x1,t,c)}) for x2, that is, returns 1 if \code{x2} in \eqn{NCS(x1,t,c)}, returns 0 otherwise
+\eqn{I(x_2} in \eqn{N_{CS}(x_1,t,c))} for x2, that is, returns 1 if \eqn{x_2} in \eqn{N_{CS}(x_1,t,c)}, returns 0 otherwise
 }
 \description{
-Returns I(\code{x2} in \eqn{NCS(x1,t,c)}) for points \code{x1} and \code{x2}, that is, returns 1 if \code{x2} is in \eqn{NCS(x1,t,c)},
-returns 0 otherwise, where \eqn{NCS(x,t,c)} is the CS proximity region for point \eqn{x} with expansion parameter \eqn{t>0}
-and centrality parameter \code{c} in \eqn{(0,1)}.
+Returns \eqn{I(x_2} in \eqn{N_{CS}(x_1,t,c))} for points \eqn{x_1} and \eqn{x_2}, that is, returns 1 if \eqn{x_2} is in \eqn{N_{CS}(x_1,t,c)},
+returns 0 otherwise, where \eqn{N_{CS}(x,t,c)} is the CS proximity region for point \eqn{x} with expansion parameter \eqn{t>0}
+and centrality parameter \eqn{c \in (0,1)}.
 
 CS proximity region is constructed with respect to the
-interval \eqn{(a,b)}. This function works whether \code{x1} and \code{x2} are inside or outside the interval \code{int}.
+interval \eqn{(a,b)}. This function works whether \eqn{x_1} and \eqn{x_2} are inside or outside the interval \code{int}.
 
 Vertex regions for middle intervals are based on the center associated with the centrality parameter
-\code{c} in \eqn{(0,1)}. If \code{x1} and \code{x2} are identical, then it returns 1 regardless of their locations
+\eqn{c \in (0,1)}. If \eqn{x_1} and \eqn{x_2} are identical, then it returns 1 regardless of their locations
 (i.e., loops are allowed in the digraph).
 
 See also (\insertCite{ceyhan:revstat-2016;textual}{pcds}).
@@ -66,4 +66,7 @@ IndNCSint(7,5,t,c,int)
 }
 \seealso{
 \code{\link{IndNCSmid1D}}, \code{\link{IndNCSend1D}} and \code{\link{IndNPEint}}
+}
+\author{
+Elvan Ceyhan
 }

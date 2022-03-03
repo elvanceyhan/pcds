@@ -12,11 +12,11 @@ in.tetrahedron(p, th, boundary = FALSE)
 \item{th}{Four 3D points, stacked row-wise, each row representing a vertex of the tetrahedron.}
 
 \item{boundary}{A logical parameter (default=\code{FALSE}) to include boundary or not, so if it is \code{TRUE},
-the function checks if the point, \code{p}, lies in the closure of the tetrahedron (i.e. interior and boundary
+the function checks if the point, \code{p}, lies in the closure of the tetrahedron (i.e., interior and boundary
 combined) else it checks if \code{p} lies in the interior of the tetrahedron.}
 }
 \value{
-A list with two elements
+A \code{list} with two elements
 \item{in.tetra}{A logical output, if the point, \code{p}, is inside the tetrahedron, \code{th}, it is \code{TRUE},
 else it is \code{FALSE}.}
 \item{barycentric}{The barycentric coordinates of the point \code{p} with respect to the tetrahedron, \code{th}.}
@@ -28,7 +28,7 @@ point \code{p} is inside the tetrahedron, if all are nonnegative with one or mor
 boundary. If some of the barycentric coordinates are negative, then \code{p} falls outside the tetrahedron.
 
 \code{boundary} is a logical argument (default=\code{FALSE}) to include boundary or not, so if it is \code{TRUE},
-the function checks if the point, \code{p}, lies in the closure of the tetrahedron (i.e. interior and boundary
+the function checks if the point, \code{p}, lies in the closure of the tetrahedron (i.e., interior and boundary
 combined) else it checks if \code{p} lies in the interior of the tetrahedron.
 }
 \examples{
@@ -79,4 +79,7 @@ in.tetrahedron(P,dat.fr)
 }
 \seealso{
 \code{\link{in.triangle}}
+}
+\author{
+Elvan Ceyhan
 }

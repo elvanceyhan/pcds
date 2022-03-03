@@ -7,21 +7,21 @@
 radius(pt, Y)
 }
 \arguments{
-\item{pt}{A d-dimensional point for which radius is computed. Radius of \code{pt} equals to the
+\item{pt}{A \eqn{d}-dimensional point for which radius is computed. Radius of \code{pt} equals to the
 distance to the closest \code{Y} point to \code{pt}.}
 
-\item{Y}{A set of d-dimensional points representing the reference points for the balls. That is, radius
+\item{Y}{A set of \eqn{d}-dimensional points representing the reference points for the balls. That is, radius
 of the point \code{pt} is defined as the minimum distance to the \code{Y} points.}
 }
 \value{
-A list with three elements
-\item{rad}{Radius value for the point, \code{pt}  defined as \eqn{\min_{y in Y} d(pt,y)}}
+A \code{list} with three elements
+\item{rad}{Radius value for the point, \code{pt} defined as \eqn{\min_{y in Y} d(pt,y)}}
 \item{index.of.clYpnt}{Index of the closest \code{Y} points to the point \code{pt}}
 \item{closest.Ypnt}{The closest \code{Y} point to the point \code{pt}}
 }
 \description{
 Returns the radius for the ball centered at point \code{pt} with radius=min distance to \code{Y} points.
-That is, for the point \code{pt} \eqn{radius= \min_{y \in Y}d(pt,y)} (i.e. distance from \code{pt} to the closest \code{Y} point).
+That is, for the point \code{pt} \eqn{radius= \min_{y \in Y}d(pt,y)} (i.e., distance from \code{pt} to the closest \code{Y} point).
 The point \code{pt} and \code{Y} points must be of same dimension.
 }
 \examples{
@@ -57,4 +57,7 @@ radii(A,dat.fr)
 }
 \seealso{
 \code{\link{radii}}
+}
+\author{
+Elvan Ceyhan
 }

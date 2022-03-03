@@ -2,15 +2,15 @@
 % Please edit documentation in R/AuxRFuncs4PCDClasses.r
 \name{plot.Planes}
 \alias{plot.Planes}
-\title{Plot a \code{Planes} object}
+\title{Plot a \code{Planes} \code{object}}
 \usage{
 \method{plot}{Planes}(x, xlab = "x", ylab = "y", zlab = "z", ...)
 }
 \arguments{
 \item{x}{Object of class \code{Planes}.}
 
-\item{xlab, ylab, zlab}{Titles for the x, y and z axes, respectively (default is \code{xlab}="x", \code{ylab}="y",
-and \code{zlab}="z").}
+\item{xlab, ylab, zlab}{Titles for the \eqn{x}, \eqn{y}, and \eqn{z} axes, respectively (default is \code{xlab="x"}, \code{ylab="y"},
+and \code{zlab="z"}).}
 
 \item{\dots}{Additional parameters for \code{plot}.}
 }

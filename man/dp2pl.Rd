@@ -13,7 +13,7 @@ and \code{c} are to be computed.}
 \item{a, b, c}{3D points that determine the plane (i.e., through which the plane is passing).}
 }
 \value{
-A list with two elements
+A \code{list} with two elements
 \item{dis}{Distance from point \code{p} to the plane spanned by 3D points \code{a}, \code{b}, and \code{c}}
 \item{cl2p}{The closest point on the plane spanned by 3D points \code{a}, \code{b}, and \code{c} to the point \code{p}}
 }
@@ -58,4 +58,7 @@ dp2pl(P,A,B,C)
 }
 \seealso{
 \code{\link{dp2l}}, \code{\link{dist.pt2set}}  and \code{\link{Dist}}
+}
+\author{
+Elvan Ceyhan
 }

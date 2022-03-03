@@ -11,24 +11,24 @@ NumArcsASMT(Xp, Yp, M = "CC")
 
 \item{Yp}{A set of 2D points which constitute the vertices of the Delaunay triangles.}
 
-\item{M}{The center of the triangle. "CC" stands for circumcenter of each Delaunay triangle \code{tri} or 3D point in barycentric
+\item{M}{The center of the triangle. \code{"CC"} stands for circumcenter of each Delaunay triangle \code{tri} or 3D point in barycentric
 coordinates which serves as a center in the interior of each Delaunay triangle;
-default is \code{M}="CC" i.e. the circumcenter of each triangle.}
+default is \code{M="CC"} i.e., the circumcenter of each triangle.}
 }
 \value{
-A list with the elements
+A \code{list} with the elements
 \item{num.pts.in.CH}{Number of \code{Xp} points in the convex hull of \code{Yp} points}
 \item{num.arcs}{Number of arcs in the AS-PCD for the \code{Xp} points inside the convex hull of \code{Yp} points}
-\item{weight.vec}{The vector of areas of the Delaunay triangles that have at least on \code{Xp} points in them}
+\item{weight.vec}{The \code{vector} of areas of the Delaunay triangles that have at least on \code{Xp} points in them}
 }
 \description{
 Returns the number of arcs of Arc Slice Proximity Catch Digraph (AS-PCD) whose vertices are
 the data points in \code{Xp} in the multiple triangle case.
 
 AS proximity regions are defined with respect to the
-Delaunay triangles based on \code{Yp} points and vertex regions in each triangle are based on the center \code{M}="CC"
+Delaunay triangles based on \code{Yp} points and vertex regions in each triangle are based on the center \code{M="CC"}
 for circumcenter of each Delaunay triangle or \eqn{M=(\alpha,\beta,\gamma)} in barycentric coordinates in the
-interior of each Delaunay triangle; default is \code{M}="CC" i.e. circumcenter of each triangle.
+interior of each Delaunay triangle; default is \code{M="CC"} i.e., circumcenter of each triangle.
 
 Convex hull of \code{Yp} is partitioned by the Delaunay triangles based on \code{Yp} points
 (i.e., multiple triangles are the set of these Delaunay triangles whose union constitutes
@@ -45,7 +45,7 @@ set.seed(1)
 Xp<-cbind(runif(nx),runif(nx))
 Yp<-cbind(runif(ny),runif(ny))
 
-oldpar <- par(mfrow = c(1,2))
+oldpar <- par(no.readonly = TRUE)
 plotDeltri(Xp,Yp,xlab="",ylab="")
 par(oldpar)
 
@@ -67,4 +67,7 @@ NumArcsASMT(dat.fr,Yp,M)
 }
 \seealso{
 \code{\link{NumArcsAStri}}, \code{\link{NumArcsPEMT}}, and \code{\link{NumArcsCSMT}}
+}
+\author{
+Elvan Ceyhan
 }

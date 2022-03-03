@@ -2,15 +2,15 @@
 % Please edit documentation in R/AuxRFuncs4PCDClasses.r
 \name{plot.Lines3D}
 \alias{plot.Lines3D}
-\title{Plot a \code{Lines3D} object}
+\title{Plot a \code{Lines3D} \code{object}}
 \usage{
 \method{plot}{Lines3D}(x, xlab = "x", ylab = "y", zlab = "z", ...)
 }
 \arguments{
 \item{x}{Object of class \code{Lines3D}.}
 
-\item{xlab, ylab, zlab}{Titles for the x, y and z axes, respectively (default is \code{xlab}="x", \code{ylab}="y"
-and \code{zlab}="z").}
+\item{xlab, ylab, zlab}{Titles for the \eqn{x}, \eqn{y}, and \eqn{z} axes, respectively (default is \code{xlab="x"}, \code{ylab="y"}
+and \code{zlab="z"}).}
 
 \item{\dots}{Additional parameters for \code{plot}.}
 }

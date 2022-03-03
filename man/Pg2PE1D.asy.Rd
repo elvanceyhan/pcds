@@ -2,24 +2,24 @@
 % Please edit documentation in R/PCDFunctions.r
 \name{PG2PE1D.asy}
 \alias{PG2PE1D.asy}
-\title{The asymptotic probability of domination number=2 for Proportional Edge Proximity Catch Digraphs (PE-PCDs)
+\title{The asymptotic probability of domination number \eqn{= 2} for Proportional Edge Proximity Catch Digraphs (PE-PCDs)
 - middle interval case}
 \usage{
 PG2PE1D.asy(c)
 }
 \arguments{
-\item{c}{A positive real number in \eqn{(0,1)} parameterizing the center inside \eqn{int=(a,b)}.
-For the interval, \eqn{int=(a,b)}, the parameterized center is \eqn{M_c=a+c(b-a)}.}
+\item{c}{A positive real number in \eqn{(0,1)} parameterizing the center inside \code{int}\eqn{=(a,b)}.
+For the interval, \code{int}\eqn{=(a,b)}, the parameterized center is \eqn{M_c=a+c(b-a)}.}
 }
 \value{
-The asymptotic P(domination number=2) for PE-PCD whose vertices are a uniform data set in a finite
+The asymptotic \eqn{P(}domination number\eqn{=2)} for PE-PCD whose vertices are a uniform data set in a finite
 interval \eqn{(a,b)}
 }
 \description{
-Returns the asymptotic P(domination number=2) for PE-PCD whose vertices are a uniform data set in a finite
+Returns the asymptotic \eqn{P(}domination number\eqn{=2)} for PE-PCD whose vertices are a uniform data set in a finite
 interval \eqn{(a,b)}.
 
-The PE proximity region \eqn{NPE(x,r,c)} is defined with respect to (a,b) with centrality parameter \code{c}
+The PE proximity region \eqn{N_{PE}(x,r,c)} is defined with respect to \eqn{(a,b)} with centrality parameter \code{c}
 in \eqn{(0,1)} and expansion parameter \eqn{r=1/\max(c,1-c)}.
 }
 \examples{
@@ -34,4 +34,7 @@ PG2PE1D(r=1.5,c=1/1.5,n=100)
 }
 \seealso{
 \code{\link{PG2PE1D}} and \code{\link{PG2PEtri}}
+}
+\author{
+Elvan Ceyhan
 }

@@ -10,33 +10,33 @@ runif.bastri(k, c1, c2)
 \item{k}{A positive integer representing the number of uniform points to be generated in the basic triangle.}
 
 \item{c1, c2}{Positive real numbers representing the top vertex in basic triangle
-\eqn{T_b=T((0,0),(1,0),(c_1,c_2))}, \code{c1} must be in \eqn{[0,1/2]}, \eqn{c_2>0} and
+\eqn{T_b=T((0,0),(1,0),(c_1,c_2))}, \eqn{c_1} must be in \eqn{[0,1/2]}, \eqn{c_2>0} and
 \eqn{(1-c_1)^2+c_2^2 \le 1}.}
 }
 \value{
-A list with the elements
+A \code{list} with the elements
 \item{type}{The type of the pattern from which points are to be generated}
-\item{mtitle}{The "main" title for the plot of the point pattern}
+\item{mtitle}{The \code{"main"} title for the plot of the point pattern}
 \item{tess.points}{The vertices of the support of the uniformly generated points, it is the basic triangle
 \eqn{T_b} for this function}
 \item{gen.points}{The output set of generated points uniformly in the basic triangle}
 \item{out.region}{The outer region which contains the support region, \code{NULL} for this function.}
 \item{desc.pat}{Description of the point pattern from which points are to be generated}
-\item{num.points}{The vector of two numbers, which are the number of generated points and the number
+\item{num.points}{The \code{vector} of two numbers, which are the number of generated points and the number
 of vertices of the support points (here it is 3).}
 \item{txt4pnts}{Description of the two numbers in \code{num.points}.}
-\item{xlimit,ylimit}{The ranges of the x- and y-coordinates of the support, Tb}
+\item{xlimit,ylimit}{The ranges of the \eqn{x}- and \eqn{y}-coordinates of the support, Tb}
 }
 \description{
-An object of class "Uniform".
+An object of class \code{"Uniform"}.
 Generates \code{k} points uniformly in the basic triangle \eqn{T_b=T((0,0),(1,0),(c_1,c_2))}
-where \code{c1} is in \eqn{[0,1/2]}, \eqn{c_2>0} and \eqn{(1-c_1)^2+c_2^2 \le 1}.
+where \eqn{c_1} is in \eqn{[0,1/2]}, \eqn{c_2>0} and \eqn{(1-c_1)^2+c_2^2 \le 1}.
 
 Any given triangle can be mapped to the basic
 triangle by a combination of rigid body motions (i.e., translation, rotation and reflection) and scaling,
 preserving uniformity of the points in the original triangle
 (\insertCite{ceyhan:Phd-thesis,ceyhan:arc-density-CS,ceyhan:arc-density-PE;textual}{pcds}).
-Hence basic triangle is useful for simulation studies under the uniformness hypothesis.
+Hence basic triangle is useful for simulation studies under the uniformity hypothesis.
 }
 \examples{
 c1<-.4; c2<-.6
@@ -68,4 +68,7 @@ points(dat)
 }
 \seealso{
 \code{\link{runifTe}}, \code{\link{runif.tri}}, and \code{\link{runifMT}}
+}
+\author{
+Elvan Ceyhan
 }

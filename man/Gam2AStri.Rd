@@ -23,34 +23,34 @@ Gam2AStri(
 
 \item{tri}{Three 2D points, stacked row-wise, each row representing a vertex of the triangle.}
 
-\item{M}{The center of the triangle. "CC" stands for circumcenter of the triangle \code{tri} or a 2D point in Cartesian coordinates or
+\item{M}{The center of the triangle. \code{"CC"} stands for circumcenter of the triangle \code{tri} or a 2D point in Cartesian coordinates or
 a 3D point in  barycentric coordinates which serves as a center in the interior of the triangle \eqn{T_b};
-default is \code{M}="CC" i.e. the circumcenter of \code{tri}.}
+default is \code{M="CC"} i.e., the circumcenter of \code{tri}.}
 
 \item{rv1, rv2}{The indices of the vertices whose regions contains \code{pt1} and \code{pt2}, respectively.
-They take the vertex labels as 1,2,3 as in the row order of the vertices in \code{tri}
+They take the vertex labels as \eqn{1,2,3} as in the row order of the vertices in \code{tri}
 (default is \code{NULL} for both).}
 
 \item{ch.data.pnts}{A logical argument for checking whether points \code{pt1} and \code{pt2} are data points in \code{Dt} or not
 (default is \code{FALSE}).}
 }
 \value{
-I(\{\code{pt1,pt2}\} is a dominating set of the AS-PCD) where vertices of the AS-PCD are the 2D data set \code{Dt}),
+\eqn{I(}\{\code{pt1,pt2}\} is a dominating set of the AS-PCD\eqn{)} where vertices of the AS-PCD are the 2D data set \code{Dt}),
 that is, returns 1 if \{\code{pt1,pt2}\} is a dominating set of AS-PCD, returns 0 otherwise
 }
 \description{
-Returns I(\{\code{pt1,pt2}\} is a dominating set of the AS-PCD) where vertices of the AS-PCD are
+Returns \eqn{I(}\{\code{pt1,pt2}\} is a dominating set of the AS-PCD\eqn{)} where vertices of the AS-PCD are
 the 2D data set \code{Dt}), that is, returns 1 if \{\code{pt1,pt2}\} is a dominating set of AS-PCD, returns 0 otherwise.
 
 AS proximity regions are defined with respect to the triangle \code{tri}.
 Point, \code{pt1}, is in the region of vertex \code{rv1} (default is \code{NULL})
 and point, \code{pt2}, is in the region of vertex \code{rv2} (default is \code{NULL}); vertices (and hence \code{rv1} and \code{rv2})
-are labeled as 1,2,3 in the order they are stacked row-wise in \code{tri}.
+are labeled as \eqn{1,2,3} in the order they are stacked row-wise in \code{tri}.
 
 Vertex regions are based on
-the center \code{M}="CC" for circumcenter of \code{tri}; or \eqn{M=(m_1,m_2)} in Cartesian coordinates
+the center \code{M="CC"} for circumcenter of \code{tri}; or \eqn{M=(m_1,m_2)} in Cartesian coordinates
 or \eqn{M=(\alpha,\beta,\gamma)} in barycentric coordinates in the interior of the triangle \code{tri};
-default is \code{M}="CC" the circumcenter of \code{tri}.
+default is \code{M="CC"} the circumcenter of \code{tri}.
 
 \code{ch.data.pnts} is for checking whether points \code{pt1} and \code{pt2} are data
 points in \code{Dt} or not (default is \code{FALSE}), so by default this function checks whether the points \code{pt1} and \code{pt2}
@@ -84,7 +84,7 @@ ind.gam2<-vector()
 for (i in 1:(n-1))
   for (j in (i+1):n)
   {if (Gam2AStri(dat[i,],dat[j,],dat,Tr,M)==1)
-    ind.gam2<-rbind(ind.gam2,c(i,j))}
+   ind.gam2<-rbind(ind.gam2,c(i,j))}
 ind.gam2
 
 #or try
@@ -114,4 +114,7 @@ Gam2AStri(c(.3,.2),c(.35,.25),dat,dat.fr,M)
 }
 \seealso{
 \code{\link{Gam2ASbastri}}
+}
+\author{
+Elvan Ceyhan
 }

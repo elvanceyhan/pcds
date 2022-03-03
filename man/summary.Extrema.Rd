@@ -2,25 +2,25 @@
 % Please edit documentation in R/AuxRFuncs4PCDClasses.r
 \name{summary.Extrema}
 \alias{summary.Extrema}
-\title{Return a summary of a \code{Extrema} object}
+\title{Return a summary of a \code{Extrema} \code{object}}
 \usage{
 \method{summary}{Extrema}(object, ...)
 }
 \arguments{
-\item{object}{Object of class \code{Extrema}.}
+\item{object}{An \code{object} of class \code{Extrema}.}
 
 \item{\dots}{Additional parameters for \code{summary}.}
 }
 \value{
-The \code{call} of the object of class '\code{Extrema}', the \code{type} of the extrema (i.e. the description
-of the extrema), extrema points, distances from extrema to the reference object (e.g. boundary of a triangle),
+The \code{call} of the \code{object} of class \code{"Extrema"}, the \code{type} of the extrema (i.e. the description
+of the extrema), extrema points, distances from extrema to the reference \code{object} (e.g. boundary of a triangle),
 some of the data points (from which extrema is found).
 }
 \description{
 Returns the below information about the \code{object}:
 
 \code{call} of the function defining the \code{object}, the \code{type} of the extrema (i.e. the description
-of the extrema), extrema points, distances from extrema to the reference object (e.g. boundary of a triangle),
+of the extrema), extrema points, distances from extrema to the reference \code{object} (e.g. boundary of a triangle),
 some of the data points (from which extrema is found).
 }
 \examples{

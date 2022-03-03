@@ -17,10 +17,10 @@ NumArcsCSMT(Xp, Yp, t, M = c(1, 1, 1))
 triangle, default for \eqn{M=(1,1,1)} which is the center of mass of each triangle.}
 }
 \value{
-A list with the elements
+A \code{list} with the elements
 \item{num.arcs}{Total number of arcs in all triangles}
 \item{num.in.conhull}{Number of \code{Xp} points in the convex hull of \code{Yp} points}
-\item{weight.vec}{The vector of the areas of Delaunay triangles based on \code{Yp} points}
+\item{weight.vec}{The \code{vector} of the areas of Delaunay triangles based on \code{Yp} points}
 }
 \description{
 Returns the number of arcs of Central Similarity Proximity Catch Digraph (CS-PCD) whose vertices are
@@ -32,7 +32,7 @@ is based on the center \eqn{M=(\alpha,\beta,\gamma)} in barycentric coordinates 
 Delaunay triangle or based on circumcenter of each Delaunay triangle (default for \eqn{M=(1,1,1)}
 which is the center of mass of the triangle).
 Each Delaunay triangle is first converted to an (unscaled) basic triangle so that \code{M} will be the same
-type of center for each Delaunay triangle (this conversion is not necessary when \code{M} is CM).
+type of center for each Delaunay triangle (this conversion is not necessary when \code{M} is \eqn{CM}).
 
 Convex hull of \code{Yp} is partitioned by the Delaunay triangles based on \code{Yp} points
 (i.e., multiple triangles are the set of these Delaunay triangles whose union constitutes the
@@ -50,7 +50,7 @@ set.seed(1)
 Xp<-cbind(runif(nx),runif(nx))
 Yp<-cbind(runif(ny),runif(ny))
 
-oldpar <- par(mfrow = c(1,2))
+oldpar <- par(no.readonly = TRUE)
 plotDeltri(Xp,Yp,xlab="",ylab="")
 par(oldpar)
 
@@ -82,4 +82,7 @@ NumArcsCSMT(Xp,dat.fr,t,M)
 \seealso{
 \code{\link{NumArcsCStri}}, \code{\link{NumArcsCSTe}}, \code{\link{NumArcsPEMT}},
 and \code{\link{NumArcsASMT}}
+}
+\author{
+Elvan Ceyhan
 }

@@ -2,7 +2,7 @@
 % Please edit documentation in R/PCDFunctions.r
 \name{fr2eTeER}
 \alias{fr2eTeER}
-\title{The furthest points in a data set from edges in each CM-edge region in the standard
+\title{The furthest points in a data set from edges in each \eqn{CM}-edge region in the standard
 equilateral triangle}
 \usage{
 fr2eTeER(Dt, ch.all.intri = FALSE)
@@ -15,26 +15,26 @@ fr2eTeER(Dt, ch.all.intri = FALSE)
 (default is \code{FALSE}).}
 }
 \value{
-A list with the elements
-\item{txt1}{Edge labels as AB=3, BC=1, and AC=2 for \eqn{T_e} (corresponds to row number in Extrema Points).}
-\item{txt2}{A short description of the distances as "Distances to Edges".}
+A \code{list} with the elements
+\item{txt1}{Edge labels as \eqn{AB=3}, \eqn{BC=1}, and \eqn{AC=2} for \eqn{T_e} (corresponds to row number in Extremum Points).}
+\item{txt2}{A short description of the distances as \code{"Distances to Edges"}.}
 \item{type}{Type of the extrema points}
 \item{desc}{A short description of the extrema points}
-\item{mtitle}{The "main" title for the plot of the exrema}
+\item{mtitle}{The \code{"main"} title for the plot of the extrema}
 \item{ext}{The extrema points, here, furthest points from edges in each edge region.}
-\item{X}{The input data, \code{Dt}, can be a matrix or data frame}
+\item{X}{The input data, \code{Dt}, can be a \code{matrix} or \code{data frame}}
 \item{num.points}{The number of data points, i.e., size of \code{Dt}}
 \item{supp}{Support of the data points, here, it is \eqn{T_e}.}
 \item{cent}{The center point used for construction of edge regions.}
-\item{ncent}{Name of the center, \code{cent}, it is center of mass "CM" for this function.}
+\item{ncent}{Name of the center, \code{cent}, it is center of mass \code{"CM"} for this function.}
 \item{regions}{Edge regions inside the triangle, \eqn{T_e}, provided as a list.}
-\item{region.names}{Names of the edge regions as "er=1","er=2","er=3".}
+\item{region.names}{Names of the edge regions as \code{"er=1"}, \code{"er=2"}, and \code{"er=3"}.}
 \item{region.centers}{Centers of mass of the edge regions inside \eqn{T_e}.}
 \item{dist2ref}{Distances from furthest points in each edge region to the corresponding edge.}
 }
 \description{
-An object of class "Extrema".
-Returns the furthest data points among the data set, \code{Dt}, in each CM-edge region from the edge in the
+An object of class \code{"Extrema"}.
+Returns the furthest data points among the data set, \code{Dt}, in each \eqn{CM}-edge region from the edge in the
 standard equilateral triangle \eqn{T_e=T(A=(0,0),B=(1,0),C=(1/2,\sqrt{3}/2))}.
 
 \code{ch.all.intri} is for checking whether all data points are inside \eqn{T_e} (default is \code{FALSE}).
@@ -42,7 +42,6 @@ standard equilateral triangle \eqn{T_e=T(A=(0,0),B=(1,0),C=(1/2,\sqrt{3}/2))}.
 See also (\insertCite{ceyhan:Phd-thesis;textual}{pcds}).
 }
 \examples{
-\dontrun{
 n<-20
 dat<-runifTe(n)$gen.points
 
@@ -56,7 +55,7 @@ ed.far<-fr2eTeER(dat)
 
 dat2<-rbind(dat,c(.8,.8))
 fr2eTeER(dat2)
-fr2eTeER(dat2,ch.all.intri = TRUE)
+fr2eTeER(dat2,ch.all.intri = FALSE) #gives error if ch.all.intri = TRUE
 
 A<-c(0,0); B<-c(1,0); C<-c(0.5,sqrt(3)/2);
 Te<-rbind(A,B,C)
@@ -82,7 +81,6 @@ xc<-txt[,1]+c(-.03,.03,.03,-.06,0,0,0)
 yc<-txt[,2]+c(.02,.02,.02,.02,0,0,0)
 txt.str<-c("A","B","C","CM","re=2","re=3","re=1")
 text(xc,yc,txt.str)
-}
 
 }
 \references{
@@ -91,4 +89,7 @@ text(xc,yc,txt.str)
 \seealso{
 \code{\link{fr2vTbVRCC}}, \code{\link{fr2vVRCC}}, \code{\link{Kfr2vTbVRCC}},
 \code{\link{Kfr2vVRCC}}, and \code{\link{cl2edgesTe}}
+}
+\author{
+Elvan Ceyhan
 }

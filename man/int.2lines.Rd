@@ -56,3 +56,6 @@ int.2lines(c(1,2),c(1,3),C,D)
 \seealso{
 \code{\link{int.circ.line}} and \code{\link{dp2l}}
 }
+\author{
+Elvan Ceyhan
+}

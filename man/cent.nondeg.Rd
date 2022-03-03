@@ -19,7 +19,7 @@ for the domination number of PE-PCD for uniform data in a triangle, \code{tri}.
 }
 \description{
 Returns the centers which yield nondegenerate asymptotic distribution for the domination number
-of PE-PCD for uniform data in a triangle, \eqn{tri=T(v_1,v_2,v_3)}.
+of PE-PCD for uniform data in a triangle, \code{tri}\eqn{=T(v_1,v_2,v_3)}.
 
 PE proximity region is defined with
 respect to the triangle \code{tri} with expansion parameter \code{r} in \eqn{(1,1.5]}.
@@ -68,4 +68,7 @@ cent.nondeg(dat.fr,r)
 }
 \references{
 \insertAllCited{}
+}
+\author{
+Elvan Ceyhan
 }

@@ -11,29 +11,29 @@ IndNPEint(x1, x2, r, c = 0.5, int)
 \item{x1}{A 1D point for which the proximity region is constructed.}
 
 \item{x2}{A 1D point for which it is checked whether it resides in the proximity region
-of \code{x1} or not.}
+of \eqn{x_1} or not.}
 
 \item{r}{A positive real number which serves as the expansion parameter in PE proximity region
 must be \eqn{\ge 1}.}
 
-\item{c}{A positive real number in \eqn{(0,1)} parameterizing the center inside \eqn{int=(a,b)}.
-For the interval, \eqn{int=(a,b)}, the parameterized center is \eqn{M_c=a+c(b-a)}, and default=0.5}
+\item{c}{A positive real number in \eqn{(0,1)} parameterizing the center inside \code{int}\eqn{=(a,b)}.
+For the interval, \code{int}\eqn{=(a,b)}, the parameterized center is \eqn{M_c=a+c(b-a)}, and default=\code{0.5}}
 
-\item{int}{A vector of two real numbers representing an interval.}
+\item{int}{A \code{vector} of two real numbers representing an interval.}
 }
 \value{
-I(\code{x2} in \eqn{NPE(x1,r,c)}) for x2, that is, returns 1 if \code{x2} in \eqn{NPE(x1,r,c)}, returns 0 otherwise
+\eqn{I(x_2 \in N_{PE}(x_1,r,c))} for x2, that is, returns 1 if \eqn{x_2} in \eqn{N_{PE}(x_1,r,c)}, returns 0 otherwise
 }
 \description{
-Returns I(\code{x2} in \eqn{NPE(x1,r,c)}) for points \code{x1} and \code{x2}, that is, returns 1 if \code{x2} is in \eqn{NPE(x1,r,c)},
-returns 0 otherwise, where \eqn{NPE(x,r,c)} is the PE proximity region for point \eqn{x} with expansion parameter \eqn{r \ge 1}
-and centrality parameter \code{c} in \eqn{(0,1)}.
+Returns \eqn{I(x_2 \in N_{PE}(x_1,r,c))} for points \eqn{x_1} and \eqn{x_2}, that is, returns 1 if \eqn{x_2} is in \eqn{N_{PE}(x_1,r,c)},
+returns 0 otherwise, where \eqn{N_{PE}(x,r,c)} is the PE proximity region for point \eqn{x} with expansion parameter \eqn{r \ge 1}
+and centrality parameter \eqn{c \in (0,1)}.
 
 PE proximity region is constructed with respect to the
-interval \eqn{(a,b)}. This function works whether \code{x1} and \code{x2} are inside or outside the interval \code{int}.
+interval \eqn{(a,b)}. This function works whether \eqn{x_1} and \eqn{x_2} are inside or outside the interval \code{int}.
 
-Vertex regions for middle intervals are based on the center associated with the centrality parameter \code{c} in \eqn{(0,1)}.
-If \code{x1} and \code{x2} are identical, then it returns 1 regardless of their locations
+Vertex regions for middle intervals are based on the center associated with the centrality parameter \eqn{c \in (0,1)}.
+If \eqn{x_1} and \eqn{x_2} are identical, then it returns 1 regardless of their locations
 (i.e., loops are allowed in the digraph).
 
 See also (\insertCite{ceyhan:metrika-2012;textual}{pcds}).
@@ -66,4 +66,7 @@ IndNPEint(7,5,r,c,int)
 }
 \seealso{
 \code{\link{IndNPEmid1D}}, \code{\link{IndNPEend1D}} and \code{\link{IndNCSint}}
+}
+\author{
+Elvan Ceyhan
 }

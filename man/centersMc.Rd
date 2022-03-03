@@ -7,19 +7,19 @@
 centersMc(x, c)
 }
 \arguments{
-\item{x}{A vector real numbers that constitute the end points of intervals.}
+\item{x}{A \code{vector} real numbers that constitute the end points of intervals.}
 
 \item{c}{A positive real number in \eqn{(0,1)} parameterizing the centers inside the intervals.
-For the interval, \eqn{int=(a,b)}, the parameterized center is \eqn{M_c=a+c(b-a)}.}
+For the interval, \code{int}\eqn{=(a,b)}, the parameterized center is \eqn{M_c=a+c(b-a)}.}
 }
 \value{
 (parameterized) centers of the intervals based on \code{x} points as a vector
 }
 \description{
-Returns the centers of the intervals based on 1D points in x parameterized by \code{c} in \eqn{(0,1)}
+Returns the centers of the intervals based on 1D points in \eqn{x} parameterized by \eqn{c \in (0,1)}
 so that \eqn{100c} \% of the length of interval is to the left of \eqn{M_c} and \eqn{100(1-c)} \% of the length of the interval
 is to the right of \eqn{M_c}. That is, for an interval \eqn{(a,b)}, the parameterized center is \eqn{M_c=a+c(b-a)}
-\code{x} is a vector of 1D points, not necessarily sorted.
+\code{x} is a \code{vector} of 1D points, not necessarily sorted.
 
 See also (\insertCite{ceyhan:metrika-2012,ceyhan:revstat-2016;textual}{pcds}).
 }
@@ -40,4 +40,7 @@ centersMc(x,c)
 }
 \seealso{
 \code{\link{centMc}}
+}
+\author{
+Elvan Ceyhan
 }

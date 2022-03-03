@@ -11,11 +11,11 @@ rsegMT(n, Yp, delta, DTmesh = NULL, DTr = NULL)
 
 \item{Yp}{A set of 2D points from which Delaunay triangulation is constructed.}
 
-\item{delta}{A positive real number in (0,4/9). \code{delta} is the parameter of segregation (that is, \eqn{\delta 100} %
+\item{delta}{A positive real number in \eqn{(0,4/9)}. \code{delta} is the parameter of segregation (that is, \eqn{\delta 100} %
 area around each vertex in each Delaunay triangle is forbidden for point generation).}
 
 \item{DTmesh}{Delaunay triangulation of \code{Yp}, default is \code{NULL}, which is computed via \code{\link[interp]{tri.mesh}} function
-in \code{interp} package. \code{\link[interp]{tri.mesh}} function yields the triangulation nodes with their neigbours, and
+in \code{interp} package. \code{\link[interp]{tri.mesh}} function yields the triangulation nodes with their neighbours, and
 creates a triangulation object.}
 
 \item{DTr}{Delaunay triangles based on \code{Yp}, default is \code{NULL}, which is computed via \code{\link[interp]{tri.mesh}} function
@@ -23,23 +23,23 @@ in \code{interp} package. \code{\link[interp]{triangles}} function yields a tria
 by \code{\link[interp]{tri.mesh}}.}
 }
 \value{
-A list with the elements
+A \code{list} with the elements
 \item{type}{The type of the pattern from which points are to be generated}
-\item{mtitle}{The "main" title for the plot of the point pattern}
-\item{parameters}{Exclusion parameter, \code{delta}, of the Type I segregation pattern. \code{delta} is in (0,4/9)
+\item{mtitle}{The \code{"main"} title for the plot of the point pattern}
+\item{parameters}{Exclusion parameter, \code{delta}, of the Type I segregation pattern. \code{delta} is in \eqn{(0,4/9)}
 \eqn{\delta 100} \% area around each vertex in each Delaunay triangle is forbidden for point generation.}
 \item{ref.points}{The input set of points \code{Yp};
 reference points, i.e., points from which generated points are segregated.}
 \item{gen.points}{The output set of generated points segregated from \code{Yp} points.}
 \item{tri.Y}{Logical output, \code{TRUE} if triangulation based on \code{Yp} points should be implemented.}
 \item{desc.pat}{Description of the point pattern}
-\item{num.points}{The vector of two numbers, which are the number of generated points
+\item{num.points}{The \code{vector} of two numbers, which are the number of generated points
 and the number of reference (i.e., \code{Yp}) points.}
-\item{xlimit,ylimit}{The ranges of the x- and y-coordinates of the reference points, which are the
+\item{xlimit,ylimit}{The ranges of the \eqn{x}- and \eqn{y}-coordinates of the reference points, which are the
 \code{Yp} points}
 }
 \description{
-An object of class "Patterns".
+An object of class \code{"Patterns"}.
 Generates \code{n} points uniformly in the support for Type I segregation in the convex hull of
 set of points, \code{Yp}.
 
@@ -55,9 +55,9 @@ function \code{\link{rseg.tri}}.
 and \code{DTr} must be the corresponding Delaunay triangles (both \code{DTmesh} and \code{DTr} are \code{NULL} by default).
 If \code{NULL}, \code{DTmesh} is computed via \code{\link[interp]{tri.mesh}} and \code{DTr} is computed via \code{\link[interp]{triangles}} function in \code{interp} package.
 
-\code{\link[interp]{tri.mesh}} function yields the triangulation nodes with their neigbours, and creates a triangulation object,
+\code{\link[interp]{tri.mesh}} function yields the triangulation nodes with their neighbours, and creates a triangulation object,
 and \code{\link[interp]{triangles}} function yields a triangulation data structure from the triangulation object created
-by \code{\link[interp]{tri.mesh}} (the first three colums are the vertex indices of the Delaunay triangles.)
+by \code{\link[interp]{tri.mesh}} (the first three columns are the vertex indices of the Delaunay triangles.)
 
 See (\insertCite{ceyhan:arc-density-PE,ceyhan:arc-density-CS,ceyhan:dom-num-NPE-Spat2011;textual}{pcds}) for more on
 the segregation pattern.
@@ -102,7 +102,7 @@ yd<-Ylim[2]-Ylim[1]
 #plot of the data in the convex hull of Y points together with the Delaunay triangulation
 DTY<-interp::tri.mesh(Yp[,1],Yp[,2],duplicate="remove")  #Delaunay triangulation based on Y points
 
-oldpar <- par(mfrow = c(1,2))
+oldpar <- par(no.readonly = TRUE)
 par(pty="s")
 plot(dat,main=" ", xlab=" ", ylab=" ",xlim=Xlim+xd*c(-.05,.05),ylim=Ylim+yd*c(-.05,.05),type="n")
 interp::plot.triSht(DTY, add=TRUE, do.points=TRUE,col="blue")
@@ -121,4 +121,7 @@ rsegMT(nx,dat.fr,del)
 }
 \seealso{
 \code{\link{rseg.disc}}, \code{\link{rsegTe}}, \code{\link{rsegIITe}}, and \code{\link{rascMT}}
+}
+\author{
+Elvan Ceyhan
 }

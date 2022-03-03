@@ -3,7 +3,7 @@
 \name{Gam1CS.Te.onesixth}
 \alias{Gam1CS.Te.onesixth}
 \title{The indicator for a point being a dominating point for Central Similarity Proximity Catch Digraphs (CS-PCDs)
-- first one sixth of the standard equilateral triangle case}
+- first one-sixth of the standard equilateral triangle case}
 \usage{
 Gam1CS.Te.onesixth(p, Dt, ch.data.pnt = FALSE)
 }
@@ -16,11 +16,11 @@ Gam1CS.Te.onesixth(p, Dt, ch.data.pnt = FALSE)
 in \code{Dt} or not (default is \code{FALSE}).}
 }
 \value{
-I(\code{p} is a dominating point of the CS-PCD) where the vertices of the CS-PCD are the 2D data set \code{Dt},
+\eqn{I(}\code{p} is a dominating point of the CS-PCD\eqn{)} where the vertices of the CS-PCD are the 2D data set \code{Dt},
 that is, returns 1 if \code{p} is a dominating point, returns 0 otherwise
 }
 \description{
-Returns I(\code{p} is a dominating point of the 2D data set \code{Dt} of CS-PCD) in the standard equilateral
+Returns \eqn{I(}\code{p} is a dominating point of the 2D data set \code{Dt} of CS-PCD\eqn{)} in the standard equilateral
 triangle \eqn{T_e=T(A,B,C)=T((0,0),(1,0),(1/2,\sqrt{3}/2))}, that is, returns 1 if \code{p} is a dominating point of CS-PCD,
 returns 0 otherwise.
 
@@ -35,71 +35,12 @@ set.
 
 See also (\insertCite{ceyhan:Phd-thesis;textual}{pcds}).
 }
-\examples{
-\dontrun{
-n<-5
-set.seed(1)
-dat<-rbind(runifTe.onesixth(n)$gen.points,runifTe(n)$gen.points)
-
-Gam1CS.Te.onesixth(dat[1,],dat[2,])
-Gam1CS.Te.onesixth(c(.2,.5),dat[2,])
-Gam1CS.Te.onesixth(c(.2,.5),c(.2,.5))
-
-Gam1CS.Te.onesixth(dat[2,],dat)
-Gam1CS.Te.onesixth(dat[9,],dat)
-
-Gam1CS.Te.onesixth(c(.49,.49),dat)
-
-n<-nrow(dat)
-gam.vec<-vector()
-for (i in 1:n)
-{gam.vec<-c(gam.vec,Gam1CS.Te.onesixth(dat[i,],dat))}
-
-ind.gam1<-which(gam.vec==1)
-
-ind.gam1
-A<-c(0,0); B<-c(1,0); C<-c(1/2,sqrt(3)/2);
-Te<-rbind(A,B,C)
-CM<-(A+B+C)/3;
-D1<-(B+C)/2; D2<-(A+C)/2; D3<-(A+B)/2;
-Ds<-rbind(D1,D2,D3)
-
-Xlim<-range(Te[,1])
-Ylim<-range(Te[,2])
-xd<-Xlim[2]-Xlim[1]
-yd<-Ylim[2]-Ylim[1]
-
-plot(Te,pch=".",xlab="",ylab="",axes=TRUE,xlim=Xlim+xd*c(-.05,.05),ylim=Ylim+yd*c(-.05,.05))
-polygon(Te)
-L<-matrix(rep(CM,3),ncol=2,byrow=TRUE); R<-Ds
-segments(L[,1], L[,2], R[,1], R[,2], lty=2)
-segments(L[,1], L[,2], Te[,1], Te[,2], lty=2)
-polygon(rbind(A,D3,CM))
-points(dat,pch=1,col=1)
-points(rbind(dat[ind.gam1,]),pch=4,col=2)
-
-txt<-rbind(A,B,C,CM,D1,D2,D3)
-xc<-txt[,1]+c(-.02,.02,.01,.05,.04,-.03,.03)
-yc<-txt[,2]+c(.02,.02,.03,-.02,.03,.02,-0.04)
-txt.str<-c("A","B","C","CM","D1","D2","D3")
-text(xc,yc,txt.str)
-
-Gam1CS.Te.onesixth(c(.4,.1),c(.4,.1))
-Gam1CS.Te.onesixth(c(.49,.19),c(.4,.1))
-
-Gam1CS.Te.onesixth(c(.4,.2),dat)
-
-dat.fr<-data.frame(a=dat)
-Gam1CS.Te.onesixth(c(.4,.2),dat.fr)
-
-Gam1CS.Te.onesixth(c(.49,.49),dat,ch.data.pnt = TRUE)
-#gives an error message since point, p, is not a data point in Dt
-}
-
-}
 \references{
 \insertAllCited{}
 }
 \seealso{
 \code{\link{Gam1CSTe}} and \code{\link{Gam1CSTet1}}
+}
+\author{
+Elvan Ceyhan
 }

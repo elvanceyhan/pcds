@@ -9,33 +9,33 @@ Line(a, b, x)
 \arguments{
 \item{a, b}{2D points that determine the straight line (i.e., through which the straight line passes).}
 
-\item{x}{A scalar or a vector of scalars representing the x-coordinates of the line.}
+\item{x}{A scalar or a \code{vector} of scalars representing the \eqn{x}-coordinates of the line.}
 }
 \value{
-A list with the elements
+A \code{list} with the elements
 \item{desc}{A description of the line}
-\item{mtitle}{The "main" title for the plot of the line}
+\item{mtitle}{The \code{"main"} title for the plot of the line}
 \item{points}{The input points \code{a} and \code{b} through which the straight line passes
 (stacked row-wise, i.e., row 1 is point \code{a} and row 2 is point \code{b}).}
-\item{x}{The input scalar or vector which constitutes the x-coordinates of the point(s) of interest
+\item{x}{The input scalar or \code{vector} which constitutes the \eqn{x}-coordinates of the point(s) of interest
 on the line.}
-\item{y}{The output scalar or vector which constitutes the y-coordinates of the point(s) of interest
-on the line. If \code{x} is a scalar, then \code{y} will be a scalar and if \code{x} is a vector of scalars,
-then \code{y} will be a vector of scalars.}
-\item{slope}{Slope of the line, Inf is allowed, passing through points \code{a} and \code{b} }
+\item{y}{The output scalar or \code{vector} which constitutes the \eqn{y}-coordinates of the point(s) of interest
+on the line. If \code{x} is a scalar, then \code{y} will be a scalar and if \code{x} is a \code{vector} of scalars,
+then \code{y} will be a \code{vector} of scalars.}
+\item{slope}{Slope of the line, \code{Inf} is allowed, passing through points \code{a} and \code{b} }
 \item{intercept}{Intercept of the line passing through points \code{a} and \code{b}}
 \item{equation}{Equation of the line passing through points \code{a} and \code{b}}
 }
 \description{
-An object of class "Lines".
-Returns the \code{equation, slope, intercept}, and y-coordinates of the line crossing two
-distinct 2D points \code{a} and \code{b} with x-coordinates provided in vector \code{x}.
+An object of class \code{"Lines"}.
+Returns the \code{equation, slope, intercept}, and \eqn{y}-coordinates of the line crossing two
+distinct 2D points \code{a} and \code{b} with \eqn{x}-coordinates provided in \code{vector} \code{x}.
 
 This function is different from the \code{\link[stats]{line}} function in the standard \code{stats} package
-in R in the sense that \code{Line(a,b,x)} fits the line passing
+in \code{R} in the sense that \code{Line(a,b,x)} fits the line passing
 through points \code{a} and \code{b} and returns various quantities (see below) for this line and \code{x} is
-the x-coordinates of the points we want to find on the \code{Line(a,b,x)} while \code{line(a,b)} fits the line robustly
-whose x-coordinates are in \code{a} and y-coordinates are in \code{b}.
+the \eqn{x}-coordinates of the points we want to find on the \code{Line(a,b,x)} while \code{line(a,b)} fits the line robustly
+whose \eqn{x}-coordinates are in \code{a} and \eqn{y}-coordinates are in \code{b}.
 
 \code{Line(a,b,x)} and \code{line(x,Line(A,B,x)$y)}
 would yield the same straight line (i.e., the line with the same coefficients.)
@@ -78,5 +78,8 @@ Line(c(1,2),c(2,3),3)
 }
 \seealso{
 \code{\link{slope}}, \code{\link{paraline}}, \code{\link{perpline}}, \code{\link[stats]{line}}
-in the generic stats package and and \code{\link{Line3D}}
+in the generic \code{stats} package and and \code{\link{Line3D}}
+}
+\author{
+Elvan Ceyhan
 }

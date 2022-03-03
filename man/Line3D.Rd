@@ -2,46 +2,46 @@
 % Please edit documentation in R/PCDFunctions.r
 \name{Line3D}
 \alias{Line3D}
-\title{The line crossing 3D point \code{r0} in the direction of vector \code{v} (or if \code{v} is a point,
-in direction of \eqn{v-r0})}
+\title{The line crossing 3D point \code{r0} in the direction of \code{vector} \code{v} (or if \code{v} is a point,
+in direction of \eqn{v-r_0})}
 \usage{
 Line3D(r0, v, t, dir.vec = TRUE)
 }
 \arguments{
 \item{r0}{A 3D point through which the straight line passes.}
 
-\item{v}{A 3D vector which determines the direction of the straight line (i.e., the straight line would be
-parallel to this vector) if the \code{dir.vec}=T, otherwise it is 3D point and \eqn{v-r0} determines the direction of the
+\item{v}{A 3D \code{vector} which determines the direction of the straight line (i.e., the straight line would be
+parallel to this vector) if the \code{dir.vec=TRUE}, otherwise it is 3D point and \eqn{v-r_0} determines the direction of the
 the straight line.}
 
-\item{t}{A scalar or a vector of scalars representing the parameter of the coordinates of the line
+\item{t}{A scalar or a \code{vector} of scalars representing the parameter of the coordinates of the line
 (for the form: \eqn{x=x_0 + a t}, \eqn{y=y_0 + b t}, and \eqn{z=z_0 + c t} where \eqn{r_0=(x_0,y_0,z_0)}
-and \eqn{v=(a,b,c)} if \code{dir.vec}=T, else \eqn{v-r0=(a,b,c)}).}
+and \eqn{v=(a,b,c)} if \code{dir.vec=TRUE}, else \eqn{v-r_0=(a,b,c)}).}
 
 \item{dir.vec}{A logical argument about \code{v}, if \code{TRUE} \code{v} is treated as a vector,
-else \code{v} is treated as a point and so the direction vector is taken to be \eqn{v-r0}.}
+else \code{v} is treated as a point and so the direction \code{vector} is taken to be \eqn{v-r_0}.}
 }
 \value{
-A list with the elements
+A \code{list} with the elements
 \item{desc}{A description of the line}
-\item{mtitle}{The "main" title for the plot of the line}
+\item{mtitle}{The \code{"main"} title for the plot of the line}
 \item{pts}{The input points that determine a line and/or a plane, \code{NULL} for this function.}
 \item{pnames}{The names of the input points that determine a line and/or a plane, \code{NULL} for this function.}
-\item{vecs}{The point \code{r0} and the vector \code{v} (if \code{dir.vec}=T) or the point v (if \code{dir.vec}=F). The first row is \code{r0}
+\item{vecs}{The point \code{r0} and the \code{vector} \code{v} (if \code{dir.vec=TRUE}) or the point \code{v} (if \code{dir.vec=FALSE}). The first row is \code{r0}
 and the second row is \code{v}.}
-\item{vec.names}{The names of the point \code{r0} and the vector \code{v} (if \code{dir.vec}=T) or the point v (if \code{dir.vec}=F).}
-\item{x,y,z}{The x-, y- and z-coordinates of the point(s) of interest on the line.}
-\item{tsq}{The scalar or the vector of the parameter in defining each coordinate of the line for the form:
-\eqn{x=x_0 + a t}, \eqn{y=y_0 + b t}, and \eqn{z=z_0 + c t} where \eqn{r_0=(x_0,y_0,z_0)} and \eqn{v=(a,b,c)} if \code{dir.vec}=T, else \eqn{v-r0=(a,b,c)}.}
-\item{equation}{Equation of the line passing through point \code{r0} in the direction of the vector \code{v} (if \code{dir.vec}=T)
-else in the direction of \eqn{v-r0}. The line equation is in the form: \eqn{x=x_0 + a t}, \eqn{y=y_0 + b t}, and \eqn{z=z_0 + c t} where
-\eqn{r_0=(x_0,y_0,z_0)} and \eqn{v=(a,b,c)} if \code{dir.vec}=T, else \eqn{v-r0=(a,b,c)}.}
+\item{vec.names}{The names of the point \code{r0} and the \code{vector} \code{v} (if \code{dir.vec=TRUE}) or the point \code{v} (if \code{dir.vec=FALSE}).}
+\item{x,y,z}{The \eqn{x}-, \eqn{y}-, and \eqn{z}-coordinates of the point(s) of interest on the line.}
+\item{tsq}{The scalar or the \code{vector} of the parameter in defining each coordinate of the line for the form:
+\eqn{x=x_0 + a t}, \eqn{y=y_0 + b t}, and \eqn{z=z_0 + c t} where \eqn{r_0=(x_0,y_0,z_0)} and \eqn{v=(a,b,c)} if \code{dir.vec=TRUE}, else \eqn{v-r_0=(a,b,c)}.}
+\item{equation}{Equation of the line passing through point \code{r0} in the direction of the \code{vector} \code{v} (if \code{dir.vec=TRUE})
+else in the direction of \eqn{v-r_0}. The line equation is in the form: \eqn{x=x_0 + a t}, \eqn{y=y_0 + b t}, and \eqn{z=z_0 + c t} where
+\eqn{r_0=(x_0,y_0,z_0)} and \eqn{v=(a,b,c)} if \code{dir.vec=TRUE}, else \eqn{v-r_0=(a,b,c)}.}
 }
 \description{
-An object of class "Lines3D".
-Returns the equation, x-, y-, and z-coordinates of the line crossing 3D point \code{r0}
-in the direction of vector \code{v} (of if \code{v} is a point, in the direction of \eqn{v-r0})
-with the parameter \code{t} being provided in vector \code{t}.
+An object of class \code{"Lines3D"}.
+Returns the equation, \eqn{x}-, \eqn{y}-, and \eqn{z}-coordinates of the line crossing 3D point \eqn{r_0}
+in the direction of \code{vector} \code{v} (of if \code{v} is a point, in the direction of \eqn{v-r_0})
+with the parameter \code{t} being provided in \code{vector} \code{t}.
 }
 \examples{
 \donttest{
@@ -100,4 +100,7 @@ plot3D::text3D(0,0,0,labels="O",add=TRUE)
 }
 \seealso{
 \code{\link{line}}, \code{\link{paraline3D}}, and \code{\link{Plane}}
+}
+\author{
+Elvan Ceyhan
 }

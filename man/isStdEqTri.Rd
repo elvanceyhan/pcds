@@ -43,3 +43,6 @@ dat.fr<-data.frame(a=Te)
 isStdEqTri(dat.fr)
 
 }
+\author{
+Elvan Ceyhan
+}

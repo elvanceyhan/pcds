@@ -11,9 +11,9 @@ IncMatASMT(Xp, Yp, M = "CC")
 
 \item{Yp}{A set of 2D points which constitute the vertices of the Delaunay triangles.}
 
-\item{M}{The center of the triangle. "CC" stands for circumcenter of each Delaunay triangle \code{tri} or 3D point in barycentric
+\item{M}{The center of the triangle. \code{"CC"} stands for circumcenter of each Delaunay triangle \code{tri} or 3D point in barycentric
 coordinates which serves as a center in the interior of each Delaunay triangle;
-default is \code{M}="CC" i.e. the circumcenter of each triangle.}
+default is \code{M="CC"} i.e., the circumcenter of each triangle.}
 }
 \value{
 Incidence matrix for the AS-PCD whose vertices are the 2D data set, \code{Xp},
@@ -24,9 +24,9 @@ Returns the incidence matrix for the AS-PCD whose vertices are a given 2D numeri
 in the convex hull of \code{Yp} which is partitioned by the Delaunay triangles based on \code{Yp} points.
 
 AS proximity regions are defined with respect to the Delaunay triangles based on \code{Yp} points and vertex
-regions are based on the center \code{M}="CC"
+regions are based on the center \code{M="CC"}
 for circumcenter of each Delaunay triangle or \eqn{M=(\alpha,\beta,\gamma)} in barycentric coordinates in the
-interior of each Delaunay triangle; default is \code{M}="CC" i.e. circumcenter of each triangle.
+interior of each Delaunay triangle; default is \code{M="CC"} i.e., circumcenter of each triangle.
 Loops are allowed, so the diagonal entries are all equal to 1.
 
 See (\insertCite{ceyhan:Phd-thesis,ceyhan:comp-geo-2010,ceyhan:mcap2012;textual}{pcds}) for more on AS-PCDs.
@@ -60,4 +60,7 @@ IncMatASMT(dat.fr,Yp,M)
 }
 \seealso{
 \code{\link{IncMatAStri}}, \code{\link{IncMatPEMT}}, and \code{\link{IncMatCSMT}}
+}
+\author{
+Elvan Ceyhan
 }

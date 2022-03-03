@@ -3,7 +3,7 @@
 \name{plotPEarcs1D}
 \alias{plotPEarcs1D}
 \title{The plot of the arcs of Proportional Edge Proximity Catch Digraphs (PE-PCDs) for 1D data
-(vertices jittered along y-coordinate) - multiple interval case}
+(vertices jittered along \eqn{y}-coordinate) - multiple interval case}
 \usage{
 plotPEarcs1D(
   Xp,
@@ -21,25 +21,25 @@ plotPEarcs1D(
 )
 }
 \arguments{
-\item{Xp}{A vector of 1D points constituting the vertices of the PE-PCD.}
+\item{Xp}{A \code{vector} of 1D points constituting the vertices of the PE-PCD.}
 
-\item{Yp}{A vector of 1D points constituting the end points of the intervals.}
+\item{Yp}{A \code{vector} of 1D points constituting the end points of the intervals.}
 
 \item{r}{A positive real number which serves as the expansion parameter in PE proximity region;
 must be \eqn{\ge 1}.}
 
-\item{c}{A positive real number in \eqn{(0,1)} parameterizing the center inside \eqn{int=(a,b)}.
-For the interval, \eqn{int=(a,b)}, the parameterized center is \eqn{M_c=a+c(b-a)}.}
+\item{c}{A positive real number in \eqn{(0,1)} parameterizing the center inside \code{int}\eqn{=(a,b)}.
+For the interval, \code{int}\eqn{=(a,b)}, the parameterized center is \eqn{M_c=a+c(b-a)}.}
 
-\item{Jit}{A positive real number that determines the amount of jitter along the y-axis, default is 0.1 and
-\code{Xp} points are jittered according to \eqn{U(-Jit,Jit)} distribution along the y-axis where \code{Jit} equals to the range of \code{Xp} and \code{Yp} multiplied by
+\item{Jit}{A positive real number that determines the amount of jitter along the \eqn{y}-axis, default=\code{0.1} and
+\code{Xp} points are jittered according to \eqn{U(-Jit,Jit)} distribution along the \eqn{y}-axis where \code{Jit} equals to the range of \code{Xp} and \code{Yp} multiplied by
 \code{Jit}).}
 
 \item{main}{Title of the main heading of the plot.}
 
-\item{xlab, ylab}{Titles of the x and y axes in the plot (default="" for both).}
+\item{xlab, ylab}{Titles of the \eqn{x} and \eqn{y} axes in the plot (default=\code{""} for both).}
 
-\item{xlim, ylim}{Numeric vectors of length 2, giving the x- and y-coordinate ranges
+\item{xlim, ylim}{Two \code{numeric} vectors of length 2, giving the \eqn{x}- and \eqn{y}-coordinate ranges
 (default=\code{NULL} for both).}
 
 \item{centers}{A logical argument, if \code{TRUE}, plot includes the centers of the intervals
@@ -49,16 +49,16 @@ as vertical lines in the plot, else centers of the intervals are not plotted.}
 }
 \value{
 A plot of the arcs of PE-PCD whose vertices are the 1D data set \code{Xp} in which vertices are jittered
-along y-axis for better visualization.
+along \eqn{y}-axis for better visualization.
 }
 \description{
 Plots the arcs of PE-PCD whose vertices are the 1D points, \code{Xp}. PE proximity regions are constructed with
-expansion parameter \eqn{r \ge 1} and centrality parameter \code{c} in \eqn{(0,1)} and the intervals are based on \code{Yp} points (i.e.
+expansion parameter \eqn{r \ge 1} and centrality parameter \eqn{c \in (0,1)} and the intervals are based on \code{Yp} points (i.e.
 the intervalization is based on \code{Yp} points). That is, data set \code{Xp}
 constitutes the vertices of the digraph and \code{Yp} determines the end points of the intervals.
 
 For better visualization, a uniform jitter from \eqn{U(-Jit,Jit)} (default for \eqn{Jit=.1}) is added to
-the y-direction where \code{Jit} equals to the range of \code{Xp} and \code{Yp} multiplied by \code{Jit} with default for \eqn{Jit=.1}).
+the \eqn{y}-direction where \code{Jit} equals to the range of \code{Xp} and \code{Yp} multiplied by \code{Jit} with default for \eqn{Jit=.1}).
 \code{centers} is a logical argument, if \code{TRUE}, plot includes the centers of the intervals
 as vertical lines in the plot, else centers of the intervals are not plotted.
 
@@ -101,4 +101,7 @@ plotPEarcs1D(Xp,Yp,r=2,c=.5,jit,main="r=2, c=.5",xlab="",ylab="",centers=TRUE)
 }
 \seealso{
 \code{\link{plotCSarcs1D}}
+}
+\author{
+Elvan Ceyhan
 }

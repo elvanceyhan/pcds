@@ -61,3 +61,6 @@ paste(round(abs(ang1-ang2),2)," degrees"))
 \seealso{
 \code{\link{angle.str2end}}
 }
+\author{
+Elvan Ceyhan
+}

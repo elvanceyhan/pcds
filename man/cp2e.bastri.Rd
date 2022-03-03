@@ -8,7 +8,7 @@ cp2e.bastri(c1, c2, M)
 }
 \arguments{
 \item{c1, c2}{Positive real numbers which constitute the vertex of the basic triangle
-adjacent to the shorter edges; \code{c1} must be in \eqn{[0,1/2]}, \eqn{c_2>0} and \eqn{(1-c_1)^2+c_2^2 \le 1}.}
+adjacent to the shorter edges; \eqn{c_1} must be in \eqn{[0,1/2]}, \eqn{c_2>0} and \eqn{(1-c_1)^2+c_2^2 \le 1}.}
 
 \item{M}{A 2D point in Cartesian coordinates or a 3D point in barycentric coordinates
 which serves as a center in the interior of the basic triangle.}
@@ -23,11 +23,11 @@ row \eqn{i} is the projection  point into edge \eqn{i}, for \eqn{i=1,2,3}.
 Returns the projections from a general center \eqn{M=(m_1,m_2)} in Cartesian coordinates or \eqn{M=(\alpha,\beta,\gamma)} in
 barycentric coordinates in the interior of the basic triangle \eqn{T_b=T((0,0),(1,0),(c_1,c_2))}
 to the edges on the extension of the lines joining \code{M} to the vertices (see the examples for an illustration).
-In the basic triangle \eqn{T_b}, \code{c1} is in \eqn{[0,1/2]}, \eqn{c_2>0} and \eqn{(1-c_1)^2+c_2^2 \le 1}.
+In the basic triangle \eqn{T_b}, \eqn{c_1} is in \eqn{[0,1/2]}, \eqn{c_2>0} and \eqn{(1-c_1)^2+c_2^2 \le 1}.
 
 Any given triangle can be mapped to the basic triangle by a combination of rigid body motions
 (i.e., translation, rotation and reflection) and scaling, preserving uniformity of the points in the
-original triangle. Hence basic triangle is useful for simulation studies under the uniformness hypothesis.
+original triangle. Hence basic triangle is useful for simulation studies under the uniformity hypothesis.
 
 See also (\insertCite{ceyhan:Phd-thesis,ceyhan:comp-geo-2010;textual}{pcds}).
 }
@@ -77,4 +77,7 @@ cp2e.bastri(c1,c2,M)
 }
 \seealso{
 \code{\link{cp2e.tri}} and \code{\link{cp2edges.nd}}
+}
+\author{
+Elvan Ceyhan
 }

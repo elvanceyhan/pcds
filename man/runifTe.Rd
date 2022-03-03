@@ -11,23 +11,23 @@ runifTe(k)
 standard equilateral triangle \eqn{T_e}.}
 }
 \value{
-A list with the elements
+A \code{list} with the elements
 \item{type}{The type of the pattern from which points are to be generated}
-\item{mtitle}{The "main" title for the plot of the point pattern}
+\item{mtitle}{The \code{"main"} title for the plot of the point pattern}
 \item{tess.points}{The vertices of the support region of the uniformly generated points, it is the
 standard equilateral triangle \eqn{T_e} for this function}
 \item{gen.points}{The output set of generated points uniformly in the standard equilateral triangle \eqn{T_e}.}
 \item{out.region}{The outer region which contains the support region, \code{NULL} for this function.}
 \item{desc.pat}{Description of the point pattern from which points are to be generated}
-\item{num.points}{The vector of two numbers, which are the number of generated points and the number
+\item{num.points}{The \code{vector} of two numbers, which are the number of generated points and the number
 of vertices of the support points (here it is 3).}
 \item{txt4pnts}{Description of the two numbers in \code{num.points}}
-\item{xlimit,ylimit}{The ranges of the x- and y-coordinates of the support, \eqn{T_e}}
+\item{xlimit,ylimit}{The ranges of the \eqn{x}- and \eqn{y}-coordinates of the support, \eqn{T_e}}
 }
 \description{
-An object of class "Uniform".
+An object of class \code{"Uniform"}.
 Generates \code{k} points uniformly in the standard equilateral triangle \eqn{T_e=T(A,B,C)}
-with vertices \eqn{A=(0,0)}, \eqn{B=(1,0)}, and \eqn{C=(1/2,sqrt{3}/2)}.
+with vertices \eqn{A=(0,0)}, \eqn{B=(1,0)}, and \eqn{C=(1/2,\sqrt{3}/2)}.
 }
 \examples{
 A<-c(0,0); B<-c(1,0); C<-c(1/2,sqrt(3)/2);
@@ -53,4 +53,7 @@ points(dat)
 }
 \seealso{
 \code{\link{runif.bastri}}, \code{\link{runif.tri}}, and \code{\link{runifMT}}
+}
+\author{
+Elvan Ceyhan
 }

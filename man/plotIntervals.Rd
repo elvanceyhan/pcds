@@ -21,11 +21,11 @@ plotIntervals(
 \item{Yp}{A set of 1D points which constitute the end points of the intervals which
 partition the real line.}
 
-\item{main}{An overall title for the plot (default="").}
+\item{main}{An overall title for the plot (default=\code{""}).}
 
-\item{xlab, ylab}{Titles for the x and y axes, respectively (default="" for both).}
+\item{xlab, ylab}{Titles for the \eqn{x} and \eqn{y} axes, respectively (default=\code{""} for both).}
 
-\item{xlim, ylim}{Numeric vectors of length 2, giving the x- and y-coordinate ranges
+\item{xlim, ylim}{Two \code{numeric} vectors of length 2, giving the \eqn{x}- and \eqn{y}-coordinate ranges
 (default=\code{NULL} for both).}
 
 \item{\dots}{Additional \code{plot} parameters.}
@@ -53,4 +53,7 @@ plotIntervals(Xp,Yp+10,xlab="",ylab="")
 }
 \seealso{
 \code{\link{plotPEregsMI}} and \code{\link{plotDeltri}}
+}
+\author{
+Elvan Ceyhan
 }

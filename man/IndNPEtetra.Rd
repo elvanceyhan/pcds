@@ -19,24 +19,24 @@ must be \eqn{\ge 1}.}
 \item{th}{Four 3D points, stacked row-wise, each row representing a vertex of the tetrahedron.}
 
 \item{M}{The center to be used in the construction of the vertex regions in the tetrahedron, \code{th}.
-Currently it only takes "CC" for circumcenter and "CM" for center of mass; default="CM".}
+Currently it only takes \code{"CC"} for circumcenter and \code{"CM"} for center of mass; default=\code{"CM"}.}
 
-\item{rv}{Index of the \code{M}-vertex region containing the point, either 1, 2, 3, 4
-(defualt is \code{NULL}).}
+\item{rv}{Index of the \code{M}-vertex region containing the point, either \code{1,2,3,4}
+(default is \code{NULL}).}
 }
 \value{
-I(\code{pt2} is in \eqn{NPE(pt1,r)}) for \code{pt1}, that is, returns 1 if \code{pt2} is in \eqn{NPE(pt1,r)}, returns 0 otherwise
+\eqn{I(}\code{pt2} is in \eqn{N_{PE}(pt1,r))} for \code{pt1}, that is, returns 1 if \code{pt2} is in \eqn{N_{PE}(pt1,r)}, returns 0 otherwise
 }
 \description{
-Returns I(\code{pt2} is in \eqn{NPE(pt1,r)}) for 3D points \code{pt1} and \code{pt2}, that is, returns 1 if \code{pt2} is in \eqn{NPE(pt1,r)},
-returns 0 otherwise, where NPE(x,r) is the PE proximity region for point \eqn{x} with the expansion parameter \eqn{r \ge 1}.
+Returns \eqn{I(}\code{pt2} is in \eqn{N_{PE}(pt1,r))} for 3D points \code{pt1} and \code{pt2}, that is, returns 1 if \code{pt2} is in \eqn{N_{PE}(pt1,r)},
+returns 0 otherwise, where N_{PE}(x,r) is the PE proximity region for point \eqn{x} with the expansion parameter \eqn{r \ge 1}.
 
 PE proximity region is constructed with respect to the tetrahedron \code{th} and
-vertex regions are based on the center \code{M} which is circumcenter ("CC") or
-center of mass ("CM") of \code{th} with default="CM".
+vertex regions are based on the center \code{M} which is circumcenter (\code{"CC"}) or
+center of mass (\code{"CM"}) of \code{th} with default=\code{"CM"}.
 \code{rv} is the index of the vertex region \code{pt1} resides, with default=\code{NULL}.
 
-If \code{pt1} and \code{pt2} are distint and either of them are outside \code{th}, it returns 0,
+If \code{pt1} and \code{pt2} are distinct and either of them are outside \code{th}, it returns 0,
 but if they are identical, then it returns 1 regardless of their locations (i.e., it allows loops).
 
 See also (\insertCite{ceyhan:Phd-thesis,ceyhan:comp-geo-2010;textual}{pcds}).
@@ -77,4 +77,7 @@ IndNPEtetra(P1,P2,r,tetra,M)
 }
 \seealso{
 \code{\link{IndNPEstdtetra}}, \code{\link{IndNPEtri}} and \code{\link{IndNPEint}}
+}
+\author{
+Elvan Ceyhan
 }

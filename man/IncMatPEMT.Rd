@@ -15,7 +15,7 @@ IncMatPEMT(Xp, Yp, r, M = c(1, 1, 1))
 must be \eqn{\ge 1}.}
 
 \item{M}{A 3D point in barycentric coordinates which serves as a center in the interior of each Delaunay
-triangle or circumcenter of each Delaunay triangle (for this argument should be set as \code{M}="CC"),
+triangle or circumcenter of each Delaunay triangle (for this argument should be set as \code{M="CC"}),
 default for \eqn{M=(1,1,1)} which is the center of mass of each triangle.}
 }
 \value{
@@ -33,7 +33,7 @@ in the interior of each Delaunay triangle or based on circumcenter of each Delau
 (default for \eqn{M=(1,1,1)} which is the center of mass of the triangle).
 
 Each Delaunay triangle is first converted to an (unscaled) basic triangle so that \code{M} will be the same
-type of center for each Delaunay triangle (this conversion is not necessary when \code{M} is CM).
+type of center for each Delaunay triangle (this conversion is not necessary when \code{M} is \eqn{CM}).
 
 Convex hull of \code{Yp} is partitioned by the Delaunay triangles based on \code{Yp} points
 (i.e., multiple triangles are the set of these Delaunay triangles whose union constitutes the
@@ -86,4 +86,7 @@ IncMatPEMT(Xp,dat.fr,r,M)
 }
 \seealso{
 \code{\link{IncMatPEtri}}, \code{\link{IncMatPETe}}, \code{\link{IncMatASMT}}, and \code{\link{IncMatCSMT}}
+}
+\author{
+Elvan Ceyhan
 }

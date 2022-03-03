@@ -15,25 +15,25 @@ PEdomMT(Xp, Yp, r, M = c(1, 1, 1))
 must be \eqn{\ge 1}.}
 
 \item{M}{A 3D point in barycentric coordinates which serves as a center in the interior of each Delaunay
-triangle or circumcenter of each Delaunay triangle (for this argument should be set as \code{M}="CC"),
+triangle or circumcenter of each Delaunay triangle (for this argument should be set as \code{M="CC"}),
 default for \eqn{M=(1,1,1)} which is the center of mass of each triangle.}
 }
 \value{
-A list with two elements
+A \code{list} with two elements
 \item{dom.num}{Domination number of the PE-PCD whose vertices are \code{Xp} points. PE proximity regions are
 constructed with respect to the Delaunay triangles based on the \code{Yp} points with expansion parameter \eqn{r \ge 1}.}
 \item{mds}{A minimum dominating set of the PE-PCD whose vertices are \code{Xp} points}
 }
 \description{
 Returns the domination number and a minimum dominating set of PE-PCD whose vertices are the data
-points in \code{Xp} in the multiple triangle case and the Delauany triangles based on \code{Yp} points.
+points in \code{Xp} in the multiple triangle case and the Delaunay triangles based on \code{Yp} points.
 
 PE proximity regions are defined with respect to the Delaunay triangles based on \code{Yp} points with
 expansion parameter \eqn{r \ge 1} and vertex regions in each triangle are based on the center \eqn{M=(\alpha,\beta,\gamma)}
-in barycentric coordinates in the inter#' The dominationior of each Delaunay triangle or based on
+in barycentric coordinates in the interior of each Delaunay triangle or based on
 circumcenter of each Delaunay triangle (default for \eqn{M=(1,1,1)} which is the center of mass of the
 triangle). Each Delaunay triangle is first converted to an (unscaled) basic triangle so that \code{M} will be the
-same type of center for each Delaunay triangle (this conversion is not necessary when \code{M} is CM).
+same type of center for each Delaunay triangle (this conversion is not necessary when \code{M} is \eqn{CM}).
 
 Convex hull of \code{Yp} is partitioned by the Delaunay triangles based on \code{Yp} points
 (i.e., multiple triangles are the set of these Delaunay triangles whose union constitutes the
@@ -81,4 +81,7 @@ PEdomMT(Xp,dat.fr,r,M)
 }
 \seealso{
 \code{\link{PEdomtri}}, \code{\link{PEdom.tetra}}, \code{\link{dom.exact}}, and \code{\link{dom.greedy}}
+}
+\author{
+Elvan Ceyhan
 }

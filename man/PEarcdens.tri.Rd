@@ -16,7 +16,7 @@ must be \eqn{\ge 1}.}
 
 \item{M}{A 2D point in Cartesian coordinates or a 3D point in barycentric coordinates
 which serves as a center in the interior of the triangle \code{tri} or the circumcenter of \code{tri};
-default is \eqn{M=(1,1,1)} i.e. the center of mass of \code{tri}.}
+default is \eqn{M=(1,1,1)} i.e., the center of mass of \code{tri}.}
 
 \item{tri.cor}{A logical argument for computing the arc density for only the points inside the triangle,
 \code{tri}.
@@ -24,13 +24,13 @@ default is \eqn{M=(1,1,1)} i.e. the center of mass of \code{tri}.}
 computation of arc density.}
 }
 \value{
-A list with the elements
+A \code{list} with the elements
 \item{arc.dens}{Arc density of PE-PCD whose vertices are the 2D numerical data set, \code{Xp};
 PE proximity regions are defined with respect to the triangle \code{tri} and \code{M}-vertex regions}
 \item{std.arc.dens}{Arc density standardized by the mean and asymptotic variance of the arc
 density of PE-PCD for uniform data in the triangle \code{tri}.}
-\item{caveat}{The warning as "The standardized arc density is only correct when \code{M} is the center of mass
-in the current version".}
+\item{caveat}{The warning as \code{"The standardized arc density is only correct when \code{M} is the center of mass
+in the current version"}.}
 }
 \description{
 Returns the arc density of PE-PCD whose vertex set is the given 2D numerical data set, \code{Xp},
@@ -39,7 +39,7 @@ Returns the arc density of PE-PCD whose vertex set is the given 2D numerical dat
 PE proximity regions is defined with respect to \code{tri} with
 expansion parameter \eqn{r \ge 1} and vertex regions are based on center \eqn{M=(m_1,m_2)} in Cartesian coordinates or
 \eqn{M=(\alpha,\beta,\gamma)} in barycentric coordinates in the interior of the triangle \code{tri} or based on
-circumcenter of \code{tri}; default is \eqn{M=(1,1,1)} i.e. the center of mass of \code{tri}.
+circumcenter of \code{tri}; default is \eqn{M=(1,1,1)} i.e., the center of mass of \code{tri}.
 The function also provides arc density standardized by the mean and asymptotic variance of the arc density
 of PE-PCD for uniform data in the triangle \code{tri}. For the number of arcs, loops are not allowed.
 
@@ -87,4 +87,7 @@ PEarcdens.tri(dat,dat.fr,r,M)
 }
 \seealso{
 \code{\link{ASarcdens.tri}}, \code{\link{CSarcdens.tri}}, and \code{\link{NumArcsPEtri}}
+}
+\author{
+Elvan Ceyhan
 }

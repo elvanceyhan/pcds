@@ -13,21 +13,21 @@ cp2edges.nd(tri, r, cent = 1)
 \item{r}{A positive real number which serves as the expansion parameter in PE proximity region;
 must be in \eqn{(1,1.5]} for this function.}
 
-\item{cent}{Index of the center (as 1,2,3 corresponding to M1,M2,M3) which gives nondegenerate asymptotic
+\item{cent}{Index of the center (as \eqn{1,2,3} corresponding to \eqn{M_1,\,M_2,\,M_3}) which gives nondegenerate asymptotic
 distribution of the domination number of PE-PCD for uniform data in \code{tri} for expansion parameter \code{r} in \eqn{(1,1.5]};
-default \code{cent}=1.}
+default \code{cent=1}.}
 }
 \value{
-Three projection points (stacked row-wise) from one of the centers (as 1,2,3 corresponding to
-M1,M2,M3) which gives nondegenerate asymptotic distribution of the domination number of PE-PCD for
+Three projection points (stacked row-wise) from one of the centers (as \eqn{1,2,3} corresponding to
+\eqn{M_1,\,M_2,\,M_3}) which gives nondegenerate asymptotic distribution of the domination number of PE-PCD for
 uniform data in \code{tri} for expansion parameter \code{r} in \eqn{(1,1.5]}.
 }
 \description{
 Returns the projections from  center \code{cent} to the edges on the extension of the lines joining \code{cent} to the vertices
 in the triangle, \code{tri}. Here M is one of the three centers which gives nondegenerate asymptotic distribution
 of the domination number of PE-PCD for uniform data in \code{tri} for a given expansion parameter \code{r} in \eqn{(1,1.5]}.
-The center label \code{cent} values 1,2,3 correspond to the vertices \eqn{M_1}, \eqn{M_2}, and \eqn{M_3} (i.e., row numbers in the
-output of cent.nondeg(tri,r)); default for \code{cent} is 1. \code{cent} becomes center of mass CM for \eqn{r=1.5}.
+The center label \code{cent} values \code{1,2,3} correspond to the vertices \eqn{M_1}, \eqn{M_2}, and \eqn{M_3} (i.e., row numbers in the
+output of \code{cent.nondeg(tri,r)}); default for \code{cent} is 1. \code{cent} becomes center of mass \eqn{CM} for \eqn{r=1.5}.
 
 See also (\insertCite{ceyhan:Phd-thesis,ceyhan:masa-2007,ceyhan:dom-num-NPE-Spat2011;textual}{pcds}).
 }
@@ -78,16 +78,10 @@ cp2edges.nd(Tr,r,1)
 dat.fr<-data.frame(a=Tr)
 cp2edges.nd(dat.fr,r,1)
 
-\dontrun{
-cp2edges.nd(Tr,r,cent=5)
-#gives an error message since center index, cent, must be 1, 2 or 3
-cp2edges.nd(Tr,r=2,cent=2)
-#gives an error message since r must be a scalar in (1,1.5]
-
-T2<-rbind(A,A+2*(C-A),C)
-cp2edges.nd(T2,r,cent=2)
-#gives an error message since the triangle is degenerate
-}
+cp2edges.nd(Tr,r,cent=3)
+#gives an error message if center index, cent, is different from 1, 2 or 3
+cp2edges.nd(Tr,r=1.49,cent=2)
+#gives an error message if r>1.5
 
 }
 \references{
@@ -95,4 +89,7 @@ cp2edges.nd(T2,r,cent=2)
 }
 \seealso{
 \code{\link{cp2e.bastri}} and \code{\link{cp2e.tri}}
+}
+\author{
+Elvan Ceyhan
 }

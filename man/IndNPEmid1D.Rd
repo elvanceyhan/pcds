@@ -8,33 +8,33 @@ Proximity Catch Digraphs (PE-PCDs) - middle interval case}
 IndNPEmid1D(x1, x2, r, c, int, rv = NULL)
 }
 \arguments{
-\item{x1, x2}{1D points; \code{x1} is the point for which the proximity region, \eqn{NPE(x1,r,c)} is
-constructed and \code{x2} is the point which the function is checking whether its inside
-\eqn{NPE(x1,r,c)} or not.}
+\item{x1, x2}{1D points; \eqn{x_1} is the point for which the proximity region, \eqn{N_{PE}(x_1,r,c)} is
+constructed and \eqn{x_2} is the point which the function is checking whether its inside
+\eqn{N_{PE}(x_1,r,c)} or not.}
 
 \item{r}{A positive real number which serves as the expansion parameter in PE proximity region;
 must be \eqn{\ge 1}.}
 
-\item{c}{A positive real number in \eqn{(0,1)} parameterizing the center inside \eqn{int=(a,b)}.
-For the interval, \eqn{int=(a,b)}, the parameterized center is \eqn{M_c=a+c(b-a)}.}
+\item{c}{A positive real number in \eqn{(0,1)} parameterizing the center inside \code{int}\eqn{=(a,b)}.
+For the interval, \code{int}\eqn{=(a,b)}, the parameterized center is \eqn{M_c=a+c(b-a)}.}
 
-\item{int}{A vector of two real numbers representing an interval.}
+\item{int}{A \code{vector} of two real numbers representing an interval.}
 
-\item{rv}{The index of the vertex region \code{x1} resides, with default=\code{NULL}.}
+\item{rv}{The index of the vertex region \eqn{x_1} resides, with default=\code{NULL}.}
 }
 \value{
-I(\code{x2} in \eqn{NPE(x1,r,c)}) for points \code{x1} and \code{x2} that is, returns 1 if \code{x2} is in \eqn{NPE(x1,r,c)},
+\eqn{I(x_2 \in N_{PE}(x_1,r,c))} for points \eqn{x_1} and \eqn{x_2} that is, returns 1 if \eqn{x_2} is in \eqn{N_{PE}(x_1,r,c)},
 returns 0 otherwise
 }
 \description{
-Returns I(\code{x2} in \eqn{NPE(x1,r,c)}) for points \code{x1} and \code{x2}, that is, returns 1 if \code{x2} is in \eqn{NPE(x1,r,c)}, returns 0
-otherwise, where \eqn{NPE(x,r,c)} is the PE proximity region for point \eqn{x} and is constructed with expansion
-parameter \eqn{r \ge 1} and centrality parameter \code{c} in \eqn{(0,1)} for the interval \eqn{(a,b)}.
+Returns \eqn{I(x_2 \in N_{PE}(x_1,r,c))} for points \eqn{x_1} and \eqn{x_2}, that is, returns 1 if \eqn{x_2} is in \eqn{N_{PE}(x_1,r,c)}, returns 0
+otherwise, where \eqn{N_{PE}(x,r,c)} is the PE proximity region for point \eqn{x} and is constructed with expansion
+parameter \eqn{r \ge 1} and centrality parameter \eqn{c \in (0,1)} for the interval \eqn{(a,b)}.
 
 PE proximity regions are defined with respect to the middle interval \code{int} and vertex regions are based
-on the center associated with the centrality parameter \code{c} in \eqn{(0,1)}. For the interval, \eqn{int=(a,b)}, the
-parameterized center is \eqn{M_c=a+c(b-a)}. \code{rv} is the index of the vertex region \code{x1} resides, with default=\code{NULL}.
-If \code{x1} and \code{x2} are distint and either of them are outside interval \code{int}, it returns 0,
+on the center associated with the centrality parameter \eqn{c \in (0,1)}. For the interval, \code{int}\eqn{=(a,b)}, the
+parameterized center is \eqn{M_c=a+c(b-a)}. \code{rv} is the index of the vertex region \eqn{x_1} resides, with default=\code{NULL}.
+If \eqn{x_1} and \eqn{x_2} are distinct and either of them are outside interval \code{int}, it returns 0,
 but if they are identical, then it returns 1 regardless of their locations
 (i.e., loops are allowed in the digraph).
 
@@ -65,4 +65,7 @@ IndNPEmid1D(7,5,r,c,int)
 }
 \seealso{
 \code{\link{IndNPEend1D}}, \code{\link{IndNCSmid1D}}, and \code{\link{IndNCSend1D}}
+}
+\author{
+Elvan Ceyhan
 }

@@ -20,11 +20,11 @@ plotDeltri(
 
 \item{Yp}{A set of 2D points which constitute the vertices of the Delaunay triangles.}
 
-\item{main}{An overall title for the plot (default="").}
+\item{main}{An overall title for the plot (default=\code{""}).}
 
-\item{xlab, ylab}{Titles for the x and y axes, respectively (default="" for both).}
+\item{xlab, ylab}{Titles for the \eqn{x} and \eqn{y} axes, respectively (default=\code{""} for both).}
 
-\item{xlim, ylim}{Numeric vectors of length 2, giving the x- and y-coordinate ranges (default=\code{NULL} for both)}
+\item{xlim, ylim}{Two \code{numeric} vectors of length 2, giving the \eqn{x}- and \eqn{y}-coordinate ranges (default=\code{NULL} for both)}
 
 \item{\dots}{Additional \code{plot} parameters.}
 }
@@ -44,7 +44,7 @@ set.seed(1)
 Xp<-cbind(runif(nx),runif(nx))
 Yp<-cbind(runif(ny),runif(ny))
 
-oldpar <- par(mfrow = c(1,2))
+oldpar <- par(no.readonly = TRUE)
 plotDeltri(Xp,Yp,xlab="",ylab="",main="X points and Delaunay Triangulation of Y points")
 
 P<-c(.6,.4)
@@ -68,4 +68,7 @@ par(oldpar)
 }
 \seealso{
 \code{\link[interp]{plot.triSht}} in \code{interp} package
+}
+\author{
+Elvan Ceyhan
 }

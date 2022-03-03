@@ -2,21 +2,21 @@
 % Please edit documentation in R/AuxRFuncs4PCDClasses.r
 \name{print.Extrema}
 \alias{print.Extrema}
-\title{Print a \code{Extrema} object}
+\title{Print a \code{Extrema} \code{object}}
 \usage{
 \method{print}{Extrema}(x, ...)
 }
 \arguments{
-\item{x}{A \code{Extrema} object.}
+\item{x}{A \code{Extrema} \code{object}.}
 
-\item{\dots}{Additional arguments for the S3 method '\code{print}'.}
+\item{\dots}{Additional arguments for the S3 method \code{'print'}.}
 }
 \value{
-The \code{call} of the object of class '\code{Extrema}'
+The \code{call} of the \code{object} of class \code{"Extrema"}
 and also the \code{type} (i.e. a brief description) of the extrema).
 }
 \description{
-Prints the \code{call} of the object of class '\code{Extrema}'
+Prints the \code{call} of the \code{object} of class \code{"Extrema"}
 and also the \code{type} (i.e. a brief description) of the extrema).
 }
 \examples{

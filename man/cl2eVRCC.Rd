@@ -2,7 +2,7 @@
 % Please edit documentation in R/PCDFunctions.r
 \name{cl2eVRCC}
 \alias{cl2eVRCC}
-\title{The closest points in a data set to edges in each CC-vertex region in a triangle}
+\title{The closest points in a data set to edges in each \eqn{CC}-vertex region in a triangle}
 \usage{
 cl2eVRCC(dat, tri)
 }
@@ -12,30 +12,30 @@ cl2eVRCC(dat, tri)
 \item{tri}{Three 2D points, stacked row-wise, each row representing a vertex of the triangle.}
 }
 \value{
-A list with the elements
-\item{txt1}{Vertex labels are A=1, B=2, and C=3 (corresponds to row number in Extrema Points).}
-\item{txt2}{A short description of the distances as "Distances to Edges in the Respective
-CC-Vertex Regions".}
+A \code{list} with the elements
+\item{txt1}{Vertex labels are \eqn{A=1}, \eqn{B=2}, and \eqn{C=3} (corresponds to row number in Extremum Points).}
+\item{txt2}{A short description of the distances as \code{"Distances to Edges in the Respective
+CC-Vertex Regions"}.}
 \item{type}{Type of the extrema points}
 \item{desc}{A short description of the extrema points}
-\item{mtitle}{The "main" title for the plot of the exrema}
+\item{mtitle}{The \code{"main"} title for the plot of the extrema}
 \item{ext}{The extrema points, here, closest points to edges in the respective vertex region.}
-\item{X}{The input data, \code{dat}, can be a matrix or data frame}
+\item{X}{The input data, \code{dat}, can be a \code{matrix} or \code{data frame}}
 \item{num.points}{The number of data points, i.e., size of \code{dat}}
 \item{supp}{Support of the data points, here, it is \code{tri}}
 \item{cent}{The center point used for construction of vertex regions}
-\item{ncent}{Name of the center, \code{cent}, it is "CC" for this function}
+\item{ncent}{Name of the center, \code{cent}, it is \code{"CC"} for this function}
 \item{regions}{Vertex regions inside the triangle, \code{tri}, provided as a list}
-\item{region.names}{Names of the vertex regions as "vr=1","vr=2","vr=3"}
+\item{region.names}{Names of the vertex regions as \code{"vr=1"}, \code{"vr=2"}, and \code{"vr=3"}}
 \item{region.centers}{Centers of mass of the vertex regions inside \code{tri}}
 \item{dist2ref}{Distances of closest points in the vertex regions to corresponding edges}
 }
 \description{
-An object of class "Extrema".
-Returns the closest data points among the data set, \code{dat}, to edge \eqn{j} in CC-vertex region \eqn{j} for \eqn{j=1,2,3}
-in the triangle, \eqn{tri=T(A,B,C)}, where CC stands for circumcenter. Vertex labels are A=1, B=2, and C=3,
-and corresponding edge labels are BC=1, AC=2, and AB=3.
-Function yields \code{NA} if there are no data points in a CC-vertex region.
+An object of class \code{"Extrema"}.
+Returns the closest data points among the data set, \code{dat}, to edge \eqn{j} in \eqn{CC}-vertex region \eqn{j} for \eqn{j=1,2,3}
+in the triangle, \code{tri}\eqn{=T(A,B,C)}, where \eqn{CC} stands for circumcenter. Vertex labels are \eqn{A=1}, \eqn{B=2}, and \eqn{C=3},
+and corresponding edge labels are \eqn{BC=1}, \eqn{AC=2}, and \eqn{AB=3}.
+Function yields \code{NA} if there are no data points in a \eqn{CC}-vertex region.
 
 See also (\insertCite{ceyhan:Phd-thesis,ceyhan:comp-geo-2010;textual}{pcds}).
 }
@@ -104,4 +104,7 @@ cl2eVRCC(dat,dat.fr)
 \seealso{
 \code{\link{cl2eTbVRcent}}, \code{\link{cl2eVRCM}}, \code{\link{cl2eVRcent}},
 and \code{\link{cl2edgesTe}}
+}
+\author{
+Elvan Ceyhan
 }

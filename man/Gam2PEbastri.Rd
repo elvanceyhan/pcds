@@ -27,41 +27,41 @@ Gam2PEbastri(
 must be \eqn{\ge 1}.}
 
 \item{c1, c2}{Positive real numbers which constitute the vertex of the basic triangle.
-adjacent to the shorter edges; \code{c1} must be in \eqn{[0,1/2]}, \eqn{c_2>0} and \eqn{(1-c_1)^2+c_2^2 \le 1}.}
+adjacent to the shorter edges; \eqn{c_1} must be in \eqn{[0,1/2]}, \eqn{c_2>0} and \eqn{(1-c_1)^2+c_2^2 \le 1}.}
 
 \item{M}{A 2D point in Cartesian coordinates or a 3D point in barycentric coordinates
 which serves as a center in the interior of the basic triangle \eqn{T_b} or the circumcenter of \eqn{T_b};
-default is \eqn{M=(1,1,1)} i.e. the center of mass of \eqn{T_b}.}
+default is \eqn{M=(1,1,1)} i.e., the center of mass of \eqn{T_b}.}
 
 \item{rv1, rv2}{The indices of the vertices whose regions contains \code{pt1} and \code{pt2}, respectively.
-They take the vertex labels as 1,2,3 as in the row order of the vertices in \eqn{T_b}
+They take the vertex labels as \eqn{1,2,3} as in the row order of the vertices in \eqn{T_b}
 (default is \code{NULL} for both).}
 
 \item{ch.data.pnts}{A logical argument for checking whether points \code{pt1} and \code{pt2} are data points in \code{Dt} or not
 (default is \code{FALSE}).}
 }
 \value{
-I(\{\code{pt1,pt2}\} is a dominating set of the PE-PCD) where the vertices of the PE-PCD are the 2D data set \code{Dt}),
+\eqn{I(}\{\code{pt1,pt2}\} is a dominating set of the PE-PCD\eqn{)} where the vertices of the PE-PCD are the 2D data set \code{Dt}),
 that is, returns 1 if \{\code{pt1,pt2}\} is a dominating set of PE-PCD, returns 0 otherwise
 }
 \description{
-Returns I(\{\code{pt1,pt2}\} is a dominating set of the PE-PCD) where the vertices of the PE-PCD are the 2D data set \code{Dt} in the basic triangle
+Returns \eqn{I(}\{\code{pt1,pt2}\} is a dominating set of the PE-PCD\eqn{)} where the vertices of the PE-PCD are the 2D data set \code{Dt} in the basic triangle
 \eqn{T_b=T((0,0),(1,0),(c_1,c_2))}, that is, returns 1 if \{\code{pt1,pt2}\} is a dominating set of PE-PCD,
 returns 0 otherwise.
 
 PE proximity regions are defined with respect to \eqn{T_b}.
-In the basic triangle, \eqn{T_b}, \code{c1} is in \eqn{[0,1/2]}, \eqn{c_2>0} and \eqn{(1-c_1)^2+c_2^2 \le 1}.
+In the basic triangle, \eqn{T_b}, \eqn{c_1} is in \eqn{[0,1/2]}, \eqn{c_2>0} and \eqn{(1-c_1)^2+c_2^2 \le 1}.
 
 Any given triangle can be mapped to the basic triangle by a combination of rigid body motions
 (i.e., translation, rotation and reflection) and scaling, preserving uniformity of the points in the
 original triangle. Hence basic triangle is useful for simulation
-studies under the uniformness hypothesis.
+studies under the uniformity hypothesis.
 
 Vertex regions are based on center \eqn{M=(m_1,m_2)} in Cartesian
 coordinates or \eqn{M=(\alpha,\beta,\gamma)} in barycentric coordinates in the interior of a basic triangle \eqn{T_b};
-default is \eqn{M=(1,1,1)} i.e. the center of mass of \eqn{T_b}.
+default is \eqn{M=(1,1,1)} i.e., the center of mass of \eqn{T_b}.
 Point, \code{pt1}, is in the vertex region of vertex \code{rv1} (default is \code{NULL});
-and point, \code{pt2}, is in the vertex region of vertex \code{rv2} (default is \code{NULL}); vertices are labeled as 1,2,3
+and point, \code{pt2}, is in the vertex region of vertex \code{rv2} (default is \code{NULL}); vertices are labeled as \eqn{1,2,3}
 in the order they are stacked row-wise.
 
 \code{ch.data.pnts} is for checking whether points \code{pt1} and \code{pt2} are both data points in \code{Dt} or not (default is \code{FALSE}),
@@ -95,7 +95,7 @@ ind.gam2<-vector()
 for (i in 1:(n-1))
   for (j in (i+1):n)
   {if (Gam2PEbastri(dat[i,],dat[j,],dat,r,c1,c2,M)==1)
-    ind.gam2<-rbind(ind.gam2,c(i,j))}
+   ind.gam2<-rbind(ind.gam2,c(i,j))}
 ind.gam2
 
 #or try
@@ -120,10 +120,8 @@ Gam2PEbastri(P1,P2,rbind(dat,dat),r,c1,c2,M)
 dat.fr<-data.frame(a=dat)
 Gam2PEbastri(P1,P2,dat.fr,r,c1,c2,M)
 
-\dontrun{
-Gam2PEbastri(c(1,2),dat[2,],dat,r,c1,c2,M,ch.data.pnts = TRUE)
-#gives an error message since not both points are data points in Dt
-}
+Gam2PEbastri(c(1,2),dat[2,],dat,r,c1,c2,M,ch.data.pnts = FALSE)
+#gives an error message if ch.data.pnts = TRUE since not both points are data points in Dt
 
 }
 \references{
@@ -131,4 +129,7 @@ Gam2PEbastri(c(1,2),dat[2,],dat,r,c1,c2,M,ch.data.pnts = TRUE)
 }
 \seealso{
 \code{\link{Gam2PEtri}}, \code{\link{Gam2ASbastri}}, and \code{\link{Gam2AStri}}
+}
+\author{
+Elvan Ceyhan
 }

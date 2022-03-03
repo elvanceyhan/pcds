@@ -7,20 +7,19 @@
 rel.six.Te(Pt)
 }
 \arguments{
-\item{Pt}{A 2D point whose index for the 6 regions in sandard equilateral triangle \eqn{T_e} is determined.}
+\item{Pt}{A 2D point whose index for the 6 regions in standard equilateral triangle \eqn{T_e} is determined.}
 }
 \value{
 rel An integer between 1-6 (inclusive) or \code{NA}
 }
 \description{
-Returns the region index of the point \code{Pt} for the 6 regions in sandard equilateral triangle
+Returns the region index of the point \code{Pt} for the 6 regions in standard equilateral triangle
 \eqn{T_e=T((0,0),(1,0),(1/2,\sqrt{3}/2))}, starting with 1 on the first one-sixth of the triangle,
 and numbering follows the counter-clockwise direction (see the plot in the examples).
 These regions are in the inner hexagon which is the Gamma-1 region for CS-PCD with \eqn{t=1}
 if \code{Pt} is not in any of the 6 regions the function returns \code{NA}.
 }
 \examples{
-\dontrun{
 P<-c(.4,.2)
 rel.six.Te(P)
 
@@ -94,9 +93,11 @@ xc<-txt[,1]+c(-.02,.02,.02,0)
 yc<-txt[,2]+c(.02,.02,.02,-.05)
 txt.str<-c("A","B","C","CM")
 text(xc,yc,txt.str)
-}
 
 }
 \seealso{
 \code{\link{runifTe.onesixth}}
+}
+\author{
+Elvan Ceyhan
 }

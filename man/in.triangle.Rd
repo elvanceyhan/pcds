@@ -12,14 +12,14 @@ in.triangle(p, tri, boundary = FALSE)
 \item{tri}{Three 2D points, stacked row-wise, each row representing a vertex of the triangle.}
 
 \item{boundary}{A logical parameter (default=\code{FALSE}) to include boundary or not, so if it is \code{TRUE},
-the function checks if the point, \code{p}, lies in the closure of the triangle (i.e. interior and boundary
+the function checks if the point, \code{p}, lies in the closure of the triangle (i.e., interior and boundary
 combined) else it checks if \code{p} lies in the interior of the triangle.}
 }
 \value{
-A list with two elements
+A \code{list} with two elements
 \item{in.tri}{A logical output, it is \code{TRUE}, if the point, \code{p}, is inside the triangle, \code{tri},
 else it is \code{FALSE}.}
-\item{barycentric}{The barycentric coordinates (alpha, beta, gamma) of the point \code{p} with respect to
+\item{barycentric}{The barycentric coordinates \eqn{(\alpha,\beta,\gamma)} of the point \code{p} with respect to
 the triangle, \code{tri}.}
 }
 \description{
@@ -32,7 +32,7 @@ if all are nonnegative with one or more are zero, then \code{p} falls in the bou
 barycentric coordinates are negative, then \code{p} falls outside the triangle.
 
 \code{boundary} is a logical argument (default=\code{FALSE}) to include boundary or not, so if it is \code{TRUE},
-the function checks if the point, \code{p}, lies in the closure of the triangle (i.e. interior and boundary
+the function checks if the point, \code{p}, lies in the closure of the triangle (i.e., interior and boundary
 combined) else it checks if \code{p} lies in the interior of the triangle.
 }
 \examples{
@@ -61,15 +61,10 @@ in.triangle(p,Tr)
 dat.fr<-data.frame(a=Tr)
 in.triangle(p,dat.fr)
 
-\dontrun{
-#when triangle is degenerate
-B<-A+2*(C-A);
-Tr<-rbind(A,B,C)
-p<-c(.4,.2)
-in.triangle(p,Tr)
-}
-
 }
 \seealso{
 \code{\link{inTriAll}} and \code{\link[interp]{on.convex.hull}} from the \code{interp} package for documentation for \code{in.convex.hull}
+}
+\author{
+Elvan Ceyhan
 }

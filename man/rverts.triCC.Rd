@@ -2,7 +2,7 @@
 % Please edit documentation in R/PCDFunctions.r
 \name{rverts.triCC}
 \alias{rverts.triCC}
-\title{The indices of the CC-vertex regions in a triangle that contains the points in a give data set.}
+\title{The indices of the \eqn{CC}-vertex regions in a triangle that contains the points in a give data set.}
 \usage{
 rverts.triCC(Dt, tri)
 }
@@ -13,21 +13,21 @@ containing them are to be determined.}
 \item{tri}{Three 2D points, stacked row-wise, each row representing a vertex of the triangle.}
 }
 \value{
-A list with two elements
-\item{rv}{Indices (i.e., a vector of indices) of the vertices whose region contains points in \code{Dt}
+A \code{list} with two elements
+\item{rv}{Indices (i.e., a \code{vector} of indices) of the vertices whose region contains points in \code{Dt}
 in the triangle \code{tri}}
 \item{tri}{The vertices of the triangle, where row number corresponds to the vertex index in \code{rv}.}
 }
 \description{
 Returns the indices of the vertices whose regions contain the points in data set \code{Dt} in
-a triangle \code{tri}=\eqn{(A,B,C)} and vertex regions are based on the circumcenter CC of \code{tri}.
+a triangle \code{tri}\eqn{=(A,B,C)} and vertex regions are based on the circumcenter \eqn{CC} of \code{tri}.
 (see the plots in the example for illustrations).
 
 The vertices of the  triangle \code{tri} are labeled as
-1=A,2=B, and 3=C also according to the row number the vertex is recorded in \code{tri}.
+\eqn{1=A}, \eqn{2=B}, and \eqn{3=C} also according to the row number the vertex is recorded in \code{tri}.
 If a point in \code{Dt} is not inside \code{tri}, then the function yields \code{NA} as output.
 The corresponding vertex region is the polygon whose interior points are closest to that vertex.
-If \code{tri} is equilateral triangle, then CC and CM (center of mass) coincide.
+If \code{tri} is equilateral triangle, then \eqn{CC} and \eqn{CM} (center of mass) coincide.
 
 See also (\insertCite{ceyhan:Phd-thesis,ceyhan:comp-geo-2010,ceyhan:mcap2012;textual}{pcds}).
 }
@@ -94,4 +94,7 @@ rverts.triCC(dat.fr,Tr)
 }
 \seealso{
 \code{\link{rverts.triCM}}, \code{\link{rverts.tri.cent}}, and \code{\link{rverts.tri.nd}}
+}
+\author{
+Elvan Ceyhan
 }

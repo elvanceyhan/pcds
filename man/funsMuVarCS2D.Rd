@@ -26,7 +26,7 @@ and \code{asyvarCS2D} returns the asymptotic variance of the arc density of CS-P
 with expansion parameter \eqn{t>0} for 2D uniform data in a triangle.
 
 CS proximity regions are defined with respect to the triangle and
-vertex regions are based on center of mass, CM of the triangle.
+vertex regions are based on center of mass, \eqn{CM} of the triangle.
 
 See also (\insertCite{ceyhan:Phd-thesis,ceyhan:arc-density-CS;textual}{pcds}).
 }
@@ -57,7 +57,7 @@ for (i in 1:ltseq)
   asyvar<-c(asyvar,asyvarCS2D(tseq[i]))
 }
 
-oldpar <- par(mfrow = c(1,2))
+oldpar <- par(no.readonly = TRUE)
 par(mar=c(5,5,4,2))
 plot(tseq, asyvar,type="l",xlab="t",ylab=expression(paste(sigma^2,"(t)")),lty=1,xlim=range(tseq))
 par(oldpar)
@@ -68,4 +68,7 @@ par(oldpar)
 }
 \seealso{
 \code{\link{muPE2D}} and \code{\link{asyvarPE2D}}
+}
+\author{
+Elvan Ceyhan
 }

@@ -2,21 +2,21 @@
 % Please edit documentation in R/AuxRFuncs4PCDClasses.r
 \name{print.Uniform}
 \alias{print.Uniform}
-\title{Print a \code{Uniform} object}
+\title{Print a \code{Uniform} \code{object}}
 \usage{
 \method{print}{Uniform}(x, ...)
 }
 \arguments{
-\item{x}{A \code{Uniform} object.}
+\item{x}{A \code{Uniform} \code{object}.}
 
-\item{\dots}{Additional arguments for the S3 method '\code{print}'.}
+\item{\dots}{Additional arguments for the S3 method \code{'print'}.}
 }
 \value{
-The \code{call} of the object of class '\code{Uniform}'
+The \code{call} of the \code{object} of class \code{"Uniform"}
 and also the \code{type} (i.e. a brief description) of the uniform distribution).
 }
 \description{
-Prints the \code{call} of the object of class '\code{Uniform}'
+Prints the \code{call} of the \code{object} of class \code{"Uniform"}
 and also the \code{type} (i.e. a brief description) of the uniform distribution).
 }
 \examples{

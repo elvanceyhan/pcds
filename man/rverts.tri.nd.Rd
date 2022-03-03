@@ -15,25 +15,25 @@ containing them are to be determined.}
 \item{r}{A positive real number which serves as the expansion parameter in PE proximity region;
 must be in \eqn{(1,1.5]} for this function.}
 
-\item{cent}{Index of the center (as 1,2,3 corresponding to M1,M2,M3) which gives nondegenerate asymptotic
+\item{cent}{Index of the center (as \eqn{1,2,3} corresponding to \eqn{M_1,\,M_2,\,M_3}) which gives nondegenerate asymptotic
 distribution of the domination number of PE-PCD for uniform data in \code{tri} for expansion parameter \code{r} in \eqn{(1,1.5]};
-default \code{cent}=1.}
+default \code{cent=1}.}
 }
 \value{
-A list with two elements
-\item{rv}{Indices (i.e., a vector of indices) of the vertices whose region contains points in \code{Dt}
+A \code{list} with two elements
+\item{rv}{Indices (i.e., a \code{vector} of indices) of the vertices whose region contains points in \code{Dt}
 in the triangle \code{tri}}
 \item{tri}{The vertices of the triangle, where row number corresponds to the vertex index in \code{rv}.}
 }
 \description{
 Returns the indices of the vertices whose regions contain the points in data set \code{Dt} in
-a triangle \code{tri}=\eqn{(A,B,C)} and vertex regions are based on the center \code{cent} which yields nondegenerate asymptotic
+a triangle \code{tri}\eqn{=(A,B,C)} and vertex regions are based on the center \code{cent} which yields nondegenerate asymptotic
 distribution of the domination number of PE-PCD for uniform data in \code{tri} for expansion parameter \code{r} in \eqn{(1,1.5]}.
 
-Vertices of triangle \code{tri} are labeled as 1,2,3 according to the row number the vertex is recorded
+Vertices of triangle \code{tri} are labeled as \eqn{1,2,3} according to the row number the vertex is recorded
 if a point in \code{Dt} is not inside \code{tri}, then the function yields \code{NA} as output for that entry.
 The corresponding vertex region is the polygon with the vertex, \code{cent}, and projection points on the edges.
-The center label \code{cent} values 1,2,3 correspond to the vertices \eqn{M_1}, \eqn{M_2}, and \eqn{M_3}; with default 1
+The center label \code{cent} values \code{1,2,3} correspond to the vertices \eqn{M_1}, \eqn{M_2}, and \eqn{M_3}; with default 1
 (see the examples for an illustration).
 
 See also (\insertCite{ceyhan:Phd-thesis,ceyhan:dom-num-NPE-Spat2011,ceyhan:comp-geo-2010,ceyhan:mcap2012;textual}{pcds}).
@@ -107,4 +107,7 @@ rverts.tri.nd(dat,dat.fr,r,1)
 }
 \seealso{
 \code{\link{rverts.triCM}}, \code{\link{rverts.triCC}} and \code{\link{rverts.tri.cent}}
+}
+\author{
+Elvan Ceyhan
 }

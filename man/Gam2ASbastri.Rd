@@ -23,42 +23,42 @@ Gam2ASbastri(
 \item{Dt}{A set of 2D points which constitutes the vertices of the AS-PCD.}
 
 \item{c1, c2}{Positive real numbers which constitute the vertex of the basic triangle
-adjacent to the shorter edges; \code{c1} must be in \eqn{[0,1/2]}, \eqn{c_2>0} and \eqn{(1-c_1)^2+c_2^2 \le 1}.}
+adjacent to the shorter edges; \eqn{c_1} must be in \eqn{[0,1/2]}, \eqn{c_2>0} and \eqn{(1-c_1)^2+c_2^2 \le 1}.}
 
-\item{M}{The center of the triangle. "CC" stands for circumcenter of the triangle \eqn{T_b} or a 2D point in Cartesian coordinates or
+\item{M}{The center of the triangle. \code{"CC"} stands for circumcenter of the triangle \eqn{T_b} or a 2D point in Cartesian coordinates or
 a 3D point in barycentric coordinates which serves as a center in the interior of the triangle \eqn{T_b};
-default is \code{M}="CC" i.e. the circumcenter of \eqn{T_b}.}
+default is \code{M="CC"} i.e., the circumcenter of \eqn{T_b}.}
 
 \item{rv1, rv2}{The indices of the vertices whose regions contains \code{pt1} and \code{pt2}, respectively.
-They take the vertex labels as 1,2,3 as in the row order of the vertices in \eqn{T_b}
+They take the vertex labels as \eqn{1,2,3} as in the row order of the vertices in \eqn{T_b}
 (default is \code{NULL} for both).}
 
 \item{ch.data.pnts}{A logical argument for checking whether points \code{pt1} and \code{pt2} are data points in \code{Dt} or not
 (default is \code{FALSE}).}
 }
 \value{
-I(\{\code{pt1,pt2}\} is a dominating set of the AS-PCD) where the vertices of AS-PCD are the 2D data set \code{Dt}),
+\eqn{I(}\{\code{pt1,pt2}\} is a dominating set of the AS-PCD\eqn{)} where the vertices of AS-PCD are the 2D data set \code{Dt}),
 that is, returns 1 if \{\code{pt1,pt2}\} is a dominating set of AS-PCD, returns 0 otherwise
 }
 \description{
-Returns I(\{\code{pt1,pt2}\} is a dominating set of AS-PCD) where vertices of AS-PCD are the 2D
+Returns \eqn{I(}\{\code{pt1,pt2}\} is a dominating set of AS-PCD\eqn{)} where vertices of AS-PCD are the 2D
 data set \code{Dt}), that is, returns 1 if \{\code{pt1,pt2}\} is a dominating set of AS-PCD, returns 0 otherwise.
 
 AS proximity regions are defined with respect to the basic triangle \eqn{T_b=T(c(0,0),c(1,0),c(c1,c2))},
-In the basic triangle, \eqn{T_b}, \code{c1} is in \eqn{[0,1/2]}, \eqn{c_2>0} and \eqn{(1-c_1)^2+c_2^2 \le 1}.
+In the basic triangle, \eqn{T_b}, \eqn{c_1} is in \eqn{[0,1/2]}, \eqn{c_2>0} and \eqn{(1-c_1)^2+c_2^2 \le 1}.
 
 Any given triangle can be mapped to the basic triangle by a combination of rigid body motions
 (i.e., translation, rotation and reflection) and scaling, preserving uniformity of the points in the
 original triangle. Hence basic triangle is useful for simulation
-studies under the uniformness hypothesis.
+studies under the uniformity hypothesis.
 
 Point, \code{pt1}, is in the vertex region of vertex \code{rv1} (default is \code{NULL})
-and point, \code{pt2}, is in the vertex region of vertex \code{rv2} (default is \code{NULL}); vertices are labeled as 1,2,3
+and point, \code{pt2}, is in the vertex region of vertex \code{rv2} (default is \code{NULL}); vertices are labeled as \eqn{1,2,3}
 in the order they are stacked row-wise.
 
-Vertex regions are based on the center \code{M}="CC" for circumcenter
+Vertex regions are based on the center \code{M="CC"} for circumcenter
 of \eqn{T_b}; or \eqn{M=(m_1,m_2)} in Cartesian coordinates or \eqn{M=(\alpha,\beta,\gamma)} in barycentric coordinates in the
-interior of \eqn{T_b}; default is \code{M}="CC".
+interior of \eqn{T_b}; default is \code{M="CC"}.
 
 \code{ch.data.pnts} is for checking whether points \code{pt1} and \code{pt2} are data points in \code{Dt} or not
 (default is \code{FALSE}), so by default this function checks whether the points \code{pt1} and \code{pt2} would be a
@@ -67,7 +67,6 @@ dominating set if they actually were in the data set.
 See also (\insertCite{ceyhan:Phd-thesis,ceyhan:comp-geo-2010,ceyhan:mcap2012;textual}{pcds}).
 }
 \examples{
-\dontrun{
 c1<-.4; c2<-.6;
 A<-c(0,0); B<-c(1,0); C<-c(c1,c2);
 Tb<-rbind(A,B,C)
@@ -87,7 +86,7 @@ ind.gam2<-vector()
 for (i in 1:(n-1))
   for (j in (i+1):n)
   {if (Gam2ASbastri(dat[i,],dat[j,],dat,c1,c2,M)==1)
-    ind.gam2<-rbind(ind.gam2,c(i,j))}
+   ind.gam2<-rbind(ind.gam2,c(i,j))}
 ind.gam2
 
 #or try
@@ -108,7 +107,6 @@ Gam2ASbastri(c(.3,.2),c(.35,.25),dat,c1,c2,M)
 
 dat.fr<-data.frame(a=dat)
 Gam2ASbastri(c(.3,.2),c(.35,.25),dat.fr,c1,c2,M)
-}
 
 }
 \references{
@@ -116,4 +114,7 @@ Gam2ASbastri(c(.3,.2),c(.35,.25),dat.fr,c1,c2,M)
 }
 \seealso{
 \code{\link{Gam2AStri}}
+}
+\author{
+Elvan Ceyhan
 }

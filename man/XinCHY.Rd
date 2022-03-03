@@ -59,3 +59,6 @@ XinCHY(Xp,dat.fr)
 \seealso{
 \code{\link{plotDeltri}}
 }
+\author{
+Elvan Ceyhan
+}

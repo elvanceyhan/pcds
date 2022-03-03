@@ -2,21 +2,21 @@
 % Please edit documentation in R/AuxRFuncs4PCDClasses.r
 \name{print.Patterns}
 \alias{print.Patterns}
-\title{Print a \code{Patterns} object}
+\title{Print a \code{Patterns} \code{object}}
 \usage{
 \method{print}{Patterns}(x, ...)
 }
 \arguments{
-\item{x}{A \code{Patterns} object.}
+\item{x}{A \code{Patterns} \code{object}.}
 
-\item{\dots}{Additional arguments for the S3 method '\code{print}'.}
+\item{\dots}{Additional arguments for the S3 method \code{'print'}.}
 }
 \value{
-The \code{call} of the object of class '\code{Patterns}'
+The \code{call} of the \code{object} of class \code{"Patterns"}
 and also the \code{type} (or description) of the pattern).
 }
 \description{
-Prints the \code{call} of the object of class '\code{Patterns}'
+Prints the \code{call} of the \code{object} of class \code{"Patterns"}
 and also the \code{type} (or description) of the pattern).
 }
 \examples{

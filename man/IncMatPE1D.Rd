@@ -2,7 +2,7 @@
 % Please edit documentation in R/PCDFunctions.r
 \name{IncMatPE1D}
 \alias{IncMatPE1D}
-\title{Incidence matrix for Proportiona-Edge Proximity Catch Digraphs (PE-PCDs)
+\title{Incidence matrix for Proportional-Edge Proximity Catch Digraphs (PE-PCDs)
 for 1D data - multiple interval case}
 \usage{
 IncMatPE1D(Xp, Yp, r, c)
@@ -16,8 +16,8 @@ that partition the real line.}
 \item{r}{A positive real number which serves as the expansion parameter in PE proximity region;
 must be \eqn{\ge 1}.}
 
-\item{c}{A positive real number in \eqn{(0,1)} parameterizing the center inside \eqn{int=(a,b)}.
-For the interval, \eqn{int=(a,b)}, the parameterized center is \eqn{M_c=a+c(b-a)}.}
+\item{c}{A positive real number in \eqn{(0,1)} parameterizing the center inside \code{int}\eqn{=(a,b)}.
+For the interval, \code{int}\eqn{=(a,b)}, the parameterized center is \eqn{M_c=a+c(b-a)}.}
 }
 \value{
 Incidence matrix for the PE-PCD with vertices being 1D data set, \code{Xp},
@@ -29,7 +29,7 @@ as the vertices of the digraph and \code{Yp} determines the end points of the in
 Loops are allowed, so the diagonal entries are all equal to 1.
 
 PE proximity region is constructed
-with an expansion parameter \eqn{r \ge 1} and a centrality parameter \code{c} in \eqn{(0,1)}.
+with an expansion parameter \eqn{r \ge 1} and a centrality parameter \eqn{c \in (0,1)}.
 
 See also (\insertCite{ceyhan:metrika-2012;textual}{pcds}).
 }
@@ -73,4 +73,7 @@ IncMatPE1D(Xp,Yp,r,c)
 }
 \seealso{
 \code{\link{IncMatCS1D}}, \code{\link{IncMatPEtri}}, and \code{\link{IncMatPEMT}}
+}
+\author{
+Elvan Ceyhan
 }

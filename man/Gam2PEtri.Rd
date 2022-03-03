@@ -29,31 +29,31 @@ must be \eqn{\ge 1}.}
 
 \item{M}{A 2D point in Cartesian coordinates or a 3D point in barycentric coordinates
 which serves as a center in the interior of the triangle \code{tri} or the circumcenter of \code{tri};
-default is \eqn{M=(1,1,1)} i.e. the center of mass of \code{tri}.}
+default is \eqn{M=(1,1,1)} i.e., the center of mass of \code{tri}.}
 
 \item{rv1, rv2}{The indices of the vertices whose regions contains \code{pt1} and \code{pt2}, respectively.
-They take the vertex labels as 1,2,3 as in the row order of the vertices in \code{tri}
+They take the vertex labels as \eqn{1,2,3} as in the row order of the vertices in \code{tri}
 (default is \code{NULL} for both).}
 
 \item{ch.data.pnts}{A logical argument for checking whether points \code{pt1} and \code{pt2} are
 data points in \code{Dt} or not (default is \code{FALSE}).}
 }
 \value{
-I(\{\code{pt1,pt2}\} is a dominating set of the PE-PCD) where the vertices of the PE-PCD are the 2D data set \code{Dt}),
+\eqn{I(}\{\code{pt1,pt2}\} is a dominating set of the PE-PCD\eqn{)} where the vertices of the PE-PCD are the 2D data set \code{Dt}),
 that is, returns 1 if \{\code{pt1,pt2}\} is a dominating set of PE-PCD, returns 0 otherwise
 }
 \description{
-Returns I(\{\code{pt1,pt2}\} is a dominating set of the PE-PCD) where the vertices of the PE-PCD
+Returns \eqn{I(}\{\code{pt1,pt2}\} is a dominating set of the PE-PCD\eqn{)} where the vertices of the PE-PCD
 are the 2D data set \code{Dt}), that is, returns 1 if \{\code{pt1,pt2}\} is a dominating set of PE-PCD,
 returns 0 otherwise.
 
 Point, \code{pt1}, is in the region of vertex \code{rv1} (default is \code{NULL}) and point, \code{pt2}, is in the region of vertex \code{rv2}
-(default is \code{NULL}); vertices (and hence \code{rv1} and \code{rv2}) are labeled as 1,2,3 in the order they are stacked
+(default is \code{NULL}); vertices (and hence \code{rv1} and \code{rv2}) are labeled as \eqn{1,2,3} in the order they are stacked
 row-wise in \code{tri}.
 
 PE proximity regions are defined with respect to the triangle \code{tri} and vertex regions
 are based on center \eqn{M=(m_1,m_2)} in Cartesian coordinates or \eqn{M=(\alpha,\beta,\gamma)} in barycentric coordinates
-in the interior of the triangle \code{tri} or circumcenter of \code{tri}; default is \eqn{M=(1,1,1)} i.e. the center of mass of \code{tri}.
+in the interior of the triangle \code{tri} or circumcenter of \code{tri}; default is \eqn{M=(1,1,1)} i.e., the center of mass of \code{tri}.
 
 \code{ch.data.pnts} is for checking whether points \code{pt1} and \code{pt2} are data points in \code{Dt} or not
 (default is \code{FALSE}), so by default this function checks whether the points \code{pt1} and \code{pt2} would be a
@@ -85,7 +85,7 @@ ind.gam2<-vector()
 for (i in 1:(n-1))
   for (j in (i+1):n)
   {if (Gam2PEtri(dat[i,],dat[j,],dat,Tr,r,M)==1)
-    ind.gam2<-rbind(ind.gam2,c(i,j))}
+   ind.gam2<-rbind(ind.gam2,c(i,j))}
 ind.gam2
 
 #or try
@@ -112,10 +112,9 @@ Gam2PEtri(P1,P2,dat.fr,Tr,r,M)
 dat.fr<-data.frame(a=Tr)
 Gam2PEtri(P1,P2,dat,dat.fr,r,M)
 
-\dontrun{
-Gam2PEtri(dat[1,],c(1,2),dat,Tr,r,M,ch.data.pnts = TRUE)
-#gives an error message since not both points, pt1 and pt2, are data points in Dt
-}
+Gam2PEtri(dat[1,],c(1,2),dat,Tr,r,M,ch.data.pnts = FALSE)
+#gives an error message if ch.data.pnts = TRUE
+#since not both points, pt1 and pt2, are data points in Dt
 
 }
 \references{
@@ -123,4 +122,7 @@ Gam2PEtri(dat[1,],c(1,2),dat,Tr,r,M,ch.data.pnts = TRUE)
 }
 \seealso{
 \code{\link{Gam2PEbastri}}, \code{\link{Gam2AStri}}, and \code{\link{Gam2PEtetra}}
+}
+\author{
+Elvan Ceyhan
 }

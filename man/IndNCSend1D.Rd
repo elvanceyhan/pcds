@@ -14,22 +14,22 @@ IndNCSend1D(x1, x2, t, int, rv = NULL)
 
 \item{t}{A positive real number which serves as the expansion parameter in CS proximity region.}
 
-\item{int}{A vector of two real numbers representing an interval.}
+\item{int}{A \code{vector} of two real numbers representing an interval.}
 
-\item{rv}{Index of the end interval containing the point, either 1, 2 or \code{NULL} (default=\code{NULL}).}
+\item{rv}{Index of the end interval containing the point, either \code{1,2} or \code{NULL} (default=\code{NULL}).}
 }
 \value{
-I(\code{x2} in \eqn{NCS(x1,t)}) for points \code{x1} and \code{x2}, that is, returns 1 if \code{x2} is in \eqn{NCS(x1,t)}
-(i.e., if there is an arc from \code{x1} to \code{x2}), returns 0 otherwise
+\eqn{I(x_2} in \eqn{N_{CS}(x_1,t))} for points \eqn{x_1} and \eqn{x_2}, that is, returns 1 if \eqn{x_2} is in \eqn{N_{CS}(x_1,t)}
+(i.e., if there is an arc from \eqn{x_1} to \eqn{x_2}), returns 0 otherwise
 }
 \description{
-Returns I(\code{x2} in \eqn{NCS(x1,t)}) for points \code{x1} and \code{x2}, that is, returns 1 if \code{x2} is in \eqn{NCS(x1,t)}, returns 0
-otherwise, where \eqn{NCS(x,t)} is the CS proximity region for point \eqn{x} with expansion parameter \eqn{t>0}
+Returns \eqn{I(x_2} in \eqn{N_{CS}(x_1,t))} for points \eqn{x_1} and \eqn{x_2}, that is, returns 1 if \eqn{x_2} is in \eqn{N_{CS}(x_1,t)}, returns 0
+otherwise, where \eqn{N_{CS}(x,t)} is the CS proximity region for point \eqn{x} with expansion parameter \eqn{t>0}
 for the region outside the interval \eqn{(a,b)}.
 
-\code{rv} is the index of the end vertex region \code{x1} resides, with default=\code{NULL},
-and \eqn{rv=1} for left end interval and \eqn{rv=2} for the right end interval.
-If \code{x1} and \code{x2} are distint and either of them are inside interval \code{int}, it returns 0,
+\code{rv} is the index of the end vertex region \eqn{x_1} resides, with default=\code{NULL},
+and \code{rv=1} for left end interval and \code{rv=2} for the right end interval.
+If \eqn{x_1} and \eqn{x_2} are distinct and either of them are inside interval \code{int}, it returns 0,
 but if they are identical, then it returns 1 regardless of their locations (i.e., it allows loops).
 
 See also (\insertCite{ceyhan:revstat-2016;textual}{pcds}).
@@ -59,4 +59,7 @@ IndNCSend1D(15,17,t,int)
 }
 \seealso{
 \code{\link{IndNCSmid1D}}, \code{\link{IndNPEmid1D}}, and \code{\link{IndNPEend1D}}
+}
+\author{
+Elvan Ceyhan
 }

@@ -2,19 +2,19 @@
 % Please edit documentation in R/PCDFunctions.r
 \name{dimension}
 \alias{dimension}
-\title{The dimension of a vector or matrix or a data frame}
+\title{The dimension of a \code{vector} or matrix or a data frame}
 \usage{
 dimension(x)
 }
 \arguments{
-\item{x}{A vector or a matrix or a data frame whose dimension is to be determined.}
+\item{x}{A \code{vector} or a matrix or a data frame whose dimension is to be determined.}
 }
 \value{
-Dimension (i.e., # of columns) of \code{x}
+Dimension (i.e., number of columns) of \code{x}
 }
 \description{
-Returns the dimension (i.e., # of columns) of \code{x}, which is a matrix or a vector or a data
-frame. This is different than the \code{dim} function in the base distribution of R, in the sense that,
+Returns the dimension (i.e., number of columns) of \code{x}, which is a matrix or a \code{vector} or a data
+frame. This is different than the \code{dim} function in the base distribution of \code{R}, in the sense that,
 \code{dimension} gives only the number of columns of the argument \code{x}, while \code{dim} gives the number of rows and
 columns of \code{x}.
 \code{dimension} also works for a scalar or a vector, while \code{dim} yields \code{NULL} for such arguments.
@@ -43,5 +43,8 @@ dimension(c("a","b"))
 
 }
 \seealso{
-\code{\link{is.point}} and \code{\link{dim}} from the base distribution of R
+\code{\link{is.point}} and \code{\link{dim}} from the base distribution of \code{R}
+}
+\author{
+Elvan Ceyhan
 }

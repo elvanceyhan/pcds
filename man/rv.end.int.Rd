@@ -9,23 +9,23 @@ rv.end.int(pt, int)
 \arguments{
 \item{pt}{A 1D point whose end interval region is provided by the function.}
 
-\item{int}{A vector of two real numbers representing an interval.}
+\item{int}{A \code{vector} of two real numbers representing an interval.}
 }
 \value{
-A list with two elements
+A \code{list} with two elements
 \item{rv}{Index of the end vertex whose region contains point, \code{pt}.}
-\item{int}{The vertices of the interval as a vector where position of the vertex corresponds to
-the vertex index as \eqn{int=(rv=1,rv=2)}.}
+\item{int}{The vertices of the interval as a \code{vector} where position of the vertex corresponds to
+the vertex index as \code{int=(rv=1,rv=2)}.}
 }
 \description{
 Returns the index of the vertex in the interval, \code{int}, whose end interval contains the 1D point \code{pt},
 that is, it finds the index of the vertex for the point, \code{pt}, outside
-the interval \eqn{int=(a,b)=(vertex 1,vertex 2)};
+the interval \code{int}\eqn{=(a,b)=}(vertex 1,vertex 2);
 vertices of interval are labeled as 1 and 2 according to their order in the interval.
 
 If the point, \code{pt}, is inside \code{int}, then the function yields \code{NA} as output.
 The corresponding vertex region is an interval as \eqn{(-\infty,a)} or \eqn{(b,\infty)} for the interval \eqn{(a,b)}.
-Then if \code{pt}<a, then \eqn{rv=1} and if \code{pt}>b, then rv=2. Unlike \code{\link{rv.mid.int}}, centrality parameter (i.e., center
+Then if \eqn{pt<a}, then \code{rv=1} and if \eqn{pt>b}, then \code{rv=2}. Unlike \code{\link{rv.mid.int}}, centrality parameter (i.e., center
 of the interval is not relevant for \code{rv.end.int}.)
 
 See also (\insertCite{ceyhan:metrika-2012,ceyhan:revstat-2016;textual}{pcds}).
@@ -79,4 +79,7 @@ text(cbind(c(a,b),-.01),c("rv=1","rv=2"))
 }
 \seealso{
 \code{\link{rv.mid.int}}
+}
+\author{
+Elvan Ceyhan
 }

@@ -2,7 +2,7 @@
 % Please edit documentation in R/PCDFunctions.r
 \name{redges.triCM}
 \alias{redges.triCM}
-\title{The indices of the CM-edge regions in a triangle that contains the points in a give data set}
+\title{The indices of the \eqn{CM}-edge regions in a triangle that contains the points in a give data set}
 \usage{
 redges.triCM(Dt, tri)
 }
@@ -13,24 +13,24 @@ containing them are to be determined.}
 \item{tri}{Three 2D points, stacked row-wise, each row representing a vertex of the triangle.}
 }
 \value{
-A list with the elements
-\item{re}{Indices (i.e., a vector of indices) of the edges whose region contains points in \code{Dt}
+A \code{list} with the elements
+\item{re}{Indices (i.e., a \code{vector} of indices) of the edges whose region contains points in \code{Dt}
 in the triangle \code{tri}}
 \item{tri}{The vertices of the triangle, where row number corresponds to the vertex index in \code{rv}.}
-\item{desc}{Description of the edge labels as "Edge labels are AB=1, BC=2, and AC=3".}
+\item{desc}{Description of the edge labels as \code{"Edge labels are AB=1, BC=2, and AC=3"}.}
 }
 \description{
 Returns the indices of the edges whose regions contain the points in data set \code{Dt} in
-a triangle \code{tri}=\eqn{(A,B,C)} and edge regions are based on the center of mass CM of \code{tri}.
+a triangle \code{tri}\eqn{=(A,B,C)} and edge regions are based on the center of mass \eqn{CM} of \code{tri}.
 (see the plots in the example for illustrations).
 
 The vertices of the  triangle \code{tri} are labeled as
-1=A,2=B, and 3=C also according to the row number the vertex is recorded in \code{tri}
-and the corresponding edges are 1=BC, 2=AC, and 3=AB.
+\eqn{1=A}, \eqn{2=B}, and \eqn{3=C} also according to the row number the vertex is recorded in \code{tri}
+and the corresponding edges are \eqn{1=BC}, \eqn{2=AC}, and \eqn{3=AB}.
 
 If a point in \code{Dt} is not inside \code{tri}, then the function yields \code{NA} as output for that entry.
 The corresponding edge region is the polygon
-with the vertex, CM, and vertices other than the non-adjacent vertex, i.e., edge region 1 is the triangle
+with the vertex, \eqn{CM}, and vertices other than the non-adjacent vertex, i.e., edge region 1 is the triangle
 \eqn{T(B,CM,C)}, edge region 2 is \eqn{T(A,CM,C)} and edge region 3 is \eqn{T(A,B,CM)}.
 
 See also (\insertCite{ceyhan:Phd-thesis,ceyhan:comp-geo-2010,ceyhan:mcap2012,ceyhan:arc-density-CS;textual}{pcds}).
@@ -95,4 +95,7 @@ redges.triCM(dat,dat.fr)
 }
 \seealso{
 \code{\link{redges.tri.cent}}, \code{\link{rverts.tri.cent}} and \code{\link{rverts.tri.nd}}
+}
+\author{
+Elvan Ceyhan
 }

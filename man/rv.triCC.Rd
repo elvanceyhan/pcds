@@ -2,31 +2,31 @@
 % Please edit documentation in R/PCDFunctions.r
 \name{rv.triCC}
 \alias{rv.triCC}
-\title{The index of the CC-vertex region in a triangle that contains a point}
+\title{The index of the \eqn{CC}-vertex region in a triangle that contains a point}
 \usage{
 rv.triCC(p, tri)
 }
 \arguments{
-\item{p}{A 2D point for which CC-vertex region it resides in is to be determined in the
+\item{p}{A 2D point for which \eqn{CC}-vertex region it resides in is to be determined in the
 triangle \code{tri}.}
 
 \item{tri}{Three 2D points, stacked row-wise, each row representing a vertex of the triangle.}
 }
 \value{
-A list with two elements
-\item{rv}{Index of the CC-vertex region that contains point, \code{p} in the triangle \code{tri}}
+A \code{list} with two elements
+\item{rv}{Index of the \eqn{CC}-vertex region that contains point, \code{p} in the triangle \code{tri}}
 \item{tri}{The vertices of the triangle, where row number corresponds to the vertex index in \code{rv}.}
 }
 \description{
 Returns the index of the vertex whose region contains point \code{p} in
-a triangle \code{tri}=\eqn{(A,B,C)} and vertex regions are based on the circumcenter CC of \code{tri}.
+a triangle \code{tri}\eqn{=(A,B,C)} and vertex regions are based on the circumcenter \eqn{CC} of \code{tri}.
 (see the plots in the example for illustrations).
 
 The vertices of the  triangle \code{tri} are labeled as
-1=A,2=B, and 3=C also according to the row number the vertex is recorded in \code{tri}.
+\eqn{1=A}, \eqn{2=B}, and \eqn{3=C} also according to the row number the vertex is recorded in \code{tri}.
 If the point, \code{p}, is not inside \code{tri}, then the function yields \code{NA} as output.
 The corresponding vertex region is the polygon whose interior points are closest to that vertex.
-If \code{tri} is equilateral triangle, then CC and CM (center of mass) coincide.
+If \code{tri} is equilateral triangle, then \eqn{CC} and \eqn{CM} (center of mass) coincide.
 
 See also (\insertCite{ceyhan:Phd-thesis,ceyhan:comp-geo-2010,ceyhan:mcap2012;textual}{pcds}).
 }
@@ -115,4 +115,7 @@ rv.triCC(P,dat.fr)
 \seealso{
 \code{\link{rv.tri.cent}}, \code{\link{rv.triCM}}, \code{\link{rv.bastriCM}},
 \code{\link{rv.bastriCC}}, \code{\link{rv.bastri.cent}}, and \code{\link{rvTeCM}}
+}
+\author{
+Elvan Ceyhan
 }

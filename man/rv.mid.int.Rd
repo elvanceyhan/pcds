@@ -9,21 +9,21 @@ rv.mid.int(pt, c, int)
 \arguments{
 \item{pt}{A 1D point. The vertex region \code{pt} resides is to be found.}
 
-\item{c}{A positive real number in \eqn{(0,1)} parameterizing the center inside \eqn{int=(a,b)}.
-For the interval, \eqn{int=(a,b)}, the parameterized center is \eqn{M_c=a+c(b-a)}.}
+\item{c}{A positive real number in \eqn{(0,1)} parameterizing the center inside \code{int}\eqn{=(a,b)}.
+For the interval, \code{int}\eqn{=(a,b)}, the parameterized center is \eqn{M_c=a+c(b-a)}.}
 
-\item{int}{A vector of two real numbers representing an interval.}
+\item{int}{A \code{vector} of two real numbers representing an interval.}
 }
 \value{
-A list with two elements
+A \code{list} with two elements
 \item{rv}{Index of the vertex in the interval \code{int} whose region contains point, \code{pt}.}
-\item{int}{The vertices of the interval as a vector where position of the vertex corresponds to
-the vertex index as \eqn{int=(rv=1,rv=2)}.}
+\item{int}{The vertices of the interval as a \code{vector} where position of the vertex corresponds to
+the vertex index as \code{int=(rv=1,rv=2)}.}
 }
 \description{
 Returns the index of the vertex whose region contains point \code{pt} in
-the interval \eqn{int=(a,b)=(vertex 1,vertex 2)} with (parameterized) center \eqn{M_c} associated with
-the centrality parameter \code{c} in \eqn{(0,1)}; vertices of interval are labeled as 1 and 2 according to their
+the interval \code{int}\eqn{=(a,b)=}(vertex 1,vertex 2) with (parameterized) center \eqn{M_c} associated with
+the centrality parameter \eqn{c \in (0,1)}; vertices of interval are labeled as 1 and 2 according to their
 order in the interval \code{int}. If the point, \code{pt}, is not inside \code{int}, then the function yields \code{NA} as output.
 The corresponding vertex region is the interval \eqn{(a,b)} as \eqn{(a,M_c)} and \eqn{(M_c,b)} where \eqn{M_c=a+c(b-a)}.
 
@@ -77,4 +77,7 @@ rv.mid.int(6,c,int)
 }
 \seealso{
 \code{\link{rv.end.int}}
+}
+\author{
+Elvan Ceyhan
 }

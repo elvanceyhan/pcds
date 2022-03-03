@@ -15,7 +15,7 @@
 \alias{PG2C}
 \alias{PG2Csym}
 \alias{PG2PE1D}
-\title{The functions for probability of domination number=2 for Proportional Edge Proximity Catch Digraphs
+\title{The functions for probability of domination number \eqn{= 2} for Proportional Edge Proximity Catch Digraphs
 (PE-PCDs) - middle interval case}
 \usage{
 PG2AI(r, c, n)
@@ -48,27 +48,27 @@ PG2PE1D(r, c, n)
 \item{r}{A positive real number which serves as the expansion parameter in PE proximity region;
 must be \eqn{\ge 1}.}
 
-\item{c}{A positive real number in \eqn{(0,1)} parameterizing the center inside \eqn{int=(a,b)}.
-For the interval, \eqn{int=(a,b)}, the parameterized center is \eqn{M_c=a+c(b-a)}.}
+\item{c}{A positive real number in \eqn{(0,1)} parameterizing the center inside \code{int}\eqn{=(a,b)}.
+For the interval, \code{int}\eqn{=(a,b)}, the parameterized center is \eqn{M_c=a+c(b-a)}.}
 
 \item{n}{A positive integer representing the size of the uniform data set.}
 }
 \value{
-P(domination number=2) for PE-PCD whose vertices are a uniform data set of size \code{n} in a finite
+\eqn{P(}domination number\eqn{=2)} for PE-PCD whose vertices are a uniform data set of size \code{n} in a finite
 interval \eqn{(a,b)}
 }
 \description{
 The function \code{PG2PE1D} and its auxiliary functions.
 
 Returns \eqn{P(\gamma=2)} for PE-PCD whose vertices are a uniform data set of size \code{n} in a finite interval
-(a,b)where \eqn{\gamma} stans for the domination number.
+\eqn{(a,b)} where \eqn{\gamma} stands for the domination number.
 
-The PE proximity region \eqn{NPE(x,r,c)} is defined with respect to (a,b) with centrality parameter \code{c} in \eqn{(0,1)}
+The PE proximity region \eqn{N_{PE}(x,r,c)} is defined with respect to \eqn{(a,b)} with centrality parameter \eqn{c \in (0,1)}
 and expansion parameter \eqn{r \ge 1}.
 
 To compute the probability \eqn{P(\gamma=2)} for PE-PCD in the 1D case,
 we partition the domain \eqn{(r,c)=(1,\infty) \times (0,1)}, and compute the probability for each partition
-set. The sample size (i.e. number of vertices or data points) is a positive integer, \code{n}.
+set. The sample size (i.e., number of vertices or data points) is a positive integer, \code{n}.
 }
 \section{Auxiliary Functions for \code{PG2PE1D}}{
 
@@ -76,151 +76,102 @@ The auxiliary functions are \code{PG2AI, PG2AII, PG2AIII, PG2AIV, PG2A, PG2Asym,
 PG2Bsym, PG2CIV, PG2C}, and \code{PG2Csym}, each corresponding to a partition of the domain of
 \code{r} and \code{c}. In particular, the domain partition is handled in 3 cases as
 
-CASE A: \code{c} in \eqn{((3-\sqrt{5})/2, 1/2)}
+CASE A: \eqn{c \in ((3-\sqrt{5})/2, 1/2)}
 
-CASE B: \code{c} in \eqn{(1/4,(3-\sqrt{5})/2)} and
+CASE B: \eqn{c \in (1/4,(3-\sqrt{5})/2)} and
 
-CASE C: \code{c} in \eqn{(0,1/4)}.
+CASE C: \eqn{c \in (0,1/4)}.
 }
 
-\section{Case A - \code{c} in \eqn{((3-\sqrt{5})/2, 1/2)}}{
+\section{Case A - \eqn{c \in ((3-\sqrt{5})/2, 1/2)}}{
 
 In Case A, we compute \eqn{P(\gamma=2)} with
 
-PG2AIV(r,c,n) if \eqn{1 < r < (1-c)/c};
+\code{PG2AIV(r,c,n)} if \eqn{1 < r < (1-c)/c};
 
-PG2AIII(r,c,n) if \eqn{(1-c)/c< r < 1/(1-c)};
+\code{PG2AIII(r,c,n)} if \eqn{(1-c)/c< r < 1/(1-c)};
 
-PG2AII(r,c,n) if \eqn{1/(1-c)< r < 1/c};
+\code{PG2AII(r,c,n)} if \eqn{1/(1-c)< r < 1/c};
 
-and PG2AI(r,c,n) otherwise.
+and \code{PG2AI(r,c,n)} otherwise.
 
-PG2A(r,c,n) combines these functions in Case A: \code{c} in \eqn{((3-\sqrt{5})/2,1/2)}.
-Due to the symmetry in the PE proximity regions, we use PG2Asym(r,c,n) for \code{c} in
+\code{PG2A(r,c,n)} combines these functions in Case A: \eqn{c \in ((3-\sqrt{5})/2,1/2)}.
+Due to the symmetry in the PE proximity regions, we use \code{PG2Asym(r,c,n)} for \eqn{c} in
 \eqn{(1/2,(\sqrt{5}-1)/2)} with the same auxiliary functions
 
-PG2AIV(r,1-c,n) if \eqn{1 < r < c/(1-c)};
+\code{PG2AIV(r,1-c,n)} if \eqn{1 < r < c/(1-c)};
 
-PG2AIII(r,1-c,n) if \eqn{(c/(1-c) < r < 1/c};
+\code{PG2AIII(r,1-c,n)} if \eqn{(c/(1-c) < r < 1/c};
 
-PG2AII(r,1-c,n) if \eqn{1/c < r < 1/(1-c)};
+\code{PG2AII(r,1-c,n)} if \eqn{1/c < r < 1/(1-c)};
 
-and PG2AI(r,1-c,n) otherwise.
+and \code{PG2AI(r,1-c,n)} otherwise.
 }
 
-\section{Case B - \code{c} in \eqn{(1/4,(3-\sqrt{5})/2)}}{
+\section{Case B - \eqn{c \in (1/4,(3-\sqrt{5})/2)}}{
 
 
 In Case B, we compute \eqn{P(\gamma=2)} with
 
-PG2AIV(r,c,n) if \eqn{1 < r < 1/(1-c)};
+\code{PG2AIV(r,c,n)} if \eqn{1 < r < 1/(1-c)};
 
-PG2BIII(r,c,n) if \eqn{1/(1-c) < r < (1-c)/c};
+\code{PG2BIII(r,c,n)} if \eqn{1/(1-c) < r < (1-c)/c};
 
-PG2AII(r,c,n) if \eqn{(1-c)/c < r < 1/c};
+\code{PG2AII(r,c,n)} if \eqn{(1-c)/c < r < 1/c};
 
-and PG2AI(r,c,n) otherwise.
+and \code{PG2AI(r,c,n)} otherwise.
 
-PG2B(r,c,n) combines these functions in Case B: \code{c} in \eqn{(1/4,(3-\sqrt{5})/2)}.
-Due to the symmetry in the PE proximity regions, we use PG2Bsym(r,c,n) for \code{c} in
+PG2B(r,c,n) combines these functions in Case B: \eqn{c \in (1/4,(3-\sqrt{5})/2)}.
+Due to the symmetry in the PE proximity regions, we use \code{PG2Bsym(r,c,n)} for \code{c} in
 \eqn{((\sqrt{5}-1)/2,3/4)} with the same auxiliary functions
 
-PG2AIV(r,1-c,n) if \eqn{ 1< r < 1/c};
+\code{PG2AIV(r,1-c,n)} if \eqn{ 1< r < 1/c};
 
-PG2BIII(r,1-c,n) if \eqn{1/c < r < c/(1-c)};
+\code{PG2BIII(r,1-c,n)} if \eqn{1/c < r < c/(1-c)};
 
-PG2AII(r,1-c,n) if \eqn{c/(1-c) < r < 1/(1-c)};
+\code{PG2AII(r,1-c,n)} if \eqn{c/(1-c) < r < 1/(1-c)};
 
-and PG2AI(r,1-c,n) otherwise.
+and \code{PG2AI(r,1-c,n)} otherwise.
 }
 
-\section{Case C - \code{c} in \eqn{(0,1/4)}}{
+\section{Case C - \eqn{c \in (0,1/4)}}{
 
 
 In Case C, we compute \eqn{P(\gamma=2)} with
 
-PG2AIV(r,c,n) if \eqn{1< r < 1/(1-c)};
+\code{PG2AIV(r,c,n)} if \eqn{1< r < 1/(1-c)};
 
-PG2BIII(r,c,n) if \eqn{1/(1-c) < r < (1-\sqrt{1-4 c})/(2 c)};
+\code{PG2BIII(r,c,n)} if \eqn{1/(1-c) < r < (1-\sqrt{1-4 c})/(2 c)};
 
-PG2CIV(r,c,n) if \eqn{(1-\sqrt{1-4 c})/(2 c) < r < (1+\sqrt{1-4 c})/(2 c)};
+\code{PG2CIV(r,c,n)} if \eqn{(1-\sqrt{1-4 c})/(2 c) < r < (1+\sqrt{1-4 c})/(2 c)};
 
-PG2BIII(r,c,n) if \eqn{(1+\sqrt{1-4 c})/(2 c) < r <1/(1-c)};
+\code{PG2BIII(r,c,n)} if \eqn{(1+\sqrt{1-4 c})/(2 c) < r <1/(1-c)};
 
-PG2AII(r,c,n) if \eqn{1/(1-c) < r < 1/c};
+\code{PG2AII(r,c,n)} if \eqn{1/(1-c) < r < 1/c};
 
-and PG2AI(r,c,n) otherwise.
+and \code{PG2AI(r,c,n)} otherwise.
 
-PG2C(r,c,n) combines these functions in CaseE C: \code{c} in \eqn{(0,1/4)}.
-Due to the symmetry in the PE proximity regions, we use PG2Csym(r,c,n) for \code{c} in \eqn{(3/4,1)}
+\code{PG2C(r,c,n)} combines these functions in Case C: \eqn{c \in (0,1/4)}.
+Due to the symmetry in the PE proximity regions, we use \code{PG2Csym(r,c,n)} for \eqn{c \in (3/4,1)}
 with the same auxiliary functions
 
-PG2AIV(r,1-c,n) if \eqn{1< r < 1/c};
+\code{PG2AIV(r,1-c,n)} if \eqn{1< r < 1/c};
 
-PG2BIII(r,1-c,n) if \eqn{1/c < r < (1-\sqrt{1-4(1-c)})/(2(1-c))};
+\code{PG2BIII(r,1-c,n)} if \eqn{1/c < r < (1-\sqrt{1-4(1-c)})/(2(1-c))};
 
-PG2CIV(r,1-c,n) if \eqn{(1-\sqrt{1-4(1-c)})/(2(1-c)) < r < (1+\sqrt{1-4(1-c)})/(2(1-c))};
+\code{PG2CIV(r,1-c,n)} if \eqn{(1-\sqrt{1-4(1-c)})/(2(1-c)) < r < (1+\sqrt{1-4(1-c)})/(2(1-c))};
 
-PG2BIII(r,1-c,n) if \eqn{(1+\sqrt{1-4(1-c)})/(2(1-c)) < r < c/(1-c)};
+\code{PG2BIII(r,1-c,n)} if \eqn{(1+\sqrt{1-4(1-c)})/(2(1-c)) < r < c/(1-c)};
 
-PG2AII(r,1-c,n) if \eqn{c/(1-c)< r < 1/(1-c)};
+\code{PG2AII(r,1-c,n)} if \eqn{c/(1-c)< r < 1/(1-c)};
 
-and PG2AI(r,1-c,n) otherwise.
+and \code{PG2AI(r,1-c,n)} otherwise.
 
 Combining Cases A, B, and C, we get our main function \code{PG2PE1D} which computes \eqn{P(\gamma=2)}
 for any (\code{r,c}) in its domain.
 }
 
 \examples{
-#Examples for the auxiliary functions
-\dontrun{
-PG2AI(2.25,.45,10)
-}
-
-\dontrun{
-PG2AII(2.2,.4,10)
-}
-
-\dontrun{
-PG2AIII(1.2,.25,10)
-}
-
-\dontrun{
-PG2AIV(1.2,.25,10)
-}
-
-\dontrun{
-PG2A(1.2,.25,10)
-}
-
-\dontrun{
-PG2Asym(1.2,.75,10)
-}
-
-\dontrun{
-PG2BIII(1.5,.45,10)
-}
-
-\dontrun{
-PG2B(1.5,.30,10)
-}
-
-\dontrun{
-PG2Bsym(1.5,.70,10)
-}
-
-\dontrun{
-PG2CIV(1.5,.2,10)
-}
-
-\dontrun{
-PG2C(1.5,.2,10)
-}
-
-\dontrun{
-PG2Csym(1.5,.8,10)
-}
-
 #Examples for the main function PG2PE1D
 r<-2
 c<-.5
@@ -233,4 +184,7 @@ PG2PE1D(r=1.5,c=1/1.5,n=100)
 }
 \seealso{
 \code{\link{PG2PEtri}} and  \code{\link{PG2PE1D.asy}}
+}
+\author{
+Elvan Ceyhan
 }

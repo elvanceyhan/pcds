@@ -28,17 +28,17 @@ plotPEarcsMT(
 must be \eqn{\ge 1}.}
 
 \item{M}{A 3D point in barycentric coordinates which serves as a center in the interior of each Delaunay
-triangle or circumcenter of each Delaunay triangle (for this argument should be set as \code{M}="CC"),
+triangle or circumcenter of each Delaunay triangle (for this argument should be set as \code{M="CC"}),
 default for \eqn{M=(1,1,1)} which is the center of mass of each triangle.}
 
-\item{asp}{A numeric value, giving the aspect ratio y/x (default is \code{NA}),
-see the official help for \code{asp} by typing "? asp".}
+\item{asp}{A \code{numeric} value, giving the aspect ratio \eqn{y/x} (default is \code{NA}),
+see the official help page for \code{asp} by typing "\code{? asp}".}
 
-\item{main}{An overall title for the plot (default="").}
+\item{main}{An overall title for the plot (default=\code{""}).}
 
-\item{xlab, ylab}{Titles for the x and y axes, respectively (default="" for both).}
+\item{xlab, ylab}{Titles for the \eqn{x} and \eqn{y} axes, respectively (default=\code{""} for both).}
 
-\item{xlim, ylim}{Numeric vectors of length 2, giving the x- and y-coordinate ranges
+\item{xlim, ylim}{Two \code{numeric} vectors of length 2, giving the \eqn{x}- and \eqn{y}-coordinate ranges
 (default=\code{NULL} for both).}
 
 \item{\dots}{Additional \code{plot} parameters.}
@@ -49,14 +49,14 @@ triangles based on \code{Yp} points
 }
 \description{
 Plots the arcs of Proportional Edge Proximity Catch Digraph (PE-PCD) whose vertices are the data
-points in \code{Xp} in the multiple triangle case and the Delauany triangles based on \code{Yp} points.
+points in \code{Xp} in the multiple triangle case and the Delaunay triangles based on \code{Yp} points.
 
 PE proximity regions are defined with respect to the Delaunay triangles based on \code{Yp} points with
 expansion parameter \eqn{r \ge 1} and vertex regions in each triangle are based on the center \eqn{M=(\alpha,\beta,\gamma)}
 in barycentric coordinates in the interior of each Delaunay triangle or based on circumcenter of
 each Delaunay triangle (default for \eqn{M=(1,1,1)} which is the center of mass of the triangle).
 Each Delaunay triangle is first converted to an (unscaled) basic triangle so that \code{M} will be the same
-type of center for each Delaunay triangle (this conversion is not necessary when \code{M} is CM).
+type of center for each Delaunay triangle (this conversion is not necessary when \code{M} is \eqn{CM}).
 
 Convex hull of \code{Yp} is partitioned by the Delaunay triangles based on \code{Yp} points
 (i.e., multiple triangles are the set of these Delaunay triangles whose union constitutes the
@@ -94,4 +94,7 @@ plotPEarcsMT(Xp,Yp[1:3,],r,M,xlab="",ylab="",xlim=Xlim+xd*c(-.05,.05),ylim=Ylim+
 }
 \seealso{
 \code{\link{plotPEarcsTri}}, \code{\link{plotASarcsMT}}, and \code{\link{plotCSarcsMT}}
+}
+\author{
+Elvan Ceyhan
 }

@@ -12,11 +12,11 @@ int.line.plane(x1, x2, x3, x4, x5)
 \item{x3, x4, x5}{3D points that determine the plane (i.e., through which the plane passes).}
 }
 \value{
-The coordinates of the point of intersection the line determined by the 3D points \code{x1} and \code{x2} and the
+The coordinates of the point of intersection the line determined by the 3D points \eqn{x_1} and \eqn{x_2} and the
 plane determined by 3D points \code{x3}, \code{x4}, and \code{x5}.
 }
 \description{
-Returns the point of the intersection of the line determined by the 3D points \code{x1} and \code{x2} and the plane spanned
+Returns the point of the intersection of the line determined by the 3D points \eqn{x_1} and \eqn{x_2} and the plane spanned
 by 3D points \code{x3}, \code{x4}, and \code{x5}.
 }
 \examples{
@@ -69,4 +69,7 @@ plot3D::lines3D(xl, yl, zl, bty = "g", cex = 2, ticktype = "detailed",add=TRUE)
 }
 \seealso{
 \code{\link{int.2lines}} and \code{\link{int.circ.line}}
+}
+\author{
+Elvan Ceyhan
 }

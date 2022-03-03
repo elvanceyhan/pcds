@@ -20,84 +20,84 @@ TSDomPEBin1D(
 \item{Xp}{A set of 1D points which constitute the vertices of the PE-PCD.}
 
 \item{Yp}{A set of 1D points which constitute the end points of the subintervals, default is \code{NULL}.
-When \code{Yp}=\code{NULL}, the support interval \eqn{(a,b)} is partitioned as \code{Yp}=(b-a)*(0:nint)/nint
-where nint=round(sqrt(nx),0) and nx is the number of \code{Xp} points.}
+When \code{Yp=NULL}, the support interval \eqn{(a,b)} is partitioned as \code{Yp=(b-a)*(0:nint)/nint}
+where \code{nint=round(sqrt(nx),0)} and \code{nx} is the number of \code{Xp} points.}
 
-\item{int}{Support interval \eqn{(a,b)} with \eqn{a<b}. Uniformness of \code{Xp} points in this interval
+\item{int}{Support interval \eqn{(a,b)} with \eqn{a<b}. uniformity of \code{Xp} points in this interval
 is tested.}
 
 \item{c}{A positive real number which serves as the centrality parameter in PE proximity region;
-must be in \eqn{(0,1)} (default c=.5).}
+must be in \eqn{(0,1)} (default \code{c=.5}).}
 
 \item{asy.bin}{A logical argument for the use of asymptotic probability of success for the binomial distribution,
-default \code{asy.bin}=\code{FALSE}. It is an option only when \code{Yp} is not provided. When \code{Yp} is provided or when \code{Yp} is not provided
-but \code{asy.bin}=T, asymptotic probability of success for the binomial distribution is used. When \code{Yp} is not provided
-and \code{asy.bin}=F, the finite sample asymptotic probability of success for the binomial distribution is used with number
+default \code{asy.bin=FALSE}. It is an option only when \code{Yp} is not provided. When \code{Yp} is provided or when \code{Yp} is not provided
+but \code{asy.bin=TRUE}, asymptotic probability of success for the binomial distribution is used. When \code{Yp} is not provided
+and \code{asy.bin=FALSE}, the finite sample asymptotic probability of success for the binomial distribution is used with number
 of trials equals to expected number of \code{Xp} points per subinterval.}
 
 \item{end.int.cor}{A logical argument for end interval correction, default is \code{FALSE},
 recommended when both \code{Xp} and \code{Yp} have the same interval support.}
 
-\item{alternative}{Type of the alternative hypothesis in the test, one of "two.sided", "less", "greater".}
+\item{alternative}{Type of the alternative hypothesis in the test, one of \code{"two.sided"}, \code{"less"}, \code{"greater"}.}
 
-\item{conf.level}{Level of the confidence interval, default is 0.95, for the probability of success
-(i.e. Pr(domination number=2) for PE-PCD whose vertices are the 1D data set \code{Xp}.}
+\item{conf.level}{Level of the confidence interval, default is \code{0.95}, for the probability of success
+(i.e., \eqn{Pr(}domination number\eqn{=2)} for PE-PCD whose vertices are the 1D data set \code{Xp}.}
 }
 \value{
-A list with the elements
+A \code{list} with the elements
 \item{statistic}{Test statistic}
-\item{p.value}{The \eqn{p}-value for the hypothesis test for the corresponding alternative}
-\item{conf.int}{Confidence interval for Pr(Domination Number=2) at the given level \code{conf.level} and
+\item{p.value}{The \eqn{p}-value for the hypothesis test for the corresponding \code{alternative}}
+\item{conf.int}{Confidence interval for \eqn{Pr(}domination number\eqn{=2)} at the given level \code{conf.level} and
 depends on the type of \code{alternative}.}
-\item{estimate}{A vector with two entries: first is is the estimate of the parameter, i.e.,
-Pr(Domination Number=2) and second is the domination number}
-\item{null.value}{Hypothesized value for the parameter, i.e., the null value for Pr(Domination Number=2)}
-\item{alternative}{Type of the alternative hypothesis in the test, one of "two.sided", "less", "greater"}
+\item{estimate}{A \code{vector} with two entries: first is is the estimate of the parameter, i.e.,
+\eqn{Pr(}domination number\eqn{=2)} and second is the domination number}
+\item{null.value}{Hypothesized value for the parameter, i.e., the null value for \eqn{Pr(}domination number\eqn{=2)}}
+\item{alternative}{Type of the alternative hypothesis in the test, one of \code{"two.sided"}, \code{"less"}, \code{"greater"}}
 \item{method}{Description of the hypothesis test}
 \item{data.name}{Name of the data set}
 }
 \description{
-An object of class "htest" (i.e., hypothesis test) function which performs a hypothesis test of complete spatial
+An object of class \code{"htest"} (i.e., hypothesis test) function which performs a hypothesis test of complete spatial
 randomness (CSR) or uniformity of \code{Xp} points within the subintervals based on \code{Yp} points (both residing in the
 interval \eqn{(a,b)}).
 
-If \code{Yp}=NULL the support interval \eqn{(a,b)} is partitioned as \code{Yp}=(b-a)*(0:nint)/nint
-where nint=round(sqrt(nx),0) and nx is number of \code{Xp} points, and the test is for testing the uniformity of \code{Xp}
+If \code{Yp=NULL} the support interval \eqn{(a,b)} is partitioned as \code{Yp=(b-a)*(0:nint)/nint}
+where \code{nint=round(sqrt(nx),0)} and \code{nx} is number of \code{Xp} points, and the test is for testing the uniformity of \code{Xp}
 points in the interval \eqn{(a,b)}. If \code{Yp} points are given, the test is for testing the spatial interaction between
 \code{Xp} and \code{Yp} points.
 
-In either case, the null hypothesis is uniformness of \code{Xp} points on (a,b).
+In either case, the null hypothesis is uniformity of \code{Xp} points on \eqn{(a,b)}.
 \code{Yp} determines the end points of the intervals (i.e., partition the real line via intervalization)
 where end points are the order statistics of \code{Yp} points.
 
-The alternatives are segregation (where \code{Xp} points cluster away from \code{Yp} points i.e. cluster around the centers of the subintervals)
+The alternatives are segregation (where \code{Xp} points cluster away from \code{Yp} points i.e., cluster around the centers of the subintervals)
 and association (where \code{Xp} points cluster around \code{Yp} points). The test is based on the (asymptotic) binomial
 distribution of the domination number of PE-PCD for uniform 1D data in the subintervals based on \code{Yp} points.
 
 The function yields the test statistic, \eqn{p}-value for the corresponding
 alternative, the confidence interval, estimate and null value for the parameter of interest (which is
-Pr(Domination Number=2)), and method and name of the data set used.
+\eqn{Pr(}domination number\eqn{=2)}), and method and name of the data set used.
 
 Under the null hypothesis of uniformity of \code{Xp} points in the interval based on \code{Yp} points, probability of success
-(i.e. Pr(Domination Number=2) ) equals to its expected value under the uniform distribution) and
-\code{alternative} could be two-sided, or left-sided (i.e. data is accumulated around the \code{Yp} points, or association)
-or right-sided (i.e. data is accumulated around the centers of the subintervals, or segregation).
+(i.e., \eqn{Pr(}domination number\eqn{=2)}) equals to its expected value under the uniform distribution) and
+\code{alternative} could be two-sided, or left-sided (i.e., data is accumulated around the \code{Yp} points, or association)
+or right-sided (i.e., data is accumulated around the centers of the subintervals, or segregation).
 
 PE proximity region is constructed with the expansion parameter \eqn{r \ge 1} and centrality parameter \code{c} which yields
-M-vertex regions. More precisely \eqn{M=a+c(b-a)} for the centrality parameter \code{c} and for a given \code{c} in \eqn{(0,1)}, the
+\eqn{M}-vertex regions. More precisely \eqn{M=a+c(b-a)} for the centrality parameter \code{c} and for a given \eqn{c \in (0,1)}, the
 expansion parameter r is taken to be \eqn{1/\max(c,1-c)} which yields non-degenerate asymptotic distribution of the
 domination number.
 
 The test statistic is based on the binomial distribution, when domination number is scaled
-to have value 0 and 1 in the one interval case (i.e., Domination Number - 1 for the one interval case).
+to have value 0 and 1 in the one interval case (i.e., Domination Number minus 1 for the one interval case).
 That is, the test statistic is based on the domination number for \code{Xp} points inside the interval based on \code{Yp} points
 for the PE-PCD . For this approach to work, \code{Xp} must be large for each subinterval, but 5 or more per subinterval
 seems to work fine in practice. Probability of success is chosen in the following way for various parameter choices.
 
 \code{asy.bin} is a logical argument for the use of asymptotic probability of success for the binomial distribution,
-default is \code{asy.bin}=\code{FALSE}. It is an option only when \code{Yp} is not provided. When \code{Yp} is provided or when \code{Yp} is not provided
-but \code{asy.bin}=T, asymptotic probability of success for the binomial distribution is used. When \code{Yp} is not provided
-and \code{asy.bin}=F, the finite sample asymptotic probability of success for the binomial distribution is used with number
+default is \code{asy.bin=FALSE}. It is an option only when \code{Yp} is not provided. When \code{Yp} is provided or when \code{Yp} is not provided
+but \code{asy.bin=TRUE}, asymptotic probability of success for the binomial distribution is used. When \code{Yp} is not provided
+and \code{asy.bin=FALSE}, the finite sample asymptotic probability of success for the binomial distribution is used with number
 of trials equals to expected number of \code{Xp} points per subinterval.
 }
 \examples{
@@ -131,4 +131,7 @@ TSDomPEBin1D(Xp,Yp,int,c=.25)
 }
 \seealso{
 \code{\link{TSDomPEBin}} and \code{\link{PEdom1D}}
+}
+\author{
+Elvan Ceyhan
 }

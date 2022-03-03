@@ -2,8 +2,8 @@
 % Please edit documentation in R/PCDFunctions.r
 \name{cl2eVRcent.alt}
 \alias{cl2eVRcent.alt}
-\title{An alternative function to the function \code{\link{cl2eVRcent}} which finds the closest points among a data set in the
-vertex regions to the respective edges in a triangle}
+\title{An alternative function to the function \code{\link{cl2eVRcent}} which finds the closest points
+among a data set in the vertex regions to the respective edges in a triangle}
 \usage{
 cl2eVRcent.alt(dat, tri, M)
 }
@@ -16,29 +16,28 @@ cl2eVRcent.alt(dat, tri, M)
 which serves as a center in the interior of the triangle \code{tri} or the circumcenter of \code{tri}.}
 }
 \value{
-A list with the elements
-\item{txt1}{Vertex labels are A=1, B=2, and C=3 (corresponds to row number in Extrema Points).}
-\item{txt2}{A short description of the distances as "Distances to Edges in the Respective M-Vertex Regions".}
+A \code{list} with the elements
+\item{txt1}{Vertex labels are \eqn{A=1}, \eqn{B=2}, and \eqn{C=3} (corresponds to row number in Extremum Points).}
+\item{txt2}{A short description of the distances as \code{"Distances to Edges in the Respective \eqn{M}-Vertex Regions"}.}
 \item{type}{Type of the extrema points}
 \item{desc}{A short description of the extrema points}
-\item{mtitle}{The "main" title for the plot of the exrema}
+\item{mtitle}{The \code{"main"} title for the plot of the extrema}
 \item{ext}{The extrema points, here, closest points to edges in the respective vertex region.}
-\item{X}{The input data, \code{Dt}, can be a matrix or data frame}
+\item{X}{The input data, \code{Dt}, can be a \code{matrix} or \code{data frame}}
 \item{num.points}{The number of data points, i.e., size of \code{Dt}}
 \item{supp}{Support of the data points, here, it is \code{tri}}
 \item{cent}{The center point used for construction of vertex regions}
-\item{ncent}{Name of the center, \code{cent}, it is "M" or "CC" for this function}
+\item{ncent}{Name of the center, \code{cent}, it is \code{"M"} or \code{"CC"} for this function}
 \item{regions}{Vertex regions inside the triangle, \code{tri}, provided as a list}
-\item{region.names}{Names of the vertex regions as "vr=1","vr=2","vr=3"}
+\item{region.names}{Names of the vertex regions as \code{"vr=1"}, \code{"vr=2"}, and \code{"vr=3"}}
 \item{region.centers}{Centers of mass of the vertex regions inside \code{tri}}
 \item{dist2ref}{Distances of closest points in the \code{M}-vertex regions to corresponding edges.}
 }
 \description{
-An object of class "Extrema".
+An object of class \code{"Extrema"}.
 An alternative function to the function \code{\link{cl2eVRcent}}
 }
 \examples{
-\dontrun{
 A<-c(1,1); B<-c(2,0); C<-c(1.5,2);
 Tr<-rbind(A,B,C);
 M<-c(1.6,1.0)  #try also M<-c(1.3,1.3)
@@ -88,9 +87,11 @@ cl2eVRcent.alt(dat.fr,Tr,M)
 
 dat.fr<-data.frame(a=Tr)
 cl2eVRcent.alt(dat,dat.fr,M)
-}
 
 }
 \seealso{
 \code{\link{cl2eVRcent}}
+}
+\author{
+Elvan Ceyhan
 }

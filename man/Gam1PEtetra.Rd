@@ -18,28 +18,28 @@ must be \eqn{\ge 1}.}
 \item{th}{Four 3D points, stacked row-wise, each row representing a vertex of the tetrahedron.}
 
 \item{M}{The center to be used in the construction of the vertex regions in the tetrahedron, \code{th}.
-Currently it only takes "CC" for circumcenter and "CM" for center of mass; default="CM".}
+Currently it only takes \code{"CC"} for circumcenter and \code{"CM"} for center of mass; default=\code{"CM"}.}
 
-\item{rv}{Index of the vertex whose region contains point \code{p}, \code{rv} takes the vertex labels as 1,2,3,4 as
+\item{rv}{Index of the vertex whose region contains point \code{p}, \code{rv} takes the vertex labels as \code{1,2,3,4} as
 in the row order of the vertices in standard tetrahedron, default is \code{NULL}.}
 
 \item{ch.data.pnt}{A logical argument for checking whether point \code{p} is a data point
 in \code{Dt} or not (default is \code{FALSE}).}
 }
 \value{
-I(\code{p} is a dominating point of the PE-PCD) where the vertices of the PE-PCD are the 2D data set \code{Dt},
+\eqn{I(}\code{p} is a dominating point of the PE-PCD\eqn{)} where the vertices of the PE-PCD are the 2D data set \code{Dt},
 that is, returns 1 if \code{p} is a dominating point, returns 0 otherwise
 }
 \description{
-Returns I(\code{p} is a dominating point of the PE-PCD) where the vertices of the PE-PCD are the 2D data set \code{Dt} in the tetrahedron \code{th}, that is,
+Returns \eqn{I(}\code{p} is a dominating point of the PE-PCD\eqn{)} where the vertices of the PE-PCD are the 2D data set \code{Dt} in the tetrahedron \code{th}, that is,
 returns 1 if \code{p} is a dominating point of PE-PCD, returns 0 otherwise.
 
-Point, \code{p}, is in the vertex region of vertex \code{rv} (default is \code{NULL}); vertices are labeled as 1,2,3,4
+Point, \code{p}, is in the vertex region of vertex \code{rv} (default is \code{NULL}); vertices are labeled as \code{1,2,3,4}
 in the order they are stacked row-wise in \code{th}.
 
 PE proximity region is constructed with respect to the tetrahedron \code{th} with expansion parameter \eqn{r \ge 1}
-and vertex regions are based on center of mass (M="CM") or circumcenter (M="CC") only.
-and vertex regions are based on center of mass CM (equivalent to circumcenter in this case).
+and vertex regions are based on center of mass (\code{M="CM"}) or circumcenter (\code{M="CC"}) only.
+and vertex regions are based on center of mass \eqn{CM} (equivalent to circumcenter in this case).
 
 \code{ch.data.pnt} is for checking whether point \code{p} is a data point in \code{Dt} or not (default is \code{FALSE}),
 so by default this function checks whether the point \code{p} would be a dominating point
@@ -48,7 +48,6 @@ if it actually were in the data set.
 See also (\insertCite{ceyhan:Phd-thesis,ceyhan:comp-geo-2010;textual}{pcds}).
 }
 \examples{
-\dontrun{
 A<-c(0,0,0); B<-c(1,0,0); C<-c(1/2,sqrt(3)/2,0); D<-c(1/2,sqrt(3)/6,sqrt(6)/3)
 tetra<-rbind(A,B,C,D)
 n<-20
@@ -112,9 +111,8 @@ Gam1PEtetra(P,dat,r,tetra,M)
 dat.fr<-data.frame(a=dat)
 Gam1PEtetra(P,dat.fr,r,tetra,M)
 
-Gam1PEtetra(c(-1,-1,-1),dat,r,tetra,M,ch.data.pnt = TRUE)
-#gives an error message since p is not a data point
-}
+Gam1PEtetra(c(-1,-1,-1),dat,r,tetra,M,ch.data.pnt = FALSE)
+#gives an error message if ch.data.pnt = TRUE since p is not a data point
 
 }
 \references{
@@ -122,4 +120,7 @@ Gam1PEtetra(c(-1,-1,-1),dat,r,tetra,M,ch.data.pnt = TRUE)
 }
 \seealso{
 \code{\link{Gam1PEstdTetra}}, \code{\link{Gam1PEtri}} and \code{\link{Gam1PEbastri}}
+}
+\author{
+Elvan Ceyhan
 }

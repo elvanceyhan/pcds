@@ -11,9 +11,9 @@ NumArcsAStri(dat, tri, M = "CC")
 
 \item{tri}{Three 2D points, stacked row-wise, each row representing a vertex of the triangle.}
 
-\item{M}{The center of the triangle. "CC" stands for circumcenter of the triangle \code{tri} or a 2D point in Cartesian coordinates or
+\item{M}{The center of the triangle. \code{"CC"} stands for circumcenter of the triangle \code{tri} or a 2D point in Cartesian coordinates or
 a 3D point in barycentric coordinates which serves as a center in the interior of \code{tri};
-default is \code{M}="CC" i.e. the circumcenter of \code{tri}.}
+default is \code{M="CC"} i.e., the circumcenter of \code{tri}.}
 }
 \value{
 The number of arcs of Arc Slice Proximity Catch Digraphs (AS-PCDs)
@@ -21,12 +21,12 @@ The number of arcs of Arc Slice Proximity Catch Digraphs (AS-PCDs)
 \description{
 Returns the number of arcs of Arc Slice Proximity Catch Digraphs (AS-PCDs)
 whose vertices are the 2D data set, \code{dat}. The data points could be inside or outside a general
-triangle \eqn{tri=T(A,B,C)=(rv=1,rv=2,rv=3)}, with vertices of \code{tri} stacked row-wise.
+triangle \code{tri}\eqn{=T(A,B,C)=}\code{(rv=1,rv=2,rv=3)}, with vertices of \code{tri} stacked row-wise.
 
 AS proximity regions are defined with respect to the triangle \code{tri} and vertex regions are
-based on the center \code{M}="CC" for circumcenter of \code{tri};
+based on the center \code{M="CC"} for circumcenter of \code{tri};
 or \eqn{M=(m_1,m_2)} in Cartesian coordinates or \eqn{M=(\alpha,\beta,\gamma)} in barycentric coordinates in the
-interior of the triangle \code{tri}; default is \code{M}="CC" i.e. circumcenter of \code{tri}.
+interior of the triangle \code{tri}; default is \code{M="CC"} i.e., circumcenter of \code{tri}.
 For the number of arcs, loops are not allowed,
 so arcs are only possible for points inside the triangle, \code{tri}.
 
@@ -56,4 +56,7 @@ NumArcsAStri(dat.fr,Tr,M)
 }
 \seealso{
 \code{\link{NumArcsASMT}}, \code{\link{NumArcsPEtri}}, and \code{\link{NumArcsCStri}}
+}
+\author{
+Elvan Ceyhan
 }

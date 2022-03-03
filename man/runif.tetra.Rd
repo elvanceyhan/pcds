@@ -12,21 +12,21 @@ runif.tetra(k, th)
 \item{th}{Four 3D points, stacked row-wise, each row representing a vertex of the tetrahedron.}
 }
 \value{
-A list with the elements
+A \code{list} with the elements
 \item{type}{The type of the pattern from which points are to be generated}
-\item{mtitle}{The "main" title for the plot of the point pattern}
+\item{mtitle}{The \code{"main"} title for the plot of the point pattern}
 \item{tess.points}{The vertices of the support of the uniformly generated points, it is the tetrahedron
 \code{th} for this function}
 \item{gen.points}{The output set of generated points uniformly in the tetrahedron, \code{th}.}
 \item{out.region}{The outer region which contains the support region, \code{NULL} for this function.}
 \item{desc.pat}{Description of the point pattern from which points are to be generated}
-\item{num.points}{The vector of two numbers, which are the number of generated points and the number
+\item{num.points}{The \code{vector} of two numbers, which are the number of generated points and the number
 of vertices of the support points (here it is 4).}
 \item{txt4pnts}{Description of the two numbers in \code{num.points}}
-\item{xlimit, ylimit, zlimit}{The ranges of the x-, y- and z-coordinates of the support, \code{th}}
+\item{xlimit, ylimit, zlimit}{The ranges of the \eqn{x}-, \eqn{y}-, and \eqn{z}-coordinates of the support, \code{th}}
 }
 \description{
-An object of class "Uniform".
+An object of class \code{"Uniform"}.
 Generates \code{k} points uniformly in the general tetrahedron \code{th} whose vertices are stacked row-wise.
 }
 \examples{
@@ -78,4 +78,7 @@ s3d<-scatterplot3d(Dt, highlight.3d=TRUE,xlab="x",ylab="y",zlab="z",
 }
 \seealso{
 \code{\link{runif.stdtetra}} and \code{\link{runif.tri}}
+}
+\author{
+Elvan Ceyhan
 }

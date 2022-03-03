@@ -7,38 +7,38 @@
 ArcsPEmid1D(Xp, Yp, r, c)
 }
 \arguments{
-\item{Xp}{A set or vector of 1D points which constitute the vertices of the PE-PCD.}
+\item{Xp}{A set or \code{vector} of 1D points which constitute the vertices of the PE-PCD.}
 
-\item{Yp}{A set or vector of 1D points which constitute the end points of the intervals.}
+\item{Yp}{A set or \code{vector} of 1D points which constitute the end points of the intervals.}
 
 \item{r}{A positive real number which serves as the expansion parameter in PE proximity region;
 must be \eqn{\ge 1}.}
 
-\item{c}{A positive real number in \eqn{(0,1)} parameterizing the center inside \eqn{int=(a,b)}.
-For the interval, \eqn{int=(a,b)}, the parameterized center is \eqn{M_c=a+c(b-a)}.}
+\item{c}{A positive real number in \eqn{(0,1)} parameterizing the center inside \code{int}\eqn{=(a,b)}.
+For the interval, \code{int}\eqn{=(a,b)}, the parameterized center is \eqn{M_c=a+c(b-a)}.}
 }
 \value{
-A list with the elements
+A \code{list} with the elements
 \item{type}{A description of the type of the digraph}
 \item{parameters}{Parameters of the digraph, here, they are expansion and centrality parameters.}
 \item{tess.points}{Points on which the tessellation of the study region is performed, here, tessellation
 is the intervalization based on \code{Yp} points.}
 \item{tess.name}{Name of data set used in tessellation, it is \code{Yp} for this function}
-\item{vertices}{Vertices of the digraph, i.e. \code{Xp} points}
+\item{vertices}{Vertices of the digraph, i.e., \code{Xp} points}
 \item{vert.name}{Name of the data set which constitute the vertices of the digraph}
 \item{S}{Tails (or sources) of the arcs of PE-PCD for 1D data in the middle intervals}
 \item{E}{Heads (or arrow ends) of the arcs of PE-PCD for 1D data in the middle intervals}
-\item{mtitle}{Text for "main" title in the plot of the digraph}
+\item{mtitle}{Text for \code{"main"} title in the plot of the digraph}
 \item{quant}{Various quantities for the digraph: number of vertices, number of partition points,
 number of intervals, number of arcs, and arc density.}
 }
 \description{
-An object of class "PCDs".
+An object of class \code{"PCDs"}.
 Returns arcs as tails (or sources) and heads (or arrow ends) for 1D data set \code{Xp} as the vertices
 of PE-PCD.
 
 For this function, PE proximity regions are constructed with respect to the intervals
-based on \code{Yp} points with expansion parameter \eqn{r \ge 1} and centrality parameter \code{c} in \eqn{(0,1)}. That is, for this function,
+based on \code{Yp} points with expansion parameter \eqn{r \ge 1} and centrality parameter \eqn{c \in (0,1)}. That is, for this function,
 arcs may exist for points only inside the intervals.
 It also provides various descriptions and quantities about the arcs of the PE-PCD
 such as number of arcs, arc density, etc.
@@ -99,4 +99,7 @@ ArcsPEmid1D(Xp,Yp,r,c)
 \seealso{
 \code{\link{ArcsPEend1D}}, \code{\link{ArcsPE1D}}, \code{\link{ArcsCSmid1D}},
  \code{\link{ArcsCSend1D}} and \code{\link{ArcsCS1D}}
+}
+\author{
+Elvan Ceyhan
 }

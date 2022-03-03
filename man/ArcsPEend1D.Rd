@@ -7,15 +7,15 @@
 ArcsPEend1D(Xp, Yp, r)
 }
 \arguments{
-\item{Xp}{A set or vector of 1D points which constitute the vertices of the PE-PCD.}
+\item{Xp}{A set or \code{vector} of 1D points which constitute the vertices of the PE-PCD.}
 
-\item{Yp}{A set or vector of 1D points which constitute the end points of the intervals.}
+\item{Yp}{A set or \code{vector} of 1D points which constitute the end points of the intervals.}
 
 \item{r}{A positive real number which serves as the expansion parameter in PE proximity region;
 must be \eqn{\ge 1}.}
 }
 \value{
-A list with the elements
+A \code{list} with the elements
 \item{type}{A description of the type of the digraph}
 \item{parameters}{Parameters of the digraph, here, it is the expansion parameter.}
 \item{tess.points}{Points on which the tessellation of the study region is performed, here, tessellation
@@ -25,12 +25,12 @@ is the intervalization based on \code{Yp}.}
 \item{vert.name}{Name of the data set which constitutes the vertices of the digraph}
 \item{S}{Tails (or sources) of the arcs of PE-PCD for 1D data in the end intervals}
 \item{E}{Heads (or arrow ends) of the arcs of PE-PCD for 1D data in the end intervals}
-\item{mtitle}{Text for "main" title in the plot of the digraph}
+\item{mtitle}{Text for \code{"main"} title in the plot of the digraph}
 \item{quant}{Various quantities for the digraph: number of vertices, number of partition points,
 number of intervals (which is 2 for end intervals), number of arcs, and arc density.}
 }
 \description{
-An object of class "PCDs".
+An object of class \code{"PCDs"}.
 Returns arcs as tails (or sources) and heads (or arrow ends) for 1D data set \code{Xp} as the vertices
 of PE-PCD.  \code{Yp} determines the end points of the end intervals.
 
@@ -87,4 +87,7 @@ ArcsPEend1D(Xp,Yp,r)
 \seealso{
 \code{\link{ArcsPEmid1D}}, \code{\link{ArcsPE1D}} , \code{\link{ArcsCSmid1D}},
 \code{\link{ArcsCSend1D}}  and \code{\link{ArcsCS1D}}
+}
+\author{
+Elvan Ceyhan
 }

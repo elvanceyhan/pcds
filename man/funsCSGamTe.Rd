@@ -21,18 +21,18 @@ Gam5CSTe(pt1, pt2, pt3, pt4, pt5, Dt, t, ch.data.pnts = FALSE)
 Gam6CSTe(pt1, pt2, pt3, pt4, pt5, pt6, Dt, t, ch.data.pnts = FALSE)
 }
 \arguments{
-\item{pt1, pt2, pt3, pt4, pt5, pt6}{The points \{\eqn{pt1,...,ptk}\} are \eqn{k} 2D points
+\item{pt1, pt2, pt3, pt4, pt5, pt6}{The points \{\eqn{pt1,\ldots,ptk}\} are \eqn{k} 2D points
 (for \eqn{k=2,3,4,5,6}) to be tested for constituting a dominating set of the CS-PCD.}
 
 \item{Dt}{A set of 2D points which constitutes the vertices of the CS-PCD.}
 
 \item{t}{A positive real number which serves as the expansion parameter in CS proximity region.}
 
-\item{ch.data.pnts}{A logical argument for checking whether points \{\eqn{pt1,...,ptk}\} are
+\item{ch.data.pnts}{A logical argument for checking whether points \{\eqn{pt1,\ldots,ptk}\} are
 data points in \code{Dt} or not (default is \code{FALSE}).}
 }
 \value{
-The function GamkCSTe returns \{\code{pt1},...,\code{ptk}\} is a dominating set of the CS-PCD) where
+The function \code{GamkCSTe} returns \{\code{pt1},...,\code{ptk}\} is a dominating set of the CS-PCD) where
 vertices of the CS-PCD are the 2D data set \code{Dt}), that is, returns 1 if \{\code{pt1},...,\code{ptk}\}
 is a dominating set of CS-PCD, returns 0 otherwise.
 }
@@ -53,10 +53,10 @@ dominating set if they actually were in the data set.
 See also (\insertCite{ceyhan:Phd-thesis,ceyhan:comp-geo-2010,ceyhan:mcap2012;textual}{pcds}).
 }
 \examples{
+set.seed(123)
 #Examples for Gam2CSTe
-\dontrun{
 t<-1.5
-n<-10
+n<-9 #try also 10, 20 (it may take longer for larger n)
 
 set.seed(1)
 dat<-runifTe(n)$gen.points
@@ -77,7 +77,7 @@ ind.gam2<-vector()
 for (i in 1:(n-1))
  for (j in (i+1):n)
  {if (Gam2CSTe(dat[i,],dat[j,],dat,t)==1)
-   ind.gam2<-rbind(ind.gam2,c(i,j))}
+  ind.gam2<-rbind(ind.gam2,c(i,j))}
 
 ind.gam2
 
@@ -87,16 +87,17 @@ Gam2CSTe(P1,P2,dat,t)
 dat.fr<-data.frame(a=dat)
 Gam2CSTe(P1,P2,dat.fr,t)
 
-Gam2CSTe(c(.2,.2),dat[2,],dat,t,ch.data.pnts = TRUE)
-#gives an error message since not both points are data points in Dt
-Gam2CSTe(c(.2,.2),c(.2,.3),dat,t,ch.data.pnts = TRUE)
-#gives an error message since not both points are data points in Dt
-}
+Gam2CSTe(c(.2,.2),dat[2,],dat,t,ch.data.pnts = FALSE)
+#will give an error message if ch.data.pnts = TRUE
+#since not both points are data points in Dt
+
+Gam2CSTe(c(.2,.2),c(.2,.3),dat,t,ch.data.pnts = FALSE)
+#will give an error message if ch.data.pnts = TRUE
+#since not both points are data points in Dt
 
 #Examples for Gam3CSTe
-\dontrun{
 t<-1.5
-n<-10
+n<-9 #try also 10, 20 (it may take longer for larger n)
 
 set.seed(1)
 dat<-runifTe(n)$gen.points
@@ -115,7 +116,7 @@ for (i in 1:(n-2))
  for (j in (i+1):(n-1))
    for (k in (j+1):n)
    {if (Gam3CSTe(dat[i,],dat[j,],dat[k,],dat,t)==1)
-     ind.gam3<-rbind(ind.gam3,c(i,j,k))}
+    ind.gam3<-rbind(ind.gam3,c(i,j,k))}
 
 ind.gam3
 
@@ -125,14 +126,13 @@ Gam3CSTe(P1,P2,P3,dat,t)
 dat.fr<-data.frame(a=dat)
 Gam3CSTe(P1,P2,P3,dat.fr,t)
 
-Gam3CSTe(c(.2,.2),dat[2,],dat[3,],dat,t,ch.data.pnts = TRUE)
-#gives an error message since not all points, pt1, pt2, and pt3, are data points in Dt
-}
+Gam3CSTe(c(.2,.2),dat[2,],dat[3,],dat,t,ch.data.pnts = FALSE)
+#gives an error message if ch.data.pnts = TRUE
+#since not all points, pt1, pt2, and pt3, are data points in Dt
 
 #Examples for Gam4CSTe
-\dontrun{
 t<-1.5
-n<-10
+n<-9 #try also 10, 20 (it may take longer for larger n)
 
 set.seed(1)
 dat<-runifTe(n)$gen.points
@@ -153,7 +153,7 @@ for (i in 1:(n-3))
    for (k in (j+1):(n-1))
      for (l in (k+1):n)
      {if (Gam4CSTe(dat[i,],dat[j,],dat[k,],dat[l,],dat,t)==1)
-       ind.gam4<-rbind(ind.gam4,c(i,j,k,l))}
+      ind.gam4<-rbind(ind.gam4,c(i,j,k,l))}
 
 ind.gam4
 
@@ -163,14 +163,12 @@ Gam4CSTe(P1,P2,P3,P4,dat,t)
 dat.fr<-data.frame(a=dat)
 Gam4CSTe(P1,P2,P3,P4,dat.fr,t)
 
-Gam4CSTe(c(.2,.2),dat[2,],dat[3,],dat[4,],dat,t,ch.data.pnts = TRUE)
-#gives an error message since not all points are data points in Dt
-}
+Gam4CSTe(c(.2,.2),dat[2,],dat[3,],dat[4,],dat,t,ch.data.pnts = FALSE)
+#gives an error message if ch.data.pnts = TRUE since not all points are data points in Dt
 
 #Examples for Gam5CSTe
-\dontrun{
 t<-1.5
-n<-10
+n<-9 #try also 10, 20 (it may take longer for larger n)
 
 set.seed(1)
 dat<-runifTe(n)$gen.points
@@ -188,7 +186,7 @@ for (i1 in 1:(n-4))
      for (i4 in (i3+1):(n-1))
        for (i5 in (i4+1):n)
        {if (Gam5CSTe(dat[i1,],dat[i2,],dat[i3,],dat[i4,],dat[i5,],dat,t)==1)
-         ind.gam5<-rbind(ind.gam5,c(i1,i2,i3,i4,i5))}
+        ind.gam5<-rbind(ind.gam5,c(i1,i2,i3,i4,i5))}
 
 ind.gam5
 
@@ -198,14 +196,12 @@ Gam5CSTe(P1,P2,P3,P4,P5,dat,t)
 dat.fr<-data.frame(a=dat)
 Gam5CSTe(P1,P2,P3,P4,P5,dat.fr,t)
 
-Gam5CSTe(c(.2,.2),dat[2,],dat[3,],dat[4,],dat[5,],dat,t,ch.data.pnts = TRUE)
-#gives an error message since not all points are data points in Dt
-}
+Gam5CSTe(c(.2,.2),dat[2,],dat[3,],dat[4,],dat[5,],dat,t,ch.data.pnts = FALSE)
+#gives an error message if ch.data.pnts = TRUE since not all points are data points in Dt
 
 #Examples for Gam6CSTe
-\dontrun{
 t<-1.5
-n<-10
+n<-9 #try also 10, 20 (it may take longer for larger n)
 
 set.seed(1)
 dat<-runifTe(n)$gen.points
@@ -224,7 +220,7 @@ for (i1 in 1:(n-5))
        for (i5 in (i4+1):(n-1))
          for (i6 in (i5+1):n)
          {if (Gam6CSTe(dat[i1,],dat[i2,],dat[i3,],dat[i4,],dat[i5,],dat[i6,],dat,t)==1)
-           ind.gam6<-rbind(ind.gam6,c(i1,i2,i3,i4,i5,i6))}
+          ind.gam6<-rbind(ind.gam6,c(i1,i2,i3,i4,i5,i6))}
 
 ind.gam6
 
@@ -234,11 +230,13 @@ Gam6CSTe(P1,P2,P3,P4,P5,P6,dat,t)
 dat.fr<-data.frame(a=dat)
 Gam6CSTe(P1,P2,P3,P4,P5,P6,dat.fr,t)
 
-Gam6CSTe(c(.2,.2),dat[2,],dat[3,],dat[4,],dat[5,],dat[6,],dat,t,ch.data.pnts = TRUE)
-#gives an error message since not all points are data points in Dt
-}
+Gam6CSTe(c(.2,.2),dat[2,],dat[3,],dat[4,],dat[5,],dat[6,],dat,t,ch.data.pnts = FALSE)
+#gives an error message if ch.data.pnts = TRUE since not all points are data points in Dt
 
 }
 \seealso{
 \code{\link{Gam1CSTe}}, \code{\link{Gam2PEtri}} and \code{\link{Gam2PEtetra}}
+}
+\author{
+Elvan Ceyhan
 }

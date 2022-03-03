@@ -15,21 +15,21 @@ partition the real line.}
 \item{r}{A positive real number which serves as the expansion parameter in PE proximity region;
 must be \eqn{\ge 1}.}
 
-\item{c}{A positive real number in \eqn{(0,1)} parameterizing the center inside \code{int} (default c=.5).}
+\item{c}{A positive real number in \eqn{(0,1)} parameterizing the center inside \code{int} (default \code{c=.5}).}
 }
 \value{
-A list with two elements
-\item{dom.num}{Domination number of PE-PCD with vertex set=\code{Xp} and expansion parameter \eqn{r \ge 1} and
-centrality parameter \code{c} in \eqn{(0,1)} }
-\item{mds}{A minimum dominating set of PE-PCD with vertex set=\code{Xp} and expansion parameter \eqn{r \ge 1} and
-centrality parameter \code{c} in \eqn{(0,1)} }
+A \code{list} with two elements
+\item{dom.num}{Domination number of PE-PCD with vertex set = \code{Xp} and expansion parameter \eqn{r \ge 1} and
+centrality parameter \eqn{c \in (0,1)}.}
+\item{mds}{A minimum dominating set of PE-PCD with vertex set = \code{Xp} and expansion parameter \eqn{r \ge 1} and
+centrality parameter \eqn{c \in (0,1)}.}
 }
 \description{
 Returns the domination number of PE-PCD whose vertices are the 1D data set \code{Xp}.
 
 \code{Yp} determines the end points of the intervals (i.e., partition the real line via intervalization).
 
-PE proximity region is constructed with expansion parameter \eqn{r \ge 1} and centrality parameter \code{c} in \eqn{(0,1)}.
+PE proximity region is constructed with expansion parameter \eqn{r \ge 1} and centrality parameter \eqn{c \in (0,1)}.
 }
 \examples{
 a<-0; b<-10; int<-c(a,b)
@@ -55,4 +55,7 @@ PEdom1D(Xp,Yp,r=1.25,c)
 }
 \seealso{
 \code{\link{PEdomMTnd}}
+}
+\author{
+Elvan Ceyhan
 }

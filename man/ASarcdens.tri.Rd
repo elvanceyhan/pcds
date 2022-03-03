@@ -11,9 +11,9 @@ ASarcdens.tri(Xp, tri, M = "CC", tri.cor = TRUE)
 
 \item{tri}{Three 2D points, stacked row-wise, each row representing a vertex of the triangle.}
 
-\item{M}{The center of the triangle. "CC" stands for circumcenter of the triangle \code{tri} or a 2D point in Cartesian coordinates or
+\item{M}{The center of the triangle. \code{"CC"} stands for circumcenter of the triangle \code{tri} or a 2D point in Cartesian coordinates or
 a 3D point in barycentric coordinates which serves as a center in the interior of \code{tri};
-default is \code{M}="CC" i.e. the circumcenter of \code{tri}.}
+default is \code{M="CC"} i.e., the circumcenter of \code{tri}.}
 
 \item{tri.cor}{A logical argument for computing the arc density for only the points inside the triangle, \code{tri}
 (default=\code{TRUE}), i.e., if \code{TRUE} only the induced digraph with the vertices inside \code{tri} are considered in the
@@ -21,16 +21,16 @@ computation of arc density.}
 }
 \value{
 Arc density of AS-PCD whose vertices are the 2D numerical data set, \code{Xp};
-AS proximity regions are defined with respect to the triangle \code{tri} and CC-vertex regions.
+AS proximity regions are defined with respect to the triangle \code{tri} and \eqn{CC}-vertex regions.
 }
 \description{
 Returns the arc density of AS-PCD whose vertex set is the given 2D numerical data set, \code{Xp},
 (some of its members are) in the triangle \code{tri}.
 
 AS proximity regions is defined with respect to \code{tri}
-and vertex regions are defined with the center \code{M}="CC" for circumcenter of \code{tri};
+and vertex regions are defined with the center \code{M="CC"} for circumcenter of \code{tri};
 or \eqn{M=(m_1,m_2)} in Cartesian coordinates or \eqn{M=(\alpha,\beta,\gamma)} in barycentric coordinates in the
-interior of the triangle \code{tri}; default is \code{M}="CC" i.e. circumcenter of \code{tri}.
+interior of the triangle \code{tri}; default is \code{M="CC"} i.e., circumcenter of \code{tri}.
 For the number of arcs, loops are not allowed so arcs are only possible for points inside \code{tri}
 for this function.
 
@@ -70,4 +70,7 @@ ASarcdens.tri(dat,dat.fr,M)
 }
 \seealso{
 \code{\link{ASarcdens.tri}}, \code{\link{CSarcdens.tri}}, and \code{\link{NumArcsAStri}}
+}
+\author{
+Elvan Ceyhan
 }

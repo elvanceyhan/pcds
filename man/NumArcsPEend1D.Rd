@@ -7,12 +7,12 @@
 NumArcsPEend1D(dat, r, int)
 }
 \arguments{
-\item{dat}{A vector of 1D points which constitute the vertices of the digraph.}
+\item{dat}{A \code{vector} of 1D points which constitute the vertices of the digraph.}
 
 \item{r}{A positive real number which serves as the expansion parameter in PE proximity region;
 must be \eqn{\ge 1}.}
 
-\item{int}{A vector of two real numbers representing an interval.}
+\item{int}{A \code{vector} of two real numbers representing an interval.}
 }
 \value{
 Number of arcs for the PE-PCD with vertices being 1D data set, \code{dat},
@@ -20,7 +20,7 @@ expansion parameter, \eqn{r \ge 1}, for the end intervals.
 }
 \description{
 Returns the number of arcs of Proportional Edge Proximity Catch Digraphs (PE-PCDs) whose
-vertices are a 1D numerical data set, \code{dat}, outside the interval \eqn{int=(a,b)}.
+vertices are a 1D numerical data set, \code{dat}, outside the interval \code{int}\eqn{=(a,b)}.
 
 PE proximity region is constructed only with expansion parameter \eqn{r \ge 1} for points outside the interval \eqn{(a,b)}.
 End vertex regions are based on the end points of the interval,
@@ -56,4 +56,7 @@ NumArcsPEend1D(dat,r,int)
 }
 \seealso{
 \code{\link{NumArcsPEmid1D}}, \code{\link{NumArcsCSmid1D}}, and \code{\link{NumArcsCSend1D}}
+}
+\author{
+Elvan Ceyhan
 }

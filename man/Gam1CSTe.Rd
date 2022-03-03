@@ -18,11 +18,11 @@ Gam1CSTe(p, Dt, t, ch.data.pnt = FALSE)
 in \code{Dt} or not (default is \code{FALSE}).}
 }
 \value{
-I(\code{p} is a dominating point of the CS-PCD) where the vertices of the CS-PCD are the 2D data set \code{Dt},
+\eqn{I(}\code{p} is a dominating point of the CS-PCD\eqn{)} where the vertices of the CS-PCD are the 2D data set \code{Dt},
 that is, returns 1 if \code{p} is a dominating point, returns 0 otherwise
 }
 \description{
-Returns I(\code{p} is a dominating point of the CS-PCD) where the vertices of the CS-PCD are the 2D data set \code{Dt} in the standard equilateral
+Returns \eqn{I(}\code{p} is a dominating point of the CS-PCD\eqn{)} where the vertices of the CS-PCD are the 2D data set \code{Dt} in the standard equilateral
 triangle \eqn{T_e=T(A,B,C)=T((0,0),(1,0),(1/2,\sqrt{3}/2))}, that is, returns 1 if \code{p} is a dominating point of CS-PCD,
 returns 0 otherwise.
 
@@ -77,10 +77,8 @@ yc<-txt[,2]+c(.02,.02,.03,.02)
 txt.str<-c("A","B","C","CM")
 text(xc,yc,txt.str)
 
-\dontrun{
-Gam1CSTe(c(1,2),dat,t,ch.data.pnt = TRUE)
-#gives an error message since p is not a data point
-}
+Gam1CSTe(c(1,2),dat,t,ch.data.pnt = FALSE)
+#gives an error if ch.data.pnt = TRUE message since p is not a data point
 
 }
 \references{
@@ -88,4 +86,7 @@ Gam1CSTe(c(1,2),dat,t,ch.data.pnt = TRUE)
 }
 \seealso{
 \code{\link{Gam1CSTet1}}
+}
+\author{
+Elvan Ceyhan
 }

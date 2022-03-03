@@ -11,23 +11,23 @@ NumArcsCSint(dat, t, c = 0.5, int)
 
 \item{t}{A positive real number which serves as the expansion parameter in CS proximity region.}
 
-\item{c}{A positive real number in \eqn{(0,1)} parameterizing the center inside \eqn{int=(a,b)}.
-For the interval, \eqn{int=(a,b)}, the parameterized center is \eqn{M_c=a+c(b-a)}; default=0.5.}
+\item{c}{A positive real number in \eqn{(0,1)} parameterizing the center inside \code{int}\eqn{=(a,b)}.
+For the interval, \code{int}\eqn{=(a,b)}, the parameterized center is \eqn{M_c=a+c(b-a)}; default=\code{0.5}.}
 
-\item{int}{A vector of two real numbers representing an interval.}
+\item{int}{A \code{vector} of two real numbers representing an interval.}
 }
 \value{
 Number of arcs for the CS-PCD whose vertices are the 1D data set, \code{dat},
-with expansion parameter, \eqn{t>0}, and centrality parameter, \code{c} in \eqn{(0,1)}.
+with expansion parameter, \eqn{t>0}, and centrality parameter, \eqn{c \in (0,1)}.
 }
 \description{
 Returns the number of arcs of Central Similarity Proximity Catch Digraphs (CS-PCDs)
 whose vertices are the 1D data set \code{dat} in the one-interval case.
 
-The data points could be inside or outside the interval is \eqn{int=(a,b)}.
+The data points could be inside or outside the interval is \code{int}\eqn{=(a,b)}.
 
 CS proximity region is constructed
-with an expansion parameter \eqn{t>0} and a centrality parameter \code{c} in \eqn{(0,1)}.
+with an expansion parameter \eqn{t>0} and a centrality parameter \eqn{c \in (0,1)}.
 CS proximity region is constructed for both points inside and outside the interval, hence
 the arcs may exist for all points inside or outside the interval.
 
@@ -63,4 +63,7 @@ NumArcsCSint(dat,t,c,int)
 }
 \seealso{
 \code{\link{NumArcsCSmid1D}}, \code{\link{NumArcsCSend1D}}, and \code{\link{NumArcsPEint}}
+}
+\author{
+Elvan Ceyhan
 }

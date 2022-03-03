@@ -2,28 +2,28 @@
 % Please edit documentation in R/PCDFunctions.r
 \name{re.triCM}
 \alias{re.triCM}
-\title{The index of the CM-edge region in a triangle that contains the point}
+\title{The index of the \eqn{CM}-edge region in a triangle that contains the point}
 \usage{
 re.triCM(pt, tri)
 }
 \arguments{
-\item{pt}{A 2D point for which CM-edge region it resides in is to be determined in the triangle
+\item{pt}{A 2D point for which \eqn{CM}-edge region it resides in is to be determined in the triangle
 \code{tri}.}
 
 \item{tri}{Three 2D points, stacked row-wise, each row representing a vertex of the triangle.}
 }
 \value{
-A list with three elements
-\item{re}{Index of the CM-edge region that contains point, \code{pt}  in the triangle \code{tri}.}
-\item{tri}{The vertices of the triangle, where row labels are A, B, and C
-with edges are labeled as 3 for edge AB, 1 for edge BC, and 2 for edge AC.}
+A \code{list} with three elements
+\item{re}{Index of the \eqn{CM}-edge region that contains point, \code{pt} in the triangle \code{tri}.}
+\item{tri}{The vertices of the triangle, where row labels are \eqn{A}, \eqn{B}, and \eqn{C}
+with edges are labeled as 3 for edge \eqn{AB}, 1 for edge \eqn{BC}, and 2 for edge \eqn{AC}.}
 \item{desc}{Description of the edge labels}
 }
 \description{
 Returns the index of the edge whose region contains point, \code{pt}, in
-the triangle \eqn{tri=T(A,B,C)} with edge regions based on center of mass \eqn{CM=(A+B+C)/3}.
+the triangle \code{tri}\eqn{=T(A,B,C)} with edge regions based on center of mass \eqn{CM=(A+B+C)/3}.
 
-Edges are labeled as 3 for edge AB, 1 for edge BC, and 2 for edge AC.
+Edges are labeled as 3 for edge \eqn{AB}, 1 for edge \eqn{BC}, and 2 for edge \eqn{AC}.
 If the point, \code{pt}, is not inside \code{tri}, then the function yields \code{NA} as output.
 Edge region 1 is the triangle \eqn{T(B,C,CM)}, edge region 2 is \eqn{T(A,C,CM)}, and
 edge region 3 is \eqn{T(A,B,CM)}.
@@ -105,4 +105,7 @@ re.triCM(P,dat.fr)
 \seealso{
 \code{\link{re.tri.cent}}, \code{\link{re.bastriCM}}, \code{\link{re.bastri.cent}},
 \code{\link{reTeCM}}, and \code{\link{redge.triCM}}
+}
+\author{
+Elvan Ceyhan
 }

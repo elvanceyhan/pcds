@@ -14,17 +14,17 @@ If \code{TRUE}, the smaller angle or counter-clockwise angle
 between the line segments \eqn{[ba]} and \eqn{[bc]} is provided in radians, else it is provided in degrees.}
 }
 \value{
-A list with two elements
-\item{small.arc.angles}{Angles of \eqn{[ba]} and \eqn{[bc]} with the x-axis so that difference between them
+A \code{list} with two elements
+\item{small.arc.angles}{Angles of \eqn{[ba]} and \eqn{[bc]} with the \eqn{x}-axis so that difference between them
 is the smaller angle between \eqn{[ba]} and \eqn{[bc]} }
-\item{ccw.arc.angles}{Angles of \eqn{[ba]} and \eqn{[bc]} with the x-axis so that difference between them
+\item{ccw.arc.angles}{Angles of \eqn{[ba]} and \eqn{[bc]} with the \eqn{x}-axis so that difference between them
 is the counter-clockwise angle between \eqn{[ba]} and \eqn{[bc]}}
 }
 \description{
 Gives the two pairs of angles in radians or degrees to draw arcs between two vectors or line segments
-for the \code{\link[plotrix]{draw.arc}} function in the plotrix package.
-The angles are provided with respect to the x-axis in the coordinate system.
-The line segments are \eqn{[ba]} and \eqn{[bc]} when the argument is given as \code{a, b, c} in the function.
+for the \code{\link[plotrix]{draw.arc}} function in the \code{plotrix} package.
+The angles are provided with respect to the \eqn{x}-axis in the coordinate system.
+The line segments are \eqn{[ba]} and \eqn{[bc]} when the argument is given as \code{a,b,c} in the function.
 
 \code{radian} is a logical argument (default=\code{TRUE}) which yields the angle in radians if \code{TRUE}, and in degrees if \code{FALSE}.
 The first pair of angles is for drawing arcs in the smaller angle between \eqn{[ba]} and \eqn{[bc]}
@@ -88,4 +88,7 @@ text(rbind(B)+.9*rad*c(cos(ang.rad$s[2]/2),sin(ang.rad$s[2]/2)),paste(round(ang.
 }
 \seealso{
 \code{\link{angle3pnts}}
+}
+\author{
+Elvan Ceyhan
 }

@@ -2,22 +2,22 @@
 % Please edit documentation in R/AuxRFuncs4PCDClasses.r
 \name{print.Planes}
 \alias{print.Planes}
-\title{Print a \code{Planes} object}
+\title{Print a \code{Planes} \code{object}}
 \usage{
 \method{print}{Planes}(x, ...)
 }
 \arguments{
-\item{x}{A \code{Planes} object.}
+\item{x}{A \code{Planes} \code{object}.}
 
-\item{\dots}{Additional arguments for the S3 method '\code{print}'.}
+\item{\dots}{Additional arguments for the S3 method \code{'print'}.}
 }
 \value{
-The \code{call} of the object of class '\code{Planes}'
-and the \code{coefficients} of the plane (in the form: z = A*x + B*y + C).
+The \code{call} of the \code{object} of class \code{"Planes"}
+and the \code{coefficients} of the plane (in the form: \code{z = A*x + B*y + C}).
 }
 \description{
-Prints the \code{call} of the object of class '\code{Planes}'
-and also the \code{coefficients} of the plane (in the form: z = A*x + B*y + C).
+Prints the \code{call} of the \code{object} of class \code{"Planes"}
+and also the \code{coefficients} of the plane (in the form: \code{z = A*x + B*y + C}).
 }
 \examples{
 A<-c(1,10,3); B<-c(1,1,3); C<-c(3,9,12)
