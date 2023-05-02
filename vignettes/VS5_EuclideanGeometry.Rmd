@@ -1,0 +1,758 @@
+---
+title: "VS5 - Functions for Euclidean Geometry"
+author: "Elvan Ceyhan"
+date: '`r Sys.Date()` '
+output:
+  bookdown::html_document2:
+    base_format: rmarkdown::html_vignette
+bibliography: References.bib
+vignette: >
+  %\VignetteIndexEntry{VS5 - Functions for Euclidean Geometry}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+<style>
+.math {
+  font-size: small;
+}
+</style>
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(collapse = TRUE,comment = "#>",fig.width=6, fig.height=4, fig.align = "center")
+#knitr::write_bib("knitr", file = "References.bib")
+```
+
+First we load the `pcds` and `plot2D` packages:
+```{r setup, message=FALSE, results='hide'}
+library(pcds)
+library(plot3D)
+```
+
+# Auxiliary Functions for Two and Three Dimensional Euclidean Geometry
+We provide the equations for the $d-1$ dimensional hyper-planes and related geometric
+structures in $d$-dimensional Euclidean space for $d=2,3$. 
+That is, we provide the equations of the lines,
+planes, and intersection points, etc. in $\mathbb R^2$ and $\mathbb R^3$.
+Some of these functions are used in the construction of proximity regions and the related PCDs
+hence are auxiliary functions in the construction of PCDs
+(see @ceyhan:Phd-thesis and @ceyhan:comp-geo-2010 for more details).
+
+## Geometric Structures in 2D Euclidean Space
+The equation of the line and other related quantities like slope and intercept and 
+the plot of the line are provided by the function `Line`.
+This function is different from the `line` function in the standard `stats` package
+in `R` in the sense that `Line(a,b,x)` fits the line passing
+through points `a` and `b` and returns various quantities related to this line (see below) and `x` is
+the vector of $x$-coordinates of the points on the line `Line(a,b,x)`
+(i.e., want the compute the $y$ coordinates of the points on the line `Line(a,b,x)`
+whose $x$-coordinates are given in the vector `x`
+while `line(a,b)` fits a straight line robustly
+whose $x$-coordinates are in vector `a` and $y$-coordinates are in vector `b`.
+
+### Equation of the Line Crossing two Distinct 2D Points
+
+The function `Line` is an object of class `Lines` and has arguments `a,b,x` where
+
+- `a,b`, 2D points that determine the straight line (i.e., through which the straight line passes) and
+- `x`, a scalar or a vector of scalars representing the $x$-coordinates of the line.
+
+Its `call` (with `lnAB` in the below script) just returns 
+`Coefficients of the line (for the form: y = slope * x + intercept)`.
+Its `summary` returns the defining points,
+selected $x$ points (first row) and estimated $y$ points (second row) that fall on the line (first 6 or fewer),
+the equation of the line,
+and the coefficients of the line (i.e., the `slope` and `intercept`).
+The `plot` function (or `plot.Lines`) returns the plot of the line together with the defining points.
+```{r lAB, fig.cap="The line joining the points $A$ and $B$ in 2D space."}
+A<-c(-1.22,-2.33); B<-c(2.55,3.75)
+
+xr<-range(A,B);
+xf<-(xr[2]-xr[1])*.1 #how far to go at the lower and upper ends in the x-coordinate
+x<-seq(xr[1]-xf,xr[2]+xf,l=5)  #try also l=10, 20, or 100
+
+lnAB<-Line(A,B,x)
+lnAB
+summary(lnAB)
+plot(lnAB)
+```
+
+The difference of the function `Line` from the `line` function in the standard `stats` package in `R` is illustrated below.
+```{r EGch6, eval=F}
+line(A,B)  #this takes vector A as the x points and vector B as the y points and fits the line
+#> 
+#> Call:
+#> line(A, B)
+#> 
+#> Coefficients:
+#> [1]   1.231  -1.081
+
+line(x,lnAB$y) #gives the same line as Line(A,B,x) above
+#> 
+#> Call:
+#> line(x, lnAB$y)
+#> 
+#> Coefficients:
+#> [1]  -0.3625   1.6127
+c(lnAB$intercept,lnAB$slope)
+#>  intercept      slope 
+#> -0.3624668  1.6127321
+```
+
+The slope of the line joining two distinct 2D points `a` and `b` can be found by the `slope` function
+with arguments `a,b` which are as in the function `Line`.
+```{r EGch7, eval=F}
+slope(A,B)
+#> [1] 1.612732
+```
+
+### Equation of the Line Crossing a Point and Parallel to the Line Crossing two Distinct 2D Points
+
+The equation of the line crossing a point `p` parallel to the line segment joining two distinct 2D points `a` and `b` is provided by the function `paraline`. 
+Other related quantities like slope and intercept and the plot of the line are also provided.
+The function `paraline` is an object of class `Lines` which takes arguments `p,a,b,x` where
+
+- `a,b,x` are as in the function `Line` and
+- `p` is a 2D point at which the parallel line to line segment joining `a` and `b` crosses.
+
+Its `call`, `summary`, and `plot` are also as in `Line`.
+```{r lPpl2AB, eval=F, fig.cap="The line crossingn the point $P$ and parallel to the line segment $[AB]$ in 2D space."}
+A<-c(1.1,1.2); B<-c(2.3,3.4); P<-c(.51,2.5)
+
+pts<-rbind(A,B,P)
+xr<-range(pts[,1])
+xf<-(xr[2]-xr[1])*.25 #how far to go at the lower and upper ends in the x-coordinate
+x<-seq(xr[1]-xf,xr[2]+xf,l=5)  #try also l=10, 20, or 100
+
+plnAB<-paraline(P,A,B,x)
+plnAB
+#> Call:
+#> paraline(p = P, a = A, b = B, x = x)
+#> 
+#> Coefficients of the line (in the form: y = slope * x + intercept) 
+#>     slope intercept 
+#>  1.833333  1.565000
+summary(plnAB)
+#> Call:
+#> paraline(p = P, a = A, b = B, x = x)
+#> 
+#> Defining Points
+#>   [,1] [,2]
+#> A 1.10  1.2
+#> B 2.30  3.4
+#> P 0.51  2.5
+#> 
+#>  Selected x points (first row) and estimated y points (second row) that fall on the Line
+#>       (first 6 or fewer are printed at each row) 
+#> [1] 0.06250 0.73375 1.40500 2.07625 2.74750
+#> [1] 1.679583 2.910208 4.140833 5.371458 6.602083
+#> 
+#> Equation of the Line Crossing Point P and Parallel to Line Segment [AB] 
+#> [1] "y=1.83333333333333x+1.565"
+#> 
+#> Coefficients of the line (when the line is in the form: y = slope * x + intercept) 
+#> intercept     slope 
+#>  1.565000  1.833333
+plot(plnAB)
+```
+
+### Equation of the Line Crossing a Point and Perpendicular to the Line Crossing two Distinct 2D Points
+
+The equation of the line crossing a point `p` perpendicular to the line segment joining two distinct 2D points `a` and `b` is 
+provided by the function `perpline`. 
+Other related quantities like slope and intercept and the plot of the line are also provided.
+The function `perpline` is an object of class `Lines` and has the same arguments as `paraline`. 
+Its `call`, `summary`, and `plot` are as in `Line`.
+In the plot of the object, we use `asp=1` so that the lines are depicted correctly, i.e., as perpendicular to each other.
+```{r lPprp2AB, eval=F, fig.cap="The line crossing point $P$ and perpendicular to the line joining $A$ and $B$."}
+A<-c(1.1,1.2); B<-c(2.3,3.4); P<-c(.51,2.5)
+
+pts<-rbind(A,B,P)
+xr<-range(pts[,1])
+xf<-(xr[2]-xr[1])*.25 #how far to go at the lower and upper ends in the x-coordinate
+x<-seq(xr[1]-xf,xr[2]+xf,l=5)  #try also l=10, 20, or 100
+
+plnAB<-perpline(P,A,B,x)
+plnAB
+#> Call:
+#> perpline(p = P, a = A, b = B, x = x)
+#> 
+#> Coefficients of the line (in the form: y = slope * x + intercept) 
+#>      slope  intercept 
+#> -0.5454545  2.7781818
+summary(plnAB)
+#> Call:
+#> perpline(p = P, a = A, b = B, x = x)
+#> 
+#> Defining Points
+#>   [,1] [,2]
+#> A 1.10  1.2
+#> B 2.30  3.4
+#> P 0.51  2.5
+#> 
+#>  Selected x points (first row) and estimated y points (second row) that fall on the Line
+#>       (first 6 or fewer are printed at each row) 
+#> [1] 0.06250 0.73375 1.40500 2.07625 2.74750
+#> [1] 2.744091 2.377955 2.011818 1.645682 1.279545
+#> 
+#> Equation of the Line Crossing Point P Perpendicular to Line Segment [AB] 
+#> [1] "y=-0.545454545454545x+2.77818181818182"
+#> 
+#> Coefficients of the line (when the line is in the form: y = slope * x + intercept) 
+#>  intercept      slope 
+#>  2.7781818 -0.5454545
+plot(plnAB,asp=1)
+```
+
+The point of intersection of two lines, where each line is defined by a pair of points, 
+is provided by the function `int.2lines`.
+The arguments of the functions are the four points `p1,q1,p2,q2`,
+where the first line is defined with the points `p1,q1`, and the second line is defined with the points `p2,q2`.
+```{r EGch1, eval=F}
+A<-c(-1.22,-2.33); B<-c(2.55,3.75); C<-c(0,6); D<-c(3,-2)
+ip<-int.2lines(A,B,C,D)
+ip
+#> [1] 1.486767 2.035289
+```
+
+The angles to draw arcs between two line segments can be computed with the function `angle.str2end`
+which takes arguments `a,b,c,radian` where
+
+- `a,b,c` three 2D points which represent the intersecting line segments $[ba]$ and $[bc]$.
+- `radian`, a logical argument (default=`TRUE`). If `TRUE`, the smaller angle or counter-clockwise angle
+between the line segments $[ba]$ and $[bc]$ is provided in radians, else it is provided in degrees.
+
+This function returns the output
+
+- `small.arc.angles`, angles of $[ba]$ and $[bc]$ with the $x$-axis so that difference between them
+is the smaller angle between $[ba]$ and $[bc]$, and
+- `ccw.arc.angles`, angles of $[ba]$ and $[bc]$ with the $x$-axis so that difference between them
+is the counter-clockwise angle between $[ba]$ and $[bc]$
+
+The two pairs of angles in radians or degrees in the output of this function is used 
+to draw arcs between two vectors or line segments
+for the `plotrix::draw.arc` function in the `plotrix` package.
+More specifically, these angles are used to draw AS proximity regions 
+(for the circular parts, i.e., arc-slices inside the triangle),
+The angles are provided with respect to the $x$-axis in the coordinate system.
+The line segments are $[ba]$ and $[bc]$ for the arguments `a,b,c` of the function.
+
+Below are the angles between line segments $BA$ and $BC$ first in radians and then in degrees.
+```{r EGch2, eval=F}
+A<-c(.3,.2); B<-c(.6,.3); C<-c(1,1)
+
+angle.str2end(A,B,C)
+#> $small.arc.angles
+#> [1] 1.051650 3.463343
+#> 
+#> $ccw.arc.angles
+#> [1] -2.819842  1.051650
+angle.str2end(A,B,C,radian=FALSE)
+#> $small.arc.angles
+#> [1]  60.25512 198.43495
+#> 
+#> $ccw.arc.angles
+#> [1] -161.56505   60.25512
+```
+
+We plot the line segments $BA$ and $BC$ and annotate the angles between them and 
+also the angles between the line segments and the $x$-axis
+using the below code, 
+type also `? angle.str2end` for the code to generate this figure.
+```{r angBA-BC, eval=F, fig.cap="The line segments $BA$ and $BC$ and the angles (in degrees) between them and between the line segments and the $x$-axis."}
+pts<-rbind(A,B,C)
+
+Xp<-c(B[1]+max(abs(C[1]-B[1]),abs(A[1]-B[1])),0)
+
+#plot of the line segments
+ang.rad<-angle.str2end(A,B,C,radian=TRUE); ang.rad
+ang.deg<-angle.str2end(A,B,C,radian=FALSE); ang.deg
+ang.deg1<-ang.deg$s; ang.deg1
+ang.deg2<-ang.deg$c; ang.deg2
+
+rad<-min(Dist(A,B),Dist(B,C))
+
+Xlim<-range(pts[,1],Xp[1],B+Xp,B[1]+c(+rad,-rad))
+Ylim<-range(pts[,2],B[2]+c(+rad,-rad))
+xd<-Xlim[2]-Xlim[1]
+yd<-Ylim[2]-Ylim[1]
+
+#plot for the counter-clockwise arc
+plot(pts,pch=1,asp=1,xlab="x",ylab="y",xlim=Xlim+xd*c(-.05,.05),ylim=Ylim+yd*c(-.05,.05))
+L<-rbind(B,B,B); R<-rbind(A,C,B+Xp)
+segments(L[,1], L[,2], R[,1], R[,2], lty=2)
+plotrix::draw.arc(B[1],B[2],radius=.3*rad,angle1=ang.rad$c[1],angle2=ang.rad$c[2])
+plotrix::draw.arc(B[1],B[2],radius=.6*rad,angle1=0, angle2=ang.rad$s[1],lty=2,col=2)
+plotrix::draw.arc(B[1],B[2],radius=.9*rad,angle1=0,angle2=ang.rad$s[2],col=3)
+txt<-pts
+text(txt+cbind(rep(xd*.02,nrow(txt)),rep(-xd*.02,nrow(txt))),c("A","B","C"))
+
+text(rbind(B)+.5*rad*c(cos(mean(ang.rad$c)),sin(mean(ang.rad$c))),
+     paste(abs(round(ang.deg2[2]-ang.deg2[1],2))," degrees",sep=""))
+text(rbind(B)+.6*rad*c(cos(ang.rad$s[1]/2),sin(ang.rad$s[1]/2)),paste(round(ang.deg1[1],2)),col=2)
+text(rbind(B)+.9*rad*c(cos(ang.rad$s[2]/2),sin(ang.rad$s[2]/2)),paste(round(ang.deg1[2],2)),col=3)
+```
+
+The area of a polygon `h` in $\mathbb R^2$ is provided by the function `area.polygon`
+with the sole argument `h` which is a vector of $n$ 2D points, 
+stacked row-wise, each row representing a vertex of the polygon,
+where $n$ is the number of vertices of the polygon..
+Here the vertices of the polygon `h` must be provided in clockwise or counter-clockwise order, 
+otherwise the function does not yield the area. 
+Also, the polygon could be convex or non-convex. 
+See (@weisstein-area-poly).
+```{r EGch3, eval=F}
+A<-c(0,0); B<-c(1,0); C<-c(0.5,.8);
+Tr<-rbind(A,B,C);
+area.polygon(Tr)
+#> [1] 0.4
+
+A<-c(0,0); B<-c(1,0); C<-c(.7,.6); D<-c(0.3,.8);
+h1<-rbind(A,B,C,D);  #try also h1<-rbind(A,B,D,C) or h1<-rbind(A,C,B,D) or h1<-rbind(A,D,C,B);
+area.polygon(h1)
+#> [1] 0.49
+```
+
+## Various Distances and Related Functions
+
+The proximity regions are based on *distances* or *dissimilarity measures* between points or
+between points and lines (or edges). 
+So, we provide various functions that measure the distances between such geometric structures.
+
+The distance from a point to a line defined by two points is provided by the function `dist.point2line`
+with arguments `p,a,b` where 
+
+- `p` is a 2D point, distance from `p` to the line passing through points `a` and `b` are to be computed.
+- `a,b` are 2D points that determine the straight line (i.e., through which the straight line passes).
+
+This function also returns the closest point on the line to the point `p`.
+```{r EGch4, eval=F}
+dpl<-dist.point2line(P,A,B);
+dpl
+#> $distance
+#> [1] 2.5
+#> 
+#> $cl2p
+#> [1] 0.51 0.00
+```
+
+The distance from a point `p` to a set `Yp` of finite cardinality 
+where the set `Yp` is stored as a matrix is returned by the function `dist.point2set`.
+The function takes arguments `p,Yp` where 
+
+- `p`, a vector (i.e., a point in $\mathbb R^d$) and
+- `Yp`, a set of $d$-dimensional points.
+
+It returns the index and coordinates of the point in the set `Yp` closest to the point `p`.
+```{r EGch5, eval=F}
+X1<-cbind(runif(10),runif(10))
+dist.point2set(c(1,2),X1)
+#> $distance
+#> [1] 1.086349
+#> 
+#> $ind.cl.point
+#> [1] 3
+#> 
+#> $closest.point
+#> [1] 0.7933641 0.9334844
+```
+
+## Geometric Structures in 3D Euclidean Space
+There are more possibilities for the geometric structures in $\mathbb R^3$ compared to $\mathbb R^2$.
+In $\mathbb R^2$ only lines and their relationships exist, but
+in $\mathbb R^3$, in addition to the lines and their relationships,
+there are also planes,
+and relationships between lines and planes, and planes and planes.
+
+### Equation of the Line Crossing a Point Parallel to (i.e., in the Direction of) a Vector
+
+The equation of the line crossing a point in the direction of a vector 
+in the 3D space are provided by the function `Line3D`.
+If the option `dir.vec=TRUE` (which is the default) in `Line(p,v,t,dir.vec=T)`, 
+the line crosses the point `p` in the direction of the vector `v` 
+(i.e., parallel to the line joining the origin and `v`), otherwise,
+in `Line(p,v,t,dir.vec=FALSE)`,the line crosses `p` and 
+is in the direction of the vector joining `p`  and `v` (i.e.,  in direction of $v-r_0$).
+
+The function `Line3D` is an object of class `Lines3D` and takes arguments `p,v,t,dir.vec`
+where 
+
+- `p`, a 3D point through which the straight line passes.
+- `v`, a 3D vector which determines the direction of the straight line (i.e., the straight line would be
+parallel to this vector) if the `TRUE`, otherwise it is 3D point and $v-r_0$ determines the direction of the
+the straight line.
+- `t`, a scalar or a vector of scalars representing the parameter of the coordinates of the line
+(for the form: $x=x_0 + A t$, $y=y_0 + B t$, and $z=z_0 + C t$ where $r_0=(x_0,y_0,z_0)$
+and $v=(A,B,C)$ if `TRUE`, else $v-r_0=(A,B,C)$).
+- `dir.vec`, a logical argument about `v`, if `TRUE` `v` is treated as a vector,
+else `v` is treated as a point and so the direction vector is taken to be $v-r_0$.
+
+Its `call` (with `lnPQ3D` in the below script with the default option `dir.vec=TRUE`) just returns 
+`Coefficients of the parameterized line passing through initial point P =(x0,y0,z0) in the direction of OQ =(A,B,C) (for the form: x=x0 + A*t, y=y0 + B*t, and z=z0 + C*t) `.
+Its `summary` returns the defining vectors, namely, 
+`initial point` as viewed as a vector joining the origin and the point and `direction vector`,
+estimated $x$ points (first row), $y$ points (second row), and $z$ points (third row)
+(first 6 or fewer are printed at each row) ,
+the equation of the line passing through point `p` in the direction of $OQ$  with $O$ representing the origin $(0,0,0)$ 
+(i.e., parallel to $OQ$ ),
+and the coefficients of the parameterized line passing through initial point $P =(x_0,y_0,z_0)$ 
+in the direction of  $OQ =(A,B,C)$ (for the form: $x=x_0 + A\,t$, $y=y_0 + B\,t$, and $z=z_0 + C\,t$).
+The `plot` function (or `plot.Lines3D`) returns the plot of the line together with the defining points and vectors.
+```{r l3dPQ, eval=F, fig.cap="The line crossing the point $P$ parallel to the vector $OQ$."}
+P<-c(1,10,3); Q<-c(1,1,3);
+
+vecs<-rbind(P,Q)
+
+Line3D(P,Q,.1)
+#> Call:
+#> Line3D(p = P, v = Q, t = 0.1)
+#> 
+#> Coefficients of the parameterized line passing through initial point P = (x0,y0,z0) in the direction of OQ = (A,B,C) (for the form: x=x0 + A*t, y=y0 + B*t, and z=z0 + C*t) 
+#>                  [,1] [,2] [,3]
+#> initial point       1   10    3
+#> direction vector    1    1    3
+Line3D(P,Q,.1,dir.vec=FALSE)
+#> Call:
+#> Line3D(p = P, v = Q, t = 0.1, dir.vec = FALSE)
+#> 
+#> Coefficients of the parameterized line passing through initial point P = (x0,y0,z0) in the direction of PQ = (A,B,C) (for the form: x=x0 + A*t, y=y0 + B*t, and z=z0 + C*t) 
+#>                  [,1] [,2] [,3]
+#> initial point       1   10    3
+#> direction vector    0   -9    0
+
+tr<-range(vecs);
+tf<-(tr[2]-tr[1])*.1 #how far to go at the lower and upper ends in the x-coordinate
+tsq<-seq(-tf*10-tf,tf*10+tf,l=5)  #try also l=10, 20, or 100
+
+lnPQ3D<-Line3D(P,Q,tsq)
+lnPQ3D
+#> Call:
+#> Line3D(p = P, v = Q, t = tsq)
+#> 
+#> Coefficients of the parameterized line passing through initial point P = (x0,y0,z0) in the direction of OQ = (A,B,C) (for the form: x=x0 + A*t, y=y0 + B*t, and z=z0 + C*t) 
+#>                  [,1] [,2] [,3]
+#> initial point       1   10    3
+#> direction vector    1    1    3
+summary(lnPQ3D)
+#> Call:
+#> Line3D(p = P, v = Q, t = tsq)
+#> 
+#> Defining Vectors
+#>                  [,1] [,2] [,3]
+#> initial point       1   10    3
+#> direction vector    1    1    3
+#> 
+#>  Estimated x points (first row), y points (second row), and z points (third row)
+#>    that fall on the Line
+#>       (first 6 or fewer are printed at each row) 
+#> [1] -8.90 -3.95  1.00  5.95 10.90
+#> [1]  0.10  5.05 10.00 14.95 19.90
+#> [1] -26.70 -11.85   3.00  17.85  32.70
+#> 
+#> Equation of the line passing through point P in the direction of OQ  with O representing the origin (0,0,0)
+#>                    (i.e., parallel to OQ ) 
+#>      [,1]        
+#> [1,] "x = 1 + t" 
+#> [2,] "y = 10 + t"
+#> [3,] "z = 3 + 3t"
+#> 
+#> Coefficients of the parameterized line passing through initial point P = (x0,y0,z0) in the direction of OQ = (A,B,C) (in the form: x = x0 + A*t, y = y0 + B*t, and z = z0 + C*t) 
+#>    [,1] [,2] [,3]
+#> P     1   10    3
+#> OQ    1    1    3
+
+plot(lnPQ3D)
+```
+
+### Equation of the Line Crossing a Point and Parallel to the Line Crossing two Distinct 3D Points
+
+The equation of the line in 3D space crossing a point `p` and 
+parallel to line joining 3D points `a` and `b` is returned by the function `paraline3D`. 
+Other related quantities and the plot of the line are also provided.
+The function `paraline3D` is an object of class `Lines3D` and takes arguments `p,a,b,t` where 
+
+- `p`, a 3D point through which the straight line passes.
+- `a,b`, 3D points which determine the straight line to which the line passing through point `p` would be
+parallel (i.e., $b-a$ determines the direction of the straight line passing through `p`).
+- `t`, a scalar or a vector of scalars representing the parameter of the coordinates of the line
+(for the form: $x=x_0 + A t$, $y=y_0 + B t$, and $z=z_0 + C t$ where $p=(x_0,y_0,z_0)$
+and $b-a=(A,B,C)$).
+
+Its `call`, `summary`, and `plot` are as in `Line3D`.
+
+```{r l3dPpl2QR, eval=F, fig.cap="The line crossing the point $P$ and parallel to the line segment $QR$ in 3D space."}
+P<-c(1,10,4); Q<-c(1,1,3); R<-c(3,9,12)
+
+vecs<-rbind(P,R-Q)
+pts<-rbind(P,Q,R)
+tr<-range(pts,vecs);
+tf<-(tr[2]-tr[1])*.1 #how far to go at the lower and upper ends in the x-coordinate
+tsq<-seq(-tf*10-tf,tf*10+tf,l=5)  #try also l=10, 20, or 100
+
+pln3D<-paraline3D(P,Q,R,tsq)
+pln3D
+#> Call:
+#> paraline3D(p = P, a = Q, b = R, t = tsq)
+#> 
+#> Coefficients of the parameterized line passing through initial point P = (x0,y0,z0) in the direction of R - Q = (A,B,C) (for the form: x=x0 + A*t, y=y0 + B*t, and z=z0 + C*t) 
+#>                  [,1] [,2] [,3]
+#> initial point       1   10    4
+#> direction vector    2    8    9
+summary(pln3D)
+#> Call:
+#> paraline3D(p = P, a = Q, b = R, t = tsq)
+#> 
+#> Defining Vectors
+#>                  [,1] [,2] [,3]
+#> initial point       1   10    4
+#> direction vector    2    8    9
+#> 
+#>  Estimated x points (first row), y points (second row), and z points (third row)
+#>    that fall on the Line
+#>       (first 6 or fewer are printed at each row) 
+#> [1] -23.2 -11.1   1.0  13.1  25.2
+#> [1] -86.8 -38.4  10.0  58.4 106.8
+#> [1] -104.90  -50.45    4.00   58.45  112.90
+#> 
+#> Equation of the line passing through point P parallel to the line joining points Q and R 
+#>      [,1]         
+#> [1,] "x = 1 + 2t" 
+#> [2,] "y = 10 + 8t"
+#> [3,] "z = 4 + 9t" 
+#> 
+#> Coefficients of the parameterized line passing through initial point P = (x0,y0,z0) in the direction of R - Q = (A,B,C) (in the form: x = x0 + A*t, y = y0 + B*t, and z = z0 + C*t) 
+#>       [,1] [,2] [,3]
+#> P        1   10    4
+#> R - Q    2    8    9
+
+plot(pln3D)
+```
+
+### Equation of the Plane Crossing three Distinct 3D Points
+
+The equation of the plane crossing three distinct points in $\mathbb R^3$ is provided by the function `Plane`. 
+Other related quantities and the plot of the plane are also provided.
+The function `Plane` is an object of class `Planes` and takes arguments `a,b,c,x,y` where
+
+- `a,b,c` are 3D points that determine the plane (i.e., through which the plane is passing) and
+- `x,y` are scalars or vectors of scalars representing the $x$- and $y$-coordinates of the plane.
+
+Its `call` (with `plP123` in the below script) just returns 
+`Coefficients of the Plane (in the form: z = A*x + B*y + C)`.
+Its `summary` returns the defining points,
+selected $x$ and $y$ points and estimated $z$ points --- presented row-wise, respectively --- that fall on the plane
+(first 6 or fewer are printed on each row),
+the equation of the plane passing through points `a`, `b`, and `c`,
+and the coefficients of the plane (in the form $z = A\,x + B\,y + C$).
+The `plot` function (or `plot.Planes`) returns the plot of the plane together with the defining points.
+```{r plP123, eval=F, fig.cap="The plane joining the points $P_1$, $P_2$, and $P_3$ in 3D space."} 
+P1<-c(1,10,3); P2<-c(1,1,3); P3<-c(3,9,12) #also try P2=c(2,2,3)
+
+pts<-rbind(P1,P2,P3)
+Plane(P1,P2,P3,.1,.2)
+#> Call:
+#> Plane(a = P1, b = P2, c = P3, x = 0.1, y = 0.2)
+#> 
+#> Coefficients of the Plane (in the form: z = A*x + B*y + C):
+#>    A    B    C 
+#>  4.5  0.0 -1.5
+
+xr<-range(pts[,1]); yr<-range(pts[,2])
+xf<-(xr[2]-xr[1])*.1 #how far to go at the lower and upper ends in the x-coordinate
+yf<-(yr[2]-yr[1])*.1 #how far to go at the lower and upper ends in the y-coordinate
+x<-seq(xr[1]-xf,xr[2]+xf,l=3)  #try also l=10, 20, or 100
+y<-seq(yr[1]-yf,yr[2]+yf,l=3)  #try also l=10, 20, or 100
+
+plP123<-Plane(P1,P2,P3,x,y)
+plP123
+#> Call:
+#> Plane(a = P1, b = P2, c = P3, x = x, y = y)
+#> 
+#> Coefficients of the Plane (in the form: z = A*x + B*y + C):
+#>    A    B    C 
+#>  4.5  0.0 -1.5
+summary(plP123)
+#> Call:
+#> Plane(a = P1, b = P2, c = P3, x = x, y = y)
+#> 
+#> Defining Points
+#>    [,1] [,2] [,3]
+#> P1    1   10    3
+#> P2    1    1    3
+#> P3    3    9   12
+#> 
+#>  Selected x and y points and estimated z points --- presented row-wise, respectively --- that fall on the Plane
+#>       (first 6 or fewer are printed on each row) 
+#> [1] 0.8 2.0 3.2
+#> [1]  0.1  5.5 10.9
+#> [1]  2.1  7.5 12.9
+#> 
+#> Equation of the Plane Passing through Points P1, P2, and P3 
+#> [1] "z = 4.5x -1.5"
+#> 
+#> Coefficients of the Plane (in the form z = A*x + B*y + C):
+#>    A    B    C 
+#>  4.5  0.0 -1.5
+plot(plP123,theta = 225, phi = 30, expand = 0.7, facets = FALSE, scale = TRUE)
+```
+
+### Equation of the Plane Crossing a Point and Parallel to the Plane Crossing three Distinct 3D Points
+
+The plane at a point `p` and parallel to the plane spanned by three distinct 3D points `a`, `b`, and `c`
+is provided by the function `paraplane`.
+Other related quantities and the plot of the plane are also provided.
+The function `paraplane` is an object of class `Planes` and takes arguments `p,a,b,c,x,y` where
+
+- `p`, a 3D point which the plane parallel to the plane spanned by
+three distinct 3D points `a`, `b`, and `c` crosses.
+- `a,b,c`, 3D points that determine the plane to which the plane crossing point `p` is parallel to.
+- `x,y`, Scalars or vectors of scalars representing the $x$- and $y$-coordinates of the plane parallel to
+the plane spanned by points `a`, `b`, and `c` and passing through point `p`.
+
+Its `call`, `summary`, and `plot` are as in `Plane`.
+```{r plPpl2QRS, eval=F, fig.cap="The plane crossing the point $P$ and parallel to the plane spanned by the points $Q$, $R$, and $S$ in 3D space."}
+Q<-c(1,10,3); R<-c(2,2,3); S<-c(3,9,12); P<-c(1,2,4)
+
+pts<-rbind(Q,R,S,P)
+xr<-range(pts[,1]); yr<-range(pts[,2])
+xf<-(xr[2]-xr[1])*.25 #how far to go at the lower and upper ends in the x-coordinate
+yf<-(yr[2]-yr[1])*.25 #how far to go at the lower and upper ends in the y-coordinate
+x<-seq(xr[1]-xf,xr[2]+xf,l=5)  #try also l=10, 20, or 100
+y<-seq(yr[1]-yf,yr[2]+yf,l=5)  #try also l=10, 20, or 100
+
+plP2QRS<-paraplane(P,Q,R,S,x,y)
+plP2QRS
+#> Call:
+#> paraplane(p = P, a = Q, b = R, c = S, x = x, y = y)
+#> 
+#> Coefficients of the Plane (in the form: z = A*x + B*y + C):
+#>    A    B    C 
+#>  4.8  0.6 -2.0
+summary(plP2QRS)
+#> Call:
+#> paraplane(p = P, a = Q, b = R, c = S, x = x, y = y)
+#> 
+#> Defining Points
+#>   [,1] [,2] [,3]
+#> Q    1   10    3
+#> R    2    2    3
+#> S    3    9   12
+#> P    1    2    4
+#> 
+#>  Selected x and y points and estimated z points --- presented row-wise, respectively --- that fall on the Plane
+#>       (first 6 or fewer are printed on each row) 
+#> [1] 0.50 1.25 2.00 2.75 3.50
+#> [1]  0  3  6  9 12
+#> [1]  0.4  4.0  7.6 11.2 14.8
+#> 
+#> Equation of the Plane Passing through Point P Parallel to the Plane 
+#>  Passing through Points Q, R and S 
+#> [1] "z = 4.8x + 0.6y -2"
+#> 
+#> Coefficients of the Plane (in the form z = A*x + B*y + C):
+#>    A    B    C 
+#>  4.8  0.6 -2.0
+
+plot(plP2QRS,theta = 225, phi = 30, expand = 0.7, facets = FALSE, scale = TRUE)
+```
+
+### Equation of the Line Crossing a Point and Perpendicular to the Plane Crossing three Distinct 3D Points
+
+The line crossing the 3D point `p` and perpendicular to the plane spanned by the three points 
+`a`, `b`, and `c` in $\mathbb R^3$ is returned by the function `perpline2plane`.
+Other related quantities and the plot of the plane are also provided.
+
+The function `perpline2plane` is an object of class `Lines3D` and takes arguments `p,a,b,c,t`
+where `p,a,b,c` are as in `paraplane` and `t` is as in `paraline3D`. 
+Its `call` (with `pln2pl` in the below script) just returns 
+`Coefficients of the parameterized line passing through initial point P =(x0,y0,z0) in the direction of normal vector =(A,B,C) (for the form: x=x0 + A*t, y=y0 + B*t, and z=z0 + C*t)`.
+Its `summary` returns the defining vectors (i.e., the `initial point` viewed as a vector from the origin,
+and the `normal vector`),
+estimated $x$ points (first row), $y$ points (second row), and $z$ points (third row)
+that fall on the Line
+(first 6 or fewer are printed at each row),
+the equation of the line crossing point $p$ perpendicular to the plane spanned by points `a`, `b`, and `c`,
+and the coefficients of the parameterized line passing through initial point $p =(x_0,y_0,z_0)$ in the 
+direction of normal vector $(A,B,C)$ (in the form: $x=x_0 + A\,t$, $y=y_0 + B\,t$, and $z=z_0 + C\,t$). 
+The `plot` function (or `plot.Lines3D`) returns the plot of the line together with the plane its perpendicular to.
+```{r lprp2plQRS, eval=F, fig.cap="The line crossing the point $P$ and perpendicular to the plane spanned by $Q$, $R$, and $S$ in 3D space."}
+P<-c(1,1,1); Q<-c(1,10,4); R<-c(1,1,3); S<-c(3,9,12)
+
+cf<-as.numeric(Plane(Q,R,S,1,1)$coeff)
+a<-cf[1]; b<-cf[2]; c<- -1;
+
+vecs<-rbind(Q,c(a,b,c))
+pts<-rbind(P,Q,R,S)
+tr<-range(pts,vecs);
+tf<-(tr[2]-tr[1])*.1 #how far to go at the lower and upper ends in the x-coordinate
+tsq<-seq(-tf*10-tf,tf*10+tf,l=5)  #try also l=10, 20, or 100
+
+pln2pl<-perpline2plane(P,Q,R,S,tsq)
+pln2pl
+#> Call:
+#> perpline2plane(p = P, a = Q, b = R, c = S, t = tsq)
+#> 
+#> Coefficients of the parameterized line passing through initial point P = (x0,y0,z0) in the direction of normal vector = (A,B,C) (for the form: x=x0 + A*t, y=y0 + B*t, and z=z0 + C*t) 
+#>                   [,1]      [,2] [,3]
+#> initial point 1.000000 1.0000000    1
+#> normal vector 4.055556 0.1111111   -1
+summary(pln2pl)
+#> Call:
+#> perpline2plane(p = P, a = Q, b = R, c = S, t = tsq)
+#> 
+#> Defining Vectors
+#>                   [,1]      [,2] [,3]
+#> initial point 1.000000 1.0000000    1
+#> normal vector 4.055556 0.1111111   -1
+#> 
+#>  Estimated x points (first row), y points (second row), and z points (third row)
+#>    that fall on the Line
+#>       (first 6 or fewer are printed at each row) 
+#> [1] -56.99444 -27.99722   1.00000  29.99722  58.99444
+#> [1] -0.5888889  0.2055556  1.0000000  1.7944444  2.5888889
+#> [1]  15.30   8.15   1.00  -6.15 -13.30
+#> 
+#> Equation of the line crossing point P perpendicular to the plane spanned by points Q, Rand S 
+#>      [,1]                        
+#> [1,] "x = 1 + 4.05555555555555t" 
+#> [2,] "y = 1 + 0.111111111111111t"
+#> [3,] "z = 1-t"                   
+#> 
+#> Coefficients of the parameterized line passing through initial point P = (x0,y0,z0) in the direction of normal vector = (A,B,C) (in the form: x = x0 + A*t, y = y0 + B*t, and z = z0 + C*t) 
+#>                   [,1]      [,2] [,3]
+#> P             1.000000 1.0000000    1
+#> normal vector 4.055556 0.1111111   -1
+
+plot(pln2pl,theta = 225, phi = 30, expand = 0.7, facets = FALSE, scale = TRUE)
+```
+
+The point of intersection of a line and a plane is returned by the function `int.line.plane`
+with arguments `p1,p2,p3,p4,p5`,
+where line is defined by the points `p1` and `p2`, while the plane is defined by the points `p3`, `p4`, and `p5`.
+```{r EGch8, eval=F}
+L1<-c(2,4,6); L2<-c(1,3,5);
+A<-c(1,10,3); B<-c(1,1,3); C<-c(3,9,12)
+
+Pint<-int.line.plane(L1,L2,A,B,C)
+Pint
+#> [1] 1.571429 3.571429 5.571429
+```
+
+The distance from a point `p` to a plane spanned by three points `a`, `b`, and `c` in $\mathbb R^3$ 
+is returned by the function  `dist.point2plane` with arguments `p,a,b,c`
+which are same as in the function `paraplane`.
+The function also returns the point of orthogonal projection from point `p` to the plane.
+```{r EGch9,eval=F}
+P<-c(5,2,40)
+P1<-c(1,2,3); P2<-c(3,9,12); P3<-c(1,1,3);
+
+dis<-dist.point2plane(P,P1,P2,P3);
+dis
+#> $distance
+#> [1] 4.121679
+#> 
+#> $proj.pt2plane
+#> [1]  9.023529  2.000000 39.105882
+```
+
+**References**

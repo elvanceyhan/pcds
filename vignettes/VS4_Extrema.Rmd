@@ -1,0 +1,642 @@
+---
+title: "VS4 - Extrema in Delaunay Cells"
+author: "Elvan Ceyhan"
+date: '`r Sys.Date()` '
+output:
+  bookdown::html_document2:
+    base_format: rmarkdown::html_vignette
+bibliography: References.bib
+vignette: >
+  %\VignetteIndexEntry{VS4 - Extrema in Delaunay Cells}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+<style>
+.math {
+  font-size: small;
+}
+</style>
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(collapse = TRUE,comment = "#>",fig.width=6, fig.height=4, fig.align = "center") 
+```
+
+\newcommand{\X}{\mathcal{X}}
+\newcommand{\Y}{\mathcal{Y}}
+
+First we load the `pcds` package:
+```{r setup, message=FALSE, results='hide'}
+library(pcds)
+```
+
+# Finding the Extrema among a Point Set in a Delaunay Cell
+Recall that a Delaunay cell is an interval in 1D space, a triangle in 2D space, and a tetrahedron in 3D space.
+*Extreme points* or *extrema* are defined in a local or restricted sense, e.g., 
+points closest to the center in a vertex or edge region
+or closest to the opposite edge in a vertex region, etc of a Delaunay cell.
+Such points are usually the best candidates for the (minimum) dominating sets for PCDs.
+
+# The Extreme Points in a General Triangle
+
+First we define the same triangle $T$ used in the previous sections
+```{r }
+A<-c(1,1); B<-c(2,0); C<-c(1.5,2);
+Tr<-rbind(A,B,C);
+
+n<-10  #try also n<-20 or 100
+```
+And we generate $n=$ `r n` uniform points in it
+using the function `runif.tri`. 
+
+```{r eval=F}
+set.seed(1)
+Xp<-runif.tri(n,Tr)$g
+```
+ 
+## Closest Points in Vertex Regions to the Opposite Edges
+
+Here an *extrema point* in each $M$-vertex region in a triangle $T$, where $M$ is a center, 
+is the point in the given data set, $\X_n$ closest to the opposite edge.
+That is, for the triangle $T(A,B,C)$, if the $M$-vertex region for vertex $A$ is $V(A)$, 
+then the opposite edge is edge $BC$, and closest point
+in $\mathcal X_n \cap V(A)$ to edge $BC$ is found (if there are no data points in $V(A)$, 
+the function returns `NA` for the vertex region $V(A)$).
+These extrema are used to find the minimum dominating set and hence the domination number of the PE-PCD,
+since a subset (possibly all) of this type of extrema points constitutes a minimum dominating set
+(see @ceyhan:masa-2007, @ceyhan:dom-num-NPE-SPL, and @ceyhan:dom-num-NPE-Spat2011 for more details).
+
+With `M=CC` (i.e., when the center is the circumcenter), 
+the extrema point here is the closest $\X$ point in CC-vertex
+region to the opposite edge, and is found by the function `cl2edgesCC_VR`
+which is an object of class `Extrema`
+and has arguments `Xp,tri` where
+
+- `Xp`, a set of 2D points representing the set of data points and
+- `tri`, a $3 \times 2$ matrix with each row representing a vertex of the triangle.
+
+Its `call` (with `Ext` in the below script) just returns the type of the extrema.
+Its `summary` returns the type of the extrema, the extrema points,
+distances between the edges and the closest points to the edges in CC-vertex regions, 
+vertices of the support of the data points.
+The `plot` function (or `plot.Extrema`) would return
+the plot of the triangle together with the CC-vertex regions and 
+the generated points with extrema being marked with red crosses.
+```{r cl2eCCvr, eval=F, fig.cap="Scatterplot of the uniform $X$ points in the triangle $T=T(A,B,C)$ with vertices $A=(1,1)$, $B=(2,0)$, and $C=(1.5,2)$. The closest points in CC-vertex regions to opposite edges are marked with red crosses."}
+Ext<-cl2edgesCC_VR(Xp,Tr)
+Ext
+#> Call:
+#> cl2edgesCC_VR(Xp = Xp, tri = Tr)
+#> 
+#> Type:
+#> [1] "Closest Points in CC-Vertex Regions of the Triangle with Vertices A=(1,1), B=(2,0), and C=(1.5,2) \n to the Opoosite Edges"
+summary(Ext)
+#> Call:
+#> cl2edgesCC_VR(Xp = Xp, tri = Tr)
+#> 
+#> Type of the Extrema
+#> [1] "Closest Points in CC-Vertex Regions of the Triangle with Vertices A=(1,1), B=(2,0), and C=(1.5,2) \n to the Opoosite Edges"
+#> 
+#>  Extremum Points: Closest Points in CC-Vertex Regions of the Triangle to its Edges 
+#>  (Row i corresponds to vertex region i for i=1,2,3) 
+#>          [,1]      [,2]
+#> [1,] 1.723711 0.8225489
+#> [2,] 1.794240 0.2158873
+#> [3,] 1.380035 1.5548904
+#> [1] "Vertex labels are A=1, B=2, and C=3 (correspond to row number in Extremum Points)"
+#> 
+#>  Distances between the Edges and the Closest Points to the Edges in CC-Vertex Regions 
+#>  (i-th entry corresponds to vertex region i for i=1,2,3) 
+#> [1] 0.06854235 1.06105561 0.66109225
+#> 
+#>  Vertices of the Support Triangle 
+#>   [,1] [,2]
+#> A  1.0    1
+#> B  2.0    0
+#> C  1.5    2
+plot(Ext)
+```
+
+With `M=CM` (i.e., when the center is the center of mass), 
+the extrema point here is the closest $\X$ point in CM-vertex
+region to the opposite edge, and is found by the function `cl2edgesCM_VR`
+which is an object of class `Extrema`. 
+Its arguments, `call`, `summary` and `plot` are as in `cl2edgesCC_VR`.
+```{r cl2eCMvr, eval=F, fig.cap="Scatterplot of the uniform $X$ points in the triangle $T=T(A,B,C)$. The closest points in CM-vertex regions to opposite edges are marked with red crosses."}
+Ext<-cl2edgesCM_VR(Xp,Tr)
+Ext
+#> Call:
+#> cl2edgesCM_VR(Xp = Xp, tri = Tr)
+#> 
+#> Type:
+#> [1] "Closest Points in CM-Vertex Regions of the Triangle with Vertices A=(1,1), B=(2,0), and C=(1.5,2) \n to the Opposite Edges"
+summary(Ext)
+#> Call:
+#> cl2edgesCM_VR(Xp = Xp, tri = Tr)
+#> 
+#> Type of the Extrema
+#> [1] "Closest Points in CM-Vertex Regions of the Triangle with Vertices A=(1,1), B=(2,0), and C=(1.5,2) \n to the Opposite Edges"
+#> 
+#>  Extremum Points: Closest Points in CM-Vertex Regions of the Triangle to its Edges 
+#>  (Row i corresponds to vertex region i for i=1,2,3) 
+#>          [,1]      [,2]
+#> [1,] 1.316272 1.0372685
+#> [2,] 1.687023 0.7682074
+#> [3,] 1.482080 1.1991317
+#> [1] "Vertex labels are A=1, B=2, and C=3 (correspond to row number in Extremum Points)"
+#> 
+#>  Distances between the Edges and the Closest Points to the Edges in CM-Vertex Regions 
+#>  (i-th entry corresponds to vertex region i for i=1,2,3) 
+#> [1] 0.4117393 0.7181527 0.4816895
+#> 
+#>  Vertices of the Support Triangle 
+#>   [,1] [,2]
+#> A  1.0    1
+#> B  2.0    0
+#> C  1.5    2
+plot(Ext)
+```
+
+With a general center `M` in the interior of the triangle $T$, 
+the extrema point here is the closest $\X$ point in $M$-vertex
+region to the opposite edge, 
+and is found by the function `cl2edgesM_VR`
+which is an object of class `Extrema` and has arguments `Xp,tri,M,alt` where
+
+- `Xp,tri` are as in  `cl2edgesCC_VR`.
+- `M`, a 2D point in Cartesian coordinates or a 3D point in barycentric coordinates
+which serves as a center in the interior of the triangle `tri` or the circumcenter of `tri`;
+which may be entered as "CC" as well;
+- `alt`, a logical argument for alternative method of finding the closest points to the edges, default `alt=FALSE`.
+When `alt=FALSE`, the function sequentially finds the vertex region of the data point and then the minimum distance
+to the opposite edge and the relevant extrema objects, and when `alt=TRUE`, 
+it first partitions the data set according which vertex regions they reside, and
+then finds the minimum distance to the opposite edge and the relevant extrema on each partition.
+
+Its `call`, `summary` and `plot` are as in `cl2edgesCC_VR`.
+We comment the `plot(Ext)` out below for brevity in the exposition, 
+as the plot is similar to the one in `cl2edgesCM_VR` above.
+
+```{r cl2eMvr, eval=F, fig.cap="Scatterplot of the uniform $X$ points in the triangle $T=T(A,B,C)$. The closest points in M-vertex regions to opposite edges are marked with red crosses."}
+M<-c(1.6,1.0) #try also M<-as.numeric(runif.tri(1,Tr)$g)
+Ext<-cl2edgesM_VR(Xp,Tr,M)
+Ext
+#> Call:
+#> cl2edgesM_VR(Xp = Xp, tri = Tr, M = M)
+#> 
+#> Type:
+#> [1] "Closest Points in M-Vertex Regions of the Triangle with Vertices A=(1,1), B=(2,0), and C=(1.5,2)\n to Opposite Edges"
+summary(Ext)
+#> Call:
+#> cl2edgesM_VR(Xp = Xp, tri = Tr, M = M)
+#> 
+#> Type of the Extrema
+#> [1] "Closest Points in M-Vertex Regions of the Triangle with Vertices A=(1,1), B=(2,0), and C=(1.5,2)\n to Opposite Edges"
+#> 
+#>  Extremum Points: Closest Points in M-Vertex Regions of the Triangle to its Edges 
+#>  (Row i corresponds to vertex region i for i=1,2,3) 
+#>          [,1]      [,2]
+#> [1,] 1.482080 1.1991317
+#> [2,] 1.687023 0.7682074
+#> [3,] 1.380035 1.5548904
+#> [1] "Vertex labels are A=1, B=2, and C=3 (correspond to row number in Extremum Points)"
+#> 
+#>  Distances between the Edges and the Closest Points to the Edges in M-Vertex Regions 
+#>  (i-th entry corresponds to vertex region i for i=1,2,3) 
+#> [1] 0.2116239 0.7181527 0.6610922
+#> 
+#>  Vertices of the Support Triangle 
+#>   [,1] [,2]
+#> A  1.0    1
+#> B  2.0    0
+#> C  1.5    2
+plot(Ext)
+```
+
+There is also the function `cl2edgesVRbas.tri` which takes arguments `Xp,c1,c2,M`
+and finds the closest points in a data set `Xp` 
+in the $M$-vertex regions to the corresponding (opposite) edges in the standard basic triangle, $T_b$
+where the *standard basic triangle* is $T_b=T((0,0),(1,0),(c_1,c_2))$
+with $0 < c_1 \le 1/2$, $c_2>0$,
+and $(1-c_1)^2+c_2^2 \le 1$.
+
+## Closest Points to the Circumcenter in CC-Vertex Regions
+
+Here an *extrema point* in each CC-vertex region
+is the point in the given data set, $\X_n$ closest to the circumcenter (CC).
+That is, for the triangle $T(A,B,C)$, if the $CC$-vertex region is $V(A)$, 
+the closest point in $\mathcal X_n \cap V(A)$ to the circumcenter is found 
+(if there are no data points in $V(A)$, the function returns `NA` for the vertex region $V(A)$).
+  
+The description and summary of extrema points and their plot can be obtained using the function `cl2CC.VR`
+which is an object of class `Extrema` and takes arguments `Xp,tri,ch.all.intri` where
+
+- `Xp,tri` are as in `cl2edgesCC_VR` and
+- `ch.all.intri` is a logical argument (default=`FALSE`) to check whether all data points are inside
+the triangle `tri`. So, if it is `TRUE`,
+the function checks if all data points are inside the closure of the triangle (i.e., interior and boundary
+combined) else it does not.
+
+Its `call`, `summary` and `plot` are as in `cl2edgesCC_VR`, except in `summary`
+distances between the circumcenter and the closest points to the circumcenter in CC-vertex regions are provided.
+```{r cl2CC_CCvr, eval=F, fig.cap="Scatterplot of the uniform $X$ points in the triangle $T=T(A,B,C)$ . The closest points in CC-vertex regions to the circumcenter are marked with red crosses."}
+Ext<-cl2CC.VR(Xp,Tr)
+Ext
+#> Call:
+#> cl2CC.VR(Xp = Xp, tri = Tr)
+#> 
+#> Type:
+#> [1] "Closest Points in CC-Vertex Regions of the Triangle with Vertices A=(1,1), B=(2,0), and C=(1.5,2) to its Circumcenter"
+summary(Ext)
+#> Call:
+#> cl2CC.VR(Xp = Xp, tri = Tr)
+#> 
+#> Type of the Extrema
+#> [1] "Closest Points in CC-Vertex Regions of the Triangle with Vertices A=(1,1), B=(2,0), and C=(1.5,2) to its Circumcenter"
+#> 
+#>  Extremum Points: Closest Points in CC-Vertex Regions of the Triangle to its Circumcenter 
+#>  (Row i corresponds to vertex i for i=1,2,3) 
+#>          [,1]      [,2]
+#> [1,] 1.723711 0.8225489
+#> [2,] 1.794240 0.2158873
+#> [3,] 1.529720 1.5787125
+#> [1] "Vertex labels are A=1, B=2, and C=3 (correspond to row number in Extremum Points)"
+#> 
+#>  Distances between the Circumcenter and the Closest Points to the Circumcenter in CC-Vertex Regions 
+#>  (i-th entry corresponds to vertex i for i=1,2,3) 
+#> [1] 0.4442261 0.9143510 0.7428921
+#> 
+#>  Vertices of the Support Triangle 
+#>   [,1] [,2]
+#> A  1.0    1
+#> B  2.0    0
+#> C  1.5    2
+plot(Ext)  
+```
+
+There is also the function `cl2CC.VRbas.tri` which takes arguments `Xp,c1,c2,ch.all.intri` and
+finds the closest points in a data set `Xp` in the CC-vertex regions to the circumcenter in the standard basic triangle, $T_b$.
+
+## Furthest Points from Vertices in CC-Vertex Regions
+ 
+Here an *extrema point* in each CC-vertex region 
+is the point in the given data set, $\X_n$ furthest to the corresponding vertex.
+That is, for the triangle $T(A,B,C)$, if the $CC$-vertex region is $V(A)$, 
+the furthest point in $\mathcal X_n \cap V(A)$ from the vertex $A$ is found 
+(if there are no data points in $V(A)$, the function returns `NA` for the vertex region $V(A)$).
+
+The description and summary of extrema points and their plot can be obtained using the function `fr2vertsCC_VR`
+which is an object of class `Extrema`. 
+Its arguments, `call`, `summary` and `plot` are as in `cl2edgesCC_VR`, 
+except in `summary` distances between the  vertices and 
+the furthest points in the CC-vertex regions are provided.
+We comment the `plot(Ext)` out below for brevity in the exposition, 
+as the plot is a special case of the one in `kfr2vertsCC_VR` with $k=1$ below.
+```{r f2CCvr, eval=F, fig.cap="Scatterplot of the uniform $X$ points in the triangle $T=T(A,B,C)$. The furthest points in CC-vertex regions to the vertices are marked with red crosses."}
+Ext<-fr2vertsCC_VR(Xp,Tr)
+Ext
+#> Call:
+#> fr2vertsCC_VR(Xp = Xp, tri = Tr)
+#> 
+#> Type:
+#> [1] "Furthest Points in CC-Vertex Regions of the Triangle with Vertices A=(1,1), B=(2,0), and C=(1.5,2) from its Vertices"
+summary(Ext)
+#> Call:
+#> fr2vertsCC_VR(Xp = Xp, tri = Tr)
+#> 
+#> Type of the Extrema
+#> [1] "Furthest Points in CC-Vertex Regions of the Triangle with Vertices A=(1,1), B=(2,0), and C=(1.5,2) from its Vertices"
+#> 
+#>  Extremum Points: Furthest Points in CC-Vertex Regions of the Triangle from its Vertices 
+#>  (Row i corresponds to vertex i for i=1,2,3) 
+#>          [,1]      [,2]
+#> [1,] 1.723711 0.8225489
+#> [2,] 1.794240 0.2158873
+#> [3,] 1.380035 1.5548904
+#> [1] "Vertex labels are A=1, B=2, and C=3 (correspond to row number in Extremum Points)"
+#> 
+#>  Distances between the vertices and the furthest points in the vertex regions 
+#>  (i-th entry corresponds to vertex i for i=1,2,3) 
+#> [1] 0.7451486 0.2982357 0.4609925
+#> 
+#>  Vertices of the Support Triangle 
+#>   [,1] [,2]
+#> A  1.0    1
+#> B  2.0    0
+#> C  1.5    2
+plot(Ext) 
+```
+
+There is also the function `fr2vertsCC_VRbas.tri` which takes the same arguments as `cl2CC.VRbas.tri` and 
+returns the furthest points in a data set in the vertex regions from the vertices in the standard basic triangle, $T_b$.
+
+## $k$ Furthest Points from Vertices in CC-Vertex Regions
+
+Here *extrema points* in each CC-vertex region
+are the $k$ most furthest points in the given data set, $\X_n$ to the corresponding vertex.
+That is, for the triangle $T(A,B,C)$, if the $CC$-vertex region is $V(A)$, 
+the $k$ most furthest points in $\mathcal X_n \cap V(A)$ from the vertex $A$ are found 
+(if there are $k'$ with $k'< k$ data points in $V(A)$, 
+the function returns $k-k'$ `NA`'s for at the end of the extrema vector for the vertex region $V(A)$).
+
+The description and summary of extrema points and their plot can be obtained using the function `kfr2vertsCC_VR`.
+which is an object of class `Extrema` and takes arguments `Xp,tri,k,ch.all.intri`
+where `Xp,tri,ch.all.intri` are as in `fr2vertsCC_VR` and `k` represents the number of furthest points from each vertex. 
+Its `call`, `summary` and `plot` are also as in `fr2vertsCC_VR`, 
+except in `summary` distances between the vertices and 
+the $k$ most furthest points to the vertices in the CC-vertex regions are provided.
+```{r kf2CCvr, eval=F, fig.cap="Scatterplot of the uniform $X$ points in the triangle $T=T(A,B,C)$ . The $k=3$ most furthest points in CC-vertex regions to the vertices are marked with red crosses."}
+k=3
+Ext<-kfr2vertsCC_VR(Xp,Tr,k)
+Ext
+#> Call:
+#> kfr2vertsCC_VR(Xp = Xp, tri = Tr, k = k)
+#> 
+#> Type:
+#> [1] "3 Furthest Points in CC-Vertex Regions of the Triangle with Vertices A=(1,1), B=(2,0), and C=(1.5,2) from its Vertices"
+summary(Ext)
+#> Call:
+#> kfr2vertsCC_VR(Xp = Xp, tri = Tr, k = k)
+#> 
+#> Type of the Extrema
+#> [1] "3 Furthest Points in CC-Vertex Regions of the Triangle with Vertices A=(1,1), B=(2,0), and C=(1.5,2) from its Vertices"
+#> 
+#>  Extremum Points: 3 Furthest Points in CC-Vertex Regions of the Triangle from its Vertices 
+#>  (Row i corresponds to vertex i for i=1,2,3) 
+#>                               [,1]      [,2]
+#> 1. furthest from vertex 1 1.723711 0.8225489
+#> 2. furthest from vertex 1 1.687023 0.7682074
+#> 3. furthest from vertex 1 1.482080 1.1991317
+#> 1. furthest from vertex 2 1.794240 0.2158873
+#> 2. furthest from vertex 2       NA        NA
+#> 3. furthest from vertex 2       NA        NA
+#> 1. furthest from vertex 3 1.380035 1.5548904
+#> 2. furthest from vertex 3 1.529720 1.5787125
+#> 3. furthest from vertex 3 1.477620 1.7224190
+#> [1] "Vertex labels are A=1, B=2, and C=3 (where vertex i corresponds to row numbers 3(i-1) to 3i in Extremum Points)"
+#> 
+#>  Distances between the vertices and the 3 furthest points in the vertex regions 
+#>  (i-th entry corresponds to vertex i for i=1,2,3) 
+#>           [,1]      [,2]      [,3]
+#> [1,] 0.3686516 0.7250712 0.3511223
+#> [2,] 0.2982357        NA        NA
+#> [3,] 0.4609925 0.4223345 0.2784818
+#> 
+#>  Vertices of the Support Triangle 
+#>   [,1] [,2]
+#> A  1.0    1
+#> B  2.0    0
+#> C  1.5    2
+plot(Ext)
+```
+
+There is also the function `kfr2vertsCC_VRbas.tri` which takes arguments `Xp,c1,c2,k,ch.all.intri` and
+finds the $k$ most furthest points in a data set `Xp` in the vertex regions from 
+the corresponding vertices in the standard basic triangle, $T_b$.
+
+## Closest Points in the Standard Equilateral Triangle to its Edges
+
+Here *extrema points* are the points in the given data set, $\X_n$ closest to the edges of the the standard equilateral triangle $T_e=T(A,B,C)$ with vertices $A=(0,0)$, $B=(1,0)$, and $C=(1/2,\sqrt{3}/2)$. 
+That is, for the triangle $T_e$ the closest points
+in $\mathcal X_n \cap T_e$ to the edges of $T_e$ are found.
+
+First we generate $n=20$ uniform points in the standard equilateral triangle $T_e$. 
+```{r eval=F}
+n<-10  #try also n<-20
+Xp<-runif.std.tri(n)$gen.points
+```
+
+The description and summary of extrema points and their plot can be obtained using the function `cl2edges.std.tri`
+which is an object of class `Extrema` with arguments `Xp,ch.all.intri` which are as in `cl2CC.VR`. 
+Its `call`, `summary` and `plot` are as in `cl2edgesCC_VR`, 
+except in `summary` distances between the edges and the closest points to the edges in the standard equilateral triangle.
+We used the option `asp=1` in plotting so that $T_e$ is actually depicted as an equilateral triangle.
+```{r closest2edges-Te, eval=F, fig.cap="Scatterplot of the uniform $X$ points in the triangle $T_e$. The closest points to the edges are marked with red crosses."}
+Ext<-cl2edges.std.tri(Xp)
+Ext
+#> Call:
+#> cl2edges.std.tri(Xp = Xp)
+#> 
+#> Type:
+#> [1] "Closest Points in the Standard Equilateral Triangle Te=T(A,B,C) with Vertices A=(0,0), B=(1,0), and C=(1/2,sqrt(3)/2) to its Edges"
+summary(Ext)
+#> Call:
+#> cl2edges.std.tri(Xp = Xp)
+#> 
+#> Type of the Extrema
+#> [1] "Closest Points in the Standard Equilateral Triangle Te=T(A,B,C) with Vertices A=(0,0), B=(1,0), and C=(1/2,sqrt(3)/2) to its Edges"
+#> 
+#>  Extremum Points: Closest Points in the Standard Equilateral Triangle to its Edges  
+#>  (Row i corresponds to edge i for i=1,2,3)   
+#>           [,1]      [,2]
+#> [1,] 0.4763512 0.7726664
+#> [2,] 0.4763512 0.7726664
+#> [3,] 0.7111212 0.1053883
+#> [1] "Edge labels are AB=3, BC=1, and AC=2 (correspond to row number in Extremum Points)"
+#> 
+#>  Distances between Edges and the Closest Points in the Standard Equilateral Triangle 
+#>  (Row i corresponds to edge i for i=1,2,3) 
+#> [1] 0.06715991 0.02619907 0.10538830
+#> 
+#>  Vertices of the Support Standard Equilateral Triangle 
+#>   [,1]      [,2]
+#> A  0.0 0.0000000
+#> B  1.0 0.0000000
+#> C  0.5 0.8660254
+plot(Ext,asp=1)
+```
+
+## Furthest Points to Edges in CM-Edge Regions of the Standard Equilateral Triangle
+
+Here an *extrema point* in each CM-edge region, 
+is the point in the given data set, $\X_n$ furthest to the corresponding edge in the standard equilateral triangle.
+That is, for the triangle $T_e$, if the $CM$-edge region is $E(AB)$, 
+the furthest point in $\mathcal X_n \cap E(AB)$ from the edge $AB$ is found 
+(if there are no data points in $E(AB)$, 
+the function returns `NA` for the edge region $E(AB)$).
+
+The description and summary of extrema points and their plot can be obtained using the function `fr2edgesCM_ERstd.tri`
+which is an object of class `Extrema` which takes the same arguments as `cl2edges.std.tri`. 
+Its `call`, `summary` and `plot` are as in `cl2edgesCC_VR`, 
+except in `summary` distances between the edges and the furthest points in the CM-edge regions to the edges are provided.
+We used the option `asp=1` in plotting so that $T_e$ is actually depicted as an equilateral triangle.
+```{r f2eCMer, eval=F, fig.cap="Scatterplot of the uniform $X$ points in the triangle $T_e$. The furthest points in CM-edge regions to the corresponding edges are marked with red crosses."}
+Ext<-fr2edgesCM_ERstd.tri(Xp)
+Ext
+#> Call:
+#> fr2edgesCM_ERstd.tri(Xp = Xp)
+#> 
+#> Type:
+#> [1] "Furthest Points in the CM-Edge Regions of the Standard Equilateral Triangle T=(A,B,C) with A=(0,0), B=(1,0), and C=(1/2,sqrt(3)/2) from its Edges"
+summary(Ext)
+#> Call:
+#> fr2edgesCM_ERstd.tri(Xp = Xp)
+#> 
+#> Type of the Extrema
+#> [1] "Furthest Points in the CM-Edge Regions of the Standard Equilateral Triangle T=(A,B,C) with A=(0,0), B=(1,0), and C=(1/2,sqrt(3)/2) from its Edges"
+#> 
+#>  Extremum Points: Furthest Points in the CM-Edge Regions of the Standard Equilateral Triangle from its Edges 
+#>  (Row i corresponds to edge i for i=1,2,3) 
+#>           [,1]      [,2]
+#> [1,] 0.6508705 0.2234491
+#> [2,] 0.4590657 0.2878622
+#> [3,] 0.7111212 0.1053883
+#> [1] "Edge Labels are AB=3, BC=1, and AC=2 (correspond to row number in Extremum Points)"
+#> 
+#>  Distances between the edges and the furthest points in the edge regions 
+#>  (i-th entry corresponds to edge i for i=1,2,3) 
+#> [1] 0.1906305 0.2536315 0.1053883
+#> 
+#>  Vertices of the Support Standard Equilateral Triangle 
+#>   [,1]      [,2]
+#> A  0.0 0.0000000
+#> B  1.0 0.0000000
+#> C  0.5 0.8660254
+plot(Ext,asp=1)
+```
+
+# The Extreme Points in an Interval 
+
+We use the same interval $(a,b)=(0,10)$ as in the previous sections. 
+```{r }
+c<-.4
+a<-0; b<-10; int<-c(a,b)
+
+nx<-10
+Xp<-runif(nx,a,b)
+```
+And we generate $n_x=$ `r nx` uniform points in it by using the basic `R` function `runif`.
+
+## Closest Points to $M_c$ in $M_c$-Vertex Regions
+
+Here an *extrema point* in each $M_c$-vertex region, where $M_c=a+c(b-a)$ for the interval $(a,b)$,
+is the point in the given data set, $\X_n$ closest to center $M_c$.
+For the interval $(a,b)$, if the $M_c$-vertex region is $V(a)$, 
+the closest point in $\mathcal X_n \cap V(a)$ to the center $M_c$ is found.
+That is, for the interval $(a,b)$, 
+the closest data point in $(M_c,b)$ to $M_c$ and 
+closest data point in $(a,Mc)$ to $M_c$ are found.
+If there are no data points in $V(A)$, the function returns `NA` for the vertex region $V(a)$.
+These extrema are used in finding the minimum dominating set 
+and hence the domination number of the PE-PCDs in the 1D setting,
+since a subset (possibly all) of these extrema constitutes a minimum dominating set
+(see @priebe:2001, @ceyhan:stat-2020, and @ceyhan:dom-num-CCCD-NonUnif for more details).
+
+The description and summary of extrema points and their plot can be obtained using the function `cl2Mc.int`
+which is an object of class `Extrema` and takes arguments `Xp,int,c` where
+
+- `Xp`, a set or vector of 1D points from which closest points to $M_c$ are found
+in the interval `int`.
+- `int`, a vector of two real numbers representing an interval.
+- `c`, a positive real number in $(0,1)$ parameterizing the center inside `int`$=(a,b)$.
+For the interval, `int`$=(a,b)$, the parameterized center is $M_c=a+c(b-a)$.
+.
+Its `call`, `summary` and `plot` are as in `cl2edgesCC_VR`, 
+except in `summary` distances between the center $M_c$ and 
+the closest points to $M_c$ in $M_c$-vertex regions are provided.
+```{r cl2McVR, eval=F, fig.cap="Scatterplot of the uniform $X$ points in the interval $(0,10)$. The closest points in $M_c-vertex regions to the center $M_c$ are marked with red crosses. The end points of the interval and the center are marked with dashed vertical lines."}
+Ext<-cl2Mc.int(Xp,int,c)
+Ext
+#> Call:
+#> cl2Mc.int(Xp = Xp, int = int, c = c)
+#> 
+#> Type:
+#> [1] "Closest Points in Mc-Vertex Regions of the Interval (a,b) = (0,10) to its Center Mc = 4"
+summary(Ext)
+#> Call:
+#> cl2Mc.int(Xp = Xp, int = int, c = c)
+#> 
+#> Type of the Extrema
+#> [1] "Closest Points in Mc-Vertex Regions of the Interval (a,b) = (0,10) to its Center Mc = 4"
+#> 
+#>  Extremum Points: Closest Points in Mc-Vertex Regions of the Interval to its Center 
+#>  (i-th entry corresponds to vertex i for i=1,2) 
+#> [1] 2.454885 4.100841
+#> [1] "Vertex Labels are a=1 and b=2 for the interval (a,b)"
+#> 
+#>  Distances between the Center Mc and the Closest Points to Mc in Mc-Vertex Regions 
+#>  (i-th entry corresponds to vertex i for i=1,2) 
+#> [1] 1.5451149 0.1008408
+#> 
+#>  Vertices of the Support Interval 
+#>  a  b 
+#>  0 10
+plot(Ext)
+```
+
+# The Extreme Points in a Tetrahedron
+
+We illustrate the extrema for a tetrahedron which is obtained by slightly jittering the vertices of
+the standard regular tetrahedron (for better visualization) and 
+generate $n=20$ uniform $\X$ points in it using the function `runif.tetra`. 
+```{r eval=F}
+A<-c(0,0,0); B<-c(1,0,0); C<-c(1/2,sqrt(3)/2,0); D<-c(1/2,sqrt(3)/6,sqrt(6)/3)
+set.seed(1)
+tetra<-rbind(A,B,C,D)+matrix(runif(12,-.25,.25),ncol=3)
+n<-10  #try also n<-20
+Cent<-"CC"  #try also "CM"
+
+n<-10  #try also n<-20
+Xp<-runif.tetra(n,tetra)$g  #try also Xp<-cbind(runif(n),runif(n),runif(n))
+```
+
+## Closest Points in Vertex Regions to the Opposite Faces
+
+Here an *extrema point* in each $M$-vertex region, where $M$ is a center of the tetrahedron, 
+is the point in the given data set, $\X_n$ closest to the opposite face.
+That is, for the tetrahedron $T(A,B,C,D)$, if the $M$-vertex region is $V(A)$, 
+the opposite face is the triangular face $T(B,C,D)$, and closest point
+in $\mathcal X_n \cap V(A)$ to face $T(B,C,D)$ is found 
+(if there are no data points in $V(A)$, the function returns `NA` for the vertex region $V(A)$).
+
+With `M=CC` (i.e., when the center is the circumcenter), the extrema point here is the closest $\X$ point in CC-vertex
+region to the opposite face, and is found by the function `cl2facesVRtetra`
+which is an object of class `Extrema` and takes arguments `Xp,th,M` where
+
+- `Xp1, a set of 3D points representing the set of data points.
+- `th1, a $4 \times 3$ matrix with each row representing a vertex of the tetrahedron.
+- `M1, the center to be used in the construction of the vertex regions in the tetrahedron, `th`.
+Currently it only takes `"CC"` for circumcenter and `"CM"` for center of mass; default=`"CM"`.
+
+This function is the 3D version of the function `cl2edgesCC_VR`
+Its `call`, `summary` and `plot` are as in `cl2edgesCC_VR`, 
+except in `summary` distances between the faces and 
+the closest points to the faces in CC-vertex regions are provided.
+```{r cl2fCCvr, eval=F, fig.cap="Scatterplot of the uniform $X$ points in the tetrahedron $T(A,B,C,D)$. The closest points in CC-vertex regions to opposite faces are marked with red crosses."}
+Ext<-cl2facesVRtetra(Xp,tetra,Cent)
+Ext
+#> Call:
+#> cl2facesVRtetra(Xp = Xp, th = tetra, M = Cent)
+#> 
+#> Type:
+#> [1] "Closest Points in CC-Vertex Regions of the Tetrahedron with Vertices A=(-0.12,-0.15,0.06), B=(0.94,0.2,-0.22), C=(0.54,1.09,-0.15), and D=(0.7,0.37,0.65) to the Opposite Faces"
+summary(Ext)
+#> Call:
+#> cl2facesVRtetra(Xp = Xp, th = tetra, M = Cent)
+#> 
+#> Type of the Extrema
+#> [1] "Closest Points in CC-Vertex Regions of the Tetrahedron with Vertices A=(-0.12,-0.15,0.06), B=(0.94,0.2,-0.22), C=(0.54,1.09,-0.15), and D=(0.7,0.37,0.65) to the Opposite Faces"
+#> 
+#>  Extremum Points: Closest Points in CC-Vertex Regions of the Tetrahedron to its Faces
+#>  (Row i corresponds to face i for i=1,2,3,4) 
+#>           [,1]      [,2]       [,3]
+#> [1,] 0.1073281 0.0109421 0.19871179
+#> [2,] 0.6535570 0.2922984 0.15795015
+#> [3,] 0.5199352 0.6610763 0.08954581
+#> [4,] 0.5127296 0.5449680 0.24057920
+#> [1] "Vertex labels are A=1, B=2, C=3, and D=4 (correspond to row number in Extremum Points)"
+#> 
+#>  Distances between Faces and the Closest Points to the Faces in CC-Vertex Regions
+#>  (i-th entry corresponds to vertex region i for i=1,2,3,4) 
+#> [1] 0.7554212 0.2773495 0.4803672 0.3509001
+#> 
+#>  Vertices of the Support Tetrahedron 
+#>         [,1]       [,2]        [,3]
+#> A -0.1172457 -0.1491590  0.06455702
+#> B  0.9360619  0.1991948 -0.21910686
+#> C  0.5364267  1.0883630 -0.14701271
+#> D  0.7041039  0.3690740  0.65477496
+plot(Ext)
+```
+
+**References**

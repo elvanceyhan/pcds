@@ -1,0 +1,484 @@
+---
+title: "VS0 - Introduction to pcds"
+author: "Elvan Ceyhan"
+date: '`r Sys.Date()` '
+output:
+  bookdown::html_document2:
+    base_format: rmarkdown::html_vignette
+bibliography: References.bib
+vignette: >
+  %\VignetteIndexEntry{VS0 - Introduction to pcds}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+<style>
+.math {
+  font-size: small;
+}
+</style>
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(collapse = TRUE,comment = "#>",fig.width=6, fig.height=4, fig.align = "center") 
+options(rmarkdown.html_vignette.check_title = FALSE)
+```
+
+\newcommand{\X}{\mathcal{X}}
+\newcommand{\Y}{\mathcal{Y}}
+\newcommand{\NAS}{N_{AS}}
+\newcommand{\NCS}{N_{CS}}
+\newcommand{\NPE}{N_{PE}}
+\newcommand{\y}{\mathsf{y}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\U}{\mathcal{U}}
+\newcommand{\TY}{T(\Y_3)}
+\newcommand{\mS}{\mathcal{S}}
+\newcommand{\C}{\mathcal{C}}
+\newcommand{\argmin}{\text{arg min}}
+\newcommand{\I}{\mathbf{I}}
+\newcommand{\g}{\gamma}
+
+First we load the `pcds` package:
+```{r setup, message=FALSE, results='hide'}
+library(pcds)
+```
+
+<!-- First we load the `pcds` package and the other packages: -->
+<!-- ```{r setup, message=FALSE, results='hide'} -->
+<!-- #library(pcds) -->
+<!-- #library(tidyverse) -->
+<!-- #library(plot3D) -->
+<!-- #theme_set(theme_bw()) -->
+
+<!-- library(miceadds) -->
+<!-- miceadds::source.all("C:/Users/ezc0066/Documents/PCDRelated/pcds/R", grepstring="\\.R",  print.source=TRUE ) -->
+<!-- ``` -->
+
+# Introduction
+`pcds` is an `R` package that stands for *proximity catch digraphs* (*PCDs*) and 
+provides construction and visualization of the PCDs, 
+and the spatial pattern tests (for inference on spatial interaction between classes or species) 
+based on the two graph invariants of the PCDs. 
+These invariants are the *domination number* and the *arc density*. 
+The package provides a set of functions for the construction and visualization of three PCD families, 
+namely 
+*arc-slice PCDs* (*AS-PCDs*), 
+*proportional-edge PCDs* (*PE-PCDs*), and 
+*central similarity PCDs* (*CS-PCDs*),
+and for spatial inference based on two of these PCD families,
+namely PE- and CS-PCDs. 
+Here, the spatial inference concerns testing class/species interaction for point pattern data,
+usually in two dimensional space. 
+The spatial interaction patterns of interest are segregation and association. 
+*Segregation* is the pattern in which classes tend to repel each other 
+in the sense that points tend to be clustered around points from the same class
+(forming same-class clusters), 
+while *association* is the pattern in which points from one class tend to cluster around points from another class
+(forming mixed-class clusters).  
+The one-dimensional versions of the PCD functions are also provided 
+where AS-PCD is a special case of PE-PCDs or CS-PCDs. 
+The one-dimensional versions are currently used for testing uniformity of points,
+instead of interaction between classes (although it is possible to use them for this purpose as well). 
+We only extend the PE-PCD construction and visualization to three dimensions in this package.
+
+The vignette files for the `pcds` package are written as sections or chapters of a larger main vignette file
+and are organized as "VSk_Title" where "k" is the section number 
+and "Title" is the corresponding markdown file name,
+starting with "VS0_Intro".
+It is recommended to read the vignettes in this order for more efficient and informed use, 
+however, they can be used in any order the users/readers prefer, 
+but some tools or concepts may have been introduced in an earlier section (mostly with references).
+
+The goal of these vignette files or sections is to facilitate graph abstraction of spatial point data and 
+make it easier for users to adopt `pcds` by providing a comprehensive overview of the package's contents and 
+detailed examples and illustration of certain functions. 
+We begin with the 
+
+- introduction and overview of PCDs,
+- followed by worked out examples for an artificial 2D data, a real-life 2D data, and an artificial 1D data
+with  discussions of how to work with `pcds`.
+
+Then we, illustrate
+
+- PCD construction in one Delaunay cell, which is an interval in 1D, a triangle in 2D, and a tetrahedron in 3D space,
+- data generation from various spatial point patterns in 2D space,
+- finding local extrema in Delaunay cells, and
+- finally some auxiliary functions in Euclidean geometry.
+
+The discussion covers the structure of function arguments, 
+the required input data formats, and the various output formats. 
+The subsequent sections provide visualization of the proximity regions, 
+and the associated PCDs, and computation of domination number and arc-density of the PCDs, 
+and the computation of the large-sample tests based on these invariants. 
+
+# Package Contents
+
+For ease of exposition,
+we have grouped the package contents according their functionality and theme:
+
+ - Utility functions
+ - PCD functions
+ - Pattern Generation Functions
+ - S3 methods^[For example, 
+ calling the generic function `summary(x)` on an object `x` with class `PCDs` actually dispatches the method `summary.PCDs` on `x`,
+ which is equivalent to calling `summary.PCDs(x)`. 
+ For a nice introduction, see _Advanced R_ by Hadley Wickham, available [online](http://adv-r.had.co.nz/OO-essentials.html).]
+ - Datasets
+ 
+Because all of these groups contain many functions, 
+we organize them into subgroups by purpose. 
+Below, we display each group of functions in a table with one column per subgroup. 
+
+-----------------------------------------------------------------------------
+Utility              PCDs              Pattern Generation    S3 Methods 
+--------------- -------------------- -------------------- -------------------
+AuxDomination      ArcSliceFunctions    PatternGen        ClassFunctions     
+
+AuxGeometry      PropEdge*          \   \        
+
+AuxTriangular    CentSim*         \    \     
+
+AuxExtrema  \    \   \ 
+
+-----------------------------------------------------------------------------
+Table: Package Contents: Grouping of the Functions
+
+PropEdge* contains PropEdge1D, PropEdge2D, and PropEdge3D functions, whereas CentSim* contains CentSim1D and CentSim2D functions only.
+
+ClassFunctions contain functions like `summary`, `print.summary`, and `plot` of the following object classes: 
+`Lines`,`TriLines`, `Lines3D`, `Planes`, `Patterns`, `Uniform`, `Extrema`, and `PCDs`. 
+Among these objects, `Lines`, `TriLines`, `Lines3D`, and `Planes` facilitate visualization of the various geometric structures, 
+proximity regions, and the corresponding digraphs, 
+while `Patterns` is used for spatial point pattern generation (with `Uniform` being a special case), 
+and `PCDs` pertains to the actual PCDs (the number of arcs, visualization of the digraph, and so on).
+
+In all the `pcds` functions,
+points are vectors, and data sets are either matrices or data frames.
+
+# Proximity Catch Digraphs 
+We illustrate PCDs in a two-class setting, 
+extension to multi-class setting can be done in a pair-wise fashion or one-vs-rest
+fashion for the classes.
+For two classes, $\X$ and $\Y$, of points, 
+let $\X$ be the class of interest (i.e. the *target class*)
+and $\Y$ be the reference class (i.e. the *non-target class*)
+and $\X_n$ and $\Y_m$ be samples of size $n$ and $m$ from classes $\X$ and $\Y$, respectively.
+<!-- That is, we specify $\X$ as the *target class* and $\Y$ as the *non-target class*.  -->
+The *proximity map* $N(\cdot): \Omega \rightarrow 2^{\Omega}$ associates with each point $x \in \X$, 
+a *proximity region* $N(x) \subset \Omega$. 
+Consider the data-random (or vertex-random) proximity catch digraph (PCD) $D=(V,A)$ 
+with vertex set $V=\X$ and arc set $A$ defined by $(u,v) \in A \iff \{u,v\}\subset \X$ and $v \in N(u)$. 
+The digraph $D$ depends on the (joint) distribution of $\X$ and on the map $N(\cdot)$. 
+The adjective proximity --- for the digraph $D$ and for the map $N(\cdot)$ --- 
+comes from thinking of the region $N(x)$ as representing those points in $\Omega$ "close" to $x$. 
+The binary relation $u \sim v$, which is defined as $v \in N(u)$, is asymmetric, 
+thus the adjacency of $u$ and $v$ is represented with *directed edges* or *arcs* which yield a digraph instead of a graph.
+See @chartrand:2010 and @west:2001 for more on graphs and digraphs.
+<!-- Let the data set $\X$ be composed of two non-empty sets,  -->
+<!-- $\X$ and $\Y$, with sample sizes $n:=|\X|$ and $m:=|\Y|$, respectively.  -->
+<!-- We investigate the PCD $D$, associated with $\X$ against $\Y$.  -->
+
+<!-- Hence, in the definitions of our PCDs, the only difference is switching the roles of $\X$ and $\Y$.  -->
+
+In the PCD approach the points correspond to observations from class $\X$ and
+the proximity regions are defined to be (closed) regions (usually convex regions or simply triangles)
+based on class $\X$ and $\Y$ points
+and the proximity region for a class $\X$ point, $x$, gets larger as the distance between $x$ 
+and class $\Y$ points increases.
+
+## Proximity Map Families
+We briefly define three proximity map families.
+Let $\Omega = \R^d$
+and let $\Y_m=\left \{\y_1,\y_2,\ldots,\y_m \right\}$ be $m$ points in
+general position in $\R^d$ and $T_i$ be the $i^{th}$ Delaunay cell
+for $i=1,2,\ldots,J_m$, where $J_m$ is the number of Delaunay cells
+based on $\Y_m$.
+Let $\X_n$ be a set of iid random variables from distribution $F$ in
+$\R^d$ with support $\mS(F) \subseteq \C_H(\Y_m)$
+where $\C_H(\Y_m)$ stands for the convex hull of $\Y_m$.
+For illustrative purposes, we focus on $\R^2$ where
+a Delaunay tessellation is a *triangulation*, provided that no more
+than three $\Y$ points are cocircular (i.e., lie on the same circle).
+Furthermore, for simplicity,
+let $\Y_3=\{\y_1,\y_2,\y_3\}$ be three non-collinear points
+in $\R^2$ and $\TY=T(\y_1,\y_2,\y_3)$ be the triangle
+with vertices $\Y_3$.
+Let $\X_n$ be a set of iid random variables from $F$ with
+support $\mS(F) \subseteq \TY$.
+
+## Arc-Slice Proximity Maps and Associated Proximity Regions {#sec:AS-PCD-construction}
+We define the *arc-slice proximity region* with $M$-vertex regions for a point $x \in \TY$ as follows;
+see also Figure \@ref(fig:NAS-example).
+Using a center $M$ of $\TY$,
+we partition $\TY$ into "vertex regions" $R_V(\y_1)$, $R_V(\y_2)$, and $R_V(\y_3)$.
+If $M$ is the circumcenter of $T(\mathcal{Y}_3)$, 
+we use perpendicular line segments from $M$ to the opposite edges
+to form the vertex regions.
+If $M$ is not the circumcenter but is in the interior of
+$T(\mathcal{Y}_3)$, we use line segments from $M$
+to the opposite edges as extensions of the lines
+joining the vertices and $M$ to form the vertex regions.
+For $x \in \TY \setminus \Y_3$, let $v(x) \in \Y_3$ be the
+vertex in whose region $x$ falls, so $x \in R_V(v(x))$.
+If $x$ falls on the boundary of two vertex regions,
+we assign $v(x)$ arbitrarily to one of the adjacent regions.
+The arc-slice proximity region is 
+$\NAS(x):=\overline B(x,r(x)) \cap \TY$ where $\overline B(x,r(x))$ is the closed
+ball centered at $x$ with radius $r(x):=d(x,v(x))$.
+To make the dependence on $M$ explicit, we also use the notation$\NAS(\cdot,M)$.
+A natural choice for the radius is $r(x):=\min_{\y \in \Y}d(x,\y)$
+which implicitly uses the $CC$-vertex regions,
+since $x \in R_{CC}(\y)$ iff $\y=\argmin_{u \in \Y}d(x,u)$.
+<!-- To make this dependence explicit, we use $\NAS(\cdot,M_{CC})$. -->
+See Figure \@ref(fig:NAS-example) for
+$\NAS(x,M_{CC})$ with $x \in R_{CC}(\y_2)$
+and @ceyhan:comp-geo-2010 for more detail on AS proximity regions.
+
+![(#fig:NAS-example) Illustration of the construction of arc-slice proximity region,
+$\NAS(x,M_{CC})$ with an $x \in R_{CC}(\y_2)$.](NAS_definition.png){width=65%}
+
+## Proportional-Edge Proximity Maps and Associated Proximity Regions {#sec:PE-PCD-construction}
+<!-- For the expansion parameter $r \in [1,\infty]$, -->
+We define the *proportional-edge proximity map* with expansion parameter $r \ge 1$ as follows;
+see also Figure \@ref(fig:NPE-example).
+Using a center $M$ of $\TY$,
+we partition $\TY$ into "$M$-vertex regions" as in Section \@ref(sec:PE-PCD-construction).
+Let $e(x)$ be the edge of $\TY$ opposite $v(x)$, the vertex whose region contains $x$,
+$\ell(x)$ be the line parallel to $e(x)$ through $x$,
+and $d(v(x),\ell(x))$ be the Euclidean distance from $v(x)$ to $\ell(x)$.
+For $r \in [1,\infty)$, let $\ell_r(x)$ be the line parallel to $e(x)$
+such that $d(v(x),\ell_r(x)) = rd(v(x),\ell(x))$ and $d(\ell(x),\ell_r(x)) < d(v(x),\ell_r(x))$.
+Let $T_{PE}(x,r)$ be
+the triangle similar to
+and with the same orientation as $\TY$
+having $v(x)$ as a vertex
+and $\ell_r(x)$ as the opposite edge.
+Then the *proportional-edge proximity region*
+$\NPE(x,r)$ is defined to be $T_{PE}(x,r) \cap \TY$.
+To make the dependence on $M$ explicit, we also use the notation$\NPE(x,r,M)$.
+A natural choice for the center is the center of mass (CM) yielding the $CM$-vertex regions,
+which have the same area (equaling one-third of the area of $\TY$).
+Notice that $r \ge 1$ implies $x \in \NPE(x,r)$.
+Note also that
+$\lim_{r \rightarrow \infty} \NPE(x,r) = \TY$
+for all $x \in \TY \setminus \Y_3$,
+so we define $\NPE(x,\infty) = \TY$ for all such $x$.
+For $x \in \Y_3$, we define $\NPE(x,r) = \{x\}$ for all $r \in [1,\infty]$.
+See @ceyhan:dom-num-NPE-SPL, @ceyhan:arc-density-PE, and @ceyhan:test2014 for more detail.
+
+![(#fig:NPE-example) Illustration of the construction of proportional-edge proximity region, $\NPE(x,r=2)$ (shaded region)
+for an $x \in R_V(\y_1)$ where $d_1=d(v(x),\ell(v(x),x))$ and
+$d_2=d(v(x),\ell_2(v(x),x))=2\,d(v(x),\ell(v(x),x))$.](NPE_definition.png){width=75%}
+
+## Central Similarity Proximity Maps and Associated Proximity Regions {#sec:CS-PCD-construction}
+
+<!-- For the expansion parameter $\tau \in (0,\infty]$, -->
+We define the *central similarity proximity map* with expansion parameter $\tau>0$ as follows;
+see also Figure \@ref(fig:NCS-example).
+Let $e_j$ be the edge opposite vertex $\y_j$ for $j=1,2,3$,
+and let "$M$-edge regions" $R_E(e_1)$, $R_E(e_2)$, $R_E(e_3)$
+partition $\TY$ using line segments from the
+center $M$ in the interior of $\TY$ to the vertices.
+For $x \in (\TY)^o$, let $e(x)$ be the
+edge in whose region $x$ falls; $x \in R_E(e(x))$.
+If $x$ falls on the boundary of two edge regions we assign $e(x)$ arbitrarily.
+For $\tau > 0$, 
+the *central similarity proximity region*
+$\NCS(x,\tau)$ is defined to be the triangle $T_{CS}(x,\tau) \cap \TY$ with the following properties:
+
+ (i) For $\tau \in (0,1]$,
+the triangle
+$T_{CS}(x,\tau)$ has an edge $e_\tau(x)$ parallel to $e(x)$ such that
+$d(x,e_\tau(x))=\tau\, d(x,e(x))$
+and
+$d(e_\tau(x),e(x)) \le d(x,e(x))$
+and
+for $\tau >1$,
+$d(e_\tau(x),e(x)) < d(x,e_\tau(x))$
+where $d(x,e(x))$ is the Euclidean distance from $x$ to $e(x)$,
+
+ (ii) the triangle $T_{CS}(x,\tau)$ has the same orientation as and is similar to $\TY$,
+ 
+ (iii) the point $x$ is at the center of mass of $T_{CS}(x,\tau)$.
+
+Note that (i) implies that the expansion parameter is $\tau$,
+(ii) implies "similarity", and
+(iii) implies "central" in the name, (parameterized) *central similarity proximity map*.
+To make the dependence on $M$ explicit, we also use the notation$\NCS(x,\tau,M)$.
+A natural choice for the center is the center of mass (CM) yielding the $CM$-edge regions,
+which have the same area (equaling one-third of the area of $\TY$).
+Notice that $\tau>0$ implies that $x \in \NCS(x,\tau)$ and,
+by construction, we have
+$\NCS(x,\tau)\subseteq \TY$ for all $x \in \TY$.
+For $x \in \partial(\TY)$ and $\tau \in (0,\infty]$, we define $\NCS(x,\tau)=\{x\}$.
+For all $x \in \TY^o$ the edges
+$e_\tau(x)$ and $e(x)$ are coincident iff $\tau=1$.
+Note also that
+$\lim_{\tau \rightarrow \infty} \NCS(x,\tau) = \TY$
+for all $x \in (\TY)^o$,
+so we define $\NCS(x,\infty) = \TY$ for all such $x$.
+The central similarity proximity maps in @ceyhan:CS-JSM-2003 and @ceyhan:arc-density-CS
+are $\NCS(\cdot,\tau)$ with $\tau=1$ and $\tau \in (0,1]$, respectively,
+and in @ceyhan:test2014 with $\tau>1$.
+
+![(#fig:NCS-example) Illustration of the
+construction of central similarity proximity region, $\NCS(x,\tau=1/2)$ (shaded region)
+for an $x \in R_E(e_3)$
+where $h_2=d(x,e_3^\tau(x))=\frac{1}{2}\,d(x,e(x))$ and $h_1=d(x,e(x))$.](NCS_definition.png){width=75%}
+
+## Delaunay Tessellation
+The convex hull of the non-target class $C_H(\Y_m)$ can be partitioned 
+into Delaunay cells through the *Delaunay tessellation* of $\Y_m \subset \mathbb{R}^d$. 
+The Delaunay tessellation becomes a *triangulation* in $\mathbb R^2$
+which partitions $C_H(\Y_m)$ into non-intersecting triangles. 
+For $\Y$ points in general position, 
+the triangles in the Delaunay triangulation satisfy the property 
+that the circumcircle of a triangle contain no $\Y$ points 
+except for the vertices of the triangle. 
+In higher dimensions (i.e., $d >2)$, Delaunay cells are $d$-simplices (for example, a tetrahedron in $\mathbb{R}^3$).
+Hence, the $C_H(\Y_m)$ is the union of a set of disjoint $d$-simplices $\{\mathfrak S_k\}_{k=1}^K$ 
+where $K$ is the number of $d$-simplices, or Delaunay cells. 
+Each $d$-simplex has $d+1$ non-co(hyper)planar vertices 
+where none of the remaining points of $\Y_m$ are in the interior of the circumsphere of the 
+simplex (except for the vertices of the simplex which are points from $\Y_m$). 
+Hence, simplices of the Delaunay tessellations are more likely to be acute 
+(simplices will not have substantially large inner angles). 
+Note that Delaunay tessellation is the dual of the *Voronoi diagram* of the points $\Y_m$. 
+A *Voronoi diagram* is a partitioning of $\mathbb{R}^d$ into convex polytopes 
+such that the points inside each polytope is closer to the point associated 
+with the polytope than any other point in $\Y$. 
+Hence, a polytope $V(y)$ associated with a point $\y \in \Y_m$ is defined as 
+$$V(y)=\left\{v \in \mathbb{R}^d: \lVert v-y \rVert \leq \lVert v-z \rVert \ \text{ for all } z \in \Y_m \setminus \{y\} \right\}.$$ 
+
+Here, $\lVert\cdot\rVert$ stands for the usual Euclidean norm. 
+Observe that the Voronoi diagram is unique for a fixed set of points $\Y_m$. 
+A *Delaunay graph* is constructed by joining the pairs of points in $\Y_m$ 
+whose boundaries of Voronoi polytopes have nonempty intersections.
+The edges of the Delaunay graph constitute a partitioning of $C_H(\Y_m)$
+providing the *Delaunay tessellation*. 
+By the uniqueness of the Voronoi diagram, 
+the Delaunay tessellation is also unique (except for cases where $d+1$ or more points lying on the same hypersphere). 
+<!-- See Figure \@ref(fig:DTfig)  -->
+Run the below code
+for an illustration of Delaunay triangulation of 20 uniform $\Y$ points in the unit square
+$(0,1) \times (0,1)$.
+More detail on Voronoi diagrams and Delaunay tessellations can be found in @okabe:2000.
+
+```{r DTfig, eval=FALSE, fig.cap = "Delaunay triangulation of 20 uniform $Y$ points in the unit square $(0,1)$-by-$(0,1)$."}
+ny<-20; 
+
+set.seed(1)
+#Xp<-cbind(runif(nx),runif(nx))
+Yp<-cbind(runif(ny),runif(ny))
+
+#oldpar <- par(no.readonly = TRUE)
+plotDeltri(Yp,Yp,xlab="",ylab="",main="Delaunay Triangulation of Y points")
+```
+
+## Graph Invariants: Arc Density and Domination Number
+**Arc Density:** 
+The *arc density* of a digraph $D=(V,A)$
+of order $|V| = n$,
+denoted $\rho(D)$,
+is defined as
+$$
+\rho(D) = \frac{|A|}{n(n-1)}
+$$
+where $|\cdot|$ stands for set cardinality (@janson:2000).
+Thus $\rho(D)$ represents the ratio of the number of arcs
+in the digraph $D$ to the number of arcs in the complete symmetric
+digraph of order $n$, which has $n(n-1)$ arcs.
+
+If $X_1,X_2,\ldots,X_n \stackrel{iid}{\sim} F$, then
+the relative density
+of the associated data-random PCD,
+denoted $\rho(\X_n;h,N)$, is a $U$-statistic,
+$$\rho(\X_n;h,N) =
+  \frac{1}{n(n-1)}
+   \underset{i<j}{\sum\sum}h(X_i,X_j;N) $$
+  
+where
+\begin{aligned}
+h(X_i,X_j;N)&= \I \{(X_i,X_j) \in A\}+ \I \{(X_j,X_i) \in A\} \nonumber \\
+       &= \I \{X_j \in N(X_i)\}+ \I \{X_i \in N(X_j)\}
+\end{aligned}
+with $\I\{\cdot\}$ being the indicator function.
+We denote $h(X_i,X_j;N)$ as $h_{ij}$ for brevity of notation.
+Since the digraph is asymmetric, $h_{ij}$ is defined as
+the number of arcs in $D$ between vertices $X_i$ and $X_j$, in order to produce a symmetric kernel with finite variance (@lehmann:2004).
+
+See @ceyhan:arc-density-PE, @ceyhan:arc-density-CS, and @ceyhan:test2014
+for arc density of PE-PCDs and its use for spatial interaction for 2D data;
+and @ceyhan:metrika-2012 and @ceyhan:revstat-2016 for arc density of PE-PCDs for 1D data
+and its use for testing uniformity.
+
+**Domination Number:** 
+In a digraph $D=(V,A)$, a vertex $v \in V$ *dominates*
+itself and all vertices of the form $\{u: (v,u) \in A\}$.
+A *dominating set* $S_D$ for the digraph $D$ is a subset of $V$
+such that each vertex $v \in V$ is dominated by a vertex in $S_D$.
+A *minimum dominating set* $S^*_{D}$ is a dominating set of
+minimum cardinality and the *domination number* $\g(D)$ is
+defined as $\g(D):=|S^*_{D}|$ (see, e.g., @lee:1998).
+<!-- where $|\cdot|$ denotes the set cardinality functional. -->
+If a minimum dominating set is of size one, we call it a *dominating point*.
+Note that for $|V|=n>0$, $1 \le \g(D) \le n$,
+since $V$ itself is always a dominating set.
+See @ceyhan:dom-num-NPE-SPL  and  @ceyhan:dom-num-NPE-Spat2011
+for the domination number and its use for testing spatial interaction patterns in 2D data
+and @ceyhan:stat-2020 for testing uniformity of 1D data.
+
+**Geometry Invariance of Arc Density and Domination Number:**
+Let $\mathcal{U}(T\left(\mathcal{Y}_3 \right))$ be the uniform
+distribution on $T\left(\mathcal{Y}_3 \right)$. 
+If $F=\mathcal{U}(T(\mathcal{Y}_3))$, 
+a composition of translation, rotation, reflections, and scaling, 
+denoted $\phi_b(T(\mathcal{Y}_3))$, will take any given triangle
+$T(\mathcal{Y}_3)$ to the standard basic triangle
+$T_b=T((0,0),(1,0),(c_1,c_2))$ with $0 < c_1 \le 1/2$, $c_2>0$,
+and $(1-c_1)^2+c_2^2 \le 1$, preserving uniformity. 
+That is, if $X \sim \mathcal{U}(T(\mathcal{Y}_3))$ is transformed 
+in the same manner to, say $X'=\phi_b(X)$, 
+then we have $X' \sim \mathcal{U}(T_b)$. 
+In fact this will hold for data from any distribution $F$ up to scale.
+Furthermore, 
+$T_b$ can be transformed to the *standard equilateral triangle* $T_e=T(A,B,C)$ 
+with vertices $A=(0,0)$, $B=(1,0)$, and $C=(1/2,\sqrt{3}/2)$ by a transformation $\phi_e$
+and $\phi_e(X') \sim \mathcal{U}(T_e)$. 
+That is uniform points in any triangle can be mapped to 
+points uniformly distributed in the standard equilateral triangle by a composition of $\phi_b$
+and $\phi_e$ (in the form $\phi_e \circ \phi_b$).
+
+The distribution of the domination number and arc density for AS-PCDs do
+not change for uniform data in a triangle $T(\mathcal{Y}_3)$ when the
+data points are transformed to (uniform) points in the standard basic triangle $T_b$ 
+(using $\phi_b$) but not when $\phi_e$ is applied to the uniform data in $T_b$. 
+So, one can focus on $T_b$ for computations and derivations regarding the 
+domination number and arc density of AS-PCD for uniform data. 
+On the other hand, the distribution of the
+domination number and arc density for PE- and CS-PCDs do not change for
+uniform data in a triangle $T(\mathcal{Y}_3)$ when the data points are
+transformed to (uniform) points in the standard equilateral triangle
+$T_e$ (using $\phi_e \circ \phi_b$).
+That is,
+distribution of these graph quantities are *geometry invariant*
+for uniform data in triangles.
+So, one can focus on $T_e$ for computations
+and derivations regarding the PE- and CS-PCD quantities for uniform data.
+A similar geometry invariance holds in 3D setting for uniform data in any tetrahedron
+being transformed to the standard regular tetrahedron for PE- and CS-PCDs.
+Therefore,
+the pcds package has functions customized only for one simplex (i.e., one interval in $\mathbb R$,
+one triangle in $\mathbb R^2$, and one tetrahedron in $\mathbb R^3$).
+However, 
+we don't cover these functions here, as 
+(i) they serve as utility functions in the more realistic case of multiple simplices
+(e.g., multiple triangles occur when there are $m \ge 4$ $\Y$ points)
+and
+(ii) they are mainly used for simulations or verifications or illustrations when $\X$ points are restricted to one simplex.
+See the vignette files 
+"VS2.1 - Illustration of PCDs in One Triangle",
+"VS2.2 - Illustration of PCDs in One Interval", and 
+"VS2.3 - Illustration of PCDs in One Tetrahedron".
+
+# References

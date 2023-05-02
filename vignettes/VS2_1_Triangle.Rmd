@@ -1,0 +1,1900 @@
+---
+title: "VS2.1 - Illustration of PCDs in One Triangle"
+author: "Elvan Ceyhan"
+date: '`r Sys.Date()` '
+output:
+  bookdown::html_document2:
+    base_format: rmarkdown::html_vignette
+bibliography: References.bib
+vignette: >
+  %\VignetteIndexEntry{VS2.1 - Illustration of PCDs in One Triangle}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+<style>
+.math {
+  font-size: small;
+}
+</style>
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(collapse = TRUE,comment = "#>",fig.width=6, fig.height=4, fig.align = "center") 
+```
+
+\newcommand{\X}{\mathcal{X}}
+\newcommand{\Y}{\mathcal{Y}}
+
+First we load the `pcds` package:
+```{r setup, message=FALSE, results='hide'}
+library(pcds)
+```
+
+# Functions for Construction and Simulation of PCDs and Related Quantities
+For illustration of construction of PCDs and related quantities, 
+we first focus on one Delaunay cell, 
+because subdigraph of the PCDs with vertices in one Delaunay cell are disconnected from the remaining vertices.
+Thus arc density and domination number of PCDs can be obtained by adding numbers of arcs 
+and domination numbers for the subdigraphs for Delaunay cells.
+A Delaunay cell is an interval for 1D space,
+a triangle for 2D space, 
+and a tetrahedron for 3D space.
+The arc density
+and the domination number of PE- and CS-PCDs for uniform data in two or higher dimensions, 
+is geometry invariant,
+thus we may also focus on standard equilateral triangle in 2D space
+and a standard regular tetrahedron in the 3D space. 
+*Geometry invariance* means that the distribution of arc density or domination number of these PCDs
+does not depend on the form (lengths of edges and inner angles) of the triangle or  (lengths of edges, areas of faces and inner angles) of the tetrahedron for uniform data.
+So,
+one can use the standard Delaunay cells for computations and also simulations to utilize symmetry
+as the results extend to any type of Delaunay cell for uniform data. 
+For one dimensional uniform data,
+the PCDs enjoy *scale invariance*, which means that the distribution of arc density and domination number
+does not depend on the length of the interval support.
+Thus, we present functions for a single Delaunay cell (and also for the standard Delaunay cells) in "Section VS2*" files.
+
+# Functions for PCDs with Vertices in One Triangle
+Due to geometry invariance of PE- and CS-PCDs for uniform data (which will be the vertices of the PCDs)
+in any triangle in 2D space, 
+most computations (and if needed data generation and simulations) can be done in the standard equilateral triangle, 
+and for AS-PCD, one can restrict attention to the standard basic triangle. 
+The *standard equilateral triangle* is $T_e=T(A,B,C)$ with vertices $A=(0,0)$, $B=(1,0)$, and $C=(1/2,\sqrt{3}/2)$
+and the *standard basic triangle* is $T_b=T(A,B,C')$ with vertices $A=(0,0)$, $B=(1,0)$, and $C'=(c_1,c_2))$
+with $0 < c_1 \le 1/2$, $c_2>0$,
+and $(1-c_1)^2+c_2^2 \le 1$.
+
+Most of the PCD functions we will illustrate in this section are counterparts of the functions 
+in Section "VS1_1_2DArtiData" 
+(i.e. one-interval counterparts of the functions for the multiple-triangle setting).
+Sometimes we will be focusing on the standard equilateral triangle (for speed and ease of computation).
+
+For more detail on the construction and appealing properties of PCDs in triangles,
+see @ceyhan:comp-geo-2010 and @ceyhan:mcap2012.
+
+We first choose an arbitrary triangle $T=T(A,B,C)$ with vertices $A=(1,1)$, $B=(2,0)$, and $C=(1.5,2)$, 
+which happens to be an obtuse triangle,
+and choose an arbitrary point in the interior of this triangle as the center (to construct the vertex or edge regions).
+```{r }
+A<-c(1,1); B<-c(2,0); C<-c(1.5,2);
+Tr<-rbind(A,B,C);
+n<-5
+
+set.seed(1)
+Xp<-runif.tri(n,Tr)$g  #try also Xp<-cbind(runif(n,1,2),runif(n,0,2))
+M<-c(1.6,1.2) #try also M<-as.numeric(runif.tri(1,Tr)$g) or M="CC"
+```
+
+Then we generate $n=$ `r n` $\X$ points inside the triangle $T$ using the function `runif.tri` in `pcds`.
+$\X$ points are denoted as `Xp` and $\Y$ points in Section "VS1_1_2DArtiData"
+correspond to the vertices of the triangle $T$.
+Hence, if the argument `Yp` is used for a function for multiple triangles, 
+it is replaced with `tri` a $3 \times 2$ matrix in which rows represent the vertices of the triangle
+for a function written for a general triangle,
+with `c1,c2` for a basic triangle,
+or omitted for the standard equilateral triangle.
+
+We plot the triangle $T$ and the $\X$ points in it using the below code, 
+and also add the vertex names using the `text` function from base `R`.
+```{r one-tri, eval=F, fig.cap="Scatterplot of the $X$ points in the triangle $T=T(A,B,C)$ with vertices $A=(1,1)$, $B=(2,0)$, and $C=(1.5,2)$."}
+Xlim<-range(Tr[,1])
+Ylim<-range(Tr[,2])
+plot(Tr,pch=".",xlab="",ylab="",xlim=Xlim,ylim=Ylim+c(0,.1),main="Points in One Triangle")
+polygon(Tr)
+points(Xp)
+
+#add the vertex names and annotation
+txt<-rbind(Tr)
+xc<-txt[,1]+c(-.01,.015,.02)
+yc<-txt[,2]+c(.02,.02,.02)
+txt.str<-c("A","B","C")
+text(xc,yc,txt.str)
+```
+
+Alternatively, we can use the `plotDeltri` function in `pcds` to obtain the same plot by executing `plotDeltri(Xp,Tr,xlab="x",ylab="y")`.
+
+## Functions for Arc-Slice PCDs with Vertices in One Triangle {#sec:AS-PCD-one-tri}
+
+Arc-Slice (AS) proximity region for a point is the intersection of the triangle containing the point
+and the circle centered the point with radius being
+the minimum distance from the point to the vertices of the triangle.
+So, we first check whether a point is inside a circle or not by using the function `in.circle` which returns `TRUE` 
+if the point is inside the circle, and `FALSE` otherwise.
+This function takes arguments `p,cent,rad,boundary`
+where
+
+- `p` is a 2D point to be checked whether it is inside the circle or not,
+- `cent` a 2D point in Cartesian coordinates which serves as the center of the circle,
+- `rad` a positive real number which serves as the radius of the circle,
+- `boundary` a logical parameter (default=`TRUE`) to include boundary or not, so if it is `TRUE`,
+the function checks if the point, `p`, lies in the closure of the circle (i.e., interior and
+boundary combined); else, it checks if `p` lies in the interior of the circle.
+
+```{r eval=F}
+cent<-c(1,1); rad<-1; p<-c(1.4,1.2) #try also cent<-runif(2); rad<-runif(1); p<-runif(2);
+in.circle(p,cent,rad)
+p<-c(.4,-.2)
+in.circle(p,cent,rad)
+
+[1] TRUE
+[1] FALSE
+```
+
+The circle for an AS proximity region of an $\X$ point $x$ is centered at the point $x$ 
+with radius being the distance from $x$ to the closest class $\Y$ point
+(which is the closest vertex of the triangle $T$ in the one triangle setting).
+The radius of a point from one class with respect to points from the other class is provided by the function `radius`
+which takes arguments `p,Y` where
+
+- `p` is the point to find the radius for and
+- `Y` is the matrix of non-target points.
+
+The function also returns the index and coordinates of the class $\Y$ point closest to the class $\X$ point.
+This function works for points in other dimensions as well. 
+See `? radius` for further description.
+<!-- and `example(radius)` for the examples. -->
+```{r eval=F}
+ny<-5
+Y<-cbind(runif(ny),runif(ny))
+A<-c(1,1);
+radius(A,Y)
+#> $rad
+#> [1] 0.3767951
+#> 
+#> $index.of.clYpnt
+#> [1] 4
+#> 
+#> $closest.Ypnt
+#> [1] 0.6684667 0.8209463
+```
+
+The radii of points from one class with respect to points from the other class are found by using the function `radii`
+which takes arguments `x,y`
+where 
+
+- `x` is a set of $d$-dimensional points for which the radii are computed. Radius of an `x` point equals to the
+distance to the closest `y` point
+and
+- `y` is a set of $d$-dimensional points representing the reference points for the balls. That is, radius
+of an `x` point is defined as the minimum distance to the `y` points.
+
+In addition to the radii, the function also returns the indices and coordinates of the class $\Y$ points closest to the class $\X$ points.
+This function works for points in other dimensions as well. 
+See `? radii` for further description.
+<!-- and `example(radii)` for the examples. -->
+```{r eval=F}
+nx<-6
+ny<-5
+X<-cbind(runif(nx),runif(nx))
+Y<-cbind(runif(ny),runif(ny))
+Rad<-radii(X,Y)
+Rad
+#> $radiuses
+#> [1] 0.38015546 0.23618472 0.02161322 0.48477828 0.05674010 0.16819521
+#> 
+#> $indices.of.closest.points
+#> [1] 4 4 4 4 1 3
+#> 
+#> $closest.points
+#>            [,1]      [,2]
+#> [1,] 0.51863426 0.4590657
+#> [2,] 0.51863426 0.4590657
+#> [3,] 0.51863426 0.4590657
+#> [4,] 0.51863426 0.4590657
+#> [5,] 0.07067905 0.4068302
+#> [6,] 0.31627171 0.2936034
+```
+
+The function `NAStri` is used for the construction of AS proximity regions taking the arguments 
+
+- `p` the point for which the AS proximity region is to be found,
+- `tri` the support triangle,
+- `M` is the center to construct the vertex regions with default`M="CC"` (i.e. the circumcenter),
+- `rv` the index of the vertex regions that the point `p` resides in with default `rv=NULL`
+and `dec` a positive integer the number of decimals (default is 4) to round the
+barycentric coordinates when checking whether the end points fall on the boundary of the triangle `tri` or not.
+
+`NAStri` returns the proximity region as end points of the straight line segments on the boundary of the proximity region
+(which also fall on the boundary of the triangle),
+the end points of the arc slices which are the parts of the defining circle falling in the interior of the triangle
+and the angles between the vectors joining `P` and the end points of the arc slices and the horizontal line crossing the point `P`.
+It is also possible to specify the index of the vertex region for the point `P` with the argument `rv=k` for $k=1,2,3$,
+where $k$ refers to the vertex in $k$-th row for the triangle `Tr` 
+(but this must be computed before such as in the code `Rv<-rv.triCC(P1,Tr)$rv; NAStri(P1,Tr,M,Rv)`
+and it must be compatible with
+the vertex region for the point `P`).
+```{r eval=F}
+P<-c(1.8,.5)
+NAStri(P,Tr,M)
+#> $L
+#>      [,1] [,2]
+#> [1,]    2    0
+#> [2,]    2    0
+#> 
+#> $R
+#>          [,1]     [,2]
+#> [1,] 1.741176 1.035294
+#> [2,] 1.300000 0.700000
+#> 
+#> $arc.slices
+#>          [,1]     [,2]
+#> [1,] 1.741176 1.035294
+#> [2,] 1.300000 0.700000
+#> 
+#> $Angles
+#> [1] 1.680247 2.761086
+```
+
+Indicator for the presence of an arc from a (data or $\X$) point to another for AS-PCDs is the function `IndNAStri`.
+One can use it for points in the data set or for arbitrary points (as if they were in the data set).
+It takes the arguments,
+
+- `p1` a 2D point whose AS proximity region is constructed,
+- `p2` another 2D point. The function determines whether `p2` is inside the AS proximity region of `p1` or not,
+- `tri` vertices of the support triangle, stacked row-wise, i.e., each row representing a vertex of the triangle,
+- `M` the center of the triangle to construct the vertex regions with, default is `M="CC"` i.e., the circumcenter of `tri`
+and `rv` the index of the `M`-vertex region in `tri` containing the point, either 1,2,3 or `NULL` (which is the default).
+
+This function returns $I(p2 \in N_{AS}(p1))$, that is, returns 1 if `p2` is in $N_{AS}(p1)$, 0 otherwise.
+```{r eval=F}
+#between two arbitrary points P1 and P2
+P1<-as.numeric(runif.tri(1,Tr)$g)
+P2<-as.numeric(runif.tri(1,Tr)$g)
+IndNAStri(P1,P2,Tr,M)
+#> [1] 0
+#between the first two points in Xp
+IndNAStri(Xp[1,],Xp[2,],Tr,M)
+#> [1] 0
+```
+
+AS proximity regions are defined with respect to the
+vertices of the triangle (i.e., with respect to the vertex regions they reside in) and 
+vertex regions in each triangle are based on the center `M`
+for circumcenter or $M=(\alpha,\beta,\gamma)$ in barycentric coordinates in the
+interior of the triangle; default is `M="CC"` i.e., circumcenter of the triangle.
+
+See @ceyhan:Phd-thesis, @ceyhan:comp-geo-2010, and @ceyhan:mcap2012 for more on AS-PCDs.
+
+Number of arcs of the AS-PCD can be computed by the function `NumArcsAStri`.
+The function `NumArcsAStri` takes `Xp,tri,M="CC"` as its arguments
+where `Xp` is the data set, and the others are as above
+and returns the list of
+
+* `num.arcs`: Number of arcs of the AS-PCD,
+* `num.in.tri`: Number of `Xp` points in the triangle `tri`,
+* `ind.in.tri`: The vector of indices of the `Xp` points that reside in the triangle.
+
+```{r eval=F}
+NumArcsAStri(Xp,Tr)  #with default M="CC"; try also NumArcsAStri(Xp,Tr,M)
+#> $num.arcs
+#> [1] 10
+#> 
+#> $num.in.tri
+#> [1] 5
+#> 
+#> $ind.in.tri
+#> [1] 1 2 3 4 5
+```
+
+The arc density of the AS-PCD can be computed by the function `ASarcdens.tri`.
+It takes the arguments `Xp,tri,M="CC",tri.cor` where `Xp` is the data set (or $\X$ points)
+`tri,M="CC"` are as above.
+Arc density can be adjusted (or corrected) for the points outside the triangle by using the option `tri.cor=T`, 
+default option is `tri.cor=FALSE`. 
+```{r eval=F}
+ASarcdens.tri(Xp,Tr,M)
+#> [1] 0.5
+```
+
+The incidence matrix of the AS-PCD for the one triangle case can be found by `IncMatAStri`, 
+using the `IncMatAStri(Xp,Tr,M)` command.
+It takes the same arguments as the function `NumArcsAStri`.
+
+Plot of the arcs in the digraph AS-PCD, which is based on the $M$-vertex regions with $M=($ `r M[1]`,`r M[2]` $)$,
+can be obtained by the function `plotASarcs.tri`, which is the one-tri counterpart of the function `plotASarcs`.
+It takes arguments `Xp,tri,M="CC"` (as in `NumArcsAStri`) and other options for the plot function. 
+See the help page for the function using `? plotASarcs.tri`.
+
+<!-- ```{r ASarcs1, fig.cap="Arcs of the AS-PCD with 10 $X$ points"} -->
+<!-- plotASarcs.tri(Xp,Tr,M,xlab="",ylab="") -->
+<!-- ``` -->
+
+Plot of the arcs of the above AS-PCD, 
+together with the vertex regions (with the option `vert.reg = TRUE`).
+```{r ASarcs2, fig.cap="Arcs of the AS-PCD with 10 $X$ points, vertex regions are added with dashed lines."}
+plotASarcs.tri(Xp,Tr,M,xlab="",ylab="",vert.reg = TRUE)
+```
+
+Or, one can use the default center `M="CC"`, and can add vertex names and text to the figure (with vertex regions)
+using the below code.
+The part `M = as.numeric(ArcsAStri(Xp,Tr)$param)` is optional, 
+for the below annotation of the plot since circumcenter is used for the vertex regions.
+```{r ASarcs3, eval=F, fig.cap="Arcs of the AS-PCD with 10 $X$ points and vertex regions (dashed lines) are based on circumcenter. The vertices and the center are labeled."}
+plotASarcs.tri(Xp,Tr,asp=1,xlab="",ylab="",vert.reg = TRUE); M = (ArcsAStri(Xp,Tr)$param)$c
+
+CC<-circ.cent.tri(Tr)
+
+#determine whether the center used for vertex regions is circumcenter or not
+if (identical(M,CC) || identical(M,"CC"))
+{cent<-CC
+D1<-(B+C)/2; D2<-(A+C)/2; D3<-(A+B)/2;
+Ds<-rbind(D1,D2,D3)
+cent.name<-"CC"
+} else
+{cent<-M
+cent.name<-"M"
+Ds<-cent2edges.tri(Tr,M)
+}
+
+#add the vertex names and annotation
+txt<-rbind(Tr,cent,Ds)
+xc<-txt[,1]+c(-.02,.02,.02,.05,.05,-0.03,-.01)
+yc<-txt[,2]+c(.02,.02,.02,.07,.02,.05,-.06)
+txt.str<-c("A","B","C",cent.name,"D1","D2","D3")
+text(xc,yc,txt.str)
+```
+
+Plot of the AS proximity regions can be obtained by the function `plotASregs.tri`.
+<!-- , the first is for all points, the second is for two $\X$ points only (for better visualization). -->
+It takes arguments `Xp,tri,M="CC"` (as in `NumArcsAStri`) and other options for the plot function. 
+See the help page for the function using `? plotASregs.tri`.
+```{r ASPR1, fig.cap="AS proximity regions for the $X$ points used above."}
+M<-c(1.6,1.2) #try also M<-c(1.6620051,0.8136604) or M="CC"
+plotASregs.tri(Xp,Tr,M,vert.reg = T,xlab="",ylab="")
+```
+
+<!-- ```{r ASPR2, fig.cap="AS proximity regions for two of the $X$ points for better visualization."} -->
+<!-- plotASregs.tri(Xp[c(1,3),],Tr,M, xlab="",ylab="") -->
+<!-- ``` -->
+
+<!-- Plot of the AS proximity regions with two $\X$ points only (for better visualization) together with the vertex regions. -->
+<!-- The vertex names and annotation is also added to the plot. -->
+<!-- ```{r ASPR3, fig.cap="AS proximity regions for two of the $X$ points for better visualization and the M-vertex regions. Vertex names and annotation are also added."} -->
+<!-- plotASregs.tri(Xp[c(1,3),],Tr,M,xlab="",ylab="",vert.reg=TRUE) -->
+
+<!-- if (identical(M,CC) || identical(M,"CC")) -->
+<!-- {cent<-CC -->
+<!-- cent.name<-"CC" -->
+<!-- } else {cent<-M -->
+<!-- cent.name<-"M" -->
+<!-- } -->
+
+<!-- #add vertex labels and text to the figure (with vertex regions) -->
+<!-- txt<-rbind(Tr,cent,Ds) -->
+<!-- xc<-txt[,1]+c(-.02,.04,.03,.05,.05,-0.03,-.01) -->
+<!-- yc<-txt[,2]+c(.02,.02,.02,.07,.02,.05,-.06) -->
+<!-- txt.str<-c("A","B","C",cent.name,"D1","D2","D3") -->
+<!-- text(xc,yc,txt.str) -->
+<!-- ``` -->
+
+The function `ArcsAStri` is an object of class "`PCDs`". 
+It takes arguments `Xp,tri,M="CC"` (as in `ASarcdens.tri`).
+The output list is as in the function `ArcsAS` 
+(see Section "VS1_1_2DArtiData").
+The `plot` function returns the same plot as in `plotASarcs.tri` with $M=($ `r M[1]`,`r M[2]` $)$, 
+hence we comment it out below.
+```{r eval=F }
+M=c(1.6,1.2) #try also M=c(1.6620051,0.8136604)
+
+Arcs<-ArcsAStri(Xp,Tr,M) #try also Arcs<-ArcsAStri(Xp,Tr) #uses the default center, namely circumcenter for M
+Arcs
+#> Call:
+#> ArcsAStri(Xp = Xp, tri = Tr, M = M)
+#> 
+#> Type:
+#> [1] "Arc Slice Proximity Catch Digraph (AS-PCD) for 2D Points in the Triangle with Center M = (1.6,1.2)"
+summary(Arcs)
+#> Call:
+#> ArcsAStri(Xp = Xp, tri = Tr, M = M)
+#> 
+#> Type of the digraph:
+#> [1] "Arc Slice Proximity Catch Digraph (AS-PCD) for 2D Points in the Triangle with Center M = (1.6,1.2)"
+#> 
+#>  Vertices of the digraph =  Xp 
+#>  Partition points of the region =  Tr 
+#> 
+#>  Selected tail (or source) points of the arcs in the digraph
+#>       (first 6 or fewer are printed) 
+#>          [,1]      [,2]
+#> [1,] 1.265509 0.7442478
+#> [2,] 1.687023 0.7682074
+#> [3,] 1.687023 0.7682074
+#> [4,] 1.687023 0.7682074
+#> [5,] 1.380035 1.5548904
+#> [6,] 1.267221 0.7722282
+#> 
+#>  Selected head (or end) points of the arcs in the digraph
+#>       (first 6 or fewer are printed) 
+#>          [,1]      [,2]
+#> [1,] 1.267221 0.7722282
+#> [2,] 1.265509 0.7442478
+#> [3,] 1.267221 0.7722282
+#> [4,] 1.482080 1.1991317
+#> [5,] 1.482080 1.1991317
+#> [6,] 1.265509 0.7442478
+#> 
+#> Parameters of the digraph
+#> $center
+#> [1] 1.6 1.2
+#> 
+#> Various quantities of the digraph
+#>         number of vertices number of partition points 
+#>                        5.0                        3.0 
+#>        number of triangles             number of arcs 
+#>                        1.0                       10.0 
+#>                arc density 
+#>                        0.5
+
+plot(Arcs)
+```
+
+To see the code and the plot for the arcs using the `plot.PCDs` function, 
+with vertex names and annotation added to the plot,
+type `? ArcsAStri`.
+
+<!-- Below is the plot of arcs using the `plot.PCDs` function, with vertex names and annotation added to the plot. -->
+<!-- ```{r ASarcs1t, fig.cap="Arcs of the AS-PCD for points in one triangle."} -->
+<!-- plot(Arcs) #use plot(Arcs,asp=1) if M=CC -->
+
+<!-- #add vertex regions but we first need to determine center is the circumcenter or not, -->
+<!-- CC<-circ.cent.tri(Tr) -->
+
+<!-- if (isTRUE(all.equal(M,CC)) || identical(M,"CC")) -->
+<!-- {cent<-CC -->
+<!-- D1<-(B+C)/2; D2<-(A+C)/2; D3<-(A+B)/2; -->
+<!-- Ds<-rbind(D1,D2,D3) -->
+<!-- cent.name<-"CC" -->
+<!-- } else -->
+<!-- {cent<-M -->
+<!-- cent.name<-"M" -->
+<!-- Ds<-cent2edges.tri(Tr,M) -->
+<!-- } -->
+<!-- L<-rbind(cent,cent,cent); R<-Ds -->
+<!-- segments(L[,1], L[,2], R[,1], R[,2], lty=2) -->
+
+<!-- #add the vertex names and annotation -->
+<!-- txt<-rbind(Tr,cent,Ds) -->
+<!-- xc<-txt[,1]+c(-.02,.02,.02,.03,.03,-.02,-.01) -->
+<!-- yc<-txt[,2]+c(.02,.02,.03,.03,.03,.05,-.07) -->
+<!-- txt.str<-c("A","B","C",cent.name,"D1","D2","D3") -->
+<!-- text(xc,yc,txt.str) -->
+<!-- ``` -->
+
+## Functions for Proportional Edge PCDs with Vertices in One Triangle {#sec:PE-PCD-one-tri}
+In this section, we use the same triangle $T$ and generate data as in Section \@ref(sec:AS-PCD-one-tri).
+```{r }
+#A<-c(1,1); B<-c(2,0); C<-c(1.5,2); Tr<-rbind(A,B,C); n<-5
+#set.seed(1); Xp<-runif.tri(n,Tr)$g
+M<-c(1.6,1.0)  #try also M<-as.numeric(runif.tri(1,Tr)$g)
+r<-1.5  #try also r<-2
+```
+
+And choose the expansion parameter $r=$ `r r` to illustrate proportional edge (PE) 
+proximity regions and the associated PCDs.
+
+The function `NPEtri` is used for the construction of PE proximity regions taking the arguments
+`p,tri,r,M=c(1,1,1),rv=NULL` 
+where 
+
+- `p,tri,rv=NULL` are as in the function `NAStri`,
+and
+- `M` is the center to construct the vertex regions with default `M=c(1,1,1)` (i.e. the center of mass),
+- `rv` the index of the vertex regions that the point `p` resides in with default `rv=NULL` and 
+- `r` is the expansion parameter (must be $\ge 1$).
+
+`NPEtri` returns the PE proximity region (i.e., the vertices of the triangular proximity region).
+```{r eval=F }
+P<-c(1.8,.5)
+NPEtri(P,Tr,r,M)
+#>       [,1] [,2]
+#> [1,] 2.000 0.00
+#> [2,] 1.550 0.45
+#> [3,] 1.775 0.90
+```
+
+Indicator for the presence of an arc from a (data or $\X$) point to another for PE-PCDs is the function `IndNPEtri`.
+One can use it for points in the data set or for arbitrary points (as if they were in the data set).
+It takes the arguments, `p1,p2,tri,r,M=c(1,1,1),rv=NULL` where 
+
+-`p1,p2,tri,rv=NULL` are as in `IndNAStri` and 
+- `r,M=c(1,1,1)` are as in `NPEtri`.
+
+This function returns $I(p2 \in N_{PE}(p1))$, 
+that is, returns 1 if `p2` is in $N_{PE}(p1)$, 0 otherwise.
+
+```{r eval=F}
+P1<-as.numeric(runif.tri(1,Tr)$g)
+P2<-as.numeric(runif.tri(1,Tr)$g)
+IndNPEtri(P1,P2,Tr,r,M)
+#> [1] 1
+IndNPEtri(Xp[1,],Xp[5,],Tr,r,M) #try also IndNPEtri(Xp[5,],Xp[1,],Tr,r,M)
+#> [1] 0
+```
+
+Number of arcs of the PE-PCD can be computed by the function `NumArcsPEtri`,
+which takes arguments `Xp,tri,r,M=c(1,1,1)`
+where `Xp` is the data set, and the others are as above.
+The output is as in `NumArcsAStri`.
+```{r eval=F}
+NumArcsPEtri(Xp,Tr,r,M)
+#> $num.arcs
+#> [1] 7
+#> 
+#> $num.in.tri
+#> [1] 5
+#> 
+#> $ind.in.tri
+#> [1] 1 2 3 4 5
+```
+
+The arc density of the PE-PCD can be computed by the function `PEarcdens.tri`.
+It takes the arguments `Xp,tri,r,M,tri.cor` where `Xp` is the data set (or $\X$ points)
+`r,tri,M` are as above
+and returns output as list with elements 
+
+- `arc.dens`, arc density of PE-PCD whose vertices are the 2D numerical data set, `Xp`,
+- `std.arc.dens`, the arc density standardized by the mean and asymptotic variance of the arc
+density of PE-PCD for uniform data in the triangle `tri`, and
+- `caveat` a warning as `"The standardized arc density is only correct when M is the center of mass in the current version"`.
+
+Arc density can be adjusted (or corrected) for the points outside the triangle by using the option `tri.cor=TRUE` as in the `ASarcdens.tri`.
+Moreover, the standardized arc density is only correct when $M$ is the center of mass in the current version.
+```{r eval=F}
+PEarcdens.tri(Xp,Tr,r,M)
+#> $arc.dens
+#> [1] 0.35
+```
+
+The incidence matrix of the PE-PCD for the one triangle case can be found by the function `IncMatPEtri`, using e.g. the `IncMatPEtri(Xp,Tr,r,M)` command.
+It takes the same arguments as the function `NumArcsPEtri`.
+
+Plot of the arcs in the digraph PE-PCD, which is based on the $M$-vertex regions with $M=$(`r M[1]`,`r M[2]`),
+can be obtained by the function `plotPEarcs.tri`, which is the one-tri counterpart of the function `plotPEarcs`.
+It takes arguments `Xp,tri,r,M=c(1,1,1)` (as in `NumArcsPEtri`) and other options for the plot function. 
+See the help page for the function using `? plotPEarcs.tri`.
+
+<!-- ```{r PEarcs1, fig.cap="Arcs of the PE-PCD with 10 $X$ points"} -->
+<!-- plotPEarcs.tri(Xp,Tr,r,M,xlab="",ylab="") -->
+<!-- ``` -->
+
+Plot of the arcs of the above PE-PCD, together with the vertex regions
+(with the option `vert.reg = TRUE`)
+and vertex names added to the figure.
+
+<!-- ```{r PEarcs2, fig.cap="Arcs of the PE-PCD with 10 $X$ points, vertex regions are added with dashed lines."} -->
+<!-- plotPEarcs.tri(Xp,Tr,r,M,xlab="",ylab="",vert.reg = TRUE) -->
+<!-- ``` -->
+
+<!-- One can add vertex names and text to the figure (with vertex regions). -->
+```{r PEarcs3, fig.cap="Arcs of the PE-PCD with 10 $X$ points and vertex regions (dashed lines) are based on $M$. The vertices and the center are labeled."}
+plotPEarcs.tri(Xp,Tr,r,M,xlab="",ylab="",vert.reg = TRUE)
+```
+
+```{r eval=F}
+#add vertex labels and text to the figure (with vertex regions)
+ifelse(isTRUE(all.equal(M,circ.cent.tri(Tr))),
+       {Ds<-rbind((B+C)/2,(A+C)/2,(A+B)/2); cent.name="CC"},{Ds<-cent2edges.tri(Tr,M); cent.name="M"})
+
+txt<-rbind(Tr,M,Ds)
+xc<-txt[,1]+c(-.02,.02,.02,.02,.04,-0.03,-.01)
+yc<-txt[,2]+c(.02,.02,.02,.05,.02,.04,-.06)
+txt.str<-c("A","B","C",cent.name,"D1","D2","D3")
+text(xc,yc,txt.str)
+```
+
+Plots of the PE proximity regions can be obtained by the function `plotPEregs.tri`.
+<!-- , the first is for all points, the second is for two $\X$ points only (for better visualization). -->
+It takes arguments `Xp,tri,r,M=c(1,1,1)` (as in `NumArcsPEtri`) and other options for the plot function. 
+See the help page for the function using `? plotPEregs.tri`.
+```{r PEPR1, fig.cap="PE proximity regions for the $X$ points used above."}
+M<-c(1.6,1.2) #try also M<-c(1.6620051,0.8136604) or M="CC"
+plotPEregs.tri(Xp,Tr,r,M,vert.reg = T,xlab="",ylab="")
+```
+
+<!-- ```{r PEPR2, fig.cap="PE proximity regions for two of the $X$ points for better visualization."} -->
+<!-- plotPEregs.tri(Xp[c(1,3),],Tr,r,M,xlab="",ylab="") -->
+<!-- ``` -->
+
+<!-- Plot of the PE proximity regions with two $\X$ points only (for better visualization) together with the vertex regions. -->
+<!-- The vertex names and annotation is also added to the plot. -->
+<!-- ```{r PEPR3, fig.cap="PE proximity regions for two of the $X$ points for better visualization and the M-vertex regions. Vertex names and annotation are also added."} -->
+<!-- plotPEregs.tri(Xp[c(1,3),],Tr,r,M,xlab="",ylab="",vert.reg = TRUE) -->
+
+<!-- #add vertex labels and text to the figure (with vertex regions) -->
+<!-- ifelse(isTRUE(all.equal(M,circ.cent.tri(Tr))), -->
+<!--        {Ds<-rbind((B+C)/2,(A+C)/2,(A+B)/2); cent.name="CC"},{Ds<-cent2edges.tri(Tr,M); cent.name<-"M"}) -->
+
+<!-- txt<-rbind(Tr,M,Ds) -->
+<!-- xc<-txt[,1]+c(-.02,.02,.02,.02,.03,-0.03,-.01) -->
+<!-- yc<-txt[,2]+c(.02,.02,.02,.07,.02,.05,-.06) -->
+<!-- txt.str<-c("A","B","C",cent.name,"D1","D2","D3") -->
+<!-- text(xc,yc,txt.str) -->
+<!-- ``` -->
+
+The function `ArcsPEtri` is an object of class "`PCDs`". 
+It takes arguments `Xp,tri,r,M=c(1,1,1)` (as in `NumArcsPEtri`).
+The output list is as in the `ArcsAStri`
+except the parameters
+of the digraph (center for PE-PCD and the expansion parameter).
+The `plot` function returns the same plot as in `plotPEarcs.tri`, 
+hence we comment it out below.
+```{r eval=F }
+Arcs<-ArcsPEtri(Xp,Tr,r,M) #or try with the default center Arcs<-ArcsPEtri(Xp,Tr,r); M= (Arcs$param)$cent
+Arcs
+#> Call:
+#> ArcsPEtri(Xp = Xp, tri = Tr, r = r, M = M)
+#> 
+#> Type:
+#> [1] "Proportional Edge Proximity Catch Digraph (PE-PCD) for 2D Points in the Triangle with Expansion Parameter r = 1.5 and Center M = (1.6,1.2)"
+summary(Arcs)
+#> Call:
+#> ArcsPEtri(Xp = Xp, tri = Tr, r = r, M = M)
+#> 
+#> Type of the digraph:
+#> [1] "Proportional Edge Proximity Catch Digraph (PE-PCD) for 2D Points in the Triangle with Expansion Parameter r = 1.5 and Center M = (1.6,1.2)"
+#> 
+#>  Vertices of the digraph =  Xp 
+#>  Partition points of the region =  Tr 
+#> 
+#>  Selected tail (or source) points of the arcs in the digraph
+#>       (first 6 or fewer are printed) 
+#>          [,1]      [,2]
+#> [1,] 1.265509 0.7442478
+#> [2,] 1.380035 1.5548904
+#> [3,] 1.380035 1.5548904
+#> [4,] 1.380035 1.5548904
+#> [5,] 1.380035 1.5548904
+#> [6,] 1.267221 0.7722282
+#> 
+#>  Selected head (or end) points of the arcs in the digraph
+#>       (first 6 or fewer are printed) 
+#>          [,1]      [,2]
+#> [1,] 1.267221 0.7722282
+#> [2,] 1.265509 0.7442478
+#> [3,] 1.687023 0.7682074
+#> [4,] 1.267221 0.7722282
+#> [5,] 1.482080 1.1991317
+#> [6,] 1.265509 0.7442478
+#> 
+#> Parameters of the digraph
+#> $center
+#> [1] 1.6 1.2
+#> 
+#> $`expansion parameter`
+#> [1] 1.5
+#> 
+#> Various quantities of the digraph
+#>         number of vertices number of partition points 
+#>                        5.0                        3.0 
+#>        number of triangles             number of arcs 
+#>                        1.0                       10.0 
+#>                arc density 
+#>                        0.5
+
+plot(Arcs)
+```
+
+To see the code and the plot for the arcs using the `plot.PCDs` function, 
+with vertex names and annotation added to the plot,
+type `? ArcsPEtri`.
+
+<!-- Below is the plot of arcs using the `plot.PCDs` function, with vertex names and annotation added to the plot. -->
+<!-- ```{r PEarcs1t, fig.cap="Arcs of the PE-PCD for points in one triangle."} -->
+<!-- plot(Arcs) -->
+
+<!-- #add vertex regions but we first need to determine center is the circumcenter or not, -->
+<!-- CC<-circ.cent.tri(Tr) -->
+<!-- if (isTRUE(all.equal(M,CC))) -->
+<!-- {cent<-CC -->
+<!-- D1<-(B+C)/2; D2<-(A+C)/2; D3<-(A+B)/2; -->
+<!-- Ds<-rbind(D1,D2,D3) -->
+<!-- cent.name<-"CC" -->
+<!-- } else -->
+<!-- {cent<-M -->
+<!-- cent.name<-"M" -->
+<!-- Ds<-cent2edges.tri(Tr,M) -->
+<!-- } -->
+<!-- L<-rbind(cent,cent,cent); R<-Ds -->
+<!-- segments(L[,1], L[,2], R[,1], R[,2], lty=2) -->
+
+<!-- #now we can add the vertex names and annotation -->
+<!-- txt<-rbind(Tr,cent,Ds) -->
+<!-- xc<-txt[,1]+c(-.02,.02,.02,.02,.03,-.03,-.01) -->
+<!-- yc<-txt[,2]+c(.02,.02,.03,.06,.04,.05,-.07) -->
+<!-- txt.str<-c("A","B","C","M","D1","D2","D3") -->
+<!-- text(xc,yc,txt.str) -->
+<!-- ``` -->
+
+## Functions for Central Similarity PCDs with Vertices in One Triangle {#sec:CS-PCD-one-tri}
+We use the same triangle $T$ and generated data as Section \@ref(sec:PE-PCD-one-tri).
+```{r }
+tau<-1.5
+```
+
+And choose the expansion parameter $\tau=$ `r tau`
+to illustrate central similarity proximity regions and the associated PCDs.
+
+The function `NCStri` is used for the construction of CS proximity regions taking the arguments
+`p,tri,t,M=c(1,1,1),re=NULL` where 
+
+- `p,tri,M=c(1,1,1)` are as in the function `NPEtri`,
+and
+- `re` the index of the edge regions that the point `p` resides in with default `re=NULL` and 
+- `t` is the expansion parameter (must be $> 0$).
+
+`NCStri` returns the CS proximity region (i.e., the vertices of the triangular proximity region).
+```{r eval=F}
+P<-c(1.8,.5)
+NCStri(P,Tr,tau,M)
+#>         [,1]   [,2]
+#> [1,] 1.74375 0.9500
+#> [2,] 1.51250 0.4875
+#> [3,] 1.97500 0.0250
+```
+
+Indicator for the presence of an arc from a (data or $\X$) point to another for CS-PCDs is the function `IndNCStri`.
+One can use it for points in the data set or for arbitrary points (as if they were in the data set).
+It takes the arguments, `p1,p2,tri,t,M,re=NULL` where `p1,p2,tri,M` are as in `IndNPEtri`
+and `t,re=NULL` are as in `NCStri`.
+This function returns $I(p2 \in N_{CS}(p1))$, that is, returns 1 if `p2` is in $N_{CS}(p1)$, 0 otherwise.
+```{r eval=F}
+P1<-as.numeric(runif.tri(1,Tr)$g)
+P2<-as.numeric(runif.tri(1,Tr)$g)
+IndNCStri(P1,P2,Tr,tau,M)
+#> [1] 1
+IndNCStri(Xp[1,],Xp[2,],Tr,tau,M)
+#> [1] 0
+```
+
+Number of arcs of the CS-PCD can be computed by the function `NumArcsCStri`.
+The output is as in `NumArcsPEtri`.
+
+Number of arcs of the CS-PCD can be computed by the function `NumArcsCStri`,
+which takes arguments `Xp,tri,t,M=c(1,1,1)`
+where `Xp` is the data set, and the others are as above.
+The output is as in `NumArcsPEtri`. 
+```{r eval=F}
+NumArcsCStri(Xp,Tr,t=.5,M)
+#> $num.arcs
+#> [1] 0
+#> 
+#> $num.in.tri
+#> [1] 5
+#> 
+#> $ind.in.tri
+#> [1] 1 2 3 4 5
+```
+
+The arc density of the CS-PCD can be computed by the function `CSarcdens.tri`.
+It takes the arguments `Xp,tri,t,M=c(1,1,1),tri.cor=FALSE` where `Xp` is the data set (or $\X$ points)
+`tri,t,M=c(1,1,1),tri.cor=FALSE` are as above.
+Arc density can be adjusted (or corrected) for the points outside the triangle by using the option `tri.cor=TRUE` as in the `NumArcsPEtri`.
+```{r eval=F }
+CSarcdens.tri(Xp,Tr,tau,M)
+#> $arc.dens
+#> [1] 0.35
+```
+
+The incidence matrix of the CS-PCD for the one triangle case can be found by `IncMatCStri`, using the `IncMatCStri(Xp,Tr,tau,M)` command.
+It takes the same arguments as the function `NumArcsCStri`.
+
+Plot of the arcs in the digraph CS-PCD, which is based on the $M$-edge regions with $M=$(`r M[1]`,`r M[2]`).
+can be obtained by the function `plotCSarcs.tri`, which is the one-tri counterpart of the function `plotCSarcs`.
+It takes arguments `Xp,tri,t,M=c(1,1,1)` (as in `NumArcsPEtri`) and other options for the plot function. 
+See the help page for the function using `? plotCSarcs.tri`.
+
+<!-- ```{r CSarcs1, fig.cap="Arcs of the CS-PCD with 10 $X$ points"} -->
+<!-- t<-1.5  #try also t<-2 -->
+<!-- plotCSarcs.tri(Xp,Tr,t,M,xlab="",ylab="") -->
+<!-- ``` -->
+
+Plot of the arcs of the above CS-PCD, together with the edge regions
+(with the option `edge.reg = TRUE`)
+and vertex names added to the figure.
+
+<!-- ```{r CSarcs2, fig.cap="Arcs of the PE-PCD with 10 $X$ points, vertex regions are added with dashed lines."} -->
+<!-- t<-1.5  #try also t<-2  -->
+<!-- plotCSarcs.tri(Xp,Tr,t,M,xlab="",ylab="",edge.reg = TRUE) -->
+<!-- ``` -->
+
+<!-- One can add vertex names and text to the figure (with edge regions). -->
+```{r CSarcs3, fig.cap="Arcs of the CS-PCD with 10 $X$ points and edge regions (dashed lines) are based on M. The vertices and the center are labeled."}
+t<-1.5  #try also t<-2
+plotCSarcs.tri(Xp,Tr,t,M,xlab="",ylab="",edge.reg = TRUE)
+```
+```{r eval=F}
+#add vertex labels and text to the figure (with edge regions)
+txt<-rbind(Tr,M)
+xc<-txt[,1]+c(-.02,.02,.02,.03)
+yc<-txt[,2]+c(.02,.02,.02,.03)
+txt.str<-c("A","B","C","M")
+text(xc,yc,txt.str)
+```
+
+Plot of the CS proximity regions can be obtained by the function `plotCSregs.tri`, 
+the first is for all points, the second is for two $\X$ points only (for better visualization).
+It takes arguments `Xp,tri,t,M=c(1,1,1)` (as in `NumArcsCStri`) and other options for the plot function. 
+See the help page for the function using `? plotCSregs.tri`.
+```{r CSPR1, fig.cap="CS proximity regions for the $X$ points used above."}
+plotCSregs.tri(Xp,Tr,t,M,edge.reg=T,xlab="",ylab="")
+```
+
+<!-- ```{r CSPR2, fig.cap="CS proximity regions for two of the $X$ points for better visualization."} -->
+<!-- plotCSregs.tri(Xp[c(4,5),],Tr,t,M,xlab="",ylab="") -->
+<!-- ``` -->
+
+<!-- Plot of the CS proximity regions with two $\X$ points only (for better visualization) together with the edge regions. -->
+<!-- The vertex names and annotation is also added to the plot. -->
+<!-- ```{r CSPR3, fig.cap="CS proximity regions for two of the $X$ points for better visualization and the M-edge regions. Vertex names and annotation are also added."} -->
+<!-- plotCSregs.tri(Xp[c(4,5),],Tr,t,M,xlab="",ylab="",edge.reg = TRUE) -->
+
+<!-- #add vertex labels and text to the figure (with edge regions) -->
+<!-- txt<-rbind(Tr,M) -->
+<!-- xc<-txt[,1]+c(-.02,.02,.02,.02) -->
+<!-- yc<-txt[,2]+c(.02,.02,.02,.03) -->
+<!-- txt.str<-c("A","B","C","M") -->
+<!-- text(xc,yc,txt.str) -->
+<!-- ``` -->
+
+The function `ArcsCStri` is an object of class "`PCDs`". 
+It takes arguments `Xp,tri,t,M=c(1,1,1)` (as in `NumArcsCStri`).
+The output list is as in the `ArcsPEtri`.
+The `plot` function returns the same plot as in `plotCSarcs.tri`,
+hence we comment it out below.
+
+```{r eval=F}
+Arcs<-ArcsCStri(Xp,Tr,t,M)
+Arcs
+#> Call:
+#> ArcsCStri(Xp = Xp, tri = Tr, t = t, M = M)
+#> 
+#> Type:
+#> [1] "Central Similarity Proximity Catch Digraph (CS-PCD) for 2D Points in the Triangle with Expansion Parameter t = 1.5 and Center M = (1.6,1.2)"
+summary(Arcs)
+#> Call:
+#> ArcsCStri(Xp = Xp, tri = Tr, t = t, M = M)
+#> 
+#> Type of the digraph:
+#> [1] "Central Similarity Proximity Catch Digraph (CS-PCD) for 2D Points in the Triangle with Expansion Parameter t = 1.5 and Center M = (1.6,1.2)"
+#> 
+#>  Vertices of the digraph =  Xp 
+#>  Partition points of the region =  Tr 
+#> 
+#>  Selected tail (or source) points of the arcs in the digraph
+#>       (first 6 or fewer are printed) 
+#>          [,1]      [,2]
+#> [1,] 1.687023 0.7682074
+#> [2,] 1.687023 0.7682074
+#> [3,] 1.687023 0.7682074
+#> [4,] 1.267221 0.7722282
+#> [5,] 1.482080 1.1991317
+#> [6,] 1.482080 1.1991317
+#> 
+#>  Selected head (or end) points of the arcs in the digraph
+#>       (first 6 or fewer are printed) 
+#>          [,1]      [,2]
+#> [1,] 1.265509 0.7442478
+#> [2,] 1.267221 0.7722282
+#> [3,] 1.482080 1.1991317
+#> [4,] 1.265509 0.7442478
+#> [5,] 1.265509 0.7442478
+#> [6,] 1.687023 0.7682074
+#> 
+#> Parameters of the digraph
+#> $center
+#> [1] 1.6 1.2
+#> 
+#> $`expansion parameter`
+#> [1] 1.5
+#> 
+#> Various quantities of the digraph
+#>         number of vertices number of partition points 
+#>                        5.0                        3.0 
+#>        number of triangles             number of arcs 
+#>                        1.0                        8.0 
+#>                arc density 
+#>                        0.4
+plot(Arcs)
+```
+
+To see the code and the plot for the arcs using the `plot.PCDs` function, 
+with vertex names and annotation added to the plot,
+type `? ArcsCStri`.
+
+<!-- Below is the plot of arcs using the `plot.PCDs` function, with vertex names and annotation added to the plot. -->
+<!-- ```{r CSarcs1t, fig.cap="Arcs of the CS-PCD for points in one triangle."} -->
+<!-- plot(Arcs) -->
+
+<!-- #now we can add the vertex names and annotation -->
+<!-- txt<-rbind(Tr,M) -->
+<!-- xc<-txt[,1]+c(-.02,.03,.02,.03) -->
+<!-- yc<-txt[,2]+c(.02,.02,.03,.06) -->
+<!-- txt.str<-c("A","B","C","M") -->
+<!-- text(xc,yc,txt.str) -->
+<!-- ``` -->
+
+## Functions for Proportional Edge PCDs with Vertices in the Standard Equilateral Triangle {#sec:PE-PCD-inTe}
+We first define the standard equilateral triangle $T_e=T(A,B,C)$ with vertices $A=(0,0)$, $B=(1,0)$, and $C=(1/2,\sqrt{3}/2)$.
+
+```{r eval=F}
+A<-c(0,0); B<-c(1,0); C<-c(1/2,sqrt(3)/2);
+Te<-rbind(A,B,C);
+n<-5  #try also n<-10, 50, or 100
+set.seed(1)
+Xp<-runif.std.tri(n)$gen.points
+M<-c(.6,.2)  #try also M<-c(1,1,1)
+```
+
+Then we generate data or $\X$ points of size $n=$ `r n` using the function `runif.std.tri` in the `pcds` package, 
+and choose the arbitrary center $M=($ `r M[1]`,`r M[2]` $)$ in the interior of $T_e$.
+Notice that the argument `tri` is redundant for the functions specific to the standard equilateral triangle,
+hence they are omitted for the functions which have counterparts in Section \@ref(sec:PE-PCD-one-tri).
+
+Plot of the triangle $T_e$ and the $\X$ points in it can be obtained by the below code, 
+and we also add the vertex names and 
+annotation using the `text` function from base `R`.
+We use `asp=1` in the below plot so that the standard equilateral triangle is plotted with equal length edges.
+
+```{r Te, eval=F, fig.cap="Scatterplot of points in the standard equilateral triangle."}
+Xlim<-range(Te[,1])
+Ylim<-range(Te[,2])
+plot(Te,asp=1,pch=".",xlab="",ylab="",xlim=Xlim,ylim=Ylim,main="Points in Standard Equilateral Triangle")
+polygon(Te)
+points(Xp)
+
+#add the vertex names and annotation
+txt<-rbind(Te)
+xc<-txt[,1]+c(-.02,.02,.02)
+yc<-txt[,2]+c(.01,.01,.01)
+txt.str<-c("A","B","C")
+text(xc,yc,txt.str)
+```
+
+Alternatively, we can use the `plotDeltri` function in `pcds` to obtain the same plot by executing `plotDeltri(Xp,Te,xlab="x",ylab="y",main="Points in Standard Equilateral Triangle")` command.
+
+Indicator for the presence of an arc from a (data or $\X$) point to another for PE-PCDs is the function `IndNPETe`.
+One can use it for points in the data set or for arbitrary points (as if they were in the data set).
+It takes the arguments, `p1,p2,r,M=c(1,1,1),rv=NULL` as in `IndNPEtri`.
+<!-- Notice that the argument `tri` is redundant for the functions specific to the standard equilateral triangle. -->
+```{r eval=F }
+P1<-as.numeric(runif.tri(1,Te)$g)
+P2<-as.numeric(runif.tri(1,Te)$g)
+r=2
+IndNPETe(P1,P2,r,M)
+#> [1] 1
+IndNPETe(Xp[1,],Xp[2,],r,M)
+#> [1] 1
+```
+
+Number of arcs of the PE-PCD can be computed by the function `NumArcsPETe`which
+takes the same arguments as the function `NumArcsPEtri`.
+The output is as in `NumArcsPEtri`.
+
+```{r eval=F }
+NumArcsPETe(Xp,r=1.25,M)
+#> $num.arcs
+#> [1] 24
+#> 
+#> $num.in.tri
+#> [1] 10
+#> 
+#> $ind.in.tri
+#>  [1]  1  2  3  4  5  6  7  8  9 10
+```
+
+The incidence matrix of the PE-PCD for the one triangle case can be found by `IncMatPETe`, 
+using the `IncMatPETe(Xp,r,M)` command.
+
+## Functions for Central Similarity PCDs with Vertices in the Standard Equilateral Triangle
+We use the same setting for the data points and the center as in Section \@ref(sec:PE-PCD-inTe).
+Notice that the argument `tri` is redundant for the functions specific to the standard equilateral triangle,
+hence they are omitted for the functions which have counterparts in Section \@ref(sec:CS-PCD-one-tri). 
+
+Indicator for the presence of an arc from a (data or $\X$) point to another for CS-PCDs is the function `IndNPETe`.
+```{r eval=F}
+P1<-as.numeric(runif.tri(1,Te)$g)
+P2<-as.numeric(runif.tri(1,Te)$g)
+tau=1
+IndNCSTe(P1,P1,tau,M)
+IndNCSTe(P1,P2,tau,M)
+IndNCSTe(Xp[1,],Xp[2,],tau,M)
+```
+
+Number of arcs of the CS-PCD can be computed by the function `NumArcsCSTe`
+whose arguments and output are as in `NumArcsCStri`.
+
+```{r eval=F}
+set.seed(123)
+M<-as.numeric(runif.std.tri(1)$g)  #try also M<-c(.6,.2)
+NumArcsCStri(Xp,Te,t=1.5,M)
+#> $num.arcs
+#> [1] 25
+#> 
+#> $num.in.tri
+#> [1] 10
+#> 
+#> $ind.in.tri
+#>  [1]  1  2  3  4  5  6  7  8  9 10
+```
+
+The incidence matrix of the CS-PCD for the one triangle case can be found by `IncMatCSTe`,
+using e.g. the `IncMatCSTe(Xp,t=1.5,M)` command.
+
+## Auxiliary Functions to Define Proximity Regions for Points in a Triangle
+The PCDs are constructed using proximity regions, and proximity region of an $\X$ point 
+depends on its location relative to the $\Y$ points.
+In particular, AS- and PE-PCDs depend on the vertex regions 
+and CS-PCDs depend on edge regions. 
+We will illustrate the vertex and edge regions in this section. 
+These regions partition the Delaunay cell (e.g., Delaunay triangle in $\mathbb R^2$) 
+based on a center or central point in the triangle.
+
+We first check whether a point is inside a triangle or not which can be done using the function `in.triangle`, 
+which takes arguments `p,tri,boundary=FALSE` where
+
+- `p`, a 2D point to be checked whether it is inside the triangle or not,
+- `tri` A $3 \times 2$ matrix with each row representing a vertex of the triangle,
+- `boundary`, a logical parameter (default=`TRUE`) to include boundary or not, so if it is `TRUE`,
+the function checks if the point, `p`, lies in the closure of the triangle (i.e., interior and boundary
+combined); else, it checks if `p` lies in the interior of the triangle.
+
+The function gives `TRUE` if the point is inside the triangle, and `FALSE` otherwise. 
+It also returns the barycentric coordinates of the point with respect to the triangle.
+```{r eval=F }
+A<-c(1,1); B<-c(2,0); C<-c(1.5,2); p<-c(1.4,1.2)
+Tr<-rbind(A,B,C)
+in.triangle(p,Tr)
+#> $in.tri
+#> [1] TRUE
+#> 
+#> $barycentric
+#> [1] 0.4 0.2 0.4
+```
+
+We now illustrate *circumcenter* of a triangle.
+The function `circ.cent.tri` takes `tri` as its sole argument for a triangle and 
+returns the circumcenter of the triangle as its output.
+```{r eval=F}
+A<-c(1,1); B<-c(2,0); C<-c(1.5,2);
+Tr<-rbind(A,B,C);  #the vertices of the triangle Tr
+(CC<-circ.cent.tri(Tr)) #the circumcenter
+#> [1] 2.083333 1.083333
+```
+
+We plot the circumcenter of an obtuse triangle below (so circumcenter is outside of the triangle)
+using the below code, 
+see also the help page with `? circ.cent.tri` for the code to generate this figure.
+Notice that in the code we used `asp=1` so that lines joining CC to the edges of the triangle
+appear perpendicular to the edges.
+```{r CC, eval=F, fig.cap="Circumcenter of an obtuse triangle."}
+D1<-(B+C)/2; D2<-(A+C)/2; D3<-(A+B)/2; #midpoints of the edges
+Ds<-rbind(D1,D2,D3)
+
+Xlim<-range(Tr[,1],CC[1])
+Ylim<-range(Tr[,2],CC[2])
+xd<-Xlim[2]-Xlim[1]
+yd<-Ylim[2]-Ylim[1]
+
+par(pty="s")
+plot(A,asp=1,pch=".",xlab="",ylab="",main="Circumcenter of a triangle",axes=TRUE,xlim=Xlim+xd*c(-.05,.05),ylim=Ylim+yd*c(-.05,.05))
+polygon(Tr)
+points(rbind(CC))
+L<-matrix(rep(CC,3),ncol=2,byrow=TRUE); R<-Ds
+segments(L[,1], L[,2], R[,1], R[,2], lty=2)
+
+txt<-rbind(Tr,CC,Ds)
+xc<-txt[,1]+c(-.08,.08,.08,.12,-.09,-.1,-.09)
+yc<-txt[,2]+c(.02,-.02,.03,-.06,.02,.06,-.04)
+txt.str<-c("A","B","C","CC","D1","D2","D3")
+text(xc,yc,txt.str)
+```
+
+The function `circ.cent.bas.tri` is a special case of `circ.cent.tri` and takes the argument `c1,c2`
+and returns the circumcenter of the standard basic triangle.
+
+The function `cent.nondegPE` takes arguments `tri,r` 
+which are the triangle and the expansion parameter for the PE proximity regions, respectively.
+It returns the three centers for non-degenerate asymptotic distribution of 
+domination number of PE-PCDs for $r \in (1,1.5)$ and the center of mass for $r=1.5$.
+This center is not defined for $r > 1.5$, as the asymptotic distribution is degenerate in this case.
+
+```{r eval=F}
+A<-c(1,1); B<-c(2,0); C<-c(1.5,2);
+Tr<-rbind(A,B,C);
+r<-1.35
+(Ms<-cent.nondegPE(Tr,r))
+#>        [,1]      [,2]
+#> M1 1.388889 1.0000000
+#> M2 1.611111 0.7777778
+#> M3 1.500000 1.2222222
+```
+
+We plot the non-degeneracy centers for the triangle `Tr` using the below code, 
+type also `? cent.nondegPE` for the code to generate this figure.
+```{r nd-C, eval=F, fig.cap="Nondegeneracy centers for the PE-PCDs with uniform vertices in the triangle $T$."}
+Xlim<-range(Tr[,1])
+Ylim<-range(Tr[,2])
+xd<-Xlim[2]-Xlim[1]
+yd<-Ylim[2]-Ylim[1]
+
+plot(Tr,pch=".",xlab="",ylab="",main="Centers of nondegeneracy\n for the PE-PCD in a triangle",axes=TRUE,xlim=Xlim+xd*c(-.05,.05),ylim=Ylim+yd*c(-.05,.05))
+polygon(Tr)
+points(Ms,pch=".",col=1)
+polygon(Ms,lty=2)
+
+xc<-Tr[,1]+c(-.02,.02,.02)
+yc<-Tr[,2]+c(.02,.02,.03)
+txt.str<-c("A","B","C")
+text(xc,yc,txt.str)
+
+xc<-Ms[,1]+c(-.04,.04,.03)
+yc<-Ms[,2]+c(.02,.02,.05)
+txt.str<-c(expression(M[1]),"M2","M3")
+text(xc,yc,txt.str)
+```
+
+The function `cent2edges.tri` returns the projections of a point (e.g., a center) $M$ inside a triangle to its edges,
+i.e., it returns the *intersection point* where the line joining a vertex to $M$ crosses the opposite edge.
+The line segments between $M$ the intersection points define the $M$-vertex regions.
+
+```{r eval=F}
+A<-c(1,1); B<-c(2,0); C<-c(1.5,2);
+Tr<-rbind(A,B,C);
+M<-c(1.6,1.0)  #try also M<-as.numeric(runif.tri(1,Tr)$g)
+(Ds<-cent2edges.tri(Tr,M))  #try also cent2edges.tri(Tr,M=c(1,1))
+#>          [,1]      [,2]
+#> [1,] 1.750000 1.0000000
+#> [2,] 1.333333 1.6666667
+#> [3,] 1.666667 0.3333333
+```
+
+We plot the projections of center $M$ to the edges of the triangle `Tr` using the below code, 
+type also `? cent2edges.tri` for the code to generate this figure.
+```{r C2e, eval=F, fig.cap="Projection of a center M to the edges in the triangle $T$."}
+Xlim<-range(Tr[,1])
+Ylim<-range(Tr[,2])
+xd<-Xlim[2]-Xlim[1]
+yd<-Ylim[2]-Ylim[1]
+
+if (dimension(M)==3) {M<-bary2cart(M,Tr)} #need to run this when M is given in barycentric coordinates
+
+plot(Tr,pch=".",xlab="",ylab="",main="Projection of Center M on the edges of a triangle",axes=TRUE,
+     xlim=Xlim+xd*c(-.05,.05),ylim=Ylim+yd*c(-.05,.05))
+polygon(Tr)
+L<-rbind(M,M,M); R<-Ds
+segments(L[,1], L[,2], R[,1], R[,2], lty=2)
+
+xc<-Tr[,1]
+yc<-Tr[,2]
+txt.str<-c("rv=1","rv=2","rv=3")
+text(xc,yc,txt.str)
+
+txt<-rbind(M,Ds)
+xc<-txt[,1]+c(-.02,.04,-.04,-.02)
+yc<-txt[,2]+c(-.02,.04,.04,-.06)
+txt.str<-c("M","D1","D2","D3")
+text(xc,yc,txt.str)
+```
+
+The function `cent2edges.bas.tri` is a special case of `cent2edges.tri`
+taking arguments `c1,c2` instead of `tri`
+and returning projections of $M$ to the edges in the standard basic triangle.
+
+The function `cent.ndPE2edges` takes arguments
+
+- `tri`, a $3 \times 2$ matrix with each row representing a vertex of the triangle.
+- `r`, a positive real number which serves as the expansion parameter in PE proximity region,
+must be in $(1,1.5]$ for this function.
+- `cent`, an index of the center (as $1,2,3$ corresponding to $M_1,\,M_2,\,M_3$) which gives nondegenerate asymptotic
+distribution of the domination number of PE-PCD for uniform data in `tri` for expansion parameter `r` in $(1,1.5]$;
+default `cent=1`.
+
+This function returns the projections of nondegeneracy centers 
+(i.e. centers for non-degenerate asymptotic distribution of domination number of
+PE-PCDs) to its edges,
+i.e., it returns the intersection point where the line joining a vertex to a non-degeneracy center $M_i$ crosses the opposite edge.
+The line segments between $M_i$ the intersection points will provide the $M_i$-vertex regions.
+
+```{r eval=F}
+A<-c(1,1); B<-c(2,0); C<-c(1.5,2);
+Tr<-rbind(A,B,C);
+r<-1.35
+cent.ndPE2edges(Tr,r,cent=2)
+#>       [,1] [,2]
+#> [1,] 1.825 0.70
+#> [2,] 1.250 1.50
+#> [3,] 1.650 0.35
+```
+
+We plot the projections of the non-degeneracy center $M_1$ to the edges of a triangle using the below code,
+type also `? cent.ndPE2edges` for the code to generate this figure.
+```{r ndC2e, eval=F, fig.cap="Projection of a nondegeneracy center to the edges in the triangle $T$."}
+Ms<-cent.nondegPE(Tr,r)
+M1=Ms[1,]
+
+Ds<-cent.ndPE2edges(Tr,r,cent=1)
+
+Xlim<-range(Tr[,1])
+Ylim<-range(Tr[,2])
+xd<-Xlim[2]-Xlim[1]
+yd<-Ylim[2]-Ylim[1]
+
+plot(Tr,pch=".",xlab="",ylab="",main="Projections from a non-degeneracy center\n to the edges of the triangle",
+     axes=TRUE,xlim=Xlim+xd*c(-.05,.05),ylim=Ylim+yd*c(-.05,.05))
+polygon(Tr)
+points(Ms,pch=".",col=1)
+polygon(Ms,lty=2)
+
+xc<-Tr[,1]+c(-.02,.03,.02)
+yc<-Tr[,2]+c(-.02,.04,.04)
+txt.str<-c("A","B","C")
+text(xc,yc,txt.str)
+
+txt<-Ms
+xc<-txt[,1]+c(-.02,.04,-.04)
+yc<-txt[,2]+c(-.02,.04,.04)
+txt.str<-c("M1","M2","M3")
+text(xc,yc,txt.str)
+
+points(Ds,pch=4,col=2)
+L<-rbind(M1,M1,M1); R<-Ds
+segments(L[,1], L[,2], R[,1], R[,2], lty=2,lwd=2,col=4)
+txt<-Ds
+xc<-txt[,1]+c(-.02,.04,-.04)
+yc<-txt[,2]+c(-.02,.04,.04)
+txt.str<-c("D1","D2","D3")
+text(xc,yc,txt.str)
+```
+
+The function `in.triangle` takes arguments
+
+- `p`, a 2D point to be checked whether it is inside the triangle or not,
+- `tri`, a $3 \times 2$ matrix with each row representing a vertex of the triangle,
+- `boundary`, a logical parameter (default=`FALSE`) to include boundary or not, so if it is `TRUE`,
+the function checks if the point, `p`, lies in the closure of the triangle (i.e., interior and boundary
+combined) else it checks if `p` lies in the interior of the triangle.
+
+This function can be used to check whether a point `p` is inside a triangle `tri` or not.
+
+On the other hand `in.tri.all` takes arguments `Xp,tri,boundary` where
+`Xp` is a 2D data set and `tri,boundary` are as in the function `in.triangle`.
+This function checks whether all of the points in a data set are inside the triangle or not.
+
+We check `in.tri.all` with $n=5$ data points generated uniformly in the unit square and in the triangle.
+
+```{r eval=F}
+A<-c(1,1); B<-c(2,0); C<-c(1.5,2);
+p<-c(1.4,1.2)
+Tr<-rbind(A,B,C)
+in.triangle(p,Tr)
+#> $in.tri
+#> [1] TRUE
+#> 
+#> $barycentric
+#> [1] 0.4 0.2 0.4
+
+#data set and checking all points in it are inside the triangle or not
+n<-5
+Xp1<-cbind(runif(n),runif(n))
+in.tri.all(Xp1,Tr)
+#> [1] FALSE
+```
+
+The function `is.std.eq.tri` takes the argument `tri` (a $3 \times 2$ matrix for a triangle) and
+can be used for checking the triangle `tri` is standard equilateral triangle or not,
+regardless of the order of the vertices.
+```{r eval=F}
+A<-c(0,0); B<-c(1,0); C<-c(1/2,sqrt(3)/2);
+Te<-rbind(A,B,C)  #try adding +10^(-16) to each vertex
+is.std.eq.tri(Te)
+#> [1] TRUE
+
+A<-c(1,1); B<-c(2,0); C<-c(1.5,2);
+Tr<-rbind(A,B,C);
+is.std.eq.tri(Tr)
+#> [1] FALSE
+```
+
+The function `as.bas.tri` takes the arguments `tri,scaled` where 
+
+-`tri` is as in `is.std.eq.tri` and
+-`scaled` is a logical argument for scaling the resulting triangle. If `scaled=TRUE`, then the resulting triangle is
+scaled to be a regular basic triangle, i.e., longest edge having unit length,
+else the new triangle $T(A,B,C)$ is nonscaled. The default is `scaled=FALSE`.
+
+It converts any triangle to a basic triangle (up to translation and rotation), 
+so that the output triangle is $T(A',B',C')$ so that edges in decreasing length are $A'B'$, $B'C'$, and $A'C'$.
+The option `scaled` scales the output triangle when `scaled=TRUE` so that longest edge $A'B'$ has unit length
+(default is `scaled=FALSE`).
+Most of the times, 
+the resulting triangle will still need to be translated and/or rotated to be in the standard basic triangle form.
+```{r eval=F}
+c1<-.4; c2<-.6
+A<-c(0,0); B<-c(1,0); C<-c(c1,c2);
+as.bas.tri(rbind(B,C,A))
+#> $tri
+#>   [,1] [,2]
+#> A  0.0  0.0
+#> B  1.0  0.0
+#> C  0.4  0.6
+#> 
+#> $desc
+#> [1] "Edges (in decreasing length are) AB, BC, and AC"
+#> 
+#> $orig.order
+#> [1] 3 1 2
+
+x<-c(1,1); y<-c(2,0); z<-c(1.5,2);
+as.bas.tri(rbind(x,y,z))
+#> $tri
+#>   [,1] [,2]
+#> A  1.5    2
+#> B  2.0    0
+#> C  1.0    1
+#> 
+#> $desc
+#> [1] "Edges (in decreasing length are) AB, BC, and AC"
+#> 
+#> $orig.order
+#> [1] 3 2 1
+as.bas.tri(rbind(x,y,z),scaled = TRUE)
+#> $tri
+#>        [,1]      [,2]
+#> A 0.7276069 0.9701425
+#> B 0.9701425 0.0000000
+#> C 0.4850713 0.4850713
+#> 
+#> $desc
+#> [1] "Edges (in decreasing length are) AB, BC, and AC"
+#> 
+#> $orig.order
+#> [1] 3 2 1
+```
+
+The function `tri2std.bas.tri` converts a triangle to the standard basic triangle form, 
+and its output only returns $c_1,c_2$ in `$Cvec` and 
+also the original order of the vertices in the input triangle
+by `$orig.order`.
+```{r eval=F}
+c1<-.4; c2<-.6
+A<-c(0,0); B<-c(1,0); C<-c(c1,c2);
+tri2std.bas.tri(rbind(B,C,A))
+#> $Cvec
+#> [1] 0.4 0.6
+#> 
+#> $orig.order
+#> [1] 3 1 2
+
+A<-c(1,1); B<-c(2,0); C<-c(1.5,2);
+tri2std.bas.tri(rbind(A,B,C))
+#> $Cvec
+#> [1] 0.4117647 0.3529412
+#> 
+#> $orig.order
+#> [1] 3 2 1
+```
+
+Barycentric coordinates are very useful in defining and analyzing the triangular (and simplicial) proximity regions.
+So, we provide functions to convert barycentric coordinates to Cartesian coordinates (`bary2cart`) and vice versa (`cart2bary`).
+Both functions take the arguments `P,tri` where `P` is th point to change the coordinates for and `tri` is the reference triangle
+(as a $3\times2$ matrix).
+As the names suggest,
+the function `cart2bary` converts the point `P` in Cartesian coordinates 
+to barycentric coordinates with respect to the triangle `tri`,
+and `bary2cart` converts the point `P` in barycentric coordinates with respect to the triangle `tri` to Cartesian coordinates.
+```{r eval=F}
+A<-c(1,1); B<-c(2,0); C<-c(1.5,2);
+Tr<-rbind(A,B,C);
+cart2bary(c(1.4,1.2),Tr)
+#> [1] 0.4 0.2 0.4
+bary2cart(c(1.4,1.2,1),Tr)
+#> [1] 1.4722222 0.9444444
+
+CM<-(A+B+C)/3; CM
+#> [1] 1.5 1.0
+cart2bary(CM,Tr)
+#> [1] 0.3333333 0.3333333 0.3333333
+bary2cart(c(1,1,1),Tr)
+#> [1] 1.5 1.0
+```
+
+The function `ind.del.tri` takes the arguments
+
+- `p`, a 2D point; the index of the Delaunay triangle in which `p` resides is to be determined. 
+It is an argument for `ind.del.tri`.
+- `Yp`, a set of 2D points from which Delaunay triangulation is constructed,
+- `DTmesh`, Delaunay triangles based on `Yp`, default is `NULL`,
+which is computed via `interp::tri.mesh` function
+in `interp` package. `interp::triangles` function returns a triangulation data structure from the triangulation object
+created by `tri.mesh`.
+
+This function  returns the index of the Delaunay triangle in which the given point resides.
+
+Similarly, the function `indices.del.tri` takes the arguments `Xp,Yp,DTmesh` where
+`Xp` is the set of data points for which the indices of the Delaunay
+triangles they reside is to be determined and `Yp,DTmesh` are as in `ind.del.tri`.
+This function returns the indices of triangles for all the points in a data set as a vector.
+
+```{r }
+nx<-10 #number of X points (target)
+ny<-5 #number of Y points (nontarget)
+```
+
+We generate $n_x=$ `r nx` $\X$ points uniformly in the convex hull of $n_y=$ `r ny` $\Y$ points
+using the function `runifMT` in `pcds` package.
+
+```{r eval=F}
+set.seed(1)
+Yp<-cbind(runif(ny),runif(ny))
+
+Xp<-runifMT(nx,Yp)$g #data under CSR in the convex hull of Ypoints
+#try also Xp<-cbind(runif(nx),runif(nx))
+
+ind.del.tri(Xp[10,],Yp)
+#> [1] 2
+
+#or use
+DTY<-interp::tri.mesh(Yp[,1],Yp[,2],duplicate="remove")  #Delaunay triangulation
+ind.del.tri(Xp[10,],Yp,DTY)
+#> [1] 2
+
+(tr.ind<-indices.del.tri(Xp,Yp,DTY))  #indices of the Delaunay triangles
+#>  [1] 3 3 1 4 3 2 3 3 2 2
+```
+
+We provide the scatterplot of $\X$ points (labeled according to the Delaunay triangle they reside in), 
+and the Delaunay triangulation
+of $n_y=$ `r ny` $\Y$ points using the below code. Type also `? indices.del.tri`.
+<!-- for the code to generate this figure. -->
+```{r ptsDT, eval=F, fig.cap="Scatterplot of Uniform $X$ Points in Convex Hull of $Y$ points. Points are marked with the indices of the Delaunay triangle it resides in."}
+Xlim<-range(Yp[,1],Xp[,1])
+Ylim<-range(Yp[,2],Xp[,2])
+xd<-Xlim[2]-Xlim[1]
+yd<-Ylim[2]-Ylim[1]
+
+plot of the data in the convex hull of Y points together with the Delaunay triangulation
+#par(pty="s")
+plot(Xp,main="X Points in Delaunay Triangles for Y Points", xlab=" ", ylab=" ",
+     xlim=Xlim+xd*c(-.05,.05),ylim=Ylim+yd*c(-.05,.05),pch=".")
+interp::plot.triSht(DTY, add=TRUE, do.points = TRUE,pch=16,col="blue")
+text(Xp,labels = factor(tr.ind) )
+```
+
+### Functions Related to the Vertex Regions
+
+The function `rv.tri.cent` takes arguments `p,tri,M`
+where `p` is a 2D point for which `M`-vertex region it resides in is to be determined in the
+triangle `tri` and `tri,M` are for the triangle and the center used to construct the vertex regions, respectively.
+This function returns `rv`, the index (i.e., the row number in `tri`) of the vertex of `tri` whose region contains the point `p`
+and the vertices of the `tri`.
+```{r eval=F}
+A<-c(1,1); B<-c(2,0); C<-c(1.5,2);
+Tr<-rbind(A,B,C);
+M<-c(1.6,1.0)
+
+P<-c(1.8,.5)
+rv.tri.cent(P,Tr,M)
+#> $rv
+#> [1] 2
+#> 
+#> $tri
+#>          [,1] [,2]
+#> vertex 1  1.0    1
+#> vertex 2  2.0    0
+#> vertex 3  1.5    2
+```
+
+```{r include=F}
+n<-5  #try also n<-10, 50, or 100
+```
+We illustrate the vertex regions using the following code. 
+We annotate the vertices with corresponding indices with `rv=i` for $i=1,2,3$,
+and also generate $n=$ `r n` points inside the triangle and 
+provide the scatterplot of these points labeled according to the vertex region
+they reside in.
+Type also `? rv.tri.cent` for the code to generate this figure.
+```{r VRs, eval=F, fig.cap="M-Vertex regions in the triangle $T$. Also plotted are the $X$ points which are labeled according to the vertex region they reside in."}
+set.seed(1)
+Xp<-runif.tri(n,Tr)$g
+M<-c(1.6,1.0)  #try also M<-as.numeric(runif.tri(1,Tr)$g)
+
+Rv<-vector()
+for (i in 1:n)
+{Rv<-c(Rv,rv.tri.cent(Xp[i,],Tr,M)$rv)}
+Rv
+
+Ds<-cent2edges.tri(Tr,M)
+
+Xlim<-range(Tr[,1],Xp[,1])
+Ylim<-range(Tr[,2],Xp[,2])
+xd<-Xlim[2]-Xlim[1]
+yd<-Ylim[2]-Ylim[1]
+
+if (dimension(M)==3) {M<-bary2cart(M,Tr)} #need to run this when M is given in barycentric coordinates
+
+plot(Tr,pch=".",xlab="",ylab="",main="Illustration of M-Vertex Regions\n in a Triangle",axes=TRUE,
+     xlim=Xlim+xd*c(-.05,.05),ylim=Ylim+yd*c(-.05,.05))
+polygon(Tr)
+points(Xp,pch=".",col=1)
+L<-rbind(M,M,M); R<-Ds
+segments(L[,1], L[,2], R[,1], R[,2], lty=2)
+
+xc<-Tr[,1]
+yc<-Tr[,2]
+txt.str<-c("rv=1","rv=2","rv=3")
+text(xc,yc,txt.str)
+
+txt<-rbind(M,Ds)
+xc<-txt[,1]+c(-.02,.04,-.04,0)
+yc<-txt[,2]+c(-.02,.04,.05,-.08)
+txt.str<-c("M","D1","D2","D3")
+text(xc,yc,txt.str)
+
+text(Xp,labels=factor(Rv))
+```
+
+The following functions are special cases of `rv.tri.cent`, where 
+
+* `rv.bas.tri.cent` takes `c1,c2` for `tri` and returns the same output for the standard basic triangle,
+* `rv.bas.triCM` takes arguments `p,c1,c2` and returns the indices of the points 
+with respect to CM-vertex regions in the standard basic triangle,
+* `rv.triCM` takes arguments `p,tri` and returns the indices of the points with respect to CM-vertex regions in a triangle,
+* `rvTe.cent` takes arguments `p,M` and returns the indices of the points with respect to $M$-vertex regions 
+in the standard equilateral triangle,
+and
+* `rvTeCM` takes argument `p` and returns the indices of the points with respect to CM-vertex regions 
+in the standard equilateral triangle.
+
+The function `rel.verts.tri.cent` takes arguments `Xp,tri,M` for the data set, triangle, 
+and the center, respectively,
+and returns the indices of the $M$-vertex regions in a triangle 
+where the points in a give data set reside in.
+This function is the multiple point (or set) version of `rv.tri.cent`.
+```{r eval=F}
+A<-c(1,1); B<-c(2,0); C<-c(1.5,2);
+Tr<-rbind(A,B,C);
+
+n<-5  #try also n<-10, 50, or 100
+set.seed(1)
+Xp<-runif.tri(n,Tr)$g
+M<-c(1.6,1.0)  #try also M<-as.numeric(runif.tri(1,Tr)$g) 
+
+(rv<-rel.verts.tri.cent(Xp,Tr,M))
+#> $rv
+#> [1] 1 2 3 1 1
+#> 
+#> $tri
+#>          [,1] [,2]
+#> vertex 1  1.0    1
+#> vertex 2  2.0    0
+#> vertex 3  1.5    2
+```
+
+We can generate $n=$ `r n` points inside the triangle and 
+provide the scatterplot of these points labeled according to the vertex region
+they reside in, 
+and also plot the vertex regions. 
+<!-- The resulting figure will be identical to Figure \@ref(fig:VRs). -->
+The resulting figure will be identical to the one in the examples of `rv.tri.cent`
+Type `? rel.verts.tri.cent` for the code to generate the corresponding figure.
+
+<!-- ```{r result=FALSE} -->
+<!-- ifelse(identical(M,circ.cent.tri(Tr)), -->
+<!--        Ds<-rbind((B+C)/2,(A+C)/2,(A+B)/2),Ds<-cent2edges.tri(Tr,M)) -->
+
+<!-- Xlim<-range(Tr[,1],M[1],Xp[,1]) -->
+<!-- Ylim<-range(Tr[,2],M[2],Xp[,2]) -->
+<!-- xd<-Xlim[2]-Xlim[1] -->
+<!-- yd<-Ylim[2]-Ylim[1] -->
+
+<!-- if (dimension(M)==3) {M<-bary2cart(M,Tr)} -->
+<!-- #need to run this when M is given in barycentric coordinates -->
+
+<!-- plot(Tr,pch=".",xlab="",ylab="",main="Scatterplot of data points \n and M-vertex regions in a triangle",axes=TRUE, -->
+<!--      xlim=Xlim+xd*c(-.05,.05),ylim=Ylim+yd*c(-.05,.05)) -->
+<!-- polygon(Tr) -->
+<!-- points(Xp,pch=".",col=1) -->
+<!-- L<-rbind(M,M,M); R<-Ds -->
+<!-- segments(L[,1], L[,2], R[,1], R[,2], lty=2) -->
+
+<!-- xc<-Tr[,1] -->
+<!-- yc<-Tr[,2] -->
+<!-- txt.str<-c("rv=1","rv=2","rv=3") -->
+<!-- text(xc,yc,txt.str) -->
+
+<!-- txt<-rbind(M,Ds) -->
+<!-- xc<-txt[,1]+c(.02,.04,-.03,0) -->
+<!-- yc<-txt[,2]+c(.07,.04,.05,-.07) -->
+<!-- txt.str<-c("M","D1","D2","D3") -->
+<!-- text(xc,yc,txt.str) -->
+
+<!-- text(Xp,labels=factor(rv$rv)) -->
+<!-- ``` -->
+
+The following functions are special cases of `rel.verts.tri.cent`, where
+
+* `rel.verts.triM` takes the same arguments and returns the same output as 
+and is an alternate to `rel.verts.tri.cent` when $M$ is not the circumcenter,
+* `rel.verts.tri.nd` takes arguments `Xp,tri,r,cent=1` for the data set, triangle, the expansion parameter,
+and the non-degeneracy center (with default being the first center), respectively,
+and returns the indices of the data points with respect to M-vertex regions in a triangle
+where $M$ is one of the non-degeneracy centers of the triangle,
+and
+* `rel.verts.triCM` takes the arguments `Xp,tri` and 
+returns the indices of the data points with respect to CM-vertex regions in a triangle.
+
+The $M$-vertex regions for any $M$ in the interior of the triangle is by default defined with the extensions of the
+lines combining the vertices to the center $M$ (i.e., projections of M to the edges) as in the function `cent2edges.tri`.
+Such vertex regions are only defined for a central point $M$ in the interior of the triangle.
+However, using the circumcenter (CC), we define the vertex regions with the orthogonal projections from CC to the edges
+(as this is a natural construction for the CC-vertex regions, because the corresponding partition of the triangle constitutes
+vertex regions, where each vertex region contains points in the triangle closest to that vertex).
+Note also that CC can be inside, on the boundary, or outside of the triangle
+when the triangle is acute, right, or obtuse, respectively.
+The function `rv.triCC(P,Tr)` takes arguments `p,tri` and 
+returns the index of the CC-vertex region in a triangle `tri` where the point `p` resides.
+```{r eval=F}
+A<-c(1,1); B<-c(2,0); C<-c(1.5,2);
+Tr<-rbind(A,B,C);
+
+P<-c(1.3,1.2)
+rv.triCC(P,Tr)
+#> $rv
+#> [1] 1
+#> 
+#> $tri
+#>          [,1] [,2]
+#> vertex 1  1.0    1
+#> vertex 2  2.0    0
+#> vertex 3  1.5    2
+```
+
+We can illustrate the CC-vertex regions in an annotated plot,
+type `? rv.triCC` for the code to generate this plot. 
+<!-- This plot will be as in Figure \@ref(fig:CCVR2) without the scatter plot of the data points. -->
+This plot will be as in the one in the examples of `rel.verts.triCC` without the scatter plot of the data points.
+
+<!-- We illustrate the CC-vertex regions in the following plot. -->
+<!-- See `example(rv.triCC)` for the code to generate this figure. -->
+<!-- ```{r CCVR1, fig.cap="CC-Vertex regions in an obtuse triangle. Also vertices and the vertex regions are annotated."} -->
+<!-- CC<-circ.cent.tri(Tr)  #the circumcenter -->
+<!-- D1<-(B+C)/2; D2<-(A+C)/2; D3<-(A+B)/2; -->
+<!-- Ds<-rbind(D1,D2,D3) -->
+
+<!-- Xlim<-range(Tr[,1],CC[1]) -->
+<!-- Ylim<-range(Tr[,2],CC[2]) -->
+<!-- xd<-Xlim[2]-Xlim[1] -->
+<!-- yd<-Ylim[2]-Ylim[1] -->
+
+<!-- plot(Tr,asp=1,xlab="",ylab="",main="Illustration of CC-Vertex Regions\n in a Triangle",pch=".",axes=TRUE,xlim=Xlim+xd*c(-.05,.05),ylim=Ylim+yd*c(-.05,.05)) -->
+<!-- polygon(Tr) -->
+<!-- L<-matrix(rep(CC,3),ncol=2,byrow=TRUE); R<-Ds -->
+<!-- segments(L[,1], L[,2], R[,1], R[,2], lty=2) -->
+
+<!-- txt<-rbind(Tr,CC,Ds) -->
+<!-- xc<-txt[,1]+c(-.07,.08,.06,.12,-.1,-.1,-.09) -->
+<!-- yc<-txt[,2]+c(.02,-.02,.03,.0,.02,.06,-.04) -->
+<!-- txt.str<-c("A","B","C","CC","D1","D2","D3") -->
+<!-- text(xc,yc,txt.str) -->
+
+<!-- RV1<-(A+.5*(D3-A)+A+.5*(D2-A))/2 -->
+<!-- RV2<-(B+.5*(D3-B)+B+.5*(D1-B))/2 -->
+<!-- RV3<-(C+.5*(D2-C)+C+.5*(D1-C))/2 -->
+
+<!-- txt<-rbind(RV1,RV2,RV3) -->
+<!-- xc<-txt[,1] -->
+<!-- yc<-txt[,2] -->
+<!-- txt.str<-c("rv=1","rv=2","rv=3") -->
+<!-- text(xc,yc,txt.str) -->
+<!-- ``` -->
+
+The function `rv.bas.triCC` is a special case of the `rv.triCC` function,
+takes the arguments `p,c1,c2` and return
+the CC-vertex regions in the standard basic triangle.
+
+The function `rel.verts.triCC` takes arguments `Xp,tri`
+and returns the indices of the CC-vertex regions in a triangle `tri` where the points in a give data set `Xp` reside in.
+This function is the multiple point (or set) version of `rv.triCC`.
+```{r eval=F}
+A<-c(1,1); B<-c(2,0); C<-c(1.5,2);
+Tr<-rbind(A,B,C);
+n<-5  #try also n<-10, 50, or 100
+set.seed(1)
+Xp<-runif.tri(n,Tr)$g
+
+(rv<-rel.verts.triCC(Xp,Tr))
+#> $rv
+#> [1] 1 1 3 1 1
+#> 
+#> $tri
+#>          [,1] [,2]
+#> vertex 1  1.0    1
+#> vertex 2  2.0    0
+#> vertex 3  1.5    2
+```
+
+We generate $n=$ `r n` points inside the triangle and provide the scatterplot of these points 
+labeled according to the CC-vertex region they reside in, 
+and also plot the CC-vertex regions using the below code. 
+Type also `? rel.verts.triCC` for the code to generate this figure.
+```{r CCVR2, eval=F,fig.cap="CC-Vertex regions in an obtuse triangle. Also plotted are 10 X points which are labeled according to the vertex region they reside in."}
+CC<-circ.cent.tri(Tr)
+D1<-(B+C)/2; D2<-(A+C)/2; D3<-(A+B)/2;
+Ds<-rbind(D1,D2,D3)
+
+Xlim<-range(Tr[,1],Xp[,1],CC[1])
+Ylim<-range(Tr[,2],Xp[,2],CC[2])
+xd<-Xlim[2]-Xlim[1]
+yd<-Ylim[2]-Ylim[1]
+
+plot(Tr,pch=".",asp=1,xlab="",ylab="",main="Scatterplot of data points \n and the CC-vertex regions",
+     axes=TRUE,xlim=Xlim+xd*c(-.05,.05),ylim=Ylim+yd*c(-.05,.05))
+polygon(Tr)
+points(Xp,pch=".",col=1)
+L<-matrix(rep(CC,3),ncol=2,byrow=TRUE); R<-Ds
+segments(L[,1], L[,2], R[,1], R[,2], lty=2)
+
+xc<-Tr[,1]
+yc<-Tr[,2]
+txt.str<-c("rv=1","rv=2","rv=3")
+text(xc,yc,txt.str)
+
+txt<-rbind(CC,Ds)
+xc<-txt[,1]+c(.04,.04,-.03,0)
+yc<-txt[,2]+c(-.07,.04,.06,-.08)
+txt.str<-c("CC","D1","D2","D3")
+text(xc,yc,txt.str)
+
+text(Xp,labels=factor(rv$rv))
+```
+
+### Functions Related to the Edge Regions
+
+The function `re.tri.cent` takes arguments `p,tri,M` where 
+
+- `p`, is a 2D point for which `M`-edge region it resides in is to be determined in the triangle `tri`,
+- `tri`, is a $3 \times 2$ matrix with each row representing a vertex of the triangle.
+- `M` is a 2D point in Cartesian coordinates or a 3D point in barycentric coordinates
+which serves as a center in the interior of the triangle `tri`.
+
+This function returns the index of the `M`-edge region in a triangle `tri` that contains the point `p`.
+```{r eval=F}
+A<-c(1,1); B<-c(2,0); C<-c(1.5,2);
+Tr<-rbind(A,B,C);
+
+P<-c(1.4,1.2)
+M<-c(1.6,1.2) #try also set.seed(1234); M<-as.numeric(runif.tri(1,Tr)$g)
+re.tri.cent(P,Tr,M)
+#> $re
+#> [1] 2
+#> 
+#> $tri
+#>   [,1] [,2]
+#> A  1.0    1
+#> B  2.0    0
+#> C  1.5    2
+#> 
+#> $desc
+#> [1] "Edge labels are AB=3, BC=1, and AC=2"
+```
+
+We can illustrate the CC-vertex regions in an annotated plot,
+type `? re.tri.cent` for the code to generate this plot. 
+<!-- This plot will be as in Figure \@ref(fig:ER2) without the scatter plot of the data points. -->
+This plot will be as in the examples of  `rel.edges.tri.cent` without the scatter plot of the data points.
+
+<!-- We illustrate the edge regions in the following plot.  -->
+<!-- We annotate the edge regions with corresponding indices with `re=i` for $i=1,2,3$.  -->
+<!-- See `example(re.tri.cent)` for the code to generate this figure. -->
+<!-- ```{r ER1, fig.cap="$M$-Edge regions in the triangle $T$. The vertices and edge regions are also annotated."} -->
+<!-- p1<-(A+B+M)/3 -->
+<!-- p2<-(B+C+M)/3 -->
+<!-- p3<-(A+C+M)/3 -->
+
+<!-- plot(Tr,xlab="",ylab="", main="Illustration of M-edge regions in a triangle", -->
+<!--      axes=TRUE,pch=".",xlim=Xlim+xd*c(-.05,.05),ylim=Ylim+yd*c(-.05,.05)) -->
+<!-- polygon(Tr) -->
+<!-- L<-Tr; R<-rbind(M,M,M) -->
+<!-- segments(L[,1], L[,2], R[,1], R[,2], lty=2) -->
+
+<!-- txt<-rbind(Tr,M,p1,p2,p3) -->
+<!-- xc<-txt[,1]+c(-.02,.02,.02,.02,.02,.02,.02) -->
+<!-- yc<-txt[,2]+c(.02,.02,.04,.05,.02,.02,.02) -->
+<!-- txt.str<-c("A","B","C","M","re=3","re=1","re=2") -->
+<!-- text(xc,yc,txt.str) -->
+<!-- ``` -->
+
+The following functions are special cases of `re.tri.cent`, where 
+
+* `re.bas.tri.cent` takes the arguments `p,c1,c2,M` and returns the same output for the standard basic triangle,
+* `re.bas.triCM` takes the arguments `p,c1,c2` and returns the indices of the points 
+with respect to CM-edge regions in the standard basic triangle,
+* `edge.reg.triCM` takes the arguments `p,tri` and returns the triangular edge region for a given data point,
+and
+* `re.triCM` takes the arguments `p,tri` and returns the indices of the points with respect to CM-edge regions in a triangle `tri`.
+
+The function `rel.edges.tri.cent` takes arguments `Xp,tri,M` and 
+returns the indices of the $M$-edge regions in a triangle `tri` where the points in a give data set `Xp` reside in.
+This function is the multiple point (i.e. set of points) version of `re.tri.cent`.
+```{r eval=F}
+A<-c(1,1); B<-c(2,0); C<-c(1.5,2);
+Tr<-rbind(A,B,C);
+n<-5  #try also n<-10, 50, or 100
+set.seed(1)
+Xp<-runif.tri(n,Tr)$g
+
+M<-c(1.6,1.2)  #try also M<-as.numeric(runif.tri(1,Tr)$g)
+
+(re<-rel.edges.tri.cent(Xp,Tr,M))
+#> $re
+#> [1] 3 3 2 3 2
+#> 
+#> $tri
+#>   [,1] [,2]
+#> A  1.0    1
+#> B  2.0    0
+#> C  1.5    2
+#> 
+#> $desc
+#> [1] "Edge labels are AB=3, BC=1, and AC=2"
+```
+
+We generate $n=$ `r n` points inside the triangle and provide the scatterplot of these points 
+labeled according to the edge region they reside in, 
+and also plot the edge regions using the below code. 
+Type also `? rel.edges.tri.cent` for the code to generate this figure.
+```{r ER2, eval=F, fig.cap="$M$-Edge regions in the triangle $T$. Also plotted are 10 X points which are labeled according to the edge region they reside in."}
+D1<-(B+C)/2; D2<-(A+C)/2; D3<-(A+B)/2;
+Ds<-rbind(D1,D2,D3)
+
+Xlim<-range(Tr[,1],Xp[,1])
+Ylim<-range(Tr[,2],Xp[,2])
+xd<-Xlim[2]-Xlim[1]
+yd<-Ylim[2]-Ylim[1]
+
+if (dimension(M)==3) {M<-bary2cart(M,Tr)} #need to run this when M is given in barycentric coordinates
+
+plot(Tr,pch=".",xlab="",ylab="",main="Scatterplot of data points \n and the M-edge regions",axes=TRUE,
+     xlim=Xlim+xd*c(-.05,.05),ylim=Ylim+yd*c(-.05,.05))
+polygon(Tr)
+points(Xp,pch=".",col=1)
+L<-Tr; R<-rbind(M,M,M)
+segments(L[,1], L[,2], R[,1], R[,2], lty=2)
+
+xc<-Tr[,1]+c(-.02,.03,.02)
+yc<-Tr[,2]+c(.02,.02,.04)
+txt.str<-c("A","B","C")
+text(xc,yc,txt.str)
+
+txt<-rbind(M,Ds)
+xc<-txt[,1]+c(.05,.06,-.05,-.02)
+yc<-txt[,2]+c(.03,.03,.05,-.08)
+txt.str<-c("M","re=1","re=2","re=3")
+text(xc,yc,txt.str)
+text(Xp,labels=factor(re$re))
+```
+
+The function `rel.edges.triCM` is a special case of `rel.edges.tri.cent`, and uses the center of mass
+to construct the edge regions.
+
+**References**

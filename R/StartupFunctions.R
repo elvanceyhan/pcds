@@ -9,7 +9,7 @@
 .onAttach <- function(libname, pkgname) {
   start_message <- c( "     pcds: functions for proximity catch digraphs,  \n\n",
                       "their visualisation and application in spatial data analysis\n\n",
-                      "     by Dr. Elvan Ceyhan <elvanceyhan@gmail.com>\n\n"
+                      "      by Dr. Elvan Ceyhan <elvanceyhan@gmail.com>\n\n"
   )
   packageStartupMessage(start_message)
   invisible()

@@ -1,0 +1,639 @@
+---
+title: "VS1.3 - Example: An Artificial 1D Dataset"
+author: "Elvan Ceyhan"
+date: '`r Sys.Date()` '
+output:
+  bookdown::html_document2:
+    base_format: rmarkdown::html_vignette
+bibliography: References.bib
+vignette: >
+  %\VignetteIndexEntry{VS1.3 - Example: An Artificial 1D Dataset}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+<style>
+.math {
+  font-size: small;
+}
+</style>
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(collapse = TRUE,comment = "#>",fig.width=6, fig.height=4, fig.align = "center") 
+```
+
+\newcommand{\X}{\mathcal{X}}
+\newcommand{\Y}{\mathcal{Y}}
+\newcommand{\y}{\mathsf{y}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Unif}{\text{Uniform}}
+
+First we load the `pcds` package:
+```{r setup, message=FALSE, results='hide'}
+library(pcds)
+```
+
+<!--  Illustrative Examples -->
+
+# Illustration of PCDs on an Artificial 1D Dataset {#sec:arti-data-1D}
+This data set consists of simulated points from two classes, $\X$ and $\Y$, 
+where $\X$ points are uniformly distributed on the interval $[a,b]=[0,10]$,
+while $\Y$ points are chosen at approximately regular distances for better illustration.
+Here $n_x$ is the size of class $\X$ points, 
+$n_y$ is the size of class $\Y$ points, 
+and for better illustration of certain structures and graph constructs.
+
+```{r }
+a<-0; b<-10; int<-c(a,b)
+#nx is number of X points (target) and ny is number of Y points (nontarget)
+nx<-10; ny<-5; #try also nx<-40; ny<-10 or nx<-1000; ny<-10;
+
+xf<-(b-a)*.1
+set.seed(11)
+Xp<-runif(nx,a-xf,b+xf)
+Yp<-runif(ny,-1,1)*(b-a)/(10*ny)+ ((b-a)/(ny-1))*(0:(ny-1)) #try also Yp<-runif(ny,a,b)
+```
+We take $n_x=$ `r nx` and $n_y=$ `r ny` 
+(however, one is encouraged to try the specifications that follow in the comments after "#try also" in the commented out script 
+here and henceforth.)
+More specifically,
+$\Y$ points are generated as $Y_i = a + U$ for $a = 0.0,  2.5,  5.0,  7.5, 10.0$
+and $U \sim \Unif(-.25,.25)$ to provide jitter around $a$ values.
+$\X$ points are denoted as `Xp` and $\Y$ points are denoted as `Yp` in what follows.
+
+<!-- The scatterplot of $\X$ points (black circles) and $\Y$ points (red triangles) on the real line; -->
+The scatterplot of $\X$ and $\Y$ points on the real line can be obtained by the below code;
+$y$-axis is added for better visualization.
+```{r arti-data1D-plot, eval=F, fig.cap="The scatterplot of the 1D artificial data set with two classes; black circles are class $X$ and red triangles are class $Y$ points."}
+XYpts =c(Xp,Yp) #combined Xp and Yp
+lab=c(rep(1,nx),rep(2,ny))
+lab.fac=as.factor(lab)
+plot(XYpts,rep(0,length(XYpts)),col=lab,pch=lab,xlab="x",ylab="",ylim=.005*c(-1,1),
+     main="Scatterplot of 1D Points from Two Classes")
+```
+
+The PCDs are constructed with vertices from $\X$ points and 
+Delaunay triangulation of $\Y$ points.
+
+The PCDs in the 1D case are constructed with vertices from $\X$ points and 
+the binary relation that determines the arcs are based on proximity regions 
+which depend on the intervals whose end points are the ordered $\Y$ points
+(which is the Delaunay tessellation of $\Y$ points in $\R$).
+More specifically,
+the proximity regions are defined with respect to the
+Delaunay cells (i.e., intervals) based on the order statistics of the $\Y$ points and 
+vertex regions in each interval are based on the center $M_c=a+c\,(b-a)$ for the interval $[a,b]$ where $c \in (0,1)$.
+That is,
+Delaunay tessellation of $\Y$ points
+provides an interval partitioning of the range of $\Y$ points
+based on the order statistics of the $\Y$ points.
+
+The convex hull of $\Y$ points (i.e., the interval $\left[\y_{(1)},\y_{(m)}\right]$) 
+is partitioned by the intervals based on the ordered $\Y$ points
+(i.e., multiple intervals are the set of these intervals 
+whose union constitutes the range of $\Y$ points).
+
+Below we plot the $\X$ points together with the intervals based on $\Y$ points. 
+```{r ADpl, fig.cap="The plot of the $X$ points (black circles) in the artificial data set together with the intervals (blue rounded brackets) based on $Y$ points (red circles)."}
+Xlim<-range(Xp)
+Ylim<-.005*c(-1,1)
+xd<-Xlim[2]-Xlim[1]
+plot(Xp,rep(0,nx),xlab="x", ylab=" ",xlim=Xlim+xd*c(-.05,.05), yaxt='n',
+     ylim=Ylim,pch=".",cex=3,main="X Points and Intervals based on Y Points")
+abline(h=0,lty=2)
+#now, we add the intervals based on Y points
+par(new=TRUE)
+plotIntervals(Xp,Yp,xlab="",ylab="",main="")
+```
+
+Or, alternatively, we can use the `plotIntervals` function in `pcds` to obtain the same plot by executing `plotIntervals(Xp,Yp,xlab="",ylab="")` command.
+
+## Summary and Visualization with Proportional Edge PCDs {#sec:summary-1D-arti-data-PE-PCD}
+PE proximity regions are defined with respect to the
+intervals based on $\Y$ points and vertex regions in each interval are based on the centrality parameter `c` in $(0,1)$.
+For PE-PCDs, the default centrality parameter used to construct the vertex regions is `c=.5`
+(which gives the center of mass of each interval).
+The range of $\Y$ is partitioned by the intervals based on the order statistics of (i.e., sorted) $\Y$ points
+(i.e., multiple intervals are the set of these intervals whose union constitutes
+the range (or convex hull) of $\Y$ points).
+
+See @ceyhan:metrika-2012 for more on PE-PCDs for 1D data.
+
+Number of arcs of the PE-PCD can be computed by the function `NumArcsPE1D`
+which takes the arguments
+
+- `Xp`, a set or vector of 1D points which constitute the vertices of the PE-PCD,
+- `Yp`, a set or vector of 1D points which constitute the end points of the partition intervals,
+- `r`, a positive real number which serves as the expansion parameter in PE proximity region; must be $\ge 1$.
+- `c`, a positive real number in $(0,1)$ parameterizing the center inside the middle (partition) intervals
+with the default `c=.5`.
+For an interval, $(a,b)$, the parameterized center is $M_c=a+c(b-a)$.
+
+This function returns the list of
+
+* `num.arcs`: Total number of arcs in all intervals (including the end intervals), 
+i.e., the number of arcs for the entire PE-PCD
+* `num.in.range`: Number of `Xp` points in the range or convex hull of `Yp` points
+* `num.in.ints`: The vector of number of `Xp` points in the partition intervals (including the end intervals)
+based on `Yp` points
+* `weight.vec`: The `vector` of the lengths of the middle partition intervals (i.e., end intervals excluded)
+based on `Yp` points,
+* `int.num.arcs`: The `vector` of the number of arcs of the components of the PE-PCD in the
+partition intervals (including the end intervals) based on `Yp` points,
+* `part.int`: A matrix with columns corresponding to the partition intervals based on `Yp` points,
+* `data.int.ind`: A `vector` of indices of partition intervals in which data points reside,
+i.e., column number of `part.int` is provided for each `Xp` point. 
+Partition intervals are numbered from left to right
+with 1 being the left end interval.
+
+```{r }
+r<-2 #try also r=1.5
+c<-.4  #try also c=.3
+```
+
+```{r eval=F}
+NumArcsPE1D(Xp,Yp,r,c)
+#> $num.arcs
+#> [1] 6
+#> 
+#> $num.in.range
+#> [1] 8
+#> 
+#> $num.in.intervals
+#> [1] 1 1 2 2 3 1
+#> 
+#> $weight.vec
+#> [1] 2.248250 2.612118 2.447531 2.265146
+#> 
+#> $int.num.arcs
+#> [1] 0 0 2 1 3 0
+#> 
+#> $partition.intervals
+#>           [,1]      [,2]     [,3]     [,4]     [,5]     [,6]
+#> [1,]      -Inf 0.2284167 2.476667 5.088785 7.536317 9.801462
+#> [2,] 0.2284167 2.4766671 5.088785 7.536317 9.801462      Inf
+#> 
+#> $data.interval.indices
+#>  [1] 2 5 3 5 6 1 4 5 4 3
+```
+
+The incidence matrix of the PE-PCD can be found by `IncMatPE1D` function by running `IncMatPE1D(Xp,Yp,r,c)`.
+As in the 2D case, given the incidence matrix, we can find the approximate or the exact domination number of the PE-PCD,
+using the functions `dom.greedy` and `dom.exact`.
+
+Plot of the arcs of the digraph PE-PCD are provided by the function `plotPEarcs1D`,
+which take the arguments
+
+- `Xp,Yp,r,c` are same as in the function `NumArcsPE1D`,
+- `Jit`, a positive real number that determines the amount of jitter along the $y$-axis, default=`0.1` and
+`Xp` points are jittered according to $U(-Jit,Jit)$ distribution along the $y$-axis 
+where `Jit` equals to the range of the union of `Xp` and `Yp` points multiplied by `Jit`).
+- `main` an overall title for the plot (default=`NULL`),
+- `xlab,ylab` titles for the $x$ and $y$ axes, respectively (default=`NULL` for both),
+- `xlim,ylim`, two numeric vectors of length 2, giving the $x$- and $y$-coordinate ranges
+(default=`NULL` for both), 
+- `centers`, a logical argument, if `TRUE`, the plot includes the centers of the intervals
+as vertical lines in the plot, else centers of the intervals are not plotted, and
+- `...`, additional `plot` parameters.
+
+<!-- The first plot is without the centers, and the second is together with the centers. -->
+We plot the arcs together with the centers,
+with `centers=TRUE` option in the plot function. 
+Arcs are jittered along the $y$-axis to avoid clutter on the real line
+and thus provide better visualization. 
+<!-- The same seed is used for both plots to have the same jitter for the arcs. -->
+<!-- ```{r AD1dPEarcs1, fig.cap="The arcs of the PE-PCD for the 1D artificial data set with centrality parameter $c=.4$; the end points of the $Y$ intervals are plotted with vertical red dashed lines."} -->
+<!-- jit<-.1 -->
+<!-- set.seed(1) -->
+<!-- plotPEarcs1D(Xp,Yp,r,c,jit,xlab="",ylab="") -->
+<!-- ``` -->
+
+```{r AD1dPEarcs2, fig.cap="The arcs of the PE-PCD for the 1D artificial data set with centrality parameter $c=.4$, the end points of the $Y$ intervals (red) and the centers (green) are plotted with vertical dashed lines."}
+jit<-.1
+set.seed(1)
+plotPEarcs1D(Xp,Yp,r,c,jit,xlab="",ylab="",centers=TRUE)
+```
+
+Plots of the PE proximity regions (i.e. proximity intervals) are provided with the function `plotPEregs1D`,
+which has the same arguments as the function `plotPEarcs1D`.
+<!-- The first plot is without the centers, and the second is together with the centers with `centers=TRUE` option. -->
+<!-- ```{r AD1dPEPR1, fig.cap="The PE proximity regions (blue) for the 1D artificial data set, the end points of the $Y$ intervals are plotted with vertical dashed lines."} -->
+<!-- set.seed(12) -->
+<!-- plotPEregs1D(Xp,Yp,r,c,xlab="x",ylab="") -->
+<!-- ``` -->
+We plot the proximity regions together with the centers with `centers=TRUE` option:
+```{r AD1dPEPR2, fig.cap="The PE proximity regions (blue) for the 1D artificial data set, the end points of the $Y$ intervals (black) and the centers (green) are plotted with vertical dashed lines."}
+set.seed(12)
+plotPEregs1D(Xp,Yp,r,c,xlab="x",ylab="",centers = TRUE)
+```
+
+The function `ArcsPE1D` is an object of class "`PCDs`" and
+has the same arguments as in `NumArcsPE1D`.
+Its `call` (with `Arcs` in the below script) just provides the description of the digraph,
+and `summary` provides a description of the digraph,
+the names of the data points constituting 
+the vertices of the digraph and also the interval points,
+selected tail (or source) points of the arcs in the digraph
+(first 6 or fewer are printed),
+selected head (or end) points of the arcs in the digraph
+(first 6 or fewer are printed),
+the parameters of the digraph (here centrality parameter and the expansion parameter),
+and  various quantities of the digraph (namely, 
+the number of vertices, number of partition points,
+number of triangles, number of arcs, and arc density.
+The `plot` function (i.e., `plot.PCDs`) provides the plot of the arcs in the digraph 
+together with the intervals based on the ordered $\Y$ points.
+
+For this function, 
+PE proximity regions are constructed for data points inside or outside the intervals based
+on `Yp` points with expansion parameter $r \ge 1$ and centrality parameter $c \in (0,1)$. 
+That is, for this function,
+arcs may exist for points in the middle and end intervals.
+Arcs are jittered along the $y$-axis in the plot for better visualization.
+The `plot` function returns the same plot as in `plotPEarcs1D`, 
+hence we comment it out below.
+
+```{r AD1dPEarcs3, eval=F, fig.cap="The arcs of the PE-PCD for the 1D artificial data set; the end points of the intervals are plotted with vertical dashed lines."}
+Arcs<-ArcsPE1D(Xp,Yp,r,c)
+Arcs
+#> Call:
+#> ArcsPE1D(Xp = Xp, Yp = Yp, r = r, c = c)
+#> 
+#> Type:
+#> [1] "Proportional Edge Proximity Catch Digraph (PE-PCD) for 1D Points with Expansion Parameter r = 2 and Centrality Parameter c = 0.4"
+summary(Arcs)
+#> Call:
+#> ArcsPE1D(Xp = Xp, Yp = Yp, r = r, c = c)
+#> 
+#> Type of the digraph:
+#> [1] "Proportional Edge Proximity Catch Digraph (PE-PCD) for 1D Points with Expansion Parameter r = 2 and Centrality Parameter c = 0.4"
+#> 
+#>  Vertices of the digraph =  Xp 
+#>  Partition points of the region =  Yp 
+#> 
+#>  Selected tail (or source) points of the arcs in the digraph
+#>       (first 6 or fewer are printed) 
+#> [1] 3.907723 4.479377 5.617220 8.459662 8.459662 9.596209
+#> 
+#>  Selected head (or end) points of the arcs in the digraph
+#>       (first 6 or fewer are printed) 
+#> [1] 4.479377 3.907723 5.337266 9.596209 9.709029 9.709029
+#> 
+#> Parameters of the digraph
+#> centrality parameter  expansion parameter 
+#>                  0.4                  2.0 
+#> 
+#> Various quantities of the digraph
+#>         number of vertices number of partition points 
+#>                10.00000000                 5.00000000 
+#>        number of intervals             number of arcs 
+#>                 6.00000000                 6.00000000 
+#>                arc density 
+#>                 0.06666667
+
+set.seed(1)
+plot(Arcs)
+```
+
+### Testing Interaction and Uniformity with the PE-PCDs {#sec:testing-1D-arti-data-PE-PCD} 
+We can test the interaction between two classes/species or uniformity of points from one class 
+in the 1D setting based on *arc density* or *domination number* of PE-PCDs.
+
+**The Use of Arc Density of PE-PCDs for Testing 1D Interaction**
+
+We can test the 1D interaction of segregation/association or uniformity
+based on arc density of PE-PCD using the function `TSArcDensPE1D`
+which takes the arguments
+`Xp,Yp,support.int,r,c,end.int.cor,alternative,conf.level`
+where 
+
+- `r,alternative,conf.level` are as in `TSArcDensPE`,
+- `Xp`, a set of 1D points which constitute the vertices of the PE-PCD,
+- `Yp`, a set of 1D points which constitute the end points of the partition intervals,
+- `support.int`,  the support interval $(a,b)$ with $a<b$. 
+Uniformity of `Xp` points in this interval is tested.
+- `c`, a positive real number which serves as the centrality parameter in PE proximity region; 
+must be in $(0,1)$ (default `c=.5`).
+- `end.int.cor`, a logical argument for end interval correction, default is `FALSE`,
+recommended when both `Xp` and `Yp` have the same interval support.
+
+This function is an object of class "`htest`" (i.e., *hypothesis test*) and performs a hypothesis test of complete spatial
+randomness (CSR) or uniformity of `Xp` points in the range of `Yp` points against the alternatives
+of segregation (where `Xp` points cluster away from `Yp` points) and association 
+(where `Xp` points cluster around `Yp` points) based on 
+the normal approximation of the arc density of the PE-PCD for uniform 1D data
+utilizing the asymptotic normality of the $U$-statistics.
+For testing of uniformity of $\X$ points in a bounded interval support,
+$\Y$ points are artificially inserted randomly or at regular distances in the support.
+
+The function is based on similar assumptions and returns the similar type of output as in `TSArcDensPE`, 
+<!-- see Section \@ref(sec:summary-arti-data-PE-PCD)  -->
+see Section "VS1_1_2DArtiData"
+and 
+also @ceyhan:metrika-2012 for more on the uniformity test based on the arc density of PE-PCDs for 1D data.
+
+```{r eval=F}
+TSArcDensPE1D(Xp,Yp,int,r,c) # try also TSArcDensPE1D(Xp,Yp,int,r,c,alt="l")
+#> 
+#>  Large Sample z-Test Based on Arc Density of PE-PCD for Testing
+#>  Uniformity of 1D Data ---
+#>  without End Interval Correction
+#> 
+#> data:  Xp
+#> standardized arc density (i.e., Z) = -0.77073, p-value = 0.4409
+#> alternative hypothesis: true (expected) arc density is not equal to 0.1279913
+#> 95 percent confidence interval:
+#>  0.05557408 0.15952931
+#> sample estimates:
+#> arc density 
+#>   0.1075517
+```
+
+**The Use of Domination Number of PE-PCDs for Testing 1D Interaction**
+
+We first provide two functions to compute the domination number of PE-PCDs: `PEdom1D` and `PEdom1D.nd`.
+
+The function `PEdom1D` takes the same arguments as `NumArcsPE1D` 
+and returns a `list` with four elements as output:
+
+- `dom.num`, the overall domination number of PE-PCD with vertex set `Xp` and expansion parameter $r \ge 1$ and
+centrality parameter $c \in (0,1)$,
+- `mds`, a minimum dominating set of the PE-PCD,
+- `ind.mds`, the vector of data indices of the minimum dominating set of the PE-PCD whose vertices are `Xp` points,
+- `int.dom.nums`, the vector of domination numbers of the PE-PCD components for the partition intervals.
+
+This function takes any center in the interior of the intervals as its argument.
+The vertex regions in each interval are based on the center $M_c=(a+c(b-a)$ for the interval $[a,b]$ with $c \in (0,1)$
+(default for $c=.5$ which gives the center of mass of the interval). 
+
+On the other hand, `PEdom1D.nd` takes only the arguments `Xp,Yp,r` 
+and returns the same output as in `PEdom1D` function, 
+but uses one of the non-degeneracy centrality values in the multiple interval case
+(hence `c` is not an argument for this function).
+That is, `c` is one of the two values $\{(r-1)/r,1/r\}$ that renders the asymptotic distribution of domination number
+non-degenerate for a given value of $r \in (1,2]$ and `M` is center of mass (i.e., $c=.5$) for $r=2$.
+
+These two functions are different from the function `dom.greedy` since they give an exact minimum dominating set and 
+the exact domination number and from `dom.exact`, 
+since they give a minimum dominating set and the domination number in polynomial time (in the number of vertices of the digraph,
+i.e., number of `Xp` points).
+
+```{r eval=F}
+PEdom1D(Xp,Yp,r,c)
+#> $dom.num
+#> [1] 6
+#> 
+#> $mds
+#> [1] -0.453322  2.450930  3.907723  5.617220  8.459662 10.285607
+#> 
+#> $ind.mds
+#> [1] 6 1 3 9 2 5
+#> 
+#> $int.dom.nums
+#> [1] 1 1 1 1 1 0 0 1
+PEdom1D.nd(Xp,Yp,r)
+#> $dom.num
+#> [1] 7
+#> 
+#> $mds
+#> [1] -0.453322  2.450930  3.907723  5.617220  8.459662  9.596209 10.285607
+#> 
+#> $ind.mds
+#> [1] 6 1 3 9 2 4 5
+#> 
+#> $int.dom.nums
+#> [1] 1 1 1 1 2 0 0 1
+```
+
+We can test the interaction pattern of segregation/association or uniformity based on domination of PE-PCD using the function
+`TSDomPEBin1D` or `TSDomPEBin1Dint`, each of which is an object of class "`htest`" and performs the same hypothesis test as in `TSArcDensPE1D`.
+<!-- (i.e., hypothesis test) and performs the hypothesis test of complete spatial -->
+<!-- randomness (CSR) or uniformity of `Xp` points in the range of `Yp` points against the alternatives -->
+<!-- of segregation and association. -->
+This function takes the same arguments as in `TSArcDensPE1D` and
+returns the test statistic, $p$-value for the corresponding `alternative`,
+the confidence interval, estimate and null value for the parameter of interest
+(which is $P(\mbox{domination number}\le 1)$), and method and name of the data set used.
+
+Under the null hypothesis of uniformity of `Xp` points in the range of `Yp` points, 
+probability of success (i.e., $P(\mbox{domination number}\le 1)$) equals to its expected value under the uniform distribution) and
+`alternative` could be two-sided, or right-sided (i.e., data is accumulated around the `Yp` points, or association)
+or left-sided (i.e., data is accumulated around the centers of the triangles, or segregation).
+
+Here, the PE proximity region is constructed with the centrality parameter $c \in (0,1)$ with an expansion parameter $r \ge 1$
+that yields non-degenerate asymptotic distribution of the domination number.
+That is,
+for the centrality parameter `c` and for a given $c \in (0,1)$, the
+expansion parameter $r$ is taken to be $1/\max(c,1-c)$ 
+which yields non-degenerate asymptotic distribution of the domination number.
+
+The test statistic in `TSDomPEBin1D` is based on the binomial distribution, 
+when success is defined as domination number being less than or
+equal to 1 in the one interval case (i.e., number of successes is equal to domination number $\le 1$ in the partition intervals).
+That is, the test statistic is based on the domination number for `Xp` points inside the range of `Yp` points
+for the PE-PCD and default end interval correction, `end.int.cor`, is `FALSE`.
+For this approximation to work, `Xp` must be at least 5 times more than `Yp` points
+(or `Xp` must be at least 5 or more per partition interval).
+Here, the probability of success is the exact probability of success for the binomial distribution.
+See also @ceyhan:stat-2020 for more on the uniformity test based on the domination number of PE-PCDs for 1D data.
+For testing uniformity of $\X$ points in $(0,10)$, one can run `TSDomPEBin1Dint(Xp,int,c)` (here the default options
+are used for the other arguments).
+
+```{r eval=F}
+TSDomPEBin1D(Xp,Yp,int,c) #try also TSDomPEBin1D(Xp,Yp,int,c,alt="l")
+#> 
+#>  Large Sample Binomial Test based on the Domination Number of PE-PCD for
+#>  Testing Uniformity of 1D Data ---
+#>  without End Interval Correction
+#> 
+#> data:  Xp
+#> adjusted domination number = 0, p-value = 0.3042
+#> alternative hypothesis: true Pr(Domination Number=2) is not equal to 0.375
+#> 95 percent confidence interval:
+#>  0.0000000 0.6023646
+#> sample estimates:
+#>          domination number   || Pr(domination number = 2) 
+#>                            6                            0
+```
+
+In all the test functions (based on arc density and domination number) above, 
+the option `end.int.cor` is for end interval correction (default is "no end interval correction", i.e., `end.int.cor = FALSE`)
+which is recommended when both `Xp` and `Yp` have the same interval support.
+When the symmetric difference of the supports is non-negligible, the tests are modified to account for the $\X$ points outside the
+range of $\Y$ points.
+For example, `TSArcDensPE1D(Xp,Yp,int,r,c,end.int.cor = TRUE)` would yield 
+the end interval corrected version of the arc-based test of 1D interaction.
+Furthermore, we only provide the two-sided tests above, although both one-sided versions are also available.
+
+## Summary and Visualization with Central Similarity PCDs
+
+CS proximity regions are defined similar to the PE proximity regions in Section \@ref(sec:summary-1D-arti-data-PE-PCD).
+Note also that for CS-PCDs in two dimensions, 
+we use the edge regions to construct the proximity region, 
+however, in the one dimensional setting,
+vertex and edge regions coincide,
+so we refer these regions as "vertex" regions for convenience.
+The default centrality parameter used to construct the vertex regions is again `c=0.5` 
+which yields the center of mass of each interval.
+
+The functions for CS-PCD have similar arguments as the PE-PCD functions 
+with the expansion parameter `r` replaced with `t` (which must be positive).
+Number of arcs of the CS-PCD can be computed by the function `NumArcsCS1D`,
+which takes same arguments (except expansion parameter `t`) 
+and returns similar output items as in `NumArcsPE1D`. 
+
+```{r }
+tau<-2; c<-.4
+```
+
+```{r eval=F}
+NumArcsCS1D(Xp,Yp,tau,c)
+#> $num.arcs
+#> [1] 8
+#> 
+#> $num.in.range
+#> [1] 8
+#> 
+#> $num.in.intervals
+#> [1] 1 1 2 2 3 1
+#> 
+#> $weight.vec
+#> [1] 2.248250 2.612118 2.447531 2.265146
+#> 
+#> $int.num.arcs
+#> [1] 0 0 2 2 4 0
+#> 
+#> $partition.intervals
+#>           [,1]      [,2]     [,3]     [,4]     [,5]     [,6]
+#> [1,]      -Inf 0.2284167 2.476667 5.088785 7.536317 9.801462
+#> [2,] 0.2284167 2.4766671 5.088785 7.536317 9.801462      Inf
+#> 
+#> $data.interval.indices
+#>  [1] 2 5 3 5 6 1 4 5 4 3
+```
+
+The incidence matrix of the CS-PCD can be found by `IncMatCS1D` by running `IncMatCS1D(Xp,Yp,t=1.5,c)` command.
+With the incidence matrix, approximate and exact domination numbers can be found by the functions
+`dom.greedy` and `dom.exact`, respectively.
+
+Plot of the arcs in the digraph CS-PCD is provided by the function `plotCSarcs1D`,
+which take same arguments as the function `plotPEarcs1D`.
+<!-- The first plot is without the centers, and the second is with the centers -->
+<!-- with `centers=TRUE` option in the plot function.  -->
+We plot the arcs together with the centers,
+with `centers=TRUE` option in the plot function. 
+Arcs are jittered along the $y$-axis to avoid clutter on the real line
+(i.e., for better visualization). 
+<!-- The same seed is used for both plots to have the same jitter for the arcs. -->
+<!-- ```{r AD1dCSarcs1, fig.cap="The arcs of the CS-PCD for the 1D artificial data set with centrality parameter $c=.4$; the end points of the $Y$ intervals are plotted with vertical red dashed lines."} -->
+<!-- tau<-2; c<-.4; jit<-.1 -->
+<!-- set.seed(1) -->
+<!-- plotCSarcs1D(Xp,Yp,tau,c,jit,xlab="",ylab="") -->
+<!-- ``` -->
+
+```{r AD1dCSarcs2, fig.cap="The arcs of the CS-PCD for the 1D artificial data set with centrality parameter $c=.4$, the end points of the $Y$ intervals (red) and the centers (green) are plotted with vertical dashed lines."}
+set.seed(1)
+plotCSarcs1D(Xp,Yp,tau,c,jit,xlab="",ylab="",centers=TRUE)
+```
+
+Plot of the CS proximity regions (or intervals) is provided with the function `plotCSregs1D`,
+which take same arguments as the function `plotPEregs1D`.
+<!-- The first plot is without the centers, and the second is with the centers with `centers=TRUE` option. -->
+<!-- ```{r AD1dCSPR1, fig.cap="The CS proximity regions (blue) for the 1D artificial data set, the end points of the $Y$ intervals are plotted with vertical dashed lines."} -->
+<!-- plotCSregs1D(Xp,Yp,tau,c,xlab="",ylab="") -->
+<!-- ``` -->
+We plot the proximity regions together with the centers with `centers=TRUE` option:
+```{r AD1dCSPR2, fig.cap="The CS proximity regions (blue) for the 1D artificial data set, the end points of the $Y$ intervals (black) and the centers (green) are plotted with vertical dashed lines."}
+plotCSregs1D(Xp,Yp,tau,c,xlab="",ylab="",centers = TRUE)
+```
+
+The function `ArcsCS1D` is an object of class "`PCDs`" and
+has the same arguments as in `NumArcsCS1D`.
+Its `call`, `summary`, and `plot` are as in `ArcsPE1D`.
+For this function, 
+CS proximity regions are constructed for data points inside or outside the intervals based
+on `Yp` points with expansion parameter $t > 0$ and centrality parameter $c \in (0,1)$. 
+That is, for this function,
+arcs may exist for points in the middle or end intervals.
+Arcs are jittered along the $y$-axis in the plot for better visualization.
+The `plot` function returns the same plot as in `plotCSarcs1D`, 
+hence we comment it out below.
+
+```{r AD1dCSarcs3, eval=F, fig.cap="The arcs of the CS-PCD for the 1D artificial data set; the end points of the intervals are plotted with vertical dashed lines."}
+Arcs<-ArcsCS1D(Xp,Yp,tau,c)
+Arcs
+#> Call:
+#> ArcsCS1D(Xp = Xp, Yp = Yp, t = tau, c = c)
+#> 
+#> Type:
+#> [1] "Central Similarity Proximity Catch Digraph (CS-PCD) for 1D Points with Expansion Parameter t = 2 and Centrality Parameter c = 0.4"
+summary(Arcs)
+#> Call:
+#> ArcsCS1D(Xp = Xp, Yp = Yp, t = tau, c = c)
+#> 
+#> Type of the digraph:
+#> [1] "Central Similarity Proximity Catch Digraph (CS-PCD) for 1D Points with Expansion Parameter t = 2 and Centrality Parameter c = 0.4"
+#> 
+#>  Vertices of the digraph =  Xp 
+#>  Partition points of the region =  Yp 
+#> 
+#>  Selected tail (or source) points of the arcs in the digraph
+#>       (first 6 or fewer are printed) 
+#> [1] 3.907723 4.479377 5.337266 5.617220 8.459662 8.459662
+#> 
+#>  Selected head (or end) points of the arcs in the digraph
+#>       (first 6 or fewer are printed) 
+#> [1] 4.479377 3.907723 5.617220 5.337266 9.596209 9.709029
+#> 
+#> Parameters of the digraph
+#> centrality parameter  expansion parameter 
+#>                  0.4                  2.0 
+#> Various quantities of the digraph
+#>         number of vertices number of partition points 
+#>                10.00000000                 5.00000000 
+#>        number of intervals             number of arcs 
+#>                 6.00000000                 8.00000000 
+#>                arc density 
+#>                 0.08888889
+plot(Arcs)
+```
+
+### Testing 1D Interaction or Uniformity with the CS-PCDs
+We can test the 1D interaction between two classes/species or uniformity of points from one class 
+in the 1D setting based on *arc density* of CS-PCDs.
+The distribution of the domination number of CS-PCDs is still a topic of ongoing work.
+
+**The Use of Arc Density of CS-PCDs for Testing 1D Interaction or Uniformity** 
+
+We can test the 1D interaction of segregation/association or uniformity
+based on arc density of CS-PCD using the function `TSArcDensCS1D`.
+This function is an object of class "`htest`" (i.e., *hypothesis test*),
+takes the same arguments as the function `TSArcDensPES1D` 
+with expansion parameter `r` replaced with `t`,
+performs the same type of test with the same null and alternative hypotheses,
+and returns similar output as the `TSArcDensPE1D` function.
+See Section \@ref(sec:summary-1D-arti-data-PE-PCD),
+and also @ceyhan:revstat-2016 for more details.
+```{r eval=F}
+TSArcDensCS1D(Xp,Yp,int,tau,c) #try also TSArcDensCS1D(Xp,Yp,int,tau,c,alt="l")
+#> 
+#>  Large Sample z-Test Based on Arc Density of CS-PCD for Testing
+#>  Uniformity of 1D Data ---
+#>  without End Interval Correction
+#> 
+#> data:  Xp
+#> standardized arc density (i.e., Z) = -0.75628, p-value = 0.4495
+#> alternative hypothesis: true (expected) arc density is not equal to 0.1658151
+#> 95 percent confidence interval:
+#>  0.08507259 0.20159565
+#> sample estimates:
+#> arc density 
+#>   0.1433341
+```
+
+As in the tests based on PE-PCD, 
+it is possible to account for $\X$ points outside the range of $\Y$ points, with the option `end.int.cor = TRUE`.
+For example, `TSArcDensCS1D(Xp,Yp,int,tau,c,end.int.cor = TRUE)` would yield the end interval corrected version of the arc-based test of 1D interaction.
+Furthermore, we only provide the two-sided test above, although both one-sided versions are also available.
+
+**References**
