@@ -81,7 +81,7 @@ plotCSregs.tri(Xp,Tr,t,M,main="CS Proximity Regions with t=.5", xlab="",ylab="",
 
 # or try the default center
 plotCSregs.tri(Xp,Tr,t,main="CS Proximity Regions with t=.5", xlab="",ylab="",edge.reg=TRUE);
-#M=(ArcsCStri(Xp,Tr,r)$param)$c #the part "M=(ArcsPEtri(Xp,Tr,r)$param)$cent" is optional,
+#M=(arcsCStri(Xp,Tr,r)$param)$c #the part "M=(arcsPEtri(Xp,Tr,r)$param)$cent" is optional,
 #for the below annotation of the plot
 
 #can add vertex labels and text to the figure (with edge regions)

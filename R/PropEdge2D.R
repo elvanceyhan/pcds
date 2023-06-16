@@ -2,38 +2,57 @@
 #Functions for NPE in R^2
 #################################################################
 
-#' @title The vertices of the Proportional Edge (PE) Proximity Region in a standard basic triangle
+#' @title The vertices of the Proportional Edge (PE) Proximity Region
+#' in a standard basic triangle
 #'
-#' @description Returns the vertices of the PE proximity region (which is itself a triangle) for a point in the
-#' standard basic triangle \eqn{T_b=T((0,0),(1,0),(c_1,c_2))=}\code{(rv=1,rv=2,rv=3)}.
+#' @description Returns the vertices of the PE proximity region
+#' (which is itself a triangle) for a point in the
+#' standard basic triangle
+#' \eqn{T_b=T((0,0),(1,0),(c_1,c_2))=}\code{(rv=1,rv=2,rv=3)}.
 #'
 #' PE proximity region is defined with respect
-#' to the standard basic triangle \eqn{T_b} with expansion parameter \eqn{r \ge 1} and vertex regions based on center \eqn{M=(m_1,m_2)} in
-#' Cartesian coordinates or \eqn{M=(\alpha,\beta,\gamma)} in barycentric coordinates in the interior of the basic
-#' triangle \eqn{T_b} or based on the circumcenter of \eqn{T_b}; default is \eqn{M=(1,1,1)} i.e., the center of mass of \eqn{T_b}.
+#' to the standard basic triangle \eqn{T_b}
+#' with expansion parameter \eqn{r \ge 1}
+#' and vertex regions based on center \eqn{M=(m_1,m_2)} in
+#' Cartesian coordinates or \eqn{M=(\alpha,\beta,\gamma)}
+#' in barycentric coordinates in the interior of the basic
+#' triangle \eqn{T_b} or based on the circumcenter of \eqn{T_b};
+#' default is \eqn{M=(1,1,1)}, i.e., the center of mass of \eqn{T_b}.
 #'
 #' Vertex regions are labeled as \eqn{1,2,3} rowwise for the vertices
-#' of the triangle \eqn{T_b}. \code{rv} is the index of the vertex region \code{p} resides, with default=\code{NULL}.
-#' If \code{p} is outside of \code{tri}, it returns \code{NULL} for the proximity region.
+#' of the triangle \eqn{T_b}. \code{rv} is the index of the vertex region
+#' \code{p} resides, with default=\code{NULL}.
+#' If \code{p} is outside of \code{tri},
+#' it returns \code{NULL} for the proximity region.
 #'
 #' See also (\insertCite{ceyhan:Phd-thesis,ceyhan:comp-geo-2010,ceyhan:mcap2012;textual}{pcds}).
 #'
 #' @param p A 2D point whose PE proximity region is to be computed.
-#' @param r A positive real number which serves as the expansion parameter in PE proximity region;
+#' @param r A positive real number which serves
+#' as the expansion parameter in PE proximity region;
 #' must be \eqn{\ge 1}.
-#' @param c1,c2 Positive real numbers representing the top vertex in standard basic triangle \eqn{T_b=T((0,0),(1,0),(c_1,c_2))},
-#' \eqn{c_1} must be in \eqn{[0,1/2]}, \eqn{c_2>0} and \eqn{(1-c_1)^2+c_2^2 \le 1}.
-#' @param M A 2D point in Cartesian coordinates or a 3D point in barycentric coordinates
-#' which serves as a center in the interior of the standard basic triangle \eqn{T_b} or the circumcenter of \eqn{T_b}
+#' @param c1,c2 Positive real numbers
+#' representing the top vertex in standard basic triangle
+#' \eqn{T_b=T((0,0),(1,0),(c_1,c_2))},
+#' \eqn{c_1} must be in \eqn{[0,1/2]}, \eqn{c_2>0}
+#' and \eqn{(1-c_1)^2+c_2^2 \le 1}.
+#' @param M A 2D point in Cartesian coordinates or a 3D point
+#' in barycentric coordinates
+#' which serves as a center
+#' in the interior of the standard basic triangle \eqn{T_b}
+#' or the circumcenter of \eqn{T_b}
 #' which may be entered as "CC" as well;
-#' default is \eqn{M=(1,1,1)} i.e., the center of mass of \eqn{T_b}.
-#' @param rv Index of the \code{M}-vertex region containing the point \code{p}, either \code{1,2,3} or \code{NULL}
+#' default is \eqn{M=(1,1,1)}, i.e., the center of mass of \eqn{T_b}.
+#' @param rv Index of the \code{M}-vertex region
+#' containing the point \code{p}, either \code{1,2,3} or \code{NULL}
 #' (default is \code{NULL}).
 #'
-#' @return Vertices of the triangular region which constitutes the PE proximity region with expansion parameter
+#' @return Vertices of the triangular region
+#' which constitutes the PE proximity region with expansion parameter
 #' r and center \code{M} for a point \code{p}
 #'
-#' @seealso \code{\link{NPEtri}}, \code{\link{NAStri}}, \code{\link{NCStri}} and \code{\link{IndNPEbas.tri}}
+#' @seealso \code{\link{NPEtri}}, \code{\link{NAStri}}, \code{\link{NCStri}},
+#' and \code{\link{IarcPEbasic.tri}}
 #'
 #' @references
 #' \insertAllCited{}
@@ -46,25 +65,25 @@
 #' A<-c(0,0); B<-c(1,0); C<-c(c1,c2);
 #' Tb<-rbind(A,B,C);
 #'
-#' M<-as.numeric(runif.bas.tri(1,c1,c2)$g)  #try also M<-c(.6,.2)
+#' M<-as.numeric(runif.basic.tri(1,c1,c2)$g)  #try also M<-c(.6,.2)
 #'
 #' r<-2
 #'
-#' P1<-as.numeric(runif.bas.tri(1,c1,c2)$g)  #try also P1<-c(.4,.2)
-#' NPEbas.tri(P1,r,c1,c2,M)
+#' P1<-as.numeric(runif.basic.tri(1,c1,c2)$g)  #try also P1<-c(.4,.2)
+#' NPEbasic.tri(P1,r,c1,c2,M)
 #'
 #' #or try
-#' Rv<-rv.bas.tri.cent(P1,c1,c2,M)$rv
-#' NPEbas.tri(P1,r,c1,c2,M,Rv)
+#' Rv<-rel.vert.basic.tri(P1,c1,c2,M)$rv
+#' NPEbasic.tri(P1,r,c1,c2,M,Rv)
 #'
 #' P1<-c(1.4,1.2)
 #' P2<-c(1.5,1.26)
-#' NPEbas.tri(P1,r,c1,c2,M) #gives an error if M=c(1.3,1.3)
+#' NPEbasic.tri(P1,r,c1,c2,M) #gives an error if M=c(1.3,1.3)
 #' #since center is not the circumcenter or not in the interior of the triangle
 #' }
 #'
-#' @export NPEbas.tri
-NPEbas.tri <- function(p,r,c1,c2,M=c(1,1,1),rv=NULL)
+#' @export NPEbasic.tri
+NPEbasic.tri <- function(p,r,c1,c2,M=c(1,1,1),rv=NULL)
 {
   if (!is.point(p) )
   {stop('p must be a numeric 2D point')}
@@ -76,26 +95,32 @@ NPEbas.tri <- function(p,r,c1,c2,M=c(1,1,1),rv=NULL)
   {stop('c1 must be in [0,1/2], c2 > 0 and (1-c1)^2+c2^2 <= 1')}
 
   if (!(is.point(M) || is.point(M,3) || identical(M,"CC")))
-  {stop('M must be a numeric 2D point for Cartesian coordinates or 3D point for barycentric coordinates
-          or the circumcenter "CC" ')}
+  {stop('M must be a numeric 2D point for Cartesian coordinates or
+  3D point for barycentric coordinates or the circumcenter "CC" ')}
 
-  A<-c(0,0); B<-c(1,0); C<-c(c1,c2); Tb<-rbind(A,B,C)  #standard basic triangle
+  A<-c(0,0); B<-c(1,0); C<-c(c1,c2); Tb<-rbind(A,B,C)
+  #standard basic triangle
 
-  CC = circ.cent.tri(Tb)
+  CC = circumcenter.tri(Tb)
   if (identical(M,"CC") )
   { M<-CC }
 
   if (dimension(M)==3)
   {M<-bary2cart(M,Tb)}
 
-  if (!(isTRUE(all.equal(M,CC)) || in.triangle(M,Tb,boundary=FALSE)$in.tri))
-  {stop('center is not the circumcenter or not in the interior of the triangle')}
+  if (!(isTRUE(all.equal(M,CC)) ||
+        in.triangle(M,Tb,boundary=FALSE)$in.tri))
+  {stop('center is not the circumcenter or
+        not in the interior of the triangle')}
 
   if (!in.triangle(p,Tb,boundary=TRUE)$in.tri)
   {reg<-NULL; return(reg); stop}
 
   if (is.null(rv))
-  { rv<-ifelse(isTRUE(all.equal(M,CC)),rv.triCC(p,Tb)$rv,rv.tri.cent(p,Tb,M)$rv)  #vertex region for pt
+  { rv<-ifelse(isTRUE(all.equal(M,CC)),
+               rel.vert.triCC(p,Tb)$rv,
+               rel.vert.tri(p,Tb,M)$rv)
+  #vertex region for pt
   } else
   {  if (!is.numeric(rv) || sum(rv==c(1,2,3))!=1)
   {stop('vertex index, rv, must be 1, 2 or 3')}}
@@ -127,47 +152,80 @@ NPEbas.tri <- function(p,r,c1,c2,M=c(1,1,1),rv=NULL)
 
 #################################################################
 
-#' @title The indicator for the presence of an arc from a point to another for Proportional Edge Proximity Catch
-#' Digraphs (PE-PCDs) - standard basic triangle case
+#' @title The indicator for the presence of an arc from a point to another for
+#' Proportional Edge Proximity Catch Digraphs (PE-PCDs) -
+#' standard basic triangle case
 #'
-#' @description Returns \eqn{I(}\code{p2} is in \eqn{N_{PE}(p1,r))} for points \code{p1} and \code{p2}, that is, returns 1 if \code{p2} is in \eqn{N_{PE}(p1,r)},
-#' returns 0 otherwise, where \eqn{N_{PE}(x,r)} is the PE proximity region for point \eqn{x} with expansion parameter \eqn{r \ge 1}.
+#' @description Returns \eqn{I(}\code{p2} is in \eqn{N_{PE}(p1,r))}
+#' for points \code{p1} and \code{p2}
+#' in the standard basic triangle,
+#' that is, returns 1 if \code{p2} is in \eqn{N_{PE}(p1,r)},
+#' and returns 0 otherwise,
+#' where \eqn{N_{PE}(x,r)} is the PE proximity region
+#' for point \eqn{x} with expansion parameter \eqn{r \ge 1}.
 #'
-#' PE proximity region is defined with respect to the standard basic triangle \eqn{T_b=T((0,0),(1,0),(c_1,c_2))}
-#' where \eqn{c_1} is in \eqn{[0,1/2]}, \eqn{c_2>0} and \eqn{(1-c_1)^2+c_2^2 \le 1}.
+#' PE proximity region is defined
+#' with respect to the standard basic triangle
+#' \eqn{T_b=T((0,0),(1,0),(c_1,c_2))}
+#' where \eqn{c_1} is in \eqn{[0,1/2]}, \eqn{c_2>0}
+#' and \eqn{(1-c_1)^2+c_2^2 \le 1}.
 #'
-#' Vertex regions are based on the center, \eqn{M=(m_1,m_2)} in Cartesian coordinates or \eqn{M=(\alpha,\beta,\gamma)} in
-#' barycentric coordinates in the interior of the standard basic triangle \eqn{T_b} or based on circumcenter of \eqn{T_b};
-#' default is \eqn{M=(1,1,1)} i.e., the center of mass of \eqn{T_b}.
-#' \code{rv} is the index of the vertex region \code{p1} resides, with default=\code{NULL}.
+#' Vertex regions are based on the center,
+#' \eqn{M=(m_1,m_2)} in Cartesian coordinates
+#' or \eqn{M=(\alpha,\beta,\gamma)} in
+#' barycentric coordinates
+#' in the interior of the standard basic triangle \eqn{T_b}
+#' or based on circumcenter of \eqn{T_b};
+#' default is \eqn{M=(1,1,1)}, i.e.,
+#' the center of mass of \eqn{T_b}.
+#' \code{rv} is the index of the vertex region \code{p1} resides,
+#' with default=\code{NULL}.
 #'
-#' If \code{p1} and \code{p2} are distinct and either of them are outside \eqn{T_b}, it returns 0,
-#' but if they are identical, then it returns 1 regardless of their locations (i.e., it allows loops).
+#' If \code{p1} and \code{p2} are distinct and either of them are
+#' outside \eqn{T_b}, it returns 0,
+#' but if they are identical,
+#' then it returns 1 regardless of their locations
+#' (i.e., it allows loops).
 #'
 #' Any given triangle can be mapped to the standard basic triangle
-#' by a combination of rigid body motions (i.e., translation, rotation and reflection) and scaling,
-#' preserving uniformity of the points in the original triangle. Hence standard basic triangle is useful for simulation
+#' by a combination of rigid body motions
+#' (i.e., translation, rotation and reflection) and scaling,
+#' preserving uniformity of the points in the original triangle.
+#' Hence, standard basic triangle is useful for simulation
 #' studies under the uniformity hypothesis.
 #'
 #' See also (\insertCite{ceyhan:Phd-thesis,ceyhan:comp-geo-2010,ceyhan:arc-density-PE;textual}{pcds}).
 #'
 #' @param p1 A 2D point whose PE proximity region is constructed.
-#' @param p2 A 2D point. The function determines whether \code{p2} is inside the PE proximity region of
+#' @param p2 A 2D point.
+#' The function determines whether \code{p2} is
+#' inside the PE proximity region of
 #' \code{p1} or not.
-#' @param r A positive real number which serves as the expansion parameter in PE proximity region; must be \eqn{\ge 1}
-#' @param c1,c2 Positive real numbers which constitute the vertex of the standard basic triangle
-#' adjacent to the shorter edges; \eqn{c_1} must be in \eqn{[0,1/2]}, \eqn{c_2>0} and \eqn{(1-c_1)^2+c_2^2 \le 1}.
-#' @param M A 2D point in Cartesian coordinates or a 3D point in barycentric coordinates
-#' which serves as a center in the interior of the standard basic triangle or circumcenter of \eqn{T_b}
+#' @param r A positive real number
+#' which serves as the expansion parameter in PE proximity region;
+#' must be \eqn{\ge 1}
+#' @param c1,c2 Positive real numbers
+#'  which constitute the vertex of the standard basic triangle
+#' adjacent to the shorter edges;
+#' \eqn{c_1} must be in \eqn{[0,1/2]},
+#' \eqn{c_2>0} and \eqn{(1-c_1)^2+c_2^2 \le 1}.
+#' @param M A 2D point in Cartesian coordinates
+#' or a 3D point in barycentric coordinates
+#' which serves as a center
+#' in the interior of the standard basic triangle
+#' or circumcenter of \eqn{T_b}
 #' which may be entered as "CC" as well;
-#' default is \eqn{M=(1,1,1)} i.e., the center of mass of \eqn{T_b}.
-#' @param rv The index of the vertex region in \eqn{T_b} containing the point, either \code{1,2,3} or \code{NULL}
+#' default is \eqn{M=(1,1,1)}, i.e., the center of mass of \eqn{T_b}.
+#' @param rv The index of the vertex region in \eqn{T_b} containing the point,
+#' either \code{1,2,3} or \code{NULL}
 #' (default is \code{NULL}).
 #'
-#' @return \eqn{I(}\code{p2} is in \eqn{N_{PE}(p1,r))} for points \code{p1} and \code{p2}, that is, returns 1 if \code{p2} is in \eqn{N_{PE}(p1,r)},
-#' returns 0 otherwise
+#' @return \eqn{I(}\code{p2} is in \eqn{N_{PE}(p1,r))}
+#' for points \code{p1} and \code{p2} in the standard basic triangle,
+#' that is, returns 1 if \code{p2} is in \eqn{N_{PE}(p1,r)},
+#' and returns 0 otherwise.
 #'
-#' @seealso \code{\link{IndNPEtri}} and \code{\link{IndNPETe}}
+#' @seealso \code{\link{IarcPEtri}} and \code{\link{IarcPEstd.tri}}
 #'
 #' @references
 #' \insertAllCited{}
@@ -180,26 +238,26 @@ NPEbas.tri <- function(p,r,c1,c2,M=c(1,1,1),rv=NULL)
 #' A<-c(0,0); B<-c(1,0); C<-c(c1,c2);
 #' Tb<-rbind(A,B,C);
 #'
-#' M<-as.numeric(runif.bas.tri(1,c1,c2)$g)
+#' M<-as.numeric(runif.basic.tri(1,c1,c2)$g)
 #'
 #' r<-2
 #'
-#' P1<-as.numeric(runif.bas.tri(1,c1,c2)$g)
-#' P2<-as.numeric(runif.bas.tri(1,c1,c2)$g)
-#' IndNPEbas.tri(P1,P2,r,c1,c2,M)
+#' P1<-as.numeric(runif.basic.tri(1,c1,c2)$g)
+#' P2<-as.numeric(runif.basic.tri(1,c1,c2)$g)
+#' IarcPEbasic.tri(P1,P2,r,c1,c2,M)
 #'
 #' P1<-c(.4,.2)
 #' P2<-c(.5,.26)
-#' IndNPEbas.tri(P1,P2,r,c1,c2,M)
-#' IndNPEbas.tri(P2,P1,r,c1,c2,M)
+#' IarcPEbasic.tri(P1,P2,r,c1,c2,M)
+#' IarcPEbasic.tri(P2,P1,r,c1,c2,M)
 #'
 #' #or try
-#' Rv<-rv.bas.tri.cent(P1,c1,c2,M)$rv
-#' IndNPEbas.tri(P1,P2,r,c1,c2,M,Rv)
+#' Rv<-rel.vert.basic.tri(P1,c1,c2,M)$rv
+#' IarcPEbasic.tri(P1,P2,r,c1,c2,M,Rv)
 #' }
 #'
-#' @export IndNPEbas.tri
-IndNPEbas.tri <- function(p1,p2,r,c1,c2,M=c(1,1,1),rv=NULL)
+#' @export IarcPEbasic.tri
+IarcPEbasic.tri <- function(p1,p2,r,c1,c2,M=c(1,1,1),rv=NULL)
 {
   if (!is.point(p1) || !is.point(p2))
   {stop('p1 and p2 must be numeric 2D points')}
@@ -214,29 +272,34 @@ IndNPEbas.tri <- function(p1,p2,r,c1,c2,M=c(1,1,1),rv=NULL)
   {stop('c1 must be in [0,1/2], c2 > 0 and (1-c1)^2+c2^2 <= 1')}
 
   if (!(is.point(M) || is.point(M,3) || identical(M,"CC")))
-  {stop('M must be a numeric 2D point for Cartesian coordinates or 3D point for barycentric coordinates
-          or the circumcenter "CC" ')}
+  {stop('M must be a numeric 2D point for Cartesian coordinates or
+  3D point for barycentric coordinates or the circumcenter "CC" ')}
 
   y1<-c(0,0); y2<-c(1,0); y3<-c(c1,c2); Tb<-rbind(y1,y2,y3)
 
-  CC = circ.cent.tri(Tb)
+  CC = circumcenter.tri(Tb)
   if (identical(M,"CC") )
   { M<-CC }
 
   if (dimension(M)==3)
   {M<-bary2cart(M,Tb)}
 
-  if (!(isTRUE(all.equal(M,CC)) || in.triangle(M,Tb,boundary=FALSE)$in.tri))
-  {stop('center is not the circumcenter or not in the interior of the triangle')}
+  if (!(isTRUE(all.equal(M,CC)) ||
+        in.triangle(M,Tb,boundary=FALSE)$in.tri))
+  {stop('center is not the circumcenter or
+        not in the interior of the triangle')}
 
   if (isTRUE(all.equal(p1,p2)))
   {arc<-1; return(arc); stop}
 
-  if (!in.triangle(p1,Tb,boundary=TRUE)$in.tri || !in.triangle(p2,Tb,boundary=TRUE)$in.tri)
+  if (!in.triangle(p1,Tb,boundary=TRUE)$in.tri ||
+      !in.triangle(p2,Tb,boundary=TRUE)$in.tri)
   {arc<-0; return(arc); stop}
 
   if (is.null(rv))
-  { rv<-ifelse(isTRUE(all.equal(M,CC)),rv.triCC(p1,Tb)$rv,rv.tri.cent(p1,Tb,M)$rv)  #vertex region for p1
+  { rv<-ifelse(isTRUE(all.equal(M,CC)),
+               rel.vert.triCC(p1,Tb)$rv,rel.vert.tri(p1,Tb,M)$rv)
+  #vertex region for p1
   } else
   {  if (!is.numeric(rv) || sum(rv==c(1,2,3))!=1)
   {stop('vertex index, rv, must be 1, 2 or 3')}}
@@ -263,38 +326,61 @@ IndNPEbas.tri <- function(p1,p2,r,c1,c2,M=c(1,1,1),rv=NULL)
 
 #################################################################
 
-#' @title The indicator for the presence of an arc from a point to another for Proportional Edge Proximity Catch
-#' Digraphs (PE-PCDs) - standard equilateral triangle case
+#' @title The indicator for the presence of an arc from a point to another
+#' for Proportional Edge Proximity Catch Digraphs (PE-PCDs) -
+#' standard equilateral triangle case
 #'
-#' @description Returns \eqn{I(}\code{p2} is in \eqn{N_{PE}(p1,r))} for points \code{p1} and \code{p2}, that is, returns 1 if \code{p2} is in \eqn{N_{PE}(p1,r)},
-#' returns 0 otherwise, where \eqn{N_{PE}(x,r)} is the PE proximity region for point \eqn{x} with expansion parameter \eqn{r \ge 1}.
+#' @description Returns \eqn{I(}\code{p2} is in \eqn{N_{PE}(p1,r))}
+#' for points \code{p1} and \code{p2}
+#' in the standard equilateral triangle,
+#' that is, returns 1 if \code{p2} is in \eqn{N_{PE}(p1,r)},
+#' and returns 0 otherwise,
+#' where \eqn{N_{PE}(x,r)} is the PE proximity region
+#' for point \eqn{x} with expansion parameter \eqn{r \ge 1}.
 #'
-#' PE proximity region is defined with respect to the standard equilateral triangle
-#' \eqn{T_e=T(v=1,v=2,v=3)=T((0,0),(1,0),(1/2,\sqrt{3}/2))} and vertex regions are based on the center \eqn{M=(m_1,m_2)}
-#' in Cartesian coordinates or \eqn{M=(\alpha,\beta,\gamma)} in barycentric coordinates in the interior of \eqn{T_e};
-#' default is \eqn{M=(1,1,1)} i.e., the center of mass of \eqn{T_e}.
-#' \code{rv} is the index of the vertex region \code{p1} resides, with default=\code{NULL}.
+#' PE proximity region is defined
+#' with respect to the standard equilateral triangle
+#' \eqn{T_e=T(v=1,v=2,v=3)=T((0,0),(1,0),(1/2,\sqrt{3}/2))}
+#' and vertex regions are based on the center \eqn{M=(m_1,m_2)}
+#' in Cartesian coordinates or \eqn{M=(\alpha,\beta,\gamma)}
+#' in barycentric coordinates in the interior of \eqn{T_e};
+#' default is \eqn{M=(1,1,1)}, i.e., the center of mass of \eqn{T_e}.
+#' \code{rv} is the index of the vertex region \code{p1} resides,
+#' with default=\code{NULL}.
 #'
-#' If \code{p1} and \code{p2} are distinct and either of them are outside \eqn{T_e}, it returns 0,
-#' but if they are identical, then it returns 1 regardless of their locations (i.e., it allows loops).
+#' If \code{p1} and \code{p2} are distinct
+#' and either of them are outside \eqn{T_e}, it returns 0,
+#' but if they are identical,
+#' then it returns 1 regardless of their locations
+#' (i.e., it allows loops).
 #'
 #' See also (\insertCite{ceyhan:Phd-thesis,ceyhan:comp-geo-2010,ceyhan:arc-density-CS;textual}{pcds}).
 #'
 #' @param p1 A 2D point whose PE proximity region is constructed.
-#' @param p2 A 2D point. The function determines whether \code{p2} is inside the PE proximity region of
+#' @param p2 A 2D point. The function determines
+#' whether \code{p2} is inside the PE proximity region of
 #' \code{p1} or not.
-#' @param r A positive real number which serves as the expansion parameter in PE proximity region;
+#' @param r A positive real number
+#' which serves as the expansion parameter in PE proximity region;
 #' must be \eqn{\ge 1}.
-#' @param M A 2D point in Cartesian coordinates or a 3D point in barycentric coordinates
-#' which serves as a center in the interior of the standard equilateral triangle \eqn{T_e}; default is \eqn{M=(1,1,1)} i.e.
+#' @param M A 2D point in Cartesian coordinates
+#' or a 3D point in barycentric coordinates
+#' which serves as a center
+#' in the interior of the standard equilateral triangle \eqn{T_e};
+#' default is \eqn{M=(1,1,1)} i.e.
 #' the center of mass of \eqn{T_e}.
-#' @param rv The index of the vertex region in \eqn{T_e} containing the point, either \code{1,2,3} or \code{NULL}
+#' @param rv The index of the vertex region in \eqn{T_e}
+#' containing the point, either \code{1,2,3} or \code{NULL}
 #' (default is \code{NULL}).
 #'
-#' @return \eqn{I(}\code{p2} is in \eqn{N_{PE}(p1,r))} for points \code{p1} and \code{p2}, that is, returns 1 if \code{p2} is in \eqn{N_{PE}(p1,r)},
-#' returns 0 otherwise
+#' @return \eqn{I(}\code{p2} is in \eqn{N_{PE}(p1,r))}
+#' for points \code{p1} and \code{p2}
+#' in the standard equilateral triangle,
+#' that is, returns 1 if \code{p2} is in \eqn{N_{PE}(p1,r)},
+#' and returns 0 otherwise.
 #'
-#' @seealso \code{\link{IndNPEtri}}, \code{\link{IndNPEbas.tri}}, and \code{\link{IndNCSTe}}
+#' @seealso \code{\link{IarcPEtri}}, \code{\link{IarcPEbasic.tri}},
+#' and \code{\link{IarcCSstd.tri}}
 #'
 #' @references
 #' \insertAllCited{}
@@ -312,21 +398,21 @@ IndNPEbas.tri <- function(p1,p2,r,c1,c2,M=c(1,1,1),rv=NULL)
 #'
 #' M<-as.numeric(runif.std.tri(1)$g)  #try also M<-c(.6,.2)
 #'
-#' IndNPETe(Xp[1,],Xp[3,],r=1.5,M)
-#' IndNPETe(Xp[1,],Xp[3,],r=2,M)
+#' IarcPEstd.tri(Xp[1,],Xp[3,],r=1.5,M)
+#' IarcPEstd.tri(Xp[1,],Xp[3,],r=2,M)
 #'
 #' #or try
-#' Rv<-rvTeCM(Xp[1,])$rv
-#' IndNPETe(Xp[1,],Xp[3,],r=2,rv=Rv)
+#' Rv<-rel.vert.std.triCM(Xp[1,])$rv
+#' IarcPEstd.tri(Xp[1,],Xp[3,],r=2,rv=Rv)
 #'
 #' P1<-c(.4,.2)
 #' P2<-c(.5,.26)
 #' r<-2
-#' IndNPETe(P1,P2,r,M)
+#' IarcPEstd.tri(P1,P2,r,M)
 #' }
 #'
-#' @export IndNPETe
-IndNPETe <- function(p1,p2,r,M=c(1,1,1),rv=NULL)
+#' @export IarcPEstd.tri
+IarcPEstd.tri <- function(p1,p2,r,M=c(1,1,1),rv=NULL)
 {
   if (!is.point(p1) || !is.point(p2))
   {stop('p1 and p2 must be numeric 2D points')}
@@ -335,7 +421,8 @@ IndNPETe <- function(p1,p2,r,M=c(1,1,1),rv=NULL)
   {stop('r must be a scalar >= 1')}
 
   if (!is.point(M) && !is.point(M,3))
-  {stop('M must be a numeric 2D point for Cartesian coordinates or 3D point for barycentric coordinates')}
+  {stop('M must be a numeric 2D point for Cartesian coordinates or
+        3D point for barycentric coordinates')}
 
   if (dimension(M)==3)
   {M<-bary2cart(M,Te)}
@@ -349,11 +436,12 @@ IndNPETe <- function(p1,p2,r,M=c(1,1,1),rv=NULL)
   if (isTRUE(all.equal(p1,p2)))
   {arc<-1; return(arc); stop}
 
-  if (!in.triangle(p1,Te,boundary=TRUE)$in.tri || !in.triangle(p2,Te,boundary=TRUE)$in.tri)
+  if (!in.triangle(p1,Te,boundary=TRUE)$in.tri ||
+      !in.triangle(p2,Te,boundary=TRUE)$in.tri)
   {arc<-0; return(arc); stop}
 
   if (is.null(rv))
-  {rv<-rvTe.cent(p1,M)$rv #vertex region for p1
+  {rv<-rel.vert.std.tri(p1,M)$rv #vertex region for p1
   } else
   {  if (!is.numeric(rv) || sum(rv==c(1,2,3))!=1)
   {stop('vertex index, rv, must be 1, 2 or 3')}}
@@ -380,35 +468,59 @@ IndNPETe <- function(p1,p2,r,M=c(1,1,1),rv=NULL)
 
 #################################################################
 
-#' @title Number of arcs of Proportional Edge Proximity Catch Digraphs (PE-PCDs) - standard equilateral triangle case
+#' @title Number of arcs of Proportional Edge Proximity Catch Digraphs (PE-PCDs)
+#' and quantities related to the triangle - standard equilateral triangle case
 #'
-#' @description Returns the number of arcs of Proportional Edge Proximity Catch Digraphs (PE-PCDs) whose vertices are the
-#' given 2D numerical data set, \code{Xp}. It also provides number of vertices (i.e., number of data points inside the triangle)
-#' and indices of the data points that reside in the triangle.
+#' @description
+#' An object of class \code{"NumArcs"}.
+#' Returns the number of arcs of
+#' Proportional Edge Proximity Catch Digraphs (PE-PCDs)
+#' whose vertices are the
+#' given 2D numerical data set, \code{Xp}
+#' in the standard equilateral triangle.
+#' It also provides number of vertices
+#' (i.e., number of data points inside the standard equilateral triangle \eqn{T_e})
+#' and indices of the data points that reside in \eqn{T_e}.
 #'
-#' PE proximity region \eqn{N_{PE}(x,r)} is defined with respect to the standard
-#' equilateral triangle \eqn{T_e=T(v=1,v=2,v=3)=T((0,0),(1,0),(1/2,\sqrt{3}/2))} with expansion parameter \eqn{r \ge 1}
+#' PE proximity region \eqn{N_{PE}(x,r)} is defined
+#' with respect to the standard equilateral triangle
+#' \eqn{T_e=T(v=1,v=2,v=3)=T((0,0),(1,0),(1/2,\sqrt{3}/2))}
+#' with expansion parameter \eqn{r \ge 1}
 #' and vertex regions are based on the center \eqn{M=(m_1,m_2)}
-#' in Cartesian coordinates or \eqn{M=(\alpha,\beta,\gamma)} in barycentric coordinates in the interior of \eqn{T_e};
-#' default is \eqn{M=(1,1,1)} i.e., the center of mass of \eqn{T_e}.
+#' in Cartesian coordinates or \eqn{M=(\alpha,\beta,\gamma)}
+#' in barycentric coordinates in the interior of \eqn{T_e};
+#' default is \eqn{M=(1,1,1)}, i.e., the center of mass of \eqn{T_e}.
 #' For the number of arcs, loops are not allowed so
 #' arcs are only possible for points inside \eqn{T_e} for this function.
 #'
 #' See also (\insertCite{ceyhan:arc-density-PE;textual}{pcds}).
 #'
-#' @param Xp A set of 2D points which constitute the vertices of the PE-PCD.
-#' @param r A positive real number which serves as the expansion parameter for PE proximity region;
+#' @param Xp A set of 2D points
+#' which constitute the vertices of the PE-PCD.
+#' @param r A positive real number
+#' which serves as the expansion parameter for PE proximity region;
 #' must be \eqn{\ge 1}.
-#' @param M A 2D point in Cartesian coordinates or a 3D point in barycentric coordinates
-#' which serves as a center in the interior of the standard equilateral triangle \eqn{T_e}; default is \eqn{M=(1,1,1)} i.e.
+#' @param M A 2D point in Cartesian coordinates
+#' or a 3D point in barycentric coordinates
+#' which serves as a center
+#' in the interior of the standard equilateral triangle \eqn{T_e};
+#' default is \eqn{M=(1,1,1)} i.e.
 #' the center of mass of \eqn{T_e}.
 #'
 #' @return A \code{list} with the elements
+#' \item{desc}{A short description of the output: number of arcs
+#' and quantities related to the standard equilateral triangle}
 #' \item{num.arcs}{Number of arcs of the PE-PCD}
-#' \item{num.in.tri}{Number of \code{Xp} points in the standard equilateral triangle, \eqn{T_e}}
-#' \item{ind.in.tri}{The vector of indices of the \code{Xp} points that reside in \eqn{T_e}}
+#' \item{num.in.tri}{Number of \code{Xp} points
+#' in the standard equilateral triangle, \eqn{T_e}}
+#' \item{ind.in.tri}{The vector of indices of the \code{Xp} points
+#' that reside in \eqn{T_e}}
+#' \item{tess.points}{Points on which the tessellation of the study region is performed, here, tessellation
+#' is the support triangle \eqn{T_e}.}
+#' \item{vertices}{Vertices of the digraph, \code{Xp}.}
 #'
-#' @seealso \code{\link{NumArcsPEtri}}, \code{\link{NumArcsPE}}, and \code{\link{NumArcsCSTe}}
+#' @seealso \code{\link{num.arcsPEtri}}, \code{\link{num.arcsPE}},
+#' and \code{\link{num.arcsCSstd.tri}}
 #'
 #' @references
 #' \insertAllCited{}
@@ -425,12 +537,15 @@ IndNPETe <- function(p1,p2,r,M=c(1,1,1),rv=NULL)
 #'
 #' M<-c(.6,.2)  #try also M<-c(1,1,1)
 #'
-#' NumArcsPETe(Xp,r=1.25,M)
-#' NumArcsPETe(Xp,r=1.5,M)
+#' Narcs = num.arcsPEstd.tri(Xp,r=1.25,M)
+#' Narcs
+#' summary(Narcs)
+#' par(pty="s")
+#' plot(Narcs,asp=1)
 #' }
 #'
-#' @export NumArcsPETe
-NumArcsPETe <- function(Xp,r,M=c(1,1,1))
+#' @export num.arcsPEstd.tri
+num.arcsPEstd.tri <- function(Xp,r,M=c(1,1,1))
 {
   if (!is.numeric(as.matrix(Xp)))
   {stop('Xp must be numeric')}
@@ -447,7 +562,8 @@ NumArcsPETe <- function(Xp,r,M=c(1,1,1))
   {stop('r must be a scalar >= 1')}
 
   if (!is.point(M) && !is.point(M,3))
-  {stop('M must be a numeric 2D point for Cartesian coordinates or 3D point for barycentric coordinates')}
+  {stop('M must be a numeric 2D point for Cartesian coordinates or
+        3D point for barycentric coordinates')}
 
   A<-c(0,0); B<-c(1,0); C<-c(1/2,sqrt(3)/2);
   Te<-rbind(A,B,C);
@@ -473,7 +589,7 @@ NumArcsPETe <- function(Xp,r,M=c(1,1,1))
     } else
     {
       ind.in.tri = c(ind.in.tri,i)
-      rv<-rvTe.cent(p1,M)$rv
+      rv<-rel.vert.std.tri(p1,M)$rv
 
       for (j in ((1:n)[-i]) )
       {p2<-Xp[j,]
@@ -481,7 +597,7 @@ NumArcsPETe <- function(Xp,r,M=c(1,1,1))
       {arcs<-arcs+0
       } else
       {
-        arcs<-arcs+IndNPETe(p1,p2,r,M,rv)
+        arcs<-arcs+IarcPEstd.tri(p1,p2,r,M,rv)
       }
       }
     }
@@ -489,10 +605,18 @@ NumArcsPETe <- function(Xp,r,M=c(1,1,1))
   }
 
   NinTri = length(ind.in.tri)
+  desc<-"Number of Arcs of the PE-PCD and the Related Quantities with vertices Xp in the Standard Equilateral Triangle"
 
-  res<-list(num.arcs=arcs, #number of arcs for the PE-PCD
+  res<-list(desc=desc, #description of the output
+            num.arcs=arcs, #number of arcs for the AS-PCD
             num.in.tri=NinTri, # number of Xp points in CH of Yp points
-            ind.in.tri=ind.in.tri) #indices of data points inside the triangle
+            ind.in.tri=ind.in.tri, #indices of data points inside the triangle
+            tess.points=Te, #tessellation points
+            vertices=Xp #vertices of the digraph
+  )
+
+  class(res)<-"NumArcs"
+  res$call <-match.call()
 
   res
 } #end of the function
@@ -500,31 +624,45 @@ NumArcsPETe <- function(Xp,r,M=c(1,1,1))
 
 #################################################################
 
-#' @title Incidence matrix for Proportional Edge Proximity Catch Digraphs (PE-PCDs) - standard
-#' equilateral triangle case
+#' @title Incidence matrix for Proportional Edge Proximity Catch Digraphs
+#' (PE-PCDs) - standard equilateral triangle case
 #'
-#' @description Returns the incidence matrix for the PE-PCD whose vertices are the given 2D numerical data set, \code{Xp},
-#' in the standard equilateral triangle \eqn{T_e=T(v=1,v=2,v=3)=T((0,0),(1,0),(1/2,\sqrt{3}/2))}.
+#' @description Returns the incidence matrix for the PE-PCD
+#' whose vertices are the given 2D numerical data set, \code{Xp},
+#' in the standard equilateral triangle
+#' \eqn{T_e=T(v=1,v=2,v=3)=T((0,0),(1,0),(1/2,\sqrt{3}/2))}.
 #'
-#' PE proximity region is constructed with respect to the standard equilateral triangle \eqn{T_e} with
+#' PE proximity region is constructed
+#' with respect to the standard equilateral triangle \eqn{T_e} with
 #' expansion parameter \eqn{r \ge 1} and vertex regions are based on
-#' the center \eqn{M=(m_1,m_2)} in Cartesian coordinates or \eqn{M=(\alpha,\beta,\gamma)} in barycentric coordinates
-#' in the interior of \eqn{T_e}; default is \eqn{M=(1,1,1)} i.e., the center of mass of \eqn{T_e}.
-#' Loops are allowed, so the diagonal entries are all equal to 1.
+#' the center \eqn{M=(m_1,m_2)} in Cartesian coordinates
+#' or \eqn{M=(\alpha,\beta,\gamma)} in barycentric coordinates
+#' in the interior of \eqn{T_e}; default is \eqn{M=(1,1,1)},
+#' i.e., the center of mass of \eqn{T_e}.
+#' Loops are allowed,
+#' so the diagonal entries are all equal to 1.
 #'
 #' See also (\insertCite{ceyhan:Phd-thesis,ceyhan:comp-geo-2010,ceyhan:dom-num-NPE-Spat2011;textual}{pcds}).
 #'
-#' @param Xp A set of 2D points which constitute the vertices of the PE-PCD.
-#' @param r A positive real number which serves as the expansion parameter in PE proximity region;
+#' @param Xp A set of 2D points
+#' which constitute the vertices of the PE-PCD.
+#' @param r A positive real number
+#' which serves as the expansion parameter in PE proximity region;
 #' must be \eqn{\ge 1}.
-#' @param M A 2D point in Cartesian coordinates or a 3D point in barycentric coordinates
-#' which serves as a center in the interior of the standard equilateral triangle \eqn{T_e}; default is \eqn{M=(1,1,1)} i.e.
+#' @param M A 2D point in Cartesian coordinates
+#' or a 3D point in barycentric coordinates
+#' which serves as a center
+#' in the interior of the standard equilateral triangle \eqn{T_e};
+#' default is \eqn{M=(1,1,1)} i.e.
 #' the center of mass of \eqn{T_e}.
 #'
-#' @return Incidence matrix for the PE-PCD with vertices being 2D data set, \code{Xp} and PE proximity
-#' regions are defined in the standard equilateral triangle \eqn{T_e} with \code{M}-vertex regions.
+#' @return Incidence matrix for the PE-PCD with vertices
+#' being 2D data set, \code{Xp}
+#' in the standard equilateral triangle where PE proximity
+#' regions are defined with \code{M}-vertex regions.
 #'
-#' @seealso \code{\link{IncMatPEtri}}, \code{\link{IncMatPE}} and \code{\link{IncMatCSTe}}
+#' @seealso \code{\link{inci.matPEtri}}, \code{\link{inci.matPE}},
+#' and \code{\link{inci.matCSstd.tri}}
 #'
 #' @references
 #' \insertAllCited{}
@@ -542,17 +680,17 @@ NumArcsPETe <- function(Xp,r,M=c(1,1,1))
 #'
 #' M<-as.numeric(runif.std.tri(1)$g)  #try also M<-c(.6,.2)
 #'
-#' inc.mat<-IncMatPETe(Xp,r=1.25,M)
+#' inc.mat<-inci.matPEstd.tri(Xp,r=1.25,M)
 #' inc.mat
 #' sum(inc.mat)-n
-#' NumArcsPETe(Xp,r=1.25)
+#' num.arcsPEstd.tri(Xp,r=1.25)
 #'
-#' dom.greedy(inc.mat)
-#' IndUBdom(inc.mat,2) #try also dom.exact(inc.mat)
+#' dom.num.greedy(inc.mat)
+#' Idom.num.up.bnd(inc.mat,2) #try also dom.num.exact(inc.mat)
 #' }
 #'
-#' @export IncMatPETe
-IncMatPETe <- function(Xp,r,M=c(1,1,1))
+#' @export inci.matPEstd.tri
+inci.matPEstd.tri <- function(Xp,r,M=c(1,1,1))
 {
   if (!is.numeric(as.matrix(Xp)))
   {stop('Xp must be numeric')}
@@ -569,7 +707,8 @@ IncMatPETe <- function(Xp,r,M=c(1,1,1))
   {stop('r must be a scalar >= 1')}
 
   if (!is.point(M) && !is.point(M,3))
-  {stop('M must be a numeric 2D point for Cartesian coordinates or 3D point for barycentric coordinates')}
+  {stop('M must be a numeric 2D point for Cartesian coordinates or
+  3D point for barycentric coordinates ')}
 
   A<-c(0,0); B<-c(1,0); C<-c(1/2,sqrt(3)/2);
   Te<-rbind(A,B,C);
@@ -585,10 +724,10 @@ IncMatPETe <- function(Xp,r,M=c(1,1,1))
   inc.mat<-matrix(0, nrow=n, ncol=n)
   for (i in 1:n)
   {p1<-Xp[i,]
-  rv<-rvTe.cent(p1,M)$rv
+  rv<-rel.vert.std.tri(p1,M)$rv
   for (j in ((1:n)) )
   {p2<-Xp[j,]
-  inc.mat[i,j]<-IndNPETe(p1,p2,r,M,rv)
+  inc.mat[i,j]<-IarcPEstd.tri(p1,p2,r,M,rv)
   }
   }
   inc.mat
@@ -599,26 +738,33 @@ IncMatPETe <- function(Xp,r,M=c(1,1,1))
 
 # funsMuVarPE2D
 #'
-#' @title Returns the mean and (asymptotic) variance of arc density of Proportional Edge Proximity Catch Digraph (PE-PCD)
+#' @title Returns the mean and (asymptotic) variance of arc density of
+#' Proportional Edge Proximity Catch Digraph (PE-PCD)
 #' for 2D uniform data in one triangle
 #'
 #' @description
 #' Two functions: \code{muPE2D} and \code{asyvarPE2D}.
 #'
 #' \code{muPE2D} returns the mean of the (arc) density of PE-PCD
-#' and \code{asyvarPE2D} returns the asymptotic variance of the arc density of PE-PCD
-#' with expansion parameter \eqn{r \ge 1} for 2D uniform data in a triangle.
+#' and \code{asyvarPE2D} returns the asymptotic variance
+#' of the arc density of PE-PCD
+#' for 2D uniform data in a triangle.
 #'
-#' PE proximity regions are defined with respect to the triangle and
+#' PE proximity regions are defined
+#' with expansion parameter \eqn{r \ge 1}
+#' with respect to the triangle
+#' in which the points reside and
 #' vertex regions are based on center of mass, \eqn{CM} of the triangle.
 #'
 #' See also (\insertCite{ceyhan:arc-density-PE;textual}{pcds}).
 #'
-#' @param r A positive real number which serves as the expansion parameter in PE proximity region;
+#' @param r A positive real number which serves
+#' as the expansion parameter in PE proximity region;
 #' must be \eqn{\ge 1}.
 #'
-#' @return \code{muPE2D} returns the mean and \code{asyvarPE2D} returns the (asymptotic) variance of the
-#' arc density of PE-PCD for uniform data in any triangle
+#' @return \code{muPE2D} returns the mean
+#' and \code{asyvarPE2D} returns the (asymptotic) variance of the
+#' arc density of PE-PCD for uniform data in any triangle.
 #'
 #' @name funsMuVarPE2D
 NULL
@@ -643,14 +789,15 @@ NULL
 #'   mu<-c(mu,muPE2D(rseq[i]))
 #' }
 #'
-#' plot(rseq, mu,type="l",xlab="r",ylab=expression(mu(r)),lty=1,xlim=range(rseq),ylim=c(0,1))
+#' plot(rseq, mu,type="l",xlab="r",ylab=expression(mu(r)),lty=1,
+#' xlim=range(rseq),ylim=c(0,1))
 #' }
 #'
 #' @export muPE2D
 muPE2D <- function(r)
 {
   if (!is.point(r,1) || r<1)
-  {stop('the argument must be a scalar greater than 1')}
+  {stop('The argument must be a scalar greater than 1')}
 
   mn<-0;
   if (r < 3/2)
@@ -686,14 +833,15 @@ muPE2D <- function(r)
 #' }
 #'
 #' par(mar=c(5,5,4,2))
-#' plot(rseq, avar,type="l",xlab="r",ylab=expression(paste(sigma^2,"(r)")),lty=1,xlim=range(rseq))
+#' plot(rseq, avar,type="l",xlab="r",
+#' ylab=expression(paste(sigma^2,"(r)")),lty=1,xlim=range(rseq))
 #' }
 #'
 #' @export asyvarPE2D
 asyvarPE2D <- function(r)
 {
   if (!is.point(r,1) || r<1)
-  {stop('the argument must be a scalar greater than 1')}
+  {stop('The argument must be a scalar greater than 1')}
 
   asyvar<-0;
   if (r < 4/3)
@@ -716,52 +864,81 @@ asyvarPE2D <- function(r)
 
 #################################################################
 
-#' @title The indicator for a point being a dominating point or not for Proportional Edge Proximity Catch
-#' Digraphs (PE-PCDs) - standard basic triangle case
+#' @title The indicator for a point being a dominating point or not for
+#' Proportional Edge Proximity Catch Digraphs (PE-PCDs) -
+#' standard basic triangle case
 #'
-#' @description Returns \eqn{I(}\code{p} is a dominating point of the PE-PCD\eqn{)} where the vertices of the PE-PCD are the 2D data set \code{Xp} for data in the standard basic triangle
-#' \eqn{T_b=T((0,0),(1,0),(c_1,c_2))}, that is, returns 1 if \code{p} is a dominating point of PE-PCD, returns 0 otherwise.
+#' @description Returns \eqn{I(}\code{p} is a dominating point
+#' of the PE-PCD\eqn{)}
+#' where the vertices of the PE-PCD are the 2D data set \code{Xp}
+#' for data in the standard basic triangle
+#' \eqn{T_b=T((0,0),(1,0),(c_1,c_2))},
+#' that is, returns 1 if \code{p} is a dominating point of PE-PCD,
+#' and returns 0 otherwise.
 #'
-#' PE proximity regions are defined with respect to the standard basic triangle \eqn{T_b}.
-#' In the standard basic triangle, \eqn{T_b}, \eqn{c_1} is in \eqn{[0,1/2]}, \eqn{c_2>0} and \eqn{(1-c_1)^2+c_2^2 \le 1}.
+#' PE proximity regions are defined
+#' with respect to the standard basic triangle \eqn{T_b}.
+#' In the standard basic triangle, \eqn{T_b},
+#' \eqn{c_1} is in \eqn{[0,1/2]}, \eqn{c_2>0} and \eqn{(1-c_1)^2+c_2^2 \le 1}.
 #'
-#' Any given triangle can be mapped to the standard basic triangle by a combination of rigid body motions
-#' (i.e., translation, rotation and reflection) and scaling, preserving uniformity of the points in the
-#' original triangle. Hence standard basic triangle is useful for simulation
+#' Any given triangle can be mapped to the standard basic triangle
+#' by a combination of rigid body motions
+#' (i.e., translation, rotation and reflection) and scaling,
+#' preserving uniformity of the points in the
+#' original triangle. Hence, standard basic triangle is useful for simulation
 #' studies under the uniformity hypothesis.
 #'
 #' Vertex regions are based on center \eqn{M=(m_1,m_2)} in Cartesian
-#' coordinates or \eqn{M=(\alpha,\beta,\gamma)} in barycentric coordinates in the interior of a standard basic triangle
-#' to the edges on the extension of the lines joining \code{M} to the vertices or based on the circumcenter of \eqn{T_b};
-#' default is \eqn{M=(1,1,1)} i.e., the center of mass of \eqn{T_b}.
-#' Point, \code{p}, is in the vertex region of vertex \code{rv} (default is \code{NULL}); vertices are labeled as \eqn{1,2,3}
+#' coordinates or \eqn{M=(\alpha,\beta,\gamma)} in barycentric coordinates
+#' in the interior of a standard basic triangle
+#' to the edges on the extension of the lines joining \code{M}
+#' to the vertices or based on the circumcenter of \eqn{T_b};
+#' default is \eqn{M=(1,1,1)}, i.e., the center of mass of \eqn{T_b}.
+#' Point, \code{p}, is in the vertex region of vertex \code{rv}
+#' (default is \code{NULL});
+#' vertices are labeled as \eqn{1,2,3}
 #' in the order they are stacked row-wise.
 #'
-#' \code{ch.data.pnt} is for checking whether point \code{p} is a data point in \code{Xp} or not (default is \code{FALSE}),
-#' so by default this function checks whether the point \code{p} would be a dominating point
+#' \code{ch.data.pnt} is for checking
+#' whether point \code{p} is a data point in \code{Xp} or not
+#' (default is \code{FALSE}),
+#' so by default this function checks
+#' whether the point \code{p} would be a dominating point
 #' if it actually were in the data set.
 #'
 #' See also (\insertCite{ceyhan:Phd-thesis,ceyhan:dom-num-NPE-Spat2011;textual}{pcds}).
 #'
-#' @param p A 2D point that is to be tested for being a dominating point or not of the PE-PCD.
-#' @param Xp A set of 2D points which constitutes the vertices of the PE-PCD.
-#' @param r A positive real number which serves as the expansion parameter in PE proximity region;
+#' @param p A 2D point that is to be tested for being a dominating point
+#' or not of the PE-PCD.
+#' @param Xp A set of 2D points
+#' which constitutes the vertices of the PE-PCD.
+#' @param r A positive real number
+#' which serves as the expansion parameter in PE proximity region;
 #' must be \eqn{\ge 1}.
-#' @param c1,c2 Positive real numbers which constitute the vertex of the standard basic triangle
-#' adjacent to the shorter edges; \eqn{c_1} must be in \eqn{[0,1/2]}, \eqn{c_2>0} and \eqn{(1-c_1)^2+c_2^2 \le 1}.
-#' @param M A 2D point in Cartesian coordinates or a 3D point in barycentric coordinates
-#' which serves as a center in the interior of the standard basic triangle \eqn{T_b} or the circumcenter of \eqn{T_b}
+#' @param c1,c2 Positive real numbers
+#' which constitute the vertex of the standard basic triangle
+#' adjacent to the shorter edges; \eqn{c_1} must be in \eqn{[0,1/2]},
+#' \eqn{c_2>0} and \eqn{(1-c_1)^2+c_2^2 \le 1}.
+#' @param M A 2D point in Cartesian coordinates
+#' or a 3D point in barycentric coordinates
+#' which serves as a center
+#' in the interior of the standard basic triangle \eqn{T_b}
+#' or the circumcenter of \eqn{T_b}
 #' which may be entered as "CC" as well;
-#' default is \eqn{M=(1,1,1)} i.e., the center of mass of \eqn{T_b}.
-#' @param rv Index of the vertex whose region contains point \code{p}, \code{rv} takes the vertex labels as \eqn{1,2,3} as
+#' default is \eqn{M=(1,1,1)}, i.e., the center of mass of \eqn{T_b}.
+#' @param rv Index of the vertex whose region contains point \code{p},
+#' \code{rv} takes the vertex labels as \eqn{1,2,3} as
 #' in the row order of the vertices in \eqn{T_b}.
-#' @param ch.data.pnt A logical argument for checking whether point \code{p} is a data point in \code{Xp} or not
+#' @param ch.data.pnt A logical argument for checking
+#' whether point \code{p} is a data point in \code{Xp} or not
 #' (default is \code{FALSE}).
 #'
-#' @return \eqn{I(}\code{p} is a dominating point of the PE-PCD\eqn{)} where the vertices of the PE-PCD are the 2D data set \code{Xp},
-#' that is, returns 1 if \code{p} is a dominating point, returns 0 otherwise
+#' @return \eqn{I(}\code{p} is a dominating point of the PE-PCD\eqn{)}
+#' where the vertices of the PE-PCD are the 2D data set \code{Xp},
+#' that is, returns 1 if \code{p} is a dominating point,
+#' and returns 0 otherwise.
 #'
-#' @seealso \code{\link{Gam1ASbas.tri}} and \code{\link{Gam1AStri}}
+#' @seealso \code{\link{Idom.num1ASbasic.tri}} and \code{\link{Idom.num1AStri}}
 #'
 #' @references
 #' \insertAllCited{}
@@ -776,25 +953,25 @@ asyvarPE2D <- function(r)
 #' n<-10  #try also n<-20
 #'
 #' set.seed(1)
-#' Xp<-runif.bas.tri(n,c1,c2)$g
+#' Xp<-runif.basic.tri(n,c1,c2)$g
 #'
-#' M<-as.numeric(runif.bas.tri(1,c1,c2)$g)  #try also M<-c(.6,.3)
+#' M<-as.numeric(runif.basic.tri(1,c1,c2)$g)  #try also M<-c(.6,.3)
 #' r<-2
 #'
 #' P<-c(.4,.2)
-#' Gam1PEbas.tri(P,Xp,r,c1,c2,M)
-#' Gam1PEbas.tri(Xp[1,],Xp,r,c1,c2,M)
+#' Idom.num1PEbasic.tri(P,Xp,r,c1,c2,M)
+#' Idom.num1PEbasic.tri(Xp[1,],Xp,r,c1,c2,M)
 #'
-#' Gam1PEbas.tri(c(1,1),Xp,r,c1,c2,M,ch.data.pnt = FALSE)
+#' Idom.num1PEbasic.tri(c(1,1),Xp,r,c1,c2,M,ch.data.pnt = FALSE)
 #' #gives an error message if ch.data.pnt = TRUE since point p=c(1,1) is not a data point in Xp
 #'
 #' #or try
-#' Rv<-rv.bas.tri.cent(Xp[1,],c1,c2,M)$rv
-#' Gam1PEbas.tri(Xp[1,],Xp,r,c1,c2,M,Rv)
+#' Rv<-rel.vert.basic.tri(Xp[1,],c1,c2,M)$rv
+#' Idom.num1PEbasic.tri(Xp[1,],Xp,r,c1,c2,M,Rv)
 #'
 #' gam.vec<-vector()
 #' for (i in 1:n)
-#' {gam.vec<-c(gam.vec,Gam1PEbas.tri(Xp[i,],Xp,r,c1,c2,M))}
+#' {gam.vec<-c(gam.vec,Idom.num1PEbasic.tri(Xp[i,],Xp,r,c1,c2,M))}
 #'
 #' ind.gam1<-which(gam.vec==1)
 #' ind.gam1
@@ -807,7 +984,7 @@ asyvarPE2D <- function(r)
 #' if (dimension(M)==3) {M<-bary2cart(M,Tb)}
 #' #need to run this when M is given in barycentric coordinates
 #'
-#' if (identical(M,circ.cent.tri(Tb)))
+#' if (identical(M,circumcenter.tri(Tb)))
 #' {
 #'   plot(Tb,pch=".",asp=1,xlab="",ylab="",axes=TRUE,
 #'   xlim=Xlim+xd*c(-.05,.05),ylim=Ylim+yd*c(-.05,.05))
@@ -819,7 +996,7 @@ asyvarPE2D <- function(r)
 #' xlim=Xlim+xd*c(-.05,.05),ylim=Ylim+yd*c(-.05,.05))
 #'   polygon(Tb)
 #'   points(Xp,pch=1,col=1)
-#'   Ds<-cent2edges.bas.tri(c1,c2,M)}
+#'   Ds<-prj.cent2edges.basic.tri(c1,c2,M)}
 #' L<-rbind(M,M,M); R<-Ds
 #' segments(L[,1], L[,2], R[,1], R[,2], lty=2)
 #' points(rbind(Xp[ind.gam1,]),pch=4,col=2)
@@ -830,12 +1007,12 @@ asyvarPE2D <- function(r)
 #' txt.str<-c("A","B","C","M","D1","D2","D3")
 #' text(xc,yc,txt.str)
 #'
-#' Gam1PEbas.tri(c(.2,.1),Xp,r,c1,c2,M,ch.data.pnt=FALSE)
+#' Idom.num1PEbasic.tri(c(.2,.1),Xp,r,c1,c2,M,ch.data.pnt=FALSE)
 #' #gives an error message if ch.data.pnt=TRUE since point p is not a data point in Xp
 #' }
 #'
-#' @export Gam1PEbas.tri
-Gam1PEbas.tri <- function(p,Xp,r,c1,c2,M=c(1,1,1),rv=NULL,ch.data.pnt=FALSE)
+#' @export Idom.num1PEbasic.tri
+Idom.num1PEbasic.tri <- function(p,Xp,r,c1,c2,M=c(1,1,1),rv=NULL,ch.data.pnt=FALSE)
 {
   if (!is.point(p))
   {stop('p must be a numeric 2D point')}
@@ -867,35 +1044,39 @@ Gam1PEbas.tri <- function(p,Xp,r,c1,c2,M=c(1,1,1),rv=NULL,ch.data.pnt=FALSE)
   }
 
   if (!(is.point(M) || is.point(M,3) || identical(M,"CC")))
-  {stop('M must be a numeric 2D point for Cartesian coordinates or 3D point for barycentric coordinates
-          or the circumcenter "CC" ')}
+  {stop('M must be a numeric 2D point for Cartesian coordinates or
+  3D point for barycentric coordinates or the circumcenter "CC" ')}
 
   y1<-c(0,0); y2<-c(1,0); y3<-c(c1,c2); Tb<-rbind(y1,y2,y3)
 
-  CC = circ.cent.tri(Tb)
+  CC = circumcenter.tri(Tb)
   if (identical(M,"CC") )
   { M<-CC }
 
   if (dimension(M)==3)
   {M<-bary2cart(M,Tb)}
 
-  if (!(isTRUE(all.equal(M,CC)) || in.triangle(M,Tb,boundary=FALSE)$in.tri))
-  {stop('center is not the circumcenter or not in the interior of the triangle')}
+  if (!(isTRUE(all.equal(M,CC)) ||
+        in.triangle(M,Tb,boundary=FALSE)$in.tri))
+  {stop('center is not the circumcenter or
+        not in the interior of the triangle')}
 
   if (in.triangle(p,Tb)$in.tri==F)
-  {dom<-0; return(dom); stop} #('point is not inside the triangle')}
+  {dom<-0; return(dom); stop}
+  #('point is not inside the triangle')}
 
   n<-nrow(Xp)
   dom<-1; i<-1;
 
   if (is.null(rv))
-  { rv<-ifelse(isTRUE(all.equal(M,CC)),rv.triCC(p,Tb)$rv,rv.tri.cent(p,Tb,M)$rv)  #vertex region for p
+  { rv<-ifelse(isTRUE(all.equal(M,CC)),rel.vert.triCC(p,Tb)$rv,
+               rel.vert.tri(p,Tb,M)$rv)  #vertex region for p
   } else
   {  if (!is.numeric(rv) || sum(rv==c(1,2,3))!=1)
   {stop('vertex index, rv, must be 1, 2 or 3')}}
 
   while (i <= n & dom==1)
-  {if (IndNPEbas.tri(p,Xp[i,],r,c1,c2,M,rv)==0)
+  {if (IarcPEbasic.tri(p,Xp[i,],r,c1,c2,M,rv)==0)
     dom<-0;
   i<-i+1;
   }
@@ -905,54 +1086,89 @@ Gam1PEbas.tri <- function(p,Xp,r,c1,c2,M=c(1,1,1),rv=NULL,ch.data.pnt=FALSE)
 
 #################################################################
 
-#' @title The indicator for two points being a dominating set for Proportional Edge Proximity Catch Digraphs
-#' (PE-PCDs) - standard basic triangle case
+#' @title The indicator for two points being a dominating set for
+#' Proportional Edge Proximity Catch Digraphs (PE-PCDs) -
+#' standard basic triangle case
 #'
-#' @description Returns \eqn{I(}\{\code{p1,p2}\} is a dominating set of the PE-PCD\eqn{)} where the vertices of the PE-PCD are the 2D data set \code{Xp} in the standard basic triangle
-#' \eqn{T_b=T((0,0),(1,0),(c_1,c_2))}, that is, returns 1 if \{\code{p1,p2}\} is a dominating set of PE-PCD,
-#' returns 0 otherwise.
+#' @description Returns \eqn{I(}\{\code{p1,p2}\} is
+#' a dominating set of the PE-PCD\eqn{)}
+#' where the vertices of the PE-PCD are the 2D data set \code{Xp}
+#' in the standard basic triangle
+#' \eqn{T_b=T((0,0),(1,0),(c_1,c_2))},
+#' that is, returns 1 if \{\code{p1,p2}\} is a dominating set of PE-PCD,
+#' and returns 0 otherwise.
 #'
 #' PE proximity regions are defined with respect to \eqn{T_b}.
-#' In the standard basic triangle, \eqn{T_b}, \eqn{c_1} is in \eqn{[0,1/2]}, \eqn{c_2>0} and \eqn{(1-c_1)^2+c_2^2 \le 1}.
+#' In the standard basic triangle, \eqn{T_b},
+#' \eqn{c_1} is in \eqn{[0,1/2]}, \eqn{c_2>0}
+#' and \eqn{(1-c_1)^2+c_2^2 \le 1}.
 #'
-#' Any given triangle can be mapped to the standard basic triangle by a combination of rigid body motions
-#' (i.e., translation, rotation and reflection) and scaling, preserving uniformity of the points in the
-#' original triangle. Hence standard basic triangle is useful for simulation
+#' Any given triangle can be mapped to the standard basic triangle
+#' by a combination of rigid body motions
+#' (i.e., translation, rotation and reflection) and scaling,
+#' preserving uniformity of the points in the
+#' original triangle.
+#' Hence, standard basic triangle is useful for simulation
 #' studies under the uniformity hypothesis.
 #'
 #' Vertex regions are based on center \eqn{M=(m_1,m_2)} in Cartesian
-#' coordinates or \eqn{M=(\alpha,\beta,\gamma)} in barycentric coordinates in the interior of a standard basic triangle \eqn{T_b};
-#' default is \eqn{M=(1,1,1)} i.e., the center of mass of \eqn{T_b}.
-#' Point, \code{p1}, is in the vertex region of vertex \code{rv1} (default is \code{NULL});
-#' and point, \code{p2}, is in the vertex region of vertex \code{rv2} (default is \code{NULL}); vertices are labeled as \eqn{1,2,3}
+#' coordinates or \eqn{M=(\alpha,\beta,\gamma)} in barycentric coordinates
+#' in the interior of a standard basic triangle \eqn{T_b};
+#' default is \eqn{M=(1,1,1)}, i.e., the center of mass of \eqn{T_b}.
+#' Point, \code{p1},
+#' is in the vertex region of vertex \code{rv1}
+#' (default is \code{NULL});
+#' and point, \code{p2},
+#' is in the vertex region of vertex \code{rv2}
+#' (default is \code{NULL});
+#' vertices are labeled as \eqn{1,2,3}
 #' in the order they are stacked row-wise.
 #'
-#' \code{ch.data.pnts} is for checking whether points \code{p1} and \code{p2} are both data points in \code{Xp} or not (default is \code{FALSE}),
-#' so by default this function checks whether the points \code{p1} and \code{p2} would constitute a dominating set
+#' \code{ch.data.pnts} is for checking
+#' whether points \code{p1} and \code{p2} are both data points
+#' in \code{Xp} or not (default is \code{FALSE}),
+#' so by default this function checks
+#' whether the points \code{p1} and \code{p2} would constitute
+#' a dominating set
 #' if they both were actually in the data set.
 #'
 #' See also (\insertCite{ceyhan:Phd-thesis,ceyhan:dom-num-NPE-Spat2011;textual}{pcds}).
 #'
-#' @param p1,p2 Two 2D points to be tested for constituting a dominating set of the PE-PCD.
-#' @param Xp A set of 2D points which constitutes the vertices of the PE-PCD.
-#' @param r A positive real number which serves as the expansion parameter in PE proximity region;
+#' @param p1,p2 Two 2D points to be tested for
+#' constituting a dominating set of the PE-PCD.
+#' @param Xp A set of 2D points
+#' which constitutes the vertices of the PE-PCD.
+#' @param r A positive real number
+#' which serves as the expansion parameter in PE proximity region;
 #' must be \eqn{\ge 1}.
-#' @param c1,c2 Positive real numbers which constitute the vertex of the standard basic triangle.
-#' adjacent to the shorter edges; \eqn{c_1} must be in \eqn{[0,1/2]}, \eqn{c_2>0} and \eqn{(1-c_1)^2+c_2^2 \le 1}.
-#' @param M A 2D point in Cartesian coordinates or a 3D point in barycentric coordinates
-#' which serves as a center in the interior of the standard basic triangle \eqn{T_b} or the circumcenter of \eqn{T_b}
+#' @param c1,c2 Positive real numbers
+#' which constitute the vertex of the standard basic triangle.
+#' adjacent to the shorter edges; \eqn{c_1} must be in \eqn{[0,1/2]},
+#' \eqn{c_2>0} and \eqn{(1-c_1)^2+c_2^2 \le 1}.
+#' @param M A 2D point in Cartesian coordinates
+#' or a 3D point in barycentric coordinates
+#' which serves as a center
+#' in the interior of the standard basic triangle \eqn{T_b}
+#' or the circumcenter of \eqn{T_b}
 #' which may be entered as "CC" as well;
-#' default is \eqn{M=(1,1,1)} i.e., the center of mass of \eqn{T_b}.
-#' @param rv1,rv2 The indices of the vertices whose regions contains \code{p1} and \code{p2}, respectively.
-#' They take the vertex labels as \eqn{1,2,3} as in the row order of the vertices in \eqn{T_b}
+#' default is \eqn{M=(1,1,1)}, i.e., the center of mass of \eqn{T_b}.
+#' @param rv1,rv2 The indices of the vertices
+#' whose regions contains \code{p1} and \code{p2}, respectively.
+#' They take the vertex labels as \eqn{1,2,3} as
+#' in the row order of the vertices in \eqn{T_b}
 #' (default is \code{NULL} for both).
-#' @param ch.data.pnts A logical argument for checking whether points \code{p1} and \code{p2} are data points in \code{Xp} or not
+#' @param ch.data.pnts A logical argument for
+#' checking whether points \code{p1} and \code{p2}
+#'  are data points in \code{Xp} or not
 #' (default is \code{FALSE}).
 #'
-#' @return \eqn{I(}\{\code{p1,p2}\} is a dominating set of the PE-PCD\eqn{)} where the vertices of the PE-PCD are the 2D data set \code{Xp}),
-#' that is, returns 1 if \{\code{p1,p2}\} is a dominating set of PE-PCD, returns 0 otherwise
+#' @return \eqn{I(}\{\code{p1,p2}\} is a dominating set of the PE-PCD\eqn{)}
+#' where the vertices of the PE-PCD are the 2D data set \code{Xp},
+#' that is, returns 1 if \{\code{p1,p2}\} is a dominating set of PE-PCD,
+#' and returns 0 otherwise.
 #'
-#' @seealso \code{\link{Gam2PEtri}}, \code{\link{Gam2ASbas.tri}}, and \code{\link{Gam2AStri}}
+#' @seealso \code{\link{Idom.num2PEtri}}, \code{\link{Idom.num2ASbasic.tri}},
+#' and \code{\link{Idom.num2AStri}}
 #'
 #' @references
 #' \insertAllCited{}
@@ -967,43 +1183,44 @@ Gam1PEbas.tri <- function(p,Xp,r,c1,c2,M=c(1,1,1),rv=NULL,ch.data.pnt=FALSE)
 #' n<-10  #try also n<-20
 #'
 #' set.seed(1)
-#' Xp<-runif.bas.tri(n,c1,c2)$g
+#' Xp<-runif.basic.tri(n,c1,c2)$g
 #'
-#' M<-as.numeric(runif.bas.tri(1,c1,c2)$g)  #try also M<-c(.6,.3)
+#' M<-as.numeric(runif.basic.tri(1,c1,c2)$g)  #try also M<-c(.6,.3)
 #'
 #' r<-2
 #'
-#' Gam2PEbas.tri(Xp[1,],Xp[2,],Xp,r,c1,c2,M)
+#' Idom.num2PEbasic.tri(Xp[1,],Xp[2,],Xp,r,c1,c2,M)
 #'
-#' Gam2PEbas.tri(c(1,2),c(1,3),rbind(c(1,2),c(1,3)),r,c1,c2,M)
-#' Gam2PEbas.tri(c(1,2),c(1,3),rbind(c(1,2),c(1,3)),r,c1,c2,M,ch.data.pnts = TRUE)
+#' Idom.num2PEbasic.tri(c(1,2),c(1,3),rbind(c(1,2),c(1,3)),r,c1,c2,M)
+#' Idom.num2PEbasic.tri(c(1,2),c(1,3),rbind(c(1,2),c(1,3)),r,c1,c2,M,
+#' ch.data.pnts = TRUE)
 #'
 #' ind.gam2<-vector()
 #' for (i in 1:(n-1))
 #'   for (j in (i+1):n)
-#'   {if (Gam2PEbas.tri(Xp[i,],Xp[j,],Xp,r,c1,c2,M)==1)
+#'   {if (Idom.num2PEbasic.tri(Xp[i,],Xp[j,],Xp,r,c1,c2,M)==1)
 #'    ind.gam2<-rbind(ind.gam2,c(i,j))}
 #' ind.gam2
 #'
 #' #or try
-#' rv1<-rv.bas.tri.cent(Xp[1,],c1,c2,M)$rv;
-#' rv2<-rv.bas.tri.cent(Xp[2,],c1,c2,M)$rv;
-#' Gam2PEbas.tri(Xp[1,],Xp[2,],Xp,r,c1,c2,M,rv1,rv2)
+#' rv1<-rel.vert.basic.tri(Xp[1,],c1,c2,M)$rv;
+#' rv2<-rel.vert.basic.tri(Xp[2,],c1,c2,M)$rv;
+#' Idom.num2PEbasic.tri(Xp[1,],Xp[2,],Xp,r,c1,c2,M,rv1,rv2)
 #'
 #' #or try
-#' rv1<-rv.bas.tri.cent(Xp[1,],c1,c2,M)$rv;
-#' Gam2PEbas.tri(Xp[1,],Xp[2,],Xp,r,c1,c2,M,rv1)
+#' rv1<-rel.vert.basic.tri(Xp[1,],c1,c2,M)$rv;
+#' Idom.num2PEbasic.tri(Xp[1,],Xp[2,],Xp,r,c1,c2,M,rv1)
 #'
 #' #or try
-#' rv2<-rv.bas.tri.cent(Xp[2,],c1,c2,M)$rv;
-#' Gam2PEbas.tri(Xp[1,],Xp[2,],Xp,r,c1,c2,M,rv2=rv2)
+#' rv2<-rel.vert.basic.tri(Xp[2,],c1,c2,M)$rv;
+#' Idom.num2PEbasic.tri(Xp[1,],Xp[2,],Xp,r,c1,c2,M,rv2=rv2)
 #'
-#' Gam2PEbas.tri(c(1,2),Xp[2,],Xp,r,c1,c2,M,ch.data.pnts = FALSE)
+#' Idom.num2PEbasic.tri(c(1,2),Xp[2,],Xp,r,c1,c2,M,ch.data.pnts = FALSE)
 #' #gives an error message if ch.data.pnts = TRUE since not both points are data points in Xp
 #' }
 #'
-#' @export Gam2PEbas.tri
-Gam2PEbas.tri <- function(p1,p2,Xp,r,c1,c2,M=c(1,1,1),rv1=NULL,rv2=NULL,ch.data.pnts=FALSE)
+#' @export Idom.num2PEbasic.tri
+Idom.num2PEbasic.tri <- function(p1,p2,Xp,r,c1,c2,M=c(1,1,1),rv1=NULL,rv2=NULL,ch.data.pnts=FALSE)
 {
   if (!is.point(p1) || !is.point(p2))
   {stop('p1 and p2 must be numeric 2D points')}
@@ -1038,26 +1255,30 @@ Gam2PEbas.tri <- function(p1,p2,Xp,r,c1,c2,M=c(1,1,1),rv1=NULL,rv2=NULL,ch.data.
   {dom<-0; return(dom); stop}
 
   if (!(is.point(M) || is.point(M,3) || identical(M,"CC")))
-  {stop('M must be a numeric 2D point for Cartesian coordinates or 3D point for barycentric coordinates
-          or the circumcenter "CC" ')}
+  {stop('M must be a numeric 2D point for Cartesian coordinates or
+  3D point for barycentric coordinates or the circumcenter "CC" ')}
 
   y1<-c(0,0); y2<-c(1,0); y3<-c(c1,c2); Tb<-rbind(y1,y2,y3)
 
-  CC = circ.cent.tri(Tb)
+  CC = circumcenter.tri(Tb)
   if (identical(M,"CC") )
   { M<-CC }
 
   if (dimension(M)==3)
   {M<-bary2cart(M,Tb)}
 
-  if (!(isTRUE(all.equal(M,CC)) || in.triangle(M,Tb,boundary=FALSE)$in.tri))
-  {stop('center is not the circumcenter or not in the interior of the triangle')}
+  if (!(isTRUE(all.equal(M,CC)) ||
+        in.triangle(M,Tb,boundary=FALSE)$in.tri))
+  {stop('center is not the circumcenter or
+        not in the interior of the triangle')}
 
   if (is.null(rv1))
-  {rv1<-ifelse(isTRUE(all.equal(M,CC)),rv.triCC(p1,Tb)$rv,rv.tri.cent(p1,Tb,M)$rv)  #vertex region for point p1
+  {rv1<-ifelse(isTRUE(all.equal(M,CC)),rel.vert.triCC(p1,Tb)$rv,
+               rel.vert.tri(p1,Tb,M)$rv)  #vertex region for point p1
   }
   if (is.null(rv2))
-  {rv2<-ifelse(isTRUE(all.equal(M,CC)),rv.triCC(p2,Tb)$rv,rv.tri.cent(p2,Tb,M)$rv)  #vertex region for point p2
+  {rv2<-ifelse(isTRUE(all.equal(M,CC)),rel.vert.triCC(p2,Tb)$rv,
+               rel.vert.tri(p2,Tb,M)$rv)  #vertex region for point p2
   }
 
   Xp<-matrix(Xp,ncol=2)
@@ -1065,7 +1286,8 @@ Gam2PEbas.tri <- function(p1,p2,Xp,r,c1,c2,M=c(1,1,1),rv1=NULL,rv2=NULL,ch.data.
   dom<-1; i<-1;
 
   while (i <= n & dom==1)
-  {if (max(IndNPEbas.tri(p1,Xp[i,],r,c1,c2,M,rv1),IndNPEbas.tri(p2,Xp[i,],r,c1,c2,M,rv2))==0)
+  {if (max(IarcPEbasic.tri(p1,Xp[i,],r,c1,c2,M,rv1),
+           IarcPEbasic.tri(p2,Xp[i,],r,c1,c2,M,rv2))==0)
     dom<-0;
   i<-i+1;
   }
@@ -1075,38 +1297,55 @@ Gam2PEbas.tri <- function(p1,p2,Xp,r,c1,c2,M=c(1,1,1),rv1=NULL,rv2=NULL,ch.data.
 
 #################################################################
 
-#' @title The vertices of the Proportional Edge (PE) Proximity Region in a general triangle
+#' @title The vertices of the Proportional Edge (PE) Proximity Region
+#' in a general triangle
 #'
-#' @description Returns the vertices of the PE proximity region (which is itself a triangle) for a point in the
+#' @description Returns the vertices of the PE proximity region
+#' (which is itself a triangle) for a point in the
 #' triangle \code{tri}\eqn{=T(A,B,C)=}\code{(rv=1,rv=2,rv=3)}.
 #'
 #' PE proximity region is defined with respect to the triangle \code{tri}
-#' with expansion parameter \eqn{r \ge 1} and vertex regions based on center \eqn{M=(m_1,m_2)} in Cartesian coordinates or
-#' \eqn{M=(\alpha,\beta,\gamma)} in barycentric coordinates in the interior of the triangle \code{tri}
-#' or based on the circumcenter of \code{tri}; default is \eqn{M=(1,1,1)} i.e., the center of mass of \code{tri}.
+#' with expansion parameter \eqn{r \ge 1}
+#' and vertex regions based on center \eqn{M=(m_1,m_2)}
+#' in Cartesian coordinates or
+#' \eqn{M=(\alpha,\beta,\gamma)} in barycentric coordinates
+#' in the interior of the triangle \code{tri}
+#' or based on the circumcenter of \code{tri};
+#' default is \eqn{M=(1,1,1)}, i.e.,
+#' the center of mass of \code{tri}.
 #'
-#' Vertex regions are labeled as \eqn{1,2,3} rowwise for the vertices
-#' of the triangle \code{tri}. \code{rv} is the index of the vertex region \code{p} resides, with default=\code{NULL}.
-#' If \code{p} is outside of \code{tri}, it returns \code{NULL} for the proximity region.
+#' Vertex regions are labeled as \eqn{1,2,3}
+#' rowwise for the vertices
+#' of the triangle \code{tri}.
+#' \code{rv} is the index of the vertex region \code{p} resides,
+#' with default=\code{NULL}.
+#' If \code{p} is outside of \code{tri},
+#' it returns \code{NULL} for the proximity region.
 #'
 #' See also (\insertCite{ceyhan:Phd-thesis,ceyhan:arc-density-PE,ceyhan:dom-num-NPE-Spat2011;textual}{pcds}).
 #'
 #' @param p A 2D point whose PE proximity region is to be computed.
-#' @param r A positive real number which serves as the expansion parameter in PE proximity region;
+#' @param r A positive real number which serves
+#' as the expansion parameter in PE proximity region;
 #' must be \eqn{\ge 1}.
-#' @param tri A \eqn{3 \times 2} matrix with each row representing a vertex of the triangle.
-#' @param M A 2D point in Cartesian coordinates or a 3D point in barycentric coordinates
-#' which serves as a center in the interior of the triangle \code{tri} or the circumcenter of \code{tri}
+#' @param tri A \eqn{3 \times 2} matrix with each row
+#' representing a vertex of the triangle.
+#' @param M A 2D point in Cartesian coordinates
+#' or a 3D point in barycentric coordinates
+#' which serves as a center in the interior of the triangle \code{tri}
+#' or the circumcenter of \code{tri}
 #' which may be entered as "CC" as well;
-#' default is \eqn{M=(1,1,1)} i.e., the center of mass of \code{tri}.
-#' @param rv Index of the \code{M}-vertex region containing the point \code{p}, either \code{1,2,3} or \code{NULL}
+#' default is \eqn{M=(1,1,1)}, i.e., the center of mass of \code{tri}.
+#' @param rv Index of the \code{M}-vertex region
+#' containing the point \code{p}, either \code{1,2,3} or \code{NULL}
 #' (default is \code{NULL}).
 #'
-#' @return Vertices of the triangular region which constitutes the PE proximity region with expansion parameter
+#' @return Vertices of the triangular region
+#' which constitutes the PE proximity region with expansion parameter
 #' \code{r} and center \code{M} for a point \code{p}
 #'
-#' @seealso \code{\link{NPEbas.tri}}, \code{\link{NAStri}}, \code{\link{NCStri}}
-#' and \code{\link{IndNPEtri}}
+#' @seealso \code{\link{NPEbasic.tri}}, \code{\link{NAStri}},
+#' \code{\link{NCStri}}, and \code{\link{IarcPEtri}}
 #'
 #' @references
 #' \insertAllCited{}
@@ -1140,7 +1379,7 @@ Gam2PEbas.tri <- function(p1,p2,Xp,r,c1,c2,M=c(1,1,1),rv1=NULL,rv2=NULL,ch.data.
 #' NPEtri(P2,Tr,r,M)
 #'
 #' #or try
-#' Rv<-rv.tri.cent(P1,Tr,M)$rv
+#' Rv<-rel.vert.tri(P1,Tr,M)$rv
 #' NPEtri(P1,Tr,r,M,Rv)
 #' }
 #'
@@ -1157,30 +1396,33 @@ NPEtri <- function(p,tri,r,M=c(1,1,1),rv=NULL)
   vec1<-rep(1,3);
   D0<-det(matrix(cbind(tri,vec1),ncol=3))
   if (round(D0,14)==0)
-  {stop('the triangle is degenerate')}
+  {stop('The triangle is degenerate')}
 
   if (!is.point(r,1) || r<1)
   {stop('r must be a scalar >= 1')}
 
   if (!(is.point(M) || is.point(M,3) || identical(M,"CC")))
-  {stop('M must be a numeric 2D point for Cartesian coordinates or 3D point for barycentric coordinates
-          or the circumcenter "CC" ')}
+  {stop('M must be a numeric 2D point for Cartesian coordinates or
+  3D point for barycentric coordinates or the circumcenter "CC" ')}
 
-  CC = circ.cent.tri(tri)
+  CC = circumcenter.tri(tri)
   if (identical(M,"CC") )
   { M<-CC }
 
   if (dimension(M)==3)
   {M<-bary2cart(M,tri)}
 
-  if (!(isTRUE(all.equal(M,CC)) || in.triangle(M,tri,boundary=FALSE)$in.tri))
-  {stop('center is not the circumcenter or not in the interior of the triangle')}
+  if (!(isTRUE(all.equal(M,CC)) ||
+        in.triangle(M,tri,boundary=FALSE)$in.tri))
+  {stop('center is not the circumcenter or
+        not in the interior of the triangle')}
 
   if (!in.triangle(p,tri,boundary=TRUE)$in.tri)
   {reg<-NULL; return(reg); stop}
 
   if (is.null(rv))
-  { rv<-ifelse(isTRUE(all.equal(M,CC)),rv.triCC(p,tri)$rv,rv.tri.cent(p,tri,M)$rv)  #vertex region for p
+  { rv<-ifelse(isTRUE(all.equal(M,CC)),rel.vert.triCC(p,tri)$rv,
+               rel.vert.tri(p,tri,M)$rv)  #vertex region for p
   } else
   {  if (!is.numeric(rv) || sum(rv==c(1,2,3))!=1)
   {stop('vertex index, rv, must be 1, 2 or 3')}}
@@ -1223,40 +1465,64 @@ NPEtri <- function(p,tri,r,M=c(1,1,1),rv=NULL)
 
 #################################################################
 
-#' @title The indicator for the presence of an arc from a point to another for Proportional Edge Proximity
-#' Catch Digraphs (PE-PCDs) - one triangle case
+#' @title The indicator for the presence of an arc from a point to another
+#' for Proportional Edge Proximity Catch Digraphs (PE-PCDs) -
+#' one triangle case
 #'
-#' @description Returns \eqn{I(}\code{p2} is in \eqn{N_{PE}(p1,r))} for points \code{p1} and \code{p2}, that is, returns 1 if \code{p2} is in \eqn{N_{PE}(p1,r)},
-#' returns 0 otherwise, where \eqn{N_{PE}(x,r)} is the PE proximity region for point \eqn{x} with the expansion parameter \eqn{r \ge 1}.
+#' @description Returns \eqn{I(}\code{p2} is in \eqn{N_{PE}(p1,r))}
+#' for points \code{p1} and \code{p2},
+#' that is, returns 1 if \code{p2} is in \eqn{N_{PE}(p1,r)},
+#' and returns 0 otherwise,
+#' where \eqn{N_{PE}(x,r)} is the PE proximity region for point \eqn{x}
+#' with the expansion parameter \eqn{r \ge 1}.
 #'
-#' PE proximity region is constructed with respect to the triangle \code{tri} and
-#' vertex regions are based on the center, \eqn{M=(m_1,m_2)} in Cartesian coordinates or
-#' \eqn{M=(\alpha,\beta,\gamma)} in barycentric coordinates in the interior of \code{tri}
-#' or based on the circumcenter of \code{tri}; default is \eqn{M=(1,1,1)} i.e., the center of mass of \code{tri}.
-#' \code{rv} is the index of the vertex region \code{p1} resides, with default=\code{NULL}.
+#' PE proximity region is constructed
+#' with respect to the triangle \code{tri} and
+#' vertex regions are based on the center, \eqn{M=(m_1,m_2)}
+#' in Cartesian coordinates or
+#' \eqn{M=(\alpha,\beta,\gamma)} in barycentric coordinates
+#' in the interior of \code{tri}
+#' or based on the circumcenter of \code{tri};
+#' default is \eqn{M=(1,1,1)}, i.e.,
+#' the center of mass of \code{tri}.
+#' \code{rv} is the index of the vertex region \code{p1} resides,
+#' with default=\code{NULL}.
 #'
-#' If \code{p1} and \code{p2} are distinct and either of them are outside \code{tri}, it returns 0,
-#' but if they are identical, then it returns 1 regardless of their locations (i.e., it allows loops).
+#' If \code{p1} and \code{p2} are distinct
+#' and either of them are outside \code{tri}, it returns 0,
+#' but if they are identical,
+#' then it returns 1 regardless of their locations
+#' (i.e., it allows loops).
 #'
 #' See also (\insertCite{ceyhan:Phd-thesis,ceyhan:arc-density-PE,ceyhan:dom-num-NPE-Spat2011;textual}{pcds}).
 #'
 #' @param p1 A 2D point whose PE proximity region is constructed.
-#' @param p2 A 2D point. The function determines whether \code{p2} is inside the PE proximity region of
+#' @param p2 A 2D point.
+#' The function determines whether \code{p2} is
+#' inside the PE proximity region of
 #' \code{p1} or not.
-#' @param r A positive real number which serves as the expansion parameter in PE proximity region;
+#' @param r A positive real number
+#' which serves as the expansion parameter in PE proximity region;
 #' must be \eqn{\ge 1}.
-#' @param tri A \eqn{3 \times 2} matrix with each row representing a vertex of the triangle.
-#' @param M A 2D point in Cartesian coordinates or a 3D point in barycentric coordinates
-#' which serves as a center in the interior of the triangle \code{tri} or the circumcenter of \code{tri}
+#' @param tri A \eqn{3 \times 2} matrix with each row
+#' representing a vertex of the triangle.
+#' @param M A 2D point in Cartesian coordinates
+#' or a 3D point in barycentric coordinates
+#' which serves as a center in the interior of the triangle \code{tri}
+#' or the circumcenter of \code{tri}
 #' which may be entered as "CC" as well;
-#' default is \eqn{M=(1,1,1)} i.e., the center of mass of \code{tri}.
-#' @param rv Index of the \code{M}-vertex region containing the point, either \code{1,2,3} or \code{NULL}
+#' default is \eqn{M=(1,1,1)}, i.e., the center of mass of \code{tri}.
+#' @param rv Index of the \code{M}-vertex region containing the point,
+#' either \code{1,2,3} or \code{NULL}
 #' (default is \code{NULL}).
 #'
-#' @return \eqn{I(}\code{p2} is in \eqn{N_{PE}(p1,r))} for points \code{p1} and \code{p2}, that is, returns 1 if \code{p2} is in \eqn{N_{PE}(p1,r)},
-#' returns 0 otherwise
+#' @return \eqn{I(}\code{p2} is in \eqn{N_{PE}(p1,r))}
+#' for points \code{p1} and \code{p2},
+#' that is, returns 1 if \code{p2} is in \eqn{N_{PE}(p1,r)},
+#' and returns 0 otherwise.
 #'
-#' @seealso \code{\link{IndNPEbas.tri}}, \code{\link{IndNPETe}}, \code{\link{IndNAStri}}, and \code{\link{IndNCStri}}
+#' @seealso \code{\link{IarcPEbasic.tri}}, \code{\link{IarcPEstd.tri}},
+#' \code{\link{IarcAStri}}, and \code{\link{IarcCStri}}
 #'
 #' @references
 #' \insertAllCited{}
@@ -1276,27 +1542,27 @@ NPEtri <- function(p,tri,r,M=c(1,1,1),rv=NULL)
 #' set.seed(1)
 #' Xp<-runif.tri(n,Tr)$g
 #'
-#' IndNPEtri(Xp[1,],Xp[2,],Tr,r,M)
+#' IarcPEtri(Xp[1,],Xp[2,],Tr,r,M)
 #'
 #' P1<-as.numeric(runif.tri(1,Tr)$g)
 #' P2<-as.numeric(runif.tri(1,Tr)$g)
-#' IndNPEtri(P1,P2,Tr,r,M)
+#' IarcPEtri(P1,P2,Tr,r,M)
 #'
 #' P1<-c(.4,.2)
 #' P2<-c(1.8,.5)
-#' IndNPEtri(P1,P2,Tr,r,M)
-#' IndNPEtri(P2,P1,Tr,r,M)
+#' IarcPEtri(P1,P2,Tr,r,M)
+#' IarcPEtri(P2,P1,Tr,r,M)
 #'
 #' M<-c(1.3,1.3)
 #' r<-2
 #'
 #' #or try
-#' Rv<-rv.tri.cent(P1,Tr,M)$rv
-#' IndNPEtri(P1,P2,Tr,r,M,Rv)
+#' Rv<-rel.vert.tri(P1,Tr,M)$rv
+#' IarcPEtri(P1,P2,Tr,r,M,Rv)
 #' }
 #'
-#' @export IndNPEtri
-IndNPEtri <- function(p1,p2,tri,r,M=c(1,1,1),rv=NULL)
+#' @export IarcPEtri
+IarcPEtri <- function(p1,p2,tri,r,M=c(1,1,1),rv=NULL)
 {
   if (!is.point(p1) || !is.point(p2))
   {stop('p1 and p2 must be numeric 2D points')}
@@ -1308,39 +1574,44 @@ IndNPEtri <- function(p1,p2,tri,r,M=c(1,1,1),rv=NULL)
   vec1<-rep(1,3);
   D0<-det(matrix(cbind(tri,vec1),ncol=3))
   if (round(D0,14)==0)
-  {stop('the triangle is degenerate')}
+  {stop('The triangle is degenerate')}
 
   if (!is.point(r,1) || r<1)
   {stop('r must be a scalar >= 1')}
 
   if (!(is.point(M) || is.point(M,3) || identical(M,"CC")))
-  {stop('M must be a numeric 2D point for Cartesian coordinates or 3D point for barycentric coordinates
-          or the circumcenter "CC" ')}
+  {stop('M must be a numeric 2D point for Cartesian coordinates or
+  3D point for barycentric coordinates or the circumcenter "CC" ')}
 
-  CC = circ.cent.tri(tri)
+  CC = circumcenter.tri(tri)
   if (identical(M,"CC") )
   { M<-CC }
 
   if (dimension(M)==3)
   {M<-bary2cart(M,tri)}
 
-  if (!(isTRUE(all.equal(M,CC)) || in.triangle(M,tri,boundary=FALSE)$in.tri))
-  {stop('center is not the circumcenter or not in the interior of the triangle')}
+  if (!(isTRUE(all.equal(M,CC)) ||
+        in.triangle(M,tri,boundary=FALSE)$in.tri))
+  {stop('center is not the circumcenter or
+        not in the interior of the triangle')}
 
   if (isTRUE(all.equal(p1,p2)))
   {arc<-1; return(arc); stop}
 
-  if (!in.triangle(p1,tri,boundary=TRUE)$in.tri || !in.triangle(p2,tri,boundary=TRUE)$in.tri)
+  if (!in.triangle(p1,tri,boundary=TRUE)$in.tri ||
+      !in.triangle(p2,tri,boundary=TRUE)$in.tri)
   {arc<-0; return(arc); stop}
 
   if (is.null(rv))
-  { rv<-ifelse(isTRUE(all.equal(M,CC)),rv.triCC(p1,tri)$rv,rv.tri.cent(p1,tri,M)$rv)  #vertex region for p1
+  { rv<-ifelse(isTRUE(all.equal(M,CC)),rel.vert.triCC(p1,tri)$rv,
+               rel.vert.tri(p1,tri,M)$rv)  #vertex region for p1
   } else
   {  if (!is.numeric(rv) || sum(rv==c(1,2,3))!=1)
   {stop('vertex index, rv, must be 1, 2 or 3')}}
 
   pr<-NPEtri(p1,tri,r,M,rv)  #proximity region
-  arc<-ifelse(area.polygon(pr)==0,0,sum(in.triangle(p2,pr,boundary=TRUE)$in.tri))
+  arc<-ifelse(area.polygon(pr)==0,0,
+              sum(in.triangle(p2,pr,boundary=TRUE)$in.tri))
 
   arc
 } #end of the function
@@ -1348,37 +1619,62 @@ IndNPEtri <- function(p1,p2,tri,r,M=c(1,1,1),rv=NULL)
 
 #################################################################
 
-#' @title Number of arcs of Proportional Edge Proximity Catch Digraphs (PE-PCDs) - one triangle case
+#' @title Number of arcs of Proportional Edge Proximity Catch Digraphs (PE-PCDs)
+#' and quantities related to the triangle - one triangle case
 #'
-#' @description Returns the number of arcs of Proportional Edge Proximity Catch Digraphs (PE-PCDs) whose vertices are the
-#' given 2D numerical data set, \code{Xp}. It also provides number of vertices (i.e., number of data points inside the triangle)
+#' @description
+#' An object of class \code{"NumArcs"}.
+#' Returns the number of arcs of
+#' Proportional Edge Proximity Catch Digraphs (PE-PCDs)
+#' whose vertices are the
+#' given 2D numerical data set, \code{Xp}.
+#' It also provides number of vertices
+#' (i.e., number of data points inside the triangle)
 #' and indices of the data points that reside in the triangle.
 #'
-#' PE proximity region \eqn{N_{PE}(x,r)} is defined with respect to the triangle, \code{tri}
-#' for this function. PE proximity region is constructed with expansion parameter \eqn{r \ge 1} and vertex regions are
-#' based on the center \eqn{M=(m_1,m_2)} in Cartesian coordinates or \eqn{M=(\alpha,\beta,\gamma)} in barycentric coordinates
-#' in the interior of the triangle \code{tri} or based on circumcenter of \code{tri}; default is \eqn{M=(1,1,1)} i.e., the center
-#' of mass of \code{tri}. For the number of arcs, loops are not
-#' allowed so arcs are only possible for points inside the triangle \code{tri} for this function.
+#' PE proximity region \eqn{N_{PE}(x,r)} is defined
+#' with respect to the triangle, \code{tri}
+#' with expansion parameter \eqn{r \ge 1} and vertex regions are
+#' based on the center \eqn{M=(m_1,m_2)} in Cartesian coordinates
+#' or \eqn{M=(\alpha,\beta,\gamma)} in barycentric coordinates
+#' in the interior of the triangle \code{tri} or
+#' based on circumcenter of \code{tri};
+#' default is \eqn{M=(1,1,1)}, i.e.,
+#' the center of mass of \code{tri}.
+#' For the number of arcs, loops are not
+#' allowed so arcs are only possible for points
+#' inside the triangle \code{tri} for this function.
 #'
-#' See also (\insertCite{ceyhan:Phd-thesis,ceyhan:arc-density-PE;textual}{pcds}).
+#' See also (\insertCite{ceyhan:Phd-thesis,ceyhan:stamet2016;textual}{pcds}).
 #'
-#' @param Xp A set of 2D points which constitute the vertices of PE-PCD.
-#' @param tri A \eqn{3 \times 2} matrix with each row representing a vertex of the triangle.
-#' @param r A positive real number which serves as the expansion parameter in PE proximity region;
+#' @param Xp A set of 2D points
+#' which constitute the vertices of PE-PCD.
+#' @param tri A \eqn{3 \times 2} matrix with each row
+#' representing a vertex of the triangle.
+#' @param r A positive real number
+#' which serves as the expansion parameter in PE proximity region;
 #' must be \eqn{\ge 1}.
-#' @param M A 2D point in Cartesian coordinates or a 3D point in barycentric coordinates
-#' which serves as a center in the interior of the triangle \code{tri} or the circumcenter of \code{tri}
+#' @param M A 2D point in Cartesian coordinates
+#' or a 3D point in barycentric coordinates
+#' which serves as a center in the interior of the triangle \code{tri}
+#' or the circumcenter of \code{tri}
 #' which may be entered as "CC" as well;
-#' default is \eqn{M=(1,1,1)} i.e., the center of mass of \code{tri}.
+#' default is \eqn{M=(1,1,1)}, i.e.,
+#' the center of mass of \code{tri}.
 #'
 #' @return A \code{list} with the elements
+#' \item{desc}{A short description of the output: number of arcs
+#' and quantities related to the triangle}
 #' \item{num.arcs}{Number of arcs of the PE-PCD}
 #' \item{num.in.tri}{Number of \code{Xp} points in the triangle, \code{tri}}
-#' \item{ind.in.tri}{The vector of indices of the \code{Xp} points that reside in the triangle}
+#' \item{ind.in.tri}{The vector of indices of the \code{Xp} points
+#' that reside in the triangle}
+#' \item{tess.points}{Points on which the tessellation of the study region is performed, here, tessellation
+#' is the support triangle.}
+#' \item{vertices}{Vertices of the digraph, \code{Xp}.}
 #'
-#' @seealso \code{\link{NumArcsPETe}}, \code{\link{NumArcsPE}}, \code{\link{NumArcsCStri}},
-#' and \code{\link{NumArcsAStri}}
+#' @seealso \code{\link{num.arcsPEstd.tri}}, \code{\link{num.arcsPE}},
+#' \code{\link{num.arcsCStri}}, and \code{\link{num.arcsAStri}}
 #'
 #' @references
 #' \insertAllCited{}
@@ -1396,12 +1692,14 @@ IndNPEtri <- function(p1,p2,tri,r,M=c(1,1,1),rv=NULL)
 #'
 #' M<-as.numeric(runif.tri(1,Tr)$g)  #try also M<-c(1.6,1.0)
 #'
-#' NumArcsPEtri(Xp,Tr,r=1.25,M)
-#' NumArcsPEtri(Xp,Tr,r=1.5,M)
+#' Narcs = num.arcsPEtri(Xp,Tr,r=1.25,M)
+#' Narcs
+#' summary(Narcs)
+#' plot(Narcs)
 #' }
 #'
-#' @export NumArcsPEtri
-NumArcsPEtri <- function(Xp,tri,r,M=c(1,1,1))
+#' @export num.arcsPEtri
+num.arcsPEtri <- function(Xp,tri,r,M=c(1,1,1))
 {
   if (!is.numeric(as.matrix(Xp)))
   {stop('Xp must be numeric')}
@@ -1421,24 +1719,26 @@ NumArcsPEtri <- function(Xp,tri,r,M=c(1,1,1))
   vec1<-rep(1,3);
   D0<-det(matrix(cbind(tri,vec1),ncol=3))
   if (round(D0,14)==0)
-  {stop('the triangle is degenerate')}
+  {stop('The triangle is degenerate')}
 
   if (!is.point(r,1) || r<1)
   {stop('r must be a scalar >= 1')}
 
   if (!(is.point(M) || is.point(M,3) || identical(M,"CC")))
-  {stop('M must be a numeric 2D point for Cartesian coordinates or 3D point for barycentric coordinates
-          or the circumcenter "CC" ')}
+  {stop('M must be a numeric 2D point for Cartesian coordinates or
+  3D point for barycentric coordinates or the circumcenter "CC" ')}
 
-  CC = circ.cent.tri(tri)
+  CC = circumcenter.tri(tri)
   if (identical(M,"CC") )
   { M<-CC }
 
   if (dimension(M)==3)
   {M<-bary2cart(M,tri)}
 
-  if (!(isTRUE(all.equal(M,CC)) || in.triangle(M,tri,boundary=FALSE)$in.tri))
-  {stop('center is not the circumcenter or not in the interior of the triangle')}
+  if (!(isTRUE(all.equal(M,CC)) ||
+        in.triangle(M,tri,boundary=FALSE)$in.tri))
+  {stop('center is not the circumcenter or
+        not in the interior of the triangle')}
 
   n<-nrow(Xp)
   arcs<-0
@@ -1451,21 +1751,31 @@ NumArcsPEtri <- function(Xp,tri,r,M=c(1,1,1))
     for (i in 1:n)
     {
       if (in.triangle(Xp[i,],tri,boundary=TRUE)$in.tri)
-      {  vert<-ifelse(isTRUE(all.equal(M,CC)),rv.triCC(Xp[i,],tri)$rv,rv.tri.cent(Xp[i,],tri,M)$rv)
+      {  vert<-ifelse(isTRUE(all.equal(M,CC)),
+                      rel.vert.triCC(Xp[i,],tri)$rv,
+                      rel.vert.tri(Xp[i,],tri,M)$rv)
       ind.in.tri = c(ind.in.tri,i)
       for (j in (1:n)[-i])  #to avoid loops
       {
-        arcs<-arcs+IndNPEtri(Xp[i,],Xp[j,],tri,r,M,rv=vert)
+        arcs<-arcs+IarcPEtri(Xp[i,],Xp[j,],tri,r,M,rv=vert)
       }
       }
     }
   }
 
   NinTri = length(ind.in.tri)
+  desc<-"Number of Arcs of the PE-PCD with vertices Xp and Quantities Related to the Support Triangle"
 
-  res<-list(num.arcs=arcs, #number of arcs for the PE-PCD
+  res<-list(desc=desc, #description of the output
+            num.arcs=arcs, #number of arcs for the AS-PCD
             num.in.tri=NinTri, # number of Xp points in CH of Yp points
-            ind.in.tri=ind.in.tri) #indices of data points inside the triangle
+            ind.in.tri=ind.in.tri, #indices of data points inside the triangle
+            tess.points=tri, #tessellation points
+            vertices=Xp #vertices of the digraph
+  )
+
+  class(res)<-"NumArcs"
+  res$call <-match.call()
 
   res
 } #end of the function
@@ -1473,46 +1783,69 @@ NumArcsPEtri <- function(Xp,tri,r,M=c(1,1,1))
 
 #################################################################
 
-#' @title Arc density of Proportional Edge Proximity Catch Digraphs (PE-PCDs) - one triangle case
+#' @title Arc density of Proportional Edge Proximity Catch Digraphs
+#' (PE-PCDs) - one triangle case
 #'
-#' @description Returns the arc density of PE-PCD whose vertex set is the given 2D numerical data set, \code{Xp},
+#' @description Returns the arc density of PE-PCD
+#' whose vertex set is the given 2D numerical data set, \code{Xp},
 #' (some of its members are) in the triangle \code{tri}.
 #'
 #' PE proximity regions is defined with respect to \code{tri} with
-#' expansion parameter \eqn{r \ge 1} and vertex regions are based on center \eqn{M=(m_1,m_2)} in Cartesian coordinates or
-#' \eqn{M=(\alpha,\beta,\gamma)} in barycentric coordinates in the interior of the triangle \code{tri} or based on
-#' circumcenter of \code{tri}; default is \eqn{M=(1,1,1)} i.e., the center of mass of \code{tri}.
-#' The function also provides arc density standardized by the mean and asymptotic variance of the arc density
+#' expansion parameter \eqn{r \ge 1} and vertex regions are
+#' based on center \eqn{M=(m_1,m_2)} in Cartesian coordinates or
+#' \eqn{M=(\alpha,\beta,\gamma)} in barycentric coordinates
+#' in the interior of the triangle \code{tri} or based on
+#' circumcenter of \code{tri}; default is \eqn{M=(1,1,1)}, i.e.,
+#' the center of mass of \code{tri}.
+#' The function also provides arc density standardized
+#' by the mean and asymptotic variance of the arc density
 #' of PE-PCD for uniform data in the triangle \code{tri}
-#' only when \code{M} is the center of mass. For the number of arcs, loops are not allowed.
+#' only when \code{M} is the center of mass.
+#' For the number of arcs, loops are not allowed.
 #'
-#' \code{tri.cor} is a logical argument for triangle correction (default is \code{TRUE}), if \code{TRUE}, only the points
-#' inside the triangle are considered (i.e., digraph induced by these vertices are considered) in computing
-#' the arc density, otherwise all points are considered (for the number of vertices in the denominator of arc
-#' density).
+#' \code{tri.cor} is a logical argument for triangle correction
+#' (default is \code{TRUE}),
+#' if \code{TRUE}, only the points
+#' inside the triangle are considered
+#' (i.e., digraph induced by these vertices are considered) in computing
+#' the arc density, otherwise all points are considered
+#' (for the number of vertices in the denominator of arc density).
 #'
 #' See also (\insertCite{ceyhan:Phd-thesis,ceyhan:arc-density-PE;textual}{pcds}).
 #'
-#' @param Xp A set of 2D points which constitute the vertices of the PE-PCD.
-#' @param tri A \eqn{3 \times 2} matrix with each row representing a vertex of the triangle.
-#' @param r A positive real number which serves as the expansion parameter in PE proximity region;
+#' @param Xp A set of 2D points
+#' which constitute the vertices of the PE-PCD.
+#' @param tri A \eqn{3 \times 2} matrix with each row
+#' representing a vertex of the triangle.
+#' @param r A positive real number
+#' which serves as the expansion parameter in PE proximity region;
 #' must be \eqn{\ge 1}.
-#' @param M A 2D point in Cartesian coordinates or a 3D point in barycentric coordinates
-#' which serves as a center in the interior of the triangle \code{tri} or the circumcenter of \code{tri}
+#' @param M A 2D point in Cartesian coordinates
+#' or a 3D point in barycentric coordinates
+#' which serves as a center in the interior of the triangle \code{tri}
+#' or the circumcenter of \code{tri}
 #' which may be entered as "CC" as well;
-#' default is \eqn{M=(1,1,1)} i.e., the center of mass of \code{tri}.
-#' @param tri.cor A logical argument for computing the arc density for only the points inside the triangle,
+#' default is \eqn{M=(1,1,1)}, i.e., the center of mass of \code{tri}.
+#' @param tri.cor A logical argument
+#' for computing the arc density for only the points inside the triangle,
 #' \code{tri}.
-#' (default is \code{tri.cor=FALSE}), i.e., if \code{tri.cor=TRUE} only the induced digraph with the vertices inside \code{tri} are considered in the
+#' (default is \code{tri.cor=FALSE}), i.e.,
+#' if \code{tri.cor=TRUE} only the induced digraph with the vertices
+#' inside \code{tri} are considered in the
 #' computation of arc density.
 #'
 #' @return A \code{list} with the elements
-#' \item{arc.dens}{Arc density of PE-PCD whose vertices are the 2D numerical data set, \code{Xp};
-#' PE proximity regions are defined with respect to the triangle \code{tri} and \code{M}-vertex regions}
-#' \item{std.arc.dens}{Arc density standardized by the mean and asymptotic variance of the arc
-#' density of PE-PCD for uniform data in the triangle \code{tri}. This will only be returned if \code{M} is the center of mass.}
+#' \item{arc.dens}{Arc density of PE-PCD
+#' whose vertices are the 2D numerical data set, \code{Xp};
+#' PE proximity regions are defined
+#' with respect to the triangle \code{tri} and \code{M}-vertex regions}
+#' \item{std.arc.dens}{Arc density standardized
+#' by the mean and asymptotic variance of the arc
+#' density of PE-PCD for uniform data in the triangle \code{tri}.
+#' This will only be returned, if \code{M} is the center of mass.}
 #'
-#' @seealso \code{\link{ASarcdens.tri}}, \code{\link{CSarcdens.tri}}, and \code{\link{NumArcsPEtri}}
+#' @seealso \code{\link{ASarc.dens.tri}}, \code{\link{CSarc.dens.tri}},
+#' and \code{\link{num.arcsPEtri}}
 #'
 #' @references
 #' \insertAllCited{}
@@ -1530,13 +1863,13 @@ NumArcsPEtri <- function(Xp,tri,r,M=c(1,1,1))
 #'
 #' M<-as.numeric(runif.tri(1,Tr)$g)  #try also M<-c(1.6,1.0)
 #'
-#' NumArcsPEtri(Xp,Tr,r=1.5,M)
-#' PEarcdens.tri(Xp,Tr,r=1.5,M)
-#' PEarcdens.tri(Xp,Tr,r=1.5,M,tri.cor = FALSE)
+#' num.arcsPEtri(Xp,Tr,r=1.5,M)
+#' PEarc.dens.tri(Xp,Tr,r=1.5,M)
+#' PEarc.dens.tri(Xp,Tr,r=1.5,M,tri.cor = TRUE)
 #' }
 #'
-#' @export PEarcdens.tri
-PEarcdens.tri <- function(Xp,tri,r,M=c(1,1,1),tri.cor=FALSE)
+#' @export PEarc.dens.tri
+PEarc.dens.tri <- function(Xp,tri,r,M=c(1,1,1),tri.cor=FALSE)
 {
   if (!is.numeric(as.matrix(Xp)) )
   {stop('Xp must be numeric')}
@@ -1556,28 +1889,30 @@ PEarcdens.tri <- function(Xp,tri,r,M=c(1,1,1),tri.cor=FALSE)
   vec1<-rep(1,3);
   D0<-det(matrix(cbind(tri,vec1),ncol=3))
   if (round(D0,14)==0)
-  {stop('the triangle is degenerate')}
+  {stop('The triangle is degenerate')}
 
   if (!is.point(r,1) || r<1)
   {stop('r must be a scalar >= 1')}
 
   if (!(is.point(M) || is.point(M,3) || identical(M,"CC")))
-  {stop('M must be a numeric 2D point for Cartesian coordinates or 3D point for barycentric coordinates
-          or the circumcenter "CC" ')}
+  {stop('M must be a numeric 2D point for Cartesian coordinates or
+  3D point for barycentric coordinates or the circumcenter "CC" ')}
 
-  CC = circ.cent.tri(tri)
+  CC = circumcenter.tri(tri)
   if (identical(M,"CC") )
   { M<-CC }
 
   if (dimension(M)==3)
   {M<-bary2cart(M,tri)}
 
-  if (!(isTRUE(all.equal(M,CC)) || in.triangle(M,tri,boundary=FALSE)$in.tri))
-  {stop('center is not the circumcenter or not in the interior of the triangle')}
+  if (!(isTRUE(all.equal(M,CC)) ||
+        in.triangle(M,tri,boundary=FALSE)$in.tri))
+  {stop('center is not the circumcenter or
+        not in the interior of the triangle')}
 
   nx<-nrow(Xp)
 
-  narcs<-NumArcsPEtri(Xp,tri,r,M)$num.arcs
+  narcs<-num.arcsPEtri(Xp,tri,r,M)$num.arcs
   mean.rho<-muPE2D(r)
   var.rho<-asyvarPE2D(r)
 
@@ -1591,7 +1926,8 @@ PEarcdens.tri <- function(Xp,tri,r,M=c(1,1,1),tri.cor=FALSE)
     dat.it<-Xp[ind.it,] #Xp points inside the triangle
     NinTri<-nrow(dat.it)
     if (NinTri<=1)
-    {stop('There are not enough Xp points in the triangle, tri, to compute the arc density!')}
+    {stop('There are not enough Xp points in the triangle, tri,
+          to compute the arc density!')}
     n<-NinTri
   } else
   {
@@ -1614,49 +1950,85 @@ PEarcdens.tri <- function(Xp,tri,r,M=c(1,1,1),tri.cor=FALSE)
 
 #################################################################
 
-#' @title Number of arcs and related quantities of Proportional Edge Proximity Catch Digraphs (PE-PCDs) - multiple triangle case
+#' @title Number of arcs of Proportional Edge Proximity Catch Digraphs (PE-PCDs)
+#' and related quantities of the induced subdigraphs for points in the Delaunay triangles -
+#' multiple triangle case
 #'
-#' @description Returns the number of arcs and various other quantities, vectors, and lists for Proportional Edge Proximity Catch Digraph
-#' (PE-PCD) whose vertices are the data points in \code{Xp} in the multiple triangle case.
+#' @description
+#' An object of class \code{"NumArcs"}.
+#' Returns the number of arcs and various other quantities related to the Delaunay triangles
+#' for Proportional Edge Proximity Catch Digraph
+#' (PE-PCD) whose vertices are the data points in \code{Xp}
+#' in the multiple triangle case.
 #'
 #' PE proximity regions are defined with respect to the
-#' Delaunay triangles based on \code{Yp} points with expansion parameter \eqn{r \ge 1} and vertex regions in each triangle
-#' is based on the center \eqn{M=(\alpha,\beta,\gamma)} in barycentric coordinates in the interior of each
-#' Delaunay triangle or based on circumcenter of each Delaunay triangle (default for \eqn{M=(1,1,1)}
+#' Delaunay triangles based on \code{Yp} points
+#' with expansion parameter \eqn{r \ge 1}
+#' and vertex regions in each triangle
+#' is based on the center \eqn{M=(\alpha,\beta,\gamma)}
+#' in barycentric coordinates in the interior of each
+#' Delaunay triangle or based on circumcenter of each Delaunay triangle
+#' (default for \eqn{M=(1,1,1)}
 #' which is the center of mass of the triangle).
-#' Each Delaunay triangle is first converted to an (nonscaled) basic triangle so that \code{M} will be the same
-#' type of center for each Delaunay triangle (this conversion is not necessary when \code{M} is \eqn{CM}).
+#' Each Delaunay triangle is first converted to
+#' an (nonscaled) basic triangle so that \code{M} will be the same
+#' type of center for each Delaunay triangle
+#' (this conversion is not necessary when \code{M} is \eqn{CM}).
 #'
-#' Convex hull of \code{Yp} is partitioned by the Delaunay triangles based on \code{Yp} points
-#' (i.e., multiple triangles are the set of these Delaunay triangles whose union constitutes the
-#' convex hull of \code{Yp} points). For the number of arcs, loops are not allowed so arcs are only possible
+#' Convex hull of \code{Yp} is partitioned
+#' by the Delaunay triangles based on \code{Yp} points
+#' (i.e., multiple triangles are the set of these Delaunay triangles
+#' whose union constitutes the
+#' convex hull of \code{Yp} points). For the number of arcs,
+#' loops are not allowed so arcs are only possible
 #' for points inside the convex hull of \code{Yp} points.
 #'
-#' See (\insertCite{ceyhan:Phd-thesis,ceyhan:arc-density-PE;textual}{pcds}) for more on PE-PCDs.
-#' Also see (\insertCite{okabe:2000,ceyhan:comp-geo-2010,sinclair:2016;textual}{pcds}) for more on Delaunay triangulation and the corresponding algorithm.
+#' See (\insertCite{ceyhan:Phd-thesis,ceyhan:arc-density-PE;textual}{pcds})
+#' for more on PE-PCDs.
+#' Also, see (\insertCite{okabe:2000,ceyhan:comp-geo-2010,sinclair:2016;textual}{pcds})
+#' for more on Delaunay triangulation and the corresponding algorithm.
 #'
-#' @param Xp A set of 2D points which constitute the vertices of the PE-PCD.
-#' @param Yp A set of 2D points which constitute the vertices of the Delaunay triangles.
-#' @param r A positive real number which serves as the expansion parameter in PE proximity region;
+#' @param Xp A set of 2D points
+#' which constitute the vertices of the PE-PCD.
+#' @param Yp A set of 2D points
+#' which constitute the vertices of the Delaunay triangles.
+#' @param r A positive real number
+#' which serves as the expansion parameter in PE proximity region;
 #' must be \eqn{\ge 1}.
-#' @param M A 3D point in barycentric coordinates which serves as a center in the interior of each Delaunay
-#' triangle or circumcenter of each Delaunay triangle (for this, argument should be set as \code{M="CC"}),
-#' default for \eqn{M=(1,1,1)} which is the center of mass of each triangle.
+#' @param M A 3D point in barycentric coordinates
+#' which serves as a center in the interior of each Delaunay
+#' triangle or circumcenter of each Delaunay triangle
+#' (for this, argument should be set as \code{M="CC"}),
+#' default for \eqn{M=(1,1,1)}
+#' which is the center of mass of each triangle.
 #'
 #' @return A \code{list} with the elements
-#' \item{num.arcs}{Total number of arcs in all triangles, i.e., the number of arcs for the entire PE-PCD}
-#' \item{num.in.conhull}{Number of \code{Xp} points in the convex hull of \code{Yp} points}
-#' \item{num.in.tris}{The vector of number of \code{Xp} points in the Delaunay triangles based on \code{Yp} points}
-#' \item{weight.vec}{The \code{vector} of the areas of Delaunay triangles based on \code{Yp} points}
-#' \item{tri.num.arcs}{The \code{vector} of the number of arcs of the component of the PE-PCD in the
+#' \item{desc}{A short description of the output: number of arcs
+#' and related quantities for the induced subdigraphs in the Delaunay triangles}
+#' \item{num.arcs}{Total number of arcs in all triangles,
+#' i.e., the number of arcs for the entire PE-PCD}
+#' \item{num.in.conhull}{Number of \code{Xp} points
+#' in the convex hull of \code{Yp} points}
+#' \item{num.in.tris}{The vector of number of \code{Xp} points
+#' in the Delaunay triangles based on \code{Yp} points}
+#' \item{weight.vec}{The \code{vector} of the areas of
 #' Delaunay triangles based on \code{Yp} points}
-#' \item{del.tri.ind}{A matrix of indices of vertices of the Delaunay triangles based on \code{Yp} points,
-#' each column corresponds to the vector of indices of the vertices of one triangle.}
-#' \item{data.tri.ind}{A \code{vector} of indices of vertices of the Delaunay triangles in which data points reside,
+#' \item{tri.num.arcs}{The \code{vector} of the number of arcs
+#' of the component of the PE-PCD in the
+#' Delaunay triangles based on \code{Yp} points}
+#' \item{del.tri.ind}{A matrix of indices of vertices of
+#' the Delaunay triangles based on \code{Yp} points,
+#' each column corresponds to the vector of
+#' indices of the vertices of one triangle.}
+#' \item{data.tri.ind}{A \code{vector} of indices of vertices of
+#' the Delaunay triangles in which data points reside,
 #' i.e., column number of \code{del.tri.ind} for each \code{Xp} point.}
+#' \item{tess.points}{Points on which the tessellation of the study region is performed, here, tessellation
+#' is the Delaunay triangulation based on \code{Yp} points.}
+#' \item{vertices}{Vertices of the digraph, \code{Xp}.}
 #'
-#' @seealso \code{\link{NumArcsPEtri}}, \code{\link{NumArcsPETe}}, \code{\link{NumArcsCS}},
-#' and \code{\link{NumArcsAS}}
+#' @seealso \code{\link{num.arcsPEtri}}, \code{\link{num.arcsPEstd.tri}},
+#' \code{\link{num.arcsCS}}, and \code{\link{num.arcsAS}}
 #'
 #' @references
 #' \insertAllCited{}
@@ -1670,19 +2042,20 @@ PEarcdens.tri <- function(Xp,tri,r,M=c(1,1,1),tri.cor=FALSE)
 #'
 #' set.seed(1)
 #' Xp<-cbind(runif(nx),runif(nx))
-#' Yp<-cbind(runif(ny,0,.25),runif(ny,0,.25))+cbind(c(0,0,0.5,1,1),c(0,1,.5,0,1))
+#' Yp<-cbind(runif(ny,0,.25),
+#' runif(ny,0,.25))+cbind(c(0,0,0.5,1,1),c(0,1,.5,0,1))
 #' #try also Yp<-cbind(runif(ny,0,1),runif(ny,0,1))
-#'
-#' plotDeltri(Xp,Yp,xlab="",ylab="")
 #'
 #' M<-c(1,1,1)  #try also M<-c(1,2,3)
 #'
-#' NumArcsPE(Xp,Yp,r=1.25,M)
-#' NumArcsPE(Xp,Yp,r=1.5,M)
+#' Narcs = num.arcsPE(Xp,Yp,r=1.25,M)
+#' Narcs
+#' summary(Narcs)
+#' plot(Narcs)
 #' }
 #'
-#' @export NumArcsPE
-NumArcsPE <- function(Xp,Yp,r,M=c(1,1,1))
+#' @export num.arcsPE
+num.arcsPE <- function(Xp,Yp,r,M=c(1,1,1))
 {
   if (!is.numeric(as.matrix(Xp)) || !is.numeric(as.matrix(Yp)))
   {stop('Xp and Yp must be numeric')}
@@ -1703,13 +2076,15 @@ NumArcsPE <- function(Xp,Yp,r,M=c(1,1,1))
   {stop('r must be a scalar >= 1')}
 
   if ((!is.point(M,3) && M!="CC") || !all(M>0))
-  {stop('M must be a numeric 3D point with positive barycentric coordinates or "CC" for circumcenter')}
+  {stop('M must be a numeric 3D point with positive barycentric coordinates or
+        "CC" for circumcenter')}
 
   nx<-nrow(Xp); ny<-nrow(Yp)
 
   #Delaunay triangulation of Yp points
   Ytrimesh<-interp::tri.mesh(Yp[,1],Yp[,2],duplicate="remove")
-  Ytri<-matrix(interp::triangles(Ytrimesh)[,1:3],ncol=3); #the indices of the vertices of the Delaunay triangles (row-wise)
+  Ytri<-matrix(interp::triangles(Ytrimesh)[,1:3],ncol=3);
+  #the indices of the vertices of the Delaunay triangles (row-wise)
   ndt<-nrow(Ytri)  #number of Delaunay triangles
 
   inCH<-interp::in.convex.hull(Ytrimesh,Xp[,1],Xp[,2],strict=FALSE)
@@ -1718,36 +2093,45 @@ NumArcsPE <- function(Xp,Yp,r,M=c(1,1,1))
   Wvec=vector()
   for (i in 1:ndt)
   {
-    ifelse(ndt==1,Tri<-Yp[Ytri,],Tri<-Yp[Ytri[i,],])  #vertices of ith triangle
+    ifelse(ndt==1,Tri<-Yp[Ytri,],Tri<-Yp[Ytri[i,],])
+    #vertices of ith triangle
     Wvec<-c(Wvec,area.polygon(Tri))
   }
 
   if (ny==3)
+  { tri<-as.basic.tri(Yp)$tri
+  NumArcs = num.arcsPEtri(Xp,tri,r,M)
+  NinTri<-NumArcs$num.in.tri #number of points in the triangle
+
+  if (NinTri==0)
+  {Tot.Arcs<-0;
+  ni.vec<-arcs<-rep(0,ndt)
+  data.tri.ind = NA
+  } else
   {
-    Tri.Ind<-indices.del.tri(Xp,Yp)  #returns 1's if the points Xp[i,]'s are inside triangle based on Yp, NA otherwise
+    Xdt<-matrix(Xp[NumArcs$ind.in.tri,],ncol=2)
+    tri<-as.basic.tri(Yp)$tri #convert the triangle Yp into an nonscaled basic triangle, see as.basic.tri help page
+    Wvec<-area.polygon(tri)
+    Tot.Arcs<- NumArcs$num.arcs #number of arcs in the triangle Yp
+    ni.vec = NumArcs$num.in.tri
+    Tri.Ind = NumArcs$ind.in.tri
+    data.tri.ind = rep(NA,nx)
+    data.tri.ind[Tri.Ind] =1
+    arcs = NumArcs$num.arcs
+  }
 
-    inTri<-which(Tri.Ind==1)
-    NinTri<-length(inTri)  #number of points in the triangle
-
-    if (NinTri==0)
-    {Tot.Arcs<-0;
-    ni.vec<-arcs<-rep(0,ndt)
-    data.tri.ind =NULL
-    } else
-    {
-      Xdt<-matrix(Xp[inTri,],ncol=2)
-      tri<-as.bas.tri(Yp)$tri #convert the triangle Yp into an nonscaled basic triangle, see as.bas.tri help page
-      Wvec<-area.polygon(tri)
-      Tot.Arcs<-NumArcsPEtri(Xdt,tri,r,M)$num.arcs  #number of arcs in the triangle Yp
-    }
-    res<-list(num.arcs=Tot.Arcs,
-              tri.num.arcs=Tot.Arcs,
-              num.in.conv.hull=NinTri,
-              num.in.tris=NinTri,
-              weight.vec=Wvec,
-              del.tri.ind=t(Ytri),
-              data.tri.ind=Tri.Ind )
-
+  desc<-"Number of Arcs of the PE-PCD with vertices Xp and Related Quantities for the Induced Subdigraph for the Points in the Delaunay Triangle"
+  res<-list(desc=desc, #description of the output
+            num.arcs=Tot.Arcs,
+            tri.num.arcs=arcs,
+            num.in.conv.hull=NinTri,
+            num.in.tris=ni.vec,
+            weight.vec=Wvec,
+            del.tri.ind=t(Ytri),
+            data.tri.ind=data.tri.ind,
+            tess.points=Yp, #tessellation points
+            vertices=Xp #vertices of the digraph
+  )
   } else
   {
     if (NinCH==0)
@@ -1756,107 +2140,155 @@ NumArcsPE <- function(Xp,Yp,r,M=c(1,1,1))
     data.tri.ind =NULL
     } else
     {
-      Tri.Ind<-indices.del.tri(Xp,Yp,Ytrimesh) #indices of triangles in which the points in the data fall
-
+      Tri.Ind<-indices.delaunay.tri(Xp,Yp,Ytrimesh) #indices of triangles in which the points in the data fall
+      ind.in.CH = which(!is.na(Tri.Ind))
       #calculation of the total number of arcs
       ni.vec<-arcs<-vector()
-      # data.del.tris = del.tris=list()
       data.tri.ind = rep(NA,nx)
       for (i in 1:ndt)
       {
         dt.ind=which(Tri.Ind==i) #which indices of data points residing in ith Delaunay triangle
         Xpi<-Xp[dt.ind,] #points in ith Delaunay triangle
         data.tri.ind[dt.ind] =i #assigning the index of the Delaunay triangle that contains the data point
-        #  data.del.tris=c(data.del.tris,list(Xpi))
         ifelse(ndt==1,Tri<-Yp[Ytri,],Tri<-Yp[Ytri[i,],])  #vertices of ith triangle
-        tri<-as.bas.tri(Tri)$tri #convert the triangle Tri into an nonscaled basic triangle, see as.bas.tri help page
-        #  del.tris=rbind(del.tris,tri)
+        tri<-as.basic.tri(Tri)$tri #convert the triangle Tri into an nonscaled basic triangle, see as.basic.tri help page
         ni.vec<-c(ni.vec,length(Xpi)/2)  #number of points in ith Delaunay triangle
 
-        ifelse(identical(M,"CC"),cent<-circ.cent.tri(tri),cent<-M)
-        num.arcs<-NumArcsPEtri(Xpi,tri,r,cent)$num.arcs  #number of arcs in ith triangle
-        arcs<-c(arcs,num.arcs)  #number of arcs in all triangles as A \code{vector}
+        ifelse(identical(M,"CC"),cent<-circumcenter.tri(tri),cent<-M)
+        num.arcs<-num.arcsPEtri(Xpi,tri,r,cent)$num.arcs
+        arcs<-c(arcs,num.arcs)  #number of arcs in all triangles as a vector
 
       }
 
       Tot.Arcs<-sum(arcs)  #the total number of arcs in all triangles
     }
 
-    res<-list(num.arcs=Tot.Arcs, #number of arcs for the entire PCD
+    desc<-"Number of Arcs of the PE-PCD with vertices Xp and Related Quantities for the Induced Subdigraphs for the Points in the Delaunay Triangles"
+
+    res<-list(desc=desc, #description of the output
+              num.arcs=Tot.Arcs, #number of arcs for the entire PCD
               tri.num.arcs=arcs, #vector of number of arcs for the Delaunay triangles
-              num.in.conv.hull=NinCH, # number of Xp points in CH of Yp points
+              num.in.conv.hull=NinCH, #number of Xp points in CH of Yp points
+              ind.in.conv.hull= ind.in.CH, #indices of Xp points in CH of Yp points
               num.in.tris=ni.vec, # vector of number of Xp points in the Delaunay triangles
               weight.vec=Wvec, #areas of Delaunay triangles
-              del.tri.ind=t(Ytri), # indices of the Delaunay triangles, each column corresponds to the vector of indices of the vertices of one triangle
-              data.tri.ind=data.tri.ind) #indices of vertices of the Delaunay triangles in which data points reside, i.e., column number of del.tri for each Xp point
+              del.tri.ind=t(Ytri), # indices of the vertices of the Delaunay triangles, i.e., each column corresponds to the indices of the vertices of one Delaunay triangle
+              data.tri.ind=data.tri.ind, #indices of the Delaunay triangles in which data points reside, i.e., column number of del.tri.ind for each Xp point
+              tess.points=Yp, #tessellation points
+              vertices=Xp #vertices of the digraph
+    )
   }
+
+  class(res)<-"NumArcs"
+  res$call <-match.call()
+
   res
 } #end of the function
 #'
 
 #################################################################
 
-#' @title A test of segregation/association based on arc density of Proportional Edge Proximity Catch Digraph
+#' @title A test of segregation/association
+#' based on arc density of Proportional Edge Proximity Catch Digraph
 #' (PE-PCD) for 2D data
 #'
 #' @description
-#' An object of class \code{"htest"} (i.e., hypothesis test) function which performs a hypothesis test of complete spatial
-#' randomness (CSR) or uniformity of \code{Xp} points in the convex hull of \code{Yp} points against the alternatives
-#' of segregation (where \code{Xp} points cluster away from \code{Yp} points) and association (where \code{Xp} points cluster around
-#' \code{Yp} points) based on the normal approximation of the arc density of the PE-PCD for uniform 2D data.
+#' An object of class \code{"htest"} (i.e., hypothesis test) function
+#' which performs a hypothesis test of complete spatial
+#' randomness (CSR) or uniformity of \code{Xp} points
+#' in the convex hull of \code{Yp} points against the alternatives
+#' of segregation (where \code{Xp} points cluster
+#' away from \code{Yp} points) and association
+#' (where \code{Xp} points cluster around
+#' \code{Yp} points) based on the normal approximation
+#' of the arc density of the PE-PCD for uniform 2D data.
 #'
-#' The function yields the test statistic, \eqn{p}-value for the corresponding \code{alternative},
-#' the confidence interval, estimate and null value for the parameter of interest (which is the arc density),
+#' The function yields the test statistic,
+#' \eqn{p}-value for the corresponding \code{alternative},
+#' the confidence interval, estimate
+#' and null value for the parameter of interest
+#' (which is the arc density),
 #' and method and name of the data set used.
 #'
-#' Under the null hypothesis of uniformity of \code{Xp} points in the convex hull of \code{Yp} points, arc density
-#' of PE-PCD whose vertices are \code{Xp} points equals to its expected value under the uniform distribution and
-#' \code{alternative} could be two-sided, or left-sided (i.e., data is accumulated around the \code{Yp} points, or association)
-#' or right-sided (i.e., data is accumulated around the centers of the triangles, or segregation).
+#' Under the null hypothesis of uniformity of \code{Xp} points
+#' in the convex hull of \code{Yp} points, arc density
+#' of PE-PCD whose vertices are \code{Xp} points equals
+#' to its expected value under the uniform distribution and
+#' \code{alternative} could be two-sided, or left-sided
+#' (i.e., data is accumulated around the \code{Yp} points, or association)
+#' or right-sided (i.e., data is accumulated
+#' around the centers of the triangles,
+#' or segregation).
 #'
-#' PE proximity region is constructed with the expansion parameter \eqn{r \ge 1} and \eqn{CM}-vertex regions
-#' (i.e., the test is not available for a general center \eqn{M} at this version of the function).
+#' PE proximity region is constructed
+#' with the expansion parameter \eqn{r \ge 1} and \eqn{CM}-vertex regions
+#' (i.e., the test is not available for a general center \eqn{M}
+#' at this version of the function).
 #'
-#' **Caveat:** This test is currently a conditional test, where \code{Xp} points are assumed to be random, while \code{Yp} points are
+#' **Caveat:** This test is currently a conditional test,
+#' where \code{Xp} points are assumed to be random,
+#' while \code{Yp} points are
 #' assumed to be fixed (i.e., the test is conditional on \code{Yp} points).
-#' Furthermore, the test is a large sample test when \code{Xp} points are substantially larger than \code{Yp} points,
+#' Furthermore,
+#' the test is a large sample test when \code{Xp} points
+#' are substantially larger than \code{Yp} points,
 #' say at least 5 times more.
-#' This test is more appropriate when supports of \code{Xp} and \code{Yp} have a substantial overlap.
-#' Currently, the \code{Xp} points outside the convex hull of \code{Yp} points are handled with a convex hull correction factor
+#' This test is more appropriate when supports of \code{Xp}
+#' and \code{Yp} have a substantial overlap.
+#' Currently, the \code{Xp} points
+#' outside the convex hull of \code{Yp} points
+#' are handled with a convex hull correction factor
 #' (see the description below and the function code.)
-#' However, in the special case of no \code{Xp} points in the convex hull of \code{Yp} points, arc density is taken to be 1,
-#' as this is clearly a case of segregation. Removing the conditioning and extending it to the case of non-concurring supports is
-#' an ongoing line of research of the author of the package.
+#' However, in the special case of no \code{Xp} points
+#' in the convex hull of \code{Yp} points,
+#' arc density is taken to be 1,
+#' as this is clearly a case of segregation.
+#' Removing the conditioning and extending it to
+#' the case of non-concurring supports is
+#' an ongoing topic of research of the author of the package.
 #'
-#' \code{ch.cor} is for convex hull correction (default is \code{"no convex hull correction"}, i.e., \code{ch.cor=FALSE})
-#' which is recommended when both \code{Xp} and \code{Yp} have the same rectangular support.
+#' \code{ch.cor} is for convex hull correction
+#' (default is \code{"no convex hull correction"}, i.e., \code{ch.cor=FALSE})
+#' which is recommended
+#' when both \code{Xp} and \code{Yp} have the same rectangular support.
 #'
-#' See also (\insertCite{ceyhan:Phd-thesis,ceyhan:arc-density-PE;textual}{pcds}) for more on the test based on the arc
-#' density of PE-PCDs.
+#' See also (\insertCite{ceyhan:Phd-thesis,ceyhan:arc-density-PE;textual}{pcds})
+#' for more on the test based on the arc density of PE-PCDs.
 #'
-#' @param Xp A set of 2D points which constitute the vertices of the PE-PCD.
-#' @param Yp A set of 2D points which constitute the vertices of the Delaunay triangles.
-#' @param r A positive real number which serves as the expansion parameter in PE proximity region;
+#' @param Xp A set of 2D points
+#' which constitute the vertices of the PE-PCD.
+#' @param Yp A set of 2D points
+#' which constitute the vertices of the Delaunay triangles.
+#' @param r A positive real number
+#' which serves as the expansion parameter in PE proximity region;
 #' must be \eqn{\ge 1}.
-#' @param ch.cor A logical argument for convex hull correction, default \code{ch.cor=FALSE},
-#' recommended when both \code{Xp} and \code{Yp} have the same rectangular support.
-#' @param alternative Type of the alternative hypothesis in the test, one of \code{"two.sided"}, \code{"less"}, \code{"greater"}.
-#' @param conf.level Level of the confidence interval, default is \code{0.95}, for the arc density of PE-PCD based on
+#' @param ch.cor A logical argument for convex hull correction,
+#' default \code{ch.cor=FALSE},
+#' recommended when both \code{Xp} and \code{Yp}
+#' have the same rectangular support.
+#' @param alternative Type of the alternative hypothesis in the test,
+#' one of \code{"two.sided"}, \code{"less"}, \code{"greater"}.
+#' @param conf.level Level of the confidence interval,
+#' default is \code{0.95}, for the arc density of PE-PCD based on
 #' the 2D data set \code{Xp}.
 #'
 #' @return A \code{list} with the elements
 #' \item{statistic}{Test statistic}
-#' \item{p.value}{The \eqn{p}-value for the hypothesis test for the corresponding \code{alternative}}
-#' \item{conf.int}{Confidence interval for the arc density at the given confidence level \code{conf.level} and
+#' \item{p.value}{The \eqn{p}-value for the hypothesis test
+#' for the corresponding \code{alternative}}
+#' \item{conf.int}{Confidence interval for the arc density
+#' at the given confidence level \code{conf.level} and
 #' depends on the type of \code{alternative}.}
 #' \item{estimate}{Estimate of the parameter, i.e., arc density}
-#' \item{null.value}{Hypothesized value for the parameter, i.e., the null arc density, which is usually the
+#' \item{null.value}{Hypothesized value for the parameter,
+#' i.e., the null arc density, which is usually the
 #' mean arc density under uniform distribution.}
-#' \item{alternative}{Type of the alternative hypothesis in the test, one of \code{"two.sided"}, \code{"less"}, \code{"greater"}}
+#' \item{alternative}{Type of the alternative hypothesis in the test,
+#' one of \code{"two.sided"}, \code{"less"}, \code{"greater"}}
 #' \item{method}{Description of the hypothesis test}
 #' \item{data.name}{Name of the data set}
 #'
-#' @seealso \code{\link{TSArcDensCS}} and \code{\link{TSArcDensPE1D}}
+#' @seealso \code{\link{CSarc.dens.test}} and \code{\link{PEarc.dens.test1D}}
 #'
 #' @references
 #' \insertAllCited{}
@@ -1870,23 +2302,25 @@ NumArcsPE <- function(Xp,Yp,r,M=c(1,1,1))
 #'
 #' set.seed(1)
 #' Xp<-cbind(runif(nx),runif(nx))
-#' Yp<-cbind(runif(ny,0,.25),runif(ny,0,.25))+cbind(c(0,0,0.5,1,1),c(0,1,.5,0,1))
+#' Yp<-cbind(runif(ny,0,.25),
+#' runif(ny,0,.25))+cbind(c(0,0,0.5,1,1),c(0,1,.5,0,1))
 #' #try also Yp<-cbind(runif(ny,0,1),runif(ny,0,1))
 #'
-#' plotDeltri(Xp,Yp,xlab="",ylab="")
+#' plotDelaunay.tri(Xp,Yp,xlab="",ylab="")
 #'
-#' TSArcDensPE(Xp,Yp,r=1.25)
-#' TSArcDensPE(Xp,Yp,r=1.25,ch=TRUE)
+#' PEarc.dens.test(Xp,Yp,r=1.25)
+#' PEarc.dens.test(Xp,Yp,r=1.25,ch=TRUE)
+#' #since Y points are not uniform, convex hull correction is invalid here
 #' }
 #'
-#' @export TSArcDensPE
-TSArcDensPE <- function(Xp,Yp,r,ch.cor=FALSE,alternative = c("two.sided", "less", "greater"), conf.level = 0.95)
+#' @export PEarc.dens.test
+PEarc.dens.test <- function(Xp,Yp,r,ch.cor=FALSE,alternative = c("two.sided", "less", "greater"), conf.level = 0.95)
 {
   dname <-deparse(substitute(Xp))
 
   alternative <-match.arg(alternative)
   if (length(alternative) > 1 || is.na(alternative))
-    stop("alternative must be one \"greater\", \"less\", \"two.sided\"")
+    stop("alternative must be one of \"greater\", \"less\", \"two.sided\"")
 
   if (!is.numeric(as.matrix(Xp)) || !is.numeric(as.matrix(Yp)))
   {stop('Xp and Yp must be numeric')}
@@ -1907,15 +2341,19 @@ TSArcDensPE <- function(Xp,Yp,r,ch.cor=FALSE,alternative = c("two.sided", "less"
   {stop('r must be a scalar >= 1')}
 
   if (!missing(conf.level))
-    if (length(conf.level) != 1 || is.na(conf.level) || conf.level < 0 || conf.level > 1)
+    if (length(conf.level) != 1 || is.na(conf.level) ||
+        conf.level < 0 || conf.level > 1)
       stop("conf.level must be a number between 0 and 1")
 
-  Arcs<-NumArcsPE(Xp,Yp,r,M=c(1,1,1))  #use the default, i.e., CM for the center M
+  Arcs<-num.arcsPE(Xp,Yp,r,M=c(1,1,1))
+  #use the default, i.e., CM for the center M
   NinCH<-Arcs$num.in.con
 
   num.arcs<-Arcs$num.arcs #total number of arcs in the PE-PCD
-  num.arcs.tris = Arcs$tri.num.arcs #vector of number of arcs in the Delaunay triangles
-  num.dat.tris = Arcs$num.in.tris #vector of number of data points in the Delaunay triangles
+  num.arcs.tris = Arcs$tri.num.arcs
+  #vector of number of arcs in the Delaunay triangles
+  num.dat.tris = Arcs$num.in.tris
+  #vector of number of data points in the Delaunay triangles
   Wvec<-Arcs$w
   LW<-Wvec/sum(Wvec)
 
@@ -1947,7 +2385,8 @@ TSArcDensPE <- function(Xp,Yp,r,ch.cor=FALSE,alternative = c("two.sided", "less"
     TS0<-sqrt(n)*(arc.dens-asy.mean)/sqrt(asy.var)  #standardized test stat
   } else
   {  arc.dens<-num.arcs/(NinCH*(NinCH-1))
-  TS0<-sqrt(NinCH)*(arc.dens-asy.mean)/sqrt(asy.var)  #standardized test stat}  #arc density
+  TS0<-sqrt(NinCH)*(arc.dens-asy.mean)/sqrt(asy.var)
+  #standardized test stat}  #arc density
   }
   estimate1<-arc.dens
   estimate2<-asy.mean
@@ -1964,7 +2403,8 @@ TSArcDensPE <- function(Xp,Yp,r,ch.cor=FALSE,alternative = c("two.sided", "less"
     NoutCH<-n-NinCH #number of points outside of the convex hull
 
     prop.out<-NoutCH/n #observed proportion of points outside convex hull
-    exp.prop.out<-1.7932/m+1.2229/sqrt(m)  #expected proportion of points outside convex hull
+    exp.prop.out<-1.7932/m+1.2229/sqrt(m)
+    #expected proportion of points outside convex hull
 
     TS<-TS0+abs(TS0)*sign(prop.out-exp.prop.out)*(prop.out-exp.prop.out)^2
     method <-c(method, " with Convex Hull Correction")
@@ -1990,7 +2430,7 @@ TSArcDensPE <- function(Xp,Yp,r,ch.cor=FALSE,alternative = c("two.sided", "less"
     cint <-arc.dens+c(-cint, cint)*sqrt(asy.var/NinCH)
   }
 
-  attr(cint, "conf.level") <-conf.level
+  attr(cint, "conf.level") <- conf.level
 
   rval <-list(
     statistic=TS,
@@ -2010,32 +2450,44 @@ TSArcDensPE <- function(Xp,Yp,r,ch.cor=FALSE,alternative = c("two.sided", "less"
 
 #################################################################
 
-#' @title Incidence matrix for Proportional Edge Proximity Catch Digraphs (PE-PCDs) - one triangle case
+#' @title Incidence matrix for Proportional Edge Proximity Catch Digraphs
+#' (PE-PCDs) - one triangle case
 #'
-#' @description Returns the incidence matrix for the PE-PCD whose vertices are the given 2D numerical data set, \code{Xp},
+#' @description Returns the incidence matrix for the PE-PCD
+#' whose vertices are the given 2D numerical data set, \code{Xp},
 #' in the triangle \code{tri}\eqn{=T(v=1,v=2,v=3)}.
 #'
 #' PE proximity regions are constructed with respect to triangle \code{tri}
-#' with expansion parameter \eqn{r \ge 1} and vertex regions are based on the center \eqn{M=(m_1,m_2)} in Cartesian coordinates
-#' or \eqn{M=(\alpha,\beta,\gamma)} in barycentric coordinates in the interior of the triangle \code{tri};
-#' default is \eqn{M=(1,1,1)} i.e., the center of mass of \code{tri}.
+#' with expansion parameter \eqn{r \ge 1}
+#' and vertex regions are based on the center \eqn{M=(m_1,m_2)}
+#' in Cartesian coordinates
+#' or \eqn{M=(\alpha,\beta,\gamma)} in barycentric coordinates
+#' in the interior of the triangle \code{tri};
+#' default is \eqn{M=(1,1,1)}, i.e., the center of mass of \code{tri}.
 #' Loops are allowed, so the diagonal entries are all equal to 1.
 #'
 #' See also (\insertCite{ceyhan:Phd-thesis,ceyhan:arc-density-PE,ceyhan:dom-num-NPE-Spat2011;textual}{pcds}).
 #'
-#' @param Xp A set of 2D points which constitute the vertices of PE-PCD.
-#' @param tri A \eqn{3 \times 2} matrix with each row representing a vertex of the triangle.
-#' @param r A positive real number which serves as the expansion parameter in PE proximity region;
+#' @param Xp A set of 2D points
+#' which constitute the vertices of PE-PCD.
+#' @param tri A \eqn{3 \times 2} matrix with each row
+#' representing a vertex of the triangle.
+#' @param r A positive real number
+#' which serves as the expansion parameter in PE proximity region;
 #' must be \eqn{\ge 1}.
-#' @param M A 2D point in Cartesian coordinates or a 3D point in barycentric coordinates
-#' which serves as a center in the interior of the triangle \code{tri} or the circumcenter of \code{tri}
+#' @param M A 2D point in Cartesian coordinates
+#' or a 3D point in barycentric coordinates
+#' which serves as a center in the interior of the triangle \code{tri}
+#' or the circumcenter of \code{tri}
 #' which may be entered as "CC" as well;
-#' default is \eqn{M=(1,1,1)} i.e., the center of mass of \code{tri}.
+#' default is \eqn{M=(1,1,1)}, i.e., the center of mass of \code{tri}.
 #'
-#' @return Incidence matrix for the PE-PCD with vertices being 2D data set, \code{Xp},
+#' @return Incidence matrix for the PE-PCD
+#' with vertices being 2D data set, \code{Xp},
 #' in the triangle \code{tri} with vertex regions based on center \code{M}
 #'
-#' @seealso \code{\link{IncMatPE}}, \code{\link{IncMatCStri}}, and  \code{\link{IncMatAStri}}
+#' @seealso \code{\link{inci.matPE}}, \code{\link{inci.matCStri}},
+#'  and  \code{\link{inci.matAStri}}
 #'
 #' @references
 #' \insertAllCited{}
@@ -2052,15 +2504,15 @@ TSArcDensPE <- function(Xp,Yp,r,ch.cor=FALSE,alternative = c("two.sided", "less"
 #' Xp<-runif.tri(n,Tr)$g
 #'
 #' M<-as.numeric(runif.tri(1,Tr)$g)  #try also M<-c(1.6,1.0)
-#' IM<-IncMatPEtri(Xp,Tr,r=1.25,M)
+#' IM<-inci.matPEtri(Xp,Tr,r=1.25,M)
 #'
 #' IM
-#' dom.greedy(IM) #try also dom.exact(IM)
-#' IndUBdom(IM,3)
+#' dom.num.greedy(IM) #try also dom.num.exact(IM)
+#' Idom.num.up.bnd(IM,3)
 #' }
 #'
-#' @export IncMatPEtri
-IncMatPEtri <- function(Xp,tri,r,M=c(1,1,1))
+#' @export inci.matPEtri
+inci.matPEtri <- function(Xp,tri,r,M=c(1,1,1))
 {
   if (!is.numeric(as.matrix(Xp)))
   {stop('Xp must be numeric')}
@@ -2080,24 +2532,26 @@ IncMatPEtri <- function(Xp,tri,r,M=c(1,1,1))
   vec1<-rep(1,3);
   D0<-det(matrix(cbind(tri,vec1),ncol=3))
   if (round(D0,14)==0)
-  {stop('the triangle is degenerate')}
+  {stop('The triangle is degenerate')}
 
   if (!is.point(r,1) || r<1)
   {stop('r must be a scalar >= 1')}
 
   if (!(is.point(M) || is.point(M,3) || identical(M,"CC")))
-  {stop('M must be a numeric 2D point for Cartesian coordinates or 3D point for barycentric coordinates
-          or the circumcenter "CC" ')}
+  {stop('M must be a numeric 2D point for Cartesian coordinates or
+  3D point for barycentric coordinates or the circumcenter "CC" ')}
 
-  CC = circ.cent.tri(tri)
+  CC = circumcenter.tri(tri)
   if (identical(M,"CC") )
   { M<-CC }
 
   if (dimension(M)==3)
   {M<-bary2cart(M,tri)}
 
-  if (!(isTRUE(all.equal(M,CC)) || in.triangle(M,tri,boundary=FALSE)$in.tri))
-  {stop('center is not the circumcenter or not in the interior of the triangle')}
+  if (!(isTRUE(all.equal(M,CC)) ||
+        in.triangle(M,tri,boundary=FALSE)$in.tri))
+  {stop('center is not the circumcenter or
+        not in the interior of the triangle')}
 
   n<-nrow(Xp)
 
@@ -2106,11 +2560,13 @@ IncMatPEtri <- function(Xp,tri,r,M=c(1,1,1))
   {
     for (i in 1:n)
     {p1<-Xp[i,]
-    rv<-ifelse(isTRUE(all.equal(M,CC)),rv.triCC(p1,tri)$rv,rv.tri.cent(p1,tri,M)$rv)
+    rv<-ifelse(isTRUE(all.equal(M,CC)),
+               rel.vert.triCC(p1,tri)$rv,
+               rel.vert.tri(p1,tri,M)$rv)
 
     for (j in ((1:n)) )
     {p2<-Xp[j,]
-    inc.mat[i,j]<-IndNPEtri(p1,p2,tri,r,M,rv=rv)
+    inc.mat[i,j]<-IarcPEtri(p1,p2,tri,r,M,rv=rv)
     }
     }
   }
@@ -2120,44 +2576,68 @@ IncMatPEtri <- function(Xp,tri,r,M=c(1,1,1))
 
 #################################################################
 
-#' @title The indicator for a point being a dominating point for Proportional Edge Proximity Catch Digraphs (PE-PCDs)
-#' - one triangle case
+#' @title The indicator for a point being a dominating point for
+#' Proportional Edge Proximity Catch Digraphs (PE-PCDs) -
+#' one triangle case
 #'
-#' @description Returns \eqn{I(}\code{p} is a dominating point of the PE-PCD\eqn{)} where the vertices of the PE-PCD are the 2D data set \code{Xp} in the triangle \code{tri}, that is,
-#' returns 1 if \code{p} is a dominating point of PE-PCD, returns 0 otherwise.
+#' @description Returns \eqn{I(}\code{p} is
+#' a dominating point of the PE-PCD\eqn{)}
+#' where the vertices of the PE-PCD are the 2D data set \code{Xp}
+#' in the triangle \code{tri}, that is,
+#' returns 1 if \code{p} is a dominating point of PE-PCD,
+#' and returns 0 otherwise.
 #'
-#' Point, \code{p}, is in the vertex region of vertex \code{rv} (default is \code{NULL}); vertices are labeled as \eqn{1,2,3}
+#' Point, \code{p}, is in the vertex region of vertex \code{rv}
+#' (default is \code{NULL}); vertices are labeled as \eqn{1,2,3}
 #' in the order they are stacked row-wise in \code{tri}.
 #'
-#' PE proximity region is constructed with respect to the triangle \code{tri} with expansion parameter \eqn{r \ge 1}
-#' and vertex regions are based on center \eqn{M=(m_1,m_2)} in Cartesian coordinates or
-#' \eqn{M=(\alpha,\beta,\gamma)} in barycentric coordinates in the interior of the triangle \code{tri}
-#' or based on the circumcenter of \code{tri}; default is \eqn{M=(1,1,1)} i.e., the center of mass of \code{tri}.
+#' PE proximity region is constructed
+#' with respect to the triangle \code{tri}
+#' with expansion parameter \eqn{r \ge 1}
+#' and vertex regions are based on center \eqn{M=(m_1,m_2)}
+#' in Cartesian coordinates or
+#' \eqn{M=(\alpha,\beta,\gamma)} in barycentric coordinates
+#' in the interior of the triangle \code{tri}
+#' or based on the circumcenter of \code{tri};
+#' default is \eqn{M=(1,1,1)}, i.e., the center of mass of \code{tri}.
 #'
-#' \code{ch.data.pnt} is for checking whether point \code{p} is a data point in \code{Xp} or not (default is \code{FALSE}),
-#' so by default this function checks whether the point \code{p} would be a dominating point
+#' \code{ch.data.pnt} is for checking
+#' whether point \code{p} is a data point in \code{Xp}
+#' or not (default is \code{FALSE}),
+#' so by default this function checks
+#' whether the point \code{p} would be a dominating point
 #' if it actually were in the data set.
 #'
 #' See also (\insertCite{ceyhan:Phd-thesis,ceyhan:masa-2007,ceyhan:dom-num-NPE-Spat2011,ceyhan:mcap2012;textual}{pcds}).
 #'
-#' @param p A 2D point that is to be tested for being a dominating point or not of the PE-PCD.
-#' @param Xp A set of 2D points which constitutes the vertices of the PE-PCD.
-#' @param tri A \eqn{3 \times 2} matrix with each row representing a vertex of the triangle.
-#' @param r A positive real number which serves as the expansion parameter in PE proximity region;
+#' @param p A 2D point that is to be tested for being a dominating point
+#' or not of the PE-PCD.
+#' @param Xp A set of 2D points
+#' which constitutes the vertices of the PE-PCD.
+#' @param tri A \eqn{3 \times 2} matrix with each row
+#' representing a vertex of the triangle.
+#' @param r A positive real number
+#' which serves as the expansion parameter in PE proximity region;
 #' must be \eqn{\ge 1}.
-#' @param M A 2D point in Cartesian coordinates or a 3D point in barycentric coordinates
-#' which serves as a center in the interior of the triangle \code{tri} or the circumcenter of \code{tri}
+#' @param M A 2D point in Cartesian coordinates
+#' or a 3D point in barycentric coordinates
+#' which serves as a center in the interior of the triangle \code{tri}
+#' or the circumcenter of \code{tri}
 #' which may be entered as "CC" as well;
-#' default is \eqn{M=(1,1,1)} i.e., the center of mass of \code{tri}.
-#' @param rv Index of the vertex whose region contains point \code{p}, \code{rv} takes the vertex labels as \eqn{1,2,3} as
+#' default is \eqn{M=(1,1,1)}, i.e., the center of mass of \code{tri}.
+#' @param rv Index of the vertex whose region contains point \code{p},
+#' \code{rv} takes the vertex labels as \eqn{1,2,3} as
 #' in the row order of the vertices in \code{tri}.
-#' @param ch.data.pnt A logical argument for checking whether point \code{p} is a data point
+#' @param ch.data.pnt A logical argument for checking
+#' whether point \code{p} is a data point
 #' in \code{Xp} or not (default is \code{FALSE}).
 #'
-#' @return \eqn{I(}\code{p} is a dominating point of the PE-PCD\eqn{)} where the vertices of the PE-PCD are the 2D data set \code{Xp},
-#' that is, returns 1 if \code{p} is a dominating point, returns 0 otherwise
+#' @return \eqn{I(}\code{p} is a dominating point of the PE-PCD\eqn{)}
+#' where the vertices of the PE-PCD are the 2D data set \code{Xp},
+#' that is, returns 1 if \code{p} is a dominating point,
+#' and returns 0 otherwise.
 #'
-#' @seealso \code{\link{Gam1PEbas.tri}} and \code{\link{Gam1AStri}}
+#' @seealso \code{\link{Idom.num1PEbasic.tri}} and \code{\link{Idom.num1AStri}}
 #'
 #' @references
 #' \insertAllCited{}
@@ -2177,22 +2657,22 @@ IncMatPEtri <- function(Xp,tri,r,M=c(1,1,1))
 #'
 #' r<-1.5  #try also r<-2
 #'
-#' Gam1PEtri(Xp[1,],Xp,Tr,r,M)
-#' Gam1PEtri(c(1,2),c(1,2),Tr,r,M)
-#' Gam1PEtri(c(1,2),c(1,2),Tr,r,M,ch.data.pnt = TRUE)
+#' Idom.num1PEtri(Xp[1,],Xp,Tr,r,M)
+#' Idom.num1PEtri(c(1,2),c(1,2),Tr,r,M)
+#' Idom.num1PEtri(c(1,2),c(1,2),Tr,r,M,ch.data.pnt = TRUE)
 #'
 #' gam.vec<-vector()
 #' for (i in 1:n)
-#' {gam.vec<-c(gam.vec,Gam1PEtri(Xp[i,],Xp,Tr,r,M))}
+#' {gam.vec<-c(gam.vec,Idom.num1PEtri(Xp[i,],Xp,Tr,r,M))}
 #'
 #' ind.gam1<-which(gam.vec==1)
 #' ind.gam1
 #'
 #' #or try
-#' Rv<-rv.tri.cent(Xp[1,],Tr,M)$rv
-#' Gam1PEtri(Xp[1,],Xp,Tr,r,M,Rv)
+#' Rv<-rel.vert.tri(Xp[1,],Tr,M)$rv
+#' Idom.num1PEtri(Xp[1,],Xp,Tr,r,M,Rv)
 #'
-#' Ds<-cent2edges.tri(Tr,M)
+#' Ds<-prj.cent2edges(Tr,M)
 #'
 #' if (dimension(M)==3) {M<-bary2cart(M,Tr)}
 #' #need to run this when M is given in barycentric coordinates
@@ -2218,15 +2698,15 @@ IncMatPEtri <- function(Xp,tri,r,M=c(1,1,1))
 #' text(xc,yc,txt.str)
 #'
 #' P<-c(1.4,1)
-#' Gam1PEtri(P,P,Tr,r,M)
-#' Gam1PEtri(Xp[1,],Xp,Tr,r,M)
+#' Idom.num1PEtri(P,P,Tr,r,M)
+#' Idom.num1PEtri(Xp[1,],Xp,Tr,r,M)
 #'
-#' Gam1PEtri(c(1,2),Xp,Tr,r,M,ch.data.pnt = FALSE)
+#' Idom.num1PEtri(c(1,2),Xp,Tr,r,M,ch.data.pnt = FALSE)
 #' #gives an error message if ch.data.pnt = TRUE since p is not a data point
 #' }
 #'
-#' @export Gam1PEtri
-Gam1PEtri <- function(p,Xp,tri,r,M=c(1,1,1),rv=NULL,ch.data.pnt=FALSE)
+#' @export Idom.num1PEtri
+Idom.num1PEtri <- function(p,Xp,tri,r,M=c(1,1,1),rv=NULL,ch.data.pnt=FALSE)
 {
   if (!is.point(p))
   {stop('p must be a numeric 2D point')}
@@ -2249,7 +2729,7 @@ Gam1PEtri <- function(p,Xp,tri,r,M=c(1,1,1),rv=NULL,ch.data.pnt=FALSE)
   vec1<-rep(1,3);
   D0<-det(matrix(cbind(tri,vec1),ncol=3))
   if (round(D0,14)==0)
-  {stop('the triangle is degenerate')}
+  {stop('The triangle is degenerate')}
 
   if (!is.point(r,1) || r<1)
   {stop('r must be a scalar >= 1')}
@@ -2261,24 +2741,28 @@ Gam1PEtri <- function(p,Xp,tri,r,M=c(1,1,1),rv=NULL,ch.data.pnt=FALSE)
   }
 
   if (!(is.point(M) || is.point(M,3) || identical(M,"CC")))
-  {stop('M must be a numeric 2D point for Cartesian coordinates or 3D point for barycentric coordinates
-          or the circumcenter "CC" ')}
+  {stop('M must be a numeric 2D point for Cartesian coordinates or
+  3D point for barycentric coordinates or the circumcenter "CC" ')}
 
-  CC = circ.cent.tri(tri)
+  CC = circumcenter.tri(tri)
   if (identical(M,"CC") )
   { M<-CC }
 
   if (dimension(M)==3)
   {M<-bary2cart(M,tri)}
 
-  if (!(isTRUE(all.equal(M,CC)) || in.triangle(M,tri,boundary=FALSE)$in.tri))
-  {stop('center is not the circumcenter or not in the interior of the triangle')}
+  if (!(isTRUE(all.equal(M,CC)) ||
+        in.triangle(M,tri,boundary=FALSE)$in.tri))
+  {stop('center is not the circumcenter or
+        not in the interior of the triangle')}
 
   if (in.triangle(p,tri,boundary=TRUE)$in.tri==FALSE)
   {dom<-0; return(dom); stop}
 
   if (is.null(rv))
-  {rv<-ifelse(isTRUE(all.equal(M,CC)),rv.triCC(p,tri)$rv,rv.tri.cent(p,tri,M)$rv)
+  {rv<-ifelse(isTRUE(all.equal(M,CC)),
+              rel.vert.triCC(p,tri)$rv,
+              rel.vert.tri(p,tri,M)$rv)
   } else
   {  if (!is.numeric(rv) || sum(rv==c(1,2,3))!=1)
   {stop('vertex index, rv, must be 1, 2 or 3')}}
@@ -2289,7 +2773,7 @@ Gam1PEtri <- function(p,Xp,tri,r,M=c(1,1,1),rv=NULL,ch.data.pnt=FALSE)
     dom<-1; i<-1;
     while (i <= n & dom==1)
     {
-      if (IndNPEtri(p,Xp[i,],tri,r,M,rv)==0)
+      if (IarcPEtri(p,Xp[i,],tri,r,M,rv)==0)
         dom<-0;
       i<-i+1;
     }
@@ -2303,46 +2787,73 @@ Gam1PEtri <- function(p,Xp,tri,r,M=c(1,1,1),rv=NULL,ch.data.pnt=FALSE)
 
 #################################################################
 
-#' @title The indicator for two points constituting a dominating set for Proportional Edge Proximity Catch Digraphs
-#' (PE-PCDs) - one triangle case
+#' @title The indicator for two points constituting a dominating set for
+#'  Proportional Edge Proximity Catch Digraphs (PE-PCDs) -
+#'  one triangle case
 #'
-#' @description Returns \eqn{I(}\{\code{p1,p2}\} is a dominating set of the PE-PCD\eqn{)} where the vertices of the PE-PCD
-#' are the 2D data set \code{Xp}), that is, returns 1 if \{\code{p1,p2}\} is a dominating set of PE-PCD,
-#' returns 0 otherwise.
+#' @description Returns \eqn{I(}\{\code{p1,p2}\} is
+#' a dominating set of the PE-PCD\eqn{)}
+#' where the vertices of the PE-PCD are the 2D data set \code{Xp},
+#' that is, returns 1 if \{\code{p1,p2}\} is a dominating set of PE-PCD,
+#' and returns 0 otherwise.
 #'
-#' Point, \code{p1}, is in the region of vertex \code{rv1} (default is \code{NULL}) and point, \code{p2}, is in the region of vertex \code{rv2}
-#' (default is \code{NULL}); vertices (and hence \code{rv1} and \code{rv2}) are labeled as \eqn{1,2,3} in the order they are stacked
+#' Point, \code{p1}, is in the region of vertex \code{rv1}
+#' (default is \code{NULL}) and point, \code{p2}, is
+#' in the region of vertex \code{rv2}
+#' (default is \code{NULL}); vertices (and hence \code{rv1} and \code{rv2})
+#' are labeled as \eqn{1,2,3} in the order they are stacked
 #' row-wise in \code{tri}.
 #'
-#' PE proximity regions are defined with respect to the triangle \code{tri} and vertex regions
-#' are based on center \eqn{M=(m_1,m_2)} in Cartesian coordinates or \eqn{M=(\alpha,\beta,\gamma)} in barycentric coordinates
-#' in the interior of the triangle \code{tri} or circumcenter of \code{tri}; default is \eqn{M=(1,1,1)} i.e., the center of mass of \code{tri}.
+#' PE proximity regions are defined
+#' with respect to the triangle \code{tri} and vertex regions
+#' are based on center \eqn{M=(m_1,m_2)} in Cartesian coordinates
+#' or \eqn{M=(\alpha,\beta,\gamma)} in barycentric coordinates
+#' in the interior of the triangle \code{tri}
+#' or circumcenter of \code{tri};
+#' default is \eqn{M=(1,1,1)}, i.e., the center of mass of \code{tri}.
 #'
-#' \code{ch.data.pnts} is for checking whether points \code{p1} and \code{p2} are data points in \code{Xp} or not
-#' (default is \code{FALSE}), so by default this function checks whether the points \code{p1} and \code{p2} would be a
+#' \code{ch.data.pnts} is
+#' for checking whether points \code{p1} and \code{p2} are data points
+#' in \code{Xp} or not
+#' (default is \code{FALSE}),
+#' so by default this function checks
+#' whether the points \code{p1} and \code{p2} would be a
 #' dominating set if they actually were in the data set.
 #'
 #' See also (\insertCite{ceyhan:Phd-thesis,ceyhan:masa-2007,ceyhan:dom-num-NPE-Spat2011,ceyhan:mcap2012;textual}{pcds}).
 #'
-#' @param p1,p2 Two 2D points to be tested for constituting a dominating set of the PE-PCD.
-#' @param Xp A set of 2D points which constitutes the vertices of the PE-PCD.
-#' @param tri A \eqn{3 \times 2} matrix with each row representing a vertex of the triangle.
-#' @param r A positive real number which serves as the expansion parameter in PE proximity region;
+#' @param p1,p2 Two 2D points to be tested for constituting
+#' a dominating set of the PE-PCD.
+#' @param Xp A set of 2D points
+#' which constitutes the vertices of the PE-PCD.
+#' @param tri A \eqn{3 \times 2} matrix with each row
+#' representing a vertex of the triangle.
+#' @param r A positive real number
+#' which serves as the expansion parameter in PE proximity region;
 #' must be \eqn{\ge 1}.
-#' @param M A 2D point in Cartesian coordinates or a 3D point in barycentric coordinates
-#' which serves as a center in the interior of the triangle \code{tri} or the circumcenter of \code{tri}
+#' @param M A 2D point in Cartesian coordinates
+#' or a 3D point in barycentric coordinates
+#' which serves as a center in the interior of the triangle \code{tri}
+#' or the circumcenter of \code{tri}
 #' which may be entered as "CC" as well;
-#' default is \eqn{M=(1,1,1)} i.e., the center of mass of \code{tri}.
-#' @param rv1,rv2 The indices of the vertices whose regions contains \code{p1} and \code{p2}, respectively.
-#' They take the vertex labels as \eqn{1,2,3} as in the row order of the vertices in \code{tri}
+#' default is \eqn{M=(1,1,1)}, i.e.,
+#' the center of mass of \code{tri}.
+#' @param rv1,rv2 The indices of the vertices
+#'  whose regions contains \code{p1} and \code{p2}, respectively.
+#' They take the vertex labels as \eqn{1,2,3}
+#' as in the row order of the vertices in \code{tri}
 #' (default is \code{NULL} for both).
-#' @param ch.data.pnts A logical argument for checking whether points \code{p1} and \code{p2} are
+#' @param ch.data.pnts A logical argument for
+#' checking whether points \code{p1} and \code{p2} are
 #' data points in \code{Xp} or not (default is \code{FALSE}).
 #'
-#' @return \eqn{I(}\{\code{p1,p2}\} is a dominating set of the PE-PCD\eqn{)} where the vertices of the PE-PCD are the 2D data set \code{Xp}),
-#' that is, returns 1 if \{\code{p1,p2}\} is a dominating set of PE-PCD, returns 0 otherwise
+#' @return \eqn{I(}\{\code{p1,p2}\} is a dominating set of the PE-PCD\eqn{)}
+#' where the vertices of the PE-PCD are the 2D data set \code{Xp},
+#' that is, returns 1 if \{\code{p1,p2}\} is a dominating set of PE-PCD,
+#' and returns 0 otherwise.
 #'
-#' @seealso \code{\link{Gam2PEbas.tri}}, \code{\link{Gam2AStri}}, and \code{\link{Gam2PEtetra}}
+#' @seealso \code{\link{Idom.num2PEbasic.tri}}, \code{\link{Idom.num2AStri}},
+#' and \code{\link{Idom.num2PEtetra}}
 #'
 #' @references
 #' \insertAllCited{}
@@ -2362,27 +2873,27 @@ Gam1PEtri <- function(p,Xp,tri,r,M=c(1,1,1),rv=NULL,ch.data.pnt=FALSE)
 #'
 #' r<-1.5  #try also r<-2
 #'
-#' Gam2PEtri(Xp[1,],Xp[2,],Xp,Tr,r,M)
+#' Idom.num2PEtri(Xp[1,],Xp[2,],Xp,Tr,r,M)
 #'
 #' ind.gam2<-vector()
 #' for (i in 1:(n-1))
 #'   for (j in (i+1):n)
-#'   {if (Gam2PEtri(Xp[i,],Xp[j,],Xp,Tr,r,M)==1)
+#'   {if (Idom.num2PEtri(Xp[i,],Xp[j,],Xp,Tr,r,M)==1)
 #'    ind.gam2<-rbind(ind.gam2,c(i,j))}
 #' ind.gam2
 #'
 #' #or try
-#' rv1<-rv.tri.cent(Xp[1,],Tr,M)$rv;
-#' rv2<-rv.tri.cent(Xp[2,],Tr,M)$rv
-#' Gam2PEtri(Xp[1,],Xp[2,],Xp,Tr,r,M,rv1,rv2)
+#' rv1<-rel.vert.tri(Xp[1,],Tr,M)$rv;
+#' rv2<-rel.vert.tri(Xp[2,],Tr,M)$rv
+#' Idom.num2PEtri(Xp[1,],Xp[2,],Xp,Tr,r,M,rv1,rv2)
 #'
-#' Gam2PEtri(Xp[1,],c(1,2),Xp,Tr,r,M,ch.data.pnts = FALSE)
+#' Idom.num2PEtri(Xp[1,],c(1,2),Xp,Tr,r,M,ch.data.pnts = FALSE)
 #' #gives an error message if ch.data.pnts = TRUE
 #' #since not both points, p1 and p2, are data points in Xp
 #' }
 #'
-#' @export Gam2PEtri
-Gam2PEtri <- function(p1,p2,Xp,tri,r,M=c(1,1,1),rv1=NULL,rv2=NULL,ch.data.pnts=FALSE)
+#' @export Idom.num2PEtri
+Idom.num2PEtri <- function(p1,p2,Xp,tri,r,M=c(1,1,1),rv1=NULL,rv2=NULL,ch.data.pnts=FALSE)
 {
   if (!is.point(p1) || !is.point(p2))
   {stop('p1 and p2 must be numeric 2D points')}
@@ -2405,7 +2916,7 @@ Gam2PEtri <- function(p1,p2,Xp,tri,r,M=c(1,1,1),rv1=NULL,rv2=NULL,ch.data.pnts=F
   vec1<-rep(1,3);
   D0<-det(matrix(cbind(tri,vec1),ncol=3))
   if (round(D0,14)==0)
-  {stop('the triangle is degenerate')}
+  {stop('The triangle is degenerate')}
 
   if (!is.point(r,1) || r<1)
   {stop('r must be a scalar >= 1')}
@@ -2417,33 +2928,40 @@ Gam2PEtri <- function(p1,p2,Xp,tri,r,M=c(1,1,1),rv1=NULL,rv2=NULL,ch.data.pnts=F
   }
 
   if (!(is.point(M) || is.point(M,3) || identical(M,"CC")))
-  {stop('M must be a numeric 2D point for Cartesian coordinates or 3D point for barycentric coordinates
-          or the circumcenter "CC" ')}
+  {stop('M must be a numeric 2D point for Cartesian coordinates or
+  3D point for barycentric coordinates or the circumcenter "CC" ')}
 
-  CC = circ.cent.tri(tri)
+  CC = circumcenter.tri(tri)
   if (identical(M,"CC") )
   { M<-CC }
 
   if (dimension(M)==3)
   {M<-bary2cart(M,tri)}
 
-  if (!(isTRUE(all.equal(M,CC)) || in.triangle(M,tri,boundary=FALSE)$in.tri))
-  {stop('center is not the circumcenter or not in the interior of the triangle')}
+  if (!(isTRUE(all.equal(M,CC)) ||
+        in.triangle(M,tri,boundary=FALSE)$in.tri))
+  {stop('center is not the circumcenter or
+        not in the interior of the triangle')}
 
   if (isTRUE(all.equal(p1,p2)))
   {dom<-0; return(dom); stop}
 
   if (is.null(rv1))
-  {rv1<-ifelse(isTRUE(all.equal(M,CC)),rv.triCC(p1,tri)$rv,rv.tri.cent(p1,tri,M)$rv)  #vertex region for point p1
+  {rv1<-ifelse(isTRUE(all.equal(M,CC)),
+               rel.vert.triCC(p1,tri)$rv,
+               rel.vert.tri(p1,tri,M)$rv)  #vertex region for point p1
   }
   if (is.null(rv2))
-  {rv2<-ifelse(isTRUE(all.equal(M,CC)),rv.triCC(p2,tri)$rv,rv.tri.cent(p2,tri,M)$rv)  #vertex region for point p2
+  {rv2<-ifelse(isTRUE(all.equal(M,CC)),
+               rel.vert.triCC(p2,tri)$rv,
+               rel.vert.tri(p2,tri,M)$rv)  #vertex region for point p2
   }
 
   n<-nrow(Xp)
   dom<-1; i<-1;
   while (i <= n & dom==1)
-  {if (max(IndNPEtri(p1,Xp[i,],tri,r,M,rv1),IndNPEtri(p2,Xp[i,],tri,r,M,rv2))==0)
+  {if (max(IarcPEtri(p1,Xp[i,],tri,r,M,rv1),
+           IarcPEtri(p2,Xp[i,],tri,r,M,rv2))==0)
     dom<-0;
   i<-i+1;
   }
@@ -2453,31 +2971,46 @@ Gam2PEtri <- function(p1,p2,Xp,tri,r,M=c(1,1,1),rv1=NULL,rv2=NULL,ch.data.pnts=F
 
 #################################################################
 
-#' @title The domination number of Proportional Edge Proximity Catch Digraph (PE-PCD) - one triangle case
+#' @title The domination number of Proportional Edge Proximity Catch Digraph
+#' (PE-PCD) - one triangle case
 #'
-#' @description Returns the domination number of PE-PCD whose vertices are the data points in \code{Xp}.
+#' @description Returns the domination number of PE-PCD
+#' whose vertices are the data points in \code{Xp}.
 #'
-#' PE proximity region is defined with respect to the triangle \code{tri} with expansion parameter \eqn{r \ge 1} and
-#' vertex regions are constructed with center \eqn{M=(m_1,m_2)} in Cartesian coordinates or \eqn{M=(\alpha,\beta,\gamma)} in barycentric coordinates
-#' in the interior of the triangle \code{tri} or the circumcenter of \code{tri}.
+#' PE proximity region is defined
+#' with respect to the triangle \code{tri}
+#' with expansion parameter \eqn{r \ge 1} and
+#' vertex regions are constructed with center \eqn{M=(m_1,m_2)}
+#' in Cartesian coordinates or \eqn{M=(\alpha,\beta,\gamma)}
+#' in barycentric coordinates
+#' in the interior of the triangle \code{tri}
+#' or the circumcenter of \code{tri}.
 #'
 #' See also (\insertCite{ceyhan:Phd-thesis,ceyhan:masa-2007,ceyhan:dom-num-NPE-Spat2011,ceyhan:mcap2012;textual}{pcds}).
 #'
-#' @param Xp A set of 2D points which constitute the vertices of the digraph.
-#' @param tri A \eqn{3 \times 2} matrix with each row representing a vertex of the triangle.
-#' @param r A positive real number which serves as the expansion parameter in PE proximity region;
+#' @param Xp A set of 2D points
+#' which constitute the vertices of the digraph.
+#' @param tri A \eqn{3 \times 2} matrix with each row
+#' representing a vertex of the triangle.
+#' @param r A positive real number
+#' which serves as the expansion parameter in PE proximity region;
 #' must be \eqn{\ge 1}.
-#' @param M A 2D point in Cartesian coordinates or a 3D point in barycentric coordinates
-#' which serves as a center in the interior of the triangle \code{tri} or the circumcenter of \code{tri}
+#' @param M A 2D point in Cartesian coordinates
+#' or a 3D point in barycentric coordinates
+#' which serves as a center in the interior of the triangle \code{tri}
+#' or the circumcenter of \code{tri}
 #' which may be entered as "CC" as well;
-#' default is \eqn{(1,1,1)} i.e., the center of mass.
+#' default is \eqn{(1,1,1)}, i.e., the center of mass.
 #'
 #' @return A \code{list} with two elements
-#' \item{dom.num}{Domination number of PE-PCD with vertex set = \code{Xp} and expansion parameter \eqn{r \ge 1} and center \code{M}}
-#' \item{mds}{A minimum dominating set of PE-PCD with vertex set = \code{Xp} and expansion parameter \eqn{r \ge 1} and center \code{M}}
+#' \item{dom.num}{Domination number of PE-PCD with vertex set = \code{Xp}
+#' and expansion parameter \eqn{r \ge 1} and center \code{M}}
+#' \item{mds}{A minimum dominating set of PE-PCD with vertex set = \code{Xp}
+#' and expansion parameter \eqn{r \ge 1} and center \code{M}}
 #' \item{ind.mds}{Indices of the minimum dominating set \code{mds}}
 #'
-#' @seealso \code{\link{PEdom.nd}}, \code{\link{PEdom}} and \code{\link{PEdom1D}}
+#' @seealso \code{\link{PEdom.num.nondeg}}, \code{\link{PEdom.num}},
+#' and \code{\link{PEdom.num1D}}
 #'
 #' @references
 #' \insertAllCited{}
@@ -2495,19 +3028,19 @@ Gam2PEtri <- function(p1,p2,Xp,tri,r,M=c(1,1,1),rv1=NULL,rv2=NULL,ch.data.pnts=F
 #'
 #' r<-1.4
 #'
-#' PEdomTri(Xp,Tr,r,M)
-#' IM<-IncMatPEtri(Xp,Tr,r,M)
-#' dom.greedy #try also dom.exact(IM)
+#' PEdom.num.tri(Xp,Tr,r,M)
+#' IM<-inci.matPEtri(Xp,Tr,r,M)
+#' dom.num.greedy #try also dom.num.exact(IM)
 #'
-#' gr.gam<-dom.greedy(IM)
+#' gr.gam<-dom.num.greedy(IM)
 #' gr.gam
 #' Xp[gr.gam$i,]
 #'
-#' PEdomTri(Xp,Tr,r,M=c(.4,.4))
+#' PEdom.num.tri(Xp,Tr,r,M=c(.4,.4))
 #' }
 #'
-#' @export PEdomTri
-PEdomTri <- function(Xp,tri,r,M=c(1,1,1))
+#' @export PEdom.num.tri
+PEdom.num.tri <- function(Xp,tri,r,M=c(1,1,1))
 {
   if (!is.numeric(as.matrix(Xp)) )
   {stop('Xp must be numeric')}
@@ -2527,14 +3060,14 @@ PEdomTri <- function(Xp,tri,r,M=c(1,1,1))
   vec1<-rep(1,3);
   D0<-det(matrix(cbind(tri,vec1),ncol=3))
   if (round(D0,14)==0)
-  {stop('the triangle is degenerate')}
+  {stop('The triangle is degenerate')}
 
   if (!is.point(r,1) || r<1)
   {stop('r must be a scalar >= 1')}
 
   if (!(is.point(M) || is.point(M,3) || identical(M,"CC")))
-  {stop('M must be a numeric 2D point for Cartesian coordinates or 3D point for barycentric coordinates
-          or the circumcenter "CC" ')}
+  {stop('M must be a numeric 2D point for Cartesian coordinates or
+  3D point for barycentric coordinates or the circumcenter "CC" ')}
 
   n<-nrow(Xp)  #number of Xp points
   ind.tri<-mds<-mds.ind<-c()
@@ -2555,27 +3088,32 @@ PEdomTri <- function(Xp,tri,r,M=c(1,1,1))
   )
   return(res); stop}
 
-  CC = circ.cent.tri(tri)
+  CC = circumcenter.tri(tri)
   if (identical(M,"CC") )
   { M<-CC }
 
   if (dimension(M)==3)
   {M<-bary2cart(M,tri)}
 
-  if (!(isTRUE(all.equal(M,CC)) || in.triangle(M,tri,boundary=FALSE)$in.tri))
-  {stop('center is not the circumcenter or not in the interior of the triangle')}
+  if (!(isTRUE(all.equal(M,CC)) ||
+        in.triangle(M,tri,boundary=FALSE)$in.tri))
+  {stop('center is not the circumcenter or
+        not in the interior of the triangle')}
 
-  Cl2e0<-cl2edgesM_VR(Xtri,tri,M)
-  Cl2e<-Cl2e0$ext #for general r, points closest to opposite edges in the vertex regions
+  Cl2e0<-cl2edgesMvert.reg(Xtri,tri,M)
+  Cl2e<-Cl2e0$ext
+  #for general r, points closest to opposite edges in the vertex regions
   Cl2e.ind<-Cl2e0$ind # indices of these extrema wrt Xtri
-  Ext.ind =ind.tri[Cl2e.ind] #indices of these extrema wrt to the original data
+  Ext.ind =ind.tri[Cl2e.ind]
+  #indices of these extrema wrt to the original data
 
   #Gamma=1 piece
   cnt<-0; j<-1;
   while (j<=3 & cnt==0)
   {
-    if (Gam1PEtri(Cl2e[j,],Xtri,tri,r,M,rv=j)==1)
-    {gam<-1; cnt<-1; mds<-rbind(mds,Cl2e[j,]); mds.ind=c(mds.ind,Ext.ind[j])
+    if (Idom.num1PEtri(Cl2e[j,],Xtri,tri,r,M,rv=j)==1)
+    {gam<-1; cnt<-1; mds<-rbind(mds,Cl2e[j,]);
+    mds.ind=c(mds.ind,Ext.ind[j])
     } else
     {j<-j+1}
   }
@@ -2587,8 +3125,9 @@ PEdomTri <- function(Xp,tri,r,M=c(1,1,1))
   {l<-k+1;
   while (l<=3 & cnt2==0)
   {
-    if (Gam2PEtri(Cl2e[k,],Cl2e[l,],Xtri,tri,r,M,rv1=k,rv2=l)==1)
-    {gam<-2;cnt2<-1 ; mds<-rbind(mds,Cl2e[c(k,l),]); mds.ind=c(mds.ind,Ext.ind[c(k,l)])
+    if (Idom.num2PEtri(Cl2e[k,],Cl2e[l,],Xtri,tri,r,M,rv1=k,rv2=l)==1)
+    {gam<-2;cnt2<-1 ; mds<-rbind(mds,Cl2e[c(k,l),]);
+    mds.ind=c(mds.ind,Ext.ind[c(k,l)])
     } else {l<-l+1};
   }
   k<-k+1;
@@ -2603,44 +3142,73 @@ PEdomTri <- function(Xp,tri,r,M=c(1,1,1))
   if (nrow(mds)==1){mds=as.vector(mds)}
   list(dom.num=gam, #domination number
        mds=mds, #a minimum dominating set
-       ind.mds =mds.ind #indices of a minimum dominating set (wrt to original data)
+       ind.mds =mds.ind
+       #indices of a minimum dominating set (wrt to original data)
   )
 } #end of the function
 #'
 
 #################################################################
 
-#' @title The indicator for the presence of an arc from a point in set \code{S} to the point \code{p} for Proportional Edge
-#' Proximity Catch Digraphs (PE-PCDs) - standard equilateral triangle case
+#' @title The indicator for the presence of an arc from a point
+#' in set \code{S} to the point \code{p} or
+#' Proportional Edge Proximity Catch Digraphs (PE-PCDs) -
+#' standard equilateral triangle case
 #'
-#' @description Returns \eqn{I(}\code{p} in \eqn{N_{PE}(x,r)} for some \eqn{x} in \code{S}\eqn{)}, that is, returns 1 if \code{p} is in \eqn{\cup_{x in S}N_{PE}(x,r)},
-#' returns 0 otherwise.
+#' @description Returns \eqn{I(}\code{p} in \eqn{N_{PE}(x,r)}
+#' for some \eqn{x} in \code{S}\eqn{)}
+#' for \code{S}, in the standard equilateral triangle,
+#' that is, returns 1 if \code{p} is in \eqn{\cup_{x in S}N_{PE}(x,r)},
+#' and returns 0 otherwise.
 #'
-#' PE proximity region is constructed with respect to the standard equilateral triangle
-#' \eqn{T_e=T(A,B,C)=T((0,0),(1,0),(1/2,\sqrt{3}/2))} with the expansion parameter \eqn{r \ge 1} and vertex regions are based
-#' on center \eqn{M=(m_1,m_2)} in Cartesian coordinates or \eqn{M=(\alpha,\beta,\gamma)} in barycentric coordinates in the
-#' interior of \eqn{T_e}; default is \eqn{M=(1,1,1)} i.e., the center of mass of \eqn{T_e} (which is equivalent to the circumcenter
-#' for \eqn{T_e}).
+#' PE proximity region is constructed
+#' with respect to the standard equilateral triangle
+#' \eqn{T_e=T(A,B,C)=T((0,0),(1,0),(1/2,\sqrt{3}/2))}
+#' with the expansion parameter \eqn{r \ge 1}
+#' and vertex regions are based
+#' on center \eqn{M=(m_1,m_2)} in Cartesian coordinates
+#' or \eqn{M=(\alpha,\beta,\gamma)}
+#' in barycentric coordinates in the interior of \eqn{T_e};
+#' default is \eqn{M=(1,1,1)},
+#' i.e., the center of mass of \eqn{T_e}
+#' (which is equivalent to the circumcenter for \eqn{T_e}).
 #'
-#' Vertices of \eqn{T_e} are also labeled as 1, 2, and 3, respectively.
-#' If \code{p} is not in \code{S} and either \code{p} or all points in \code{S} are outside \eqn{T_e}, it returns 0,
-#' but if \code{p} is in \code{S}, then it always returns 1 regardless of its location (i.e., loops are allowed).
+#' Vertices of \eqn{T_e} are also labeled as 1, 2, and 3,
+#' respectively.
+#' If \code{p} is not in \code{S} and either \code{p}
+#' or all points in \code{S} are outside \eqn{T_e}, it returns 0,
+#' but if \code{p} is in \code{S},
+#' then it always returns 1 regardless of its location
+#' (i.e., loops are allowed).
 #'
-#' @param S A set of 2D points. Presence of an arc from a point in \code{S} to point \code{p} is checked
+#' @param S A set of 2D points.
+#' Presence of an arc from a point in \code{S} to point \code{p} is checked
 #' by the function.
-#' @param p A 2D point. Presence of an arc from a point in \code{S} to point \code{p} is checked
+#' @param p A 2D point.
+#' Presence of an arc from a point in \code{S} to point \code{p} is checked
 #' by the function.
-#' @param r A positive real number which serves as the expansion parameter in PE proximity region in the
-#' standard equilateral triangle \eqn{T_e=T((0,0),(1,0),(1/2,\sqrt{3}/2))}; must be \eqn{\ge 1}.
-#' @param M A 2D point in Cartesian coordinates or a 3D point in barycentric coordinates
-#' which serves as a center in the interior of the standard equilateral triangle \eqn{T_e}; default is \eqn{M=(1,1,1)}
+#' @param r A positive real number
+#' which serves as the expansion parameter in PE proximity region in the
+#' standard equilateral triangle \eqn{T_e=T((0,0),(1,0),(1/2,\sqrt{3}/2))};
+#' must be \eqn{\ge 1}.
+#' @param M A 2D point in Cartesian coordinates
+#' or a 3D point in barycentric coordinates
+#' which serves as a center
+#' in the interior of the standard equilateral triangle \eqn{T_e};
+#' default is \eqn{M=(1,1,1)}
 #' i.e., the center of mass of \eqn{T_e}.
 #'
-#' @return I(\code{p} is in U_{x in \code{S}} N_{PE}(x,r)), that is, returns 1 if \code{p} is in \code{S} or inside \eqn{N_{PE}(x,r)} for at least
-#' one \eqn{x} in \code{S}, returns 0 otherwise. PE proximity region is constructed with respect to the standard
-#' equilateral triangle \eqn{T_e=T(A,B,C)=T((0,0),(1,0),(1/2,\sqrt{3}/2))} with \code{M}-vertex regions
+#' @return \eqn{I(}\code{p} is in U_{x in \code{S}} \eqn{N_{PE}(x,r))}
+#' for \code{S} in the standard equilateral triangle,
+#' that is, returns 1 if \code{p} is in \code{S}
+#' or inside \eqn{N_{PE}(x,r)} for at least
+#' one \eqn{x} in \code{S}, and returns 0 otherwise.
+#' PE proximity region is constructed with respect to the standard
+#' equilateral triangle \eqn{T_e=T(A,B,C)=T((0,0),(1,0),(1/2,\sqrt{3}/2))}
+#' with \code{M}-vertex regions
 #'
-#' @seealso \code{\link{IndNPEtriSet}}, \code{\link{IndNPETe}}, \code{\link{IndNPEtri}}, and \code{\link{IndNCSTeSet}}
+#' @seealso \code{\link{IarcPEset2pnt.tri}}, \code{\link{IarcPEstd.tri}},
+#' \code{\link{IarcPEtri}}, and \code{\link{IarcCSset2pnt.std.tri}}
 #'
 #' @author Elvan Ceyhan
 #'
@@ -2658,22 +3226,22 @@ PEdomTri <- function(Xp,tri,r,M=c(1,1,1))
 #' r<-1.5
 #'
 #' S<-rbind(Xp[1,],Xp[2,])  #try also S<-c(.5,.5)
-#' IndNPETeSet(S,Xp[3,],r,M)
-#' IndNPETeSet(S,Xp[3,],r=1,M)
+#' IarcPEset2pnt.std.tri(S,Xp[3,],r,M)
+#' IarcPEset2pnt.std.tri(S,Xp[3,],r=1,M)
 #'
 #' S<-rbind(Xp[1,],Xp[2,],Xp[3,],Xp[5,])
-#' IndNPETeSet(S,Xp[3,],r,M)
+#' IarcPEset2pnt.std.tri(S,Xp[3,],r,M)
 #'
-#' IndNPETeSet(S,Xp[6,],r,M)
-#' IndNPETeSet(S,Xp[6,],r=1.25,M)
+#' IarcPEset2pnt.std.tri(S,Xp[6,],r,M)
+#' IarcPEset2pnt.std.tri(S,Xp[6,],r=1.25,M)
 #'
 #' P<-c(.4,.2)
 #' S<-Xp[c(1,3,4),]
-#' IndNPETeSet(Xp,P,r,M)
+#' IarcPEset2pnt.std.tri(Xp,P,r,M)
 #' }
 #'
-#' @export IndNPETeSet
-IndNPETeSet <- function(S,p,r,M=c(1,1,1))
+#' @export IarcPEset2pnt.std.tri
+IarcPEset2pnt.std.tri <- function(S,p,r,M=c(1,1,1))
 {
   if (!is.numeric(as.matrix(S)))
   {stop('S must be a matrix of numeric values')}
@@ -2693,7 +3261,8 @@ IndNPETeSet <- function(S,p,r,M=c(1,1,1))
   {stop('r must be a scalar >= 1')}
 
   if (!is.point(M) && !is.point(M,3))
-  {stop('M must be a numeric 2D point for Cartesian coordinates or 3D point for barycentric coordinates')}
+  {stop('M must be a numeric 2D point for Cartesian coordinates or
+  3D point for barycentric coordinates ')}
 
   if (dimension(M)==3)
   {M<-bary2cart(M,Te)}
@@ -2708,7 +3277,7 @@ IndNPETeSet <- function(S,p,r,M=c(1,1,1))
   dom<-0; i<-1;
   while (dom ==0 && i<= k)
   {
-    if (IndNPETe(S[i,],p,r,M)==1)
+    if (IarcPEstd.tri(S[i,],p,r,M)==1)
     {dom<-1};
     i<-i+1;
   }
@@ -2718,38 +3287,62 @@ IndNPETeSet <- function(S,p,r,M=c(1,1,1))
 
 #################################################################
 
-#' @title The indicator for the presence of an arc from a point in set \code{S} to the point \code{p} for
-#' Proportional Edge Proximity Catch Digraphs (PE-PCDs) - one triangle case
+#' @title The indicator for the presence of an arc from a point in set \code{S}
+#' to the point \code{p} for Proportional Edge Proximity Catch Digraphs
+#' (PE-PCDs) - one triangle case
 #'
-#' @description Returns \eqn{I(}\code{p} in \eqn{N_{PE}(x,r)} for some \eqn{x} in \code{S}\eqn{)}, that is, returns 1 if \code{p} is in \eqn{\cup_{x in S}N_{PE}(x,r)},
-#' returns 0 otherwise.
+#' @description Returns \eqn{I(}\code{p} in \eqn{N_{PE}(x,r)}
+#' for some \eqn{x} in \code{S}\eqn{)},
+#' that is, returns 1 if \code{p} is in \eqn{\cup_{x in S}N_{PE}(x,r)},
+#' and returns 0 otherwise.
 #'
-#' PE proximity region is constructed with respect to the triangle \code{tri} with
-#' the expansion parameter \eqn{r \ge 1} and vertex regions are based on the center, \eqn{M=(m_1,m_2)} in Cartesian coordinates
-#' or \eqn{M=(\alpha,\beta,\gamma)} in barycentric coordinates in the interior of the triangle \code{tri}
-#' or based on the circumcenter of \code{tri}; default is \eqn{M=(1,1,1)} i.e., the center of mass of \code{tri}.
-#' Vertices of \code{tri} are also labeled as 1, 2, and 3, respectively.
+#' PE proximity region is constructed
+#' with respect to the triangle \code{tri} with
+#' the expansion parameter \eqn{r \ge 1}
+#' and vertex regions are based on the center, \eqn{M=(m_1,m_2)}
+#' in Cartesian coordinates
+#' or \eqn{M=(\alpha,\beta,\gamma)} in barycentric coordinates
+#' in the interior of the triangle \code{tri}
+#' or based on the circumcenter of \code{tri};
+#'  default is \eqn{M=(1,1,1)}, i.e.,
+#'  the center of mass of \code{tri}.
+#' Vertices of \code{tri} are also labeled as 1, 2, and 3,
+#' respectively.
 #'
-#' If \code{p} is not in \code{S} and either \code{p} or all points in \code{S} are outside \code{tri}, it returns 0,
-#' but if \code{p} is in \code{S}, then it always returns 1 regardless of its location (i.e., loops are allowed).
+#' If \code{p} is not in \code{S} and either \code{p}
+#' or all points in \code{S} are outside \code{tri}, it returns 0,
+#' but if \code{p} is in \code{S},
+#' then it always returns 1 regardless of its location
+#' (i.e., loops are allowed).
 #'
-#' @param S A set of 2D points. Presence of an arc from a point in \code{S} to point \code{p} is checked
+#' @param S A set of 2D points.
+#' Presence of an arc from a point in \code{S} to point \code{p} is checked
 #' by the function.
-#' @param p A 2D point. Presence of an arc from a point in \code{S} to point \code{p} is checked
+#' @param p A 2D point.
+#' Presence of an arc from a point in \code{S} to point \code{p} is checked
 #' by the function.
-#' @param r A positive real number which serves as the expansion parameter in PE proximity region
+#' @param r A positive real number
+#' which serves as the expansion parameter in PE proximity region
 #' constructed in the triangle \code{tri}; must be \eqn{\ge 1}.
-#' @param tri A \eqn{3 \times 2} matrix with each row representing a vertex of the triangle.
-#' @param M A 2D point in Cartesian coordinates or a 3D point in barycentric coordinates
-#' which serves as a center in the interior of the triangle \code{tri} or the circumcenter of \code{tri}
+#' @param tri A \eqn{3 \times 2} matrix with each row
+#' representing a vertex of the triangle.
+#' @param M A 2D point in Cartesian coordinates
+#' or a 3D point in barycentric coordinates
+#' which serves as a center in the interior of the triangle \code{tri}
+#' or the circumcenter of \code{tri}
 #' which may be entered as "CC" as well;
-#' default is \eqn{M=(1,1,1)} i.e., the center of mass of \code{tri}.
+#' default is \eqn{M=(1,1,1)}, i.e., the center of mass of \code{tri}.
 #'
-#' @return I(\code{p} is in U_{x in \code{S}} N_{PE}(x,r)), that is, returns 1 if \code{p} is in \code{S} or inside \eqn{N_{PE}(x,r)} for at least
-#' one \eqn{x} in \code{S}, returns 0 otherwise where PE proximity region is constructed with respect to the triangle \code{tri}
+#' @return I(\code{p} is in U_{x in \code{S}} N_{PE}(x,r)),
+#' that is, returns 1 if \code{p} is in \code{S}
+#' or inside \eqn{N_{PE}(x,r)} for at least
+#' one \eqn{x} in \code{S}, and returns 0 otherwise,
+#' where PE proximity region is constructed
+#' with respect to the triangle \code{tri}
 #'
-#' @seealso \code{\link{IndNPETeSet}}, \code{\link{IndNPEtri}}, \code{\link{IndNPETe}},
-#' \code{\link{IndNAStriSet}}, and \code{\link{IndNCStriSet}}
+#' @seealso \code{\link{IarcPEset2pnt.std.tri}}, \code{\link{IarcPEtri}},
+#' \code{\link{IarcPEstd.tri}}, \code{\link{IarcASset2pnt.tri}},
+#' and \code{\link{IarcCSset2pnt.tri}}
 #'
 #' @author Elvan Ceyhan
 #'
@@ -2768,22 +3361,22 @@ IndNPETeSet <- function(S,p,r,M=c(1,1,1))
 #'
 #' S<-rbind(Xp[1,],Xp[2,])  #try also S<-c(1.5,1)
 #'
-#' IndNPEtriSet(S,Xp[3,],Tr,r,M)
-#' IndNPEtriSet(S,Xp[3,],r=1,Tr,M)
+#' IarcPEset2pnt.tri(S,Xp[3,],Tr,r,M)
+#' IarcPEset2pnt.tri(S,Xp[3,],r=1,Tr,M)
 #'
 #' S<-rbind(Xp[1,],Xp[2,],Xp[3,],Xp[5,])
-#' IndNPEtriSet(S,Xp[3,],Tr,r,M)
+#' IarcPEset2pnt.tri(S,Xp[3,],Tr,r,M)
 #'
 #' S<-rbind(c(.1,.1),c(.3,.4),c(.5,.3))
-#' IndNPEtriSet(S,Xp[3,],Tr,r,M)
+#' IarcPEset2pnt.tri(S,Xp[3,],Tr,r,M)
 #'
 #' P<-c(.4,.2)
 #' S<-Xp[c(1,3,4),]
-#' IndNPEtriSet(Xp,P,Tr,r,M)
+#' IarcPEset2pnt.tri(Xp,P,Tr,r,M)
 #' }
 #'
-#' @export IndNPEtriSet
-IndNPEtriSet <- function(S,p,tri,r,M=c(1,1,1))
+#' @export IarcPEset2pnt.tri
+IarcPEset2pnt.tri <- function(S,p,tri,r,M=c(1,1,1))
 {
   if (!is.numeric(as.matrix(S)))
   {stop('S must be a matrix of numeric values')}
@@ -2806,30 +3399,32 @@ IndNPEtriSet <- function(S,p,tri,r,M=c(1,1,1))
   vec1<-rep(1,3);
   D0<-det(matrix(cbind(tri,vec1),ncol=3))
   if (round(D0,14)==0)
-  {stop('the triangle is degenerate')}
+  {stop('The triangle is degenerate')}
 
   if (!is.point(r,1) || r<1)
   {stop('r must be a scalar >= 1')}
 
   if (!(is.point(M) || is.point(M,3) || identical(M,"CC")))
-  {stop('M must be a numeric 2D point for Cartesian coordinates or 3D point for barycentric coordinates
-          or the circumcenter "CC" ')}
+  {stop('M must be a numeric 2D point for Cartesian coordinates or
+  3D point for barycentric coordinates or the circumcenter "CC" ')}
 
-  CC = circ.cent.tri(tri)
+  CC = circumcenter.tri(tri)
   if (identical(M,"CC") )
   { M<-CC }
 
   if (dimension(M)==3)
   {M<-bary2cart(M,tri)}
 
-  if (!(isTRUE(all.equal(M,CC)) || in.triangle(M,tri,boundary=FALSE)$in.tri))
-  {stop('center is not the circumcenter or not in the interior of the triangle')}
+  if (!(isTRUE(all.equal(M,CC)) ||
+        in.triangle(M,tri,boundary=FALSE)$in.tri))
+  {stop('center is not the circumcenter or
+        not in the interior of the triangle')}
 
   k<-nrow(S);
   dom<-0; i<-1;
   while (dom ==0 && i<= k)
   {
-    if (IndNPEtri(S[i,],p,tri,r,M)==1)
+    if (IarcPEtri(S[i,],p,tri,r,M)==1)
     {dom<-1};
     i<-i+1;
   }
@@ -2839,33 +3434,54 @@ IndNPEtriSet <- function(S,p,tri,r,M=c(1,1,1))
 
 #################################################################
 
-#' @title The indicator for the set of points \code{S} being a dominating set or not for Proportional Edge Proximity
-#' Catch Digraphs (PE-PCDs) - standard equilateral triangle case
+#' @title The indicator for the set of points \code{S} being a dominating set
+#' or not for Proportional Edge Proximity Catch Digraphs (PE-PCDs) -
+#' standard equilateral triangle case
 #'
-#' @description Returns \eqn{I(}\code{S} a dominating set of PE-PCD whose vertices are the data points \code{Xp}\eqn{)}, that is,
-#' returns 1 if \code{S} is a dominating set of PE-PCD, returns 0 otherwise.
+#' @description Returns \eqn{I(}\code{S} a dominating set of PE-PCD
+#' whose vertices are the data points \code{Xp}\eqn{)}
+#' for \code{S} in the standard equilateral triangle,
+#' that is,
+#' returns 1 if \code{S} is a dominating set of PE-PCD,
+#' and returns 0 otherwise.
 #'
 #' PE proximity region is constructed
-#' with respect to the standard equilateral triangle \eqn{T_e=T(A,B,C)=T((0,0),(1,0),(1/2,\sqrt{3}/2))} with
-#' expansion parameter \eqn{r \ge 1} and vertex regions are based on the center \eqn{M=(m_1,m_2)}
-#' in Cartesian coordinates or \eqn{M=(\alpha,\beta,\gamma)} in barycentric coordinates in the interior of \eqn{T_e};
-#' default is \eqn{M=(1,1,1)} i.e., the center of mass of \eqn{T_e} (which is equivalent to the circumcenter of \eqn{T_e}).
-#' Vertices of \eqn{T_e} are also labeled as 1, 2, and 3, respectively.
+#' with respect to the standard equilateral triangle
+#' \eqn{T_e=T(A,B,C)=T((0,0),(1,0),(1/2,\sqrt{3}/2))} with
+#' expansion parameter \eqn{r \ge 1}
+#' and vertex regions are based on the center \eqn{M=(m_1,m_2)}
+#' in Cartesian coordinates or \eqn{M=(\alpha,\beta,\gamma)}
+#' in barycentric coordinates in the interior of \eqn{T_e};
+#' default is \eqn{M=(1,1,1)}, i.e., the center of mass of \eqn{T_e}
+#' (which is also equivalent to the circumcenter of \eqn{T_e}).
+#' Vertices of \eqn{T_e} are also labeled as 1, 2, and 3,
+#' respectively.
 #'
 #' See also (\insertCite{ceyhan:Phd-thesis,ceyhan:masa-2007,ceyhan:dom-num-NPE-Spat2011,ceyhan:mcap2012;textual}{pcds}).
 #'
-#' @param S A set of 2D points whose PE proximity regions are considered.
-#' @param Xp A set of 2D points which constitutes the vertices of the PE-PCD.
-#' @param r A positive real number which serves as the expansion parameter in PE proximity region in the
-#' standard equilateral triangle \eqn{T_e=T((0,0),(1,0),(1/2,\sqrt{3}/2))}; must be \eqn{\ge 1}.
-#' @param M A 2D point in Cartesian coordinates or a 3D point in barycentric coordinates
-#' which serves as a center in the interior of the standard equilateral triangle \eqn{T_e}; default is \eqn{M=(1,1,1)} i.e.
+#' @param S A set of 2D points
+#' whose PE proximity regions are considered.
+#' @param Xp A set of 2D points
+#' which constitutes the vertices of the PE-PCD.
+#' @param r A positive real number
+#' which serves as the expansion parameter in PE proximity region in the
+#' standard equilateral triangle
+#' \eqn{T_e=T((0,0),(1,0),(1/2,\sqrt{3}/2))};
+#' must be \eqn{\ge 1}.
+#' @param M A 2D point in Cartesian coordinates
+#' or a 3D point in barycentric coordinates
+#' which serves as a center
+#' in the interior of the standard equilateral triangle \eqn{T_e};
+#' default is \eqn{M=(1,1,1)} i.e.
 #' the center of mass of \eqn{T_e}.
 #'
-#' @return \eqn{I(}\code{S} a dominating set of PE-PCD\eqn{)}, that is, returns 1 if \code{S} is a dominating set of PE-PCD,
-#' returns 0 otherwise, where PE proximity region is constructed in the standard equilateral triangle \eqn{T_e}
+#' @return \eqn{I(}\code{S} a dominating set of PE-PCD\eqn{)} for \code{S}
+#' in the standard equilateral triangle,
+#' that is, returns 1 if \code{S} is a dominating set of PE-PCD,
+#' and returns 0 otherwise,
+#' where PE proximity region is constructed in the standard equilateral triangle \eqn{T_e}.
 #'
-#' @seealso \code{\link{IndNPEtri.domset}} and \code{\link{IndNCSTe.domset}}
+#' @seealso \code{\link{Idom.setPEtri}} and \code{\link{Idom.setCSstd.tri}}
 #'
 #' @references
 #' \insertAllCited{}
@@ -2886,16 +3502,17 @@ IndNPEtriSet <- function(S,p,tri,r,M=c(1,1,1))
 #' r<-1.5
 #'
 #' S<-rbind(Xp[1,],Xp[2,])
-#' IndNPETe.domset(S,Xp,r,M)
+#' Idom.setPEstd.tri(S,Xp,r,M)
 #'
 #' S<-rbind(Xp[1,],Xp[2,],Xp[3,],Xp[5,],c(.2,.5))
-#' IndNPETe.domset(S,Xp[3,],r,M)
+#' Idom.setPEstd.tri(S,Xp[3,],r,M)
 #' }
 #'
-#' @export IndNPETe.domset
-IndNPETe.domset <- function(S,Xp,r,M=c(1,1,1))
+#' @export Idom.setPEstd.tri
+Idom.setPEstd.tri <- function(S,Xp,r,M=c(1,1,1))
 {
-  if (!is.numeric(as.matrix(S)) || !is.numeric(as.matrix(Xp)))
+  if (!is.numeric(as.matrix(S)) ||
+      !is.numeric(as.matrix(Xp)))
   {stop('Both arguments must be numeric')}
 
   if (is.point(S))
@@ -2918,7 +3535,8 @@ IndNPETe.domset <- function(S,Xp,r,M=c(1,1,1))
   {stop('r must be a scalar >= 1')}
 
   if (!is.point(M) && !is.point(M,3))
-  {stop('M must be a numeric 2D point for Cartesian coordinates or 3D point for barycentric coordinates')}
+  {stop('M must be a numeric 2D point for Cartesian coordinates or
+  3D point for barycentric coordinates ')}
 
   if (dimension(M)==3)
   {M<-bary2cart(M,Te)}
@@ -2935,7 +3553,8 @@ IndNPETe.domset <- function(S,Xp,r,M=c(1,1,1))
   dom<-1; i<-1;
   while (dom ==1 && i<= n)
   {
-    if (IndNPETeSet(S,Xp[i,],r,M)==0)  #this is where std equilateral triangle Te is implicitly used
+    if (IarcPEset2pnt.std.tri(S,Xp[i,],r,M)==0)
+      #this is where std equilateral triangle Te is implicitly used
     {dom<-0};
     i<-i+1;
   }
@@ -2945,37 +3564,52 @@ IndNPETe.domset <- function(S,Xp,r,M=c(1,1,1))
 
 #################################################################
 
-#' @title The indicator for the set of points \code{S} being a dominating set or not for Proportional Edge Proximity
-#' Catch Digraphs (PE-PCDs) - one triangle case
+#' @title The indicator for the set of points \code{S} being a dominating set
+#' or not for Proportional Edge Proximity Catch Digraphs (PE-PCDs) -
+#' one triangle case
 #'
-#' @description Returns \eqn{I(}\code{S} a dominating set of PE-PCD whose vertices are the data set \code{Xp}\eqn{)}, that is,
-#' returns 1 if \code{S} is a dominating set of PE-PCD, returns 0 otherwise.
+#' @description Returns \eqn{I(}\code{S} a dominating set of PE-PCD
+#' whose vertices are the data set \code{Xp}\eqn{)}, that is,
+#' returns 1 if \code{S} is a dominating set of PE-PCD,
+#' and returns 0 otherwise.
 #'
 #' PE proximity region is constructed with
-#' respect to the triangle \code{tri} with the expansion parameter \eqn{r \ge 1} and vertex regions are based
-#' on the center \eqn{M=(m_1,m_2)} in Cartesian coordinates or \eqn{M=(\alpha,\beta,\gamma)} in barycentric coordinates
-#' in the interior of the triangle \code{tri} or based on the circumcenter of \code{tri};
-#' default is \eqn{M=(1,1,1)} i.e., the center of mass of \code{tri}.
-#' The triangle \code{tri}\eqn{=T(A,B,C)} has edges \eqn{AB}, \eqn{BC}, \eqn{AC} which are also labeled as edges 3, 1, and 2, respectively.
+#' respect to the triangle \code{tri}
+#' with the expansion parameter \eqn{r \ge 1} and vertex regions are based
+#' on the center \eqn{M=(m_1,m_2)} in Cartesian coordinates
+#' or \eqn{M=(\alpha,\beta,\gamma)} in barycentric coordinates
+#' in the interior of the triangle \code{tri}
+#' or based on the circumcenter of \code{tri};
+#' default is \eqn{M=(1,1,1)}, i.e.,
+#' the center of mass of \code{tri}.
+#' The triangle \code{tri}\eqn{=T(A,B,C)} has edges \eqn{AB}, \eqn{BC}, \eqn{AC}
+#' which are also labeled as edges 3, 1, and 2, respectively.
 #'
 #' See also (\insertCite{ceyhan:Phd-thesis,ceyhan:masa-2007,ceyhan:dom-num-NPE-Spat2011,ceyhan:mcap2012;textual}{pcds}).
 #'
-#' @param S A set of 2D points which is to be tested for being a dominating set for the PE-PCDs.
-#' @param Xp A set of 2D points which constitute the vertices of the PE-PCD.
-#' @param r A positive real number which serves as the expansion parameter in PE proximity region
+#' @param S A set of 2D points which is to be tested for
+#' being a dominating set for the PE-PCDs.
+#' @param Xp A set of 2D points
+#' which constitute the vertices of the PE-PCD.
+#' @param r A positive real number
+#' which serves as the expansion parameter in PE proximity region
 #' constructed in the triangle \code{tri}; must be \eqn{\ge 1}.
-#' @param tri A \eqn{3 \times 2} matrix with each row representing a vertex of the triangle.
+#' @param tri A \eqn{3 \times 2} matrix with each row
+#' representing a vertex of the triangle.
 #' @param M A 2D point in Cartesian coordinates or a 3D point in barycentric coordinates
-#' which serves as a center in the interior of the triangle \code{tri} or the circumcenter of \code{tri}
+#' which serves as a center in the interior of the triangle \code{tri}
+#' or the circumcenter of \code{tri}
 #' which may be entered as "CC" as well;
-#' default is \eqn{M=(1,1,1)} i.e., the center of mass of \code{tri}.
+#' default is \eqn{M=(1,1,1)}, i.e., the center of mass of \code{tri}.
 #'
-#' @return \eqn{I(}\code{S} a dominating set of PE-PCD\eqn{)}, that is, returns 1 if \code{S} is a dominating set of PE-PCD whose
-#' vertices are the data points in \code{Xp}; returns 0 otherwise, where PE proximity region is constructed in
-#' the triangle \code{tri}
+#' @return \eqn{I(}\code{S} a dominating set of PE-PCD\eqn{)},
+#' that is, returns 1 if \code{S} is a dominating set of PE-PCD whose
+#' vertices are the data points in \code{Xp}; and returns 0 otherwise,
+#' where PE proximity region is constructed in
+#' the triangle \code{tri}.
 #'
-#' @seealso \code{\link{IndNPETe.domset}}, \code{\link{IndNPEtriSet}}, \code{\link{IndNCStri.domset}}
-#' and \code{\link{IndNAStri.domset}}
+#' @seealso \code{\link{Idom.setPEstd.tri}}, \code{\link{IarcPEset2pnt.tri}},
+#' \code{\link{Idom.setCStri}}, and \code{\link{Idom.setAStri}}
 #'
 #' @references
 #' \insertAllCited{}
@@ -2996,19 +3630,20 @@ IndNPETe.domset <- function(S,Xp,r,M=c(1,1,1))
 #' r<-1.5
 #'
 #' S<-rbind(Xp[1,],Xp[2,])
-#' IndNPEtri.domset(S,Xp,Tr,r,M)
+#' Idom.setPEtri(S,Xp,Tr,r,M)
 #'
 #' S<-rbind(Xp[1,],Xp[2,],Xp[3,],Xp[5,])
-#' IndNPEtri.domset(S,Xp,Tr,r,M)
+#' Idom.setPEtri(S,Xp,Tr,r,M)
 #'
 #' S<-rbind(c(.1,.1),c(.3,.4),c(.5,.3))
-#' IndNPEtri.domset(S,Xp,Tr,r,M)
+#' Idom.setPEtri(S,Xp,Tr,r,M)
 #' }
 #'
-#' @export IndNPEtri.domset
-IndNPEtri.domset <- function(S,Xp,tri,r,M=c(1,1,1))
+#' @export Idom.setPEtri
+Idom.setPEtri <- function(S,Xp,tri,r,M=c(1,1,1))
 {
-  if (!is.numeric(as.matrix(S)) || !is.numeric(as.matrix(Xp)))
+  if (!is.numeric(as.matrix(S)) ||
+      !is.numeric(as.matrix(Xp)))
   {stop('Both arguments must be numeric')}
 
   if (is.point(S))
@@ -3034,24 +3669,26 @@ IndNPEtri.domset <- function(S,Xp,tri,r,M=c(1,1,1))
   vec1<-rep(1,3);
   D0<-det(matrix(cbind(tri,vec1),ncol=3))
   if (round(D0,14)==0)
-  {stop('the triangle is degenerate')}
+  {stop('The triangle is degenerate')}
 
   if (!is.point(r,1) || r<1)
   {stop('r must be a scalar >= 1')}
 
   if (!(is.point(M) || is.point(M,3) || identical(M,"CC")))
-  {stop('M must be a numeric 2D point for Cartesian coordinates or 3D point for barycentric coordinates
-          or the circumcenter "CC" ')}
+  {stop('M must be a numeric 2D point for Cartesian coordinates or
+  3D point for barycentric coordinates or the circumcenter "CC" ')}
 
-  CC = circ.cent.tri(tri)
+  CC = circumcenter.tri(tri)
   if (identical(M,"CC") )
   { M<-CC }
 
   if (dimension(M)==3)
   {M<-bary2cart(M,tri)}
 
-  if (!(isTRUE(all.equal(M,CC)) || in.triangle(M,tri,boundary=FALSE)$in.tri))
-  {stop('center is not the circumcenter or not in the interior of the triangle')}
+  if (!(isTRUE(all.equal(M,CC)) ||
+        in.triangle(M,tri,boundary=FALSE)$in.tri))
+  {stop('center is not the circumcenter or
+        not in the interior of the triangle')}
 
   k<-nrow(S);
   n<-nrow(Xp);
@@ -3059,7 +3696,8 @@ IndNPEtri.domset <- function(S,Xp,tri,r,M=c(1,1,1))
   dom<-1; i<-1;
   while (dom ==1 && i<= n)
   {
-    if (IndNPEtriSet(S,Xp[i,],tri,r,M)==0)  #this is where tri is used
+    if (IarcPEset2pnt.tri(S,Xp[i,],tri,r,M)==0)
+      #this is where tri is used
     {dom<-0};
     i<-i+1;
   }
@@ -3069,55 +3707,83 @@ IndNPEtri.domset <- function(S,Xp,tri,r,M=c(1,1,1))
 
 #################################################################
 
-#' @title The arcs of Proportional Edge Proximity Catch Digraph (PE-PCD) for 2D data - one triangle case
+#' @title The arcs of Proportional Edge Proximity Catch Digraph
+#' (PE-PCD) for 2D data - one triangle case
 #'
 #' @description
 #' An object of class \code{"PCDs"}.
-#' Returns arcs as tails (or sources) and heads (or arrow ends) for data set \code{Xp} as the vertices of PE-PCD
+#' Returns arcs as tails (or sources) and heads (or arrow ends)
+#' for data set \code{Xp} as the vertices of PE-PCD
 #' and related parameters and the quantities of the digraph.
 #'
-#' PE proximity regions are constructed with respect to the triangle \code{tri} with expansion
-#' parameter \eqn{r \ge 1}, i.e., arcs may exist for points only inside \code{tri}.
-#' It also provides various descriptions and quantities about the arcs of the PE-PCD
+#' PE proximity regions are constructed
+#' with respect to the triangle \code{tri} with expansion
+#' parameter \eqn{r \ge 1}, i.e.,
+#' arcs may exist only for points inside \code{tri}.
+#' It also provides various descriptions
+#' and quantities about the arcs of the PE-PCD
 #' such as number of arcs, arc density, etc.
 #'
 #' Vertex regions are based on center \eqn{M=(m_1,m_2)}
-#' in Cartesian coordinates or \eqn{M=(\alpha,\beta,\gamma)} in barycentric coordinates in the interior of
+#' in Cartesian coordinates or \eqn{M=(\alpha,\beta,\gamma)}
+#' in barycentric coordinates in the interior of
 #' the triangle \code{tri} or based on the circumcenter of \code{tri};
-#' default is \eqn{M=(1,1,1)} i.e., the center of mass of \code{tri}.
-#' When the center is the circumcenter, \code{CC}, the vertex regions are constructed based on the
-#' orthogonal projections to the edges, while with any interior center \code{M}, the vertex regions are constructed using the extensions
-#' of the lines combining vertices with \code{M}. \code{M}-vertex regions are recommended spatial inference, due to geometry
-#' invariance property of the arc density and domination number the PE-PCDs based on uniform data.
+#' default is \eqn{M=(1,1,1)}, i.e., the center of mass of \code{tri}.
+#' When the center is the circumcenter, \code{CC},
+#' the vertex regions are constructed based on the
+#' orthogonal projections to the edges,
+#' while with any interior center \code{M},
+#' the vertex regions are constructed using the extensions
+#' of the lines combining vertices with \code{M}.
+#' \code{M}-vertex regions are recommended spatial inference,
+#' due to geometry invariance property of the arc density
+#' and domination number the PE-PCDs based on uniform data.
 #'
 #' See also (\insertCite{ceyhan:Phd-thesis,ceyhan:arc-density-PE;textual}{pcds}).
 #'
-#' @param Xp A set of 2D points which constitute the vertices of the PE-PCD.
-#' @param tri A \eqn{3 \times 2} matrix with each row representing a vertex of the triangle.
-#' @param r A positive real number which serves as the expansion parameter in PE proximity region;
+#' @param Xp A set of 2D points
+#' which constitute the vertices of the PE-PCD.
+#' @param tri A \eqn{3 \times 2} matrix with each row
+#' representing a vertex of the triangle.
+#' @param r A positive real number
+#' which serves as the expansion parameter in PE proximity region;
 #' must be \eqn{\ge 1}.
-#' @param M A 2D point in Cartesian coordinates or a 3D point in barycentric coordinates
-#' which serves as a center in the interior of the triangle \code{tri} or the circumcenter of \code{tri}
+#' @param M A 2D point in Cartesian coordinates
+#' or a 3D point in barycentric coordinates
+#' which serves as a center in the interior of the triangle \code{tri}
+#' or the circumcenter of \code{tri}
 #' which may be entered as "CC" as well;
-#' default is \eqn{M=(1,1,1)} i.e., the center of mass of \code{tri}.
+#' default is \eqn{M=(1,1,1)}, i.e.,
+#' the center of mass of \code{tri}.
 #'
 #' @return A \code{list} with the elements
 #' \item{type}{A description of the type of the digraph}
-#' \item{parameters}{Parameters of the digraph, the center \code{M} used to
+#' \item{parameters}{Parameters of the digraph,
+#' the center \code{M} used to
 #' construct the vertex regions and the expansion parameter \code{r}.}
-#' \item{tess.points}{Points on which the tessellation of the study region is performed, here, tessellation
+#' \item{tess.points}{Points on which the tessellation of the study region
+#' is performed, here, tessellation
 #' is the support triangle.}
-#' \item{tess.name}{Name of data set (i.e. points from the non-target class) used in the tessellation
+#' \item{tess.name}{Name of data set
+#' (i.e. points from the non-target class) used in the tessellation
 #' of the space (here, vertices of the triangle)}
 #' \item{vertices}{Vertices of the digraph, \code{Xp} points}
-#' \item{vert.name}{Name of the data set which constitutes the vertices of the digraph}
-#' \item{S}{Tails (or sources) of the arcs of PE-PCD for 2D data set \code{Xp} as vertices of the digraph}
-#' \item{E}{Heads (or arrow ends) of the arcs of PE-PCD for 2D data set \code{Xp} as vertices of the digraph}
-#' \item{mtitle}{Text for \code{"main"} title in the plot of the digraph}
-#' \item{quant}{Various quantities for the digraph: number of vertices, number of partition points,
-#' number of intervals, number of arcs, and arc density.}
+#' \item{vert.name}{Name of the data set
+#' which constitutes the vertices of the digraph}
+#' \item{S}{Tails (or sources) of the arcs of PE-PCD
+#' for 2D data set \code{Xp}
+#' as vertices of the digraph}
+#' \item{E}{Heads (or arrow ends) of the arcs of PE-PCD
+#' for 2D data set \code{Xp}
+#' as vertices of the digraph}
+#' \item{mtitle}{Text for \code{"main"} title
+#' in the plot of the digraph}
+#' \item{quant}{Various quantities for the digraph:
+#' number of vertices, number of partition points,
+#' number of triangles, number of arcs, and arc density.}
 #'
-#' @seealso \code{\link{ArcsPE}}, \code{\link{ArcsAStri}} and \code{\link{ArcsCStri}}
+#' @seealso \code{\link{arcsPE}}, \code{\link{arcsAStri}},
+#' and \code{\link{arcsCStri}}
 #'
 #' @references
 #' \insertAllCited{}
@@ -3137,8 +3803,8 @@ IndNPEtri.domset <- function(S,Xp,tri,r,M=c(1,1,1))
 #'
 #' r<-1.5  #try also r<-2
 #'
-#' Arcs<-ArcsPEtri(Xp,Tr,r,M)
-#' #or try with the default center Arcs<-ArcsPEtri(Xp,Tr,r); M= (Arcs$param)$cent
+#' Arcs<-arcsPEtri(Xp,Tr,r,M)
+#' #or try with the default center Arcs<-arcsPEtri(Xp,Tr,r); M= (Arcs$param)$cent
 #' Arcs
 #' summary(Arcs)
 #' plot(Arcs)
@@ -3146,7 +3812,7 @@ IndNPEtri.domset <- function(S,Xp,tri,r,M=c(1,1,1))
 #' #can add vertex regions
 #' #but we first need to determine center is the circumcenter or not,
 #' #see the description for more detail.
-#' CC<-circ.cent.tri(Tr)
+#' CC<-circumcenter.tri(Tr)
 #' if (isTRUE(all.equal(M,CC)))
 #' {cent<-CC
 #' D1<-(B+C)/2; D2<-(A+C)/2; D3<-(A+B)/2;
@@ -3155,7 +3821,7 @@ IndNPEtri.domset <- function(S,Xp,tri,r,M=c(1,1,1))
 #' } else
 #' {cent<-M
 #' cent.name<-"M"
-#' Ds<-cent2edges.tri(Tr,M)
+#' Ds<-prj.cent2edges(Tr,M)
 #' }
 #' L<-rbind(cent,cent,cent); R<-Ds
 #' segments(L[,1], L[,2], R[,1], R[,2], lty=2)
@@ -3168,8 +3834,8 @@ IndNPEtri.domset <- function(S,Xp,tri,r,M=c(1,1,1))
 #' text(xc,yc,txt.str)
 #' }
 #'
-#' @export ArcsPEtri
-ArcsPEtri <- function(Xp,tri,r,M=c(1,1,1))
+#' @export arcsPEtri
+arcsPEtri <- function(Xp,tri,r,M=c(1,1,1))
 {
   xname <-deparse(substitute(Xp))
   yname <-deparse(substitute(tri))
@@ -3192,29 +3858,32 @@ ArcsPEtri <- function(Xp,tri,r,M=c(1,1,1))
   vec1<-rep(1,3);
   D0<-det(matrix(cbind(tri,vec1),ncol=3))
   if (round(D0,14)==0)
-  {stop('the triangle is degenerate')}
+  {stop('The triangle is degenerate')}
 
   if (!is.point(r,1) || r<1)
   {stop('r must be a scalar >= 1')}
 
   if (!(is.point(M) || is.point(M,3) || identical(M,"CC")))
-  {stop('M must be a numeric 2D point for Cartesian coordinates or 3D point for barycentric coordinates
-          or the circumcenter "CC" ')}
+  {stop('M must be a numeric 2D point for Cartesian coordinates or
+  3D point for barycentric coordinates or the circumcenter "CC" ')}
 
-  CC = circ.cent.tri(tri)
+  CC = circumcenter.tri(tri)
   if (identical(M,"CC") )
   { M<-CC }
 
   if (dimension(M)==3)
   {M<-bary2cart(M,tri)}
 
-  if (!(isTRUE(all.equal(M,CC)) || in.triangle(M,tri,boundary=FALSE)$in.tri))
-  {stop('center is not the circumcenter or not in the interior of the triangle')}
+  if (!(isTRUE(all.equal(M,CC)) ||
+        in.triangle(M,tri,boundary=FALSE)$in.tri))
+  {stop('center is not the circumcenter or
+        not in the interior of the triangle')}
 
   n<-nrow(Xp)
   in.tri<-rep(0,n)
   for (i in 1:n)
-    in.tri[i]<-in.triangle(Xp[i,],tri,boundary=TRUE)$in.tri #indices the Xp points inside the triangle
+    in.tri[i]<-in.triangle(Xp[i,],tri,boundary=TRUE)$in.tri
+  #indices the Xp points inside the triangle
 
   Xtri<-Xp[in.tri==1,] #the Xp points inside the triangle
   n2<-length(Xtri)/2
@@ -3226,13 +3895,15 @@ ArcsPEtri <- function(Xp,tri,r,M=c(1,1,1))
     for (j in 1:n2)
     {
       p1<-Xtri[j,];
-      RV1<-ifelse(isTRUE(all.equal(M,CC)),rv.triCC(p1,tri)$rv,rv.tri.cent(p1,tri,M)$rv) #vertex region for p1
+      RV1<-ifelse(isTRUE(all.equal(M,CC)),
+                  rel.vert.triCC(p1,tri)$rv,
+                  rel.vert.tri(p1,tri,M)$rv) #vertex region for p1
       for (k in (1:n2)[-j])  #to avoid loops
       {
         p2<-Xtri[k,];
-        if (IndNPEtri(p1,p2,tri,r,M,RV1)==1)
+        if (IarcPEtri(p1,p2,tri,r,M,RV1)==1)
         {
-          S <-rbind(S,Xtri[j,]); E <-rbind(E,Xtri[k,]);
+          S <-rbind(S,p1); E <-rbind(E,p2);
         }
       }
     }
@@ -3281,43 +3952,68 @@ ArcsPEtri <- function(Xp,tri,r,M=c(1,1,1))
 
 #################################################################
 
-#' @title The plot of the arcs of Proportional Edge Proximity Catch Digraph (PE-PCD) for a
-#' 2D data set - one triangle case
+#' @title The plot of the arcs of Proportional Edge Proximity Catch Digraph
+#' (PE-PCD) for a 2D data set - one triangle case
 #'
-#' @description Plots the arcs of PE-PCD whose vertices are the data points, \code{Xp} and the triangle \code{tri}. PE proximity regions
-#' are constructed with respect to the triangle \code{tri} with expansion parameter \eqn{r \ge 1}, i.e., arcs may exist only
+#' @description Plots the arcs of PE-PCD whose vertices are the data points, \code{Xp}
+#' and the triangle \code{tri}.
+#' PE proximity regions
+#' are constructed with respect to the triangle \code{tri}
+#' with expansion parameter \eqn{r \ge 1}, i.e., arcs may exist only
 #' for \code{Xp} points inside the triangle \code{tri}.
 #'
-#' Vertex regions are based on center \eqn{M=(m_1,m_2)} in Cartesian coordinates
-#' or \eqn{M=(\alpha,\beta,\gamma)} in barycentric coordinates in the interior of the triangle \code{tri}
-#' or based on the circumcenter of \code{tri}; default is \eqn{M=(1,1,1)} i.e., the center of mass of \code{tri}.
-#' When the center is the circumcenter, \code{CC}, the vertex regions are constructed based on the
-#' orthogonal projections to the edges, while with any interior center \code{M}, the vertex regions are constructed using the extensions
-#' of the lines combining vertices with \code{M}. \code{M}-vertex regions are recommended spatial inference, due to geometry
-#' invariance property of the arc density and domination number the PE-PCDs based on uniform data.
+#' Vertex regions are based on center \eqn{M=(m_1,m_2)}
+#' in Cartesian coordinates
+#' or \eqn{M=(\alpha,\beta,\gamma)} in barycentric coordinates
+#' in the interior of the triangle \code{tri}
+#' or based on the circumcenter of \code{tri};
+#' default is \eqn{M=(1,1,1)}, i.e.,
+#' the center of mass of \code{tri}.
+#' When the center is the circumcenter, \code{CC},
+#' the vertex regions are constructed based on the
+#' orthogonal projections to the edges,
+#' while with any interior center \code{M},
+#' the vertex regions are constructed using the extensions
+#' of the lines combining vertices with \code{M}.
+#' \code{M}-vertex regions are recommended spatial inference,
+#' due to geometry invariance property of the arc density
+#' and domination number the PE-PCDs based on uniform data.
 #'
 #' See also (\insertCite{ceyhan:Phd-thesis,ceyhan:arc-density-PE,ceyhan:dom-num-NPE-Spat2011;textual}{pcds}).
 #'
-#' @param Xp A set of 2D points which constitute the vertices of the PE-PCD.
-#' @param tri A \eqn{3 \times 2} matrix with each row representing a vertex of the triangle.
-#' @param r A positive real number which serves as the expansion parameter in PE proximity region;
+#' @param Xp A set of 2D points
+#' which constitute the vertices of the PE-PCD.
+#' @param tri A \eqn{3 \times 2} matrix with each row
+#' representing a vertex of the triangle.
+#' @param r A positive real number
+#' which serves as the expansion parameter in PE proximity region;
 #' must be \eqn{\ge 1}.
-#' @param M A 2D point in Cartesian coordinates or a 3D point in barycentric coordinates
-#' which serves as a center in the interior of the triangle \code{tri} or the circumcenter of \code{tri}
+#' @param M A 2D point in Cartesian coordinates
+#' or a 3D point in barycentric coordinates
+#' which serves as a center in the interior of the triangle \code{tri}
+#' or the circumcenter of \code{tri}
 #' which may be entered as "CC" as well;
-#' default is \eqn{M=(1,1,1)} i.e., the center of mass of \code{tri}.
-#' @param asp A \code{numeric} value, giving the aspect ratio \eqn{y/x} (default is \code{NA}), see the official help page for \code{asp} by
+#' default is \eqn{M=(1,1,1)}, i.e., the center of mass of \code{tri}.
+#' @param asp A \code{numeric} value,
+#' giving the aspect ratio \eqn{y/x} (default is \code{NA}),
+#' see the official help page for \code{asp} by
 #' typing "\code{? asp}".
 #' @param main An overall title for the plot (default=\code{NULL}).
-#' @param xlab,ylab Titles for the \eqn{x} and \eqn{y} axes, respectively (default=\code{NULL} for both).
-#' @param xlim,ylim Two \code{numeric} vectors of length 2, giving the \eqn{x}- and \eqn{y}-coordinate ranges
+#' @param xlab,ylab Titles for the \eqn{x} and \eqn{y} axes,
+#' respectively (default=\code{NULL} for both).
+#' @param xlim,ylim Two \code{numeric} vectors of length 2,
+#' giving the \eqn{x}- and \eqn{y}-coordinate ranges
 #' (default=\code{NULL} for both).
-#' @param vert.reg A logical argument to add vertex regions to the plot, default is \code{vert.reg=FALSE}.
+#' @param vert.reg A logical argument to add vertex regions to the plot,
+#' default is \code{vert.reg=FALSE}.
 #' @param \dots	Additional \code{plot} parameters.
 #'
-#' @return A plot of the arcs of the PE-PCD whose vertices are the points in data set \code{Xp} and the triangle \code{tri}
+#' @return A plot of the arcs of the PE-PCD
+#' whose vertices are the points in data set \code{Xp}
+#' and the triangle \code{tri}
 #'
-#' @seealso \code{\link{plotASarcs.tri}}, \code{\link{plotCSarcs.tri}} and \code{\link{plotPEarcs}}
+#' @seealso \code{\link{plotASarcs.tri}}, \code{\link{plotCSarcs.tri}},
+#' and \code{\link{plotPEarcs}}
 #'
 #' @references
 #' \insertAllCited{}
@@ -3333,19 +4029,23 @@ ArcsPEtri <- function(Xp,tri,r,M=c(1,1,1))
 #' set.seed(1)
 #' Xp<-runif.tri(n,Tr)$g
 #'
-#' M<-as.numeric(runif.tri(1,Tr)$g)  #try also M<-c(1.6,1.0) or M<-circ.cent.tri(Tr)
+#' M<-as.numeric(runif.tri(1,Tr)$g)
+#' #try also M<-c(1.6,1.0) or M<-circumcenter.tri(Tr)
 #' r<-1.5  #try also r<-2
-#' plotPEarcs.tri(Xp,Tr,r,M,main="Arcs of PE-PCD with r = 1.5",xlab="",ylab="",vert.reg = TRUE)
+#' plotPEarcs.tri(Xp,Tr,r,M,main="Arcs of PE-PCD with r = 1.5",
+#' xlab="",ylab="",vert.reg = TRUE)
 #'
 #' # or try the default center
-#' #plotPEarcs.tri(Xp,Tr,r,main="Arcs of PE-PCD with r = 1.5",xlab="",ylab="",vert.reg = TRUE);
-#' #M=(ArcsPEtri(Xp,Tr,r)$param)$cent #the part "M=(ArcsPEtri(Xp,Tr,r)$param)$cent" is optional,
+#' #plotPEarcs.tri(Xp,Tr,r,main="Arcs of PE-PCD with r = 1.5",
+#' #xlab="",ylab="",vert.reg = TRUE);
+#' #M=(arcsPEtri(Xp,Tr,r)$param)$cent
+#' #the part "M=(arcsPEtri(Xp,Tr,r)$param)$cent" is optional,
 #' #for the below annotation of the plot
 #'
 #' #can add vertex labels and text to the figure (with vertex regions)
-#' ifelse(isTRUE(all.equal(M,circ.cent.tri(Tr))),
+#' ifelse(isTRUE(all.equal(M,circumcenter.tri(Tr))),
 #' {Ds<-rbind((B+C)/2,(A+C)/2,(A+B)/2); cent.name="CC"},
-#' {Ds<-cent2edges.tri(Tr,M); cent.name="M"})
+#' {Ds<-prj.cent2edges(Tr,M); cent.name="M"})
 #'
 #' txt<-rbind(Tr,M,Ds)
 #' xc<-txt[,1]+c(-.02,.02,.02,.02,.04,-0.03,-.01)
@@ -3358,10 +4058,10 @@ ArcsPEtri <- function(Xp,tri,r,M=c(1,1,1))
 plotPEarcs.tri <- function(Xp,tri,r,M=c(1,1,1),asp=NA,main=NULL,xlab=NULL,ylab=NULL,
                            xlim=NULL,ylim=NULL,vert.reg=FALSE,...)
 {
-  ArcsPE<-ArcsPEtri(Xp,tri,r,M)
-  S<-ArcsPE$S
-  E<-ArcsPE$E
-  cent = (ArcsPE$param)$c
+  arcsPE<-arcsPEtri(Xp,tri,r,M)
+  S<-arcsPE$S
+  E<-arcsPE$E
+  cent = (arcsPE$param)$c
 
   Xp<-matrix(Xp,ncol=2)
   if (is.null(xlim))
@@ -3369,7 +4069,7 @@ plotPEarcs.tri <- function(Xp,tri,r,M=c(1,1,1),asp=NA,main=NULL,xlab=NULL,ylab=N
   if (is.null(ylim))
   {ylim<-range(tri[,2],Xp[,2],cent[2])}
 
-  if ( isTRUE(all.equal(cent,circ.cent.tri(tri))) )
+  if ( isTRUE(all.equal(cent,circumcenter.tri(tri))) )
   {M="CC"}
 
   if (is.null(main))
@@ -3383,14 +4083,16 @@ plotPEarcs.tri <- function(Xp,tri,r,M=c(1,1,1),asp=NA,main=NULL,xlab=NULL,ylab=N
   if (vert.reg)
   {main=c(main,"\n (vertex regions added)")}
 
-  plot(Xp,main=main,asp=asp, xlab=xlab, ylab=ylab,xlim=xlim,ylim=ylim,pch=".",cex=3,...)
+  plot(Xp,main=main,asp=asp, xlab=xlab, ylab=ylab,
+       xlim=xlim,ylim=ylim,pch=".",cex=3,...)
   polygon(tri)
   if (!is.null(S)) {arrows(S[,1], S[,2], E[,1], E[,2], length = 0.1, col= 4)}
 
   if (vert.reg){
-    ifelse(isTRUE(all.equal(cent,circ.cent.tri(tri))),
-           {A=tri[1,];B=tri[2,];C=tri[3,]; Ds<-rbind((B+C)/2,(A+C)/2,(A+B)/2)},
-           Ds<-cent2edges.tri(tri,M))
+    ifelse(isTRUE(all.equal(cent,circumcenter.tri(tri))),
+           {A=tri[1,];B=tri[2,];C=tri[3,];
+           Ds<-rbind((B+C)/2,(A+C)/2,(A+B)/2)},
+           Ds<-prj.cent2edges(tri,M))
     L<-rbind(cent,cent,cent); R<-Ds
     segments(L[,1], L[,2], R[,1], R[,2], lty=2)
   }
@@ -3399,46 +4101,70 @@ plotPEarcs.tri <- function(Xp,tri,r,M=c(1,1,1),asp=NA,main=NULL,xlab=NULL,ylab=N
 
 #################################################################
 
-#' @title The plot of the Proportional Edge (PE) Proximity Regions for a 2D data set - one triangle case
+#' @title The plot of the Proportional Edge (PE) Proximity Regions
+#' for a 2D data set - one triangle case
 #'
-#' @description Plots the points in and outside of the triangle \code{tri} and also the PE proximity regions
+#' @description Plots the points in and outside of the triangle \code{tri}
+#' and also the PE proximity regions
 #' for points in data set \code{Xp}.
 #'
-#' PE proximity regions are defined with respect to the triangle \code{tri}
-#' with expansion parameter \eqn{r \ge 1}, so PE proximity regions are defined only for points inside the
+#' PE proximity regions are defined
+#' with respect to the triangle \code{tri}
+#' with expansion parameter \eqn{r \ge 1},
+#' so PE proximity regions are defined only for points inside the
 #' triangle \code{tri}.
 #'
-#' Vertex regions are based on center \eqn{M=(m_1,m_2)} in Cartesian coordinates
-#' or \eqn{M=(\alpha,\beta,\gamma)} in barycentric coordinates in the interior of the triangle \code{tri}
-#' or based on the circumcenter of \code{tri}; default is \eqn{M=(1,1,1)} i.e., the center of mass of \code{tri}.
-#' When the center is the circumcenter, \code{CC}, the vertex regions are constructed based on the
-#' orthogonal projections to the edges, while with any interior center \code{M}, the vertex regions are constructed using the extensions
-#' of the lines combining vertices with \code{M}. \code{M}-vertex regions are recommended spatial inference, due to geometry
-#' invariance property of the arc density and domination number the PE-PCDs based on uniform data.
+#' Vertex regions are based on center \eqn{M=(m_1,m_2)}
+#' in Cartesian coordinates
+#' or \eqn{M=(\alpha,\beta,\gamma)} in barycentric coordinates
+#' in the interior of the triangle \code{tri}
+#' or based on the circumcenter of \code{tri};
+#' default is \eqn{M=(1,1,1)}, i.e.,
+#' the center of mass of \code{tri}.
+#' When the center is the circumcenter, \code{CC},
+#' the vertex regions are constructed based on the
+#' orthogonal projections to the edges,
+#' while with any interior center \code{M},
+#' the vertex regions are constructed using the extensions
+#' of the lines combining vertices with \code{M}.
+#' \code{M}-vertex regions are recommended spatial inference,
+#' due to geometry invariance property of the arc density
+#' and domination number the PE-PCDs based on uniform data.
 #'
 #' See also (\insertCite{ceyhan:Phd-thesis,ceyhan:arc-density-PE,ceyhan:dom-num-NPE-Spat2011;textual}{pcds}).
 #'
-#' @param Xp A set of 2D points for which PE proximity regions are constructed.
-#' @param tri A \eqn{3 \times 2} matrix with each row representing a vertex of the triangle.
-#' @param r A positive real number which serves as the expansion parameter in PE proximity region;
+#' @param Xp A set of 2D points
+#' for which PE proximity regions are constructed.
+#' @param tri A \eqn{3 \times 2} matrix with each row
+#' representing a vertex of the triangle.
+#' @param r A positive real number
+#' which serves as the expansion parameter in PE proximity region;
 #' must be \eqn{\ge 1}.
-#' @param M A 2D point in Cartesian coordinates or a 3D point in barycentric coordinates
-#' which serves as a center in the interior of the triangle \code{tri} or the circumcenter of \code{tri}
+#' @param M A 2D point in Cartesian coordinates
+#' or a 3D point in barycentric coordinates
+#' which serves as a center in the interior of the triangle \code{tri}
+#' or the circumcenter of \code{tri}
 #' which may be entered as "CC" as well;
-#' default is \eqn{M=(1,1,1)} i.e., the center of mass of \code{tri}.
-#' @param asp A \code{numeric} value, giving the aspect ratio \eqn{y/x} (default is \code{NA}),
+#' default is \eqn{M=(1,1,1)}, i.e., the center of mass of \code{tri}.
+#' @param asp A \code{numeric} value,
+#' giving the aspect ratio \eqn{y/x} (default is \code{NA}),
 #' see the official help page for \code{asp} by typing "\code{? asp}".
 #' @param main An overall title for the plot (default=\code{NULL}).
-#' @param xlab,ylab Titles for the \eqn{x} and \eqn{y} axes, respectively (default=\code{NULL} for both).
-#' @param xlim,ylim Two \code{numeric} vectors of length 2, giving the \eqn{x}- and \eqn{y}-coordinate ranges
+#' @param xlab,ylab Titles for the \eqn{x} and \eqn{y} axes,
+#' respectively (default=\code{NULL} for both).
+#' @param xlim,ylim Two \code{numeric} vectors of length 2,
+#' giving the \eqn{x}- and \eqn{y}-coordinate ranges
 #' (default=\code{NULL} for both).
-#' @param vert.reg A logical argument to add vertex regions to the plot, default is \code{vert.reg=FALSE}.
+#' @param vert.reg A logical argument to add vertex regions to the plot,
+#' default is \code{vert.reg=FALSE}.
 #' @param \dots Additional \code{plot} parameters.
 #'
-#' @return Plot of the PE proximity regions for points inside the triangle \code{tri}
+#' @return Plot of the PE proximity regions for points
+#' inside the triangle \code{tri}
 #' (and just the points outside \code{tri})
 #'
-#' @seealso \code{\link{plotPEregs}}, \code{\link{plotASregs.tri}} and \code{\link{plotCSregs.tri}}
+#' @seealso \code{\link{plotPEregs}}, \code{\link{plotASregs.tri}},
+#' and \code{\link{plotCSregs.tri}}
 #'
 #' @references
 #' \insertAllCited{}
@@ -3454,24 +4180,28 @@ plotPEarcs.tri <- function(Xp,tri,r,M=c(1,1,1),asp=NA,main=NULL,xlab=NULL,ylab=N
 #' set.seed(1)
 #' Xp0<-runif.tri(n,Tr)$g
 #'
-#' M<-as.numeric(runif.tri(1,Tr)$g)  #try also M<-c(1.6,1.0) or M = circ.cent.tri(Tr)
+#' M<-as.numeric(runif.tri(1,Tr)$g)
+#' #try also M<-c(1.6,1.0) or M = circumcenter.tri(Tr)
 #' r<-1.5  #try also r<-2
 #'
 #' plotPEregs.tri(Xp0,Tr,r,M)
 #' Xp = Xp0[1,]
 #' plotPEregs.tri(Xp,Tr,r,M)
 #'
-#' plotPEregs.tri(Xp,Tr,r,M,main="PE Proximity Regions with r = 1.5",xlab="",ylab="",vert.reg = TRUE)
+#' plotPEregs.tri(Xp,Tr,r,M,
+#' main="PE Proximity Regions with r = 1.5",
+#' xlab="",ylab="",vert.reg = TRUE)
 #'
 #' # or try the default center
 #' #plotPEregs.tri(Xp,Tr,r,main="PE Proximity Regions with r = 1.5",xlab="",ylab="",vert.reg = TRUE);
-#' #M=(ArcsPEtri(Xp,Tr,r)$param)$c #the part "M=(ArcsPEtri(Xp,Tr,r)$param)$cent" is optional,
+#' #M=(arcsPEtri(Xp,Tr,r)$param)$c
+#' #the part "M=(arcsPEtri(Xp,Tr,r)$param)$cent" is optional,
 #' #for the below annotation of the plot
 #'
 #' #can add vertex labels and text to the figure (with vertex regions)
-#' ifelse(isTRUE(all.equal(M,circ.cent.tri(Tr))),
+#' ifelse(isTRUE(all.equal(M,circumcenter.tri(Tr))),
 #'        {Ds<-rbind((B+C)/2,(A+C)/2,(A+B)/2); cent.name="CC"},
-#'        {Ds<-cent2edges.tri(Tr,M); cent.name<-"M"})
+#'        {Ds<-prj.cent2edges(Tr,M); cent.name<-"M"})
 #'
 #' txt<-rbind(Tr,M,Ds)
 #' xc<-txt[,1]+c(-.02,.02,.02,.02,.03,-0.03,-.01)
@@ -3501,31 +4231,35 @@ plotPEregs.tri <- function(Xp,tri,r,M=c(1,1,1),asp=NA,main=NULL,xlab=NULL,ylab=N
   vec1<-rep(1,3);
   D0<-det(matrix(cbind(tri,vec1),ncol=3))
   if (round(D0,14)==0)
-  {stop('the triangle is degenerate')}
+  {stop('The triangle is degenerate')}
 
   if (!is.point(r,1) || r<1)
   {stop('r must be a scalar >= 1')}
 
   if (!(is.point(M) || is.point(M,3) || identical(M,"CC")))
-  {stop('M must be a numeric 2D point for Cartesian coordinates or 3D point for barycentric coordinates
-          or the circumcenter "CC" ')}
+  {stop('M must be a numeric 2D point for Cartesian coordinates or
+  3D point for barycentric coordinates or the circumcenter "CC" ')}
 
-  CC = circ.cent.tri(tri)
+  CC = circumcenter.tri(tri)
   if (isTRUE(all.equal(M,CC)))
   {cent=M; M="CC"}
 
   if (dimension(M)==3)
   {M<-bary2cart(M,tri)}
 
-  if (!(identical(M,"CC") || in.triangle(M,tri,boundary=FALSE)$in.tri))
-  {stop('center is not the circumcenter or not in the interior of the triangle')}
+  if (!(identical(M,"CC") ||
+        in.triangle(M,tri,boundary=FALSE)$in.tri))
+  {stop('center is not the circumcenter or
+        not in the interior of the triangle')}
 
   n<-nrow(Xp)
   in.tri<-rep(0,n)
   for (i in 1:n)
-    in.tri[i]<-in.triangle(Xp[i,],tri,boundary=TRUE)$in.tri #indices of the Xp points inside the triangle
+    in.tri[i]<-in.triangle(Xp[i,],tri,boundary=TRUE)$in.tri
+  #indices of the Xp points inside the triangle
 
-  Xtri<-matrix(Xp[in.tri==1,],ncol=2)  #the Xp points inside the triangle
+  Xtri<-matrix(Xp[in.tri==1,],ncol=2)
+  #the Xp points inside the triangle
   nt<-length(Xtri)/2 #number of Xp points inside the triangle
 
 ifelse(identical(M,"CC"),cent<-CC,cent <- M)
@@ -3556,7 +4290,9 @@ ifelse(identical(M,"CC"),cent<-CC,cent <- M)
     for (i in 1:nt)
     {
       P1<-Xtri[i,]
-      RV<-ifelse(identical(M,"CC"),rv.triCC(P1,tri)$rv,rv.tri.cent(P1,tri,M)$rv)
+      RV<-ifelse(identical(M,"CC"),
+                 rel.vert.triCC(P1,tri)$rv,
+                 rel.vert.tri(P1,tri,M)$rv)
 
       pr<-NPEtri(P1,tri,r,M,rv=RV)
       polygon(pr,border="blue")
@@ -3565,8 +4301,9 @@ ifelse(identical(M,"CC"),cent<-CC,cent <- M)
 
   if (vert.reg){
     ifelse(identical(M,"CC"),
-           {A=tri[1,];B=tri[2,];C=tri[3,]; Ds<-rbind((B+C)/2,(A+C)/2,(A+B)/2)},
-           Ds<-cent2edges.tri(tri,cent))
+           {A=tri[1,];B=tri[2,];C=tri[3,];
+           Ds<-rbind((B+C)/2,(A+C)/2,(A+B)/2)},
+           Ds<-prj.cent2edges(tri,cent))
     L<-rbind(cent,cent,cent); R<-Ds
     segments(L[,1], L[,2], R[,1], R[,2], lty=2)
   }
@@ -3576,54 +4313,85 @@ ifelse(identical(M,"CC"),cent<-CC,cent <- M)
 
 #################################################################
 
-#' @title The arcs of Proportional Edge Proximity Catch Digraph (PE-PCD) for 2D data - multiple triangle case
+#' @title The arcs of Proportional Edge Proximity Catch Digraph (PE-PCD)
+#' for 2D data - multiple triangle case
 #'
 #' @description
 #' An object of class \code{"PCDs"}.
-#' Returns arcs as tails (or sources) and heads (or arrow ends) of Proportional Edge Proximity Catch Digraph
-#' (PE-PCD) whose vertices are the data points in \code{Xp} in the multiple triangle case
+#' Returns arcs as tails (or sources) and heads (or arrow ends) of
+#' Proportional Edge Proximity Catch Digraph
+#' (PE-PCD) whose vertices are the data points in \code{Xp}
+#' in the multiple triangle case
 #' and related parameters and the quantities of the digraph.
 #'
 #' PE proximity regions are
-#' defined with respect to the Delaunay triangles based on \code{Yp} points with expansion parameter \eqn{r \ge 1} and
-#' vertex regions in each triangle are based on the center \eqn{M=(\alpha,\beta,\gamma)} in barycentric coordinates
-#' in the interior of each Delaunay triangle or based on circumcenter of each Delaunay triangle
-#' (default for \eqn{M=(1,1,1)} which is the center of mass of the triangle).
-#' Each Delaunay triangle is first converted to an (nonscaled) basic triangle so that \code{M} will be the same
-#' type of center for each Delaunay triangle (this conversion is not necessary when \code{M} is \eqn{CM}).
+#' defined with respect to the Delaunay triangles
+#' based on \code{Yp} points with expansion parameter \eqn{r \ge 1} and
+#' vertex regions in each triangle are
+#' based on the center \eqn{M=(\alpha,\beta,\gamma)}
+#' in barycentric coordinates
+#' in the interior of each Delaunay triangle or
+#' based on circumcenter of each Delaunay triangle
+#' (default for \eqn{M=(1,1,1)}
+#' which is the center of mass of the triangle).
+#' Each Delaunay triangle is first converted to
+#' an (nonscaled) basic triangle so that \code{M} will be the same
+#' type of center for each Delaunay triangle
+#' (this conversion is not necessary when \code{M} is \eqn{CM}).
 #'
-#' Convex hull of \code{Yp} is partitioned by the Delaunay triangles based on \code{Yp} points
-#' (i.e., multiple triangles are the set of these Delaunay triangles whose union constitutes the
-#' convex hull of \code{Yp} points). For the number of arcs, loops are not allowed so arcs are only possible
+#' Convex hull of \code{Yp} is partitioned
+#' by the Delaunay triangles based on \code{Yp} points
+#' (i.e., multiple triangles are the set of these Delaunay triangles
+#' whose union constitutes the
+#' convex hull of \code{Yp} points).
+#' For the number of arcs, loops are not allowed so arcs are only possible
 #' for points inside the convex hull of \code{Yp} points.
 #'
 #' See (\insertCite{ceyhan:Phd-thesis,ceyhan:arc-density-PE,ceyhan:dom-num-NPE-Spat2011;textual}{pcds})
 #' for more on the PE-PCDs.
-#' Also see (\insertCite{okabe:2000,ceyhan:comp-geo-2010,sinclair:2016;textual}{pcds}) for more on Delaunay triangulation and the corresponding algorithm.
+#' Also, see (\insertCite{okabe:2000,ceyhan:comp-geo-2010,sinclair:2016;textual}{pcds})
+#' for more on Delaunay triangulation and the corresponding algorithm.
 #'
-#' @param Xp A set of 2D points which constitute the vertices of the PE-PCD.
-#' @param Yp A set of 2D points which constitute the vertices of the Delaunay triangles.
-#' @param r A positive real number which serves as the expansion parameter in PE proximity region;
+#' @param Xp A set of 2D points
+#' which constitute the vertices of the PE-PCD.
+#' @param Yp A set of 2D points
+#' which constitute the vertices of the Delaunay triangles.
+#' @param r A positive real number
+#' which serves as the expansion parameter in PE proximity region;
 #' must be \eqn{\ge 1}.
-#' @param M A 3D point in barycentric coordinates which serves as a center in the interior of each Delaunay
-#' triangle or circumcenter of each Delaunay triangle (for this, argument should be set as \code{M="CC"}),
-#' default for \eqn{M=(1,1,1)} which is the center of mass of each triangle.
+#' @param M A 3D point in barycentric coordinates
+#' which serves as a center in the interior of each Delaunay
+#' triangle or circumcenter of each Delaunay triangle
+#' (for this, argument should be set as \code{M="CC"}),
+#' default for \eqn{M=(1,1,1)}
+#' which is the center of mass of each triangle.
 #'
 #' @return A \code{list} with the elements
 #' \item{type}{A description of the type of the digraph}
-#' \item{parameters}{Parameters of the digraph, the center used to construct the vertex regions and the expansion parameter.}
-#' \item{tess.points}{Points on which the tessellation of the study region is performed, here, tessellation
+#' \item{parameters}{Parameters of the digraph,
+#' the center used to construct the vertex regions
+#' and the expansion parameter.}
+#' \item{tess.points}{Points on which the tessellation
+#' of the study region is performed,
+#' here, tessellation
 #' is Delaunay triangulation based on \code{Yp} points.}
-#' \item{tess.name}{Name of data set used in tessellation, it is \code{Yp} for this function}
+#' \item{tess.name}{Name of data set used in tessellation,
+#' it is \code{Yp} for this function}
 #' \item{vertices}{Vertices of the digraph, \code{Xp} points}
-#' \item{vert.name}{Name of the data set which constitute the vertices of the digraph}
-#' \item{S}{Tails (or sources) of the arcs of PE-PCD for 2D data set \code{Xp} as vertices of the digraph}
-#' \item{E}{Heads (or arrow ends) of the arcs of PE-PCD for 2D data set \code{Xp} as vertices of the digraph}
-#' \item{mtitle}{Text for \code{"main"} title in the plot of the digraph}
-#' \item{quant}{Various quantities for the digraph: number of vertices, number of partition points,
-#' number of intervals, number of arcs, and arc density.}
+#' \item{vert.name}{Name of the data set
+#' which constitute the vertices of the digraph}
+#' \item{S}{Tails (or sources) of the arcs of PE-PCD for 2D data set \code{Xp}
+#' as vertices of the digraph}
+#' \item{E}{Heads (or arrow ends) of the arcs of PE-PCD for 2D data set \code{Xp}
+#' as vertices of the digraph}
+#' \item{mtitle}{Text for \code{"main"} title
+#' in the plot of the digraph}
+#' \item{quant}{Various quantities for the digraph: number of vertices,
+#' number of partition points,
+#' number of triangles, number of arcs, and arc density.}
 #'
-#' @seealso \code{\link{ArcsPEtri}}, \code{\link{ArcsAS}} and \code{\link{ArcsCS}}
+#' @seealso \code{\link{arcsPEtri}}, \code{\link{arcsAS}},
+#' and \code{\link{arcsCS}}
 #'
 #' @references
 #' \insertAllCited{}
@@ -3644,15 +4412,15 @@ ifelse(identical(M,"CC"),cent<-CC,cent <- M)
 #'
 #' r<-1.5  #try also r<-2
 #'
-#' Arcs<-ArcsPE(Xp,Yp,r,M)
-#' #or try with the default center Arcs<-ArcsPE(Xp,Yp,r)
+#' Arcs<-arcsPE(Xp,Yp,r,M)
+#' #or try with the default center Arcs<-arcsPE(Xp,Yp,r)
 #' Arcs
 #' summary(Arcs)
 #' plot(Arcs)
 #' }
 #'
-#' @export ArcsPE
-ArcsPE <- function(Xp,Yp,r,M=c(1,1,1))
+#' @export arcsPE
+arcsPE <- function(Xp,Yp,r,M=c(1,1,1))
 {
   xname <-deparse(substitute(Xp))
   yname <-deparse(substitute(Yp))
@@ -3677,11 +4445,12 @@ ArcsPE <- function(Xp,Yp,r,M=c(1,1,1))
 
   if (nrow(Yp)==3)
   {
-    res<-ArcsPEtri(Xp,Yp,r,M)
+    res<-arcsPEtri(Xp,Yp,r,M)
   } else
   {
     if ((!is.point(M,3) && M!="CC") || !all(M>0))
-    {stop('M must be a numeric 3D point with positive barycentric coordinates or "CC" for circumcenter')}
+    {stop('M must be a numeric 3D point with positive barycentric coordinates or
+          "CC" for circumcenter')}
 
     DTmesh<-interp::tri.mesh(Yp[,1],Yp[,2],duplicate="remove")
 
@@ -3690,7 +4459,8 @@ ArcsPE <- function(Xp,Yp,r,M=c(1,1,1))
     for (i in 1:nx)
       ch[i]<-interp::in.convex.hull(DTmesh,Xp[i,1],Xp[i,2],strict=FALSE)
 
-    Xch<-matrix(Xp[ch==1,],ncol=2)  #the Xp points inside the convex hull of Yp
+    Xch<-matrix(Xp[ch==1,],ncol=2)
+    #the Xp points inside the convex hull of Yp
 
     DTr<-matrix(interp::triangles(DTmesh)[,1:3],ncol=3)
     nt<-nrow(DTr)
@@ -3714,15 +4484,19 @@ ArcsPE <- function(Xp,Yp,r,M=c(1,1,1))
         if (nrow(Xl)>1)
         {
           Yi.Tri<-Yp[DTr[i,],] #vertices of the ith triangle
-          Yi.tri<-as.bas.tri(Yi.Tri)$tri #convert the triangle Yi.Tri into an nonscaled basic triangle, see as.bas.tri help page
+          Yi.tri<-as.basic.tri(Yi.Tri)$tri
+          #convert the triangle Yi.Tri into an nonscaled basic triangle, see as.basic.tri help page
           nl<-nrow(Xl)
-          ifelse(identical(M,"CC"), {rv.ind<-rel.verts.triCC(Xl,Yi.tri)$rv; cent<-circ.cent.tri(Yi.tri)},
-                 {rv.ind<-rel.verts.tri.cent(Xl,Yi.tri,M)$rv; cent<-M})
+          ifelse(identical(M,"CC"),
+                 {rel.vert.ind<-rel.verts.triCC(Xl,Yi.tri)$rv;
+          cent<-circumcenter.tri(Yi.tri)},
+                 {rel.vert.ind<-rel.verts.tri(Xl,Yi.tri,M)$rv;
+                 cent<-M})
 
           for (j in 1:nl)
-          {RV<-rv.ind[j]
+          {RV<-rel.vert.ind[j]
           for (k in (1:nl)[-j])  # to avoid loops
-            if (IndNPEtri(Xl[j,],Xl[k,],Yi.tri,r,cent,rv=RV)==1 )
+            if (IarcPEtri(Xl[j,],Xl[k,],Yi.tri,r,cent,rv=RV)==1 )
             {
               S <-rbind(S,Xl[j,]); E <-rbind(E,Xl[k,]);
             }
@@ -3769,42 +4543,64 @@ ArcsPE <- function(Xp,Yp,r,M=c(1,1,1))
 
 #################################################################
 
-#' @title Incidence matrix for Proportional Edge Proximity Catch Digraphs (PE-PCDs) - multiple triangle case
+#' @title Incidence matrix for Proportional Edge Proximity Catch Digraphs
+#' (PE-PCDs) - multiple triangle case
 #'
-#' @description Returns the incidence matrix of Proportional Edge Proximity Catch Digraph
-#' (PE-PCD) whose vertices are the data points in \code{Xp} in the multiple triangle case.
+#' @description Returns the incidence matrix of
+#' Proportional Edge Proximity Catch Digraph (PE-PCD)
+#' whose vertices are the data points in \code{Xp}
+#' in the multiple triangle case.
 #'
 #' PE proximity regions are
-#' defined with respect to the Delaunay triangles based on \code{Yp} points with expansion parameter \eqn{r \ge 1} and
-#' vertex regions in each triangle are based on the center \eqn{M=(\alpha,\beta,\gamma)} in barycentric coordinates
-#' in the interior of each Delaunay triangle or based on circumcenter of each Delaunay triangle
-#' (default for \eqn{M=(1,1,1)} which is the center of mass of the triangle).
+#' defined with respect to the Delaunay triangles
+#' based on \code{Yp} points with expansion parameter \eqn{r \ge 1} and
+#' vertex regions in each triangle are
+#' based on the center \eqn{M=(\alpha,\beta,\gamma)}
+#' in barycentric coordinates
+#' in the interior of each Delaunay triangle
+#' or based on circumcenter of each Delaunay triangle
+#' (default for \eqn{M=(1,1,1)}
+#' which is the center of mass of the triangle).
 #'
-#' Each Delaunay triangle is first converted to an (nonscaled) basic triangle so that \code{M} will be the same
-#' type of center for each Delaunay triangle (this conversion is not necessary when \code{M} is \eqn{CM}).
+#' Each Delaunay triangle is first converted to
+#' an (nonscaled) basic triangle so that \code{M} will be the same
+#' type of center for each Delaunay triangle
+#' (this conversion is not necessary when \code{M} is \eqn{CM}).
 #'
-#' Convex hull of \code{Yp} is partitioned by the Delaunay triangles based on \code{Yp} points
-#' (i.e., multiple triangles are the set of these Delaunay triangles whose union constitutes the
-#' convex hull of \code{Yp} points). For the incidence matrix loops are allowed,
+#' Convex hull of \code{Yp} is partitioned
+#' by the Delaunay triangles based on \code{Yp} points
+#' (i.e., multiple triangles are the set of these Delaunay triangles
+#' whose union constitutes the
+#' convex hull of \code{Yp} points).
+#' For the incidence matrix loops are allowed,
 #' so the diagonal entries are all equal to 1.
 #'
-#' See (\insertCite{ceyhan:Phd-thesis,ceyhan:arc-density-PE,ceyhan:dom-num-NPE-Spat2011;textual}{pcds}) for more
-#' on the PE-PCDs.
-#' Also see (\insertCite{okabe:2000,ceyhan:comp-geo-2010,sinclair:2016;textual}{pcds})
+#' See (\insertCite{ceyhan:Phd-thesis,ceyhan:arc-density-PE,ceyhan:dom-num-NPE-Spat2011;textual}{pcds})
+#' for more on the PE-PCDs.
+#' Also, see (\insertCite{okabe:2000,ceyhan:comp-geo-2010,sinclair:2016;textual}{pcds})
 #' for more on Delaunay triangulation and the corresponding algorithm.
 #'
-#' @param Xp A set of 2D points which constitute the vertices of the PE-PCD.
-#' @param Yp A set of 2D points which constitute the vertices of the Delaunay triangles.
-#' @param r A positive real number which serves as the expansion parameter in PE proximity region;
+#' @param Xp A set of 2D points
+#' which constitute the vertices of the PE-PCD.
+#' @param Yp A set of 2D points
+#' which constitute the vertices of the Delaunay triangles.
+#' @param r A positive real number
+#' which serves as the expansion parameter in PE proximity region;
 #' must be \eqn{\ge 1}.
-#' @param M A 3D point in barycentric coordinates which serves as a center in the interior of each Delaunay
-#' triangle or circumcenter of each Delaunay triangle (for this, argument should be set as \code{M="CC"}),
-#' default for \eqn{M=(1,1,1)} which is the center of mass of each triangle.
+#' @param M A 3D point in barycentric coordinates
+#' which serves as a center in the interior of each Delaunay
+#' triangle or circumcenter of each Delaunay triangle
+#' (for this, argument should be set as \code{M="CC"}),
+#' default for \eqn{M=(1,1,1)}
+#' which is the center of mass of each triangle.
 #'
-#' @return Incidence matrix for the PE-PCD with vertices being 2D data set, \code{Xp}.
-#' PE proximity regions are constructed with respect to the Delaunay triangles and \code{M}-vertex regions.
+#' @return Incidence matrix for the PE-PCD
+#' with vertices being 2D data set, \code{Xp}.
+#' PE proximity regions are constructed
+#' with respect to the Delaunay triangles and \code{M}-vertex regions.
 #'
-#' @seealso \code{\link{IncMatPEtri}}, \code{\link{IncMatPETe}}, \code{\link{IncMatAS}}, and \code{\link{IncMatCS}}
+#' @seealso \code{\link{inci.matPEtri}}, \code{\link{inci.matPEstd.tri}},
+#' \code{\link{inci.matAS}}, and \code{\link{inci.matCS}}
 #'
 #' @references
 #' \insertAllCited{}
@@ -3817,22 +4613,24 @@ ArcsPE <- function(Xp,Yp,r,M=c(1,1,1))
 #'
 #' set.seed(1)
 #' Xp<-cbind(runif(nx,0,1),runif(nx,0,1))
-#' Yp<-cbind(runif(ny,0,.25),runif(ny,0,.25))+cbind(c(0,0,0.5,1,1),c(0,1,.5,0,1))
+#' Yp<-cbind(runif(ny,0,.25),
+#' runif(ny,0,.25))+cbind(c(0,0,0.5,1,1),c(0,1,.5,0,1))
 #' #try also Yp<-cbind(runif(ny,0,1),runif(ny,0,1))
 #'
 #' M<-c(1,1,1)  #try also M<-c(1,2,3)
 #'
 #' r<-1.5  #try also r<-2
 #'
-#' IM<-IncMatPE(Xp,Yp,r,M)
+#' IM<-inci.matPE(Xp,Yp,r,M)
 #' IM
-#' dom.greedy(IM)
-#' #try also dom.exact(IM)  #might take a long time in this brute-force fashion ignoring the
+#' dom.num.greedy(IM)
+#' #try also dom.num.exact(IM)
+#' #might take a long time in this brute-force fashion ignoring the
 #' #disconnected nature of the digraph inherent by the geometric construction of it
 #' }
 #'
-#' @export IncMatPE
-IncMatPE <- function(Xp,Yp,r,M=c(1,1,1))
+#' @export inci.matPE
+inci.matPE <- function(Xp,Yp,r,M=c(1,1,1))
 {
   if (!is.numeric(as.matrix(Xp)) || !is.numeric(as.matrix(Yp)))
   {stop('Xp and Yp must be numeric')}
@@ -3854,11 +4652,12 @@ IncMatPE <- function(Xp,Yp,r,M=c(1,1,1))
 
   if (nrow(Yp)==3)
   {
-    inc.mat<-IncMatPEtri(Xp,Yp,r,M)
+    inc.mat<-inci.matPEtri(Xp,Yp,r,M)
   } else
   {
     if ((!is.point(M,3) && M!="CC") || !all(M>0))
-    {stop('M must be a numeric 3D point with positive barycentric coordinates or "CC" for circumcenter')}
+    {stop('M must be a numeric 3D point with positive barycentric coordinates
+          or "CC" for circumcenter')}
 
     DTmesh<-interp::tri.mesh(Yp[,1],Yp[,2],duplicate="remove")
 
@@ -3888,13 +4687,15 @@ IncMatPE <- function(Xp,Yp,r,M=c(1,1,1))
       if (i.tr[i]!=0)
       {
         Yi.Tri<-Yp[DTr[i.tr[i],],] #vertices of the ith triangle
-        Yi.tri<-as.bas.tri(Yi.Tri)$tri #convert the triangle Yi.Tri into an nonscaled basic triangle, see as.bas.tri help page
-        ifelse(identical(M,"CC"),{vert<-rv.triCC(p1,Yi.tri)$rv; cent<-circ.cent.tri(Yi.tri)},
-               {vert<-rv.tri.cent(p1,Yi.tri,M)$rv; cent<-M})
+        Yi.tri<-as.basic.tri(Yi.Tri)$tri
+        #convert the triangle Yi.Tri into an nonscaled basic triangle, see as.basic.tri help page
+        ifelse(identical(M,"CC"),{vert<-rel.vert.triCC(p1,Yi.tri)$rv;
+        cent<-circumcenter.tri(Yi.tri)},
+               {vert<-rel.vert.tri(p1,Yi.tri,M)$rv; cent<-M})
 
         for (j in 1:nx )
         {p2<-Xp[j,]
-        inc.mat[i,j]<-IndNPEtri(p1,p2,Yi.tri,r,cent,rv=vert)
+        inc.mat[i,j]<-IarcPEtri(p1,p2,Yi.tri,r,cent,rv=vert)
         }
       }
       }
@@ -3908,47 +4709,72 @@ IncMatPE <- function(Xp,Yp,r,M=c(1,1,1))
 
 #################################################################
 
-#' @title The plot of the arcs of Proportional Edge Proximity Catch Digraph (PE-PCD) for a
-#' 2D data set - multiple triangle case
+#' @title The plot of the arcs of Proportional Edge Proximity Catch Digraph
+#' (PE-PCD) for a 2D data set - multiple triangle case
 #'
-#' @description Plots the arcs of Proportional Edge Proximity Catch Digraph (PE-PCD) whose vertices are the data
-#' points in \code{Xp} in the multiple triangle case and the Delaunay triangles based on \code{Yp} points.
+#' @description Plots the arcs of Proportional Edge Proximity Catch Digraph
+#' (PE-PCD) whose vertices are the data
+#' points in \code{Xp} in the multiple triangle case
+#' and the Delaunay triangles based on \code{Yp} points.
 #'
-#' PE proximity regions are defined with respect to the Delaunay triangles based on \code{Yp} points with
-#' expansion parameter \eqn{r \ge 1} and vertex regions in each triangle are based on the center \eqn{M=(\alpha,\beta,\gamma)}
-#' in barycentric coordinates in the interior of each Delaunay triangle or based on circumcenter of
-#' each Delaunay triangle (default for \eqn{M=(1,1,1)} which is the center of mass of the triangle).
-#' Each Delaunay triangle is first converted to an (nonscaled) basic triangle so that \code{M} will be the same
-#' type of center for each Delaunay triangle (this conversion is not necessary when \code{M} is \eqn{CM}).
+#' PE proximity regions are defined
+#' with respect to the Delaunay triangles based on \code{Yp} points
+#' with expansion parameter \eqn{r \ge 1}
+#' and vertex regions in each triangle are
+#' based on the center \eqn{M=(\alpha,\beta,\gamma)}
+#' in barycentric coordinates in the interior of each Delaunay triangle
+#' or based on circumcenter of
+#' each Delaunay triangle (default for \eqn{M=(1,1,1)}
+#' which is the center of mass of the triangle).
+#' Each Delaunay triangle is first converted to
+#' an (nonscaled) basic triangle so that \code{M} will be the same
+#' type of center for each Delaunay triangle
+#' (this conversion is not necessary
+#' when \code{M} is \eqn{CM}).
 #'
-#' Convex hull of \code{Yp} is partitioned by the Delaunay triangles based on \code{Yp} points
-#' (i.e., multiple triangles are the set of these Delaunay triangles whose union constitutes the
-#' convex hull of \code{Yp} points). Loops are not allowed so arcs are only possible
+#' Convex hull of \code{Yp} is partitioned by
+#' the Delaunay triangles based on \code{Yp} points
+#' (i.e., multiple triangles are the set of these Delaunay triangles
+#' whose union constitutes the
+#' convex hull of \code{Yp} points).
+#' Loops are not allowed so arcs are only possible
 #' for points inside the convex hull of \code{Yp} points.
 #'
-#' See (\insertCite{ceyhan:Phd-thesis,ceyhan:arc-density-PE,ceyhan:dom-num-NPE-Spat2011;textual}{pcds}) for more
-#' on the PE-PCDs.
-#' Also see (\insertCite{okabe:2000,ceyhan:comp-geo-2010,sinclair:2016;textual}{pcds}) for more on Delaunay triangulation and the corresponding algorithm.
+#' See (\insertCite{ceyhan:Phd-thesis,ceyhan:arc-density-PE,ceyhan:dom-num-NPE-Spat2011;textual}{pcds})
+#' for more on the PE-PCDs.
+#' Also, see (\insertCite{okabe:2000,ceyhan:comp-geo-2010,sinclair:2016;textual}{pcds})
+#' for more on Delaunay triangulation and the corresponding algorithm.
 #'
-#' @param Xp A set of 2D points which constitute the vertices of the PE-PCD.
-#' @param Yp A set of 2D points which constitute the vertices of the Delaunay triangles.
-#' @param r A positive real number which serves as the expansion parameter in PE proximity region;
+#' @param Xp A set of 2D points
+#' which constitute the vertices of the PE-PCD.
+#' @param Yp A set of 2D points
+#' which constitute the vertices of the Delaunay triangles.
+#' @param r A positive real number
+#' which serves as the expansion parameter in PE proximity region;
 #' must be \eqn{\ge 1}.
-#' @param M A 3D point in barycentric coordinates which serves as a center in the interior of each Delaunay
-#' triangle or circumcenter of each Delaunay triangle (for this, argument should be set as \code{M="CC"}),
-#' default for \eqn{M=(1,1,1)} which is the center of mass of each triangle.
-#' @param asp A \code{numeric} value, giving the aspect ratio \eqn{y/x} (default is \code{NA}),
+#' @param M A 3D point in barycentric coordinates
+#' which serves as a center in the interior of each Delaunay
+#' triangle or circumcenter of each Delaunay triangle
+#' (for this, argument should be set as \code{M="CC"}),
+#' default for \eqn{M=(1,1,1)}
+#' which is the center of mass of each triangle.
+#' @param asp A \code{numeric} value,
+#' giving the aspect ratio \eqn{y/x} (default is \code{NA}),
 #' see the official help page for \code{asp} by typing "\code{? asp}".
 #' @param main An overall title for the plot (default=\code{NULL}).
-#' @param xlab,ylab Titles for the \eqn{x} and \eqn{y} axes, respectively (default=\code{NULL} for both).
-#' @param xlim,ylim Two \code{numeric} vectors of length 2, giving the \eqn{x}- and \eqn{y}-coordinate ranges
+#' @param xlab,ylab Titles for the \eqn{x} and \eqn{y} axes,
+#' respectively (default=\code{NULL} for both).
+#' @param xlim,ylim Two \code{numeric} vectors of length 2,
+#' giving the \eqn{x}- and \eqn{y}-coordinate ranges
 #' (default=\code{NULL} for both).
 #' @param \dots Additional \code{plot} parameters.
 #'
-#' @return A plot of the arcs of the PE-PCD whose vertices are the points in data set \code{Xp} and the Delaunay
+#' @return A plot of the arcs of the PE-PCD
+#' whose vertices are the points in data set \code{Xp} and the Delaunay
 #' triangles based on \code{Yp} points
 #'
-#' @seealso \code{\link{plotPEarcs.tri}}, \code{\link{plotASarcs}}, and \code{\link{plotCSarcs}}
+#' @seealso \code{\link{plotPEarcs.tri}}, \code{\link{plotASarcs}},
+#' and \code{\link{plotCSarcs}}
 #'
 #' @references
 #' \insertAllCited{}
@@ -3962,7 +4788,8 @@ IncMatPE <- function(Xp,Yp,r,M=c(1,1,1))
 #'
 #' set.seed(1)
 #' Xp<-cbind(runif(nx,0,1),runif(nx,0,1))
-#' Yp<-cbind(runif(ny,0,.25),runif(ny,0,.25))+cbind(c(0,0,0.5,1,1),c(0,1,.5,0,1))
+#' Yp<-cbind(runif(ny,0,.25),
+#' runif(ny,0,.25))+cbind(c(0,0,0.5,1,1),c(0,1,.5,0,1))
 #' #try also Yp<-cbind(runif(ny,0,1),runif(ny,0,1))
 #'
 #' M<-c(1,1,1)  #try also M<-c(1,2,3)
@@ -3984,13 +4811,13 @@ plotPEarcs <- function(Xp,Yp,r,M=c(1,1,1),asp=NA,main=NULL,xlab=NULL,ylab=NULL,x
     plotPEarcs.tri(Xp,Yp,r,M,asp,main,xlab,ylab,xlim,ylim)
   } else
   {
-    ArcsPE<-ArcsPE(Xp,Yp,r,M)
-    S<-ArcsPE$S
-    E<-ArcsPE$E
+    arcsPE<-arcsPE(Xp,Yp,r,M)
+    S<-arcsPE$S
+    E<-arcsPE$E
 
     DTmesh<-interp::tri.mesh(Yp[,1],Yp[,2],duplicate="remove")
 
-    Xch<-XinConvHullY(Xp,Yp)
+    Xch<-Xin.convex.hullY(Xp,Yp)
 
     if (is.null(main))
     {if (identical(M,"CC")){
@@ -4010,7 +4837,8 @@ plotPEarcs <- function(Xp,Yp,r,M=c(1,1,1),asp=NA,main=NULL,xlab=NULL,ylab=NULL,x
     yr<-ylim[2]-ylim[1]
     ylim<-ylim+yr*c(-.05,.05)
     }
-    plot(rbind(Xp),asp=asp,main=main, xlab=xlab, ylab=ylab,xlim=xlim,ylim=ylim,pch=".",cex=3,...)
+    plot(rbind(Xp),asp=asp,main=main, xlab=xlab, ylab=ylab,xlim=xlim,
+         ylim=ylim,pch=".",cex=3,...)
     interp::plot.triSht(DTmesh, add=TRUE, do.points = TRUE)
     if (!is.null(S)) {arrows(S[,1], S[,2], E[,1], E[,2], length = 0.1, col= 4)}
   }
@@ -4019,42 +4847,61 @@ plotPEarcs <- function(Xp,Yp,r,M=c(1,1,1),asp=NA,main=NULL,xlab=NULL,ylab=NULL,x
 
 #################################################################
 
-#' @title The plot of the Proportional Edge (PE) Proximity Regions for a 2D data set - multiple triangle case
+#' @title The plot of the Proportional Edge (PE) Proximity Regions
+#' for a 2D data set - multiple triangle case
 #'
-#' @description Plots the points in and outside of the Delaunay triangles based on \code{Yp} points which partition
+#' @description Plots the points in and outside of the Delaunay triangles
+#' based on \code{Yp} points which partition
 #' the convex hull of \code{Yp} points and also plots the PE proximity regions
 #' for \code{Xp} points and the Delaunay triangles based on \code{Yp} points.
 #'
-#' PE proximity regions are constructed with respect to the Delaunay triangles with the expansion parameter
+#' PE proximity regions are constructed
+#' with respect to the Delaunay triangles with the expansion parameter
 #' \eqn{r \ge 1}.
 #'
-#' Vertex regions in each triangle is based on the center \eqn{M=(\alpha,\beta,\gamma)}
-#' in barycentric coordinates in the interior of each Delaunay triangle or based on circumcenter of
-#' each Delaunay triangle (default for \eqn{M=(1,1,1)} which is the center of mass of the triangle).
+#' Vertex regions in each triangle is
+#' based on the center \eqn{M=(\alpha,\beta,\gamma)}
+#' in barycentric coordinates in the interior of each Delaunay triangle
+#' or based on circumcenter of
+#' each Delaunay triangle (default for \eqn{M=(1,1,1)}
+#' which is the center of mass of the triangle).
 #'
-#' See (\insertCite{ceyhan:Phd-thesis,ceyhan:arc-density-PE,ceyhan:dom-num-NPE-Spat2011;textual}{pcds}) for more
-#' on the PE proximity regions.
-#' Also see (\insertCite{okabe:2000,ceyhan:comp-geo-2010,sinclair:2016;textual}{pcds}) for more on Delaunay triangulation and the corresponding algorithm.
+#' See (\insertCite{ceyhan:Phd-thesis,ceyhan:arc-density-PE,ceyhan:dom-num-NPE-Spat2011;textual}{pcds})
+#' for more on the PE proximity regions.
+#' Also, see (\insertCite{okabe:2000,ceyhan:comp-geo-2010,sinclair:2016;textual}{pcds})
+#' for more on Delaunay triangulation and the corresponding algorithm.
 #'
-#' @param Xp A set of 2D points for which PE proximity regions are constructed.
-#' @param Yp A set of 2D points which constitute the vertices of the Delaunay triangles.
-#' @param r A positive real number which serves as the expansion parameter in PE proximity region;
+#' @param Xp A set of 2D points
+#' for which PE proximity regions are constructed.
+#' @param Yp A set of 2D points
+#' which constitute the vertices of the Delaunay triangles.
+#' @param r A positive real number
+#' which serves as the expansion parameter in PE proximity region;
 #' must be \eqn{\ge 1}.
-#' @param M A 3D point in barycentric coordinates which serves as a center in the interior of each Delaunay
-#' triangle or circumcenter of each Delaunay triangle (for this, argument should be set as \code{M="CC"}),
-#' default for \eqn{M=(1,1,1)} which is the center of mass of each triangle.
-#' @param asp A \code{numeric} value, giving the aspect ratio \eqn{y/x} (default is \code{NA}),
+#' @param M A 3D point in barycentric coordinates
+#' which serves as a center in the interior of each Delaunay
+#' triangle or circumcenter of each Delaunay triangle
+#' (for this, argument should be set as \code{M="CC"}),
+#' default for \eqn{M=(1,1,1)}
+#'  which is the center of mass of each triangle.
+#' @param asp A \code{numeric} value,
+#' giving the aspect ratio \eqn{y/x} (default is \code{NA}),
 #' see the official help page for \code{asp} by typing "\code{? asp}".
 #' @param main An overall title for the plot (default=\code{NULL}).
-#' @param xlab,ylab Titles for the \eqn{x} and \eqn{y} axes, respectively (default=\code{NULL} for both)
-#' @param xlim,ylim Two \code{numeric} vectors of length 2, giving the \eqn{x}- and \eqn{y}-coordinate ranges
+#' @param xlab,ylab Titles for the \eqn{x} and \eqn{y} axes,
+#' respectively (default=\code{NULL} for both)
+#' @param xlim,ylim Two \code{numeric} vectors of length 2,
+#' giving the \eqn{x}- and \eqn{y}-coordinate ranges
 #' (default=\code{NULL} for both).
 #' @param \dots Additional \code{plot} parameters.
 #'
-#' @return Plot of the \code{Xp} points, Delaunay triangles based on \code{Yp} points and also the PE proximity regions
+#' @return Plot of the \code{Xp} points,
+#' Delaunay triangles based on \code{Yp} points
+#' and also the PE proximity regions
 #' for \code{Xp} points inside the convex hull of \code{Yp} points
 #'
-#' @seealso \code{\link{plotPEregs.tri}}, \code{\link{plotASregs}} and \code{\link{plotCSregs}}
+#' @seealso \code{\link{plotPEregs.tri}}, \code{\link{plotASregs}},
+#' and \code{\link{plotCSregs}}
 #'
 #' @references
 #' \insertAllCited{}
@@ -4068,7 +4915,8 @@ plotPEarcs <- function(Xp,Yp,r,M=c(1,1,1),asp=NA,main=NULL,xlab=NULL,ylab=NULL,x
 #'
 #' set.seed(1)
 #' Xp<-cbind(runif(nx,0,1),runif(nx,0,1))
-#' Yp<-cbind(runif(ny,0,.25),runif(ny,0,.25))+cbind(c(0,0,0.5,1,1),c(0,1,.5,0,1))
+#' Yp<-cbind(runif(ny,0,.25),
+#' runif(ny,0,.25))+cbind(c(0,0,0.5,1,1),c(0,1,.5,0,1))
 #' #try also Yp<-cbind(runif(ny,0,1),runif(ny,0,1))
 #'
 #' M<-c(1,1,1)  #try also M<-c(1,2,3)
@@ -4104,7 +4952,8 @@ plotPEregs <- function(Xp,Yp,r,M=c(1,1,1),asp=NA,main=NULL,xlab=NULL,ylab=NULL,x
   } else
   {
     if ((!is.point(M,3) && M!="CC") || !all(M>0))
-    {stop('M must be a numeric 3D point with positive barycentric coordinates or "CC" for circumcenter')}
+    {stop('M must be a numeric 3D point with positive barycentric coordinates
+          or "CC" for circumcenter')}
 
     DTmesh<-interp::tri.mesh(Yp[,1],Yp[,2],duplicate="remove")
 
@@ -4113,7 +4962,8 @@ plotPEregs <- function(Xp,Yp,r,M=c(1,1,1),asp=NA,main=NULL,xlab=NULL,ylab=NULL,x
     for (i in 1:nx)
       ch[i]<-interp::in.convex.hull(DTmesh,Xp[i,1],Xp[i,2],strict=FALSE)
 
-    Xch<-matrix(Xp[ch==1,],ncol=2)  #the Xp points inside the convex hull of Yp points
+    Xch<-matrix(Xp[ch==1,],ncol=2)
+    #the Xp points inside the convex hull of Yp points
 
     DTr<-matrix(interp::triangles(DTmesh)[,1:3],ncol=3)
     nt<-nrow(DTr)  #number of Delaunay triangles
@@ -4121,7 +4971,8 @@ plotPEregs <- function(Xp,Yp,r,M=c(1,1,1),asp=NA,main=NULL,xlab=NULL,ylab=NULL,x
 
     if (nx2>=1)
     {
-      i.tr<-rep(0,nx2)  #the vector of indices for the triangles that contain the Xp points
+      i.tr<-rep(0,nx2)
+      #the vector of indices for the triangles that contain the Xp points
       for (i1 in 1:nx2)
         for (j1 in 1:nt)
         {
@@ -4150,12 +5001,14 @@ plotPEregs <- function(Xp,Yp,r,M=c(1,1,1),asp=NA,main=NULL,xlab=NULL,ylab=NULL,x
     main=paste("PE Proximity Regions\n with r = ",r," and M = (",Mvec,")",sep="")}
     }
 
-    plot(rbind(Xp),asp=asp,main=main, xlab=xlab, ylab=ylab,xlim=xlim,ylim=ylim,pch=".",cex=3,...)
+    plot(rbind(Xp),asp=asp,main=main, xlab=xlab, ylab=ylab,
+         xlim=xlim,ylim=ylim,pch=".",cex=3,...)
 
     for (i in 1:nt)
     {
       Tri<-Yp[DTr[i,],]  #vertices of the ith triangle
-      tri<-as.bas.tri(Tri)$tri #convert the triangle Tri into an nonscaled basic triangle, see as.bas.tri help page
+      tri<-as.basic.tri(Tri)$tri
+      #convert the triangle Tri into an nonscaled basic triangle, see as.basic.tri help page
 
       polygon(tri,lty=2)
       if (nx2>=1)
@@ -4168,8 +5021,8 @@ plotPEregs <- function(Xp,Yp,r,M=c(1,1,1),asp=NA,main=NULL,xlab=NULL,ylab=NULL,x
           for (j in 1:ni)
           {
             P1<-Xtri[j,]
-            ifelse(identical(M,"CC"),{RV<-rv.triCC(P1,tri)$rv; cent<-circ.cent.tri(tri)},
-                   {RV<-rv.tri.cent(P1,tri,M)$rv; cent<-M})
+            ifelse(identical(M,"CC"),{RV<-rel.vert.triCC(P1,tri)$rv; cent<-circumcenter.tri(tri)},
+                   {RV<-rel.vert.tri(P1,tri,M)$rv; cent<-M})
 
             pr<-NPEtri(P1,tri,r,cent,rv=RV)
             polygon(pr,border="blue")
@@ -4185,42 +5038,72 @@ plotPEregs <- function(Xp,Yp,r,M=c(1,1,1),asp=NA,main=NULL,xlab=NULL,ylab=NULL,x
 
 #################################################################
 
-#' @title The domination number of Proportional Edge Proximity Catch Digraph (PE-PCD) - multiple triangle case
+#' @title The domination number of Proportional Edge Proximity Catch Digraph
+#' (PE-PCD) - multiple triangle case
 #'
-#' @description Returns the domination number, indices of a minimum dominating set of PE-PCD whose vertices are the data
-#' points in \code{Xp} in the multiple triangle case and domination numbers for the Delaunay triangles based on \code{Yp} points.
+#' @description Returns the domination number,
+#' indices of a minimum dominating set of PE-PCD whose vertices are the data
+#' points in \code{Xp} in the multiple triangle case
+#' and domination numbers for the Delaunay triangles
+#' based on \code{Yp} points.
 #'
-#' PE proximity regions are defined with respect to the Delaunay triangles based on \code{Yp} points with
-#' expansion parameter \eqn{r \ge 1} and vertex regions in each triangle are based on the center \eqn{M=(\alpha,\beta,\gamma)}
-#' in barycentric coordinates in the interior of each Delaunay triangle or based on
-#' circumcenter of each Delaunay triangle (default for \eqn{M=(1,1,1)} which is the center of mass of the
-#' triangle). Each Delaunay triangle is first converted to an (nonscaled) basic triangle so that \code{M} will be the
-#' same type of center for each Delaunay triangle (this conversion is not necessary when \code{M} is \eqn{CM}).
+#' PE proximity regions are defined
+#' with respect to the Delaunay triangles based on \code{Yp} points
+#' with expansion parameter \eqn{r \ge 1}
+#' and vertex regions in each triangle are
+#' based on the center \eqn{M=(\alpha,\beta,\gamma)}
+#' in barycentric coordinates
+#' in the interior of each Delaunay triangle or based on
+#' circumcenter of each Delaunay triangle (default for \eqn{M=(1,1,1)}
+#' which is the center of mass of the
+#' triangle). Each Delaunay triangle is first converted to
+#' an (nonscaled) basic triangle so that \code{M} will be the
+#' same type of center for each Delaunay triangle
+#' (this conversion is not necessary when \code{M} is \eqn{CM}).
 #'
-#' Convex hull of \code{Yp} is partitioned by the Delaunay triangles based on \code{Yp} points
-#' (i.e., multiple triangles are the set of these Delaunay triangles whose union constitutes the
-#' convex hull of \code{Yp} points). Loops are allowed for the domination number.
+#' Convex hull of \code{Yp} is partitioned
+#' by the Delaunay triangles based on \code{Yp} points
+#' (i.e., multiple triangles are the set of these Delaunay triangles
+#' whose union constitutes the
+#' convex hull of \code{Yp} points).
+#' Loops are allowed for the domination number.
 #'
-#' See (\insertCite{ceyhan:Phd-thesis,ceyhan:masa-2007,ceyhan:dom-num-NPE-Spat2011,ceyhan:mcap2012;textual}{pcds}) for more on the domination number of
-#' PE-PCDs. Also see (\insertCite{okabe:2000,ceyhan:comp-geo-2010,sinclair:2016;textual}{pcds}) for more on Delaunay triangulation and
+#' See (\insertCite{ceyhan:Phd-thesis,ceyhan:masa-2007,ceyhan:dom-num-NPE-Spat2011,ceyhan:mcap2012;textual}{pcds})
+#' for more on the domination number of PE-PCDs.
+#' Also, see (\insertCite{okabe:2000,ceyhan:comp-geo-2010,sinclair:2016;textual}{pcds})
+#' for more on Delaunay triangulation and
 #' the corresponding algorithm.
 #'
-#' @param Xp A set of 2D points which constitute the vertices of the PE-PCD.
-#' @param Yp A set of 2D points which constitute the vertices of the Delaunay triangles.
-#' @param r A positive real number which serves as the expansion parameter in PE proximity region;
+#' @param Xp A set of 2D points
+#' which constitute the vertices of the PE-PCD.
+#' @param Yp A set of 2D points
+#' which constitute the vertices of the Delaunay triangles.
+#' @param r A positive real number
+#' which serves as the expansion parameter in PE proximity region;
 #' must be \eqn{\ge 1}.
-#' @param M A 3D point in barycentric coordinates which serves as a center in the interior of each Delaunay
-#' triangle or circumcenter of each Delaunay triangle (for this, argument should be set as \code{M="CC"}),
-#' default for \eqn{M=(1,1,1)} which is the center of mass of each triangle.
+#' @param M A 3D point in barycentric coordinates
+#' which serves as a center in the interior of each Delaunay
+#' triangle or circumcenter of each Delaunay triangle
+#'  (for this, argument should be set as \code{M="CC"}),
+#' default for \eqn{M=(1,1,1)}
+#' which is the center of mass of each triangle.
 #'
 #' @return A \code{list} with three elements
-#' \item{dom.num}{Domination number of the PE-PCD whose vertices are \code{Xp} points. PE proximity regions are
-#' constructed with respect to the Delaunay triangles based on the \code{Yp} points with expansion parameter \eqn{r \ge 1}.}
-#' #\item{mds}{A minimum dominating set of the PE-PCD whose vertices are \code{Xp} points}
-#' \item{ind.mds}{The vector of data indices of the minimum dominating set of the PE-PCD whose vertices are \code{Xp} points.}
-#' \item{tri.dom.nums}{The vector of domination numbers of the PE-PCD components for the Delaunay triangles.}
+#' \item{dom.num}{Domination number of the PE-PCD
+#' whose vertices are \code{Xp} points.
+#' PE proximity regions are constructed
+#' with respect to the Delaunay triangles
+#' based on the \code{Yp} points with expansion parameter \eqn{r \ge 1}.}
+#' #\item{mds}{A minimum dominating set of the PE-PCD
+#' whose vertices are \code{Xp} points}
+#' \item{ind.mds}{The vector of data indices of the minimum dominating set
+#' of the PE-PCD whose vertices are \code{Xp} points.}
+#' \item{tri.dom.nums}{The vector of domination numbers
+#' of the PE-PCD components
+#' for the Delaunay triangles.}
 #'
-#' @seealso \code{\link{PEdomTri}}, \code{\link{PEdomTetra}}, \code{\link{dom.exact}}, and \code{\link{dom.greedy}}
+#' @seealso \code{\link{PEdom.num.tri}}, \code{\link{PEdom.num.tetra}},
+#' \code{\link{dom.num.exact}}, and \code{\link{dom.num.greedy}}
 #'
 #' @references
 #' \insertAllCited{}
@@ -4234,16 +5117,17 @@ plotPEregs <- function(Xp,Yp,r,M=c(1,1,1),asp=NA,main=NULL,xlab=NULL,ylab=NULL,x
 #'
 #' set.seed(1)
 #' Xp<-cbind(runif(nx,0,1),runif(nx,0,1))
-#' Yp<-cbind(runif(ny,0,.25),runif(ny,0,.25))+cbind(c(0,0,0.5,1,1),c(0,1,.5,0,1))
+#' Yp<-cbind(runif(ny,0,.25),
+#' runif(ny,0,.25))+cbind(c(0,0,0.5,1,1),c(0,1,.5,0,1))
 #' #try also Yp<-cbind(runif(ny,0,1),runif(ny,0,1))
 #'
 #' M<-c(1,1,1)  #try also M<-c(1,2,3)
 #' r<-1.5  #try also r<-2
-#' PEdom(Xp,Yp,r,M)
+#' PEdom.num(Xp,Yp,r,M)
 #' }
 #'
-#' @export PEdom
-PEdom <- function(Xp,Yp,r,M=c(1,1,1))
+#' @export PEdom.num
+PEdom.num <- function(Xp,Yp,r,M=c(1,1,1))
 {
   if (!is.numeric(as.matrix(Xp)) || !is.numeric(as.matrix(Yp)))
   {stop('Xp and Yp must be numeric')}
@@ -4264,34 +5148,40 @@ PEdom <- function(Xp,Yp,r,M=c(1,1,1))
   {stop('r must be a scalar >= 1')}
 
   if ((!is.point(M,3) && M!="CC") || !all(M>0))
-  {stop('M must be a numeric 3D point with positive barycentric coordinates or "CC" for circumcenter')}
+  {stop('M must be a numeric 3D point with positive barycentric coordinates
+        or "CC" for circumcenter')}
 
   if (nrow(Yp)==3)
   {
-    res<-PEdomTri(Xp,Yp,r,M)
+    res<-PEdom.num.tri(Xp,Yp,r,M)
   } else
   {
     n<-nrow(Xp)  #number of Xp points
     m<-nrow(Yp)  #number of Yp points
 
-    Ytrimesh<-interp::tri.mesh(Yp[,1],Yp[,2],duplicate="remove")  #Delaunay triangulation
-    Ytri<-matrix(interp::triangles(Ytrimesh)[,1:3],ncol=3); #the Delaunay triangles
+    Ytrimesh<-interp::tri.mesh(Yp[,1],Yp[,2],duplicate="remove")
+    #Delaunay triangulation
+    Ytri<-matrix(interp::triangles(Ytrimesh)[,1:3],ncol=3);
+    #the Delaunay triangles
     nt<-nrow(Ytri)  #number of Delaunay triangles
-    inCH<-interp::in.convex.hull(Ytrimesh,Xp[,1],Xp[,2],strict=FALSE)  #logical indices for Xp points in convex hull of Yp points
+    inCH<-interp::in.convex.hull(Ytrimesh,Xp[,1],Xp[,2],strict=FALSE)
+    #logical indices for Xp points in convex hull of Yp points
     Xch<-matrix(Xp[inCH==TRUE,],ncol=2)
     indCH=which(inCH) #vector of indices of the data in the convex hull
 
     gam<-rep(0,nt);  mds<-mds.ind<-c()
     if (nrow(Xch)>=1)
     {
-      Tri.Ind<-indices.del.tri(Xch,Yp,Ytrimesh)  #indices of triangles in which the points in the data fall
+      Tri.Ind<-indices.delaunay.tri(Xch,Yp,Ytrimesh)
+      #indices of triangles in which the points in the data fall
 
       #calculation of the domination number
       for (i in 1:nt)
       {
         ith.tri.ind = Tri.Ind==i
       Xpi<-matrix(Xch[ith.tri.ind,],ncol=2)  #points in ith Delaunay triangle
-      indCHi = indCH[ith.tri.ind] #indices of Xpi points (wrt to original data indices)
+      indCHi = indCH[ith.tri.ind]
+      #indices of Xpi points (wrt to original data indices)
 
         ni<-nrow(Xpi)  #number of points in ith triangle
         if (ni==0)
@@ -4300,27 +5190,30 @@ PEdom <- function(Xp,Yp,r,M=c(1,1,1))
         } else
         {
           Yi.Tri<-Yp[Ytri[i,],] #vertices of ith triangle
-          Yi.tri<-as.bas.tri(Yi.Tri)$tri
+          Yi.tri<-as.basic.tri(Yi.Tri)$tri
           ifelse(identical(M,"CC"),
-                 {cent<-circ.cent.tri(Yi.tri);
-                 cl2v <- cl2edgesCC_VR(Xpi,Yi.tri);
+                 {cent<-circumcenter.tri(Yi.tri);
+                 cl2v <- cl2edgesCCvert.reg(Xpi,Yi.tri);
                  Clvert<-cl2v$ext;
                  Clvert.ind<-cl2v$ind # indices of these extrema wrt Xpi
                  },
                  {cent<-M;
-                 cl2v <- cl2edgesM_VR(Xpi,Yi.tri,cent);
+                 cl2v <- cl2edgesMvert.reg(Xpi,Yi.tri,cent);
                  Clvert<-cl2v$ext;
                  Clvert.ind<-cl2v$ind # indices of these extrema wrt Xpi}
                  })
 
-          Ext.ind = indCHi[Clvert.ind] #indices of these extrema wrt to the original data
+          Ext.ind = indCHi[Clvert.ind]
+          #indices of these extrema wrt to the original data
 
           #Gamma=1 piece
           cnt<-0; j<-1;
           while (j<=3 & cnt==0)
           {
-            if (Gam1PEtri(Clvert[j,],Xpi,Yi.tri,r,cent,rv=j)==1)
-            {gam[i]<-1; cnt<-1; mds<-rbind(mds,Clvert[j,]); mds.ind=c(mds.ind,Ext.ind[j])
+            if (Idom.num1PEtri(Clvert[j,],Xpi,Yi.tri,r,cent,rv=j)==1)
+            {gam[i]<-1; cnt<-1;
+            mds<-rbind(mds,Clvert[j,]);
+            mds.ind=c(mds.ind,Ext.ind[j])
             } else
             {j<-j+1}
           }
@@ -4332,8 +5225,10 @@ PEdom <- function(Xp,Yp,r,M=c(1,1,1))
           {l<-k+1;
           while (l<=3 & cnt2==0)
           {
-            if (Gam2PEtri(Clvert[k,],Clvert[l,],Xpi,Yi.tri,r,cent,rv1=k,rv2=l)==1)
-            {gam[i]<-2;cnt2<-1; mds<-rbind(mds,Clvert[c(k,l),]); mds.ind=c(mds.ind,Ext.ind[c(k,l)])
+            if (Idom.num2PEtri(Clvert[k,],Clvert[l,],Xpi,Yi.tri,r,cent,
+                          rv1=k,rv2=l)==1)
+            {gam[i]<-2;cnt2<-1; mds<-rbind(mds,Clvert[c(k,l),]);
+            mds.ind=c(mds.ind,Ext.ind[c(k,l)])
             } else {l<-l+1};
           }
           k<-k+1;
@@ -4352,7 +5247,8 @@ PEdom <- function(Xp,Yp,r,M=c(1,1,1))
 
     res<-list(dom.num=Gam, #domination number
             #  mds=mds, #a minimum dominating set
-            ind.mds =mds.ind, #indices of a minimum dominating set (wrt to original data)
+            ind.mds =mds.ind,
+            #indices of a minimum dominating set (wrt to original data)
               tri.dom.nums=gam #domination numbers for the Delaunay triangles
     )
     }
@@ -4363,39 +5259,62 @@ res
 
 #################################################################
 
-#' @title The domination number of Proportional Edge Proximity Catch Digraph (PE-PCD) with
-#' non-degeneracy centers - multiple triangle case
+#' @title The domination number of Proportional Edge Proximity Catch Digraph
+#' (PE-PCD) with non-degeneracy centers - multiple triangle case
 #'
-#' @description Returns the domination number, indices of a minimum dominating set of PE-PCD whose vertices are the data
-#' points in \code{Xp} in the multiple triangle case and domination numbers for the Delaunay triangles based on \code{Yp} points
-#' when PE-PCD is constructed with vertex regions based on non-degeneracy centers.
+#' @description Returns the domination number,
+#' indices of a minimum dominating set of PE-PCD
+#' whose vertices are the data
+#' points in \code{Xp} in the multiple triangle case
+#' and domination numbers for the Delaunay triangles based on \code{Yp} points
+#' when PE-PCD is constructed with vertex regions
+#' based on non-degeneracy centers.
 #'
-#' PE proximity regions are defined with respect to the Delaunay triangles based on \code{Yp} points with
-#' expansion parameter \eqn{r \ge 1} and vertex regions in each triangle are based on the center \eqn{M}
-#' which is one of the 3 centers that renders the asymptotic distribution of domination number
-#' to be non-degenerate for a given value of \code{r} in \eqn{(1,1.5)} and \code{M} is center of mass for \eqn{r=1.5}.
+#' PE proximity regions are defined
+#' with respect to the Delaunay triangles based on \code{Yp} points
+#' with expansion parameter \eqn{r \ge 1}
+#' and vertex regions in each triangle are
+#' based on the center \eqn{M}
+#' which is one of the 3 centers
+#' that renders the asymptotic distribution of domination number
+#' to be non-degenerate for a given value of \code{r} in \eqn{(1,1.5)}
+#' and \code{M} is center of mass for \eqn{r=1.5}.
 #'
-#' Convex hull of \code{Yp} is partitioned by the Delaunay triangles based on \code{Yp} points
-#' (i.e., multiple triangles are the set of these Delaunay triangles whose union constitutes the
-#' convex hull of \code{Yp} points). Loops are allowed for the domination number.
+#' Convex hull of \code{Yp} is partitioned
+#' by the Delaunay triangles based on \code{Yp} points
+#' (i.e., multiple triangles are the set of these Delaunay triangles
+#' whose union constitutes the
+#' convex hull of \code{Yp} points).
+#' Loops are allowed for the domination number.
 #'
-#' See (\insertCite{ceyhan:Phd-thesis,ceyhan:masa-2007,ceyhan:dom-num-NPE-Spat2011,ceyhan:mcap2012;textual}{pcds}) more on the domination number of
-#' PE-PCDs. Also see (\insertCite{okabe:2000,ceyhan:comp-geo-2010,sinclair:2016;textual}{pcds}) for more on Delaunay triangulation and
+#' See (\insertCite{ceyhan:Phd-thesis,ceyhan:masa-2007,ceyhan:dom-num-NPE-Spat2011,ceyhan:mcap2012;textual}{pcds})
+#' more on the domination number of PE-PCDs.
+#' Also, see (\insertCite{okabe:2000,ceyhan:comp-geo-2010,sinclair:2016;textual}{pcds})
+#' for more on Delaunay triangulation and
 #' the corresponding algorithm.
 #'
-#' @param Xp A set of 2D points which constitute the vertices of the PE-PCD.
-#' @param Yp A set of 2D points which constitute the vertices of the Delaunay triangles.
-#' @param r A positive real number which serves as the expansion parameter in PE proximity region;
+#' @param Xp A set of 2D points
+#' which constitute the vertices of the PE-PCD.
+#' @param Yp A set of 2D points
+#' which constitute the vertices of the Delaunay triangles.
+#' @param r A positive real number
+#' which serves as the expansion parameter in PE proximity region;
 #' must be in \eqn{(1,1.5]} here.
 #'
 #' @return A \code{list} with three elements
-#' \item{dom.num}{Domination number of the PE-PCD whose vertices are \code{Xp} points. PE proximity regions are
-#' constructed with respect to the Delaunay triangles based on the \code{Yp} points with expansion parameter \eqn{r in (1,1.5]}.}
-#' #\item{mds}{A minimum dominating set of the PE-PCD whose vertices are \code{Xp} points.}
-#' \item{ind.mds}{The data indices of the minimum dominating set of the PE-PCD whose vertices are \code{Xp} points.}
-#' \item{tri.dom.nums}{Domination numbers of the PE-PCD components for the Delaunay triangles.}
+#' \item{dom.num}{Domination number of the PE-PCD
+#' whose vertices are \code{Xp} points. PE proximity regions are
+#' constructed with respect to the Delaunay triangles
+#' based on the \code{Yp} points with expansion parameter \eqn{r in (1,1.5]}.}
+#' #\item{mds}{A minimum dominating set of the PE-PCD
+#' whose vertices are \code{Xp} points.}
+#' \item{ind.mds}{The data indices of the minimum dominating set of the PE-PCD
+#' whose vertices are \code{Xp} points.}
+#' \item{tri.dom.nums}{Domination numbers of the PE-PCD components
+#' for the Delaunay triangles.}
 #'
-#' @seealso \code{\link{PEdomTri}}, \code{\link{PEdomTetra}}, \code{\link{dom.exact}}, and \code{\link{dom.greedy}}
+#' @seealso \code{\link{PEdom.num.tri}}, \code{\link{PEdom.num.tetra}},
+#' \code{\link{dom.num.exact}}, and \code{\link{dom.num.greedy}}
 #'
 #' @references
 #' \insertAllCited{}
@@ -4411,14 +5330,15 @@ res
 #'
 #' set.seed(1)
 #' Xp<-cbind(runif(nx,0,1),runif(nx,0,1))
-#' Yp<-cbind(runif(ny,0,.25),runif(ny,0,.25))+cbind(c(0,0,0.5,1,1),c(0,1,.5,0,1))
+#' Yp<-cbind(runif(ny,0,.25),
+#' runif(ny,0,.25))+cbind(c(0,0,0.5,1,1),c(0,1,.5,0,1))
 #' #try also Yp<-cbind(runif(ny,0,1),runif(ny,0,1))
 #'
-#' PEdom.nd(Xp,Yp,r)
+#' PEdom.num.nondeg(Xp,Yp,r)
 #' }
 #'
-#' @export PEdom.nd
-PEdom.nd <- function(Xp,Yp,r)
+#' @export PEdom.num.nondeg
+PEdom.num.nondeg <- function(Xp,Yp,r)
 {
   if (!is.numeric(as.matrix(Xp)) || !is.numeric(as.matrix(Yp)))
   {stop('Xp and Yp must be numeric')}
@@ -4440,27 +5360,33 @@ PEdom.nd <- function(Xp,Yp,r)
 
   if (nrow(Yp)==3)
   { rcent<-sample(1:3,1)  #random center selection from M1,M2,M3
-  cent.nd<-cent.nondegPE(Yp,r)[rcent,]
-  res<-PEdomTri(Xp,Yp,r,cent.nd)
+  cent.nd<-center.nondegPE(Yp,r)[rcent,]
+  res<-PEdom.num.tri(Xp,Yp,r,cent.nd)
   } else
   {
-    Ytrimesh<-interp::tri.mesh(Yp[,1],Yp[,2],duplicate="remove")  #Delaunay triangulation
-    Ytri<-matrix(interp::triangles(Ytrimesh)[,1:3],ncol=3); #the Delaunay triangles
+    Ytrimesh<-interp::tri.mesh(Yp[,1],Yp[,2],duplicate="remove")
+    #Delaunay triangulation
+    Ytri<-matrix(interp::triangles(Ytrimesh)[,1:3],ncol=3);
+    #the Delaunay triangles
     nt<-nrow(Ytri)  #number of Delaunay triangles
-    inCH<-interp::in.convex.hull(Ytrimesh,Xp[,1],Xp[,2],strict=FALSE)  #logical indices for Xp points in convex hull of Yp points
+    inCH<-interp::in.convex.hull(Ytrimesh,Xp[,1],Xp[,2],strict=FALSE)
+    #logical indices for Xp points in convex hull of Yp points
     Xch<-matrix(Xp[inCH==TRUE,],ncol=2)
     indCH=which(inCH) #vector of indices of the data in the convex hull
 
     gam<-rep(0,nt);  mds<-mds.ind<-c()
     if (nrow(Xch)>=1)
     {
-      Tri.Ind<-indices.del.tri(Xch,Yp,Ytrimesh)  #indices of triangles in which the points in the data fall
+      Tri.Ind<-indices.delaunay.tri(Xch,Yp,Ytrimesh)
+      #indices of triangles in which the points in the data fall
 
       #calculation of the domination number
       for (i in 1:nt)
       { ith.tri.ind = Tri.Ind==i
-        Xpi<-matrix(Xch[ith.tri.ind,],ncol=2)  #points in ith Delaunay triangle
-        indCHi = indCH[ith.tri.ind] #indices of Xpi points (wrt to original data indices)
+        Xpi<-matrix(Xch[ith.tri.ind,],ncol=2)
+        #points in ith Delaunay triangle
+        indCHi = indCH[ith.tri.ind]
+        #indices of Xpi points (wrt to original data indices)
 
         ni<-nrow(Xpi)  #number of points in ith triangle
         if (ni==0)
@@ -4470,18 +5396,21 @@ PEdom.nd <- function(Xp,Yp,r)
         {
           Yi.tri<-Yp[Ytri[i,],] #vertices of ith triangle
           rcent<-sample(1:3,1)  #random center selection from M1,M2,M3
-          Centi<-cent.nondegPE(Yi.tri,r)[rcent,]
-          cl2v = cl2edgesM_VR(Xpi,Yi.tri,Centi)
-          Clvert<-cl2v$ext  #for general r, points closest to opposite edges in the vertex regions
+          Centi<-center.nondegPE(Yi.tri,r)[rcent,]
+          cl2v = cl2edgesMvert.reg(Xpi,Yi.tri,Centi)
+          Clvert<-cl2v$ext
+          #for general r, points closest to opposite edges in the vertex regions
           Clvert.ind<-cl2v$ind # indices of these extrema wrt Xpi
-          Ext.ind =indCHi[Clvert.ind] #indices of these extrema wrt to the original data
+          Ext.ind =indCHi[Clvert.ind]
+          #indices of these extrema wrt to the original data
 
           #Gamma=1 piece
           cnt<-0; j<-1;
           while (j<=3 & cnt==0)
           {
-            if (Gam1PEtri(Clvert[j,],Xpi,Yi.tri,r,Centi,rv=j)==1)
-            {gam[i]<-1; cnt<-1; mds<-rbind(mds,Clvert[j,]); mds.ind=c(mds.ind,Ext.ind[j])
+            if (Idom.num1PEtri(Clvert[j,],Xpi,Yi.tri,r,Centi,rv=j)==1)
+            {gam[i]<-1; cnt<-1; mds<-rbind(mds,Clvert[j,]);
+            mds.ind=c(mds.ind,Ext.ind[j])
             } else
             {j<-j+1}
           }
@@ -4493,8 +5422,10 @@ PEdom.nd <- function(Xp,Yp,r)
           {l<-k+1;
           while (l<=3 & cnt2==0)
           {
-            if (Gam2PEtri(Clvert[k,],Clvert[l,],Xpi,Yi.tri,r,Centi,rv1=k,rv2=l)==1)
-            {gam[i]<-2;cnt2<-1; mds<-rbind(mds,Clvert[c(k,l),]); mds.ind=c(mds.ind,Ext.ind[c(k,l)])
+            if (Idom.num2PEtri(Clvert[k,],Clvert[l,],Xpi,Yi.tri,r,Centi,
+                          rv1=k,rv2=l)==1)
+            {gam[i]<-2;cnt2<-1; mds<-rbind(mds,Clvert[c(k,l),]);
+            mds.ind=c(mds.ind,Ext.ind[c(k,l)])
             } else {l<-l+1};
           }
           k<-k+1;
@@ -4514,7 +5445,8 @@ PEdom.nd <- function(Xp,Yp,r)
 
     res<-list(dom.num=Gam, #domination number
              # mds=mds, #a minimum dominating set
-              ind.mds =mds.ind, #indices of a minimum dominating set (wrt to original data)
+              ind.mds =mds.ind,
+             #indices of a minimum dominating set (wrt to original data)
               tri.dom.nums=gam #domination numbers for the Delaunay triangles
     )
   }
@@ -4524,25 +5456,34 @@ PEdom.nd <- function(Xp,Yp,r)
 
 #################################################################
 
-#' @title Asymptotic probability that domination number of Proportional Edge Proximity Catch Digraphs (PE-PCDs)
-#' equals 2 where vertices of the digraph are uniform points in a triangle
+#' @title Asymptotic probability that domination number of
+#' Proportional Edge Proximity Catch Digraphs (PE-PCDs) equals 2
+#' where vertices of the digraph are uniform points in a triangle
 #'
-#' @description Returns \eqn{P(}domination number\eqn{=2)} for PE-PCD for uniform data in a triangle, when the sample size \eqn{n} goes to
+#' @description Returns \eqn{P(}domination number\eqn{=2)}
+#' for PE-PCD for uniform data in a triangle,
+#' when the sample size \eqn{n} goes to
 #' infinity (i.e., asymptotic probability of domination number \eqn{= 2}).
 #'
-#' PE proximity regions are constructed with respect to the triangle with the expansion parameter \eqn{r \ge 1} and
-#' \eqn{M}-vertex regions where \eqn{M} is the vertex that renders the asymptotic distribution of the domination
+#' PE proximity regions are constructed
+#' with respect to the triangle
+#' with the expansion parameter \eqn{r \ge 1} and
+#' \eqn{M}-vertex regions where \eqn{M} is the vertex
+#' that renders the asymptotic distribution of the domination
 #' number non-degenerate for the given value of \code{r} in \eqn{(1,1.5]}.
 #'
 #' See also (\insertCite{ceyhan:Phd-thesis,ceyhan:masa-2007,ceyhan:dom-num-NPE-Spat2011;textual}{pcds}).
 #'
-#' @param r A positive real number which serves as the expansion parameter in PE proximity region;
-#' must be in \eqn{(1,1.5]} to attain non-degenerate asymptotic distribution for the domination number.
+#' @param r A positive real number
+#' which serves as the expansion parameter in PE proximity region;
+#' must be in \eqn{(1,1.5]} to attain non-degenerate asymptotic distribution
+#' for the domination number.
 #'
-#' @return \eqn{P(}domination number\eqn{=2)} for PE-PCD for uniform data on an triangle as the sample size n
+#' @return \eqn{P(}domination number\eqn{=2)}
+#' for PE-PCD for uniform data on an triangle as the sample size \eqn{n}
 #' goes to infinity
 #'
-#' @seealso \code{\link{PG2PE1D}}
+#' @seealso \code{\link{Pdom.num2PE1D}}
 #'
 #' @references
 #' \insertAllCited{}
@@ -4551,10 +5492,10 @@ PEdom.nd <- function(Xp,Yp,r)
 #'
 #' @examples
 #' \dontrun{
-#' PG2PEtri(r=1.5)
-#' PG2PEtri(r=1.4999999999)
+#' Pdom.num2PEtri(r=1.5)
+#' Pdom.num2PEtri(r=1.4999999999)
 #'
-#' PG2PEtri(r=1.5) / PG2PEtri(r=1.4999999999)
+#' Pdom.num2PEtri(r=1.5) / Pdom.num2PEtri(r=1.4999999999)
 #'
 #' rseq<-seq(1.01,1.49999999999,l=20)  #try also l=100
 #' lrseq<-length(rseq)
@@ -4562,16 +5503,17 @@ PEdom.nd <- function(Xp,Yp,r)
 #' pg2<-vector()
 #' for (i in 1:lrseq)
 #' {
-#'   pg2<-c(pg2,PG2PEtri(rseq[i]))
+#'   pg2<-c(pg2,Pdom.num2PEtri(rseq[i]))
 #' }
 #'
-#' plot(rseq, pg2,type="l",xlab="r",ylab=expression(paste("P(", gamma, "=2)")),
+#' plot(rseq, pg2,type="l",xlab="r",
+#' ylab=expression(paste("P(", gamma, "=2)")),
 #'      lty=1,xlim=range(rseq)+c(0,.01),ylim=c(0,1))
-#' points(rbind(c(1.50,PG2PEtri(1.50))),pch=".",cex=3)
+#' points(rbind(c(1.50,Pdom.num2PEtri(1.50))),pch=".",cex=3)
 #' }
 #'
-#' @export PG2PEtri
-PG2PEtri <- function(r)
+#' @export Pdom.num2PEtri
+Pdom.num2PEtri <- function(r)
 {
   if (!is.point(r,1) || r<=1 || r>1.5)
   {stop('the argument must be a scalar in (1,1.5]')}
@@ -4586,76 +5528,124 @@ PG2PEtri <- function(r)
 
 #################################################################
 
-#' @title A test of segregation/association based on domination number of Proportional Edge Proximity Catch Digraph
-#' (PE-PCD) for 2D data - Binomial Approximation
+#' @title A test of segregation/association based on domination number of
+#' Proportional Edge Proximity Catch Digraph (PE-PCD) for 2D data -
+#' Binomial Approximation
 #'
 #' @description
-#' An object of class \code{"htest"} (i.e., hypothesis test) function which performs a hypothesis test of complete spatial
-#' randomness (CSR) or uniformity of \code{Xp} points in the convex hull of \code{Yp} points against the alternatives
-#' of segregation (where \code{Xp} points cluster away from \code{Yp} points i.e., cluster around the centers of the Delaunay
-#' triangles) and association (where \code{Xp} points cluster around \code{Yp} points) based on the (asymptotic) binomial
-#'d distribution of the domination number of PE-PCD for uniform 2D data
+#' An object of class \code{"htest"} (i.e., hypothesis test) function
+#' which performs a hypothesis test of complete spatial
+#' randomness (CSR) or uniformity of \code{Xp} points
+#' in the convex hull of \code{Yp} points against the alternatives
+#' of segregation (where \code{Xp} points cluster away from \code{Yp} points
+#' i.e., cluster around the centers of the Delaunay triangles)
+#' and association (where \code{Xp} points cluster around \code{Yp} points)
+#' based on the (asymptotic) binomial distribution of the
+#' domination number of PE-PCD for uniform 2D data
 #' in the convex hull of \code{Yp} points.
 #'
-#' The function yields the test statistic, \eqn{p}-value for the corresponding \code{alternative},
-#' the confidence interval, estimate and null value for the parameter of interest
-#' (which is \eqn{Pr(}domination number\eqn{\le 2)}), and method and name of the data set used.
+#' The function yields the test statistic,
+#' \eqn{p}-value for the corresponding \code{alternative},
+#' the confidence interval,
+#' estimate and null value for the parameter of interest
+#' (which is \eqn{Pr(}domination number\eqn{\le 2)}),
+#' and method and name of the data set used.
 #'
-#' Under the null hypothesis of uniformity of \code{Xp} points in the convex hull of \code{Yp} points, probability of success
-#' (i.e., \eqn{Pr(}domination number\eqn{\le 2)}) equals to its expected value under the uniform distribution) and
-#' \code{alternative} could be two-sided, or right-sided (i.e., data is accumulated around the \code{Yp} points, or association)
-#' or left-sided (i.e., data is accumulated around the centers of the triangles, or segregation).
+#' Under the null hypothesis of uniformity of \code{Xp} points
+#' in the convex hull of \code{Yp} points, probability of success
+#' (i.e., \eqn{Pr(}domination number\eqn{\le 2)}) equals
+#' to its expected value under the uniform distribution) and
+#' \code{alternative} could be two-sided, or right-sided
+#' (i.e., data is accumulated
+#' around the \code{Yp} points, or association)
+#' or left-sided (i.e., data is accumulated
+#' around the centers of the triangles, or segregation).
 #'
-#' PE proximity region is constructed with the expansion parameter \eqn{r \ge 1} and \eqn{M}-vertex regions where M
-#' is a center that yields non-degenerate asymptotic distribution of the domination number.
+#' PE proximity region is constructed
+#' with the expansion parameter \eqn{r \ge 1} and \eqn{M}-vertex regions
+#' where \eqn{M} is a center
+#' that yields non-degenerate asymptotic distribution
+#' of the domination number.
 #'
-#' The test statistic is based on the binomial distribution, when success is defined as domination number being less than
-#' or equal to 2 in the one triangle case (i.e., number of failures is equal to number of times restricted domination number = 3
+#' The test statistic is based on the binomial distribution,
+#' when success is defined as domination number being less than
+#' or equal to 2 in the one triangle case
+#' (i.e., number of failures is equal
+#' to number of times restricted domination number = 3
 #' in the triangles).
-#' That is, the test statistic is based on the domination number for \code{Xp} points inside convex hull of \code{Yp} points
-#' for the PE-PCD and default convex hull correction, \code{ch.cor}, is \code{FALSE}
-#' where \code{M} is the center that yields nondegenerate asymptotic distribution for the domination number.
-#' For this approximation to work, number of \code{Xp} points must be at least 7 times more than number of \code{Yp} points.
+#' That is, the test statistic is based on the domination number
+#' for \code{Xp} points inside convex hull of \code{Yp} points
+#' for the PE-PCD and default convex hull correction, \code{ch.cor},
+#' is \code{FALSE} where \code{M} is the center
+#' that yields nondegenerate asymptotic distribution
+#' for the domination number.
+#' For this approximation to work,
+#' number of \code{Xp} points must be at least 7 times more than
+#' number of \code{Yp} points.
 #'
-#' PE proximity region is constructed with the expansion parameter \eqn{r \ge 1} and \eqn{CM}-vertex regions
-#' (i.e., the test is not available for a general center \eqn{M} at this version of the function).
+#' PE proximity region is constructed
+#' with the expansion parameter \eqn{r \ge 1} and \eqn{CM}-vertex regions
+#' (i.e., the test is not available for a general center \eqn{M}
+#' at this version of the function).
 #'
-#' **Caveat:** This test is currently a conditional test, where \code{Xp} points are assumed to be random, while \code{Yp} points are
+#' **Caveat:** This test is currently a conditional test,
+#' where \code{Xp} points are assumed to be random,
+#' while \code{Yp} points are
 #' assumed to be fixed (i.e., the test is conditional on \code{Yp} points).
-#' Furthermore, the test is a large sample test when \code{Xp} points are substantially larger than \code{Yp} points,
+#' Furthermore, the test is a large sample test
+#' when \code{Xp} points are substantially larger than \code{Yp} points,
 #' say at least 7 times more.
-#' This test is more appropriate when supports of \code{Xp} and \code{Yp} have a substantial overlap.
-#' Currently, the \code{Xp} points outside the convex hull of \code{Yp} points are handled with a convex hull correction factor
+#' This test is more appropriate
+#' when supports of \code{Xp} and \code{Yp} have a substantial overlap.
+#' Currently, the \code{Xp} points
+#' outside the convex hull of \code{Yp} points
+#' are handled with a convex hull correction factor
 #' (see the description below and the function code.)
-#' Removing the conditioning and extending it to the case of non-concurring supports is
-#' an ongoing line of research of the author of the package.
+#' Removing the conditioning
+#' and extending it to the case of non-concurring supports is
+#' an ongoing topic of research of the author of the package.
 #'
 #' See also (\insertCite{ceyhan:dom-num-NPE-Spat2011;textual}{pcds}).
 #'
-#' @param Xp A set of 2D points which constitute the vertices of the PE-PCD.
-#' @param Yp A set of 2D points which constitute the vertices of the Delaunay triangles.
-#' @param r A positive real number which serves as the expansion parameter in PE proximity region;
+#' @param Xp A set of 2D points
+#' which constitute the vertices of the PE-PCD.
+#' @param Yp A set of 2D points
+#' which constitute the vertices of the Delaunay triangles.
+#' @param r A positive real number
+#' which serves as the expansion parameter in PE proximity region;
 #' must be in \eqn{(1,1.5]}.
-#' @param ch.cor A logical argument for convex hull correction, default \code{ch.cor=FALSE},
-#' recommended when both \code{Xp} and \code{Yp} have the same rectangular support.
-#' @param ndt Number of Delaunay triangles based on \code{Yp} points, default is \code{NULL}.
-#' @param alternative Type of the alternative hypothesis in the test, one of \code{"two.sided"}, \code{"less"}, \code{"greater"}.
-#' @param conf.level Level of the confidence interval, default is \code{0.95}, for the probability of success
-#' (i.e., \eqn{Pr(}domination number\eqn{=3)} for PE-PCD whose vertices are the 2D data set \code{Xp}.
+#' @param ch.cor A logical argument for convex hull correction,
+#' default \code{ch.cor=FALSE},
+#' recommended when both \code{Xp} and \code{Yp}
+#' have the same rectangular support.
+#' @param ndt Number of Delaunay triangles based on \code{Yp} points,
+#' default is \code{NULL}.
+#' @param alternative Type of the alternative hypothesis in the test,
+#' one of \code{"two.sided"}, \code{"less"}, \code{"greater"}.
+#' @param conf.level Level of the confidence interval,
+#' default is \code{0.95}, for the probability of success
+#' (i.e., \eqn{Pr(}domination number\eqn{=3)} for PE-PCD
+#' whose vertices are the 2D data set \code{Xp}.
 #'
 #' @return A \code{list} with the elements
 #' \item{statistic}{Test statistic}
-#' \item{p.value}{The \eqn{p}-value for the hypothesis test for the corresponding \code{alternative}}
-#' \item{conf.int}{Confidence interval for \eqn{Pr(}Domination Number\eqn{\le 2)} at the given level \code{conf.level} and
+#' \item{p.value}{The \eqn{p}-value for the hypothesis test
+#' for the corresponding \code{alternative}}
+#' \item{conf.int}{Confidence interval
+#' for \eqn{Pr(}Domination Number\eqn{\le 2)}
+#' at the given level \code{conf.level} and
 #' depends on the type of \code{alternative}.}
-#' \item{estimate}{A \code{vector} with two entries: first is is the estimate of the parameter, i.e.,
+#' \item{estimate}{A \code{vector} with two entries:
+#' first is is the estimate of the parameter, i.e.,
 #' \eqn{Pr(}Domination Number\eqn{=3)} and second is the domination number}
-#' \item{null.value}{Hypothesized value for the parameter, i.e., the null value for \eqn{Pr(}Domination Number\eqn{\le 2)}}
-#' \item{alternative}{Type of the alternative hypothesis in the test, one of \code{"two.sided"}, \code{"less"}, \code{"greater"}}
+#' \item{null.value}{Hypothesized value for the parameter,
+#' i.e., the null value for \eqn{Pr(}Domination Number\eqn{\le 2)}}
+#' \item{alternative}{Type of the alternative hypothesis in the test,
+#' one of \code{"two.sided"}, \code{"less"}, \code{"greater"}}
 #' \item{method}{Description of the hypothesis test}
 #' \item{data.name}{Name of the data set}
 #'
-#' @seealso \code{\link{TSDomPENorm}}
+#' @seealso \code{\link{PEdom.num.norm.test}}
 #'
 #' @references
 #' \insertAllCited{}
@@ -4669,29 +5659,31 @@ PG2PEtri <- function(r)
 #'
 #' set.seed(1)
 #' Xp<-cbind(runif(nx,0,1),runif(nx,0,1))
-#' Yp<-cbind(runif(ny,0,.25),runif(ny,0,.25))+cbind(c(0,0,0.5,1,1),c(0,1,.5,0,1))
+#' Yp<-cbind(runif(ny,0,.25),
+#' runif(ny,0,.25))+cbind(c(0,0,0.5,1,1),c(0,1,.5,0,1))
 #' #try also Yp<-cbind(runif(ny,0,1),runif(ny,0,1))
 #'
-#' plotDeltri(Xp,Yp,xlab="",ylab="")
-#' TSDomPEBin(Xp,Yp,r) #try also #TSDomPEBin(Xp,Yp,r,alt="l") and # TSDomPEBin(Xp,Yp,r,alt="g")
-#' TSDomPEBin(Xp,Yp,r,ch=TRUE)
+#' plotDelaunay.tri(Xp,Yp,xlab="",ylab="")
+#' PEdom.num.binom.test(Xp,Yp,r) #try also #PEdom.num.binom.test(Xp,Yp,r,alt="l") and
+#' # PEdom.num.binom.test(Xp,Yp,r,alt="g")
+#' PEdom.num.binom.test(Xp,Yp,r,ch=TRUE)
 #'
 #' #or try
-#' ndt<-num.del.tri(Yp)
-#' TSDomPEBin(Xp,Yp,r,ndt=ndt)
+#' ndt<-num.delaunay.tri(Yp)
+#' PEdom.num.binom.test(Xp,Yp,r,ndt=ndt)
 #' #values might differ due to the random of choice of the three centers M1,M2,M3
 #' #for the non-degenerate asymptotic distribution of the domination number
 #' }
 #'
-#' @export TSDomPEBin
-TSDomPEBin <- function(Xp,Yp,r,ch.cor=FALSE,ndt=NULL,alternative=c("two.sided", "less", "greater"),conf.level = 0.95)
+#' @export PEdom.num.binom.test
+PEdom.num.binom.test <- function(Xp,Yp,r,ch.cor=FALSE,ndt=NULL,alternative=c("two.sided", "less", "greater"),conf.level = 0.95)
 {
   dname <-deparse(substitute(Xp))
   yname <-deparse(substitute(Yp))
 
   alternative <-match.arg(alternative)
   if (length(alternative) > 1 || is.na(alternative))
-    stop("alternative must be one \"greater\", \"less\", \"two.sided\"")
+    stop("alternative must be one of \"greater\", \"less\", \"two.sided\"")
 
   if (!is.numeric(as.matrix(Xp)) || !is.numeric(as.matrix(Yp)))
   {stop('Xp and Yp must be numeric')}
@@ -4712,18 +5704,22 @@ TSDomPEBin <- function(Xp,Yp,r,ch.cor=FALSE,ndt=NULL,alternative=c("two.sided", 
   {stop('r must be in (1,1.5] for domination number to be asymptotically non-degenerate')}
 
   if (!missing(conf.level))
-    if (length(conf.level) != 1 || is.na(conf.level) || conf.level < 0 || conf.level > 1)
+    if (length(conf.level) != 1 || is.na(conf.level) ||
+        conf.level < 0 || conf.level > 1)
       stop("conf.level must be a number between 0 and 1")
 
   if (is.null(ndt))
-  {ndt<-num.del.tri(Yp)} #number of Delaunay triangles
+  {ndt<-num.delaunay.tri(Yp)} #number of Delaunay triangles
 
-  Dom.num = PEdom.nd(Xp,Yp,r)
-  Gammas<-Dom.num$tri.dom #vector of domination numbers for the Delaunay triangles
+  Dom.num = PEdom.num.nondeg(Xp,Yp,r)
+  Gammas<-Dom.num$tri.dom
+  #vector of domination numbers for the Delaunay triangles
 
   estimate1<-Dom.num$dom.num #domination number of the entire PE-PCD
  # ind0<- Gammas>0; Gammas=(3-Gammas0)
-  Bm<-sum(Gammas<=2) #sum((3-Gammas)[ind0]>0) #sum(Gammas-2>0); #the binomial test statistic, success is dom num <= 2
+  Bm<-sum(Gammas<=2)
+  #sum((3-Gammas)[ind0]>0) #sum(Gammas-2>0);
+  #the binomial test statistic, success is dom num <= 2
 
   method <-c("Large Sample Binomial Test based on the Domination Number of PE-PCD for Testing Uniformity of 2D Data ---")
 
@@ -4731,20 +5727,23 @@ TSDomPEBin <- function(Xp,Yp,r,ch.cor=FALSE,ndt=NULL,alternative=c("two.sided", 
   {
     nx<-nrow(Xp)  #number of Xp points
     ny<-nrow(Yp)  #number of Yp points
-    Ytrimesh<-interp::tri.mesh(Yp[,1],Yp[,2],duplicate="remove")  #Delaunay triangulation
+    Ytrimesh<-interp::tri.mesh(Yp[,1],Yp[,2],duplicate="remove")
+    #Delaunay triangulation
 
-    inCH<-interp::in.convex.hull(Ytrimesh,Xp[,1],Xp[,2],strict=FALSE)  #logical indices for Xp points in convex hull of Yp points
+    inCH<-interp::in.convex.hull(Ytrimesh,Xp[,1],Xp[,2],strict=FALSE)
+    #logical indices for Xp points in convex hull of Yp points
 
     outch<-nx-sum(inCH)
     prop.out<-outch/nx #observed proportion of points outside convex hull
-    exp.prop.out<-1.7932/ny+1.2229/sqrt(ny)  #expected proportion of points outside convex hull
+    exp.prop.out<-1.7932/ny+1.2229/sqrt(ny)
+    #expected proportion of points outside convex hull
 
     Bm<-Bm*(1-(prop.out-exp.prop.out))
     method <-c(method, " with Convex Hull Correction")
   } else
   {    method <-c(method, " without Convex Hull Correction")}
 
-  p<-PG2PEtri(r)
+  p<-Pdom.num2PEtri(r)
   x<-round(Bm)
   pval <-switch(alternative, less = pbinom(x, ndt, p),
                 greater = pbinom(x - 1, ndt, p, lower.tail = FALSE),
@@ -4779,11 +5778,13 @@ TSDomPEBin <- function(Xp,Yp,r,ch.cor=FALSE,ndt=NULL,alternative=c("two.sided", 
                   alpha <-(1 - conf.level)/2
                   c(p.L(x, alpha), p.U(x, alpha))
                 })
-  attr(cint, "conf.level") <-conf.level
+  attr(cint, "conf.level") <- conf.level
 
   estimate2 <-x/ndt
-  names(x) <- "#(domination number is <= 2)" #"domination number - 2 * number of Delaunay triangles"
-  names(ndt) <-"number of Delaunay triangles based on Yp points" #paste("number of Delaunay triangles based on ", yname,sep="")
+  names(x) <- "#(domination number is <= 2)"
+  #"domination number - 2 * number of Delaunay triangles"
+  names(ndt) <-"number of Delaunay triangles based on Yp points"
+  #paste("number of Delaunay triangles based on ", yname,sep="")
 
   names(p) <-"Pr(Domination Number <=2)"
 
@@ -4807,64 +5808,109 @@ TSDomPEBin <- function(Xp,Yp,r,ch.cor=FALSE,ndt=NULL,alternative=c("two.sided", 
 
 #################################################################
 
-#' @title A test of segregation/association based on domination number of Proportional Edge Proximity Catch Digraph
-#' (PE-PCD) for 2D data - Normal Approximation
+#' @title A test of segregation/association based on domination number of
+#' Proportional Edge Proximity Catch Digraph (PE-PCD) for 2D data -
+#' Normal Approximation
 #'
 #' @description
-#' An object of class \code{"htest"} (i.e., hypothesis test) function which performs a hypothesis test of complete spatial
-#' randomness (CSR) or uniformity of \code{Xp} points in the convex hull of \code{Yp} points against the alternatives
-#' of segregation (where \code{Xp} points cluster away from \code{Yp} points i.e., cluster around the centers of the Delaunay
-#' triangles) and association (where \code{Xp} points cluster around \code{Yp} points) based on the normal approximation
-#' to the binomial distribution of the domination number of PE-PCD for uniform 2D data
+#' An object of class \code{"htest"} (i.e., hypothesis test) function
+#' which performs a hypothesis test of complete spatial
+#' randomness (CSR) or uniformity of \code{Xp} points
+#' in the convex hull of \code{Yp} points against the alternatives
+#' of segregation (where \code{Xp} points cluster
+#' away from \code{Yp} points i.e.,
+#' cluster around the centers of the Delaunay
+#' triangles) and association (where \code{Xp} points cluster
+#' around \code{Yp} points) based on the normal approximation
+#' to the binomial distribution of the domination number of PE-PCD
+#' for uniform 2D data
 #' in the convex hull of \code{Yp} points
 #'
-#' The function yields the test statistic, \eqn{p}-value for the corresponding \code{alternative},
-#' the confidence interval, estimate and null value for the parameter of interest
-#' (which is \eqn{Pr(}domination number\eqn{\le 2)}), and method and name of the data set used.
+#' The function yields the test statistic, \eqn{p}-value
+#' for the corresponding \code{alternative},
+#' the confidence interval, estimate and null value
+#' for the parameter of interest
+#' (which is \eqn{Pr(}domination number\eqn{\le 2)}),
+#' and method and name of the data set used.
 #'
-#' Under the null hypothesis of uniformity of \code{Xp} points in the convex hull of \code{Yp} points, probability of success
-#' (i.e., \eqn{Pr(}domination number\eqn{\le 2)}) equals to its expected value under the uniform distribution) and
-#' \code{alternative} could be two-sided, or right-sided (i.e., data is accumulated around the \code{Yp} points, or association)
-#' or left-sided (i.e., data is accumulated around the centers of the triangles, or segregation).
+#' Under the null hypothesis of uniformity of \code{Xp} points
+#' in the convex hull of \code{Yp} points, probability of success
+#' (i.e., \eqn{Pr(}domination number\eqn{\le 2)}) equals
+#' to its expected value under the uniform distribution) and
+#' \code{alternative} could be two-sided, or right-sided
+#' (i.e., data is accumulated around the \code{Yp} points, or association)
+#' or left-sided (i.e., data is accumulated
+#' around the centers of the triangles,
+#' or segregation).
 #'
-#' PE proximity region is constructed with the expansion parameter \eqn{r \ge 1} and \eqn{M}-vertex regions where M
-#' is a center that yields non-degenerate asymptotic distribution of the domination number.
+#' PE proximity region is constructed
+#' with the expansion parameter \eqn{r \ge 1}
+#' and \eqn{M}-vertex regions where M
+#' is a center that yields non-degenerate asymptotic distribution of
+#' the domination number.
 #'
-#' The test statistic is based on the normal approximation to the binomial distribution,  when success is defined as domination number being less than
-#' or equal to 2 in the one triangle case (i.e., number of failures is equal to number of times restricted domination number = 3
-#' in the triangles). That is, the test statistic is based on the domination number for \code{Xp} points inside convex hull of \code{Yp}
-#' points for the PE-PCD and default convex hull correction, \code{ch.cor}, is \code{FALSE}
-#' where \code{M} is the center that yields nondegenerate asymptotic distribution for the domination number.
+#' The test statistic is based on the normal approximation
+#' to the binomial distribution,
+#' when success is defined as domination number being less than
+#' or equal to 2 in the one triangle case
+#' (i.e., number of failures is equal to number of times
+#' restricted domination number = 3
+#' in the triangles).
+#' That is, the test statistic is
+#' based on the domination number for \code{Xp} points
+#' inside convex hull of \code{Yp}
+#' points for the PE-PCD and default convex hull correction, \code{ch.cor},
+#' is \code{FALSE}
+#' where \code{M} is the center
+#' that yields nondegenerate asymptotic distribution
+#' for the domination number.
 #'
-#' For this approximation to work, number of \code{Yp} points must be at least 5 (i.e., about 7 or more Delaunay triangles)
-#' and number of \code{Xp} points must be at least 7 times more than number of \code{Yp} points.
+#' For this approximation to work,
+#' number of \code{Yp} points must be at least 5
+#' (i.e., about 7 or more Delaunay triangles)
+#' and number of \code{Xp} points must be at least 7 times more than
+#' the number of \code{Yp} points.
 #'
 #' See also (\insertCite{ceyhan:dom-num-NPE-Spat2011;textual}{pcds}).
 #'
-#' @param Xp A set of 2D points which constitute the vertices of the PE-PCD.
-#' @param Yp A set of 2D points which constitute the vertices of the Delaunay triangles.
-#' @param r A positive real number which serves as the expansion parameter in PE proximity region;
+#' @param Xp A set of 2D points
+#' which constitute the vertices of the PE-PCD.
+#' @param Yp A set of 2D points
+#' which constitute the vertices of the Delaunay triangles.
+#' @param r A positive real number
+#' which serves as the expansion parameter in PE proximity region;
 #' must be in \eqn{(1,1.5]}.
-#' @param ch.cor A logical argument for convex hull correction, default \code{ch.cor=FALSE},
-#' recommended when both \code{Xp} and \code{Yp} have the same rectangular support.
-#' @param ndt Number of Delaunay triangles based on \code{Yp} points, default is \code{NULL}.
-#' @param alternative Type of the alternative hypothesis in the test, one of \code{"two.sided"}, \code{"less"}, \code{"greater"}.
-#' @param conf.level Level of the confidence interval, default is \code{0.95}, for the domination number of
+#' @param ch.cor A logical argument for convex hull correction,
+#' default \code{ch.cor=FALSE},
+#' recommended when both \code{Xp} and \code{Yp}
+#' have the same rectangular support.
+#' @param ndt Number of Delaunay triangles based on \code{Yp} points,
+#' default is \code{NULL}.
+#' @param alternative Type of the alternative hypothesis in the test,
+#' one of \code{"two.sided"}, \code{"less"}, \code{"greater"}.
+#' @param conf.level Level of the confidence interval,
+#' default is \code{0.95}, for the domination number of
 #' PE-PCD whose vertices are the 2D data set \code{Xp}.
 #'
 #' @return A \code{list} with the elements
 #' \item{statistic}{Test statistic}
-#' \item{p.value}{The \eqn{p}-value for the hypothesis test for the corresponding \code{alternative}}
-#' \item{conf.int}{Confidence interval for the domination number at the given level \code{conf.level} and
+#' \item{p.value}{The \eqn{p}-value for the hypothesis test
+#' for the corresponding \code{alternative}}
+#' \item{conf.int}{Confidence interval for the domination number
+#' at the given level \code{conf.level} and
 #' depends on the type of \code{alternative}.}
-#' \item{estimate}{A \code{vector} with two entries: first is the domination number,
-#' and second is the estimate of the parameter, i.e., \eqn{Pr(}Domination Number\eqn{=3)}}
-#' \item{null.value}{Hypothesized value for the parameter, i.e., the null value for expected domination number}
-#' \item{alternative}{Type of the alternative hypothesis in the test, one of \code{"two.sided"}, \code{"less"}, \code{"greater"}}
+#' \item{estimate}{A \code{vector} with two entries:
+#' first is the domination number,
+#' and second is the estimate of the parameter, i.e.,
+#' \eqn{Pr(}Domination Number\eqn{=3)}}
+#' \item{null.value}{Hypothesized value for the parameter,
+#' i.e., the null value for expected domination number}
+#' \item{alternative}{Type of the alternative hypothesis in the test,
+#' one of \code{"two.sided"}, \code{"less"}, \code{"greater"}}
 #' \item{method}{Description of the hypothesis test}
 #' \item{data.name}{Name of the data set}
 #'
-#' @seealso \code{\link{TSDomPEBin}}
+#' @seealso \code{\link{PEdom.num.binom.test}}
 #'
 #' @references
 #' \insertAllCited{}
@@ -4878,30 +5924,31 @@ TSDomPEBin <- function(Xp,Yp,r,ch.cor=FALSE,ndt=NULL,alternative=c("two.sided", 
 #'
 #' set.seed(1)
 #' Xp<-cbind(runif(nx,0,1),runif(nx,0,1))
-#' Yp<-cbind(runif(ny,0,.25),runif(ny,0,.25))+cbind(c(0,0,0.5,1,1),c(0,1,.5,0,1))
+#' Yp<-cbind(runif(ny,0,.25),
+#' runif(ny,0,.25))+cbind(c(0,0,0.5,1,1),c(0,1,.5,0,1))
 #' #try also Yp<-cbind(runif(ny,0,1),runif(ny,0,1))
 #'
-#' plotDeltri(Xp,Yp,xlab="",ylab="")
-#' TSDomPENorm(Xp,Yp,r) #try also TSDomPENorm(Xp,Yp,r, alt="l")
+#' plotDelaunay.tri(Xp,Yp,xlab="",ylab="")
+#' PEdom.num.norm.test(Xp,Yp,r) #try also PEdom.num.norm.test(Xp,Yp,r, alt="l")
 #'
-#' TSDomPENorm(Xp,Yp,1.25,ch=TRUE)
+#' PEdom.num.norm.test(Xp,Yp,1.25,ch=TRUE)
 #'
 #' #or try
-#' ndt<-num.del.tri(Yp)
-#' TSDomPENorm(Xp,Yp,r,ndt=ndt)
+#' ndt<-num.delaunay.tri(Yp)
+#' PEdom.num.norm.test(Xp,Yp,r,ndt=ndt)
 #' #values might differ due to the random of choice of the three centers M1,M2,M3
 #' #for the non-degenerate asymptotic distribution of the domination number
 #' }
 #'
-#' @export TSDomPENorm
-TSDomPENorm <- function(Xp,Yp,r,ch.cor=FALSE,ndt=NULL,alternative=c("two.sided", "less", "greater"),conf.level = 0.95)
+#' @export PEdom.num.norm.test
+PEdom.num.norm.test <- function(Xp,Yp,r,ch.cor=FALSE,ndt=NULL,alternative=c("two.sided", "less", "greater"),conf.level = 0.95)
 {
   dname <-deparse(substitute(Xp))
   yname <-deparse(substitute(Yp))
 
   alternative <-match.arg(alternative)
   if (length(alternative) > 1 || is.na(alternative))
-    stop("alternative must be one \"greater\", \"less\", \"two.sided\"")
+    stop("alternative must be one of \"greater\", \"less\", \"two.sided\"")
 
   if (!is.numeric(as.matrix(Xp)) || !is.numeric(as.matrix(Yp)))
   {stop('Xp and Yp must be numeric')}
@@ -4922,20 +5969,22 @@ TSDomPENorm <- function(Xp,Yp,r,ch.cor=FALSE,ndt=NULL,alternative=c("two.sided",
   {stop('r must be in (1,1.5] for domination number to be asymptotically non-degenerate')}
 
   if (!missing(conf.level))
-    if (length(conf.level) != 1 || is.na(conf.level) || conf.level < 0 || conf.level > 1)
+    if (length(conf.level) != 1 || is.na(conf.level) ||
+        conf.level < 0 || conf.level > 1)
       stop("conf.level must be a number between 0 and 1")
 
   if (is.null(ndt))
-  {ndt<-num.del.tri(Yp)} #number of Delaunay triangles
+  {ndt<-num.delaunay.tri(Yp)} #number of Delaunay triangles
 
-  Dom.num = PEdom.nd(Xp,Yp,r)
+  Dom.num = PEdom.num.nondeg(Xp,Yp,r)
   Gammas<-Dom.num$tri.dom #domination numbers for the Delaunay triangles
 
   estimate1<-Gam<-Dom.num$dom.num #domination number of the entire PE-PCD
  # ind0<- Gammas>0;  Gammas=(3-Gammas0)
-  Bm<-sum(Gammas<=2) #sum((3-Gammas)[ind0]>0) #sum(Gammas-2>0); #the binomial test statistic, success is dom num <= 2
+  Bm<-sum(Gammas<=2) #sum((3-Gammas)[ind0]>0) #sum(Gammas-2>0);
+  #the binomial test statistic, success is dom num <= 2
 
-  p<-PG2PEtri(r)
+  p<-Pdom.num2PEtri(r)
   Exp.Gam <-ndt*p  #expected Bm value
   estimate2<-Bm/ndt #estimated Pr(gamma<=2)
   st.err<-sqrt(ndt*p*(1-p))
@@ -4951,14 +6000,16 @@ TSDomPENorm <- function(Xp,Yp,r,ch.cor=FALSE,ndt=NULL,alternative=c("two.sided",
   {
     n<-nrow(Xp)  #number of Xp points
     m<-nrow(Yp)  #number of Yp points
-    Ytrimesh<-interp::tri.mesh(Yp[,1],Yp[,2],duplicate="remove")  #Delaunay triangulation
+    Ytrimesh<-interp::tri.mesh(Yp[,1],Yp[,2],duplicate="remove")
+    #Delaunay triangulation
 
     inCH<-interp::in.convex.hull(Ytrimesh,Xp[,1],Xp[,2],strict=FALSE)
     #logical indices for Xp points in convex hull of Yp points
 
     outch<-n-sum(inCH)
     prop.out<-outch/n #observed proportion of points outside convex hull
-    exp.prop.out<-1.7932/m+1.2229/sqrt(m) #expected proportion of points outside convex hull
+    exp.prop.out<-1.7932/m+1.2229/sqrt(m)
+    #expected proportion of points outside convex hull
 
     TS<-TS0*(1-(prop.out-exp.prop.out))
     method <-c(method, " with Convex Hull Correction")
@@ -4986,7 +6037,7 @@ TSDomPENorm <- function(Xp,Yp,r,ch.cor=FALSE,ndt=NULL,alternative=c("two.sided",
     cint <-Gam+c(-cint, cint)*st.err
   }
 
-  attr(cint, "conf.level") <-conf.level
+  attr(cint, "conf.level") <- conf.level
 
   rval <-list(
     statistic=TS,

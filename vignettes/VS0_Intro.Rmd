@@ -136,7 +136,7 @@ AuxDomination      ArcSliceFunctions    PatternGen        ClassFunctions
 
 AuxGeometry      PropEdge*          \   \        
 
-AuxTriangular    CentSim*         \    \     
+AuxDelaunay    CentSim*         \    \     
 
 AuxExtrema  \    \   \ 
 
@@ -372,7 +372,7 @@ set.seed(1)
 Yp<-cbind(runif(ny),runif(ny))
 
 #oldpar <- par(no.readonly = TRUE)
-plotDeltri(Yp,Yp,xlab="",ylab="",main="Delaunay Triangulation of Y points")
+plotDelaunay.tri(Yp,Yp,xlab="",ylab="",main="Delaunay Triangulation of Y points")
 ```
 
 ## Graph Invariants: Arc Density and Domination Number

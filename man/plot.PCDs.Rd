@@ -9,9 +9,15 @@
 \arguments{
 \item{x}{Object of class \code{PCDs}.}
 
-\item{Jit}{A positive real number that determines the amount of jitter along the \eqn{y}-axis, default is 0.1, for the
-1D case, the vertices of the PCD are jittered according to \eqn{U(-Jit,Jit)} distribution along the \eqn{y}-axis where
-\code{Jit} equals to the range of vertices and the interval end points; it is redundant in the 2D case.}
+\item{Jit}{A positive real number
+that determines the amount of jitter along the \eqn{y}-axis,
+default is 0.1, for the
+1D case,
+the vertices of the PCD are jittered
+according to \eqn{U(-Jit,Jit)} distribution
+along the \eqn{y}-axis where
+\code{Jit} equals to the range of vertices
+and the interval end points; it is redundant in the 2D case.}
 
 \item{\dots}{Additional parameters for \code{plot}.}
 }
@@ -19,8 +25,11 @@
 None
 }
 \description{
-Plots the vertices and the arcs of the PCD together with the vertices and boundaries of the partition
-cells (i.e., intervals in the 1D case and triangles in the 2D case)
+Plots the vertices and the arcs
+of the PCD together with the vertices
+and boundaries of the partition
+cells (i.e., intervals in the 1D case
+and triangles in the 2D case)
 }
 \examples{
 \dontrun{
@@ -29,12 +38,14 @@ Tr<-rbind(A,B,C);
 n<-10
 Xp<-runif.tri(n,Tr)$g
 M<-as.numeric(runif.tri(1,Tr)$g)
-Arcs<-ArcsAStri(Xp,Tr,M)
+Arcs<-arcsAStri(Xp,Tr,M)
 Arcs
 plot(Arcs)
 }
 
 }
 \seealso{
-\code{\link{print.PCDs}}, \code{\link{summary.PCDs}}, and \code{\link{print.summary.PCDs}}
+\code{\link{print.PCDs}},
+\code{\link{summary.PCDs}},
+and \code{\link{print.summary.PCDs}}
 }

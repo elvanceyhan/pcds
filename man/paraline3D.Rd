@@ -2,42 +2,64 @@
 % Please edit documentation in R/AuxGeometry.R
 \name{paraline3D}
 \alias{paraline3D}
-\title{The line crossing the 3D point \code{p} and parallel to line joining 3D points \code{a} and \code{b}}
+\title{The line crossing the 3D point \code{p}
+and parallel to line joining 3D points \code{a} and \code{b}}
 \usage{
 paraline3D(p, a, b, t)
 }
 \arguments{
-\item{p}{A 3D point through which the straight line passes.}
+\item{p}{A 3D point through
+which the straight line passes.}
 
-\item{a, b}{3D points which determine the straight line to which the line passing through point \code{p} would be
-parallel (i.e., \eqn{b-a} determines the direction of the straight line passing through \code{p}).}
+\item{a, b}{3D points
+which determine the straight line to which
+the line passing through point \code{p} would be
+parallel (i.e., \eqn{b-a} determines the direction of the straight line
+passing through \code{p}).}
 
-\item{t}{A scalar or a \code{vector} of scalars representing the parameter of the coordinates of the line
-(for the form: \eqn{x=p_0 + A t}, \eqn{y=y_0 + B t}, and \eqn{z=z_0 + C t} where \eqn{p=(p_0,y_0,z_0)}
+\item{t}{A scalar or a \code{vector} of scalars
+representing the parameter of the coordinates of the line
+(for the form: \eqn{x=p_0 + A t}, \eqn{y=y_0 + B t},
+and \eqn{z=z_0 + C t} where \eqn{p=(p_0,y_0,z_0)}
 and \eqn{b-a=(A,B,C)}).}
 }
 \value{
 A \code{list} with the elements
 \item{desc}{A description of the line}
 \item{mtitle}{The \code{"main"} title for the plot of the line}
-\item{points}{The input points that determine the line to which the line crossing point \code{p} would be parallel.}
-\item{pnames}{The names of the input points that determine the line to which the line crossing point \code{p} would
+\item{points}{The input points
+that determine the line to which the line
+crossing point \code{p} would be parallel.}
+\item{pnames}{The names of the input points
+that determine the line to which the line crossing point \code{p} would
 be parallel.}
-\item{vecs}{The points \code{p}, \code{a}, and \code{b} stacked row-wise in this order.}
+\item{vecs}{The points \code{p}, \code{a},
+and \code{b} stacked row-wise in this order.}
 \item{vec.names}{The names of the points \code{p}, \code{a}, and \code{b}.}
-\item{x,y,z}{The \eqn{x}-, \eqn{y}-, and \eqn{z}-coordinates of the point(s) of interest on the line parallel to the line
+\item{x,y,z}{The \eqn{x}-, \eqn{y}-, and
+\eqn{z}-coordinates of the point(s) of interest
+on the line parallel to the line
 determined by points \code{a} and \code{b}.}
-\item{tsq}{The scalar or the \code{vector} of the parameter in defining each coordinate of the line for the form:
-\eqn{x=p_0 + A t}, \eqn{y=y_0 + B t}, and \eqn{z=z_0 + C t} where \eqn{p=(p_0,y_0,z_0)} and \eqn{b-a=(A,B,C)}.}
-\item{equation}{Equation of the line passing through point \code{p} and parallel to the line joining points \code{a} and \code{b}
-(i.e., in the direction of the \code{vector} \code{b}-\code{a}). The line equation is in the form: \eqn{x=p_0 + A t}, \eqn{y=y_0 + B t}, and
+\item{tsq}{The scalar or the \code{vector} of the parameter in
+ defining each coordinate of the line for the form:
+\eqn{x=p_0 + A t}, \eqn{y=y_0 + B t}, and \eqn{z=z_0 + C t}
+where \eqn{p=(p_0,y_0,z_0)} and \eqn{b-a=(A,B,C)}.}
+\item{equation}{Equation of the line
+passing through point \code{p} and parallel to the line
+joining points \code{a} and \code{b}
+(i.e., in the direction of the \code{vector} \code{b}-\code{a}).
+The line equation is in the form: \eqn{x=p_0 + A t}, \eqn{y=y_0 + B t}, and
 \eqn{z=z_0 + C t} where \eqn{p=(p_0,y_0,z_0)} and \eqn{b-a=(A,B,C)}.}
 }
 \description{
 An object of class \code{"Lines3D"}.
-Returns the equation, \eqn{x}-, \eqn{y}-, and \eqn{z}-coordinates of the line crossing 3D point \code{p} and parallel to the line
-joining 3D points \code{a} and \code{b} (i.e., the line is in the direction of \code{vector} \code{b}-\code{a})
-with the parameter \code{t} being provided in \code{vector} \code{t}.
+Returns the equation, \eqn{x}-, \eqn{y}-,
+and \eqn{z}-coordinates of the line crossing 3D point \code{p}
+and parallel to the line
+joining 3D points \code{a} and \code{b}
+(i.e., the line is in the direction of \code{vector} \code{b}-\code{a})
+with the parameter \code{t}
+being provided in \code{vector} \code{t}.
 }
 \examples{
 \dontrun{
@@ -48,7 +70,8 @@ pts<-rbind(P,Q,R)
 paraline3D(P,Q,R,.1)
 
 tr<-range(pts,vecs);
-tf<-(tr[2]-tr[1])*.1 #how far to go at the lower and upper ends in the x-coordinate
+tf<-(tr[2]-tr[1])*.1
+#how far to go at the lower and upper ends in the x-coordinate
 tsq<-seq(-tf*10-tf,tf*10+tf,l=5)  #try also l=10, 20, or 100
 
 pln3D<-paraline3D(P,Q,R,tsq)
@@ -74,23 +97,30 @@ zd<-Zlim[2]-Zlim[1]
 
 Dr<-P+min(tsq)*(R-Q)
 
-plot3D::lines3D(x, y, z, phi = 0, bty = "g", main="Line Crossing P \n in the direction of R-Q",
-xlim=Xlim+xd*c(-.05,.05),ylim=Ylim+yd*c(-.05,.05),zlim=Zlim+zd*c(-.1,.1)+c(-zf,zf),
+plot3D::lines3D(x, y, z, phi = 0, bty = "g",
+main="Line Crossing P \n in the direction of R-Q",
+xlim=Xlim+xd*c(-.05,.05),ylim=Ylim+yd*c(-.05,.05),
+zlim=Zlim+zd*c(-.1,.1)+c(-zf,zf),
         pch = 20, cex = 2, ticktype = "detailed")
-plot3D::arrows3D(Dr[1],Dr[2],Dr[3]+zf,Dr[1]+Qv[1],Dr[2]+Qv[2],Dr[3]+zf+Qv[3], add=TRUE)
+plot3D::arrows3D(Dr[1],Dr[2],Dr[3]+zf,Dr[1]+Qv[1],
+Dr[2]+Qv[2],Dr[3]+zf+Qv[3], add=TRUE)
 plot3D::points3D(pts[,1],pts[,2],pts[,3],add=TRUE)
 plot3D::text3D(pts[,1],pts[,2],pts[,3],labels=c("P","Q","R"),add=TRUE)
 plot3D::arrows3D(P[1],P[2],P[3]-2*zf,P[1],P[2],P[3],lty=2, add=TRUE)
 plot3D::text3D(P[1],P[2],P[3]-2*zf,labels="initial point",add=TRUE)
-plot3D::arrows3D(Dr[1]+Qv[1]/2,Dr[2]+Qv[2]/2,Dr[3]+3*zf+Qv[3]/2,Dr[1]+Qv[1]/2,
+plot3D::arrows3D(Dr[1]+Qv[1]/2,Dr[2]+Qv[2]/2,
+Dr[3]+3*zf+Qv[3]/2,Dr[1]+Qv[1]/2,
 Dr[2]+Qv[2]/2,Dr[3]+zf+Qv[3]/2,lty=2, add=TRUE)
-plot3D::text3D(Dr[1]+Qv[1]/2,Dr[2]+Qv[2]/2,Dr[3]+3*zf+Qv[3]/2,labels="direction vector",add=TRUE)
-plot3D::text3D(Dr[1]+Qv[1]/2,Dr[2]+Qv[2]/2,Dr[3]+zf+Qv[3]/2,labels="R-Q",add=TRUE)
+plot3D::text3D(Dr[1]+Qv[1]/2,Dr[2]+Qv[2]/2,Dr[3]+3*zf+Qv[3]/2,
+labels="direction vector",add=TRUE)
+plot3D::text3D(Dr[1]+Qv[1]/2,Dr[2]+Qv[2]/2,
+Dr[3]+zf+Qv[3]/2,labels="R-Q",add=TRUE)
 }
 
 }
 \seealso{
-\code{\link{Line3D}}, \code{\link{perpline2plane}}, and \code{\link{paraline}}
+\code{\link{Line3D}}, \code{\link{perpline2plane}},
+and \code{\link{paraline}}
 }
 \author{
 Elvan Ceyhan

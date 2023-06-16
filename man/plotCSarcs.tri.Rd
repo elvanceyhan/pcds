@@ -76,7 +76,7 @@ plotCSarcs.tri(Xp,Tr,t,M,main="Arcs of CS-PCD with t=1.5",xlab="",ylab="",edge.r
 
 # or try the default center
 #plotCSarcs.tri(Xp,Tr,t,main="Arcs of CS-PCD with t=1.5",xlab="",ylab="",edge.reg = TRUE);
-#M=(ArcsCStri(Xp,Tr,r)$param)$c #the part "M=(ArcsPEtri(Xp,Tr,r)$param)$cent" is optional,
+#M=(arcsCStri(Xp,Tr,r)$param)$c #the part "M=(arcsPEtri(Xp,Tr,r)$param)$cent" is optional,
 #for the below annotation of the plot
 
 #can add vertex labels and text to the figure (with edge regions)

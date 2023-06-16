@@ -47,7 +47,7 @@
 #' NPEstd.tetra(Xp[1,],r)
 #'
 #' #or try
-#' RV<-rv.tetraCC(Xp[1,],tetra)$rv
+#' RV<-rel.vert.tetraCC(Xp[1,],tetra)$rv
 #' NPEstd.tetra(Xp[1,],r,rv=RV)
 #'
 #' NPEstd.tetra(c(-1,-1,-1),r,rv=NULL)
@@ -69,7 +69,7 @@ NPEstd.tetra <- function(p,r,rv=NULL)
   {reg<-NULL; return(reg); stop}
 
   if (is.null(rv))
-  {rv<-rv.tetraCC(p,th)$rv #vertex region for p
+  {rv<-rel.vert.tetraCC(p,th)$rv #vertex region for p
   } else
   {  if (!is.numeric(rv) || sum(rv==c(1,2,3,4))!=1)
   {stop('vertex index, rv, must be 1, 2, 3 or 4')}}
@@ -139,7 +139,7 @@ NPEstd.tetra <- function(p,r,rv=NULL)
 #' @return \eqn{I(}\code{p2} is in \eqn{N_{PE}(p1,r))} for points \code{p1} and \code{p2}, that is, returns 1 if \code{p2} is in \eqn{N_{PE}(p1,r)},
 #' returns 0 otherwise
 #'
-#' @seealso \code{\link{IndNPEtetra}}, \code{\link{IndNPEtri}} and \code{\link{IndNPEint}}
+#' @seealso \code{\link{IarcPEtetra}}, \code{\link{IarcPEtri}} and \code{\link{IarcPEint}}
 #'
 #' @references
 #' \insertAllCited{}
@@ -154,20 +154,20 @@ NPEstd.tetra <- function(p,r,rv=NULL)
 #' n<-3  #try also n<-20
 #' Xp<-runif.std.tetra(n)$g
 #' r<-1.5
-#' IndNPEstd.tetra(Xp[1,],Xp[3,],r)
-#' IndNPEstd.tetra(c(.4,.4,.4),c(.5,.5,.5),r)
+#' IarcPEstd.tetra(Xp[1,],Xp[3,],r)
+#' IarcPEstd.tetra(c(.4,.4,.4),c(.5,.5,.5),r)
 #'
 #' #or try
-#' RV<-rv.tetraCC(Xp[1,],tetra)$rv
-#' IndNPEstd.tetra(Xp[1,],Xp[3,],r,rv=RV)
+#' RV<-rel.vert.tetraCC(Xp[1,],tetra)$rv
+#' IarcPEstd.tetra(Xp[1,],Xp[3,],r,rv=RV)
 #'
 #' P1<-c(.1,.1,.1)
 #' P2<-c(.5,.5,.5)
-#' IndNPEstd.tetra(P1,P2,r)
+#' IarcPEstd.tetra(P1,P2,r)
 #' }
 #'
-#' @export IndNPEstd.tetra
-IndNPEstd.tetra <- function(p1,p2,r,rv=NULL)
+#' @export IarcPEstd.tetra
+IarcPEstd.tetra <- function(p1,p2,r,rv=NULL)
 {
   if (!is.point(p1,3) || !is.point(p2,3))
   {stop('p1 and p2 must be a numeric 3D point')}
@@ -186,7 +186,7 @@ IndNPEstd.tetra <- function(p1,p2,r,rv=NULL)
   } else
   {
     if (is.null(rv))
-    {rv<-rv.tetraCC(p1,th)$rv #vertex region for p1
+    {rv<-rel.vert.tetraCC(p1,th)$rv #vertex region for p1
     } else
     {  if (!is.numeric(rv) || sum(rv==c(1,2,3,4))!=1)
     {stop('vertex index, rv, must be 1, 2, 3 or 4')}}
@@ -325,7 +325,7 @@ plotPEregs.std.tetra <- function(Xp,r,main=NULL,xlab=NULL,ylab=NULL,zlab=NULL,xl
     for (i in 1:nt)
     {
       P1<-as.vector(Xtetra[i,])
-      RV<-rv.tetraCC(P1,th)$rv
+      RV<-rel.vert.tetraCC(P1,th)$rv
 
       pr<-NPEstd.tetra(P1,r,rv=RV)
       L<-rbind(pr[1,],pr[1,],pr[1,],pr[2,],pr[2,],pr[3,]);
@@ -387,7 +387,7 @@ plotPEregs.std.tetra <- function(Xp,r,main=NULL,xlab=NULL,ylab=NULL,zlab=NULL,xl
 #' NPEtetra(Xp[1,],tetra,r,M="CC")
 #'
 #' #or try
-#' RV<-rv.tetraCM(Xp[1,],tetra)$rv
+#' RV<-rel.vert.tetraCM(Xp[1,],tetra)$rv
 #' NPEtetra(Xp[1,],tetra,r,M,rv=RV)
 #'
 #' P1<-c(.1,.1,.1)
@@ -415,7 +415,7 @@ NPEtetra <- function(p,th,r,M="CM",rv=NULL)
 
   Rv<-rv
   if (is.null(Rv))
-  {Rv<-ifelse(identical(M,"CC"),rv.tetraCC(p,th)$rv,rv.tetraCM(p,th)$rv)  #vertex region for pt
+  {Rv<-ifelse(identical(M,"CC"),rel.vert.tetraCC(p,th)$rv,rel.vert.tetraCM(p,th)$rv)  #vertex region for pt
   } else
   {  if (!is.numeric(Rv) || sum(Rv==c(1,2,3,4))!=1)
   {stop('vertex index, rv, must be 1, 2, 3 or 4')}}
@@ -470,7 +470,7 @@ NPEtetra <- function(p,th,r,M="CM",rv=NULL)
 #'
 #' @return \eqn{I(}\code{p2} is in \eqn{N_{PE}(p1,r))} for \code{p1}, that is, returns 1 if \code{p2} is in \eqn{N_{PE}(p1,r)}, returns 0 otherwise
 #'
-#' @seealso \code{\link{IndNPEstd.tetra}}, \code{\link{IndNPEtri}} and \code{\link{IndNPEint}}
+#' @seealso \code{\link{IarcPEstd.tetra}}, \code{\link{IarcPEtri}} and \code{\link{IarcPEint}}
 #'
 #' @references
 #' \insertAllCited{}
@@ -488,22 +488,22 @@ NPEtetra <- function(p,th,r,M="CM",rv=NULL)
 #' M<-"CM"  #try also M<-"CC"
 #' r<-1.5
 #'
-#' IndNPEtetra(Xp[1,],Xp[2,],tetra,r)  #uses the default M="CM"
-#' IndNPEtetra(Xp[1,],Xp[2,],tetra,r,M)
+#' IarcPEtetra(Xp[1,],Xp[2,],tetra,r)  #uses the default M="CM"
+#' IarcPEtetra(Xp[1,],Xp[2,],tetra,r,M)
 #'
-#' IndNPEtetra(c(.4,.4,.4),c(.5,.5,.5),tetra,r,M)
+#' IarcPEtetra(c(.4,.4,.4),c(.5,.5,.5),tetra,r,M)
 #'
 #' #or try
-#' RV<-rv.tetraCC(Xp[1,],tetra)$rv
-#' IndNPEtetra(Xp[1,],Xp[3,],tetra,r,M,rv=RV)
+#' RV<-rel.vert.tetraCC(Xp[1,],tetra)$rv
+#' IarcPEtetra(Xp[1,],Xp[3,],tetra,r,M,rv=RV)
 #'
 #' P1<-c(.1,.1,.1)
 #' P2<-c(.5,.5,.5)
-#' IndNPEtetra(P1,P2,tetra,r,M)
+#' IarcPEtetra(P1,P2,tetra,r,M)
 #' }
 #'
-#' @export IndNPEtetra
-IndNPEtetra <- function(p1,p2,th,r,M="CM",rv=NULL)
+#' @export IarcPEtetra
+IarcPEtetra <- function(p1,p2,th,r,M="CM",rv=NULL)
 {
   if (!is.point(p1,3) || !is.point(p2,3))
   {stop('p1 and p2 must be a numeric 3D point')}
@@ -526,7 +526,7 @@ IndNPEtetra <- function(p1,p2,th,r,M="CM",rv=NULL)
   } else
   {
     if (is.null(rv))
-    {rv<-ifelse(identical(M,"CC"),rv.tetraCC(p1,th)$rv,rv.tetraCM(p1,th)$rv)  #vertex region for p1
+    {rv<-ifelse(identical(M,"CC"),rel.vert.tetraCC(p1,th)$rv,rel.vert.tetraCM(p1,th)$rv)  #vertex region for p1
     } else
     {  if (!is.numeric(rv) || sum(rv==c(1,2,3,4))!=1)
     {stop('vertex index, rv, must be 1, 2, 3 or 4')}}
@@ -563,7 +563,7 @@ IndNPEtetra <- function(p1,p2,th,r,M="CM",rv=NULL)
 #' @return Incidence matrix for the PE-PCD with vertices being 3D data set, \code{Xp},
 #' in the tetrahedron \code{th} with vertex regions based on circumcenter or center of mass
 #'
-#' @seealso \code{\link{IncMatPEtri}}, \code{\link{IncMatPE1D}}, and  \code{\link{IncMatPE}}
+#' @seealso \code{\link{inci.matPEtri}}, \code{\link{inci.matPE1D}}, and  \code{\link{inci.matPE}}
 #'
 #' @references
 #' \insertAllCited{}
@@ -581,15 +581,15 @@ IndNPEtetra <- function(p1,p2,th,r,M="CM",rv=NULL)
 #' M<-"CM"  #try also M<-"CC"
 #' r<-1.5
 #'
-#' IM<-IncMatPEtetra(Xp,tetra,r=1.25)  #uses the default M="CM"
-#' IM<-IncMatPEtetra(Xp,tetra,r=1.25,M)
+#' IM<-inci.matPEtetra(Xp,tetra,r=1.25)  #uses the default M="CM"
+#' IM<-inci.matPEtetra(Xp,tetra,r=1.25,M)
 #' IM
-#' dom.greedy(IM)
-#' IndUBdom(IM,3) #try also dom.exact(IM)  #this might take a long time for large n
+#' dom.num.greedy(IM)
+#' Idom.num.up.bnd(IM,3) #try also dom.num.exact(IM)  #this might take a long time for large n
 #' }
 #'
-#' @export IncMatPEtetra
-IncMatPEtetra <- function(Xp,th,r,M="CM")
+#' @export inci.matPEtetra
+inci.matPEtetra <- function(Xp,th,r,M="CM")
 {
   if (!is.numeric(as.matrix(Xp)))
   {stop('Xp must be numeric')}
@@ -624,10 +624,10 @@ IncMatPEtetra <- function(Xp,th,r,M="CM")
   {
     for (i in 1:n)
     {p1<-Xp[i,]
-    v<-ifelse(identical(M,"CC"),rv.tetraCC(p1,th)$rv,rv.tetraCM(p1,th)$rv)  #vertex region for p1
+    v<-ifelse(identical(M,"CC"),rel.vert.tetraCC(p1,th)$rv,rel.vert.tetraCM(p1,th)$rv)  #vertex region for p1
     for (j in ((1:n)) )
     {p2<-Xp[j,]
-    inc.mat[i,j]<-IndNPEtetra(p1,p2,th,r,M,rv=v)
+    inc.mat[i,j]<-IarcPEtetra(p1,p2,th,r,M,rv=v)
     }
     }
   }
@@ -638,10 +638,17 @@ IncMatPEtetra <- function(Xp,th,r,M="CM")
 
 #################################################################
 
-#' @title Number of arcs of Proportional Edge Proximity Catch Digraphs (PE-PCDs) - one tetrahedron case
+#' @title Number of arcs of Proportional Edge Proximity Catch Digraphs (PE-PCDs)
+#' and quantities related to the tetrahedron - one tetrahedron case
 #'
-#' @description Returns the number of arcs of Proportional Edge Proximity Catch Digraphs (PE-PCDs) whose vertices are the
-#' given 3D numerical data set, \code{Xp}. It also provides number of vertices (i.e., number of data points inside the tetrahedron)
+#' @description
+#' An object of class \code{"NumArcs"}.
+#' Returns the number of arcs of
+#' Proportional Edge Proximity Catch Digraphs (PE-PCDs)
+#' whose vertices are the
+#' given 3D numerical data set, \code{Xp}.
+#' It also provides number of vertices
+#' (i.e., number of data points inside the tetrahedron)
 #' and indices of the data points that reside in the tetrahedron.
 #'
 #' PE proximity region is constructed with respect to the tetrahedron \code{th} and
@@ -660,12 +667,17 @@ IncMatPEtetra <- function(Xp,th,r,M="CM")
 #' Currently it only takes \code{"CC"} for circumcenter and \code{"CM"} for center of mass; default=\code{"CM"}.
 #'
 #' @return A \code{list} with the elements
+#' \item{desc}{A short description of the output: number of arcs
+#' and quantities related to the tetrahedron}
 #' \item{num.arcs}{Number of arcs of the PE-PCD}
 #' \item{num.in.tetra}{Number of \code{Xp} points in the tetrahedron, \code{th}}
 #' \item{ind.in.tetra}{The vector of indices of the \code{Xp} points that reside in the tetrahedron}
+#' \item{tess.points}{Points on which the tessellation of the study region is performed, here, tessellation
+#' is the support tetrahedron.}
+#' \item{vertices}{Vertices of the digraph, \code{Xp}.}
 #'
-#' @seealso \code{\link{NumArcsPEtri}}, \code{\link{NumArcsCStri}},
-#' and \code{\link{NumArcsAStri}}
+#' @seealso \code{\link{num.arcsPEtri}}, \code{\link{num.arcsCStri}},
+#' and \code{\link{num.arcsAStri}}
 #'
 #' @references
 #' \insertAllCited{}
@@ -684,12 +696,14 @@ IncMatPEtetra <- function(Xp,th,r,M="CM")
 #' M<-"CM"  #try also M<-"CC"
 #' r<-1.25
 #'
-#' NumArcsPEtetra(Xp,tetra,r,M)
-#' NumArcsPEtetra(Xp,tetra,r=1.5,M)
+#' Narcs = num.arcsPEtetra(Xp,tetra,r,M)
+#' Narcs
+#' summary(Narcs)
+#' #plot(Narcs)
 #' }
 #'
-#' @export NumArcsPEtetra
-NumArcsPEtetra <- function(Xp,th,r,M="CM")
+#' @export num.arcsPEtetra
+num.arcsPEtetra <- function(Xp,th,r,M="CM")
 {
   if (!is.numeric(as.matrix(Xp)))
   {stop('Xp must be numeric')}
@@ -709,7 +723,7 @@ NumArcsPEtetra <- function(Xp,th,r,M="CM")
   vec1<-rep(1,4);
   D0<-det(matrix(cbind(th,vec1),ncol=4))
   if (round(D0,14)==0)
-  {stop('the tetrahedron th is degenerate')}
+  {stop('The tetrahedron th is degenerate')}
 
   if (!is.point(r,1) || r<1)
   {stop('r must be a scalar >= 1')}
@@ -728,21 +742,31 @@ NumArcsPEtetra <- function(Xp,th,r,M="CM")
     for (i in 1:n)
     { p1 = Xp[i,]
     if (in.tetrahedron(p1,th,boundary=TRUE)$in.tetra)
-    {  vert<- ifelse(identical(M,"CC"),rv.tetraCC(p1,th)$rv,rv.tetraCM(p1,th)$rv)  #vertex region for p1
+    {  vert<- ifelse(identical(M,"CC"),
+                     rel.vert.tetraCC(p1,th)$rv,
+                     rel.vert.tetraCM(p1,th)$rv)  #vertex region for p1
     ind.in.tetra = c(ind.in.tetra,i)
     for (j in (1:n)[-i])  #to avoid loops
     {  p2 = Xp[j,]
-    arcs<-arcs+IndNPEtetra(p1,p2,th,r,M,rv=vert)
+    arcs<-arcs+IarcPEtetra(p1,p2,th,r,M,rv=vert)
     }
     }
     }
   }
 
   NinTetra = length(ind.in.tetra)
+  desc<-"Number of Arcs of the PE-PCD with vertices Xp and Quantities Related to the Support Tetrahedron"
 
-  res<-list(num.arcs=arcs, #number of arcs for the PE-PCD
+  res<-list(desc=desc, #description of the output
+            num.arcs=arcs, #number of arcs for the PE-PCD
             num.in.tetra=NinTetra, # number of Xp points in CH of Yp points
-            ind.in.tetra=ind.in.tetra) #indices of data points inside the tetrahedron
+            ind.in.tetra=ind.in.tetra, #indices of data points inside the tetrahedron
+            tess.points=th, #tessellation points
+            vertices=Xp #vertices of the digraph
+  )
+
+  class(res)<-"NumArcs"
+  res$call <-match.call()
 
   res
 } #end of the function
@@ -781,7 +805,7 @@ NumArcsPEtetra <- function(Xp,th,r,M="CM")
 #' @return Arc density of PE-PCD whose vertices are the 2D numerical data set, \code{Xp};
 #' PE proximity regions are defined with respect to the tetrahedron \code{th} and \code{M}-vertex regions
 #'
-#' @seealso \code{\link{PEarcdens.tri}} and \code{\link{NumArcsPEtetra}}
+#' @seealso \code{\link{PEarc.dens.tri}} and \code{\link{num.arcsPEtetra}}
 #'
 #' @references
 #' \insertAllCited{}
@@ -800,13 +824,13 @@ NumArcsPEtetra <- function(Xp,th,r,M="CM")
 #' M<-"CM"  #try also M<-"CC"
 #' r<-1.5
 #'
-#' NumArcsPEtetra(Xp,tetra,r,M)
-#' PEarcdens.tetra(Xp,tetra,r,M)
-#' PEarcdens.tetra(Xp,tetra,r,M,th.cor = FALSE)
+#' num.arcsPEtetra(Xp,tetra,r,M)
+#' PEarc.dens.tetra(Xp,tetra,r,M)
+#' PEarc.dens.tetra(Xp,tetra,r,M,th.cor = FALSE)
 #' }
 #'
-#' @export PEarcdens.tetra
-PEarcdens.tetra <- function(Xp,th,r,M="CM",th.cor=FALSE)
+#' @export PEarc.dens.tetra
+PEarc.dens.tetra <- function(Xp,th,r,M="CM",th.cor=FALSE)
 {
   if (!is.numeric(as.matrix(Xp)))
   {stop('Xp must be numeric')}
@@ -835,7 +859,7 @@ PEarcdens.tetra <- function(Xp,th,r,M="CM",th.cor=FALSE)
     stop("M must be one of \"CC\", \"CM\"")
 
   nx<-nrow(Xp)
-  narcs<-NumArcsPEtetra(Xp,th,r,M)$num.arcs
+  narcs<-num.arcsPEtetra(Xp,th,r,M)$num.arcs
   # mean.rho<-muPE2D(r)
   # var.rho<-asyvarPE2D(r)
 
@@ -985,7 +1009,7 @@ plotPEregs.tetra <- function(Xp,th,r,M="CM",main=NULL,xlab=NULL,ylab=NULL,zlab=N
     for (i in 1:nt)
     {
       P1<-as.vector(Xtetra[i,])
-      RV<-ifelse(identical(M,"CC"),rv.tetraCC(P1,th)$rv,rv.tetraCM(P1,th)$rv)
+      RV<-ifelse(identical(M,"CC"),rel.vert.tetraCC(P1,th)$rv,rel.vert.tetraCM(P1,th)$rv)
       pr<-NPEtetra(P1,th,r,M,rv=RV)
       L<-rbind(pr[1,],pr[1,],pr[1,],pr[2,],pr[2,],pr[3,]);
       R<-rbind(pr[2,],pr[3,],pr[4,],pr[3,],pr[4,],pr[4,])
@@ -1028,7 +1052,7 @@ plotPEregs.tetra <- function(Xp,th,r,M="CM",main=NULL,xlab=NULL,ylab=NULL,zlab=N
 #' @return \eqn{I(}\code{p} is a dominating point of the PE-PCD\eqn{)} where the vertices of the PE-PCD are the 3D data set \code{Xp},
 #' that is, returns 1 if \code{p} is a dominating point, returns 0 otherwise
 #'
-#' @seealso \code{\link{Gam1PEtetra}}, \code{\link{Gam1PEtri}} and \code{\link{Gam1PEbas.tri}}
+#' @seealso \code{\link{Idom.num1PEtetra}}, \code{\link{Idom.num1PEtri}} and \code{\link{Idom.num1PEbasic.tri}}
 #'
 #' @references
 #' \insertAllCited{}
@@ -1046,22 +1070,22 @@ plotPEregs.tetra <- function(Xp,th,r,M="CM",main=NULL,xlab=NULL,ylab=NULL,zlab=N
 #' r<-1.5
 #'
 #' P<-c(.4,.1,.2)
-#' Gam1PEstdTetra(Xp[1,],Xp,r)
-#' Gam1PEstdTetra(P,Xp,r)
+#' Idom.num1PEstd.tetra(Xp[1,],Xp,r)
+#' Idom.num1PEstd.tetra(P,Xp,r)
 #'
-#' Gam1PEstdTetra(Xp[1,],Xp,r)
-#' Gam1PEstdTetra(Xp[1,],Xp[1,],r)
+#' Idom.num1PEstd.tetra(Xp[1,],Xp,r)
+#' Idom.num1PEstd.tetra(Xp[1,],Xp[1,],r)
 #'
 #' #or try
-#' RV<-rv.tetraCC(Xp[1,],tetra)$rv
-#' Gam1PEstdTetra(Xp[1,],Xp,r,rv=RV)
+#' RV<-rel.vert.tetraCC(Xp[1,],tetra)$rv
+#' Idom.num1PEstd.tetra(Xp[1,],Xp,r,rv=RV)
 #'
-#' Gam1PEstdTetra(c(-1,-1,-1),Xp,r)
-#' Gam1PEstdTetra(c(-1,-1,-1),c(-1,-1,-1),r)
+#' Idom.num1PEstd.tetra(c(-1,-1,-1),Xp,r)
+#' Idom.num1PEstd.tetra(c(-1,-1,-1),c(-1,-1,-1),r)
 #'
 #' gam.vec<-vector()
 #' for (i in 1:n)
-#' {gam.vec<-c(gam.vec,Gam1PEstdTetra(Xp[i,],Xp,r))}
+#' {gam.vec<-c(gam.vec,Idom.num1PEstd.tetra(Xp[i,],Xp,r))}
 #'
 #' ind.gam1<-which(gam.vec==1)
 #' ind.gam1
@@ -1094,14 +1118,14 @@ plotPEregs.tetra <- function(Xp,th,r,M="CM",main=NULL,xlab=NULL,ylab=NULL,zlab=N
 #' plot3D::segments3D(L[,1], L[,2], L[,3], R[,1], R[,2],R[,3], add=TRUE,lty=2)
 #'
 #' P<-c(.4,.1,.2)
-#' Gam1PEstdTetra(P,Xp,r)
+#' Idom.num1PEstd.tetra(P,Xp,r)
 #'
-#' Gam1PEstdTetra(c(-1,-1,-1),Xp,r,ch.data.pnt = FALSE)
+#' Idom.num1PEstd.tetra(c(-1,-1,-1),Xp,r,ch.data.pnt = FALSE)
 #' #gives an error message if ch.data.pnt = TRUE
 #' }
 #'
 #' @export
-Gam1PEstdTetra <- function(p,Xp,r,rv=NULL,ch.data.pnt=FALSE)
+Idom.num1PEstd.tetra <- function(p,Xp,r,rv=NULL,ch.data.pnt=FALSE)
 {
   if (!is.point(p,3))
   {stop('p must be a numeric 3D point')}
@@ -1135,7 +1159,7 @@ Gam1PEstdTetra <- function(p,Xp,r,rv=NULL,ch.data.pnt=FALSE)
   {dom<-0; return(dom); stop}
 
   if (is.null(rv))
-  {rv<-rv.tetraCC(p,th)$rv #vertex region for p
+  {rv<-rel.vert.tetraCC(p,th)$rv #vertex region for p
   } else
   {  if (!is.numeric(rv) || sum(rv==c(1,2,3,4))!=1)
   {stop('vertex index, rv, must be 1, 2, 3 or 4')}}
@@ -1144,7 +1168,7 @@ Gam1PEstdTetra <- function(p,Xp,r,rv=NULL,ch.data.pnt=FALSE)
   n<-nrow(Xp)
   dom<-1; i<-1;
   while (i <= n & dom==1)
-  {if (IndNPEstd.tetra(p,Xp[i,],r,rv=rv)==0)
+  {if (IarcPEstd.tetra(p,Xp[i,],r,rv=rv)==0)
     dom<-0;
   i<-i+1;
   }
@@ -1187,7 +1211,7 @@ Gam1PEstdTetra <- function(p,Xp,r,rv=NULL,ch.data.pnt=FALSE)
 #' @return \eqn{I(}\{\code{p1,p2}\} is a dominating set of the PE-PCD\eqn{)} where the vertices of the PE-PCD are the 3D data set \code{Xp}),
 #' that is, returns 1 if \{\code{p1,p2}\} is a dominating set of PE-PCD, returns 0 otherwise
 #'
-#' @seealso \code{\link{Gam2PEtetra}}, \code{\link{Gam2PEtri}} and \code{\link{Gam2PEbas.tri}}
+#' @seealso \code{\link{Idom.num2PEtetra}}, \code{\link{Idom.num2PEtri}} and \code{\link{Idom.num2PEbasic.tri}}
 #'
 #' @references
 #' \insertAllCited{}
@@ -1203,39 +1227,39 @@ Gam1PEstdTetra <- function(p,Xp,r,rv=NULL,ch.data.pnt=FALSE)
 #' Xp<-runif.std.tetra(n)$g  #try also Xp<-cbind(runif(n),runif(n),runif(n))
 #' r<-1.5
 #'
-#' Gam2PEstdTetra(Xp[1,],Xp[2,],Xp,r)
+#' Idom.num2PEstd.tetra(Xp[1,],Xp[2,],Xp,r)
 #'
 #' ind.gam2<-vector()
 #' for (i in 1:(n-1))
 #'  for (j in (i+1):n)
-#'  {if (Gam2PEstdTetra(Xp[i,],Xp[j,],Xp,r)==1)
+#'  {if (Idom.num2PEstd.tetra(Xp[i,],Xp[j,],Xp,r)==1)
 #'   ind.gam2<-rbind(ind.gam2,c(i,j))}
 #'
 #' ind.gam2
 #'
 #' #or try
-#' rv1<-rv.tetraCC(Xp[1,],tetra)$rv;rv2<-rv.tetraCC(Xp[2,],tetra)$rv
-#' Gam2PEstdTetra(Xp[1,],Xp[2,],Xp,r,rv1,rv2)
+#' rv1<-rel.vert.tetraCC(Xp[1,],tetra)$rv;rv2<-rel.vert.tetraCC(Xp[2,],tetra)$rv
+#' Idom.num2PEstd.tetra(Xp[1,],Xp[2,],Xp,r,rv1,rv2)
 #'
 #' #or try
-#' rv1<-rv.tetraCC(Xp[1,],tetra)$rv;
-#' Gam2PEstdTetra(Xp[1,],Xp[2,],Xp,r,rv1)
+#' rv1<-rel.vert.tetraCC(Xp[1,],tetra)$rv;
+#' Idom.num2PEstd.tetra(Xp[1,],Xp[2,],Xp,r,rv1)
 #'
 #' #or try
-#' rv2<-rv.tetraCC(Xp[2,],tetra)$rv
-#' Gam2PEstdTetra(Xp[1,],Xp[2,],Xp,r,rv2=rv2)
+#' rv2<-rel.vert.tetraCC(Xp[2,],tetra)$rv
+#' Idom.num2PEstd.tetra(Xp[1,],Xp[2,],Xp,r,rv2=rv2)
 #'
 #' P1<-c(.1,.1,.1)
 #' P2<-c(.4,.1,.2)
-#' Gam2PEstdTetra(P1,P2,Xp,r)
+#' Idom.num2PEstd.tetra(P1,P2,Xp,r)
 #'
-#' Gam2PEstdTetra(c(-1,-1,-1),Xp[2,],Xp,r,ch.data.pnts = FALSE)
+#' Idom.num2PEstd.tetra(c(-1,-1,-1),Xp[2,],Xp,r,ch.data.pnts = FALSE)
 #' #gives an error message if ch.data.pnts = TRUE
 #' #since not both points, p1 and p2, are data points in Xp
 #' }
 #'
 #' @export
-Gam2PEstdTetra <- function(p1,p2,Xp,r,rv1=NULL,rv2=NULL,ch.data.pnts=FALSE)
+Idom.num2PEstd.tetra <- function(p1,p2,Xp,r,rv1=NULL,rv2=NULL,ch.data.pnts=FALSE)
 {
   if (!is.point(p1,3) || !is.point(p2,3))
   {stop('p1 and p2 must be a numeric 3D point')}
@@ -1267,16 +1291,16 @@ Gam2PEstdTetra <- function(p1,p2,Xp,r,rv1=NULL,rv2=NULL,ch.data.pnts=FALSE)
   th<-rbind(A,B,C,D)  #standard regular tetrahedron
 
   if (is.null(rv1))
-  {rv1<-rv.tetraCC(p1,th)$rv #vertex region for point p1
+  {rv1<-rel.vert.tetraCC(p1,th)$rv #vertex region for point p1
   }
   if (is.null(rv2))
-  {rv2<-rv.tetraCC(p2,th)$rv  #vertex region for point p2
+  {rv2<-rel.vert.tetraCC(p2,th)$rv  #vertex region for point p2
   }
   Xp<-matrix(Xp,ncol=3)
   n<-nrow(Xp)
   dom<-1; i<-1;
   while (i <= n & dom==1)
-  {if (max(IndNPEstd.tetra(p1,Xp[i,],r,rv1),IndNPEstd.tetra(p2,Xp[i,],r,rv2))==0)
+  {if (max(IarcPEstd.tetra(p1,Xp[i,],r,rv1),IarcPEstd.tetra(p2,Xp[i,],r,rv2))==0)
     dom<-0;
   i<-i+1;
   }
@@ -1321,7 +1345,7 @@ Gam2PEstdTetra <- function(p1,p2,Xp,r,rv1=NULL,rv2=NULL,ch.data.pnts=FALSE)
 #' @return \eqn{I(\{}\code{p1,p2,pt3}\} is a dominating set of the PE-PCD\eqn{)} where the vertices of the PE-PCD are the 3D data set \code{Xp}),
 #' that is, returns 1 if \{\code{p1,p2,pt3}\} is a dominating set of PE-PCD, returns 0 otherwise
 #'
-#' @seealso \code{\link{Gam3PEtetra}}
+#' @seealso \code{\link{Idom.num3PEtetra}}
 #'
 #' @references
 #' \insertAllCited{}
@@ -1337,41 +1361,41 @@ Gam2PEstdTetra <- function(p1,p2,Xp,r,rv1=NULL,rv2=NULL,ch.data.pnts=FALSE)
 #' Xp<-runif.std.tetra(n)$g  #try also Xp<-cbind(runif(n),runif(n),runif(n))
 #' r<-1.25
 #'
-#' Gam3PEstdTetra(Xp[1,],Xp[2,],Xp[3,],Xp,r)
+#' Idom.num3PEstd.tetra(Xp[1,],Xp[2,],Xp[3,],Xp,r)
 #'
 #' ind.gam3<-vector()
 #' for (i in 1:(n-2))
 #'  for (j in (i+1):(n-1))
 #'    for (k in (j+1):n)
-#'  {if (Gam3PEstdTetra(Xp[i,],Xp[j,],Xp[k,],Xp,r)==1)
+#'  {if (Idom.num3PEstd.tetra(Xp[i,],Xp[j,],Xp[k,],Xp,r)==1)
 #'   ind.gam3<-rbind(ind.gam3,c(i,j,k))}
 #'
 #' ind.gam3
 #'
 #' #or try
-#' rv1<-rv.tetraCC(Xp[1,],tetra)$rv; rv2<-rv.tetraCC(Xp[2,],tetra)$rv;
-#' rv3<-rv.tetraCC(Xp[3,],tetra)$rv
-#' Gam3PEstdTetra(Xp[1,],Xp[2,],Xp[3,],Xp,r,rv1,rv2,rv3)
+#' rv1<-rel.vert.tetraCC(Xp[1,],tetra)$rv; rv2<-rel.vert.tetraCC(Xp[2,],tetra)$rv;
+#' rv3<-rel.vert.tetraCC(Xp[3,],tetra)$rv
+#' Idom.num3PEstd.tetra(Xp[1,],Xp[2,],Xp[3,],Xp,r,rv1,rv2,rv3)
 #'
 #' #or try
-#' rv1<-rv.tetraCC(Xp[1,],tetra)$rv;
-#' Gam3PEstdTetra(Xp[1,],Xp[2,],Xp[3,],Xp,r,rv1)
+#' rv1<-rel.vert.tetraCC(Xp[1,],tetra)$rv;
+#' Idom.num3PEstd.tetra(Xp[1,],Xp[2,],Xp[3,],Xp,r,rv1)
 #'
 #' #or try
-#' rv2<-rv.tetraCC(Xp[2,],tetra)$rv
-#' Gam3PEstdTetra(Xp[1,],Xp[2,],Xp[3,],Xp,r,rv2=rv2)
+#' rv2<-rel.vert.tetraCC(Xp[2,],tetra)$rv
+#' Idom.num3PEstd.tetra(Xp[1,],Xp[2,],Xp[3,],Xp,r,rv2=rv2)
 #'
 #' P1<-c(.1,.1,.1)
 #' P2<-c(.3,.3,.3)
 #' P3<-c(.4,.1,.2)
-#' Gam3PEstdTetra(P1,P2,P3,Xp,r)
+#' Idom.num3PEstd.tetra(P1,P2,P3,Xp,r)
 #'
-#' Gam3PEstdTetra(Xp[1,],c(1,1,1),Xp[3,],Xp,r,ch.data.pnts = FALSE)
+#' Idom.num3PEstd.tetra(Xp[1,],c(1,1,1),Xp[3,],Xp,r,ch.data.pnts = FALSE)
 #' #gives an error message if ch.data.pnts = TRUE since not all points are data points in Xp
 #' }
 #'
 #' @export
-Gam3PEstdTetra <- function(p1,p2,pt3,Xp,r,rv1=NULL,rv2=NULL,rv3=NULL,ch.data.pnts=FALSE)
+Idom.num3PEstd.tetra <- function(p1,p2,pt3,Xp,r,rv1=NULL,rv2=NULL,rv3=NULL,ch.data.pnts=FALSE)
 {
   if (!is.point(p1,3) || !is.point(p2,3) || !is.point(pt3,3))
   {stop('p1, p2, and pt3 must be a numeric 3D points')}
@@ -1404,20 +1428,20 @@ Gam3PEstdTetra <- function(p1,p2,pt3,Xp,r,rv1=NULL,rv2=NULL,rv3=NULL,ch.data.pnt
   th<-rbind(A,B,C,D)  #standard regular tetrahedron
 
   if (is.null(rv1))
-  {rv1<-rv.tetraCC(p1,th)$rv #vertex region for point p1
+  {rv1<-rel.vert.tetraCC(p1,th)$rv #vertex region for point p1
   }
   if (is.null(rv2))
-  {rv2<-rv.tetraCC(p2,th)$rv #vertex region for point p2
+  {rv2<-rel.vert.tetraCC(p2,th)$rv #vertex region for point p2
   }
   if (is.null(rv3))
-  {rv3<-rv.tetraCC(pt3,th)$rv  #vertex region for point pt3
+  {rv3<-rel.vert.tetraCC(pt3,th)$rv  #vertex region for point pt3
   }
 
   Xp<-matrix(Xp,ncol=3)
   n<-nrow(Xp)
   dom<-1; i<-1;
   while (i <= n & dom==1)
-  {if (max(IndNPEstd.tetra(p1,Xp[i,],r,rv1),IndNPEstd.tetra(p2,Xp[i,],r,rv2),IndNPEstd.tetra(pt3,Xp[i,],r,rv3))==0)
+  {if (max(IarcPEstd.tetra(p1,Xp[i,],r,rv1),IarcPEstd.tetra(p2,Xp[i,],r,rv2),IarcPEstd.tetra(pt3,Xp[i,],r,rv3))==0)
     dom<-0;
   i<-i+1;
   }
@@ -1461,7 +1485,7 @@ Gam3PEstdTetra <- function(p1,p2,pt3,Xp,r,rv1=NULL,rv2=NULL,rv3=NULL,ch.data.pnt
 #' @return \eqn{I(}\code{p} is a dominating point of the PE-PCD\eqn{)} where the vertices of the PE-PCD are the 2D data set \code{Xp},
 #' that is, returns 1 if \code{p} is a dominating point, returns 0 otherwise
 #'
-#' @seealso \code{\link{Gam1PEstdTetra}}, \code{\link{Gam1PEtri}} and \code{\link{Gam1PEbas.tri}}
+#' @seealso \code{\link{Idom.num1PEstd.tetra}}, \code{\link{Idom.num1PEtri}} and \code{\link{Idom.num1PEbasic.tri}}
 #'
 #' @references
 #' \insertAllCited{}
@@ -1477,24 +1501,24 @@ Gam3PEstdTetra <- function(p1,p2,pt3,Xp,r,rv1=NULL,rv2=NULL,rv3=NULL,ch.data.pnt
 #' Xp<-runif.tetra(n,tetra)$g  #try also Xp<-cbind(runif(n),runif(n),runif(n))
 #'
 #' M<-"CM"; cent<-apply(tetra,2,mean)  #center of mass
-#' #try also M<-"CC"; cent<-circ.cent.tetra(tetra)  #circumcenter
+#' #try also M<-"CC"; cent<-circumcenter.tetra(tetra)  #circumcenter
 #'
 #' r<-2
 #'
 #' P<-c(.4,.1,.2)
-#' Gam1PEtetra(Xp[1,],Xp,tetra,r,M)
-#' Gam1PEtetra(P,Xp,tetra,r,M)
+#' Idom.num1PEtetra(Xp[1,],Xp,tetra,r,M)
+#' Idom.num1PEtetra(P,Xp,tetra,r,M)
 #'
 #' #or try
-#' RV<-rv.tetraCC(Xp[1,],tetra)$rv
-#' Gam1PEtetra(Xp[1,],Xp,tetra,r,M,rv=RV)
+#' RV<-rel.vert.tetraCC(Xp[1,],tetra)$rv
+#' Idom.num1PEtetra(Xp[1,],Xp,tetra,r,M,rv=RV)
 #'
-#' Gam1PEtetra(c(-1,-1,-1),Xp,tetra,r,M)
-#' Gam1PEtetra(c(-1,-1,-1),c(-1,-1,-1),tetra,r,M)
+#' Idom.num1PEtetra(c(-1,-1,-1),Xp,tetra,r,M)
+#' Idom.num1PEtetra(c(-1,-1,-1),c(-1,-1,-1),tetra,r,M)
 #'
 #' gam.vec<-vector()
 #' for (i in 1:n)
-#' {gam.vec<-c(gam.vec,Gam1PEtetra(Xp[i,],Xp,tetra,r,M))}
+#' {gam.vec<-c(gam.vec,Idom.num1PEtetra(Xp[i,],Xp,tetra,r,M))}
 #'
 #' ind.gam1<-which(gam.vec==1)
 #' ind.gam1
@@ -1524,14 +1548,14 @@ Gam3PEstdTetra <- function(p1,p2,pt3,Xp,r,rv1=NULL,rv2=NULL,rv3=NULL,ch.data.pnt
 #' plot3D::segments3D(L[,1], L[,2], L[,3], R[,1], R[,2],R[,3], add=TRUE,lty=2)
 #'
 #' P<-c(.4,.1,.2)
-#' Gam1PEtetra(P,Xp,tetra,r,M)
+#' Idom.num1PEtetra(P,Xp,tetra,r,M)
 #'
-#' Gam1PEtetra(c(-1,-1,-1),Xp,tetra,r,M,ch.data.pnt = FALSE)
+#' Idom.num1PEtetra(c(-1,-1,-1),Xp,tetra,r,M,ch.data.pnt = FALSE)
 #' #gives an error message if ch.data.pnt = TRUE since p is not a data point
 #' }
 #'
 #' @export
-Gam1PEtetra <- function(p,Xp,th,r,M="CM",rv=NULL,ch.data.pnt=FALSE)
+Idom.num1PEtetra <- function(p,Xp,th,r,M="CM",rv=NULL,ch.data.pnt=FALSE)
 {
   if (!is.point(p,3))
   {stop('p must be a numeric 3D point')}
@@ -1575,7 +1599,7 @@ Gam1PEtetra <- function(p,Xp,th,r,M="CM",rv=NULL,ch.data.pnt=FALSE)
   {dom<-0; return(dom); stop}
 
   if (is.null(rv))
-  {rv<-ifelse(identical(M,"CC"),rv.tetraCC(p,th)$rv,rv.tetraCM(p,th)$rv); #vertex region for p
+  {rv<-ifelse(identical(M,"CC"),rel.vert.tetraCC(p,th)$rv,rel.vert.tetraCM(p,th)$rv); #vertex region for p
   } else
   {  if (!is.numeric(rv) || sum(rv==c(1,2,3,4))!=1)
   {stop('vertex index, rv, must be 1, 2, 3 or 4')}}
@@ -1584,7 +1608,7 @@ Gam1PEtetra <- function(p,Xp,th,r,M="CM",rv=NULL,ch.data.pnt=FALSE)
   n<-nrow(Xp)
   dom<-1; i<-1;
   while (i <= n & dom==1)
-  {if (IndNPEtetra(p,Xp[i,],th,r,M,rv=rv)==0)
+  {if (IarcPEtetra(p,Xp[i,],th,r,M,rv=rv)==0)
     dom<-0;
   i<-i+1;
   }
@@ -1629,7 +1653,7 @@ Gam1PEtetra <- function(p,Xp,th,r,M="CM",rv=NULL,ch.data.pnt=FALSE)
 #' @return \eqn{I(}\{\code{p1,p2}\} is a dominating set of the PE-PCD\eqn{)} where the vertices of the PE-PCD are the 3D data set \code{Xp}),
 #' that is, returns 1 if \{\code{p1,p2}\} is a dominating set of PE-PCD, returns 0 otherwise
 #'
-#' @seealso \code{\link{Gam2PEstdTetra}}, \code{\link{Gam2PEtri}} and \code{\link{Gam2PEbas.tri}}
+#' @seealso \code{\link{Idom.num2PEstd.tetra}}, \code{\link{Idom.num2PEtri}} and \code{\link{Idom.num2PEbasic.tri}}
 #'
 #' @references
 #' \insertAllCited{}
@@ -1648,41 +1672,41 @@ Gam1PEtetra <- function(p,Xp,th,r,M="CM",rv=NULL,ch.data.pnt=FALSE)
 #' M<-"CM";  #try also M<-"CC";
 #' r<-1.5
 #'
-#' Gam2PEtetra(Xp[1,],Xp[2,],Xp,tetra,r,M)
-#' Gam2PEtetra(c(-1,-1,-1),Xp[2,],Xp,tetra,r,M)
+#' Idom.num2PEtetra(Xp[1,],Xp[2,],Xp,tetra,r,M)
+#' Idom.num2PEtetra(c(-1,-1,-1),Xp[2,],Xp,tetra,r,M)
 #'
 #' ind.gam2<-ind.gamn2<-vector()
 #' for (i in 1:(n-1))
 #'  for (j in (i+1):n)
-#'  {if (Gam2PEtetra(Xp[i,],Xp[j,],Xp,tetra,r,M)==1)
+#'  {if (Idom.num2PEtetra(Xp[i,],Xp[j,],Xp,tetra,r,M)==1)
 #'  {ind.gam2<-rbind(ind.gam2,c(i,j))
 #'  }
 #'  }
 #' ind.gam2
 #'
 #' #or try
-#' rv1<-rv.tetraCC(Xp[1,],tetra)$rv;rv2<-rv.tetraCC(Xp[2,],tetra)$rv
-#' Gam2PEtetra(Xp[1,],Xp[2,],Xp,tetra,r,M,rv1,rv2)
+#' rv1<-rel.vert.tetraCC(Xp[1,],tetra)$rv;rv2<-rel.vert.tetraCC(Xp[2,],tetra)$rv
+#' Idom.num2PEtetra(Xp[1,],Xp[2,],Xp,tetra,r,M,rv1,rv2)
 #'
 #' #or try
-#' rv1<-rv.tetraCC(Xp[1,],tetra)$rv;
-#' Gam2PEtetra(Xp[1,],Xp[2,],Xp,tetra,r,M,rv1)
+#' rv1<-rel.vert.tetraCC(Xp[1,],tetra)$rv;
+#' Idom.num2PEtetra(Xp[1,],Xp[2,],Xp,tetra,r,M,rv1)
 #'
 #' #or try
-#' rv2<-rv.tetraCC(Xp[2,],tetra)$rv
-#' Gam2PEtetra(Xp[1,],Xp[2,],Xp,tetra,r,M,rv2=rv2)
+#' rv2<-rel.vert.tetraCC(Xp[2,],tetra)$rv
+#' Idom.num2PEtetra(Xp[1,],Xp[2,],Xp,tetra,r,M,rv2=rv2)
 #'
 #' P1<-c(.1,.1,.1)
 #' P2<-c(.4,.1,.2)
-#' Gam2PEtetra(P1,P2,Xp,tetra,r,M)
+#' Idom.num2PEtetra(P1,P2,Xp,tetra,r,M)
 #'
-#' Gam2PEtetra(c(-1,-1,-1),Xp[2,],Xp,tetra,r,M,ch.data.pnts = FALSE)
+#' Idom.num2PEtetra(c(-1,-1,-1),Xp[2,],Xp,tetra,r,M,ch.data.pnts = FALSE)
 #' #gives an error message if ch.data.pnts = TRUE
 #' #since not both points, p1 and p2, are data points in Xp
 #' }
 #'
 #' @export
-Gam2PEtetra <- function(p1,p2,Xp,th,r,M="CM",rv1=NULL,rv2=NULL,ch.data.pnts=FALSE)
+Idom.num2PEtetra <- function(p1,p2,Xp,th,r,M="CM",rv1=NULL,rv2=NULL,ch.data.pnts=FALSE)
 {
   if (!is.point(p1,3) || !is.point(p2,3))
   {stop('p1 and p2 must be a numeric 3D point')}
@@ -1723,16 +1747,16 @@ Gam2PEtetra <- function(p1,p2,Xp,th,r,M="CM",rv1=NULL,rv2=NULL,ch.data.pnts=FALS
   {dom<-0; return(dom); stop}
 
   if (is.null(rv1))
-  {rv1<-ifelse(identical(M,"CC"),rv.tetraCC(p1,th)$rv,rv.tetraCM(p1,th)$rv);} #vertex region for p1
+  {rv1<-ifelse(identical(M,"CC"),rel.vert.tetraCC(p1,th)$rv,rel.vert.tetraCM(p1,th)$rv);} #vertex region for p1
 
   if (is.null(rv2))
-  {rv2<-ifelse(identical(M,"CC"),rv.tetraCC(p2,th)$rv,rv.tetraCM(p2,th)$rv);} #vertex region for p1
+  {rv2<-ifelse(identical(M,"CC"),rel.vert.tetraCC(p2,th)$rv,rel.vert.tetraCM(p2,th)$rv);} #vertex region for p1
 
   Xp<-matrix(Xp,ncol=3)
   n<-nrow(Xp)
   dom<-1; i<-1;
   while (i <= n & dom==1)
-  {if (max(IndNPEtetra(p1,Xp[i,],th,r,M,rv1),IndNPEtetra(p2,Xp[i,],th,r,M,rv2))==0)
+  {if (max(IarcPEtetra(p1,Xp[i,],th,r,M,rv1),IarcPEtetra(p2,Xp[i,],th,r,M,rv2))==0)
     dom<-0;
   i<-i+1;
   }
@@ -1779,7 +1803,7 @@ Gam2PEtetra <- function(p1,p2,Xp,th,r,M="CM",rv1=NULL,rv2=NULL,ch.data.pnts=FALS
 #' @return \eqn{I(\{}\code{p1,p2,pt3}\} is a dominating set of the PE-PCD\eqn{)} where the vertices of the PE-PCD are the 3D data set \code{Xp}),
 #' that is, returns 1 if \{\code{p1,p2,pt3}\} is a dominating set of PE-PCD, returns 0 otherwise
 #'
-#' @seealso \code{\link{Gam3PEstdTetra}}
+#' @seealso \code{\link{Idom.num3PEstd.tetra}}
 #'
 #' @references
 #' \insertAllCited{}
@@ -1797,41 +1821,41 @@ Gam2PEtetra <- function(p1,p2,Xp,th,r,M="CM",rv1=NULL,rv2=NULL,ch.data.pnts=FALS
 #' M<-"CM";  #try also M<-"CC";
 #' r<-1.25
 #'
-#' Gam3PEtetra(Xp[1,],Xp[2,],Xp[3,],Xp,tetra,r,M)
+#' Idom.num3PEtetra(Xp[1,],Xp[2,],Xp[3,],Xp,tetra,r,M)
 #'
 #' ind.gam3<-vector()
 #' for (i in 1:(n-2))
 #'  for (j in (i+1):(n-1))
 #'    for (k in (j+1):n)
-#'    {if (Gam3PEtetra(Xp[i,],Xp[j,],Xp[k,],Xp,tetra,r,M)==1)
+#'    {if (Idom.num3PEtetra(Xp[i,],Xp[j,],Xp[k,],Xp,tetra,r,M)==1)
 #'     ind.gam3<-rbind(ind.gam3,c(i,j,k))}
 #'
 #' ind.gam3
 #'
 #' #or try
-#' rv1<-rv.tetraCC(Xp[1,],tetra)$rv; rv2<-rv.tetraCC(Xp[2,],tetra)$rv;
-#' rv3<-rv.tetraCC(Xp[3,],tetra)$rv
-#' Gam3PEtetra(Xp[1,],Xp[2,],Xp[3,],Xp,tetra,r,M,rv1,rv2,rv3)
+#' rv1<-rel.vert.tetraCC(Xp[1,],tetra)$rv; rv2<-rel.vert.tetraCC(Xp[2,],tetra)$rv;
+#' rv3<-rel.vert.tetraCC(Xp[3,],tetra)$rv
+#' Idom.num3PEtetra(Xp[1,],Xp[2,],Xp[3,],Xp,tetra,r,M,rv1,rv2,rv3)
 #'
 #' #or try
-#' rv1<-rv.tetraCC(Xp[1,],tetra)$rv;
-#' Gam3PEtetra(Xp[1,],Xp[2,],Xp[3,],Xp,tetra,r,M,rv1)
+#' rv1<-rel.vert.tetraCC(Xp[1,],tetra)$rv;
+#' Idom.num3PEtetra(Xp[1,],Xp[2,],Xp[3,],Xp,tetra,r,M,rv1)
 #'
 #' #or try
-#' rv2<-rv.tetraCC(Xp[2,],tetra)$rv
-#' Gam3PEtetra(Xp[1,],Xp[2,],Xp[3,],Xp,tetra,r,M,rv2=rv2)
+#' rv2<-rel.vert.tetraCC(Xp[2,],tetra)$rv
+#' Idom.num3PEtetra(Xp[1,],Xp[2,],Xp[3,],Xp,tetra,r,M,rv2=rv2)
 #'
 #' P1<-c(.1,.1,.1)
 #' P2<-c(.3,.3,.3)
 #' P3<-c(.4,.1,.2)
-#' Gam3PEtetra(P1,P2,P3,Xp,tetra,r,M)
+#' Idom.num3PEtetra(P1,P2,P3,Xp,tetra,r,M)
 #'
-#' Gam3PEtetra(Xp[1,],c(1,1,1),Xp[3,],Xp,tetra,r,M,ch.data.pnts = FALSE)
+#' Idom.num3PEtetra(Xp[1,],c(1,1,1),Xp[3,],Xp,tetra,r,M,ch.data.pnts = FALSE)
 #' #gives an error message if ch.data.pnts = TRUE since not all points are data points in Xp
 #' }
 #'
 #' @export
-Gam3PEtetra <- function(p1,p2,pt3,Xp,th,r,M="CM",rv1=NULL,rv2=NULL,rv3=NULL,ch.data.pnts=FALSE)
+Idom.num3PEtetra <- function(p1,p2,pt3,Xp,th,r,M="CM",rv1=NULL,rv2=NULL,rv3=NULL,ch.data.pnts=FALSE)
 {
   if (!is.point(p1,3) || !is.point(p2,3) || !is.point(pt3,3))
   {stop('p1, p2, and pt3 must be a numeric 3D points')}
@@ -1872,20 +1896,20 @@ Gam3PEtetra <- function(p1,p2,pt3,Xp,th,r,M="CM",rv1=NULL,rv2=NULL,rv3=NULL,ch.d
   {dom<-0; return(dom); stop}
 
   if (is.null(rv1))
-  {rv1<-ifelse(identical(M,"CC"),rv.tetraCC(p1,th)$rv,rv.tetraCM(p1,th)$rv);} #vertex region for p1
+  {rv1<-ifelse(identical(M,"CC"),rel.vert.tetraCC(p1,th)$rv,rel.vert.tetraCM(p1,th)$rv);} #vertex region for p1
 
   if (is.null(rv2))
-  {rv2<-ifelse(identical(M,"CC"),rv.tetraCC(p2,th)$rv,rv.tetraCM(p2,th)$rv);} #vertex region for p2
+  {rv2<-ifelse(identical(M,"CC"),rel.vert.tetraCC(p2,th)$rv,rel.vert.tetraCM(p2,th)$rv);} #vertex region for p2
 
   if (is.null(rv3))
-  {rv3<-ifelse(identical(M,"CC"),rv.tetraCC(pt3,th)$rv,rv.tetraCM(pt3,th)$rv);} #vertex region for pt3
+  {rv3<-ifelse(identical(M,"CC"),rel.vert.tetraCC(pt3,th)$rv,rel.vert.tetraCM(pt3,th)$rv);} #vertex region for pt3
 
   Xp<-matrix(Xp,ncol=3)
   n<-nrow(Xp)
   dom<-1; i<-1;
   while (i <= n & dom==1)
-  {if (max(IndNPEtetra(p1,Xp[i,],th,r,M,rv1),IndNPEtetra(p2,Xp[i,],th,r,M,rv2),
-           IndNPEtetra(pt3,Xp[i,],th,r,M,rv3))==0)
+  {if (max(IarcPEtetra(p1,Xp[i,],th,r,M,rv1),IarcPEtetra(p2,Xp[i,],th,r,M,rv2),
+           IarcPEtetra(pt3,Xp[i,],th,r,M,rv3))==0)
     dom<-0;
   i<-i+1;
   }
@@ -1917,7 +1941,7 @@ Gam3PEtetra <- function(p1,p2,pt3,Xp,th,r,M="CM",rv1=NULL,rv2=NULL,rv3=NULL,ch.d
 #' \item{mds}{A minimum dominating set of PE-PCD with vertex set = \code{Xp} and expansion parameter \eqn{r \ge 1} and center \code{M}}
 #' \item{ind.mds}{Indices of the minimum dominating set \code{mds}}
 #'
-#' @seealso \code{\link{PEdomTri}}
+#' @seealso \code{\link{PEdom.num.tri}}
 #'
 #' @references
 #' \insertAllCited{}
@@ -1935,14 +1959,14 @@ Gam3PEtetra <- function(p1,p2,pt3,Xp,th,r,M="CM",rv1=NULL,rv2=NULL,rv3=NULL,ch.d
 #' M<-"CM"  #try also M<-"CC"
 #' r<-1.25
 #'
-#' PEdomTetra(Xp,tetra,r,M)
+#' PEdom.num.tetra(Xp,tetra,r,M)
 #'
 #' P1<-c(.5,.5,.5)
-#' PEdomTetra(P1,tetra,r,M)
+#' PEdom.num.tetra(P1,tetra,r,M)
 #' }
 #'
-#' @export PEdomTetra
-PEdomTetra <- function(Xp,th,r,M="CM")
+#' @export PEdom.num.tetra
+PEdom.num.tetra <- function(Xp,th,r,M="CM")
 {
   if (!is.numeric(as.matrix(Xp)) )
   {stop('Xp must be numeric')}
@@ -1990,7 +2014,7 @@ PEdomTetra <- function(Xp,th,r,M="CM")
   )
   return(res); stop}
 
-  Cl2f0<-cl2facesVRtetra(Xth,th,M)
+  Cl2f0<-cl2faces.vert.reg.tetra(Xth,th,M)
   Cl2f<-Cl2f0$ext #for general r, points closest to opposite edges in the vertex regions
   Cl2f.ind<-Cl2f0$ind # indices of these extrema wrt Xth
   Ext.ind =ind.tetra[Cl2f.ind] #indices of these extrema wrt to the original data
@@ -2003,7 +2027,7 @@ PEdomTetra <- function(Xp,th,r,M="CM")
     {j<-j+1
     } else
     {
-      if (Gam1PEtetra(Cl2f[j,],Xth,th,r,M,rv=j)==1)
+      if (Idom.num1PEtetra(Cl2f[j,],Xth,th,r,M,rv=j)==1)
       {gam<-1; cnt<-1; mds<-rbind(mds,Cl2f[j,]); mds.ind=c(mds.ind,Ext.ind[j])
       } else
       {j<-j+1}
@@ -2021,7 +2045,7 @@ PEdomTetra <- function(Xp,th,r,M="CM")
     {l<-l+1
     } else
     {
-      if (Gam2PEtetra(Cl2f[k,],Cl2f[l,],Xth,th,r,M,rv1=k,rv2=l)==1)
+      if (Idom.num2PEtetra(Cl2f[k,],Cl2f[l,],Xth,th,r,M,rv1=k,rv2=l)==1)
       {gam<-2;cnt2<-1; mds<-rbind(mds,Cl2f[c(k,l),]); mds.ind=c(mds.ind,Ext.ind[c(k,l)])
       } else {l<-l+1};
     }
@@ -2043,7 +2067,7 @@ PEdomTetra <- function(Xp,th,r,M="CM")
     {m3<-m3+1
     } else
     {
-      if (Gam3PEtetra(Cl2f[k3,],Cl2f[l3,],Cl2f[m3,],Xth,th,r,M,rv1=k3,rv2=l3,rv3=m3)==1)
+      if (Idom.num3PEtetra(Cl2f[k3,],Cl2f[l3,],Cl2f[m3,],Xth,th,r,M,rv1=k3,rv2=l3,rv3=m3)==1)
       {gam<-3; cnt3<-1; mds<-rbind(mds,Cl2f[c(k3,l3,m3),]); mds.ind=c(mds.ind,Ext.ind[c(k3,l3,m3)])
       } else {m3<-m3+1};
     }

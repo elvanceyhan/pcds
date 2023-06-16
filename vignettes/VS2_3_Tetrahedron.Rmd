@@ -120,7 +120,7 @@ NPEtetra(Xp[1,],tetra,r)  #uses the default M="CM"
 #> [4,] 0.37498004 0.3131847 0.52897936
 ```
 
-Indicator for the presence of an arc from a (data or $\X$) point to another for PE-PCDs is the function `IndNPEtetra`
+Indicator for the presence of an arc from a (data or $\X$) point to another for PE-PCDs is the function `IarcPEtetra`
 which takes arguments `p1,p2,th,r,M,rv` where
 
 - `p1`, a 3D point whose PE proximity region is constructed.
@@ -131,48 +131,57 @@ This function returns $I(p_2 \in N_{PE}(p_1,r))$,
 that is, returns 1 if `p2` is in $N_{PE}(p_1,r)$, 0 otherwise.
 One can use it for points in the data set or for arbitrary points (as if they were in the data set).
 ```{r eval=F}
-IndNPEtetra(Xp[1,],Xp[2,],tetra,r)  #uses the default M="CM"
+IarcPEtetra(Xp[1,],Xp[2,],tetra,r)  #uses the default M="CM"
 #> [1] 1
-IndNPEtetra(Xp[2,],Xp[1,],tetra,r,M)
+IarcPEtetra(Xp[2,],Xp[1,],tetra,r,M)
 #> [1] 1
 ```
 
-Number of arcs of the PE-PCD can be computed by the function `NumArcsPEtetra`,
-which takes arguments `Xp,th,r,M`
+Number of arcs of the PE-PCD can be computed by the function `num.arcsPEtetra`,
+which is an object of class "`NumArcs`" and takes arguments `Xp,th,r,M`
 where `Xp` is the data set, and `th,r,M` are as in `NPEtetra`.
 This function returns the list of
 
+* `desc`: A description of the PCD and the output
 * `num.arcs`: Number of arcs of the PE-PCD,
 * `num.in.tetra`: Number of `Xp` points in the tetrahedron `tetra`,
 * `ind.in.tetra`: The vector of indices of the `Xp` points that reside in the tetrahedron.
+* `tess.points`: Vertices of the tetrahedron (i.e. `Yp` points)
+* `vertices`: vertices of the PCD (i.e. `Xp` points)
 
-The output is as in `NumArcsPEtri`.
+The output is as in `num.arcsPEtri`.
 ```{r eval=F}
-NumArcsPEtetra(Xp,tetra,r,M)
-#> $num.arcs
-#> [1] 10
+Narcs = num.arcsPEtetra(Xp,tetra,r,M)
+summary(Narcs)
+#> Call:
+#> num.arcsPEtetra(Xp = Xp, th = tetra, r = r, M = M)
+#>
+#> Description of the output:
+#> Number of Arcs of the PE-PCD with vertices Xp and Quantities Related to the Support Tetrahedron
+#>
+#> Number of data (Xp) points in the tetrahedron =  5
+#> Number of arcs in the digraph =  10
+#>
+#> Indices of data points in the tetrahedron:
+#> 1 2 3 4 5 
 #> 
-#> $num.in.tetra
-#> [1] 5
-#> 
-#> $ind.in.tetra
-#> [1] 1 2 3 4 5
+#plot(Narcs) #gives error
 ```
 
-The arc density of the PE-PCD can be computed by the function `PEarcdens.tetra`.
-It takes the arguments `Xp,th,r,M,th.cor` where `Xp,th,r,M` are as in `NumArcsPEtetra`
+The arc density of the PE-PCD can be computed by the function `PEarc.dens.tetra`.
+It takes the arguments `Xp,th,r,M,th.cor` where `Xp,th,r,M` are as in `num.arcsPEtetra`
 and `th.cor` is a logical argument for computing the arc density for only the points inside the tetrahedron,
 `th`. (default is `th.cor=FALSE`), i.e., if `th.cor=TRUE` only the induced digraph
 with the vertices inside `th` are considered in the computation of arc density.
 Arc density can be adjusted (or corrected) for the points outside the triangle by using the option `th.cor=TRUE`.
 ```{r eval=F }
-PEarcdens.tetra(Xp,tetra,r,M)
+PEarc.dens.tetra(Xp,tetra,r,M)
 #> [1] 0.5
 ```
 
-The incidence matrix of the PE-PCD for the one tetrahedron case can be found by `IncMatPEtetra`, 
-using the `IncMatPEtetra(Xp,tetra,r,M)` command.
-It has the same arguments as `NumArcsPEtetra` function.
+The incidence matrix of the PE-PCD for the one tetrahedron case can be found by `inci.matPEtetra`, 
+using the `inci.matPEtetra(Xp,tetra,r,M)` command.
+It has the same arguments as `num.arcsPEtetra` function.
 
 <!-- Plots of the PE proximity regions, the first is for all points,  -->
 <!-- the second is for one of the $\X$ points only (for better visualization). -->
@@ -249,12 +258,12 @@ NPEstd.tetra(Xp[5,],r)
 #> [4,] 0.04999316 0.0000000 0.0000000
 ```
 
-Indicator for the presence of an arc from a (data or $\X$) point to another for PE-PCDs is the function `IndNPEstd.tetra`
+Indicator for the presence of an arc from a (data or $\X$) point to another for PE-PCDs is the function `IarcPEstd.tetra`
 which takes arguments `p1,p2,r,rv` and
-returns $I(p_2 \in N_{PE}(p_1,r))$ which are same as in `IndNPEtetra`.
+returns $I(p_2 \in N_{PE}(p_1,r))$ which are same as in `IarcPEtetra`.
 One can use it for points in the data set or for arbitrary points (as if they were in the data set).
 ```{r eval=F}
-IndNPEstd.tetra(Xp[1,],Xp[3,],r)  #uses the default M="CM"
+IarcPEstd.tetra(Xp[1,],Xp[3,],r)  #uses the default M="CM"
 #> [1] 1
 ```
 
@@ -272,7 +281,7 @@ plotPEregs.std.tetra(Xp,r)
 We only use circumcenter (CC) or center of mass (CM) to construct vertex regions in a tetrahedron, 
 and here we illustrate finding CC (as CM is just the componentwise arithmetic average of the vertices)
 of a tetrahedron.
-The function `circ.cent.tetra` takes the sole argument `th` for a $4 \times 3$ matrix with each row representing a vertex of the tetrahedron and returns the circumcenter of a general tetrahedron.
+The function `circumcenter.tetra` takes the sole argument `th` for a $4 \times 3$ matrix with each row representing a vertex of the tetrahedron and returns the circumcenter of a general tetrahedron.
 We use a tetrahedron $T$ whose vertices are jittered around the vertices of a standard regular tetrahedron for better visualization
 in the plots.
 ```{r eval=F}
@@ -283,14 +292,14 @@ C<-c(1/2,sqrt(3)/2,0)+runif(3,-.2,.2);
 D<-c(1/2,sqrt(3)/6,sqrt(6)/3)+runif(3,-.2,.2);
 tetra<-rbind(A,B,C,D)
 
-CC<-circ.cent.tetra(tetra)
+CC<-circumcenter.tetra(tetra)
 CC
 #> [1] 0.5516851 0.3386671 0.1212977
 ```
 
 <!-- We illustrate the CC in a tetrahedron in the following plot.  -->
 <!-- We annotate the vertices and the CC. -->
-<!-- See `example(circ.cent.tetra)` for the code to generate this figure. -->
+<!-- See `example(circumcenter.tetra)` for the code to generate this figure. -->
 <!-- ```{r 3DCC, fig.cap="Circumcenter of the tetrahedron $T$."} -->
 <!-- Xlim<-range(tetra[,1],CC[1]) -->
 <!-- Ylim<-range(tetra[,2],CC[2]) -->
@@ -318,14 +327,14 @@ CC
 <!-- ``` -->
 
 We can also illustrate the CC in a tetrahedron in a plot with vertex and CC annotation. 
-Type `? circ.cent.tetra` for the code to generate the corresponding figure.
+Type `? circumcenter.tetra` for the code to generate the corresponding figure.
 
-The function `rv.tetraCC` takes arguments `p,th` and
+The function `rel.vert.tetraCC` takes arguments `p,th` and
 returns the index of the $CC$-vertex region in a tetrahedron `th` where the point `p` resides.
 ```{r eval=F}
 n<-10  #try also n<-20
 Xp<-runif.tetra(n,tetra)$g
-rv.tetraCC(Xp[1,],tetra)
+rel.vert.tetraCC(Xp[1,],tetra)
 #> $rv
 #> [1] 2
 #> 
@@ -338,7 +347,7 @@ rv.tetraCC(Xp[1,],tetra)
 
 Rv<-vector()
 for (i in 1:n)
-  Rv<-c(Rv,rv.tetraCC(Xp[i,],tetra)$rv)
+  Rv<-c(Rv,rel.vert.tetraCC(Xp[i,],tetra)$rv)
 Rv
 #>  [1] 2 2 1 3 2 1 2 3 2 1
 ```
@@ -347,9 +356,9 @@ find the indices of the vertex regions they reside in.
 
 We illustrate the CC-vertex regions using the following code. 
 We annotate the vertices and CC and provide the scatterplot of these points labeled according to the vertex region they reside in. 
-Type also `? rv.tetraCC` for the code to generate this figure.
+Type also `? rel.vert.tetraCC` for the code to generate this figure.
 ```{r 3DCCVR, eval=F, fig.cap="CC-Vertex regions in the tetrahedron $T=(A,B,C,D)$."}
-CC<-circ.cent.tetra(tetra)
+CC<-circumcenter.tetra(tetra)
 CC
 
 Xlim<-range(tetra[,1],Xp[,1],CC[1])
@@ -360,7 +369,7 @@ yd<-Ylim[2]-Ylim[1]
 zd<-Zlim[2]-Zlim[1]
 
 plot3D::scatter3D(tetra[,1],tetra[,2],tetra[,3], phi =0,theta=40, bty = "g",
-                  main="Scatterplot of data points \n and CC-vertex regions",
+                  main="Scatterplot of data points with CC-vertex regions",
                   xlim=Xlim+xd*c(-.05,.05),ylim=Ylim+yd*c(-.05,.05), zlim=Zlim+zd*c(-.05,.05),
                   pch = 20, cex = 1, ticktype = "detailed")
 L<-rbind(A,A,A,B,B,C); R<-rbind(B,C,D,C,D,D)
@@ -375,26 +384,26 @@ D1<-(A+B)/2; D2<-(A+C)/2; D3<-(A+D)/2; D4<-(B+C)/2; D5<-(B+D)/2; D6<-(C+D)/2;
 L<-rbind(D1,D2,D3,D4,D5,D6); R<-matrix(rep(CC,6),ncol=3,byrow=TRUE)
 plot3D::segments3D(L[,1], L[,2], L[,3], R[,1], R[,2],R[,3], add=TRUE,lty=2)
 
-F1<-int.line.plane(A,CC,B,C,D)
+F1<-intersect.line.plane(A,CC,B,C,D)
 L<-matrix(rep(F1,4),ncol=3,byrow=TRUE); R<-rbind(D4,D5,D6,CC)
 plot3D::segments3D(L[,1], L[,2], L[,3], R[,1], R[,2],R[,3],col=2, add=TRUE,lty=2)
 
-F2<-int.line.plane(B,CC,A,C,D)
+F2<-intersect.line.plane(B,CC,A,C,D)
 L<-matrix(rep(F2,4),ncol=3,byrow=TRUE); R<-rbind(D2,D3,D6,CC)
 plot3D::segments3D(L[,1], L[,2], L[,3], R[,1], R[,2],R[,3],col=3, add=TRUE,lty=2)
 
-F3<-int.line.plane(C,CC,A,B,D)
+F3<-intersect.line.plane(C,CC,A,B,D)
 L<-matrix(rep(F3,4),ncol=3,byrow=TRUE); R<-rbind(D3,D5,D6,CC)
 plot3D::segments3D(L[,1], L[,2], L[,3], R[,1], R[,2],R[,3],col=4, add=TRUE,lty=2)
 
-F4<-int.line.plane(D,CC,A,B,C)
+F4<-intersect.line.plane(D,CC,A,B,C)
 L<-matrix(rep(F4,4),ncol=3,byrow=TRUE); R<-rbind(D1,D2,D4,CC)
 plot3D::segments3D(L[,1], L[,2], L[,3], R[,1], R[,2],R[,3],col=5, add=TRUE,lty=2)
 
 plot3D::text3D(Xp[,1],Xp[,2],Xp[,3], labels=factor(Rv), add=TRUE)
 ```
 
-The function `rv.tetraCM` takes the same arguments as `rv.tetraCC` and 
+The function `rel.vert.tetraCM` takes the same arguments as `rel.vert.tetraCC` and 
 returns the index of the $CM$-vertex region in a tetrahedron `th` where the point `p` resides.
 We use standard regular tetrahedron in this example.
 ```{r eval=F}
@@ -404,7 +413,7 @@ tetra<-rbind(A,B,C,D)
 
 n<-10  #try also n<-20
 Xp<-runif.std.tetra(n)$g
-rv.tetraCM(Xp[1,],tetra)
+rel.vert.tetraCM(Xp[1,],tetra)
 #> $rv
 #> [1] 4
 #> 
@@ -417,18 +426,18 @@ rv.tetraCM(Xp[1,],tetra)
 
 Rv<-vector()
 for (i in 1:n)
-  Rv<-c(Rv, rv.tetraCM(Xp[i,],tetra)$rv )
+  Rv<-c(Rv, rel.vert.tetraCM(Xp[i,],tetra)$rv )
 Rv
 #>  [1] 4 4 3 4 4 1 1 3 3 2
 ```
 We also generate $n=$ `r n` $\X$ points in the tetrahedron and find the indices of the vertex regions they reside in.
 
 We can also illustrate the CC in a tetrahedron in a plot with vertex and CC annotation. 
-Type `? rv.tetraCM` for the code to generate the corresponding figure.
+Type `? rel.vert.tetraCM` for the code to generate the corresponding figure.
 
 <!-- We illustrate the CM-vertex regions in the following plot. -->
 <!-- We annotate the vertices and CM and provide the scatterplot of these points labeled according to the vertex region they reside in.  -->
-<!-- See `example(rv.tetraCM)` for the code to generate this figure. -->
+<!-- See `example(rel.vert.tetraCM)` for the code to generate this figure. -->
 <!-- ```{r 3DCMVR, fig.cap="CM-Vertex regions in the tetrahedron $T=(A,B,C,D)$."} -->
 <!-- Xlim<-range(tetra[,1],Xp[,1]) -->
 <!-- Ylim<-range(tetra[,2],Xp[,2]) -->
@@ -455,19 +464,19 @@ Type `? rv.tetraCM` for the code to generate the corresponding figure.
 <!-- L<-rbind(D1,D2,D3,D4,D5,D6); R<-matrix(rep(CM,6),ncol=3,byrow=TRUE) -->
 <!-- plot3D::segments3D(L[,1], L[,2], L[,3], R[,1], R[,2],R[,3], add=TRUE,lty=2) -->
 
-<!-- F1<-int.line.plane(A,CM,B,C,D) -->
+<!-- F1<-intersect.line.plane(A,CM,B,C,D) -->
 <!-- L<-matrix(rep(F1,4),ncol=3,byrow=TRUE); R<-rbind(D4,D5,D6,CM) -->
 <!-- plot3D::segments3D(L[,1], L[,2], L[,3], R[,1], R[,2],R[,3],col=2, add=TRUE,lty=2) -->
 
-<!-- F2<-int.line.plane(B,CM,A,C,D) -->
+<!-- F2<-intersect.line.plane(B,CM,A,C,D) -->
 <!-- L<-matrix(rep(F2,4),ncol=3,byrow=TRUE); R<-rbind(D2,D3,D6,CM) -->
 <!-- plot3D::segments3D(L[,1], L[,2], L[,3], R[,1], R[,2],R[,3],col=3, add=TRUE,lty=2) -->
 
-<!-- F3<-int.line.plane(C,CM,A,B,D) -->
+<!-- F3<-intersect.line.plane(C,CM,A,B,D) -->
 <!-- L<-matrix(rep(F3,4),ncol=3,byrow=TRUE); R<-rbind(D3,D5,D6,CM) -->
 <!-- plot3D::segments3D(L[,1], L[,2], L[,3], R[,1], R[,2],R[,3],col=4, add=TRUE,lty=2) -->
 
-<!-- F4<-int.line.plane(D,CM,A,B,C) -->
+<!-- F4<-intersect.line.plane(D,CM,A,B,C) -->
 <!-- L<-matrix(rep(F4,4),ncol=3,byrow=TRUE); R<-rbind(D1,D2,D4,CM) -->
 <!-- plot3D::segments3D(L[,1], L[,2], L[,3], R[,1], R[,2],R[,3],col=5, add=TRUE,lty=2) -->
 

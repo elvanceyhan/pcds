@@ -2,7 +2,8 @@
 % Please edit documentation in R/PropEdge2D.R
 \name{plotPEregs.tri}
 \alias{plotPEregs.tri}
-\title{The plot of the Proportional Edge (PE) Proximity Regions for a 2D data set - one triangle case}
+\title{The plot of the Proportional Edge (PE) Proximity Regions
+for a 2D data set - one triangle case}
 \usage{
 plotPEregs.tri(
   Xp,
@@ -20,51 +21,73 @@ plotPEregs.tri(
 )
 }
 \arguments{
-\item{Xp}{A set of 2D points for which PE proximity regions are constructed.}
+\item{Xp}{A set of 2D points
+for which PE proximity regions are constructed.}
 
-\item{tri}{A \eqn{3 \times 2} matrix with each row representing a vertex of the triangle.}
+\item{tri}{A \eqn{3 \times 2} matrix with each row
+representing a vertex of the triangle.}
 
-\item{r}{A positive real number which serves as the expansion parameter in PE proximity region;
+\item{r}{A positive real number
+which serves as the expansion parameter in PE proximity region;
 must be \eqn{\ge 1}.}
 
-\item{M}{A 2D point in Cartesian coordinates or a 3D point in barycentric coordinates
-which serves as a center in the interior of the triangle \code{tri} or the circumcenter of \code{tri}
+\item{M}{A 2D point in Cartesian coordinates
+or a 3D point in barycentric coordinates
+which serves as a center in the interior of the triangle \code{tri}
+or the circumcenter of \code{tri}
 which may be entered as "CC" as well;
-default is \eqn{M=(1,1,1)} i.e., the center of mass of \code{tri}.}
+default is \eqn{M=(1,1,1)}, i.e., the center of mass of \code{tri}.}
 
-\item{asp}{A \code{numeric} value, giving the aspect ratio \eqn{y/x} (default is \code{NA}),
+\item{asp}{A \code{numeric} value,
+giving the aspect ratio \eqn{y/x} (default is \code{NA}),
 see the official help page for \code{asp} by typing "\code{? asp}".}
 
 \item{main}{An overall title for the plot (default=\code{NULL}).}
 
-\item{xlab, ylab}{Titles for the \eqn{x} and \eqn{y} axes, respectively (default=\code{NULL} for both).}
+\item{xlab, ylab}{Titles for the \eqn{x} and \eqn{y} axes,
+respectively (default=\code{NULL} for both).}
 
-\item{xlim, ylim}{Two \code{numeric} vectors of length 2, giving the \eqn{x}- and \eqn{y}-coordinate ranges
+\item{xlim, ylim}{Two \code{numeric} vectors of length 2,
+giving the \eqn{x}- and \eqn{y}-coordinate ranges
 (default=\code{NULL} for both).}
 
-\item{vert.reg}{A logical argument to add vertex regions to the plot, default is \code{vert.reg=FALSE}.}
+\item{vert.reg}{A logical argument to add vertex regions to the plot,
+default is \code{vert.reg=FALSE}.}
 
 \item{\dots}{Additional \code{plot} parameters.}
 }
 \value{
-Plot of the PE proximity regions for points inside the triangle \code{tri}
+Plot of the PE proximity regions for points
+inside the triangle \code{tri}
 (and just the points outside \code{tri})
 }
 \description{
-Plots the points in and outside of the triangle \code{tri} and also the PE proximity regions
+Plots the points in and outside of the triangle \code{tri}
+and also the PE proximity regions
 for points in data set \code{Xp}.
 
-PE proximity regions are defined with respect to the triangle \code{tri}
-with expansion parameter \eqn{r \ge 1}, so PE proximity regions are defined only for points inside the
+PE proximity regions are defined
+with respect to the triangle \code{tri}
+with expansion parameter \eqn{r \ge 1},
+so PE proximity regions are defined only for points inside the
 triangle \code{tri}.
 
-Vertex regions are based on center \eqn{M=(m_1,m_2)} in Cartesian coordinates
-or \eqn{M=(\alpha,\beta,\gamma)} in barycentric coordinates in the interior of the triangle \code{tri}
-or based on the circumcenter of \code{tri}; default is \eqn{M=(1,1,1)} i.e., the center of mass of \code{tri}.
-When the center is the circumcenter, \code{CC}, the vertex regions are constructed based on the
-orthogonal projections to the edges, while with any interior center \code{M}, the vertex regions are constructed using the extensions
-of the lines combining vertices with \code{M}. \code{M}-vertex regions are recommended spatial inference, due to geometry
-invariance property of the arc density and domination number the PE-PCDs based on uniform data.
+Vertex regions are based on center \eqn{M=(m_1,m_2)}
+in Cartesian coordinates
+or \eqn{M=(\alpha,\beta,\gamma)} in barycentric coordinates
+in the interior of the triangle \code{tri}
+or based on the circumcenter of \code{tri};
+default is \eqn{M=(1,1,1)}, i.e.,
+the center of mass of \code{tri}.
+When the center is the circumcenter, \code{CC},
+the vertex regions are constructed based on the
+orthogonal projections to the edges,
+while with any interior center \code{M},
+the vertex regions are constructed using the extensions
+of the lines combining vertices with \code{M}.
+\code{M}-vertex regions are recommended spatial inference,
+due to geometry invariance property of the arc density
+and domination number the PE-PCDs based on uniform data.
 
 See also (\insertCite{ceyhan:Phd-thesis,ceyhan:arc-density-PE,ceyhan:dom-num-NPE-Spat2011;textual}{pcds}).
 }
@@ -77,24 +100,28 @@ n<-10
 set.seed(1)
 Xp0<-runif.tri(n,Tr)$g
 
-M<-as.numeric(runif.tri(1,Tr)$g)  #try also M<-c(1.6,1.0) or M = circ.cent.tri(Tr)
+M<-as.numeric(runif.tri(1,Tr)$g)
+#try also M<-c(1.6,1.0) or M = circumcenter.tri(Tr)
 r<-1.5  #try also r<-2
 
 plotPEregs.tri(Xp0,Tr,r,M)
 Xp = Xp0[1,]
 plotPEregs.tri(Xp,Tr,r,M)
 
-plotPEregs.tri(Xp,Tr,r,M,main="PE Proximity Regions with r = 1.5",xlab="",ylab="",vert.reg = TRUE)
+plotPEregs.tri(Xp,Tr,r,M,
+main="PE Proximity Regions with r = 1.5",
+xlab="",ylab="",vert.reg = TRUE)
 
 # or try the default center
 #plotPEregs.tri(Xp,Tr,r,main="PE Proximity Regions with r = 1.5",xlab="",ylab="",vert.reg = TRUE);
-#M=(ArcsPEtri(Xp,Tr,r)$param)$c #the part "M=(ArcsPEtri(Xp,Tr,r)$param)$cent" is optional,
+#M=(arcsPEtri(Xp,Tr,r)$param)$c
+#the part "M=(arcsPEtri(Xp,Tr,r)$param)$cent" is optional,
 #for the below annotation of the plot
 
 #can add vertex labels and text to the figure (with vertex regions)
-ifelse(isTRUE(all.equal(M,circ.cent.tri(Tr))),
+ifelse(isTRUE(all.equal(M,circumcenter.tri(Tr))),
        {Ds<-rbind((B+C)/2,(A+C)/2,(A+B)/2); cent.name="CC"},
-       {Ds<-cent2edges.tri(Tr,M); cent.name<-"M"})
+       {Ds<-prj.cent2edges(Tr,M); cent.name<-"M"})
 
 txt<-rbind(Tr,M,Ds)
 xc<-txt[,1]+c(-.02,.02,.02,.02,.03,-0.03,-.01)
@@ -108,7 +135,8 @@ text(xc,yc,txt.str)
 \insertAllCited{}
 }
 \seealso{
-\code{\link{plotPEregs}}, \code{\link{plotASregs.tri}} and \code{\link{plotCSregs.tri}}
+\code{\link{plotPEregs}}, \code{\link{plotASregs.tri}},
+and \code{\link{plotCSregs.tri}}
 }
 \author{
 Elvan Ceyhan

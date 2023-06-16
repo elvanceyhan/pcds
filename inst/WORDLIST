@@ -1,10 +1,10 @@
 A'B
 A'C
 ArcSliceFunctions
+AuxDelaunay
 AuxDomination
 AuxExtrema
 AuxGeometry
-AuxTriangular
 B'C
 BCA
 Barycentric
@@ -38,6 +38,7 @@ Sharitz
 SwampTrees
 Taxodium
 Unif
+Uniformness
 VSk
 Voronoi
 Wickham
@@ -54,6 +55,7 @@ bc
 cardinality
 caroliniana
 cdot
+centroid
 circ
 circumcenter
 circumcircle

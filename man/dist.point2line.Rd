@@ -7,15 +7,19 @@
 dist.point2line(p, a, b)
 }
 \arguments{
-\item{p}{A 2D point, distance from \code{p} to the line passing through points \code{a} and \code{b} are to be
+\item{p}{A 2D point, distance from \code{p} to the line
+passing through points \code{a} and \code{b} are to be
 computed.}
 
-\item{a, b}{2D points that determine the straight line (i.e., through which the straight line passes).}
+\item{a, b}{2D points that determine the straight line
+(i.e., through which the straight line passes).}
 }
 \value{
 A \code{list} with two elements
-\item{dis}{Distance from point \code{p} to the line passing through \code{a} and \code{b}}
-\item{cl2p}{The closest point on the line passing through \code{a} and \code{b} to the point \code{p}}
+\item{dis}{Distance from point \code{p} to the line
+passing through \code{a} and \code{b}}
+\item{cl2p}{The closest point on the line
+passing through \code{a} and \code{b} to the point \code{p}}
 }
 \description{
 Returns the distance from a point \code{p} to the line joining
@@ -31,15 +35,18 @@ C<-dpl$cl2p
 pts<-rbind(A,B,C,P)
 
 xr<-range(pts[,1])
-xf<-(xr[2]-xr[1])*.25 #how far to go at the lower and upper ends in the x-coordinate
+xf<-(xr[2]-xr[1])*.25
+#how far to go at the lower and upper ends in the x-coordinate
 x<-seq(xr[1]-xf,xr[2]+xf,l=5)  #try also l=10, 20, or 100
 lnAB<-Line(A,B,x)
 y<-lnAB$y
 int<-lnAB$intercept #intercept
 sl<-lnAB$slope #slope
 
-xsq<-seq(min(A[1],B[1],P[1])-xf,max(A[1],B[1],P[1])+xf,l=5)  #try also l=10, 20, or 100
-pline<-(-1/sl)*(xsq-P[1])+P[2] #line passing thru P and perpendicular to AB
+xsq<-seq(min(A[1],B[1],P[1])-xf,max(A[1],B[1],P[1])+xf,l=5)
+#try also l=10, 20, or 100
+pline<-(-1/sl)*(xsq-P[1])+P[2]
+#line passing thru P and perpendicular to AB
 
 Xlim<-range(pts[,1],x)
 Ylim<-range(pts[,2],y)
@@ -51,7 +58,7 @@ main="Illustration of the distance from P \n to the Line Crossing Points A and B
 xlim=Xlim+xd*c(-.05,.05),ylim=Ylim+yd*c(-.05,.05))
 points(rbind(A,B),pch=1)
 lines(x,y,lty=1,xlim=Xlim,ylim=Ylim)
-int<-my_round(int,2); sl<-my_round(sl,2)
+int<-round(int,2); sl<-round(sl,2)
 text(rbind((A+B)/2+xd*c(-.01,-.01)),ifelse(sl==0,paste("y=",int),
 ifelse(sl==1,paste("y=x+",int),
 ifelse(int==0,paste("y=",sl,"x"),paste("y=",sl,"x+",int)))))
@@ -59,12 +66,13 @@ text(rbind(A+xd*c(0,-.01),B+xd*c(.0,-.01),P+xd*c(.01,-.01)),c("A","B","P"))
 lines(xsq,pline,lty=2)
 segments(P[1],P[2], C[1], C[2], lty=1,col=2,lwd=2)
 text(rbind(C+xd*c(-.01,-.01)),"C")
-text(rbind((P+C)/2),col=2,paste("d=",my_round(dpl$dis,2)))
+text(rbind((P+C)/2),col=2,paste("d=",round(dpl$dis,2)))
 }
 
 }
 \seealso{
-\code{\link{dist.point2plane}}, \code{\link{dist.point2set}} and \code{\link{Dist}}
+\code{\link{dist.point2plane}}, \code{\link{dist.point2set}},
+and \code{\link{Dist}}
 }
 \author{
 Elvan Ceyhan

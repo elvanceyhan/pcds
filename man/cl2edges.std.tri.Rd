@@ -2,51 +2,73 @@
 % Please edit documentation in R/AuxExtrema.R
 \name{cl2edges.std.tri}
 \alias{cl2edges.std.tri}
-\title{The closest points in a data set to edges in the standard equilateral triangle}
+\title{The closest points in a data set to edges
+in the standard equilateral triangle}
 \usage{
 cl2edges.std.tri(Xp, ch.all.intri = FALSE)
 }
 \arguments{
 \item{Xp}{A set of 2D points representing the set of data points.}
 
-\item{ch.all.intri}{A logical argument (default=\code{FALSE}) to check whether all data points are inside
-the standard equilateral triangle \eqn{T_e}. So, if it is \code{TRUE},
-the function checks if all data points are inside the closure of the triangle (i.e., interior and boundary
+\item{ch.all.intri}{A logical argument (default=\code{FALSE})
+to check whether all data points are inside
+the standard equilateral triangle \eqn{T_e}.
+So, if it is \code{TRUE},
+the function checks if all data points are
+inside the closure of the triangle (i.e., interior and boundary
 combined) else it does not.}
 }
 \value{
 A \code{list} with the elements
-\item{txt1}{Edge labels as \eqn{AB=3}, \eqn{BC=1}, and \eqn{AC=2} for \eqn{T_e} (correspond to row number in Extremum Points).}
-\item{txt2}{A short description of the distances as \code{"Distances to Edges ..."}.}
+\item{txt1}{Edge labels as \eqn{AB=3}, \eqn{BC=1}, and \eqn{AC=2}
+for \eqn{T_e} (correspond to row number in Extremum Points).}
+\item{txt2}{A short description of the distances
+as \code{"Distances to Edges ..."}.}
 \item{type}{Type of the extrema points}
 \item{desc}{A short description of the extrema points}
 \item{mtitle}{The \code{"main"} title for the plot of the extrema}
 \item{ext}{The extrema points, i.e., closest points to edges}
-\item{X}{The input data, \code{Xp}, which can be a \code{matrix} or \code{data frame}}
+\item{X}{The input data, \code{Xp},
+which can be a \code{matrix} or \code{data frame}}
 \item{num.points}{The number of data points, i.e., size of \code{Xp}}
-\item{supp}{Support of the data points, i.e., the standard equilateral triangle \eqn{T_e}}
-\item{cent}{The center point used for construction of edge regions, not required for this extrema,
+\item{supp}{Support of the data points, i.e.,
+the standard equilateral triangle \eqn{T_e}}
+\item{cent}{The center point used for construction of edge regions,
+not required for this extrema,
 hence it is \code{NULL} for this function}
-\item{ncent}{Name of the center, \code{cent}, not required for this extrema, hence it is \code{NULL} for this function}
-\item{regions}{Edge regions inside the triangle, \eqn{T_e}, not required for this extrema, hence it is \code{NULL}
+\item{ncent}{Name of the center, \code{cent},
+not required for this extrema, hence it is \code{NULL} for this function}
+\item{regions}{Edge regions inside the triangle, \eqn{T_e},
+not required for this extrema, hence it is \code{NULL}
 for this function}
-\item{region.names}{Names of the edge regions, not required for this extrema, hence it is \code{NULL}
+\item{region.names}{Names of the edge regions,
+not required for this extrema,
+hence it is \code{NULL}
 for this function}
-\item{region.centers}{Centers of mass of the edge regions inside \eqn{T_e}, not required for this extrema,
+\item{region.centers}{Centers of mass of the edge regions inside \eqn{T_e},
+not required for this extrema,
 hence it is \code{NULL} for this function}
-\item{dist2ref}{Distances from closest points in each edge region to the corresponding edge}
+\item{dist2ref}{Distances from closest points
+in each edge region to the corresponding edge}
 }
 \description{
 An object of class \code{"Extrema"}.
-Returns the closest points from the 2D data set, \code{Xp}, to the edges in the
-standard equilateral triangle \eqn{T_e=T(A=(0,0),B=(1,0),C=(1/2,\sqrt{3}/2))}.
+Returns the closest points from the 2D data set, \code{Xp},
+to the edges in the
+standard equilateral triangle
+\eqn{T_e=T(A=(0,0),B=(1,0),C=(1/2,\sqrt{3}/2))}.
 
-\code{ch.all.intri} is for checking whether all data points are inside \eqn{T_e} (default is \code{FALSE}).
+\code{ch.all.intri} is for checking
+whether all data points are inside \eqn{T_e} (default is \code{FALSE}).
 
-If some of the data points are not inside \eqn{T_e} and \code{ch.all.intri=TRUE}, then the function yields
+If some of the data points are not inside \eqn{T_e}
+and \code{ch.all.intri=TRUE}, then the function yields
 an error message.
-If some of the data points are not inside \eqn{T_e} and \code{ch.all.intri=FALSE}, then the function yields
-the closest points to edges among the data points inside \eqn{T_e} (yields \code{NA} if there are no data points
+If some of the data points are not inside \eqn{T_e}
+and \code{ch.all.intri=FALSE}, then the function yields
+the closest points to edges
+among the data points inside \eqn{T_e} (yields \code{NA}
+if there are no data points
 inside \eqn{T_e}).
 
 See also (\insertCite{ceyhan:Phd-thesis,ceyhan:arc-density-PE,ceyhan:masa-2007;textual}{pcds}).
@@ -75,7 +97,8 @@ Ylim<-range(Te[,2],Xp[,2])
 xd<-Xlim[2]-Xlim[1]
 yd<-Ylim[2]-Ylim[1]
 
-plot(A,pch=".",xlab="",ylab="",axes=TRUE,xlim=Xlim+xd*c(-.05,.05),ylim=Ylim+yd*c(-.05,.05))
+plot(A,pch=".",xlab="",ylab="",axes=TRUE,xlim=Xlim+xd*c(-.05,.05),
+ylim=Ylim+yd*c(-.05,.05))
 polygon(Te)
 points(Xp,xlab="",ylab="")
 points(ed.clo$ext,pty=2,pch=4,col="red")
@@ -92,7 +115,8 @@ text(xc,yc,txt.str)
 \insertAllCited{}
 }
 \seealso{
-\code{\link{cl2edgesVRbas.tri}}, \code{\link{cl2edgesM_VR}}, \code{\link{cl2edgesCM_VR}} and \code{\link{fr2edgesCM_ERstd.tri}}
+\code{\link{cl2edges.vert.reg.basic.tri}}, \code{\link{cl2edgesMvert.reg}},
+\code{\link{cl2edgesCMvert.reg}} and \code{\link{fr2edgesCMedge.reg.std.tri}}
 }
 \author{
 Elvan Ceyhan

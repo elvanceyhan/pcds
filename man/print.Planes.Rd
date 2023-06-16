@@ -13,11 +13,14 @@
 }
 \value{
 The \code{call} of the \code{object} of class \code{"Planes"}
-and the \code{coefficients} of the plane (in the form: \code{z = A*x + B*y + C}).
+and the \code{coefficients} of the plane
+(in the form: \code{z = A*x + B*y + C}).
 }
 \description{
-Prints the \code{call} of the \code{object} of class \code{"Planes"}
-and also the \code{coefficients} of the plane (in the form: \code{z = A*x + B*y + C}).
+Prints the \code{call} of the \code{object}
+of class \code{"Planes"}
+and also the \code{coefficients} of the plane
+(in the form: \code{z = A*x + B*y + C}).
 }
 \examples{
 \dontrun{
@@ -25,17 +28,24 @@ P<-c(1,10,3); Q<-c(1,1,3); C<-c(3,9,12)
 pts<-rbind(P,Q,C)
 
 xr<-range(pts[,1]); yr<-range(pts[,2])
-xf<-(xr[2]-xr[1])*.1 #how far to go at the lower and upper ends in the x-coordinate
-yf<-(yr[2]-yr[1])*.1 #how far to go at the lower and upper ends in the y-coordinate
+xf<-(xr[2]-xr[1])*.1
+#how far to go at the lower and upper ends in the x-coordinate
+yf<-(yr[2]-yr[1])*.1
+#how far to go at the lower and upper ends in the y-coordinate
 x<-seq(xr[1]-xf,xr[2]+xf,l=5) #try also l=10, 20 or 100
 y<-seq(yr[1]-yf,yr[2]+yf,l=5) #try also l=10, 20 or 100
 
 plPQC<-Plane(P,Q,C,x,y)
 plPQC
 print(plPQC)
+
+typeof(plPQC)
+attributes(plPQC)
 }
 
 }
 \seealso{
-\code{\link{summary.Planes}}, \code{\link{print.summary.Planes}}, and \code{\link{plot.Planes}}
+\code{\link{summary.Planes}},
+\code{\link{print.summary.Planes}},
+and \code{\link{plot.Planes}}
 }

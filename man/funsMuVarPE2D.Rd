@@ -4,7 +4,8 @@
 \alias{funsMuVarPE2D}
 \alias{muPE2D}
 \alias{asyvarPE2D}
-\title{Returns the mean and (asymptotic) variance of arc density of Proportional Edge Proximity Catch Digraph (PE-PCD)
+\title{Returns the mean and (asymptotic) variance of arc density of
+Proportional Edge Proximity Catch Digraph (PE-PCD)
 for 2D uniform data in one triangle}
 \usage{
 muPE2D(r)
@@ -12,21 +13,27 @@ muPE2D(r)
 asyvarPE2D(r)
 }
 \arguments{
-\item{r}{A positive real number which serves as the expansion parameter in PE proximity region;
+\item{r}{A positive real number which serves
+as the expansion parameter in PE proximity region;
 must be \eqn{\ge 1}.}
 }
 \value{
-\code{muPE2D} returns the mean and \code{asyvarPE2D} returns the (asymptotic) variance of the
-arc density of PE-PCD for uniform data in any triangle
+\code{muPE2D} returns the mean
+and \code{asyvarPE2D} returns the (asymptotic) variance of the
+arc density of PE-PCD for uniform data in any triangle.
 }
 \description{
 Two functions: \code{muPE2D} and \code{asyvarPE2D}.
 
 \code{muPE2D} returns the mean of the (arc) density of PE-PCD
-and \code{asyvarPE2D} returns the asymptotic variance of the arc density of PE-PCD
-with expansion parameter \eqn{r \ge 1} for 2D uniform data in a triangle.
+and \code{asyvarPE2D} returns the asymptotic variance
+of the arc density of PE-PCD
+for 2D uniform data in a triangle.
 
-PE proximity regions are defined with respect to the triangle and
+PE proximity regions are defined
+with expansion parameter \eqn{r \ge 1}
+with respect to the triangle
+in which the points reside and
 vertex regions are based on center of mass, \eqn{CM} of the triangle.
 
 See also (\insertCite{ceyhan:arc-density-PE;textual}{pcds}).
@@ -45,7 +52,8 @@ for (i in 1:lrseq)
   mu<-c(mu,muPE2D(rseq[i]))
 }
 
-plot(rseq, mu,type="l",xlab="r",ylab=expression(mu(r)),lty=1,xlim=range(rseq),ylim=c(0,1))
+plot(rseq, mu,type="l",xlab="r",ylab=expression(mu(r)),lty=1,
+xlim=range(rseq),ylim=c(0,1))
 }
 
 \dontrun{
@@ -62,7 +70,8 @@ for (i in 1:lrseq)
 }
 
 par(mar=c(5,5,4,2))
-plot(rseq, avar,type="l",xlab="r",ylab=expression(paste(sigma^2,"(r)")),lty=1,xlim=range(rseq))
+plot(rseq, avar,type="l",xlab="r",
+ylab=expression(paste(sigma^2,"(r)")),lty=1,xlim=range(rseq))
 }
 
 }

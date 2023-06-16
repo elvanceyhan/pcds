@@ -2,54 +2,67 @@
 % Please edit documentation in R/AuxDelaunay.R
 \name{funsAB2CMTe}
 \alias{funsAB2CMTe}
-\alias{lA_CM.Te}
-\alias{lB_CM.Te}
-\title{The lines joining two vertices to the center of mass in standard equilateral triangle}
+\alias{lineA2CMinTe}
+\alias{lineB2CMinTe}
+\title{The lines joining two vertices to the center of mass
+in standard equilateral triangle}
 \usage{
-lA_CM.Te(x)
+lineA2CMinTe(x)
 
-lB_CM.Te(x)
+lineB2CMinTe(x)
 }
 \arguments{
-\item{x}{A single scalar or a \code{vector} of scalars which is the argument of the functions
-\code{lA_CM.Te} and \code{lB_CM.Te}.}
+\item{x}{A single scalar or a \code{vector} of scalars
+which is the argument of the functions
+\code{lineA2CMinTe} and \code{lineB2CMinTe}.}
 }
 \value{
 A \code{list} with the elements
 \item{txt1}{Longer description of the line.}
-\item{txt2}{Shorter description of the line (to be inserted over the line in the plot).}
+\item{txt2}{Shorter description of the line
+(to be inserted over the line in the plot).}
 \item{mtitle}{The \code{"main"} title for the plot of the line.}
 \item{cent}{The center chosen inside the standard equilateral triangle.}
-\item{cent.name}{The name of the center inside the standard equilateral triangle.
+\item{cent.name}{The name of the center
+inside the standard equilateral triangle.
 It is \code{"CM"} for these two functions.}
-\item{tri}{The triangle (it is the standard equilateral triangle for this function).}
+\item{tri}{The triangle (it is the standard equilateral triangle
+for this function).}
 \item{x}{The input vector, can be a scalar or a \code{vector} of scalars,
-which constitute the \eqn{x}-coordinates of the point(s) of interest on the line.}
-\item{y}{The output vector, will be a scalar if \code{x} is a scalar or a \code{vector} of scalars
-if \code{x} is a \code{vector} of scalar, constitutes the \eqn{y}-coordinates of the point(s) of interest on the line.}
+which constitute the \eqn{x}-coordinates of the point(s) of interest
+on the line.}
+\item{y}{The output vector,
+will be a scalar if \code{x} is a scalar or a \code{vector} of scalars
+if \code{x} is a \code{vector} of scalar,
+constitutes the \eqn{y}-coordinates of the point(s) of interest on the line.}
 \item{slope}{Slope of the line.}
 \item{intercept}{Intercept of the line.}
 \item{equation}{Equation of the line.}
 }
 \description{
-Two functions, \code{lA_CM.Te} and \code{lB_CM.Te} of class \code{"TriLines"}.
-Returns the \code{equation, slope, intercept}, and \eqn{y}-coordinates of the lines joining \eqn{A} and \eqn{CM} and
+Two functions, \code{lineA2CMinTe} and \code{lineB2CMinTe}
+of class \code{"TriLines"}.
+Returns the \code{equation, slope, intercept},
+and \eqn{y}-coordinates of the lines joining \eqn{A} and \eqn{CM} and
 also \eqn{B} and \eqn{CM}.
 
-\code{lA_CM.Te} is the line joining \eqn{A} to the center of mass, \eqn{CM}, and
-
-\code{lB_CM.Te} is the line joining \eqn{B} to the center of mass, \eqn{CM}, in the standard equilateral triangle \eqn{T_e=(A,B,C)}
-with \eqn{A=(0,0)}, \eqn{B=(1,0)}, \eqn{C=(1/2,\sqrt{3}/2)}; \eqn{x}-coordinates are provided in \code{vector} \code{x}.
+\code{lineA2CMinTe} is the line joining \eqn{A} to the center of mass, \eqn{CM},
+and
+\code{lineB2CMinTe} is the line joining \eqn{B} to the center of mass, \eqn{CM},
+in the standard equilateral triangle \eqn{T_e=(A,B,C)}
+with \eqn{A=(0,0)}, \eqn{B=(1,0)}, \eqn{C=(1/2,\sqrt{3}/2)};
+\eqn{x}-coordinates are provided in \code{vector} \code{x}.
 }
 \examples{
 \dontrun{
-#Examples for lA_CM.Te
+#Examples for lineA2CMinTe
 A<-c(0,0); B<-c(1,0); C<-c(1/2,sqrt(3)/2);
 Te<-rbind(A,B,C)
-xfence<-abs(A[1]-B[1])*.25 #how far to go at the lower and upper ends in the x-coordinate
-x<-seq(min(A[1],B[1])-xfence,max(A[1],B[1])+xfence,by=.1)  #try also by=.01
+xfence<-abs(A[1]-B[1])*.25
+#how far to go at the lower and upper ends in the x-coordinate
+x<-seq(min(A[1],B[1])-xfence,max(A[1],B[1])+xfence,by = .1)  #try also by = .01
 
-lnACM<-lA_CM.Te(x)
+lnACM<-lineA2CMinTe(x)
 lnACM
 summary(lnACM)
 plot(lnACM)
@@ -66,35 +79,37 @@ yd<-Ylim[2]-Ylim[1]
 plot(Te,pch=".",xlab="",ylab="",xlim=Xlim+xd*c(-.05,.05),ylim=Ylim+yd*c(-.05,.05))
 polygon(Te)
 L<-Te; R<-Ds
-segments(L[,1], L[,2], R[,1], R[,2], lty=2)
+segments(L[,1], L[,2], R[,1], R[,2], lty = 2)
 
-txt<-rbind(Te,CM,D1,D2,D3,c(.25,lA_CM.Te(.25)$y),c(.75,lB_CM.Te(.75)$y))
+txt<-rbind(Te,CM,D1,D2,D3,c(.25,lineA2CMinTe(.25)$y),c(.75,lineB2CMinTe(.75)$y))
 xc<-txt[,1]+c(-.02,.02,.02,.05,.05,-.03,.0,0,0)
 yc<-txt[,2]+c(.02,.02,.02,.02,0,.02,-.04,0,0)
-txt.str<-c("A","B","C","CM","D1","D2","D3","lA_CM.Te(x)","lB_CM.Te(x)")
+txt.str<-c("A","B","C","CM","D1","D2","D3","lineA2CMinTe(x)","lineB2CMinTe(x)")
 text(xc,yc,txt.str)
 
-lA_CM.Te(.25)$y
+lineA2CMinTe(.25)$y
 }
 
 \dontrun{
-#Examples for lB_CM.Te
+#Examples for lineB2CMinTe
 A<-c(0,0); B<-c(1,0); C<-c(1/2,sqrt(3)/2);
 Te<-rbind(A,B,C)
-xfence<-abs(A[1]-B[1])*.25 #how far to go at the lower and upper ends in the x-coordinate
-x<-seq(min(A[1],B[1])-xfence,max(A[1],B[1])+xfence,by=.1)  #try also by=.01
+xfence<-abs(A[1]-B[1])*.25
+#how far to go at the lower and upper ends in the x-coordinate
+x<-seq(min(A[1],B[1])-xfence,max(A[1],B[1])+xfence,by = .1)  #try also by = .01
 
-lnBCM<-lB_CM.Te(x)
+lnBCM<-lineB2CMinTe(x)
 lnBCM
 summary(lnBCM)
-plot(lnBCM,xlab="x",ylab="y")
+plot(lnBCM,xlab=" x",ylab="y")
 
-lB_CM.Te(.25)$y
+lineB2CMinTe(.25)$y
 }
 
 }
 \seealso{
-\code{\link{lA_M.Te}}, \code{\link{lB_M.Te}}, and \code{\link{lC_M.Te}}
+\code{\link{lineA2MinTe}}, \code{\link{lineB2MinTe}},
+and \code{\link{lineC2MinTe}}
 }
 \author{
 Elvan Ceyhan

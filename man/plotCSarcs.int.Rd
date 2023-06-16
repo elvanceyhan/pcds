@@ -65,7 +65,6 @@ multiplied by \code{Jit} with default for \eqn{Jit=.1}).
 as a vertical line in the plot, else center of the interval is not plotted.
 }
 \examples{
-\dontrun{
 tau<-2
 c<-.4
 a<-0; b<-10; int<-c(a,b)
@@ -82,11 +81,12 @@ Xlim=range(Xp,int)
 Ylim=3*c(-1,1)
 
 jit<-.1
+plotCSarcs.int(Xp,int,t=tau,c,jit,xlab="",ylab="",xlim=Xlim,ylim=Ylim)
+
 set.seed(1)
 plotCSarcs.int(Xp,int,t=1.5,c=.3,jit,xlab="",ylab="",center=TRUE)
 set.seed(1)
 plotCSarcs.int(Xp,int,t=2,c=.4,jit,xlab="",ylab="",center=TRUE)
-}
 
 }
 \references{

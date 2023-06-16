@@ -45,7 +45,7 @@ r<-1.5
 NPEstd.tetra(Xp[1,],r)
 
 #or try
-RV<-rv.tetraCC(Xp[1,],tetra)$rv
+RV<-rel.vert.tetraCC(Xp[1,],tetra)$rv
 NPEstd.tetra(Xp[1,],r,rv=RV)
 
 NPEstd.tetra(c(-1,-1,-1),r,rv=NULL)

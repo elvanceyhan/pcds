@@ -18,5 +18,7 @@ None
 Prints some information about the \code{object}.
 }
 \seealso{
-\code{\link{print.PCDs}}, \code{\link{summary.PCDs}}, and \code{\link{plot.PCDs}}
+\code{\link{print.PCDs}},
+\code{\link{summary.PCDs}},
+and \code{\link{plot.PCDs}}
 }

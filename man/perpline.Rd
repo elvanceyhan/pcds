@@ -2,44 +2,64 @@
 % Please edit documentation in R/AuxGeometry.R
 \name{perpline}
 \alias{perpline}
-\title{The line passing through a point and perpendicular to the line segment joining two points}
+\title{The line passing through a point and perpendicular
+to the line segment joining two points}
 \usage{
 perpline(p, a, b, x)
 }
 \arguments{
-\item{p}{A 2D point at which the perpendicular line to line segment joining \code{a} and \code{b} crosses.}
+\item{p}{A 2D point at which the perpendicular line to line segment
+joining \code{a} and \code{b} crosses.}
 
-\item{a, b}{2D points that determine the line segment (the line will be perpendicular to this line segment).}
+\item{a, b}{2D points that determine the line segment
+(the line will be perpendicular to this line segment).}
 
-\item{x}{A scalar or a \code{vector} of scalars representing the \eqn{x}-coordinates of the line perpendicular to
+\item{x}{A scalar or a \code{vector} of scalars
+representing the \eqn{x}-coordinates of the line perpendicular to
 line joining \code{a} and \code{b} and crossing \code{p}.}
 }
 \value{
 A \code{list} with the elements
-\item{desc}{Description of the line passing through point \code{p} and perpendicular to line joining
+\item{desc}{Description of the line
+passing through point \code{p} and perpendicular to line joining
 \code{a} and \code{b}}
-\item{mtitle}{The \code{"main"} title for the plot of the line passing through point \code{p} and perpendicular to line joining
+\item{mtitle}{The \code{"main"} title for the plot of the line
+passing through point \code{p} and perpendicular to line joining
 \code{a} and \code{b}}
-\item{points}{The input points \code{a} and \code{b} (stacked row-wise,
-i.e., row 1 is point \code{a} and row 2 is point \code{b}). Line passing through point \code{p} is perpendicular
+\item{points}{The input points \code{a} and \code{b}
+(stacked row-wise, i.e., row 1 is point \code{a}
+and row 2 is point \code{b}).
+Line passing through point \code{p} is perpendicular
 to line joining \code{a} and \code{b}}
 \item{x}{The input vector, can be a scalar or a \code{vector} of scalars,
-which constitute the \eqn{x}-coordinates of the point(s) of interest on the line passing through point \code{p} and perpendicular to line joining
+which constitute the \eqn{x}-coordinates of the point(s) of interest
+on the line passing through point \code{p} and
+perpendicular to line joining
 \code{a} and \code{b}}
-\item{y}{The output \code{vector} which constitutes the \eqn{y}-coordinates of the point(s) of interest on the line passing through point \code{p} and perpendicular to line joining
-\code{a} and \code{b}. If \code{x} is a scalar, then \code{y} will be a scalar and if \code{x} is a \code{vector} of scalars,
+\item{y}{The output \code{vector}
+which constitutes the \eqn{y}-coordinates of the point(s) of interest
+on the line passing through point \code{p}
+and perpendicular to line joining
+\code{a} and \code{b}. If \code{x} is a scalar,
+then \code{y} will be a scalar
+and if \code{x} is a \code{vector} of scalars,
 then \code{y} will be a \code{vector} of scalars.}
-\item{slope}{Slope of the line passing through point \code{p} and perpendicular to line joining
+\item{slope}{Slope of the line passing through point \code{p}
+and perpendicular to line joining
 \code{a} and \code{b}}
-\item{intercept}{Intercept of the line passing through point \code{p} and perpendicular to line joining
+\item{intercept}{Intercept of the line passing through point \code{p}
+and perpendicular to line joining
 \code{a} and \code{b}}
-\item{equation}{Equation of the line passing through point \code{p} and perpendicular to line joining
+\item{equation}{Equation of the line passing through point \code{p}
+and perpendicular to line joining
 \code{a} and \code{b}}
 }
 \description{
 An object of class \code{"Lines"}.
-Returns the \code{equation, slope, intercept}, and \eqn{y}-coordinates of the line crossing
-the point \code{p} and perpendicular to the line passing through the points \code{a} and \code{b}
+Returns the \code{equation, slope, intercept},
+and \eqn{y}-coordinates of the line crossing
+the point \code{p} and perpendicular to the line
+passing through the points \code{a} and \code{b}
 with \eqn{x}-coordinates are provided in \code{vector} \code{x}.
 }
 \examples{
@@ -50,7 +70,8 @@ perpline(p,A,B,.45)
 
 pts<-rbind(A,B,p)
 xr<-range(pts[,1])
-xf<-(xr[2]-xr[1])*.25 #how far to go at the lower and upper ends in the x-coordinate
+xf<-(xr[2]-xr[1])*.25
+#how far to go at the lower and upper ends in the x-coordinate
 x<-seq(xr[1]-xf,xr[2]+xf,l=5)  #try also l=10, 20, or 100
 
 plnAB<-perpline(p,A,B,x)
@@ -65,14 +86,16 @@ xd<-Xlim[2]-Xlim[1]
 yd<-Ylim[2]-Ylim[1]
 pf<-c(xd,-yd)*.025
 
-plot(A,asp=1,pch=".",xlab="",ylab="",main="Line Crossing p and Perpendicular to AB",
+plot(A,asp=1,pch=".",xlab="",ylab="",
+main="Line Crossing p and Perpendicular to AB",
 xlim=Xlim+xd*c(-.5,.5),ylim=Ylim+yd*c(-.05,.05))
 points(pts)
 txt.str<-c("A","B","p")
 text(pts+rbind(pf,pf,pf),txt.str)
 
 segments(A[1],A[2],B[1],B[2],lty=2)
-if (!is.na(y[1])) {lines(x,y,type="l",lty=1,xlim=Xlim,ylim=Ylim)} else {abline(v=p[1])}
+if (!is.na(y[1])) {lines(x,y,type="l",lty=1,
+xlim=Xlim,ylim=Ylim)} else {abline(v=p[1])}
 tx<-p[1]+abs(xf-p[1])/2;
 if (!is.na(y[1])) {ty<-perpline(p,A,B,tx)$y} else {ty=p[2]}
 text(tx,ty,"line perpendicular to AB\n and crossing p")

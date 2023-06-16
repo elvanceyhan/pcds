@@ -9,7 +9,8 @@
 \arguments{
 \item{x}{Object of class \code{TriLines}.}
 
-\item{xlab, ylab}{Titles for the \eqn{x} and \eqn{y} axes, respectively (default is \code{xlab="x"} and \code{ylab="y"}).}
+\item{xlab, ylab}{Titles for the \eqn{x} and \eqn{y} axes,
+respectively (default is \code{xlab="x"} and \code{ylab="y"}).}
 
 \item{\dots}{Additional parameters for \code{plot}.}
 }
@@ -22,14 +23,17 @@ Plots the line together with the defining triangle.
 \examples{
 A<-c(0,0); B<-c(1,0); C<-c(1/2,sqrt(3)/2);
 Te<-rbind(A,B,C)
-xfence<-abs(A[1]-B[1])*.25 #how far to go at the lower and upper ends in the x-coordinate
+xfence<-abs(A[1]-B[1])*.25
+#how far to go at the lower and upper ends in the x-coordinate
 x<-seq(min(A[1],B[1])-xfence,max(A[1],B[1])+xfence,l=3)
 
-lnACM<-lA_CM.Te(x)
+lnACM<-lineA2CMinTe(x)
 lnACM
 plot(lnACM)
 
 }
 \seealso{
-\code{\link{print.TriLines}}, \code{\link{summary.TriLines}}, and \code{\link{print.summary.TriLines}}
+\code{\link{print.TriLines}},
+\code{\link{summary.TriLines}},
+and \code{\link{print.summary.TriLines}}
 }

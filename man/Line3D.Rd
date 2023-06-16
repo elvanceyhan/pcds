@@ -2,45 +2,73 @@
 % Please edit documentation in R/AuxGeometry.R
 \name{Line3D}
 \alias{Line3D}
-\title{The line crossing 3D point \code{p} in the direction of \code{vector} \code{v} (or if \code{v} is a point,
+\title{The line crossing 3D point \code{p}
+in the direction of \code{vector} \code{v} (or if \code{v} is a point,
 in direction of \eqn{v-r_0})}
 \usage{
 Line3D(p, v, t, dir.vec = TRUE)
 }
 \arguments{
-\item{p}{A 3D point through which the straight line passes.}
+\item{p}{A 3D point through
+which the straight line passes.}
 
-\item{v}{A 3D \code{vector} which determines the direction of the straight line (i.e., the straight line would be
-parallel to this vector) if the \code{dir.vec=TRUE}, otherwise it is 3D point and \eqn{v-r_0} determines the direction of the
+\item{v}{A 3D \code{vector}
+which determines the direction of the straight line
+(i.e., the straight line would be
+parallel to this vector) if the \code{dir.vec=TRUE},
+otherwise it is 3D point and \eqn{v-r_0} determines the direction of the
 the straight line.}
 
-\item{t}{A scalar or a \code{vector} of scalars representing the parameter of the coordinates of the line
-(for the form: \eqn{x=p_0 + a t}, \eqn{y=y_0 + b t}, and \eqn{z=z_0 + c t} where \eqn{r_0=(p_0,y_0,z_0)}
-and \eqn{v=(a,b,c)} if \code{dir.vec=TRUE}, else \eqn{v-r_0=(a,b,c)}).}
+\item{t}{A scalar or a \code{vector} of scalars
+representing the parameter of the coordinates of the line
+(for the form: \eqn{x=p_0 + a t}, \eqn{y=y_0 + b t},
+and \eqn{z=z_0 + c t} where \eqn{r_0=(p_0,y_0,z_0)}
+and \eqn{v=(a,b,c)} if \code{dir.vec=TRUE},
+else \eqn{v-r_0=(a,b,c)}).}
 
-\item{dir.vec}{A logical argument about \code{v}, if \code{TRUE} \code{v} is treated as a vector,
-else \code{v} is treated as a point and so the direction \code{vector} is taken to be \eqn{v-r_0}.}
+\item{dir.vec}{A logical argument about \code{v},
+if \code{TRUE} \code{v} is treated as a vector,
+else \code{v} is treated as a point
+and so the direction \code{vector} is taken to be \eqn{v-r_0}.}
 }
 \value{
 A \code{list} with the elements
 \item{desc}{A description of the line}
 \item{mtitle}{The \code{"main"} title for the plot of the line}
-\item{pts}{The input points that determine a line and/or a plane, \code{NULL} for this function.}
-\item{pnames}{The names of the input points that determine a line and/or a plane, \code{NULL} for this function.}
-\item{vecs}{The point \code{p} and the \code{vector} \code{v} (if \code{dir.vec=TRUE}) or the point \code{v} (if \code{dir.vec=FALSE}). The first row is \code{p}
+\item{pts}{The input points that determine a line and/or a plane,
+\code{NULL} for this function.}
+\item{pnames}{The names of the input points
+that determine a line and/or a plane,
+\code{NULL} for this function.}
+\item{vecs}{The point \code{p}
+and the \code{vector} \code{v}
+(if \code{dir.vec=TRUE}) or the point \code{v}
+(if \code{dir.vec=FALSE}). The first row is \code{p}
 and the second row is \code{v}.}
-\item{vec.names}{The names of the point \code{p} and the \code{vector} \code{v} (if \code{dir.vec=TRUE}) or the point \code{v} (if \code{dir.vec=FALSE}).}
-\item{x,y,z}{The \eqn{x}-, \eqn{y}-, and \eqn{z}-coordinates of the point(s) of interest on the line.}
-\item{tsq}{The scalar or the \code{vector} of the parameter in defining each coordinate of the line for the form:
-\eqn{x=p_0 + a t}, \eqn{y=y_0 + b t}, and \eqn{z=z_0 + c t} where \eqn{r_0=(p_0,y_0,z_0)} and \eqn{v=(a,b,c)} if \code{dir.vec=TRUE}, else \eqn{v-r_0=(a,b,c)}.}
-\item{equation}{Equation of the line passing through point \code{p} in the direction of the \code{vector} \code{v} (if \code{dir.vec=TRUE})
-else in the direction of \eqn{v-r_0}. The line equation is in the form: \eqn{x=p_0 + a t}, \eqn{y=y_0 + b t}, and \eqn{z=z_0 + c t} where
-\eqn{r_0=(p_0,y_0,z_0)} and \eqn{v=(a,b,c)} if \code{dir.vec=TRUE}, else \eqn{v-r_0=(a,b,c)}.}
+\item{vec.names}{The names of the point \code{p}
+and the \code{vector} \code{v} (if \code{dir.vec=TRUE})
+or the point \code{v} (if \code{dir.vec=FALSE}).}
+\item{x,y,z}{The \eqn{x}-, \eqn{y}-,
+and \eqn{z}-coordinates of the point(s) of interest on the line.}
+\item{tsq}{The scalar or the \code{vector} of the parameter
+in defining each coordinate of the line for the form:
+\eqn{x=p_0 + a t}, \eqn{y=y_0 + b t}, and \eqn{z=z_0 + c t}
+where \eqn{r_0=(p_0,y_0,z_0)} and \eqn{v=(a,b,c)}
+if \code{dir.vec=TRUE}, else \eqn{v-r_0=(a,b,c)}.}
+\item{equation}{Equation of the line passing through point \code{p}
+in the direction of the \code{vector} \code{v} (if \code{dir.vec=TRUE})
+else in the direction of \eqn{v-r_0}.
+The line equation is in the form: \eqn{x=p_0 + a t}, \eqn{y=y_0 + b t},
+and \eqn{z=z_0 + c t} where
+\eqn{r_0=(p_0,y_0,z_0)} and \eqn{v=(a,b,c)} if \code{dir.vec=TRUE},
+else \eqn{v-r_0=(a,b,c)}.}
 }
 \description{
 An object of class \code{"Lines3D"}.
-Returns the equation, \eqn{x}-, \eqn{y}-, and \eqn{z}-coordinates of the line crossing 3D point \eqn{r_0}
-in the direction of \code{vector} \code{v} (of if \code{v} is a point, in the direction of \eqn{v-r_0})
+Returns the equation, \eqn{x}-, \eqn{y}-,
+and \eqn{z}-coordinates of the line crossing 3D point \eqn{r_0}
+in the direction of \code{vector} \code{v}
+(of if \code{v} is a point, in the direction of \eqn{v-r_0})
 with the parameter \code{t} being provided in \code{vector} \code{t}.
 }
 \examples{
@@ -53,10 +81,12 @@ Line3D(A,B,.1)
 Line3D(A,B,.1,dir.vec=FALSE)
 
 tr<-range(vecs);
-tf<-(tr[2]-tr[1])*.1 #how far to go at the lower and upper ends in the x-coordinate
+tf<-(tr[2]-tr[1])*.1
+#how far to go at the lower and upper ends in the x-coordinate
 tsq<-seq(-tf*10-tf,tf*10+tf,l=5)  #try also l=10, 20, or 100
 
-lnAB3D<-Line3D(A,B,tsq)  #try also lnAB3D<-Line3D(A,B,tsq,dir.vec=FALSE)
+lnAB3D<-Line3D(A,B,tsq)
+#try also lnAB3D<-Line3D(A,B,tsq,dir.vec=FALSE)
 lnAB3D
 summary(lnAB3D)
 plot(lnAB3D)
@@ -79,10 +109,13 @@ zd<-Zlim[2]-Zlim[1]
 
 Dr<-A+min(tsq)*B
 
-plot3D::lines3D(x, y, z, phi = 0, bty = "g",main="Line Crossing A \n in the Direction of OB",
-xlim=Xlim+xd*c(-.05,.05),ylim=Ylim+yd*c(-.05,.05),zlim=Zlim+zd*c(-.1,.1),
+plot3D::lines3D(x, y, z, phi = 0, bty = "g",
+main="Line Crossing A \n in the Direction of OB",
+xlim=Xlim+xd*c(-.05,.05),ylim=Ylim+yd*c(-.05,.05),
+zlim=Zlim+zd*c(-.1,.1),
         pch = 20, cex = 2, ticktype = "detailed")
-plot3D::arrows3D(Dr[1],Dr[2],Dr[3]+zf,Dr[1]+Bv[1],Dr[2]+Bv[2],Dr[3]+zf+Bv[3], add=TRUE)
+plot3D::arrows3D(Dr[1],Dr[2],Dr[3]+zf,Dr[1]+Bv[1],
+Dr[2]+Bv[2],Dr[3]+zf+Bv[3], add=TRUE)
 plot3D::points3D(A[1],A[2],A[3],add=TRUE)
 plot3D::arrows3D(A[1],A[2],A[3]-2*zf,A[1],A[2],A[3],lty=2, add=TRUE)
 plot3D::text3D(A[1],A[2],A[3]-2*zf,labels="initial point",add=TRUE)
@@ -91,13 +124,15 @@ plot3D::arrows3D(Dr[1]+Bv[1]/2,Dr[2]+Bv[2]/2,Dr[3]+3*zf+Bv[3]/2,
 Dr[1]+Bv[1]/2,Dr[2]+Bv[2]/2,Dr[3]+zf+Bv[3]/2,lty=2, add=TRUE)
 plot3D::text3D(Dr[1]+Bv[1]/2,Dr[2]+Bv[2]/2,Dr[3]+3*zf+Bv[3]/2,
 labels="direction vector",add=TRUE)
-plot3D::text3D(Dr[1]+Bv[1]/2,Dr[2]+Bv[2]/2,Dr[3]+zf+Bv[3]/2,labels="v",add=TRUE)
+plot3D::text3D(Dr[1]+Bv[1]/2,Dr[2]+Bv[2]/2,
+Dr[3]+zf+Bv[3]/2,labels="v",add=TRUE)
 plot3D::text3D(0,0,0,labels="O",add=TRUE)
 }
 
 }
 \seealso{
-\code{\link{line}}, \code{\link{paraline3D}}, and \code{\link{Plane}}
+\code{\link{line}}, \code{\link{paraline3D}},
+and \code{\link{Plane}}
 }
 \author{
 Elvan Ceyhan

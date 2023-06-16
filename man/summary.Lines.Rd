@@ -13,19 +13,24 @@
 }
 \value{
 The \code{call} of the \code{object} of class \code{"Lines"},
-the defining \code{points}, selected \eqn{x} and \eqn{y} points on the line,
-equation of the line, and \code{coefficients} of the line (in the form: \code{y = slope * x + intercept}).
+the defining \code{points}, selected \eqn{x}
+and \eqn{y} points on the line,
+equation of the line, and \code{coefficients} of the line
+(in the form: \code{y = slope * x + intercept}).
 }
 \description{
 Returns the below information about the \code{object}:
 
-\code{call} of the function defining the \code{object}, the defining \code{points}, selected \eqn{x} and \eqn{y} points on the line,
+\code{call} of the function defining the \code{object},
+the defining \code{points}, selected \eqn{x}
+and \eqn{y} points on the line,
 equation of the line, and \code{coefficients} of the line.
 }
 \examples{
 A<-c(-1.22,-2.33); B<-c(2.55,3.75)
 xr<-range(A,B);
-xf<-(xr[2]-xr[1])*.1 #how far to go at the lower and upper ends in the x-coordinate
+xf<-(xr[2]-xr[1])*.1
+#how far to go at the lower and upper ends in the x-coordinate
 x<-seq(xr[1]-xf,xr[2]+xf,l=3) #try also l=10, 20 or 100
 
 lnAB<-Line(A,B,x)
@@ -34,5 +39,6 @@ summary(lnAB)
 
 }
 \seealso{
-\code{\link{print.Lines}}, \code{\link{print.summary.Lines}}, and \code{\link{plot.Lines}}
+\code{\link{print.Lines}}, \code{\link{print.summary.Lines}},
+and \code{\link{plot.Lines}}
 }

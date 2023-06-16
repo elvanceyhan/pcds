@@ -9,11 +9,15 @@
 \arguments{
 \item{x}{Object of class \code{Extrema}.}
 
-\item{asp}{A \code{numeric} value, giving the aspect ratio for \eqn{y}-axis to \eqn{x}-axis \eqn{y/x} for the 2D case,
+\item{asp}{A \code{numeric} value,
+giving the aspect ratio for \eqn{y}-axis to \eqn{x}-axis
+\eqn{y/x} for the 2D case,
 it is redundant in the 3D case (default is \code{NA}),
 see the official help for \code{asp} by typing "\code{? asp}".}
 
-\item{xlab, ylab, zlab}{Titles for the \eqn{x} and \eqn{y} axes in the 2D case, and \eqn{x}, \eqn{y}, and \eqn{z} axes in the 3D case,
+\item{xlab, ylab, zlab}{Titles
+for the \eqn{x} and \eqn{y} axes in the 2D case,
+and \eqn{x}, \eqn{y}, and \eqn{z} axes in the 3D case,
 respectively (default is \code{""} for all).}
 
 \item{\dots}{Additional parameters for \code{plot}.}
@@ -22,7 +26,8 @@ respectively (default is \code{""} for all).}
 None
 }
 \description{
-Plots the data points and extrema among these points together with the reference object
+Plots the data points and extrema
+among these points together with the reference object
 (e.g., boundary of the support region)
 }
 \examples{
@@ -36,5 +41,7 @@ plot(Ext,asp=1)
 
 }
 \seealso{
-\code{\link{print.Extrema}}, \code{\link{summary.Extrema}}, and \code{\link{print.summary.Extrema}}
+\code{\link{print.Extrema}},
+\code{\link{summary.Extrema}},
+and \code{\link{print.summary.Extrema}}
 }

@@ -7,15 +7,18 @@
 is.point(p, dim = 2)
 }
 \arguments{
-\item{p}{A \code{vector} to be checked to see it is a point of dimension \code{dim} or not.}
+\item{p}{A \code{vector} to be checked
+to see it is a point of dimension \code{dim} or not.}
 
-\item{dim}{A positive integer representing the dimension of the argument \code{p}.}
+\item{dim}{A positive integer
+representing the dimension of the argument \code{p}.}
 }
 \value{
 \code{TRUE} if \code{p} is a \code{vector} of dimension \code{dim}.
 }
 \description{
-Returns \code{TRUE} if the argument \code{p} is a \code{numeric} point of dimension \code{dim}
+Returns \code{TRUE} if the argument \code{p}
+is a \code{numeric} point of dimension \code{dim}
 (default is \code{dim=2}); otherwise returns \code{FALSE}.
 }
 \examples{

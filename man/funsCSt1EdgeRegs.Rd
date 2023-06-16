@@ -2,18 +2,18 @@
 % Please edit documentation in R/CentSim2D.R
 \name{funsCSt1EdgeRegs}
 \alias{funsCSt1EdgeRegs}
-\alias{IndNCSTeRABt1}
-\alias{IndNCSTeRBCt1}
-\alias{IndNCSTeRACt1}
+\alias{IarcCSt1.std.triRAB}
+\alias{IarcCSt1.std.triRBC}
+\alias{IarcCSt1.std.triRAC}
 \title{Each function is for the presence of an arc from a point in one of the edge regions
 to another for Central Similarity Proximity Catch Digraphs (CS-PCDs) -
 standard equilateral triangle case with \eqn{t=1}}
 \usage{
-IndNCSTeRABt1(p1, p2)
+IarcCSt1.std.triRAB(p1, p2)
 
-IndNCSTeRBCt1(p1, p2)
+IarcCSt1.std.triRBC(p1, p2)
 
-IndNCSTeRACt1(p1, p2)
+IarcCSt1.std.triRAC(p1, p2)
 }
 \arguments{
 \item{p1}{A 2D point whose CS proximity region is constructed.}
@@ -26,22 +26,22 @@ Each function returns \eqn{I(}\code{p2} is in \eqn{N_{CS}(p1,t=1))} for \code{p1
 returns 1 if \code{p2} is in \eqn{N_{CS}(p1,t=1)}, returns 0 otherwise
 }
 \description{
-Three indicator functions: \code{IndNCSTeRABt1}, \code{IndNCSTeRBCt1} and \code{IndNCSTeRACt1}.
+Three indicator functions: \code{IarcCSt1.std.triRAB}, \code{IarcCSt1.std.triRBC} and \code{IarcCSt1.std.triRAC}.
 
-The function \code{IndNCSTeRABt1} returns \eqn{I(}\code{p2} is in \eqn{N_{CS}(p1,t=1)} for \code{p1} in \eqn{RAB}
+The function \code{IarcCSt1.std.triRAB} returns \eqn{I(}\code{p2} is in \eqn{N_{CS}(p1,t=1)} for \code{p1} in \eqn{RAB}
 (edge region for edge \eqn{AB}, i.e., edge 3) in the standard equilateral triangle \eqn{T_e=T(A,B,C)=T((0,0),(1,0),(1/2,\sqrt{3}/2))};
 
-\code{IndNCSTeRBCt1} returns \eqn{I(}\code{p2} is in \eqn{N_{CS}(p1,t=1)} for \code{p1} in \eqn{RBC} (edge region for edge \eqn{BC}, i.e., edge 1) in \eqn{T_e};
+\code{IarcCSt1.std.triRBC} returns \eqn{I(}\code{p2} is in \eqn{N_{CS}(p1,t=1)} for \code{p1} in \eqn{RBC} (edge region for edge \eqn{BC}, i.e., edge 1) in \eqn{T_e};
 and
 
-\code{IndNCSTeRACt1} returns \eqn{I(}\code{p2} is in \eqn{N_{CS}(p1,t=1)} for \code{p1} in \eqn{RAC} (edge region for edge \eqn{AC}, i.e., edge 2) in \eqn{T_e}.
+\code{IarcCSt1.std.triRAC} returns \eqn{I(}\code{p2} is in \eqn{N_{CS}(p1,t=1)} for \code{p1} in \eqn{RAC} (edge region for edge \eqn{AC}, i.e., edge 2) in \eqn{T_e}.
 
 That is, each function returns 1 if \code{p2} is in \eqn{N_{CS}(p1,t=1)}, returns 0 otherwise, where \eqn{N_{CS}(x,t)} is the
 CS proximity region for point \eqn{x} with expansion parameter \eqn{t=1}.
 }
 \examples{
 \dontrun{
-#Examples for IndNCSTeRABt1
+#Examples for IarcCSt1.std.triRAB
 A<-c(0,0); B<-c(1,0); C<-c(1/2,sqrt(3)/2);
 CM<-(A+B+C)/3
 T3<-rbind(A,B,CM);
@@ -49,13 +49,13 @@ T3<-rbind(A,B,CM);
 set.seed(1)
 Xp<-runif.std.tri(10)$gen.points
 
-IndNCSTeRABt1(Xp[1,],Xp[2,])
+IarcCSt1.std.triRAB(Xp[1,],Xp[2,])
 
-IndNCSTeRABt1(c(.2,.5),Xp[2,])
+IarcCSt1.std.triRAB(c(.2,.5),Xp[2,])
 }
 
 \dontrun{
-#Examples for IndNCSTeRBCt1
+#Examples for IarcCSt1.std.triRBC
 A<-c(0,0); B<-c(1,0); C<-c(1/2,sqrt(3)/2);
 CM<-(A+B+C)/3
 T1<-rbind(B,C,CM);
@@ -63,13 +63,13 @@ T1<-rbind(B,C,CM);
 set.seed(1)
 Xp<-runif.std.tri(3)$gen.points
 
-IndNCSTeRBCt1(Xp[1,],Xp[2,])
+IarcCSt1.std.triRBC(Xp[1,],Xp[2,])
 
-IndNCSTeRBCt1(c(.2,.5),Xp[2,])
+IarcCSt1.std.triRBC(c(.2,.5),Xp[2,])
 }
 
 \dontrun{
-#Examples for IndNCSTeRACt1
+#Examples for IarcCSt1.std.triRAC
 A<-c(0,0); B<-c(1,0); C<-c(1/2,sqrt(3)/2);
 CM<-(A+B+C)/3
 T2<-rbind(A,C,CM);
@@ -77,13 +77,13 @@ T2<-rbind(A,C,CM);
 set.seed(1)
 Xp<-runif.std.tri(3)$gen.points
 
-IndNCSTeRACt1(Xp[1,],Xp[2,])
-IndNCSTeRACt1(c(1,2),Xp[2,])
+IarcCSt1.std.triRAC(Xp[1,],Xp[2,])
+IarcCSt1.std.triRAC(c(1,2),Xp[2,])
 }
 
 }
 \seealso{
-\code{\link{IndNCSTeRAB}}, \code{\link{IndNCSTeRBC}} and \code{\link{IndNCSTeRAC}}
+\code{\link{IarcCSstd.triRAB}}, \code{\link{IarcCSstd.triRBC}} and \code{\link{IarcCSstd.triRAC}}
 }
 \author{
 Elvan Ceyhan

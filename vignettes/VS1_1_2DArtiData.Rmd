@@ -95,11 +95,11 @@ DT<-interp::tri.mesh(Yp[,1],Yp[,2],duplicate="remove")
 interp::plot.triSht(DT, add=TRUE, do.points = TRUE)
 ```
 
-Or, alternatively, we can use the `plotDeltri` function in `pcds` to obtain the same plot by executing `plotDeltri(Xp,Yp,xlab="x",ylab="y",main="X points and Delaunay Triangulation of Y Points")` command.
+Or, alternatively, we can use the `plotDelaunay.tri` function in `pcds` to obtain the same plot by executing `plotDelaunay.tri(Xp,Yp,xlab="x",ylab="y",main="X points and Delaunay Triangulation of Y Points")` command.
 
-The number of Delaunay triangles based on $\Y$ points can be obtained by the function `num.del.tri`.
+The number of Delaunay triangles based on $\Y$ points can be obtained by the function `num.delaunay.tri`.
 ```{r eval=F}
-num.del.tri(Yp)
+num.delaunay.tri(Yp)
 #> [1] 4
 ```
 
@@ -107,62 +107,85 @@ num.del.tri(Yp)
 
 For AS-PCDs, the default center used to construct the vertex regions is `M="CC"` i.e., circumcenter in each triangle.
 
-Number of arcs of the AS-PCD can be computed by the function `NumArcsAS`,
-which takes the arguments
+Number of arcs of the AS-PCD can be computed by the function `num.arcsAS`,
+which is an object of class "`NumArcs`" and takes the arguments
 
 - `Xp`, a set of 2D points which constitute the vertices of the AS-PCD (i.e., class $\X$ points),
 - `Yp`, a set of 2D points which constitute the vertices of the Delaunay triangles (i.e., class $\Y$ points),
 - `M`, the center of the triangle used to construct the vertex regions. `"CC"` stands for circumcenter of each Delaunay triangle or 3D point in barycentric coordinates which serves as a center in the interior of each Delaunay triangle;
 default is `M="CC"` i.e., the circumcenter of each triangle.
 
+Its `call` (with `Narcs` in the below script) just returns the description of the digraph.
+Its `summary` returns a description of the digraph, 
+number of arcs of the AS-PCD,
+number of data (`Xp`) points in the convex hull of `Yp` (nontarget) points,
+number of data points in the Delaunay triangles based on `Yp` points,
+numbers of arcs in the induced subdigraphs in the Delaunay triangles,
+areas of the Delaunay triangles,
+indices of the vertices of the Delaunay triangles,
+indices of the Delaunay triangles data points resides.
+The `plot` function (i.e., `plot.NumArcs`) returns the plot of the Delaunay triangulation of `Yp` points,
+scatter plot of the `Xp` points and the number of arcs of the induced subdigraphs for each Delaunay triangle
+in the centroid of the triangle.
+
 This function returns the following list as output:
 
+* `desc`: A description of the PCD and the output
 * `num.arcs`: Total number of arcs in all triangles, i.e., the number of arcs for the entire AS-PCD
-* `num.in.conhull`: Number of $\X$ points in the convex hull of $\Y$ points
-* `num.in.tris`: The vector of number of $\X$ points in the Delaunay triangles based on $\Y$ points
-* `weight.vec`: The vector of the areas of Delaunay triangles based on $\Y$ points
 * `tri.num.arcs`: The vector of the number of arcs of the component of the AS-PCD in the
 Delaunay triangles based on $\Y$ points
+* `num.in.conv.hull`: Number of $\X$ points in the convex hull of $\Y$ points
+* `num.in.tris`: The vector of number of $\X$ points in the Delaunay triangles based on $\Y$ points
+* `weight.vec`: The vector of the areas of Delaunay triangles based on $\Y$ points
 * `del.tri.ind`: Indices of Delaunay triangles based on $\Y$ points,
 each column is the vector of indices of the vertices of one triangle.
 * `data.tri.ind`: A vector of indices of Delaunay triangles in which data points reside,
 i.e., column number of `del.tri.ind` for each $\X$ point.
+* `tess.points`: Triangulation points (i.e. `Yp` points)
+* `vertices`: vertices of the PCD (i.e. `Xp` points)
 
 ```{r }
 M<-"CC" #try also M<-c(1,1,1) #or M<-c(1,2,3)
 ```
 
-```{r eval=F}
-NumArcsAS(Xp,Yp,M)
-#> $num.arcs
-#> [1] 3
-#> 
-#> $tri.num.arcs
-#> [1] 0 0 0 3
-#> 
-#> $num.in.conv.hull
-#> [1] 7
-#> 
-#> $num.in.tris
-#> [1] 2 1 1 3
-#> 
-#> $weight.vec
-#> [1] 0.2214646 0.2173192 0.2593852 0.2648197
-#> 
-#> $del.tri.ind
+```{r numarcsASpr1, eval=F, fig.cap="The number of arcs of AS-PCD at the Delaunay triangles based on the $Y$ points (dashed lines)."}
+Narcs = num.arcsAS(Xp,Yp,M)
+Narcs
+#> Call:
+#> num.arcsAS(Xp = Xp, Yp = Yp, M = M)
+#>
+#> Description:
+#> Number of Arcs of the AS-PCD with vertices Xp and Related Quantities for the Induced Subdigraphs for the Points in the Delaunay Triangles 
+
+summary(Narcs)
+#> Call:
+#> num.arcsAS(Xp = Xp, Yp = Yp, M = M)
+#>
+#> Description of the output:
+#> Number of Arcs of the AS-PCD with vertices Xp and Related Quantities for the Induced Subdigraphs for the Points in the Delaunay Triangles
+#>
+#> Number of data (Xp) points in the convex hull of Yp (nontarget) points =  7
+#> Number of data points in the Delaunay triangles based on Yp points =  2 1 1 3
+#> Number of arcs in the entire digraph =  3
+#> Numbers of arcs in the induced subdigraphs in the Delaunay triangles =  0 0 0 3
+#> Areas of the Delaunay triangles (used as weights in the arc density of multi-triangle case):
+#> 0.2214646 0.2173192 0.2593852 0.2648197
+#>
+#> Indices of the vertices of the Delaunay triangles (each column refers to a triangle):
 #>      [,1] [,2] [,3] [,4]
 #> [1,]    1    5    3    3
 #> [2,]    3    2    4    1
 #> [3,]    2    3    5    4
-#> 
-#> $data.tri.ind
-#>  [1]  1  4  1  3 NA NA  4 NA  4  2
+#>
+#> Indices of the Delaunay triangles data points resides:
+#>  1  4  1  3 NA NA  4 NA  4  2
+plot(Narcs)
 ```
 
-The incidence matrix of the AS-PCD can be found by `IncMatAS`. 
+The incidence matrix of the AS-PCD can be found by `inci.matAS`. 
 Below, we only print the top 6 rows and columns of the incidence matrix.
 ```{r eval=F}
-IM<-IncMatAS(Xp,Yp,M)
+IM<-inci.matAS(Xp,Yp,M)
 IM[1:6,1:6]
 #>      [,1] [,2] [,3] [,4] [,5] [,6]
 #> [1,]    1    0    0    0    0    0
@@ -175,13 +198,13 @@ IM[1:6,1:6]
 **Technical aside:** 
 Once we have the incidence matrix of a digraph (or a graph), 
 we can find an exact or an approximate dominating set and hence the exact or approximate domination number of the digraph (or graph).
-The function `dom.greedy` finds the approximate domination number (an upper bound) and also provides the indices of the points in the approximate dominating set.
-On the other hand, the function `dom.exact` finds the exact domination number and the indices of the points
+The function `dom.num.greedy` finds the approximate domination number (an upper bound) and also provides the indices of the points in the approximate dominating set.
+On the other hand, the function `dom.num.exact` finds the exact domination number and the indices of the points
 in an exact dominating set. 
-`dom.exact` might take a long time for large  $n_x$ (e.g. $n_x \ge 19$), 
+`dom.num.exact` might take a long time for large  $n_x$ (e.g. $n_x \ge 19$), 
 as it checks all possible subsets of the dataset to find a minimum dominating set.
 ```{r eval=F}
-dom.greedy(IM)  #try also dom.exact(IM)  #this might take a longer time for large  nx (i.e. nx >= 19)
+dom.num.greedy(IM)  #try also dom.num.exact(IM)  #this might take a longer time for large  nx (i.e. nx >= 19)
 #> $approx.dom.num
 #> [1] 8
 #> 
@@ -192,7 +215,7 @@ dom.greedy(IM)  #try also dom.exact(IM)  #this might take a longer time for larg
 Plot of the arcs in the digraph AS-PCD is provided by the function `plotASarcs`,
 which take the arguments
 
-- `Xp`, `Yp` and `M` are same as in the function `NumArcsAS`,
+- `Xp`, `Yp` and `M` are same as in the function `num.arcsAS`,
 - `asp`, a numeric value, giving the aspect ratio for $y$ axis to $x$-axis $y/x$ (default is `NA`); see the official help page for `asp` by typing "`? asp`",
 - `main` an overall title for the plot (default=`NULL`),
 - `xlab,ylab` titles for the $x$ and $y$ axes, respectively (default=`NULL` for both),
@@ -219,8 +242,8 @@ plotASregs(Xp,Yp,M,xlab="",ylab="")
 <!--  plotASregs(Xp[1:3,],Yp,M,xlab="",ylab="") -->
 <!--  ``` -->
 
-The function `ArcsAS` is an object of class "`PCDs`" and
-has the same arguments as in `NumArcsAS`.
+The function `arcsAS` is an object of class "`PCDs`" and
+has the same arguments as in `num.arcsAS`.
 Its `call` (with `Arcs` in the below script) just returns the description of the digraph.
 Its `summary` returns a description of the digraph, selected tail (or source) points of the arcs in the digraph
 (first 6 or fewer are printed),
@@ -234,16 +257,16 @@ The `plot` function (i.e., `plot.PCDs`) returns the same plot as in `plotASarcs`
 the plot of the arcs in the digraph together with the Delaunay triangles based on the $\Y$ points,
 hence we comment it out below.
 ```{r adASarcs2, eval=F, fig.cap="The arcs of the AS-PCD for the 2D artificial data set using the CC-vertex regions together with the Delaunay triangles based on the $Y$ points (dashed lines)."}
-Arcs<-ArcsAS(Xp,Yp,M)
+Arcs<-arcsAS(Xp,Yp,M)
 Arcs
 #> Call:
-#> ArcsAS(Xp = Xp, Yp = Yp, M = M)
+#> arcsAS(Xp = Xp, Yp = Yp, M = M)
 #> 
 #> Type:
 #> [1] "Arc Slice Proximity Catch Digraph (AS-PCD) for 2D Points in Multiple Triangles with CC-Vertex Regions"
 summary(Arcs)
 #> Call:
-#> ArcsAS(Xp = Xp, Yp = Yp, M = M)
+#> arcsAS(Xp = Xp, Yp = Yp, M = M)
 #> 
 #> Type of the digraph:
 #> [1] "Arc Slice Proximity Catch Digraph (AS-PCD) for 2D Points in Multiple Triangles with CC-Vertex Regions"
@@ -284,8 +307,10 @@ The functions for PE-PCD have similar arguments as the AS-PCDs except (i) PE-PCD
 *expansion parameter* $r \ge 1$
 and (ii) for PE-PCDs, the default center used to construct the vertex regions is `M="CM"` i.e., center of mass of each triangle.
 
-Number of arcs of the PE-PCD can be computed by the function `NumArcsPE`.
-The function returns the same type of output as the function `NumArcsAS`.
+Number of arcs of the PE-PCD can be computed by the function `num.arcsPE`
+which is an object of class "`NumArcs`".
+The function takes arguments `Xp,Yp,r,M` where `r` is the expansion parameter
+and returns the same type of output as the function `num.arcsAS`.
 
 ```{r }
 M<-c(1,1,1) #try also M<-c(1,2,3) #or M<-"CC"
@@ -293,38 +318,39 @@ r<-1.5 #try also r<-2 or r=1.25
 ```
 
 ```{r eval=F}
-NumArcsPE(Xp,Yp,r,M)
-#> $num.arcs
-#> [1] 3
-#> 
-#> $tri.num.arcs
-#> [1] 1 0 0 2
-#> 
-#> $num.in.conv.hull
-#> [1] 7
-#> 
-#> $num.in.tris
-#> [1] 2 1 1 3
-#> 
-#> $weight.vec
-#> [1] 0.2214646 0.2173192 0.2593852 0.2648197
-#> 
-#> $del.tri.ind
+Narcs = num.arcsPE(Xp,Yp,r,M)
+summary(Narcs)
+#> Call:
+#> num.arcsPE(Xp = Xp, Yp = Yp, r = r, M = M)
+#>
+#> Description of the output:
+#> Number of Arcs of the PE-PCD with vertices Xp and Related Quantities for the Induced Subdigraphs for the Points in the Delaunay Triangles
+#>
+#> Number of data (Xp) points in the convex hull of Yp (nontarget) points =  7
+#> Number of data points in the Delaunay triangles based on Yp points =  2 1 1 3
+#> Number of arcs in the entire digraph =  3
+#> Numbers of arcs in the induced subdigraphs in the Delaunay triangles =  1 0 0 2
+#> Areas of the Delaunay triangles (used as weights in the arc density of multi-triangle case):
+#> 0.2214646 0.2173192 0.2593852 0.2648197
+#>
+#> Indices of the vertices of the Delaunay triangles (each column refers to a triangle):
 #>      [,1] [,2] [,3] [,4]
 #> [1,]    1    5    3    3
 #> [2,]    3    2    4    1
 #> [3,]    2    3    5    4
-#> 
-#> $data.tri.ind
-#>  [1]  1  4  1  3 NA NA  4 NA  4  2
+#>
+#> Indices of the Delaunay triangles data points resides:
+#>  1  4  1  3 NA NA  4 NA  4  2 
+
+plot(Narcs)
 ```
 
-The incidence matrix of the PE-PCD can be found by `IncMatPE`. 
+The incidence matrix of the PE-PCD can be found by `inci.matPE`. 
 <!-- Below, we only print the top 6 rows of the incidence matrix. -->
 Once the incidence matrix is found, approximate and exact dominating sets and hence domination numbers can be found by the functions
-`dom.greedy` and `dom.exact`, respectively.
+`dom.num.greedy` and `dom.num.exact`, respectively.
 ```{r include=FALSE}
-IM<-IncMatPE(Xp,Yp,r,M)
+IM<-inci.matPE(Xp,Yp,r,M)
 head(IM)
 ```
 
@@ -343,24 +369,24 @@ plotPEregs(Xp,Yp,r,M,xlab="",ylab="")
 <!-- plotPEregs(Xp[1:3,],Yp,r,M,xlab="",ylab="") -->
 <!-- ``` -->
 
-The function `ArcsPE` is an object of class "`PCDs`".
-Its `call`, `summary`, and `plot` are as in `ArcsAS` with the addition of the expansion parameter 
+The function `arcsPE` is an object of class "`PCDs`".
+Its `call`, `summary`, and `plot` are as in `arcsAS` with the addition of the expansion parameter 
 (see the `Parameters of the digraph` part)
 in the `summary.PCDs`.
 The `plot` function returns the same plot as in `plotPEarcs`, 
 hence we comment it out below.
 
 ```{r adPEarcs2, eval=F, fig.cap="The arcs of the PE-PCD for the 2D artificial data set using the CM-vertex regions and expansion parameter $r=1.5$ together with the Delaunay triangles based on the $Y$ points (dashed lines)."}
-Arcs<-ArcsPE(Xp,Yp,r,M)
+Arcs<-arcsPE(Xp,Yp,r,M)
 Arcs
 #> Call:
-#> ArcsPE(Xp = Xp, Yp = Yp, r = r, M = M)
+#> arcsPE(Xp = Xp, Yp = Yp, r = r, M = M)
 #> 
 #> Type:
 #> [1] "Proportional Edge Proximity Catch Digraph (PE-PCD) for 2D points in Multiple Triangles with Expansion parameter r = 1.5 and Center M = (1,1,1)"
 summary(Arcs)
 #> Call:
-#> ArcsPE(Xp = Xp, Yp = Yp, r = r, M = M)
+#> arcsPE(Xp = Xp, Yp = Yp, r = r, M = M)
 #> 
 #> Type of the digraph:
 #> [1] "Proportional Edge Proximity Catch Digraph (PE-PCD) for 2D points in Multiple Triangles with Expansion parameter r = 1.5 and Center M = (1,1,1)"
@@ -406,7 +432,7 @@ based on *arc density* or *domination number* of PE-PCDs.
 **The Use of Arc Density of PE-PCDs for Testing Spatial Interaction**
 
 We can test the spatial interaction between two classes or species 
-based on the arc density of PE-PCDs using the function `TSArcDensPE`
+based on the arc density of PE-PCDs using the function `PEarc.dens.test`
 which takes the arguments
 
 - `Xp`, a set of 2D points which constitute the vertices of the AS-PCD (i.e., class $\X$ points),
@@ -439,7 +465,7 @@ See @ceyhan:arc-density-PE and @ceyhan:test2014 for more detail on the arc densi
 its use for testing 2D spatial interactions.
 We only provide the two-sided test below, although both one-sided versions are also available.
 ```{r eval=F}
-TSArcDensPE(Xp,Yp,r) #try also TSArcDensPE(Xp,Yp,r,alt="l") or with alt="g"
+PEarc.dens.test(Xp,Yp,r) #try also PEarc.dens.test(Xp,Yp,r,alt="l") or with alt="g"
 #> 
 #>  Large Sample z-Test Based on Arc Density of PE-PCD for Testing
 #>  Uniformity of 2D Data ---
@@ -457,9 +483,9 @@ TSArcDensPE(Xp,Yp,r) #try also TSArcDensPE(Xp,Yp,r,alt="l") or with alt="g"
 
 **The Use of Domination Number of PE-PCDs for Testing Spatial Interaction**
 
-We first provide two functions to compute the domination number of PE-PCDs: `PEdom` and `PEdom.nd`.
+We first provide two functions to compute the domination number of PE-PCDs: `PEdom.num` and `PEdom.num.nondeg`.
 
-The function `PEdom` takes the same arguments as `NumArcsPE` 
+The function `PEdom.num` takes the same arguments as `num.arcsPE` 
 and returns a `list` with three elements as output:
 
 - `dom.num`, the overall domination number of the PE-PCD whose vertices are `Xp` points,
@@ -471,20 +497,20 @@ The vertex regions in each triangle are based on the center $M=(\alpha,\beta,\ga
 in barycentric coordinates in the interior of each Delaunay triangle or based on
 circumcenter of each Delaunay triangle (default for $M=(1,1,1)$ which is the center of mass of the triangle).
 
-On the other hand, `PEdom.nd` takes only the arguments `Xp,Yp,r` 
-and returns the same output as in `PEdom` function, 
+On the other hand, `PEdom.num.nondeg` takes only the arguments `Xp,Yp,r` 
+and returns the same output as in `PEdom.num` function, 
 but uses one of the non-degeneracy centers in the multiple triangle case
 (hence `M` is not an argument for this function).
 That is, the center `M` is one of the three centers that renders the asymptotic distribution of domination number
 to be non-degenerate for a given value of $r \in (1,1.5]$ and `M` is center of mass for $r=1.5$.
 
-These two functions are different from the function `dom.greedy` since they give an exact minimum dominating set and 
-the exact domination number and from `dom.exact`, 
+These two functions are different from the function `dom.num.greedy` since they give an exact minimum dominating set and 
+the exact domination number and from `dom.num.exact`, 
 since they give a minimum dominating set and number in polynomial time (in the number of vertices of the digraph,
 i.e., number of `Xp` points).
 
 ```{r eval=F}
-PEdom(Xp,Yp,r,M) #try also PEdom(Xp,Yp,r=2,M)
+PEdom.num(Xp,Yp,r,M) #try also PEdom.num(Xp,Yp,r=2,M)
 #> $dom.num
 #> [1] 5
 #> 
@@ -493,7 +519,7 @@ PEdom(Xp,Yp,r,M) #try also PEdom(Xp,Yp,r=2,M)
 #> 
 #> $tri.dom.nums
 #> [1] 1 1 1 2
-PEdom.nd(Xp,Yp,r) #try also PEdom.nd(Xp,Yp,r=1.25)
+PEdom.num.nondeg(Xp,Yp,r) #try also PEdom.num.nondeg(Xp,Yp,r=1.25)
 #> $dom.num
 #> [1] 5
 #> 
@@ -505,12 +531,12 @@ PEdom.nd(Xp,Yp,r) #try also PEdom.nd(Xp,Yp,r=1.25)
 ```
 
 We can test the spatial patterns of segregation or association based on domination number of PE-PCD using the functions
-`TSDomPEBin` or `TSDomPENorm`.
+`PEdom.num.binom.test` or `PEdom.num.norm.test`.
 Each of these functions is an object of class "`htest`" (i.e., hypothesis test) 
-and performs the same hypothesis test as in `TSArcDensPE`.
+and performs the same hypothesis test as in `PEarc.dens.test`.
 Both functions take the arguments `Xp,Yp,r,ch.cor,ndt,alternative,conf.level`
 where `ndt` is the number of Delaunay triangles based on `Yp` points with default `NULL`
-and other variables are as in `TSArcDensPE`.
+and other variables are as in `PEarc.dens.test`.
 They return the test statistic, $p$-value for the corresponding `alternative`,
 the confidence interval, estimate and null value for the parameter of interest
 (which is $P(\mbox{domination number}\le 2)$), and method and name of the data set used.
@@ -523,7 +549,7 @@ or left-sided (i.e., data is accumulated around the centers of the triangles, or
 In this case, the PE proximity region is constructed with the expansion parameter $r \in (1,1.5]$ and $M$-vertex regions where `M`
 is a center that yields non-degenerate asymptotic distribution of the domination number.
 
-The test statistic in `TSDomPEBin` is based on the binomial distribution, 
+The test statistic in `PEdom.num.binom.test` is based on the binomial distribution, 
 when success is defined as domination number being less than
 or equal to 2 in the one triangle case (i.e., number of failures is equal to number of times restricted domination number = 3
 in the triangles).
@@ -532,7 +558,7 @@ For this approximation to work, number of `Xp` points must be at least 7 times m
 We only provide the two-sided tests below, although both one-sided versions are also available.
 
 ```{r eval=F}
-TSDomPEBin(Xp,Yp,r) #try also TSDomPEBin(Xp,Yp,r,alt="g") or with alt="l"
+PEdom.num.binom.test(Xp,Yp,r) #try also PEdom.num.binom.test(Xp,Yp,r,alt="g") or with alt="l"
 #> 
 #>  Large Sample Binomial Test based on the Domination Number of PE-PCD for
 #>  Testing Uniformity of 2D Data ---
@@ -548,14 +574,14 @@ TSDomPEBin(Xp,Yp,r) #try also TSDomPEBin(Xp,Yp,r,alt="g") or with alt="l"
 #>                             5                             1
 ```
 
-The test statistic in `TSDomPENorm` is based on the normal approximation to the binomial distribution.
+The test statistic in `PEdom.num.norm.test` is based on the normal approximation to the binomial distribution.
 For this approximation to work, number of `Yp` points must be at least 5 (i.e., about 7 or more Delaunay triangles)
 and number of `Xp` points must be at least 7 times more than number of `Yp` points.
 
 We only provide the two-sided tests below, although both one-sided versions are also available.
 
 ```{r eval=F}
-TSDomPENorm(Xp,Yp,r) #try also TSDomPENorm(Xp,Yp,r,alt="g") or with alt="l"
+PEdom.num.norm.test(Xp,Yp,r) #try also PEdom.num.norm.test(Xp,Yp,r,alt="g") or with alt="l"
 #> 
 #>  Normal Approximation to the Domination Number of PE-PCD for Testing
 #>  Uniformity of 2D Data ---
@@ -580,20 +606,21 @@ which is recommended when `Xp` points tend to be mostly within the support of th
 When the symmetric difference of the supports of $\X$ and $\Y$ is non-negligible, 
 the tests can be adjusted to account for the $\X$ points outside the
 convex hull of $\Y$ points with the option `ch.cor=TRUE`.
-For example, `TSArcDensPE(Xp,Yp,r,ch=TRUE)` would yield the convex hull corrected version 
+For example, `PEarc.dens.test(Xp,Yp,r,ch=TRUE)` would yield the convex hull corrected version 
 of the arc-based test of spatial interaction.
 
 ## Summary and Visualization with Central Similarity PCDs
 
-The functions for CS-PCD have similar arguments as the `NumArcsPE` with the expansion parameter $t >0$.
+The functions for CS-PCD have similar arguments as the `num.arcsPE` with the expansion parameter $t >0$.
 For CS-PCDs, the default center used to construct the edge regions is `M="CM"` i.e., center of mass of each triangle.
 
 The functions for CS-PCD have similar arguments as the PE-PCDs except (i) the 
 *expansion parameter* is$t>0$
 and (ii) for CS-PCDs, the default center used to construct the edge regions is `M="CM"` i.e., center of mass of each triangle.
 
-Number of arcs of the CS-PCD can be computed by the function `NumArcsCS`,
-which takes similar arguments and returns the similar output items as in `NumArcsPE`.
+Number of arcs of the CS-PCD can be computed by the function `num.arcsCS`,
+which is an object of class "`NumArcs`"  and
+takes similar arguments and returns the similar output items as in `num.arcsPE`.
 
 ```{r }
 M<-c(1,1,1) #try also M<-c(1,2,3)
@@ -601,38 +628,39 @@ tau<-1.5 #try also tau<-2
 ```
 
 ```{r eval=F}
-NumArcsCS(Xp,Yp,tau,M)
-#> $num.arcs
-#> [1] 3
-#> 
-#> $tri.num.arcs
-#> [1] 1 0 0 2
-#> 
-#> $num.in.conv.hull
-#> [1] 7
-#> 
-#> $num.in.tris
-#> [1] 2 1 1 3
-#> 
-#> $weight.vec
-#> [1] 0.2214646 0.2173192 0.2593852 0.2648197
-#> 
-#> $del.tri.ind
+Narcs = num.arcsCS(Xp,Yp,tau,M)
+summary(Narcs)
+#> Call:
+#> num.arcsCS(Xp = Xp, Yp = Yp, t = tau, M = M)
+#>
+#> Description of the output:
+#> Number of Arcs of the CS-PCD with vertices Xp and Related Quantities for the Induced Subdigraphs for the Points in the Delaunay Triangles
+#>
+#> Number of data (Xp) points in the convex hull of Yp (nontarget) points =  7
+#> Number of data points in the Delaunay triangles based on Yp points =  2 1 1 3
+#> Number of arcs in the entire digraph =  3
+#> Numbers of arcs in the induced subdigraphs in the Delaunay triangles =  1 0 0 2
+#> Areas of the Delaunay triangles (used as weights in the arc density of multi-triangle case):
+#> 0.2214646 0.2173192 0.2593852 0.2648197
+#>
+#> Indices of the vertices of the Delaunay triangles (each column refers to a triangle):
 #>      [,1] [,2] [,3] [,4]
 #> [1,]    1    5    3    3
 #> [2,]    3    2    4    1
 #> [3,]    2    3    5    4
-#> 
-#> $data.tri.ind
-#>  [1]  1  4  1  3 NA NA  4 NA  4  2
+#>
+#> Indices of the Delaunay triangles data points resides:
+#>  1  4  1  3 NA NA  4 NA  4  2 
+#>  
+#plot(Narcs)
 ```
 
-The incidence matrix of the CS-PCD can be found by `IncMatCS`. 
+The incidence matrix of the CS-PCD can be found by `inci.matCS`. 
 Below, we only print the top 6 rows of the incidence matrix.
 Once the incidence matrix is found, approximate and exact domination numbers can be found by the functions
-`dom.greedy` and `dom.exact`, respectively.
+`dom.num.greedy` and `dom.num.exact`, respectively.
 ```{r include=FALSE}
-IM<-IncMatCS(Xp,Yp,tau,M)
+IM<-inci.matCS(Xp,Yp,tau,M)
 head(IM)
 ```
 
@@ -651,21 +679,21 @@ plotCSregs(Xp,Yp,tau,M,xlab="",ylab="")
 <!-- plotCSregs(Xp[1:3,],Yp,r,M,xlab="",ylab="") -->
 <!-- ``` -->
 
-The function `ArcsCS` is an object of class "`PCDs`".
-Its arguments and the output for `call`, `summary`, and `plot` are as in `ArcsPE`.
+The function `arcsCS` is an object of class "`PCDs`".
+Its arguments and the output for `call`, `summary`, and `plot` are as in `arcsPE`.
 The `plot` function returns the same plot as in `plotCSarcs`, 
 hence we comment it out below.
 ```{r adCSarcs2, eval=F, fig.cap="The arcs of the CS-PCD for the 2D artificial data set using the CM-edge regions and expansion parameter $t=1.5$ together with the Delaunay triangles based on the $Y$ points (dashed lines)."}
-Arcs<-ArcsCS(Xp,Yp,tau,M)
+Arcs<-arcsCS(Xp,Yp,tau,M)
 Arcs
 #> Call:
-#> ArcsCS(Xp = Xp, Yp = Yp, t = tau, M = M)
+#> arcsCS(Xp = Xp, Yp = Yp, t = tau, M = M)
 #> 
 #> Type:
 #> [1] "Central Similarity Proximity Catch Digraph (CS-PCD) for 2D Points in the Multiple Triangles with Expansion Parameter t = 1.5 and Center M = (1,1,1)"
 summary(Arcs)
 #> Call:
-#> ArcsCS(Xp = Xp, Yp = Yp, t = tau, M = M)
+#> arcsCS(Xp = Xp, Yp = Yp, t = tau, M = M)
 #> 
 #> Type of the digraph:
 #> [1] "Central Similarity Proximity Catch Digraph (CS-PCD) for 2D Points in the Multiple Triangles with Expansion Parameter t = 1.5 and Center M = (1,1,1)"
@@ -710,18 +738,18 @@ We can test the spatial pattern or interaction of segregation/association based 
 
 **The Use of Arc Density of CS-PCDs for Testing Spatial Interaction** 
 
-We can test the spatial interaction between two classes or species based on the arc density of CS-PCDs using the function `TSArcDensCS`.
+We can test the spatial interaction between two classes or species based on the arc density of CS-PCDs using the function `CSarc.dens.test`.
 This function is an object of class "`htest`" and performs the same hypothesis test as in Section \@ref(sec:testing-arti-data-PE-PCD)
 <!-- of complete spatial -->
 <!-- randomness (CSR) or uniformity of `Xp` points in the convex hull of `Yp` points against the alternatives -->
 <!-- of segregation and association based on the normal approximation of the arc density of the CS-PCD for uniform 2D data. -->
-Moreover, it takes similar arguments and returns similar output as in `TSArcDensPE` function, 
+Moreover, it takes similar arguments and returns similar output as in `PEarc.dens.test` function, 
 for the same null and alternative hypotheses.
 See also @ceyhan:arc-density-CS and @ceyhan:test2014 for more detail.
 
 We only provide the two-sided test below, although both one-sided versions are also available.
 ```{r eval=F}
-TSArcDensCS(Xp,Yp,tau) #try also TSArcDensCS(Xp,Yp,tau,alt="l") or with alt="g"
+CSarc.dens.test(Xp,Yp,tau) #try also CSarc.dens.test(Xp,Yp,tau,alt="l") or with alt="g"
 #> 
 #>  Large Sample z-Test Based on Arc Density of CS-PCD for Testing
 #>  Uniformity of 2D Data ---
@@ -739,7 +767,7 @@ TSArcDensCS(Xp,Yp,tau) #try also TSArcDensCS(Xp,Yp,tau,alt="l") or with alt="g"
 
 As in the tests based on PE-PCD, it is possible to account for $\X$ points outside the convex hull of $\Y$ points, 
 with the option `ch.cor=TRUE`.
-For example, `TSArcDensCS(Xp,Yp,tau,ch=TRUE)` would yield the convex hull corrected version of 
+For example, `CSarc.dens.test(Xp,Yp,tau,ch=TRUE)` would yield the convex hull corrected version of 
 the arc-based test of spatial interaction.
 
 **References**

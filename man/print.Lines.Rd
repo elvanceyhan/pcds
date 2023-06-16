@@ -13,11 +13,14 @@
 }
 \value{
 The \code{call} of the \code{object} of class \code{"Lines"}
-and the \code{coefficients} of the line (in the form: \code{y = slope * x + intercept}).
+and the \code{coefficients} of the line
+(in the form: \code{y = slope * x + intercept}).
 }
 \description{
-Prints the \code{call} of the \code{object} of class \code{"Lines"}
-and also the \code{coefficients} of the line (in the form: \code{y = slope * x + intercept}).
+Prints the \code{call} of the \code{object}
+of class \code{"Lines"}
+and also the \code{coefficients} of the line
+(in the form: \code{y = slope * x + intercept}).
 }
 \examples{
 A<-c(-1.22,-2.33); B<-c(2.55,3.75)
@@ -29,7 +32,11 @@ lnAB<-Line(A,B,x)
 lnAB
 print(lnAB)
 
+typeof(lnAB)
+attributes(lnAB)
+
 }
 \seealso{
-\code{\link{summary.Lines}}, \code{\link{print.summary.Lines}}, and \code{\link{plot.Lines}}
+\code{\link{summary.Lines}}, \code{\link{print.summary.Lines}},
+and \code{\link{plot.Lines}}
 }

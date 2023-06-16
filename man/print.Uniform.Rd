@@ -13,11 +13,13 @@
 }
 \value{
 The \code{call} of the \code{object} of class \code{"Uniform"}
-and also the \code{type} (i.e. a brief description) of the uniform distribution).
+and also the \code{type}
+(i.e. a brief description) of the uniform distribution).
 }
 \description{
 Prints the \code{call} of the \code{object} of class \code{"Uniform"}
-and also the \code{type} (i.e. a brief description) of the uniform distribution).
+and also the \code{type}
+(i.e. a brief description) of the uniform distribution).
 }
 \examples{
 \dontrun{
@@ -28,9 +30,14 @@ Tr<-rbind(A,B,C)
 Xdt<-runif.tri(n,Tr)
 Xdt
 print(Xdt)
+
+typeof(Xdt))
+attributes(Xdt)
 }
 
 }
 \seealso{
-\code{\link{summary.Uniform}}, \code{\link{print.summary.Uniform}}, and \code{\link{plot.Uniform}}
+\code{\link{summary.Uniform}},
+\code{\link{print.summary.Uniform}},
+and \code{\link{plot.Uniform}}
 }

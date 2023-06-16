@@ -2,46 +2,59 @@
 % Please edit documentation in R/AuxDelaunay.R
 \name{funsIndDelTri}
 \alias{funsIndDelTri}
-\alias{ind.del.tri}
-\alias{indices.del.tri}
-\title{Functions provide the indices of the Delaunay triangles where the points reside}
+\alias{index.delaunay.tri}
+\alias{indices.delaunay.tri}
+\title{Functions provide the indices of the Delaunay triangles
+where the points reside}
 \usage{
-ind.del.tri(p, Yp, DTmesh = NULL)
+index.delaunay.tri(p, Yp, DTmesh = NULL)
 
-indices.del.tri(Xp, Yp, DTmesh = NULL)
+indices.delaunay.tri(Xp, Yp, DTmesh = NULL)
 }
 \arguments{
-\item{p}{A 2D point; the index of the Delaunay triangle in which \code{p} resides is to be
-determined. It is an argument for \code{ind.del.tri}.}
+\item{p}{A 2D point; the index of the Delaunay triangle
+in which \code{p} resides is to be
+determined. It is an argument for \code{index.delaunay.tri}.}
 
-\item{Yp}{A set of 2D points from which Delaunay triangulation is constructed.}
+\item{Yp}{A set of 2D points
+from which Delaunay triangulation is constructed.}
 
 \item{DTmesh}{Delaunay triangles based on \code{Yp}, default is \code{NULL},
 which is computed via \code{\link[interp]{tri.mesh}} function
-in \code{interp} package. \code{\link[interp]{triangles}} function yields a triangulation data structure from the triangulation object
+in \code{interp} package. \code{\link[interp]{triangles}} function yields
+a triangulation data structure from the triangulation object
 created by \code{tri.mesh}.}
 
-\item{Xp}{A set of 2D points representing the set of data points for which the indices of the Delaunay
-triangles they reside is to be determined. It is an argument for \code{indices.del.tri}.}
+\item{Xp}{A set of 2D points representing the set of data points
+for which the indices of the Delaunay
+triangles they reside is to be determined.
+It is an argument for \code{indices.delaunay.tri}.}
 }
 \value{
-\code{ind.del.tri} returns the index of the Delaunay triangle in which the given point, \code{p}, resides
-and \code{indices.del.tri} returns the \code{vector} of indices of the Delaunay triangles in which points in the data
+\code{index.delaunay.tri} returns the index of the Delaunay triangle
+in which the given point, \code{p}, resides
+and \code{indices.delaunay.tri} returns the \code{vector} of indices of
+the Delaunay triangles in which points in the data
 set, \code{Xp}, reside.
 }
 \description{
-Two functions: \code{ind.del.tri} and \code{indices.del.tri}.
+Two functions: \code{index.delaunay.tri} and \code{indices.delaunay.tri}.
 
-\code{ind.del.tri} finds the index of the Delaunay triangle in which the given point, \code{p}, resides.
+\code{index.delaunay.tri} finds the index of the Delaunay triangle
+in which the given point, \code{p}, resides.
 
-\code{indices.del.tri} finds the indices of triangles for all the points in data set, \code{Xp}, as a vector.
+\code{indices.delaunay.tri} finds the indices of triangles
+for all the points in data set, \code{Xp}, as a vector.
 
-Delaunay triangulation is based on \code{Yp} and \code{DTmesh} are the Delaunay triangles with default \code{NULL}.
+Delaunay triangulation is based on \code{Yp}
+and \code{DTmesh} are the Delaunay triangles with default \code{NULL}.
 The function returns \code{NA} for a point not inside the convex hull of \code{Yp}.
-Number of \code{Yp} points (i.e., size of \code{Yp}) should be at least three and the points
+Number of \code{Yp} points (i.e., size of \code{Yp})
+should be at least three and the points
 should be in general position so that Delaunay triangulation is (uniquely) defined.
 
-If the number of \code{Yp} points is 3, then there is only one Delaunay triangle and the indices of all
+If the number of \code{Yp} points is 3,
+then there is only one Delaunay triangle and the indices of all
 the points inside this triangle are all 1.
 
 See (\insertCite{okabe:2000,ceyhan:comp-geo-2010,sinclair:2016;textual}{pcds}) for more on Delaunay
@@ -49,25 +62,26 @@ triangulation and the corresponding algorithm.
 }
 \examples{
 \dontrun{
-#Examples for ind.del.tri
+#Examples for index.delaunay.tri
 nx<-20 #number of X points (target)
 ny<-5 #number of Y points (nontarget)
 set.seed(1)
 Yp<-cbind(runif(ny),runif(ny))
 
-Xp<-runifMT(nx,Yp)$g #data under CSR in the convex hull of Ypoints
+Xp<-runif.multi.tri(nx,Yp)$g #data under CSR in the convex hull of Ypoints
 #try also Xp<-cbind(runif(nx),runif(nx))
 
-ind.del.tri(Xp[10,],Yp)
+index.delaunay.tri(Xp[10,],Yp)
 
 #or use
-DTY<-interp::tri.mesh(Yp[,1],Yp[,2],duplicate="remove")  #Delaunay triangulation
+DTY<-interp::tri.mesh(Yp[,1],Yp[,2],duplicate="remove")
+#Delaunay triangulation
 TRY<-interp::triangles(DTY)[,1:3];
-ind.del.tri(Xp[10,],Yp,DTY)
+index.delaunay.tri(Xp[10,],Yp,DTY)
 
 ind.DT<-vector()
 for (i in 1:nx)
- ind.DT<-c(ind.DT,ind.del.tri(Xp[i,],Yp))
+ ind.DT<-c(ind.DT,index.delaunay.tri(Xp[i,],Yp))
 ind.DT
 
 Xlim<-range(Yp[,1],Xp[,1])
@@ -75,7 +89,8 @@ Ylim<-range(Yp[,2],Xp[,2])
 xd<-Xlim[2]-Xlim[1]
 yd<-Ylim[2]-Ylim[1]
 
-DTY<-interp::tri.mesh(Yp[,1],Yp[,2],duplicate="remove")  #Delaunay triangulation based on Y points
+DTY<-interp::tri.mesh(Yp[,1],Yp[,2],duplicate="remove")
+#Delaunay triangulation based on Y points
 
 #plot of the data in the convex hull of Y points together with the Delaunay triangulation
 plot(Xp,main=" ", xlab=" ", ylab=" ",xlim=Xlim+xd*c(-.05,.05),ylim=Ylim+yd*c(-.05,.05),type="n")
@@ -85,21 +100,22 @@ text(Xp,labels = factor(ind.DT))
 }
 
 \dontrun{
-#Examples for indices.del.tri
+#Examples for indices.delaunay.tri
 #nx is number of X points (target) and ny is number of Y points (nontarget)
 nx<-20; ny<-4;  #try also nx<-40; ny<-10 or nx<-1000; ny<-10;
 
 set.seed(1)
 Yp<-cbind(runif(ny),runif(ny))
-Xp<-runifMT(nx,Yp)$g #data under CSR in the convex hull of Ypoints
+Xp<-runif.multi.tri(nx,Yp)$g #data under CSR in the convex hull of Ypoints
 #try also Xp<-cbind(runif(nx),runif(nx))
 
-tr.ind<-indices.del.tri(Xp,Yp)  #indices of the Delaunay triangles
+tr.ind<-indices.delaunay.tri(Xp,Yp)  #indices of the Delaunay triangles
 tr.ind
 
 #or use
-DTY<-interp::tri.mesh(Yp[,1],Yp[,2],duplicate="remove")  #Delaunay triangulation based on Y points
-tr.ind<-indices.del.tri(Xp,Yp,DTY)  #indices of the Delaunay triangles
+DTY<-interp::tri.mesh(Yp[,1],Yp[,2],duplicate="remove")
+#Delaunay triangulation based on Y points
+tr.ind<-indices.delaunay.tri(Xp,Yp,DTY)  #indices of the Delaunay triangles
 tr.ind
 
 Xlim<-range(Yp[,1],Xp[,1])
@@ -109,7 +125,7 @@ yd<-Ylim[2]-Ylim[1]
 
 #plot of the data in the convex hull of Y points together with the Delaunay triangulation
 
-par(pty="s")
+par(pty = "s")
 plot(Xp,main=" ", xlab=" ", ylab=" ",xlim=Xlim+xd*c(-.05,.05),ylim=Ylim+yd*c(-.05,.05),pch=".")
 interp::plot.triSht(DTY, add=TRUE, do.points = TRUE,pch=16,col="blue")
 text(Xp,labels = factor(tr.ind))

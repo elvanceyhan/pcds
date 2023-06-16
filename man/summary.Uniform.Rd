@@ -12,18 +12,26 @@
 \item{\dots}{Additional parameters for \code{summary}.}
 }
 \value{
-The \code{call} of the \code{object} of class \code{"Uniform"}, the \code{type} of the pattern (i.e. the description
-of the uniform distribution), study window, vertices of the support of the Uniform distribution,
-some sample points generated from the uniform distribution, and the number of points (i.e., number of generated
-points and the number of vertices of the support of the uniform distribution.)
+The \code{call} of the \code{object} of class \code{"Uniform"},
+the \code{type} of the pattern (i.e. the description
+of the uniform distribution), study window,
+vertices of the support of the Uniform distribution,
+some sample points generated from the uniform distribution,
+and the number of points (i.e., number of generated
+points and the number of vertices of
+the support of the uniform distribution.)
 }
 \description{
 Returns the below information about the \code{object}:
 
-\code{call} of the function defining the \code{object}, the \code{type} of the pattern (i.e. the description
-of the uniform distribution), study window, vertices of the support of the Uniform distribution,
-some sample points generated from the uniform distribution, and the number of points (i.e., number of generated
-points and the number of vertices of the support of the uniform distribution.)
+\code{call} of the function defining the \code{object},
+the \code{type} of the pattern (i.e. the description
+of the uniform distribution), study window,
+vertices of the support of the Uniform distribution,
+some sample points generated from the uniform distribution,
+and the number of points (i.e., number of generated
+points and the number of vertices of the support
+of the uniform distribution.)
 }
 \examples{
 \dontrun{
@@ -38,5 +46,7 @@ summary(Xdt)
 
 }
 \seealso{
-\code{\link{print.Uniform}}, \code{\link{print.summary.Uniform}}, and \code{\link{plot.Uniform}}
+\code{\link{print.Uniform}},
+\code{\link{print.summary.Uniform}},
+and \code{\link{plot.Uniform}}
 }

@@ -2,14 +2,14 @@
 % Please edit documentation in R/ArcSliceFunctions.R
 \name{funsTbMid2CC}
 \alias{funsTbMid2CC}
-\alias{lD1CCinTb}
-\alias{lD2CCinTb}
-\title{Two functions \code{lD1CCinTb} and \code{lD2CCinTb} which are of class \code{"TriLines"} ---
+\alias{lineD1CCinTb}
+\alias{lineD2CCinTb}
+\title{Two functions \code{lineD1CCinTb} and \code{lineD2CCinTb} which are of class \code{"TriLines"} ---
 The lines joining the midpoints of edges to the circumcenter (\eqn{CC}) in the standard basic triangle.}
 \usage{
-lD1CCinTb(x, c1, c2)
+lineD1CCinTb(x, c1, c2)
 
-lD2CCinTb(x, c1, c2)
+lineD2CCinTb(x, c1, c2)
 }
 \arguments{
 \item{x}{A single scalar or a \code{vector} of scalars.}
@@ -48,7 +48,7 @@ studies under the uniformity hypothesis.
 }
 \examples{
 \dontrun{
-#Examples for lD1CCinTb
+#Examples for lineD1CCinTb
 c1<-.4; c2<-.6;
 A<-c(0,0); B<-c(1,0); C<-c(c1,c2);  #the vertices of the standard basic triangle Tb
 
@@ -57,18 +57,18 @@ Tb<-rbind(A,B,C)
 xfence<-abs(A[1]-B[1])*.25 #how far to go at the lower and upper ends in the x-coordinate
 x<-seq(min(A[1],B[1])-xfence,max(A[1],B[1])+xfence,by=.1)  #try also by=.01
 
-lnD1CC<-lD1CCinTb(x,c1,c2)
+lnD1CC<-lineD1CCinTb(x,c1,c2)
 lnD1CC
 summary(lnD1CC)
 plot(lnD1CC)
 
-CC<-circ.cent.bas.tri(c1,c2)  #the circumcenter
+CC<-circumcenter.basic.tri(c1,c2)  #the circumcenter
 CC
 D1<-(B+C)/2; D2<-(A+C)/2; D3<-(A+B)/2; #midpoints of the edges
 Ds<-rbind(D1,D2,D3)
 
 x1<-seq(0,1,by=.1)  #try also by=.01
-y1<-lD1CCinTb(x1,c1,c2)$y
+y1<-lineD1CCinTb(x1,c1,c2)$y
 
 Xlim<-range(Tb[,1],x1)
 Ylim<-range(Tb[,2],y1)
@@ -87,15 +87,15 @@ txt.str<-c("A","B","C","CC","D1","D2","D3")
 text(xc,yc,txt.str)
 
 lines(x1,y1,type="l",lty=2)
-text(.8,.5,"lD1CCinTb")
+text(.8,.5,"lineD1CCinTb")
 
 c1<-.4; c2<-.6;
 x1<-seq(0,1,by=.1)  #try also by=.01
-lD1CCinTb(x1,c1,c2)
+lineD1CCinTb(x1,c1,c2)
 }
 
 \dontrun{
-#Examples for lD2CCinTb
+#Examples for lineD2CCinTb
 c1<-.4; c2<-.6;
 A<-c(0,0); B<-c(1,0); C<-c(c1,c2);  #the vertices of the standard basic triangle Tb
 
@@ -104,18 +104,18 @@ Tb<-rbind(A,B,C)
 xfence<-abs(A[1]-B[1])*.25 #how far to go at the lower and upper ends in the x-coordinate
 x<-seq(min(A[1],B[1])-xfence,max(A[1],B[1])+xfence,by=.1)  #try also by=.01
 
-lnD2CC<-lD2CCinTb(x,c1,c2)
+lnD2CC<-lineD2CCinTb(x,c1,c2)
 lnD2CC
 summary(lnD2CC)
 plot(lnD2CC)
 
-CC<-circ.cent.bas.tri(c1,c2)  #the circumcenter
+CC<-circumcenter.basic.tri(c1,c2)  #the circumcenter
 CC
 D1<-(B+C)/2; D2<-(A+C)/2; D3<-(A+B)/2; #midpoints of the edges
 Ds<-rbind(D1,D2,D3)
 
 x2<-seq(0,1,by=.1)  #try also by=.01
-y2<-lD2CCinTb(x2,c1,c2)$y
+y2<-lineD2CCinTb(x2,c1,c2)$y
 
 Xlim<-range(Tb[,1],x1)
 Ylim<-range(Tb[,2],y2)
@@ -134,13 +134,13 @@ txt.str<-c("A","B","C","CC","D1","D2","D3")
 text(xc,yc,txt.str)
 
 lines(x2,y2,type="l",lty=2)
-text(0,.5,"lD2CCinTb")
+text(0,.5,"lineD2CCinTb")
 }
 
 }
 \seealso{
-\code{\link{lA_CM.Te}}, \code{\link{lB_CM.Te}}, \code{\link{lA_M.Te}}, \code{\link{lB_M.Te}},
-and \code{\link{lC_M.Te}}
+\code{\link{lineA2CMinTe}}, \code{\link{lineB2CMinTe}}, \code{\link{lineA2MinTe}},
+\code{\link{lineB2MinTe}}, and \code{\link{lineC2MinTe}}
 }
 \author{
 Elvan Ceyhan

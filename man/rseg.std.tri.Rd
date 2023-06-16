@@ -2,40 +2,57 @@
 % Please edit documentation in R/PatternGen.R
 \name{rseg.std.tri}
 \alias{rseg.std.tri}
-\title{Generation of points segregated (in a Type I fashion) from the vertices of \eqn{T_e}}
+\title{Generation of points segregated (in a Type I fashion)
+from the vertices of \eqn{T_e}}
 \usage{
 rseg.std.tri(n, eps)
 }
 \arguments{
-\item{n}{A positive integer representing the number of points to be generated.}
+\item{n}{A positive integer
+representing the number of points to be generated.}
 
-\item{eps}{A positive real number representing the parameter of type I segregation (which is the
+\item{eps}{A positive real number
+representing the parameter of type I segregation (which is the
 height of the triangular forbidden regions around the vertices).}
 }
 \value{
 A \code{list} with the elements
 \item{type}{The type of the point pattern}
 \item{mtitle}{The \code{"main"} title for the plot of the point pattern}
-\item{parameters}{The exclusion parameter, \code{eps}, of the segregation pattern, which is the height
+\item{parameters}{The exclusion parameter, \code{eps},
+of the segregation pattern, which is the height
 of the triangular forbidden regions around the vertices }
 \item{ref.points}{The input set of points \code{Y};
-reference points, i.e., points from which generated points are segregated (i.e., vertices of \eqn{T_e}).}
-\item{gen.points}{The output set of generated points segregated from \code{Y} points (i.e., vertices of \eqn{T_e}).}
-\item{tri.Y}{Logical output for triangulation based on \code{Y} points should be implemented or not.
-if \code{TRUE} triangulation based on \code{Y} points is to be implemented (default is set to \code{FALSE}).}
+reference points, i.e., points
+from which generated points are segregated
+(i.e., vertices of \eqn{T_e}).}
+\item{gen.points}{The output set of generated points segregated
+from \code{Y} points (i.e., vertices of \eqn{T_e}).}
+\item{tri.Y}{Logical output for triangulation
+based on \code{Y} points should be implemented or not.
+if \code{TRUE} triangulation based on \code{Y} points is
+to be implemented (default is set to \code{FALSE}).}
 \item{desc.pat}{Description of the point pattern}
-\item{num.points}{The \code{vector} of two numbers, which are the number of generated points and
+\item{num.points}{The \code{vector} of two numbers,
+which are the number of generated points and
 the number of reference (i.e., \code{Y}) points, which is 3 here.}
-\item{xlimit,ylimit}{The ranges of the \eqn{x}- and \eqn{y}-coordinates of the reference points, which are the
-vertices of \eqn{T_e} here}
+\item{xlimit,ylimit}{The ranges of the \eqn{x}-
+and \eqn{y}-coordinates of the reference points,
+which are the vertices of \eqn{T_e} here.}
 }
 \description{
 An object of class \code{"Patterns"}.
-Generates \code{n} points uniformly in the standard equilateral triangle \eqn{T_e=T((0,0),(1,0),(1/2,\sqrt{3}/2))}
-under the type I segregation alternative for \code{eps} in \eqn{(0,\sqrt{3}/3=0.5773503]}.
+Generates \code{n} points uniformly
+in the standard equilateral triangle
+\eqn{T_e=T((0,0),(1,0),(1/2,\sqrt{3}/2))}
+under the type I segregation alternative for \code{eps}
+in \eqn{(0,\sqrt{3}/3=0.5773503]}.
 
-In the type I segregation, the triangular forbidden regions around the vertices are determined by
-the parameter \code{eps} which serves as the height of these triangles (see examples for a sample plot.)
+In the type I segregation, the triangular forbidden regions
+around the vertices are determined by
+the parameter \code{eps}
+which serves as the height of these triangles
+(see examples for a sample plot.)
 
 See also (\insertCite{ceyhan:arc-density-PE,ceyhan:arc-density-CS,ceyhan:dom-num-NPE-Spat2011;textual}{pcds}).
 }
@@ -72,7 +89,8 @@ A1<-A+sr*(B-A); A2<-A+sr*(C-A)
 B1<-B+sr*(A-B); B2<-B+sr*(C-B)
 supp<-rbind(A1,B1,B2,C2,C1,A2)
 
-plot(Te,asp=1,pch=".",xlab="",ylab="",main="Support of the Type I Segregation",
+plot(Te,asp=1,pch=".",xlab="",ylab="",
+main="Support of the Type I Segregation",
      xlim=Xlim+xd*c(-.01,.01),ylim=Ylim+yd*c(-.01,.01))
 if (sr<=.5)
 {
@@ -93,7 +111,8 @@ points(Xp)
 \insertAllCited{}
 }
 \seealso{
-\code{\link{rseg.circ}}, \code{\link{rasc.circ}},  \code{\link{rsegII.std.tri}}, and \code{\link{rsegMT}}
+\code{\link{rseg.circular}}, \code{\link{rassoc.circular}},
+\code{\link{rsegII.std.tri}}, and \code{\link{rseg.multi.tri}}
 }
 \author{
 Elvan Ceyhan

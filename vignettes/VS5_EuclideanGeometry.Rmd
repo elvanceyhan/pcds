@@ -205,12 +205,12 @@ plot(plnAB,asp=1)
 ```
 
 The point of intersection of two lines, where each line is defined by a pair of points, 
-is provided by the function `int.2lines`.
+is provided by the function `intersect2lines`.
 The arguments of the functions are the four points `p1,q1,p2,q2`,
 where the first line is defined with the points `p1,q1`, and the second line is defined with the points `p2,q2`.
 ```{r EGch1, eval=F}
 A<-c(-1.22,-2.33); B<-c(2.55,3.75); C<-c(0,6); D<-c(3,-2)
-ip<-int.2lines(A,B,C,D)
+ip<-intersect2lines(A,B,C,D)
 ip
 #> [1] 1.486767 2.035289
 ```
@@ -726,14 +726,14 @@ summary(pln2pl)
 plot(pln2pl,theta = 225, phi = 30, expand = 0.7, facets = FALSE, scale = TRUE)
 ```
 
-The point of intersection of a line and a plane is returned by the function `int.line.plane`
+The point of intersection of a line and a plane is returned by the function `intersect.line.plane`
 with arguments `p1,p2,p3,p4,p5`,
 where line is defined by the points `p1` and `p2`, while the plane is defined by the points `p3`, `p4`, and `p5`.
 ```{r EGch8, eval=F}
 L1<-c(2,4,6); L2<-c(1,3,5);
 A<-c(1,10,3); B<-c(1,1,3); C<-c(3,9,12)
 
-Pint<-int.line.plane(L1,L2,A,B,C)
+Pint<-intersect.line.plane(L1,L2,A,B,C)
 Pint
 #> [1] 1.571429 3.571429 5.571429
 ```
@@ -751,7 +751,7 @@ dis
 #> $distance
 #> [1] 4.121679
 #> 
-#> $proj.pt2plane
+#> $prj.pt2plane
 #> [1]  9.023529  2.000000 39.105882
 ```
 

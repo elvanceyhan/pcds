@@ -15,7 +15,7 @@ asyvarCS1D(t, c)
 \item{t}{A positive real number which serves as the expansion parameter in CS proximity region.}
 
 \item{c}{A positive real number in \eqn{(0,1)} parameterizing the center inside \code{int}\eqn{=(a,b)}.
-For the interval, \eqn{(a,b)}, the parameterized center is \eqn{M_c=a+c(b-a)}.}
+For the interval, \code{int}\eqn{=(a,b)}, the parameterized center is \eqn{M_c=a+c(b-a)}.}
 }
 \value{
 \code{muCS1D} returns the mean and \code{asyvarCS1D} returns the asymptotic variance of the
@@ -32,13 +32,13 @@ finite interval \eqn{(a,b)}, i.e., data from \eqn{U(a,b)} distribution.
 See also (\insertCite{ceyhan:revstat-2016;textual}{pcds}).
 }
 \examples{
-\dontrun{
+\donttest{
 #Examples for muCS1D
 muCS1D(1.2,.4)
 muCS1D(1.2,.6)
 
-tseq<-seq(0.01,5,by=.1)
-cseq<-seq(0.01,.99,by=.1)
+tseq<-seq(0.01,5,by=.05)
+cseq<-seq(0.01,.99,by=.05)
 
 ltseq<-length(tseq)
 lcseq<-length(cseq)
@@ -55,12 +55,12 @@ phi = 30, expand = 0.5, col = "lightblue", ltheta = 120,
 shade = 0.05, ticktype = "detailed")
 }
 
-\dontrun{
+\donttest{
 #Examples for asyvarCS1D
 asyvarCS1D(1.2,.8)
 
-tseq<-seq(0.01,5,by=.1)
-cseq<-seq(0.01,.99,by=.1)
+tseq<-seq(0.01,5,by=.05)
+cseq<-seq(0.01,.99,by=.05)
 
 ltseq<-length(tseq)
 lcseq<-length(cseq)

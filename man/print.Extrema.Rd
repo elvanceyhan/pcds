@@ -13,11 +13,14 @@
 }
 \value{
 The \code{call} of the \code{object} of class \code{"Extrema"}
-and also the \code{type} (i.e. a brief description) of the extrema).
+and also the \code{type}
+(i.e. a brief description) of the extrema).
 }
 \description{
-Prints the \code{call} of the \code{object} of class \code{"Extrema"}
-and also the \code{type} (i.e. a brief description) of the extrema).
+Prints the \code{call} of the \code{object}
+of class \code{"Extrema"}
+and also the \code{type}
+(i.e. a brief description) of the extrema).
 }
 \examples{
 \dontrun{
@@ -26,9 +29,14 @@ Xp<-runif.std.tri(n)$gen.points
 Ext<-cl2edges.std.tri(Xp)
 Ext
 print(Ext)
+
+typeof(Ext))
+attributes(Ext)
 }
 
 }
 \seealso{
-\code{\link{summary.Extrema}}, \code{\link{print.summary.Extrema}}, and \code{\link{plot.Extrema}}
+\code{\link{summary.Extrema}},
+\code{\link{print.summary.Extrema}},
+and \code{\link{plot.Extrema}}
 }

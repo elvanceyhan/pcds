@@ -32,7 +32,7 @@
 #' @return \eqn{I(p_2 \in N_{PE}(p_1,r,c))} for points \eqn{p_1} and \eqn{p_2} that is, returns 1 if \eqn{p_2} is in \eqn{N_{PE}(p_1,r,c)},
 #' returns 0 otherwise
 #'
-#' @seealso \code{\link{IndNPEend.int}}, \code{\link{IndNCSmid.int}}, and \code{\link{IndNCSend.int}}
+#' @seealso \code{\link{IarcPEend.int}}, \code{\link{IarcCSmid.int}}, and \code{\link{IarcCSend.int}}
 #'
 #' @references
 #' \insertAllCited{}
@@ -44,11 +44,11 @@
 #' r<-2
 #' a<-0; b<-10; int<-c(a,b)
 #'
-#' IndNPEmid.int(7,5,int,r,c)
-#' IndNPEmid.int(1,3,int,r,c)
+#' IarcPEmid.int(7,5,int,r,c)
+#' IarcPEmid.int(1,3,int,r,c)
 #'
-#' @export IndNPEmid.int
-IndNPEmid.int <- function(p1,x2,int,r,c=.5,rv=NULL)
+#' @export IarcPEmid.int
+IarcPEmid.int <- function(p1,x2,int,r,c=.5,rv=NULL)
 {
   if (!is.point(p1,1) || !is.point(x2,1) )
   {stop('p1 and x2 must be scalars')}
@@ -74,7 +74,7 @@ IndNPEmid.int <- function(p1,x2,int,r,c=.5,rv=NULL)
   {arc<-0; return(arc); stop}
 
   if (is.null(rv))
-  {rv<-rv.mid.int(p1,int,c)$rv #determines the vertex region for 1D point p1
+  {rv<-rel.vert.mid.int(p1,int,c)$rv #determines the vertex region for 1D point p1
   } else
   {  if (!is.numeric(rv) || sum(rv==c(1,2))!=1)
   {stop('vertex index, rv, must be 1 or 2')}}
@@ -119,7 +119,7 @@ IndNPEmid.int <- function(p1,x2,int,r,c=.5,rv=NULL)
 #' with expansion parameter, \eqn{r \ge 1}, and centrality parameter, \eqn{c \in (0,1)}. PE proximity regions are defined only
 #' for \code{Xp} points inside the interval \code{int}, i.e., arcs are possible for such points only.
 #'
-#' @seealso \code{\link{NumArcsPEend.int}}, \code{\link{NumArcsPE1D}}, \code{\link{NumArcsCSmid.int}}, and \code{\link{NumArcsCSend.int}}
+#' @seealso \code{\link{num.arcsPEend.int}}, \code{\link{num.arcsPE1D}}, \code{\link{num.arcsCSmid.int}}, and \code{\link{num.arcsCSend.int}}
 #'
 #' @references
 #' \insertAllCited{}
@@ -134,12 +134,12 @@ IndNPEmid.int <- function(p1,x2,int,r,c=.5,rv=NULL)
 #'
 #' n<-10
 #' Xp<-runif(n,a,b)
-#' NumArcsPEmid.int(Xp,int,r,c)
-#' NumArcsPEmid.int(Xp,int,r=1.5,c)
+#' num.arcsPEmid.int(Xp,int,r,c)
+#' num.arcsPEmid.int(Xp,int,r=1.5,c)
 #' }
 #'
-#' @export NumArcsPEmid.int
-NumArcsPEmid.int <- function(Xp,int,r,c=.5)
+#' @export num.arcsPEmid.int
+num.arcsPEmid.int <- function(Xp,int,r,c=.5)
 {
   if (!is.point(Xp,length(Xp)))
   {stop('Xp must be a 1D vector of numerical entries')}
@@ -164,7 +164,7 @@ NumArcsPEmid.int <- function(Xp,int,r,c=.5)
     arcs<-0
     for (i in 1:n)
     {x1<-Xp[i]
-    v<-rv.mid.int(x1,int,c)$rv
+    v<-rel.vert.mid.int(x1,int,c)$rv
     if (v==1)
     {
       xR<-y1+r*(x1-y1)
@@ -427,7 +427,7 @@ asyvarPE1D <- function(r,c)
 #' \item{method}{Description of the hypothesis test}
 #' \item{data.name}{Name of the data set}
 #'
-#' @seealso \code{\link{TSArcDensCSint}}
+#' @seealso \code{\link{CSarc.dens.test.int}}
 #'
 #' @references
 #' \insertAllCited{}
@@ -443,13 +443,13 @@ asyvarPE1D <- function(r,c)
 #' n<-100  #try also n<-20, 1000
 #' Xp<-runif(n,a,b)
 #'
-#' TSArcDensPEint(Xp,int,r,c)
-#' TSArcDensPEint(Xp,int,r,c,alt="g")
-#' TSArcDensPEint(Xp,int,r,c,alt="l")
+#' PEarc.dens.test.int(Xp,int,r,c)
+#' PEarc.dens.test.int(Xp,int,r,c,alt="g")
+#' PEarc.dens.test.int(Xp,int,r,c,alt="l")
 #' }
 #'
-#' @export TSArcDensPEint
-TSArcDensPEint <- function(Xp,int,r,c=.5,alternative=c("two.sided", "less", "greater"),conf.level = 0.95)
+#' @export PEarc.dens.test.int
+PEarc.dens.test.int <- function(Xp,int,r,c=.5,alternative=c("two.sided", "less", "greater"),conf.level = 0.95)
 {
   dname <-deparse(substitute(Xp))
 
@@ -482,7 +482,7 @@ TSArcDensPEint <- function(Xp,int,r,c=.5,alternative=c("two.sided", "less", "gre
   if (n<=1)
   {stop('There are not enough Xp points in the interval, int, to compute arc density!')}
 
-  num.arcs<-NumArcsPEint(Xp,int,r,c)$num.arcs
+  num.arcs<-num.arcsPEint(Xp,int,r,c)$num.arcs
   arc.dens<-num.arcs/(n*(n-1))
   estimate1<-arc.dens
   mn<-muPE1D(r,c)
@@ -509,7 +509,7 @@ TSArcDensPEint <- function(Xp,int,r,c=.5,alternative=c("two.sided", "less", "gre
     cint <-qnorm(1 - alpha/2)
     cint <-arc.dens+c(-cint, cint)*sqrt(asy.var/n)
   }
-  attr(cint, "conf.level") <-conf.level
+  attr(cint, "conf.level") <- conf.level
 
   rval <-list(
     statistic=TS,
@@ -545,7 +545,7 @@ TSArcDensPEint <- function(Xp,int,r,c=.5,alternative=c("two.sided", "less", "gre
 #' Under the null hypothesis of uniformity of \code{Xp} points in the range of \code{Yp} points, arc density
 #' of PE-PCD whose vertices are \code{Xp} points equals to its expected value under the uniform distribution and
 #' \code{alternative} could be two-sided, or left-sided (i.e., data is accumulated around the \code{Yp} points, or association)
-#' or right-sided (i.e., data is accumulated around the centers of the triangles, or segregation).
+#' or right-sided (i.e., data is accumulated around the centers of the intervals, or segregation).
 #'
 #' PE proximity region is constructed with the expansion parameter \eqn{r \ge 1} and centrality parameter \code{c} which yields
 #' \eqn{M}-vertex regions. More precisely, for a middle interval \eqn{(y_{(i)},y_{(i+1)})}, the center is
@@ -570,8 +570,8 @@ TSArcDensPEint <- function(Xp,int,r,c=.5,alternative=c("two.sided", "less", "gre
 #'
 #' @param Xp A set of 1D points which constitute the vertices of the PE-PCD.
 #' @param Yp A set of 1D points which constitute the end points of the partition intervals.
-#' @param support.int Support interval \eqn{(a,b)} with \eqn{a<b}. Uniformity of \code{Xp} points in this interval
-#' is tested.
+#' @param support.int Support interval \eqn{(a,b)} with \eqn{a<b}.
+#' Uniformity of \code{Xp} points in this interval is tested. Default is \code{NULL}.
 #' @param r A positive real number which serves as the expansion parameter in PE proximity region;
 #' must be \eqn{\ge 1}.
 #' @param c A positive real number which serves as the centrality parameter in PE proximity region;
@@ -594,7 +594,7 @@ TSArcDensPEint <- function(Xp,int,r,c=.5,alternative=c("two.sided", "less", "gre
 #' \item{method}{Description of the hypothesis test}
 #' \item{data.name}{Name of the data set}
 #'
-#' @seealso \code{\link{TSArcDensPE}}, \code{\link{TSDomPEBin1D}}, and \code{\link{TSArcDensPEint}}
+#' @seealso \code{\link{PEarc.dens.test}}, \code{\link{PEdom.num.binom.test1D}}, and \code{\link{PEarc.dens.test.int}}
 #'
 #' @references
 #' \insertAllCited{}
@@ -616,14 +616,14 @@ TSArcDensPEint <- function(Xp,int,r,c=.5,alternative=c("two.sided", "less", "gre
 #' Xp<-runif(nx,a-xf,b+xf)
 #' Yp<-runif(ny,a,b)
 #'
-#' TSArcDensPE1D(Xp,Yp,int,r,c)
-#' #try also TSArcDensPE1D(Xp,Yp,int,r,c,alt="l") and TSArcDensPE1D(Xp,Yp,int,r,c,alt="g")
+#' PEarc.dens.test1D(Xp,Yp,r,c,int)
+#' #try also PEarc.dens.test1D(Xp,Yp,r,c,int,alt="l") and PEarc.dens.test1D(Xp,Yp,r,c,int,alt="g")
 #'
-#' TSArcDensPE1D(Xp,Yp,int,r,c,end.int.cor = TRUE)
+#' PEarc.dens.test1D(Xp,Yp,r,c,int,end.int.cor = TRUE)
 #' }
 #'
-#' @export TSArcDensPE1D
-TSArcDensPE1D <- function(Xp,Yp,support.int,r,c=.5,end.int.cor=FALSE,
+#' @export PEarc.dens.test1D
+PEarc.dens.test1D <- function(Xp,Yp,r,c=.5,support.int=NULL,end.int.cor=FALSE,
                             alternative=c("two.sided", "less", "greater"),conf.level = 0.95)
 {
   dname <-deparse(substitute(Xp))
@@ -638,8 +638,11 @@ TSArcDensPE1D <- function(Xp,Yp,support.int,r,c=.5,end.int.cor=FALSE,
   if (length(Yp)<2)
   {stop('Yp must be of length >2')}
 
+  if (!is.null(support.int))
+  {
   if (!is.point(support.int) || support.int[2]<=support.int[1])
   {stop('support.int must be an interval as (a,b) with a<b')}
+  }
 
   if (!is.point(c,1) || c <= 0 || c >= 1)
   {stop('c must be a scalar in (0,1)')}
@@ -651,18 +654,19 @@ TSArcDensPE1D <- function(Xp,Yp,support.int,r,c=.5,end.int.cor=FALSE,
     if (length(conf.level) != 1 || is.na(conf.level) || conf.level < 0 || conf.level > 1)
       stop("conf.level must be a number between 0 and 1")
 
-  Arcs<-NumArcsPE1D(Xp,Yp,r,c)  #uses the default c=.5, unless specified otherwise
+  Arcs<-num.arcsPE1D(Xp,Yp,r,c)  #uses the default c=.5, unless specified otherwise
   NinR<-Arcs$num.in.range #number of Xp points in the range of Yp points
 
   num.arcs.ints = Arcs$int.num.arcs #vector of number of arcs in the partition intervals
   n.int = length(num.arcs.ints)
   num.arcs = sum(num.arcs.ints[-c(1,n.int)]) #this is to remove the number of arcs in the end intervals
-  num.dat.ints = Arcs$num.in.intervals[-c(1,n.int)] #vector of numbers of data points in the partition intervals
+  num.dat.ints = Arcs$num.in.ints[-c(1,n.int)] #vector of numbers of data points in the partition intervals
   Wvec<-Arcs$w
   LW<-Wvec/sum(Wvec)
 
-  dat.int.ind = Arcs$data.interval.indices #indices of partition intervals in which data points reside
-  mid.ind = which(dat.int.ind!=1 & dat.int.ind!=n.int) #indices of Xp points in range of Yp points (i.e., in middle intervals)
+  dat.int.ind = Arcs$data.int.ind #indices of partition intervals in which data points reside
+  mid.ind = which(dat.int.ind!=1 & dat.int.ind!=n.int)
+  #indices of Xp points in range of Yp points (i.e., in middle intervals)
   dat.int.ind = dat.int.ind[mid.ind] #removing the end interval indices
   dat.mid = Xp[mid.ind] #Xp points in range of Yp points (i.e., in middle intervals)
   part.int.mid =  t(Arcs$partition.intervals)[-c(1,n.int),] #middle partition intervals
@@ -736,7 +740,7 @@ TSArcDensPE1D <- function(Xp,Yp,support.int,r,c=.5,end.int.cor=FALSE,
     cint <-arc.dens+c(-cint, cint)*sqrt(asy.var/NinR)
   }
 
-  attr(cint, "conf.level") <-conf.level
+  attr(cint, "conf.level") <- conf.level
 
   rval <-list(
     statistic=TS,
@@ -795,8 +799,8 @@ TSArcDensPE1D <- function(Xp,Yp,support.int,r,c=.5,end.int.cor=FALSE,
 #' \item{quant}{Various quantities for the digraph: number of vertices, number of partition points,
 #' number of intervals, number of arcs, and arc density.}
 #'
-#' @seealso \code{\link{ArcsPEend.int}}, \code{\link{ArcsPE1D}}, \code{\link{ArcsCSmid.int}},
-#'  \code{\link{ArcsCSend.int}} and \code{\link{ArcsCS1D}}
+#' @seealso \code{\link{arcsPEend.int}}, \code{\link{arcsPE1D}}, \code{\link{arcsCSmid.int}},
+#'  \code{\link{arcsCSend.int}} and \code{\link{arcsCS1D}}
 #'
 #' @references
 #' \insertAllCited{}
@@ -816,7 +820,7 @@ TSArcDensPE1D <- function(Xp,Yp,support.int,r,c=.5,end.int.cor=FALSE,
 #' Xp<-runif(nx,a,b)
 #' Yp<-runif(ny,a,b)
 #'
-#' Arcs<-ArcsPEmid.int(Xp,Yp,r,c)
+#' Arcs<-arcsPEmid.int(Xp,Yp,r,c)
 #' Arcs
 #' summary(Arcs)
 #' plot(Arcs)
@@ -824,8 +828,8 @@ TSArcDensPE1D <- function(Xp,Yp,support.int,r,c=.5,end.int.cor=FALSE,
 #' S<-Arcs$S
 #' E<-Arcs$E
 #'
-#' ArcsPEmid.int(Xp,Yp,r,c)
-#' ArcsPEmid.int(Xp,Yp+10,r,c)
+#' arcsPEmid.int(Xp,Yp,r,c)
+#' arcsPEmid.int(Xp,Yp+10,r,c)
 #'
 #' jit<-.1
 #' yjit<-runif(nx,-jit,jit)
@@ -842,8 +846,8 @@ TSArcDensPE1D <- function(Xp,Yp,support.int,r,c=.5,end.int.cor=FALSE,
 #' arrows(S, yjit, E, yjit, length = .05, col= 4)
 #' }
 #'
-#' @export ArcsPEmid.int
-ArcsPEmid.int <- function(Xp,Yp,r,c=.5)
+#' @export arcsPEmid.int
+arcsPEmid.int <- function(Xp,Yp,r,c=.5)
 {
   xname <-deparse(substitute(Xp))
   yname <-deparse(substitute(Yp))
@@ -901,7 +905,7 @@ ArcsPEmid.int <- function(Xp,Yp,r,c=.5)
           y1<-Ys[i]; y2<-Ys[i+1]; int<-c(y1,y2)
           for (j in 1:ni)
           {x1 <-Xi[j] ; Xinl<-Xi[-j] #to avoid loops
-          v<-rv.mid.int(x1,int,c)$rv
+          v<-rel.vert.mid.int(x1,int,c)$rv
           if (v==1)
           {
             xR<-y1+r*(x1-y1)
@@ -985,7 +989,7 @@ ArcsPEmid.int <- function(Xp,Yp,r,c=.5)
 #' @return \eqn{I(p_2 \in N_{PE}(p_1,r))} for points \eqn{p_1} and \eqn{p_2}, that is, returns 1 if \eqn{p_2} is in \eqn{N_{PE}(p_1,r)}
 #' (i.e., if there is an arc from \eqn{p_1} to \eqn{p_2}), returns 0 otherwise
 #'
-#' @seealso \code{\link{IndNPEmid.int}}, \code{\link{IndNCSmid.int}}, and \code{\link{IndNCSend.int}}
+#' @seealso \code{\link{IarcPEmid.int}}, \code{\link{IarcCSmid.int}}, and \code{\link{IarcCSend.int}}
 #'
 #' @references
 #' \insertAllCited{}
@@ -996,12 +1000,12 @@ ArcsPEmid.int <- function(Xp,Yp,r,c=.5)
 #' a<-0; b<-10; int<-c(a,b)
 #' r<-2
 #'
-#' IndNPEend.int(15,17,int,r)
-#' IndNPEend.int(1.5,17,int,r)
-#' IndNPEend.int(-15,17,int,r)
+#' IarcPEend.int(15,17,int,r)
+#' IarcPEend.int(1.5,17,int,r)
+#' IarcPEend.int(-15,17,int,r)
 #'
-#' @export IndNPEend.int
-IndNPEend.int <- function(p1,p2,int,r,rv=NULL)
+#' @export IarcPEend.int
+IarcPEend.int <- function(p1,p2,int,r,rv=NULL)
 {
   if (!is.point(p1,1) || !is.point(p2,1) )
   {stop('p1 and p2 must be scalars')}
@@ -1023,7 +1027,7 @@ IndNPEend.int <- function(p1,p2,int,r,rv=NULL)
   {arc<-0; return(arc); stop}
 
   if (is.null(rv))
-  {rv<-rv.end.int(p1,int)$rv #determines the vertex for the end interval for 1D point p1
+  {rv<-rel.vert.end.int(p1,int)$rv #determines the vertex for the end interval for 1D point p1
   } else
   {  if (!is.numeric(rv) || sum(rv==c(1,2))!=1)
   {stop('vertex index, rv, must be 1 or 2')}}
@@ -1063,7 +1067,7 @@ IndNPEend.int <- function(p1,p2,int,r,rv=NULL)
 #' @return Number of arcs for the PE-PCD with vertices being 1D data set, \code{Xp},
 #' expansion parameter, \eqn{r \ge 1}, for the end intervals.
 #'
-#' @seealso \code{\link{NumArcsPEmid.int}}, \code{\link{NumArcsPE1D}}, \code{\link{NumArcsCSmid.int}}, and \code{\link{NumArcsCSend.int}}
+#' @seealso \code{\link{num.arcsPEmid.int}}, \code{\link{num.arcsPE1D}}, \code{\link{num.arcsCSmid.int}}, and \code{\link{num.arcsCSend.int}}
 #'
 #' @references
 #' \insertAllCited{}
@@ -1080,12 +1084,12 @@ IndNPEend.int <- function(p1,p2,int,r,rv=NULL)
 #' Xp<-c(XpL,XpR)
 #'
 #' r<-1.2
-#' NumArcsPEend.int(Xp,int,r)
-#' NumArcsPEend.int(Xp,int,r=2)
+#' num.arcsPEend.int(Xp,int,r)
+#' num.arcsPEend.int(Xp,int,r=2)
 #' }
 #'
-#' @export NumArcsPEend.int
-NumArcsPEend.int <- function(Xp,int,r)
+#' @export num.arcsPEend.int
+num.arcsPEend.int <- function(Xp,int,r)
 {
   if (!is.point(Xp,length(Xp)))
   {stop('Xp must be a 1D vector of numerical entries')}
@@ -1108,10 +1112,10 @@ NumArcsPEend.int <- function(Xp,int,r)
   {
     arcs<-0
     for (i in 1:n)
-    {p1<-Xp[i]; rv<-rv.end.int(p1,int)$rv
+    {p1<-Xp[i]; rv<-rel.vert.end.int(p1,int)$rv
     for (j in ((1:n)[-i]) )
     {p2<-Xp[j]
-    arcs<-arcs+IndNPEend.int(p1,p2,int,r,rv)
+    arcs<-arcs+IarcPEend.int(p1,p2,int,r,rv)
     }
     }
   }
@@ -1248,8 +1252,8 @@ asyvarPEend.int <- function(r)
 #' \item{quant}{Various quantities for the digraph: number of vertices, number of partition points,
 #' number of intervals (which is 2 for end intervals), number of arcs, and arc density.}
 #'
-#' @seealso \code{\link{ArcsPEmid.int}}, \code{\link{ArcsPE1D}} , \code{\link{ArcsCSmid.int}},
-#' \code{\link{ArcsCSend.int}}  and \code{\link{ArcsCS1D}}
+#' @seealso \code{\link{arcsPEmid.int}}, \code{\link{arcsPE1D}} , \code{\link{arcsCSmid.int}},
+#' \code{\link{arcsCSend.int}}  and \code{\link{arcsCS1D}}
 #'
 #' @references
 #' \insertAllCited{}
@@ -1270,7 +1274,7 @@ asyvarPEend.int <- function(r)
 #' Xp<-runif(nx,a-xf,b+xf)
 #' Yp<-runif(ny,a,b)  #try also Yp<-runif(ny,a,b)+c(-10,10)
 #'
-#' Arcs<-ArcsPEend.int(Xp,Yp,r)
+#' Arcs<-arcsPEend.int(Xp,Yp,r)
 #' Arcs
 #' summary(Arcs)
 #' plot(Arcs)
@@ -1293,8 +1297,8 @@ asyvarPEend.int <- function(r)
 #' arrows(S, yjit, E, yjit, length = .05, col= 4)
 #' }
 #'
-#' @export ArcsPEend.int
-ArcsPEend.int <- function(Xp,Yp,r)
+#' @export arcsPEend.int
+arcsPEend.int <- function(Xp,Yp,r)
 {
   xname <-deparse(substitute(Xp))
   yname <-deparse(substitute(Yp))
@@ -1448,7 +1452,7 @@ ArcsPEend.int <- function(Xp,Yp,r)
 #' @export plotPEarcs1D
 plotPEarcs1D <- function(Xp,Yp,r,c=.5,Jit=.1,main=NULL,xlab=NULL,ylab=NULL,xlim=NULL,ylim=NULL,centers=FALSE, ...)
 {
-  arcs<-ArcsPE1D(Xp,Yp,r,c)
+  arcs<-arcsPE1D(Xp,Yp,r,c)
   S<-arcs$S
   E<-arcs$E
   nx<-length(Xp)
@@ -1601,7 +1605,7 @@ NPEint <- function(x,int,r,c=.5)
 #'
 #' @return \eqn{I(p_2 \in N_{PE}(p_1,r,c))}, that is, returns 1 if \eqn{p_2} in \eqn{N_{PE}(p_1,r,c)}, returns 0 otherwise
 #'
-#' @seealso \code{\link{IndNPEmid.int}}, \code{\link{IndNPEend.int}} and \code{\link{IndNCSint}}
+#' @seealso \code{\link{IarcPEmid.int}}, \code{\link{IarcPEend.int}} and \code{\link{IarcCSint}}
 #'
 #' @references
 #' \insertAllCited{}
@@ -1613,12 +1617,12 @@ NPEint <- function(x,int,r,c=.5)
 #' r<-2
 #' a<-0; b<-10; int<-c(a,b)
 #'
-#' IndNPEint(7,5,int,r,c)
-#' IndNPEint(15,17,int,r,c)
-#' IndNPEint(1,3,int,r,c)
+#' IarcPEint(7,5,int,r,c)
+#' IarcPEint(15,17,int,r,c)
+#' IarcPEint(1,3,int,r,c)
 #'
-#' @export IndNPEint
-IndNPEint <- function(p1,p2,int,r,c=.5)
+#' @export IarcPEint
+IarcPEint <- function(p1,p2,int,r,c=.5)
 {
   if (!is.point(p2,1) )
   {stop('p2 must be a scalar')}
@@ -1736,16 +1740,25 @@ plotPEregs.int <- function(Xp,int,r,c=.5,Jit=.1,main=NULL,xlab=NULL,ylab=NULL,xl
 
 #################################################################
 
-#' @title Number of arcs of Proportional Edge Proximity Catch Digraphs (PE-PCDs) - one interval case
+#' @title Number of arcs of Proportional Edge Proximity Catch Digraphs (PE-PCDs)
+#' and quantities related to the interval - one interval case
 #'
-#' @description Returns the number of arcs and various other quantities, vectors, and lists for Proportional Edge Proximity Catch Digraph
-#' (PE-PCD) whose vertices are the data points in \code{Xp} in the one middle interval case.
+#' @description
+#' An object of class \code{"NumArcs"}.
+#' Returns the number of arcs of Proportional Edge Proximity Catch Digraph (PE-PCD)
+#' whose vertices are the
+#' data points in \code{Xp} in the one middle interval case.
+#' It also provides number of vertices
+#' (i.e., number of data points inside the intervals)
+#' and indices of the data points that reside in the intervals.
 #'
-#' The data points could be inside or outside the interval is \code{int}\eqn{=(a,b)}. PE proximity region is constructed
+#' The data points could be inside or outside the interval is \code{int}\eqn{=(a,b)}.
+#' PE proximity region is constructed
 #' with an expansion parameter \eqn{r \ge 1} and a centrality parameter \eqn{c \in (0,1)}.
 #' \code{int} determines the end points of the interval.
 #'
-#' The PE proximity region is constructed for both points inside and outside the interval, hence
+#' The PE proximity region is constructed for both points inside and outside the interval,
+#' hence
 #' the arcs may exist for all points inside or outside the interval.
 #'
 #' See also (\insertCite{ceyhan:metrika-2012;textual}{pcds}).
@@ -1759,6 +1772,8 @@ plotPEregs.int <- function(Xp,int,r,c=.5,Jit=.1,main=NULL,xlab=NULL,ylab=NULL,xl
 #' @param int A \code{vector} of two real numbers representing an interval.
 #'
 #' @return A \code{list} with the elements
+#' \item{desc}{A short description of the output: number of arcs
+#' and quantities related to the interval}
 #' \item{num.arcs}{Total number of arcs in all intervals (including the end intervals),
 #' i.e., the number of arcs for the entire PE-PCD}
 #' \item{num.in.range}{Number of \code{Xp} points in the interval \code{int}}
@@ -1767,8 +1782,14 @@ plotPEregs.int <- function(Xp,int,r,c=.5,Jit=.1,main=NULL,xlab=NULL,ylab=NULL,xl
 #' partition intervals (including the end intervals)}
 #' \item{data.int.ind}{A \code{vector} of indices of partition intervals in which data points reside.
 #' Partition intervals are numbered from left to right with 1 being the left end interval.}
+#' \item{ind.left.end, ind.mid, ind.right.end}{Indices of data points in the left end interval,
+#' middle interval, and right end interval (respectively)}
+#' \item{tess.points}{Points on which the tessellation of the study region is performed, here, tessellation
+#' is the support interval.}
+#' \item{vertices}{Vertices of the digraph, \code{Xp}.}
 #'
-#' @seealso \code{\link{NumArcsPEmid.int}}, \code{\link{NumArcsPEend.int}}, and \code{\link{NumArcsCSint}}
+#' @seealso \code{\link{num.arcsPEmid.int}}, \code{\link{num.arcsPEend.int}},
+#' and \code{\link{num.arcsCSint}}
 #'
 #' @references
 #' \insertAllCited{}
@@ -1787,13 +1808,14 @@ plotPEregs.int <- function(Xp,int,r,c=.5,Jit=.1,main=NULL,xlab=NULL,ylab=NULL,xl
 #'
 #' n<-10
 #' Xp<-runif(n,a-xf,b+xf)
-#' NumArcsPEint(Xp,int,r,c)
-#' NumArcsPEint(Xp,int,r,c=.3)
-#' NumArcsPEint(Xp,int,r=1.5,c)
+#' Narcs = num.arcsPEint(Xp,int,r,c)
+#' Narcs
+#' summary(Narcs)
+#' plot(Narcs)
 #' }
 #'
-#' @export NumArcsPEint
-NumArcsPEint <- function(Xp,int,r,c=.5)
+#' @export num.arcsPEint
+num.arcsPEint <- function(Xp,int,r,c=.5)
 {
   if (!is.point(Xp,length(Xp)))
   {stop('Xp must be a 1D vector of numerical entries')}
@@ -1809,41 +1831,62 @@ NumArcsPEint <- function(Xp,int,r,c=.5)
   } else
   {
     int.ind = rep(0,nx)
-    ind.mid = which(Xp >= y1 & Xp <= y2)
+    ind.mid = which(Xp>=y1 & Xp <= y2)
     dat.mid<-Xp[ind.mid] # Xp points inside the int
-    XpL= Xp[Xp<y1]; XpR= Xp[Xp>y2]
-    int.ind[which(Xp<y1)]=1
+    dat.left= Xp[Xp<y1]; dat.right= Xp[Xp>y2]
+    ind.left.end = which(Xp<y1)
+    ind.right.end = which(Xp>y2)
+    int.ind[ind.left.end]=1
     int.ind[ind.mid]=2
-    int.ind[which(Xp>y2)]=3
+    int.ind[ind.right.end]=3
 
     # number of arcs for the intervals
-    narcs.left = NumArcsPEend.int(XpL,int,r)
-    narcs.right = NumArcsPEend.int(XpR,int,r)
-    narcs.mid = NumArcsPEmid.int(dat.mid,int,r,c)
+    narcs.left = num.arcsPEend.int(dat.left,int,r)
+    narcs.right = num.arcsPEend.int(dat.right,int,r)
+    narcs.mid = num.arcsPEmid.int(dat.mid,int,r,c)
     arcs = c(narcs.left,narcs.mid,narcs.right)
 
-    ni.vec = c(length(XpL),length(dat.mid),length(XpR))
+    ni.vec = c(length(dat.left),length(dat.mid),length(dat.right))
 
     narcs = sum(arcs)
   }
 
   NinInt = ni.vec[2]
 
-  res<-list(num.arcs=narcs, #number of arcs for the PE-PCD
-            num.in.range=NinInt, #number of Xp points in the interval, int
-            num.in.intervals=ni.vec, #vector of numbers of Xp points in the partition intervals
+  desc<-"Number of Arcs of the CS-PCD with vertices Xp and Quantities Related to the Support Interval"
+
+  res<-list(desc=desc, #description of the output
+            num.arcs=narcs, #number of arcs for the CS-PCD
             int.num.arcs=arcs, #vector of number of arcs for the partition intervals
-            data.interval.indices=int.ind) #indices of partition intervals in which data points reside, i.e., column number of part.int for each Xp point
+            num.in.range=NinInt, #number of Xp points in the interval, int
+            num.in.ints=ni.vec, #vector of numbers of Xp points in the partition intervals
+            data.int.ind=int.ind, #indices of partition intervals in which data points reside, i.e., column number of part.int for each Xp point
+            ind.mid =ind.mid, #indices of data points in the middle interval
+            ind.left.end =ind.left.end, #indices of data points in the left end interval
+            ind.right.end =ind.right.end, #indices of data points in the right end interval
+            tess.points=int, #tessellation points
+            vertices=Xp #vertices of the digraph
+  )
+
+  class(res)<-"NumArcs"
+  res$call <-match.call()
+
   res
 } #end of the function
 #'
 
 #################################################################
 
-#' @title Number of arcs and related quantities of Proportional Edge Proximity Catch Digraphs (PE-PCDs) - multiple interval case
+#' @title Number of arcs of Proportional Edge Proximity Catch Digraphs (PE-PCDs)
+#' and related quantities of the induced subdigraphs for points in the partition intervals -
+#' multiple interval case
 #'
-#' @description Returns the number of arcs and various other quantities, vectors, and lists for Proportional Edge Proximity Catch Digraph
-#' (PE-PCD) whose vertices are the data points in \code{Xp} in the multiple interval case.
+#' @description
+#' An object of class \code{"NumArcs"}.
+#' Returns the number of arcs and various other quantities related to the partition intervals
+#' for Proportional Edge Proximity Catch Digraph
+#' (PE-PCD) whose vertices are the data points in \code{Xp}
+#' in the multiple interval case.
 #'
 #' For this function, PE proximity regions are constructed data points inside or outside the intervals based
 #' on \code{Yp} points with expansion parameter \eqn{r \ge 1} and centrality parameter \eqn{c \in (0,1)}. That is, for this function,
@@ -1864,6 +1907,8 @@ NumArcsPEint <- function(Xp,int,r,c=.5)
 #' For an interval, \eqn{(a,b)}, the parameterized center is \eqn{M_c=a+c(b-a)}.
 #'
 #' @return A \code{list} with the elements
+#' \item{desc}{A short description of the output: number of arcs
+#' and related quantities for the induced subdigraphs in the partition intervals}
 #' \item{num.arcs}{Total number of arcs in all intervals (including the end intervals),
 #' i.e., the number of arcs for the entire PE-PCD}
 #' \item{num.in.range}{Number of \code{Xp} points in the range or convex hull of \code{Yp} points}
@@ -1877,8 +1922,12 @@ NumArcsPEint <- function(Xp,int,r,c=.5)
 #' \item{data.int.ind}{A \code{vector} of indices of partition intervals in which data points reside,
 #' i.e., column number of \code{part.int} is provided for each \code{Xp} point. Partition intervals are numbered from left to right
 #' with 1 being the left end interval.}
+#' \item{tess.points}{Points on which the tessellation of the study region is performed, here, tessellation
+#' is the partition intervals based on \code{Yp} points.}
+#' \item{vertices}{Vertices of the digraph, \code{Xp}.}
 #'
-#' @seealso \code{\link{NumArcsPEint}}, \code{\link{NumArcsPEmid.int}}, \code{\link{NumArcsPEend.int}}, and \code{\link{NumArcsCS1D}}
+#' @seealso \code{\link{num.arcsPEint}}, \code{\link{num.arcsPEmid.int}}, \code{\link{num.arcsPEend.int}},
+#' and \code{\link{num.arcsCS1D}}
 #'
 #' @references
 #' \insertAllCited{}
@@ -1900,13 +1949,14 @@ NumArcsPEint <- function(Xp,int,r,c=.5)
 #' Xp<-runif(nx,a-xf,b+xf)
 #' Yp<-runif(ny,a,b)
 #'
-#' NumArcsPE1D(Xp,Yp,r,c)
-#' NumArcsPE1D(Xp,Yp,r,c=.3)
-#' NumArcsPE1D(Xp,Yp,r=1.5,c)
+#' Narcs = num.arcsPE1D(Xp,Yp,r,c)
+#' Narcs
+#' summary(Narcs)
+#' plot(Narcs)
 #' }
 #'
-#' @export NumArcsPE1D
-NumArcsPE1D <- function(Xp,Yp,r,c=.5)
+#' @export num.arcsPE1D
+num.arcsPE1D <- function(Xp,Yp,r,c=.5)
 {
   if (!is.point(Xp,length(Xp)) || !is.point(Yp,length(Yp)))
   {stop('Xp and Yp must be 1D vector of numerical entries')}
@@ -1927,10 +1977,9 @@ NumArcsPE1D <- function(Xp,Yp,r,c=.5)
   int.ind[which(Xp>ymax)]=ny+1
 
   #for end intervals
-  narcs.left = NumArcsPEend.int(dat.left,Yrange,r)
-  narcs.right = NumArcsPEend.int(dat.right,Yrange,r)
+  narcs.left = num.arcsPEend.int(dat.left,Yrange,r)
+  narcs.right = num.arcsPEend.int(dat.right,Yrange,r)
   arcs=narcs.left
-  narcs<-narcs.left + narcs.right
 
   #for middle intervals
   n.int<-ny-1 #number of Yp middle intervals
@@ -1945,32 +1994,38 @@ NumArcsPE1D <- function(Xp,Yp,r,c=.5)
 
   part.ints = rbind(c(-Inf,ymin),Yspacings,c(ymax,Inf))
 
-  for (i in 1:n.int) #to determine which interval data points reside
+  ni.vec = vector()
+  for (i in 1:n.int)
   {
     ind = which(Xp>=Ys[i] & Xp <= Ys[i+1])
     dat.int<-Xp[ind] #X points in the ith Yp mid interval
     int.ind[ind] = i+1
-  }
 
-  ni.vec = vector()
-  for (i in 1:n.int)
-  {
-    dat.int<-Xp[int.ind==i+1] #X points in the ith Yp mid interval
     ni.vec = c(ni.vec,length(dat.int))
-    narcs.mid = NumArcsPEmid.int(dat.int,Yspacings[i,],r,c)
+    narcs.mid = num.arcsPEmid.int(dat.int,Yspacings[i,],r,c)
     arcs = c(arcs,narcs.mid)
-    narcs<-narcs + narcs.mid
   }
   ni.vec = c(length(dat.left),ni.vec,length(dat.right))
   arcs = c(arcs,narcs.right) #reordering the number of arcs vector according to the order of the intervals, from left to right
+  narcs = sum(arcs)
 
-  res<-list(num.arcs=narcs, #number of arcs for the entire PCD
-            num.in.range=nx2, #number of Xp points in the range of Yp points
-            num.in.intervals=ni.vec, #number of Xp points in the partition intervals
-            weight.vec=Wvec, #lengths of the middle partition intervals
+  desc<-"Number of Arcs of the PE-PCD with vertices Xp and Related Quantities for the Induced Subdigraphs for the Points in the Partition Intervals"
+
+    res<-list(desc=desc, #description of the output
+            num.arcs=narcs, #number of arcs for the entire PCD
             int.num.arcs=arcs, #vector of number of arcs for the partition intervals
+            num.in.range=nx2, #number of Xp points in the range of Yp points
+            num.in.ints=ni.vec, #number of Xp points in the partition intervals
+            weight.vec=Wvec, #lengths of the middle partition intervals
             partition.intervals=t(part.ints), #matrix of the partition intervals, each column is one interval
-            data.interval.indices=int.ind) #indices of partition intervals in which data points reside, i.e., column number of part.int for each Xp point
+            data.int.ind=int.ind, #indices of partition intervals in which data points reside, i.e., column number of part.int for each Xp point
+            tess.points=Yp, #tessellation points
+            vertices=Xp #vertices of the digraph
+  )
+
+  class(res)<-"NumArcs"
+  res$call <-match.call()
+
   res
 } #end of the function
 #'
@@ -2014,7 +2069,7 @@ NumArcsPE1D <- function(Xp,Yp,r,c=.5)
 #' \item{quant}{Various quantities for the digraph: number of vertices, number of partition points,
 #' number of intervals, number of arcs, and arc density.}
 #'
-#' @seealso \code{\link{ArcsPE1D}}, \code{\link{ArcsPEmid.int}}, \code{\link{ArcsPEend.int}}, and \code{\link{ArcsCS1D}}
+#' @seealso \code{\link{arcsPE1D}}, \code{\link{arcsPEmid.int}}, \code{\link{arcsPEend.int}}, and \code{\link{arcsCS1D}}
 #'
 #' @references
 #' \insertAllCited{}
@@ -2035,14 +2090,14 @@ NumArcsPE1D <- function(Xp,Yp,r,c=.5)
 #' set.seed(1)
 #' Xp<-runif(n,a-xf,b+xf)
 #'
-#' Arcs<-ArcsPEint(Xp,int,r,c)
+#' Arcs<-arcsPEint(Xp,int,r,c)
 #' Arcs
 #' summary(Arcs)
 #' plot(Arcs)
 #' }
 #'
-#' @export ArcsPEint
-ArcsPEint <- function(Xp,int,r,c=.5)
+#' @export arcsPEint
+arcsPEint <- function(Xp,int,r,c=.5)
 {
   xname <-deparse(substitute(Xp))
   yname <-deparse(substitute(int))
@@ -2093,7 +2148,7 @@ ArcsPEint <- function(Xp,int,r,c=.5)
     {
       for (j in 1:nx2)
       {x1 <-Xint[j] ; Xinl<-Xint[-j] #to avoid loops
-      v<-rv.mid.int(x1,int,c)$rv
+      v<-rel.vert.mid.int(x1,int,c)$rv
       if (v==1)
       {
         xR<-y1+r*(x1-y1)
@@ -2230,7 +2285,7 @@ ArcsPEint <- function(Xp,int,r,c=.5)
 #' @export plotPEarcs.int
 plotPEarcs.int <- function(Xp,int,r,c=.5,Jit=.1,main=NULL,xlab=NULL,ylab=NULL,xlim=NULL,ylim=NULL,center=FALSE, ...)
 {
-  arcs<-ArcsPEint(Xp,int,r,c)
+  arcs<-arcsPEint(Xp,int,r,c)
   S<-arcs$S
   E<-arcs$E
 
@@ -2306,7 +2361,7 @@ plotPEarcs.int <- function(Xp,int,r,c=.5,Jit=.1,main=NULL,xlab=NULL,ylab=NULL,xl
 #' \item{quant}{Various quantities for the digraph: number of vertices, number of partition points,
 #' number of intervals, number of arcs, and arc density.}
 #'
-#' @seealso \code{\link{ArcsPEint}}, \code{\link{ArcsPEmid.int}}, \code{\link{ArcsPEend.int}}, and \code{\link{ArcsCS1D}}
+#' @seealso \code{\link{arcsPEint}}, \code{\link{arcsPEmid.int}}, \code{\link{arcsPEend.int}}, and \code{\link{arcsCS1D}}
 #'
 #' @references
 #' \insertAllCited{}
@@ -2328,14 +2383,14 @@ plotPEarcs.int <- function(Xp,int,r,c=.5,Jit=.1,main=NULL,xlab=NULL,ylab=NULL,xl
 #' Xp<-runif(nx,a-xf,b+xf)
 #' Yp<-runif(ny,a,b)
 #'
-#' Arcs<-ArcsPE1D(Xp,Yp,r,c)
+#' Arcs<-arcsPE1D(Xp,Yp,r,c)
 #' Arcs
 #' summary(Arcs)
 #' plot(Arcs)
 #' }
 #'
-#' @export ArcsPE1D
-ArcsPE1D <- function(Xp,Yp,r,c=.5)
+#' @export arcsPE1D
+arcsPE1D <- function(Xp,Yp,r,c=.5)
 {
   xname <-deparse(substitute(Xp))
   yname <-deparse(substitute(Yp))
@@ -2403,7 +2458,7 @@ ArcsPE1D <- function(Xp,Yp,r,c=.5)
           y1<-Ys[i]; y2<-Ys[i+1]; int<-c(y1,y2)
           for (j in 1:ni)
           {x1 <-Xi[j] ; Xinl<-Xi[-j] #to avoid loops
-          v<-rv.mid.int(x1,int,c)$rv
+          v<-rel.vert.mid.int(x1,int,c)$rv
           if (v==1)
           {
             xR<-y1+r*(x1-y1)
@@ -2495,7 +2550,7 @@ ArcsPE1D <- function(Xp,Yp,r,c=.5)
 #' @return Incidence matrix for the PE-PCD with vertices being 1D data set, \code{Xp},
 #' and \code{Yp} determines the end points of the intervals (in the multi-interval case)
 #'
-#' @seealso \code{\link{IncMatCS1D}}, \code{\link{IncMatPEtri}}, and \code{\link{IncMatPE}}
+#' @seealso \code{\link{inci.matCS1D}}, \code{\link{inci.matPEtri}}, and \code{\link{inci.matPE}}
 #'
 #' @references
 #' \insertAllCited{}
@@ -2513,16 +2568,16 @@ ArcsPE1D <- function(Xp,Yp,r,c=.5)
 #' Xp<-runif(nx,a,b)
 #' Yp<-runif(ny,a,b)
 #'
-#' IM<-IncMatPE1D(Xp,Yp,r,c)
+#' IM<-inci.matPE1D(Xp,Yp,r,c)
 #' IM
 #'
-#' dom.greedy(IM)
-#' IndUBdom(IM,6)
-#' dom.exact(IM)
+#' dom.num.greedy(IM)
+#' Idom.num.up.bnd(IM,6)
+#' dom.num.exact(IM)
 #' }
 #'
-#' @export IncMatPE1D
-IncMatPE1D <- function(Xp,Yp,r,c=.5)
+#' @export inci.matPE1D
+inci.matPE1D <- function(Xp,Yp,r,c=.5)
 {
   if (!is.point(Xp,length(Xp)) || !is.point(Yp,length(Yp)) )
   {stop('Xp and Yp must be 1D vectors of numerical entries')}
@@ -2600,7 +2655,7 @@ IncMatPE1D <- function(Xp,Yp,r,c=.5)
 #' @return Incidence matrix for the PE-PCD with vertices being 1D data set, \code{Xp},
 #' and \code{int} determines the end points of the intervals (in the one interval case)
 #'
-#' @seealso \code{\link{IncMatCSint}}, \code{\link{IncMatPE1D}}, \code{\link{IncMatPEtri}}, and \code{\link{IncMatPE}}
+#' @seealso \code{\link{inci.matCSint}}, \code{\link{inci.matPE1D}}, \code{\link{inci.matPEtri}}, and \code{\link{inci.matPE}}
 #'
 #' @references
 #' \insertAllCited{}
@@ -2620,18 +2675,18 @@ IncMatPE1D <- function(Xp,Yp,r,c=.5)
 #' n<-10
 #' Xp<-runif(n,a-xf,b+xf)
 #'
-#' IM<-IncMatPEint(Xp,int,r,c)
+#' IM<-inci.matPEint(Xp,int,r,c)
 #' IM
 #'
-#' dom.greedy(IM)
-#' IndUBdom(IM,6)
-#' dom.exact(IM)
+#' dom.num.greedy(IM)
+#' Idom.num.up.bnd(IM,6)
+#' dom.num.exact(IM)
 #'
-#' IncMatPEint(Xp,int+10,r,c)
+#' inci.matPEint(Xp,int+10,r,c)
 #' }
 #'
-#' @export IncMatPEint
-IncMatPEint <- function(Xp,int,r,c=.5)
+#' @export inci.matPEint
+inci.matPEint <- function(Xp,int,r,c=.5)
 {
   if (!is.point(Xp,length(Xp)) )
   {stop('Xp must be a 1D vector of numerical entries')}
@@ -2895,7 +2950,7 @@ plotPEregs1D <- function(Xp,Yp,r,c=.5,Jit=.1,main=NULL,xlab=NULL,ylab=NULL,xlim=
 #' @return \eqn{I(}\code{p} is a dominating point of the PE-PCD\eqn{)} where the vertices of the PE-PCD are the 1D data set \code{Xp},
 #' that is, returns 1 if \code{p} is a dominating point, returns 0 otherwise
 #'
-#' @seealso \code{\link{Gam1PEtri}}
+#' @seealso \code{\link{Idom.num1PEtri}}
 #'
 #' @author Elvan Ceyhan
 #'
@@ -2906,18 +2961,18 @@ plotPEregs1D <- function(Xp,Yp,r,c=.5,Jit=.1,main=NULL,xlab=NULL,ylab=NULL,xlim=
 #' a<-0; b<-10
 #' int=c(a,b)
 #'
-#' Mc<-centMc(int,c)
+#' Mc<-centerMc(int,c)
 #'
 #' n<-10
 #'
 #' set.seed(1)
 #' Xp<-runif(n,a,b)
 #'
-#' Gam1PEint(Xp[5],Xp,int,r,c)
+#' Idom.num1PEint(Xp[5],Xp,int,r,c)
 #'
 #' gam.vec<-vector()
 #' for (i in 1:n)
-#' {gam.vec<-c(gam.vec,Gam1PEint(Xp[i],Xp,int,r,c))}
+#' {gam.vec<-c(gam.vec,Idom.num1PEint(Xp[i],Xp,int,r,c))}
 #'
 #' ind.gam1<-which(gam.vec==1)
 #' ind.gam1
@@ -2927,8 +2982,8 @@ plotPEregs1D <- function(Xp,Yp,r,c=.5,Jit=.1,main=NULL,xlab=NULL,ylab=NULL,xlim=
 #' {domset<-NA}
 #'
 #' #or try
-#' Rv<-rv.mid.int(Xp[5],int,c)$rv
-#' Gam1PEint(Xp[5],Xp,int,r,c,Rv)
+#' Rv<-rel.vert.mid.int(Xp[5],int,c)$rv
+#' Idom.num1PEint(Xp[5],Xp,int,r,c,Rv)
 #'
 #' Xlim<-range(a,b,Xp)
 #' xd<-Xlim[2]-Xlim[1]
@@ -2940,12 +2995,12 @@ plotPEregs1D <- function(Xp,Yp,r,c=.5,Jit=.1,main=NULL,xlab=NULL,ylab=NULL,xlim=
 #' points(cbind(domset,0),pch=4,col=2)
 #' text(cbind(c(a,b,Mc),-0.1),c("a","b","Mc"))
 #'
-#' Gam1PEint(2,Xp,int,r,c,ch.data.pnt = FALSE)
+#' Idom.num1PEint(2,Xp,int,r,c,ch.data.pnt = FALSE)
 #' #gives an error message if ch.data.pnt = TRUE since point p is not a data point in Xp
 #' }
 #'
-#' @export Gam1PEint
-Gam1PEint <- function(p,Xp,int,r,c=.5,rv=NULL,ch.data.pnt=FALSE)
+#' @export Idom.num1PEint
+Idom.num1PEint <- function(p,Xp,int,r,c=.5,rv=NULL,ch.data.pnt=FALSE)
 {
   if (!is.point(p,1) )
   {stop('p must be a scalar')}
@@ -2973,7 +3028,7 @@ Gam1PEint <- function(p,Xp,int,r,c=.5,rv=NULL,ch.data.pnt=FALSE)
   {stop('interval is degenerate or void, left end must be smaller than right end')}
 
   if (is.null(rv))
-  {rv<-rv.mid.int(p,int,c)$rv #determines the vertex region for 1D point p
+  {rv<-rel.vert.mid.int(p,int,c)$rv #determines the vertex region for 1D point p
   } else
   {  if (!is.numeric(rv) || sum(rv==c(1,2,3))!=1)
   {stop('vertex index, rv, must be 1, 2 or 3')}}
@@ -2982,7 +3037,7 @@ Gam1PEint <- function(p,Xp,int,r,c=.5,rv=NULL,ch.data.pnt=FALSE)
   n<-length(Xp)
   dom<-1; i<-1;
   while (i <= n & dom==1)
-  {if (IndNPEint(p,Xp[i],int,r,c)==0)
+  {if (IarcPEint(p,Xp[i],int,r,c)==0)
   {dom<-0;}
     i<-i+1;
   }
@@ -2992,13 +3047,13 @@ Gam1PEint <- function(p,Xp,int,r,c=.5,rv=NULL,ch.data.pnt=FALSE)
 
 #################################################################
 
-# funsPG2PE1D
+# funsPDomNum2PE1D
 #'
 #' @title The functions for probability of domination number \eqn{= 2} for Proportional Edge Proximity Catch Digraphs
 #' (PE-PCDs) - middle interval case
 #'
 #' @description
-#' The function \code{PG2PE1D} and its auxiliary functions.
+#' The function \code{Pdom.num2PE1D} and its auxiliary functions.
 #'
 #' Returns \eqn{P(\gamma=2)} for PE-PCD whose vertices are a uniform data set of size \code{n} in a finite interval
 #' \eqn{(a,b)} where \eqn{\gamma} stands for the domination number.
@@ -3010,9 +3065,9 @@ Gam1PEint <- function(p,Xp,int,r,c=.5,rv=NULL,ch.data.pnt=FALSE)
 #' we partition the domain \eqn{(r,c)=(1,\infty) \times (0,1)}, and compute the probability for each partition
 #' set. The sample size (i.e., number of vertices or data points) is a positive integer, \code{n}.
 #'
-#' @section Auxiliary Functions for \code{PG2PE1D}:
-#' The auxiliary functions are \code{PG2AI, PG2AII, PG2AIII, PG2AIV, PG2A, PG2Asym, PG2BIII, PG2B, PG2B,
-#' PG2Bsym, PG2CIV, PG2C}, and \code{PG2Csym}, each corresponding to a partition of the domain of
+#' @section Auxiliary Functions for \code{Pdom.num2PE1D}:
+#' The auxiliary functions are \code{Pdom.num2AI, Pdom.num2AII, Pdom.num2AIII, Pdom.num2AIV, Pdom.num2A, Pdom.num2Asym, Pdom.num2BIII, Pdom.num2B, Pdom.num2B,
+#' Pdom.num2Bsym, Pdom.num2CIV, Pdom.num2C}, and \code{Pdom.num2Csym}, each corresponding to a partition of the domain of
 #' \code{r} and \code{c}. In particular, the domain partition is handled in 3 cases as
 #'
 #' CASE A: \eqn{c \in ((3-\sqrt{5})/2, 1/2)}
@@ -3025,83 +3080,85 @@ Gam1PEint <- function(p,Xp,int,r,c=.5,rv=NULL,ch.data.pnt=FALSE)
 #' @section Case A - \eqn{c \in ((3-\sqrt{5})/2, 1/2)}:
 #' In Case A, we compute \eqn{P(\gamma=2)} with
 #'
-#' \code{PG2AIV(r,c,n)} if \eqn{1 < r < (1-c)/c};
+#' \code{Pdom.num2AIV(r,c,n)} if \eqn{1 < r < (1-c)/c};
 #'
-#' \code{PG2AIII(r,c,n)} if \eqn{(1-c)/c< r < 1/(1-c)};
+#' \code{Pdom.num2AIII(r,c,n)} if \eqn{(1-c)/c< r < 1/(1-c)};
 #'
-#' \code{PG2AII(r,c,n)} if \eqn{1/(1-c)< r < 1/c};
+#' \code{Pdom.num2AII(r,c,n)} if \eqn{1/(1-c)< r < 1/c};
 #'
-#' and \code{PG2AI(r,c,n)} otherwise.
+#' and \code{Pdom.num2AI(r,c,n)} otherwise.
 #'
-#' \code{PG2A(r,c,n)} combines these functions in Case A: \eqn{c \in ((3-\sqrt{5})/2,1/2)}.
-#' Due to the symmetry in the PE proximity regions, we use \code{PG2Asym(r,c,n)} for \eqn{c} in
+#' \code{Pdom.num2A(r,c,n)} combines these functions in Case A: \eqn{c \in ((3-\sqrt{5})/2,1/2)}.
+#' Due to the symmetry in the PE proximity regions, we use \code{Pdom.num2Asym(r,c,n)} for \eqn{c} in
 #' \eqn{(1/2,(\sqrt{5}-1)/2)} with the same auxiliary functions
 #'
-#' \code{PG2AIV(r,1-c,n)} if \eqn{1 < r < c/(1-c)};
+#' \code{Pdom.num2AIV(r,1-c,n)} if \eqn{1 < r < c/(1-c)};
 #'
-#' \code{PG2AIII(r,1-c,n)} if \eqn{(c/(1-c) < r < 1/c};
+#' \code{Pdom.num2AIII(r,1-c,n)} if \eqn{(c/(1-c) < r < 1/c};
 #'
-#' \code{PG2AII(r,1-c,n)} if \eqn{1/c < r < 1/(1-c)};
+#' \code{Pdom.num2AII(r,1-c,n)} if \eqn{1/c < r < 1/(1-c)};
 #'
-#' and \code{PG2AI(r,1-c,n)} otherwise.
+#' and \code{Pdom.num2AI(r,1-c,n)} otherwise.
 #'
 #' @section Case B - \eqn{c \in (1/4,(3-\sqrt{5})/2)}:
 #'
 #' In Case B, we compute \eqn{P(\gamma=2)} with
 #'
-#' \code{PG2AIV(r,c,n)} if \eqn{1 < r < 1/(1-c)};
+#' \code{Pdom.num2AIV(r,c,n)} if \eqn{1 < r < 1/(1-c)};
 #'
-#' \code{PG2BIII(r,c,n)} if \eqn{1/(1-c) < r < (1-c)/c};
+#' \code{Pdom.num2BIII(r,c,n)} if \eqn{1/(1-c) < r < (1-c)/c};
 #'
-#' \code{PG2AII(r,c,n)} if \eqn{(1-c)/c < r < 1/c};
+#' \code{Pdom.num2AII(r,c,n)} if \eqn{(1-c)/c < r < 1/c};
 #'
-#' and \code{PG2AI(r,c,n)} otherwise.
+#' and \code{Pdom.num2AI(r,c,n)} otherwise.
 #'
-#' PG2B(r,c,n) combines these functions in Case B: \eqn{c \in (1/4,(3-\sqrt{5})/2)}.
-#' Due to the symmetry in the PE proximity regions, we use \code{PG2Bsym(r,c,n)} for \code{c} in
+#' \code{Pdom.num2B(r,c,n)} combines these functions in Case B: \eqn{c \in (1/4,(3-\sqrt{5})/2)}.
+#' Due to the symmetry in the PE proximity regions,
+#' we use \code{Pdom.num2Bsym(r,c,n)} for \code{c} in
 #' \eqn{((\sqrt{5}-1)/2,3/4)} with the same auxiliary functions
 #'
-#' \code{PG2AIV(r,1-c,n)} if \eqn{ 1< r < 1/c};
+#' \code{Pdom.num2AIV(r,1-c,n)} if \eqn{ 1< r < 1/c};
 #'
-#' \code{PG2BIII(r,1-c,n)} if \eqn{1/c < r < c/(1-c)};
+#' \code{Pdom.num2BIII(r,1-c,n)} if \eqn{1/c < r < c/(1-c)};
 #'
-#' \code{PG2AII(r,1-c,n)} if \eqn{c/(1-c) < r < 1/(1-c)};
+#' \code{Pdom.num2AII(r,1-c,n)} if \eqn{c/(1-c) < r < 1/(1-c)};
 #'
-#' and \code{PG2AI(r,1-c,n)} otherwise.
+#' and \code{Pdom.num2AI(r,1-c,n)} otherwise.
 #'
 #' @section Case C - \eqn{c \in (0,1/4)}:
 #'
 #' In Case C, we compute \eqn{P(\gamma=2)} with
 #'
-#' \code{PG2AIV(r,c,n)} if \eqn{1< r < 1/(1-c)};
+#' \code{Pdom.num2AIV(r,c,n)} if \eqn{1< r < 1/(1-c)};
 #'
-#' \code{PG2BIII(r,c,n)} if \eqn{1/(1-c) < r < (1-\sqrt{1-4 c})/(2 c)};
+#' \code{Pdom.num2BIII(r,c,n)} if \eqn{1/(1-c) < r < (1-\sqrt{1-4 c})/(2 c)};
 #'
-#' \code{PG2CIV(r,c,n)} if \eqn{(1-\sqrt{1-4 c})/(2 c) < r < (1+\sqrt{1-4 c})/(2 c)};
+#' \code{Pdom.num2CIV(r,c,n)} if \eqn{(1-\sqrt{1-4 c})/(2 c) < r < (1+\sqrt{1-4 c})/(2 c)};
 #'
-#' \code{PG2BIII(r,c,n)} if \eqn{(1+\sqrt{1-4 c})/(2 c) < r <1/(1-c)};
+#' \code{Pdom.num2BIII(r,c,n)} if \eqn{(1+\sqrt{1-4 c})/(2 c) < r <1/(1-c)};
 #'
-#' \code{PG2AII(r,c,n)} if \eqn{1/(1-c) < r < 1/c};
+#' \code{Pdom.num2AII(r,c,n)} if \eqn{1/(1-c) < r < 1/c};
 #'
-#' and \code{PG2AI(r,c,n)} otherwise.
+#' and \code{Pdom.num2AI(r,c,n)} otherwise.
 #'
-#' \code{PG2C(r,c,n)} combines these functions in Case C: \eqn{c \in (0,1/4)}.
-#' Due to the symmetry in the PE proximity regions, we use \code{PG2Csym(r,c,n)} for \eqn{c \in (3/4,1)}
+#' \code{Pdom.num2C(r,c,n)} combines these functions in Case C: \eqn{c \in (0,1/4)}.
+#' Due to the symmetry in the PE proximity regions,
+#' we use \code{Pdom.num2Csym(r,c,n)} for \eqn{c \in (3/4,1)}
 #' with the same auxiliary functions
 #'
-#' \code{PG2AIV(r,1-c,n)} if \eqn{1< r < 1/c};
+#' \code{Pdom.num2AIV(r,1-c,n)} if \eqn{1< r < 1/c};
 #'
-#' \code{PG2BIII(r,1-c,n)} if \eqn{1/c < r < (1-\sqrt{1-4(1-c)})/(2(1-c))};
+#' \code{Pdom.num2BIII(r,1-c,n)} if \eqn{1/c < r < (1-\sqrt{1-4(1-c)})/(2(1-c))};
 #'
-#' \code{PG2CIV(r,1-c,n)} if \eqn{(1-\sqrt{1-4(1-c)})/(2(1-c)) < r < (1+\sqrt{1-4(1-c)})/(2(1-c))};
+#' \code{Pdom.num2CIV(r,1-c,n)} if \eqn{(1-\sqrt{1-4(1-c)})/(2(1-c)) < r < (1+\sqrt{1-4(1-c)})/(2(1-c))};
 #'
-#' \code{PG2BIII(r,1-c,n)} if \eqn{(1+\sqrt{1-4(1-c)})/(2(1-c)) < r < c/(1-c)};
+#' \code{Pdom.num2BIII(r,1-c,n)} if \eqn{(1+\sqrt{1-4(1-c)})/(2(1-c)) < r < c/(1-c)};
 #'
-#' \code{PG2AII(r,1-c,n)} if \eqn{c/(1-c)< r < 1/(1-c)};
+#' \code{Pdom.num2AII(r,1-c,n)} if \eqn{c/(1-c)< r < 1/(1-c)};
 #'
-#' and \code{PG2AI(r,1-c,n)} otherwise.
+#' and \code{Pdom.num2AI(r,1-c,n)} otherwise.
 #'
-#' Combining Cases A, B, and C, we get our main function \code{PG2PE1D} which computes \eqn{P(\gamma=2)}
+#' Combining Cases A, B, and C, we get our main function \code{Pdom.num2PE1D} which computes \eqn{P(\gamma=2)}
 #' for any (\code{r,c}) in its domain.
 #'
 #' @param r A positive real number which serves as the expansion parameter in PE proximity region;
@@ -3113,227 +3170,227 @@ Gam1PEint <- function(p,Xp,int,r,c=.5,rv=NULL,ch.data.pnt=FALSE)
 #' @return \eqn{P(}domination number\eqn{\le 1)} for PE-PCD whose vertices are a uniform data set of size \code{n} in a finite
 #' interval \eqn{(a,b)}
 #'
-#' @name funsPG2PE1D
+#' @name funsPDomNum2PE1D
 NULL
 #'
-#' @seealso \code{\link{PG2PEtri}} and  \code{\link{PG2PE1D.asy}}
+#' @seealso \code{\link{Pdom.num2PEtri}} and  \code{\link{Pdom.num2PE1Dasy}}
 #'
 #' @author Elvan Ceyhan
 #'
-#' @rdname funsPG2PE1D
+#' @rdname funsPDomNum2PE1D
 #'
-PG2AI <- function(r,c,n)
+Pdom.num2AI <- function(r,c,n)
 {
   r^2*(2^n*(1/r)^n*r-2^n*(1/r)^n-2*((r-1)/r^2)^n*r)/((r-1)*(r+1)^2);
 } #end of the function
 #'
-#' @rdname funsPG2PE1D
+#' @rdname funsPDomNum2PE1D
 #'
-PG2AII <- function(r,c,n)
+Pdom.num2AII <- function(r,c,n)
 {
   -1/((r-1)*(r+1)^2)*r*(((r-1)/r^2)^n*r^2-((c*r+1)/r)^n*r^2+(-(c-1)/r)^n*r^2+((c*r^2+c*r-r+1)/r)^n*r+((r-1)*(c*r+c-1)/r)^n+((c*r+1)/r)^n-((c*r^2+c*r-r+1)/r)^n-(-(c-1)/r)^n);
 } #end of the function
 #'
-#' @rdname funsPG2PE1D
+#' @rdname funsPDomNum2PE1D
 #'
-PG2AIII <- function(r,c,n)
+Pdom.num2AIII <- function(r,c,n)
 {
   -1/(r-1)/(r+1)^2*((-(c-1)/r)^n*r^3+(c/r)^n*r^3+(r-1)^n*r^3-(r-1)^(1+n)*r^2+(-(c-1)*r)^n*r^2+(c*r)^n*r^2-(r-1)^n*r^2-r^3+((r-1)*(c*r+c-1)/r)^n*r+(-(r-1)/r*(c*r+c-r))^n*r-r*(-(c-1)/r)^n-r*(c/r)^n-(r-1)^n*r-r^2-(-(c-1)*r)^n-(c*r)^n+(r-1)^n+r+1);
 } #end of the function
 #'
-#' @rdname funsPG2PE1D
+#' @rdname funsPDomNum2PE1D
 #'
-PG2AIV <- function(r,c,n)
+Pdom.num2AIV <- function(r,c,n)
 {
   1/(r-1)/(r+1)^2*(-(-(c-1)/r)^n*r^3-(c/r)^n*r^3-(r-1)^n*r^3+(r-1)^(1+n)*r^2-(-(c-1)*r)^n*r^2-(c*r)^n*r^2+(r-1)^n*r^2+r^3-(-(r-1)/r*(c*r+c-r))^n*r+r*(-(c-1)/r)^n+r*(c/r)^n+(r-1)^n*r+r^2+(-(r-1)*(c*r+c-1))^n+(-(c-1)*r)^n+(c*r)^n-(r-1)^n-r-1);
 } #end of the function
 #'
-#' @rdname funsPG2PE1D
+#' @rdname funsPDomNum2PE1D
 #'
-PG2A <- function(r,c,n)
+Pdom.num2A <- function(r,c,n)
 {
   if (r<1)
   {pg2<-0;
   } else {
     if (r<(1-c)/c)
     {
-      pg2<-PG2AIV(r,c,n);
+      pg2<-Pdom.num2AIV(r,c,n);
     } else {
       if (r<1/(1-c))
       {
-        pg2<-PG2AIII(r,c,n);
+        pg2<-Pdom.num2AIII(r,c,n);
       } else {
         if (r<1/c)
         {
-          pg2<-PG2AII(r,c,n);
+          pg2<-Pdom.num2AII(r,c,n);
         } else {
-          pg2<-PG2AI(r,c,n);
+          pg2<-Pdom.num2AI(r,c,n);
         }}}}
   pg2
 } #end of the function
 #'
-#' @rdname funsPG2PE1D
+#' @rdname funsPDomNum2PE1D
 #'
-PG2Asym <- function(r,c,n)
+Pdom.num2Asym <- function(r,c,n)
 {
   if (r<1)
   {pg2<-0;
   } else {
     if (r<c/(1-c))
     {
-      pg2<-PG2AIV(r,1-c,n);
+      pg2<-Pdom.num2AIV(r,1-c,n);
     } else {
       if (r<1/c)
       {
-        pg2<-PG2AIII(r,1-c,n);
+        pg2<-Pdom.num2AIII(r,1-c,n);
       } else {
         if (r<1/(1-c))
         {
-          pg2<-PG2AII(r,1-c,n);
+          pg2<-Pdom.num2AII(r,1-c,n);
         } else {
-          pg2<-PG2AI(r,1-c,n);
+          pg2<-Pdom.num2AI(r,1-c,n);
         }}}}
   pg2
 } #end of the function
 #'
-#' @rdname funsPG2PE1D
+#' @rdname funsPDomNum2PE1D
 #'
-PG2BIII <- function(r,c,n)
+Pdom.num2BIII <- function(r,c,n)
 {
   -1/(r-1)/(r+1)^2*(r^3*((r-1)/r^2)^n-((c*r+1)/r)^n*r^3+(-(c-1)/r)^n*r^3+((c*r^2+c*r-r+1)/r)^n*r^2+r*((c*r+1)/r)^n-((c*r^2+c*r-r+1)/r)^n*r-r*(-(c-1)/r)^n-(-(r-1)*(c*r+c-1))^n);
 } #end of the function
 #'
-#' @rdname funsPG2PE1D
+#' @rdname funsPDomNum2PE1D
 #'
-PG2B <- function(r,c,n)
+Pdom.num2B <- function(r,c,n)
 {
   if (r<1)
   { pg2<-0;
   } else {
     if (r<1/(1-c))
     {
-      pg2<-PG2AIV(r,c,n);
+      pg2<-Pdom.num2AIV(r,c,n);
     } else {
       if (r<(1-c)/c)
       {
-        pg2<-PG2BIII(r,c,n);
+        pg2<-Pdom.num2BIII(r,c,n);
       } else {
         if (r<1/c)
         {
-          pg2<-PG2AII(r,c,n);
+          pg2<-Pdom.num2AII(r,c,n);
         } else {
-          pg2<-PG2AI(r,c,n);
+          pg2<-Pdom.num2AI(r,c,n);
         }}}}
   pg2
 } #end of the function
 #'
-#' @rdname funsPG2PE1D
+#' @rdname funsPDomNum2PE1D
 #'
-PG2Bsym <- function(r,c,n)
+Pdom.num2Bsym <- function(r,c,n)
 {
   if (r<1)
   {pg2<-0;
   } else {
     if (r<1/c)
     {
-      pg2<-PG2AIV(r,1-c,n);
+      pg2<-Pdom.num2AIV(r,1-c,n);
     } else {
       if (r<c/(1-c))
       {
-        pg2<-PG2BIII(r,1-c,n);
+        pg2<-Pdom.num2BIII(r,1-c,n);
       } else {
         if (r<1/(1-c))
         {
-          pg2<-PG2AII(r,1-c,n);
+          pg2<-Pdom.num2AII(r,1-c,n);
         } else {
-          pg2<-PG2AI(r,1-c,n);
+          pg2<-Pdom.num2AI(r,1-c,n);
         }}}}
   pg2
 } #end of the function
 #'
-#' @rdname funsPG2PE1D
+#' @rdname funsPDomNum2PE1D
 #'
-PG2CIV <- function(r,c,n)
+Pdom.num2CIV <- function(r,c,n)
 {
   1/(r+1)*(-r*(-(c-1)/r)^n-c^n*r-c^n+r*((c*r+1)/r)^n);
 } #end of the function
 #'
-#' @rdname funsPG2PE1D
+#' @rdname funsPDomNum2PE1D
 #'
-PG2C <- function(r,c,n)
+Pdom.num2C <- function(r,c,n)
 {
   if (r<1)
   { pg2<-0;
   } else {
     if (r<1/(1-c))
     {
-      pg2<-PG2AIV(r,c,n);
+      pg2<-Pdom.num2AIV(r,c,n);
     } else {
       if (r<(1-sqrt(1-4*c))/(2*c))
       {
-        pg2<-PG2BIII(r,c,n);
+        pg2<-Pdom.num2BIII(r,c,n);
       } else {
         if (r<(1+sqrt(1-4*c))/(2*c))
         {
-          pg2<-PG2CIV(r,c,n);
+          pg2<-Pdom.num2CIV(r,c,n);
         } else {
           if (r<(1-c)/c)
           {
-            pg2<-PG2BIII(r,c,n);
+            pg2<-Pdom.num2BIII(r,c,n);
           } else {
             if (r<1/c)
             {
-              pg2<-PG2AII(r,c,n);
+              pg2<-Pdom.num2AII(r,c,n);
             } else {
-              pg2<-PG2AI(r,c,n);
+              pg2<-Pdom.num2AI(r,c,n);
             }}}}}}
   pg2
 } #end of the function
 #'
-#' @rdname funsPG2PE1D
+#' @rdname funsPDomNum2PE1D
 #'
-PG2Csym <- function(r,c,n)
+Pdom.num2Csym <- function(r,c,n)
 {
   if (r<1)
   { pg2<-0;
   } else {
     if (r<1/c)
     {
-      pg2<-PG2AIV(r,1-c,n);
+      pg2<-Pdom.num2AIV(r,1-c,n);
     } else {
       if (r<(1-sqrt(1-4*(1-c)))/(2*(1-c)))
       {
-        pg2<-PG2BIII(r,1-c,n);
+        pg2<-Pdom.num2BIII(r,1-c,n);
       } else {
         if (r<(1+sqrt(1-4*(1-c)))/(2*(1-c)))
         {
-          pg2<-PG2CIV(r,1-c,n);
+          pg2<-Pdom.num2CIV(r,1-c,n);
         } else {
           if (r<c/(1-c))
           {
-            pg2<-PG2BIII(r,1-c,n);
+            pg2<-Pdom.num2BIII(r,1-c,n);
           } else {
             if (r<1/(1-c))
             {
-              pg2<-PG2AII(r,1-c,n);
+              pg2<-Pdom.num2AII(r,1-c,n);
             } else {
-              pg2<-PG2AI(r,1-c,n);
+              pg2<-Pdom.num2AI(r,1-c,n);
             }}}}}}
   pg2
 } #end of the function
 #'
-#' @rdname funsPG2PE1D
+#' @rdname funsPDomNum2PE1D
 #'
 #' @examples
-#' #Examples for the main function PG2PE1D
+#' #Examples for the main function Pdom.num2PE1D
 #' r<-2
 #' c<-.5
 #'
-#' PG2PE1D(r,c,n=10)
-#' PG2PE1D(r=1.5,c=1/1.5,n=100)
+#' Pdom.num2PE1D(r,c,n=10)
+#' Pdom.num2PE1D(r=1.5,c=1/1.5,n=100)
 #'
 #' @export
-PG2PE1D <- function(r,c,n)
+Pdom.num2PE1D <- function(r,c,n)
 {
   if (!is.point(r,1) || r<1)
   {stop('r must be a scalar >= 1')}
@@ -3346,25 +3403,25 @@ PG2PE1D <- function(r,c,n)
   } else {
     if (c < 1/4)
     {
-      pg2<-PG2C(r,c,n);
+      pg2<-Pdom.num2C(r,c,n);
     } else {
       if (c < (3-sqrt(5))/2)
       {
-        pg2<-PG2B(r,c,n);
+        pg2<-Pdom.num2B(r,c,n);
       } else {
         if (c < 1/2)
         {
-          pg2<-PG2A(r,c,n);
+          pg2<-Pdom.num2A(r,c,n);
         } else {
           if (c < (sqrt(5)-1)/2)
           {
-            pg2<-PG2Asym(r,c,n);
+            pg2<-Pdom.num2Asym(r,c,n);
           } else {
             if (c < 3/4)
             {
-              pg2<-PG2Bsym(r,c,n);
+              pg2<-Pdom.num2Bsym(r,c,n);
             } else {
-              pg2<-PG2Csym(r,c,n);
+              pg2<-Pdom.num2Csym(r,c,n);
             }}}}}}
   pg2
 } #end of the function
@@ -3387,21 +3444,21 @@ PG2PE1D <- function(r,c,n)
 #' @return The asymptotic \eqn{P(}domination number\eqn{\le 1)} for PE-PCD whose vertices are a uniform data set in a finite
 #' interval \eqn{(a,b)}
 #'
-#' @seealso \code{\link{PG2PE1D}} and \code{\link{PG2PEtri}}
+#' @seealso \code{\link{Pdom.num2PE1D}} and \code{\link{Pdom.num2PEtri}}
 #'
 #' @author Elvan Ceyhan
 #'
 #' @examples
 #' c<-.5
 #'
-#' PG2PE1D.asy(c)
+#' Pdom.num2PE1Dasy(c)
 #'
-#' PG2PE1D.asy(c=1/1.5)
-#' PG2PE1D(r=1.5,c=1/1.5,n=10)
-#' PG2PE1D(r=1.5,c=1/1.5,n=100)
+#' Pdom.num2PE1Dasy(c=1/1.5)
+#' Pdom.num2PE1D(r=1.5,c=1/1.5,n=10)
+#' Pdom.num2PE1D(r=1.5,c=1/1.5,n=100)
 #'
-#' @export PG2PE1D.asy
-PG2PE1D.asy <- function(c)
+#' @export Pdom.num2PE1Dasy
+Pdom.num2PE1Dasy <- function(c)
 {
   if (!is.point(c,1) || c <= 0 || c >= 1)
   {stop('c must be a scalar in (0,1)')}
@@ -3448,7 +3505,7 @@ PG2PE1D.asy <- function(c)
 #' Xp<-runif(nx,a-xf,b+xf)
 #' Yp<-runif(ny,a,b)  #try also Yp<-runif(ny,a+1,b-1)
 #'
-#' ind<-ind.int.set(Xp,Yp)
+#' ind<-interval.indices.set(Xp,Yp)
 #' ind
 #'
 #' jit<-.1
@@ -3464,8 +3521,8 @@ PG2PE1D.asy <- function(c)
 #' text(Xp,yjit,labels=factor(ind))
 #' }
 #'
-#' @export ind.int.set
-ind.int.set <- function(Xp,Yp)
+#' @export interval.indices.set
+interval.indices.set <- function(Xp,Yp)
 {
   if (!is.point(Xp,length(Xp)) || !is.point(Yp,length(Yp)))
   {stop('Both arguments must be 1D vectors of numerical entries')}
@@ -3511,7 +3568,7 @@ ind.int.set <- function(Xp,Yp)
 #' \item{ind.mds}{The data indices of the minimum dominating set of the PE-PCD whose vertices are \code{Xp} points.}
 #' \item{int.dom.nums}{Domination numbers of the PE-PCD components for the partition intervals.}
 #'
-#' @seealso \code{\link{PEdom.nd}}
+#' @seealso \code{\link{PEdom.num.nondeg}}
 #'
 #' @author Elvan Ceyhan
 #'
@@ -3528,14 +3585,14 @@ ind.int.set <- function(Xp,Yp)
 #' Xp<-runif(nx,a,b)
 #' Yp<-runif(ny,a,b)
 #'
-#' PEdom1D(Xp,Yp,r,c)
+#' PEdom.num1D(Xp,Yp,r,c)
 #'
-#' PEdom1D(Xp,Yp,r,c=.25)
-#' PEdom1D(Xp,Yp,r=1.25,c)
+#' PEdom.num1D(Xp,Yp,r,c=.25)
+#' PEdom.num1D(Xp,Yp,r=1.25,c)
 #' }
 #'
-#' @export PEdom1D
-PEdom1D <- function(Xp,Yp,r,c=.5)
+#' @export PEdom.num1D
+PEdom.num1D <- function(Xp,Yp,r,c=.5)
 {
   if (!is.point(Xp,length(Xp)) || !is.point(Yp,length(Yp)))
   {stop('Xp and Yp must be 1D vectors of numerical entries')}
@@ -3557,7 +3614,7 @@ PEdom1D <- function(Xp,Yp,r,c=.5)
     gam<-0; mds<-NULL
   } else
   {
-    Int.Ind<-ind.int.set(Xp,Ys)  #indices of intervals in which Xp points in the data fall
+    Int.Ind<-interval.indices.set(Xp,Ys)  #indices of intervals in which Xp points in the data fall
 
     #calculation of the domination number
     gam<-rep(0,nint); mds<-mds.ind<-c()
@@ -3585,7 +3642,7 @@ PEdom1D <- function(Xp,Yp,r,c=.5)
         cnt<-0; j<-1;
         while (j<=2 & cnt==0)
         {
-          if ( !is.na(Clvert[j]) && Gam1PEint(Clvert[j],Xpi,int,r,c,rv=j)==1)
+          if ( !is.na(Clvert[j]) && Idom.num1PEint(Clvert[j],Xpi,int,r,c,rv=j)==1)
           {gam[i]<-1; cnt<-1; mds<-c(mds,Clvert[j]); mds.ind=c(mds.ind,Ext.ind[j])
           }
           else
@@ -3652,30 +3709,37 @@ PEdom1D <- function(Xp,Yp,r,c=.5)
 #' and the domination numbers for partition intervals based on \code{Yp}
 #' when PE-PCD is constructed with vertex regions based on non-degeneracy centers.
 #'
-#' \code{Yp} determines the end points of the intervals (i.e., partition the real line via intervalization).
+#' \code{Yp} determines the end points of the intervals
+#' (i.e., partition the real line via intervalization).
 #'
 #' PE proximity regions are defined with respect to the intervals based on \code{Yp} points with
-#' expansion parameter \eqn{r \ge 1} and vertex regions in each interval are based on the centrality parameter \code{c}
+#' expansion parameter \eqn{r \ge 1} and
+#'  vertex regions in each interval are based on the centrality parameter \code{c}
 #' which is one of the 2 values of \code{c} (i.e., \eqn{c \in \{(r-1)/r,1/r\}})
 #' that renders the asymptotic distribution of domination number
-#' to be non-degenerate for a given value of \code{r} in \eqn{(1,2)} and \code{c} is center of mass for \eqn{r=2}.
-#' These values are called non-degeneracy centrality parameters and the corresponding centers are called
+#' to be non-degenerate for a given value of \code{r} in \eqn{(1,2)}
+#' and \code{c} is center of mass for \eqn{r=2}.
+#' These values are called non-degeneracy centrality parameters
+#' and the corresponding centers are called
 #' nondegeneracy centers.
 #'
 #' @param Xp A set of 1D points which constitute the vertices of the PE-PCD.
 #' @param Yp A set of 1D points which constitute the end points of the intervals which
 #' partition the real line.
-#' @param r A positive real number which serves as the expansion parameter in PE proximity region;
+#' @param r A positive real number
+#' which serves as the expansion parameter in PE proximity region;
 #' must be in \eqn{(1,2]} here.
 #'
 #' @return A \code{list} with three elements
-#' \item{dom.num}{Domination number of PE-PCD with vertex set \code{Xp} and expansion parameter \eqn{r in (1,2]} and
+#' \item{dom.num}{Domination number of PE-PCD with vertex set \code{Xp}
+#' and expansion parameter \eqn{r in (1,2]} and
 #' centrality parameter \eqn{c \in \{(r-1)/r,1/r\}}.}
 #' \item{mds}{A minimum dominating set of the PE-PCD.}
-#' \item{ind.mds}{The data indices of the minimum dominating set of the PE-PCD whose vertices are \code{Xp} points.}
+#' \item{ind.mds}{The data indices of the minimum dominating set of the PE-PCD
+#' whose vertices are \code{Xp} points.}
 #' \item{int.dom.nums}{Domination numbers of the PE-PCD components for the partition intervals.}
 #'
-#' @seealso \code{\link{PEdom.nd}}
+#' @seealso \code{\link{PEdom.num.nondeg}}
 #'
 #' @author Elvan Ceyhan
 #'
@@ -3691,12 +3755,12 @@ PEdom1D <- function(Xp,Yp,r,c=.5)
 #' Xp<-runif(nx,a,b)
 #' Yp<-runif(ny,a,b)
 #'
-#' PEdom1D.nd(Xp,Yp,r)
-#' PEdom1D.nd(Xp,Yp,r=1.25)
+#' PEdom.num1Dnondeg(Xp,Yp,r)
+#' PEdom.num1Dnondeg(Xp,Yp,r=1.25)
 #' }
 #'
-#' @export PEdom1D.nd
-PEdom1D.nd <- function(Xp,Yp,r)
+#' @export PEdom.num1Dnondeg
+PEdom.num1Dnondeg <- function(Xp,Yp,r)
 {
   if (!is.point(Xp,length(Xp)) || !is.point(Yp,length(Yp)))
   {stop('Xp and Yp must be 1D vectors of numerical entries')}
@@ -3715,7 +3779,7 @@ PEdom1D.nd <- function(Xp,Yp,r)
     gam<-0; mds<-NULL
   } else
   {
-    Int.Ind<-ind.int.set(Xp,Ys)  #indices of intervals in which Xp points in the data fall
+    Int.Ind<-interval.indices.set(Xp,Ys)  #indices of intervals in which Xp points in the data fall
 
     #calculation of the domination number
     gam<-rep(0,nint); mds<-mds.ind<-c()
@@ -3744,7 +3808,7 @@ PEdom1D.nd <- function(Xp,Yp,r)
       cnt<-0; j<-1;
       while (j<=2 & cnt==0)
       {
-        if ( !is.na(Clvert[j]) && Gam1PEint(Clvert[j],Xpi,int,r,c.nd,rv=j)==1)
+        if ( !is.na(Clvert[j]) && Idom.num1PEint(Clvert[j],Xpi,int,r,c.nd,rv=j)==1)
         {gam[i]<-1; cnt<-1; mds<-c(mds,Clvert[j]); mds.ind=c(mds.ind,Ext.ind[j])
         }
         else
@@ -3847,8 +3911,8 @@ PEdom1D.nd <- function(Xp,Yp,r)
 #' of trials equals to expected number of \code{Xp} points per partition interval.
 #'
 #' @param Xp A set of 1D points which constitute the vertices of the PE-PCD.
-#' @param support.int Support interval \eqn{(a,b)} with \eqn{a<b}. Uniformity of \code{Xp} points in this interval
-#' is tested.
+#' @param support.int Support interval \eqn{(a,b)} with \eqn{a<b}.
+#' Uniformity of \code{Xp} points in this interval is tested.
 #' @param c A positive real number which serves as the centrality parameter in PE proximity region;
 #' must be in \eqn{(0,1)} (default \code{c=.5}).
 #' @param asy.bin A logical argument for the use of asymptotic probability of success for the binomial distribution,
@@ -3871,7 +3935,7 @@ PEdom1D.nd <- function(Xp,Yp,r)
 #' \item{method}{Description of the hypothesis test}
 #' \item{data.name}{Name of the data set}
 #'
-#' @seealso \code{\link{TSDomPEBin}}, \code{\link{PEdom1D}} and \code{\link{PEdom1D.nd}}
+#' @seealso \code{\link{PEdom.num.binom.test}}, \code{\link{PEdom.num1D}} and \code{\link{PEdom.num1Dnondeg}}
 #'
 #' @references
 #' \insertAllCited{}
@@ -3891,15 +3955,15 @@ PEdom1D.nd <- function(Xp,Yp,r)
 #' set.seed(1)
 #' Xp<-runif(nx,a,b)
 #'
-#' TSDomPEBin1Dint(Xp,supp,c,alt="t")
-#' TSDomPEBin1Dint(Xp,support.int = supp,c=c,alt="t")
-#' TSDomPEBin1Dint(Xp,supp,c,alt="l")
-#' TSDomPEBin1Dint(Xp,supp,c,alt="g")
-#' TSDomPEBin1Dint(Xp,supp,c,alt="t",asy.bin = TRUE)
+#' PEdom.num.binom.test1Dint(Xp,supp,c,alt="t")
+#' PEdom.num.binom.test1Dint(Xp,support.int = supp,c=c,alt="t")
+#' PEdom.num.binom.test1Dint(Xp,supp,c,alt="l")
+#' PEdom.num.binom.test1Dint(Xp,supp,c,alt="g")
+#' PEdom.num.binom.test1Dint(Xp,supp,c,alt="t",asy.bin = TRUE)
 #' }
 #'
-#' @export TSDomPEBin1Dint
-TSDomPEBin1Dint <- function(Xp,support.int,c=.5,asy.bin=FALSE,
+#' @export PEdom.num.binom.test1Dint
+PEdom.num.binom.test1Dint <- function(Xp,support.int,c=.5,asy.bin=FALSE,
                             alternative=c("two.sided", "less", "greater"),conf.level = 0.95)
 {
   dname <-deparse(quote(Xp))
@@ -3924,13 +3988,13 @@ TSDomPEBin1Dint <- function(Xp,support.int,c=.5,asy.bin=FALSE,
   Yp<-support.int[1]+(support.int[2]-support.int[1])*(0:nint)/nint #Y points (ends of the partition intervals)
 
   if (asy.bin==TRUE)
-  {p<-PG2PE1D.asy(c)
+  {p<-Pdom.num2PE1Dasy(c)
   method <-c("Binomial Test based on the Domination Number for Testing Uniformity of 1D Data \n
              (using the asymptotic probability of success in the binomial distribution)")
   } else
   {
     Enx<-nx/nint
-    p<-PG2PE1D(rstar,c,Enx)  #p: prob of success; on average n/nint X points fall on each interval
+    p<-Pdom.num2PE1D(rstar,c,Enx)  #p: prob of success; on average n/nint X points fall on each interval
     method <-c("Binomial Test based on the Domination Number for Testing Uniformity of 1D Data \n
              (using the finite sample probability of success in the binomial distribution)")
   }
@@ -3945,7 +4009,7 @@ TSDomPEBin1Dint <- function(Xp,support.int,c=.5,asy.bin=FALSE,
   ny<-length(Yp)
   nint<-ny-1  #number of partition intervals
 
-  dom.num=PEdom1D(Xp,Yp,rstar,c)
+  dom.num=PEdom.num1D(Xp,Yp,rstar,c)
   Gammas<- dom.num$int.dom.nums #vector of domination numbers of the partition intervals
   estimate2<- dom.num$dom
   # Bm<-Gam-nint; #the binomial test statistic
@@ -3985,7 +4049,7 @@ TSDomPEBin1Dint <- function(Xp,support.int,c=.5,asy.bin=FALSE,
                   alpha <-(1 - conf.level)/2
                   c(p.L(x, alpha), p.U(x, alpha))
                 })
-  attr(cint, "conf.level") <-conf.level
+  attr(cint, "conf.level") <- conf.level
 
   estimate1 <-x/nint
   names(x) <-"#(domination number is <= 1)" #"domination number - number of partition intervals"
@@ -4075,8 +4139,8 @@ TSDomPEBin1Dint <- function(Xp,support.int,c=.5,asy.bin=FALSE,
 #'
 #' @param Xp A set of 1D points which constitute the vertices of the PE-PCD.
 #' @param Yp A set of 1D points which constitute the end points of the partition intervals.
-#' @param support.int Support interval \eqn{(a,b)} with \eqn{a<b}. Uniformity of \code{Xp} points in this interval
-#' is tested.
+#' @param support.int Support interval \eqn{(a,b)} with \eqn{a<b}.
+#' Uniformity of \code{Xp} points in this interval is tested. Default is \code{NULL}.
 #' @param c A positive real number which serves as the centrality parameter in PE proximity region;
 #' must be in \eqn{(0,1)} (default \code{c=.5}).
 #' @param end.int.cor A logical argument for end interval correction, default is \code{FALSE},
@@ -4097,7 +4161,7 @@ TSDomPEBin1Dint <- function(Xp,support.int,c=.5,asy.bin=FALSE,
 #' \item{method}{Description of the hypothesis test}
 #' \item{data.name}{Name of the data set}
 #'
-#' @seealso \code{\link{TSDomPEBin}} and \code{\link{PEdom1D}}
+#' @seealso \code{\link{PEdom.num.binom.test}} and \code{\link{PEdom.num1D}}
 #'
 #' @references
 #' \insertAllCited{}
@@ -4117,14 +4181,14 @@ TSDomPEBin1Dint <- function(Xp,support.int,c=.5,asy.bin=FALSE,
 #' set.seed(1)
 #' Xp<-runif(nx,a,b)
 #' Yp<-runif(ny,a,b)
-#' TSDomPEBin1D(Xp,Yp,supp,c)
-#' TSDomPEBin1D(Xp,Yp,supp,c,alt="l")
-#' TSDomPEBin1D(Xp,Yp,supp,c,alt="g")
-#' TSDomPEBin1D(Xp,Yp,supp,c,end=TRUE)
+#' PEdom.num.binom.test1D(Xp,Yp,c,supp)
+#' PEdom.num.binom.test1D(Xp,Yp,c,supp,alt="l")
+#' PEdom.num.binom.test1D(Xp,Yp,c,supp,alt="g")
+#' PEdom.num.binom.test1D(Xp,Yp,c,supp,end=TRUE)
 #' }
 #'
-#' @export TSDomPEBin1D
-TSDomPEBin1D <- function(Xp,Yp,support.int,c=.5,end.int.cor=FALSE,
+#' @export PEdom.num.binom.test1D
+PEdom.num.binom.test1D <- function(Xp,Yp,c=.5,support.int=NULL,end.int.cor=FALSE,
                            alternative=c("two.sided", "less", "greater"),conf.level = 0.95)
 {
   dname <-deparse(substitute(Xp))
@@ -4139,15 +4203,18 @@ TSDomPEBin1D <- function(Xp,Yp,support.int,c=.5,end.int.cor=FALSE,
   if (length(Yp)<2)
   {stop('Yp must be of length > 2')}
 
+  if (!is.null(support.int))
+  {
   if (!is.point(support.int) || support.int[2]<=support.int[1])
   {stop('support.int must be an interval as (a,b) with a<b')}
+  }
 
   if (!is.point(c,1) || c <= 0 || c >= 1)
   {stop('c must be a scalar in (0,1)')}
 
   rstar<-1/max(c,1-c)  #r value for the non-degenerate asymptotic distribution
 
-  p<-1-PG2PE1D.asy(c)  #asymptotic probability of success
+  p<-1-Pdom.num2PE1Dasy(c)  #asymptotic probability of success
 
   if (!missing(conf.level))
     if (length(conf.level) != 1 || is.na(conf.level) || conf.level < 0 || conf.level > 1)
@@ -4158,7 +4225,7 @@ TSDomPEBin1D <- function(Xp,Yp,support.int,c=.5,end.int.cor=FALSE,
   nint<-ny-1  #number of middle intervals
   Ys<-sort(Yp)  #sorted Yp points (ends of the partition intervals)
 
-  dom.num = PEdom1D(Xp,Yp,rstar,c)
+  dom.num = PEdom.num1D(Xp,Yp,rstar,c)
   Gammas<-dom.num$int #domination numbers for the partition intervals
   #nint=ny-1 #-sum(Gammas0<1)
 

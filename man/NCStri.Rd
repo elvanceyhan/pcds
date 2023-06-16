@@ -57,7 +57,7 @@ P1<-as.numeric(runif.tri(1,Tr)$g)  #try also P1<-c(.4,.2)
 NCStri(P1,Tr,tau,M)
 
 #or try
-re<-rel.edges.tri.cent(P1,Tr,M)$re
+re<-rel.edges.tri(P1,Tr,M)$re
 NCStri(P1,Tr,tau,M,re)
 }
 
@@ -66,7 +66,7 @@ NCStri(P1,Tr,tau,M,re)
 \insertAllCited{}
 }
 \seealso{
-\code{\link{NPEtri}}, \code{\link{NAStri}}, and  \code{\link{IndNCStri}}
+\code{\link{NPEtri}}, \code{\link{NAStri}}, and  \code{\link{IarcCStri}}
 }
 \author{
 Elvan Ceyhan

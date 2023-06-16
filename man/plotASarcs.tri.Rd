@@ -75,13 +75,13 @@ plotASarcs.tri(Xp,Tr,M,main="Arcs of AS-PCD",xlab="",ylab="",vert.reg = TRUE)
 
 # or try the default center
 #plotASarcs.tri(Xp,Tr,asp=1,main="arcs of AS-PCD",xlab="",ylab="",vert.reg = TRUE);
-#M = (ArcsAStri(Xp,Tr)$param)$c #the part "M = as.numeric(ArcsAStri(Xp,Tr)$param)" is optional,
+#M = (arcsAStri(Xp,Tr)$param)$c #the part "M = as.numeric(arcsAStri(Xp,Tr)$param)" is optional,
 #for the below annotation of the plot
 
 #can add vertex labels and text to the figure (with vertex regions)
 #but first we need to determine whether the center used for vertex regions is CC or not
 #see the description for more detail.
-CC<-circ.cent.tri(Tr)
+CC<-circumcenter.tri(Tr)
 
 if (isTRUE(all.equal(M,CC)) || identical(M,"CC"))
 {cent<-CC
@@ -91,7 +91,7 @@ cent.name<-"CC"
 } else
 {cent<-M
 cent.name<-"M"
-Ds<-cent2edges.tri(Tr,M)
+Ds<-prj.cent2edges(Tr,M)
 }
 
 #now we add the vertex names and annotation

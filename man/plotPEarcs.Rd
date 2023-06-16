@@ -2,8 +2,8 @@
 % Please edit documentation in R/PropEdge2D.R
 \name{plotPEarcs}
 \alias{plotPEarcs}
-\title{The plot of the arcs of Proportional Edge Proximity Catch Digraph (PE-PCD) for a
-2D data set - multiple triangle case}
+\title{The plot of the arcs of Proportional Edge Proximity Catch Digraph
+(PE-PCD) for a 2D data set - multiple triangle case}
 \usage{
 plotPEarcs(
   Xp,
@@ -20,52 +20,76 @@ plotPEarcs(
 )
 }
 \arguments{
-\item{Xp}{A set of 2D points which constitute the vertices of the PE-PCD.}
+\item{Xp}{A set of 2D points
+which constitute the vertices of the PE-PCD.}
 
-\item{Yp}{A set of 2D points which constitute the vertices of the Delaunay triangles.}
+\item{Yp}{A set of 2D points
+which constitute the vertices of the Delaunay triangles.}
 
-\item{r}{A positive real number which serves as the expansion parameter in PE proximity region;
+\item{r}{A positive real number
+which serves as the expansion parameter in PE proximity region;
 must be \eqn{\ge 1}.}
 
-\item{M}{A 3D point in barycentric coordinates which serves as a center in the interior of each Delaunay
-triangle or circumcenter of each Delaunay triangle (for this, argument should be set as \code{M="CC"}),
-default for \eqn{M=(1,1,1)} which is the center of mass of each triangle.}
+\item{M}{A 3D point in barycentric coordinates
+which serves as a center in the interior of each Delaunay
+triangle or circumcenter of each Delaunay triangle
+(for this, argument should be set as \code{M="CC"}),
+default for \eqn{M=(1,1,1)}
+which is the center of mass of each triangle.}
 
-\item{asp}{A \code{numeric} value, giving the aspect ratio \eqn{y/x} (default is \code{NA}),
+\item{asp}{A \code{numeric} value,
+giving the aspect ratio \eqn{y/x} (default is \code{NA}),
 see the official help page for \code{asp} by typing "\code{? asp}".}
 
 \item{main}{An overall title for the plot (default=\code{NULL}).}
 
-\item{xlab, ylab}{Titles for the \eqn{x} and \eqn{y} axes, respectively (default=\code{NULL} for both).}
+\item{xlab, ylab}{Titles for the \eqn{x} and \eqn{y} axes,
+respectively (default=\code{NULL} for both).}
 
-\item{xlim, ylim}{Two \code{numeric} vectors of length 2, giving the \eqn{x}- and \eqn{y}-coordinate ranges
+\item{xlim, ylim}{Two \code{numeric} vectors of length 2,
+giving the \eqn{x}- and \eqn{y}-coordinate ranges
 (default=\code{NULL} for both).}
 
 \item{\dots}{Additional \code{plot} parameters.}
 }
 \value{
-A plot of the arcs of the PE-PCD whose vertices are the points in data set \code{Xp} and the Delaunay
+A plot of the arcs of the PE-PCD
+whose vertices are the points in data set \code{Xp} and the Delaunay
 triangles based on \code{Yp} points
 }
 \description{
-Plots the arcs of Proportional Edge Proximity Catch Digraph (PE-PCD) whose vertices are the data
-points in \code{Xp} in the multiple triangle case and the Delaunay triangles based on \code{Yp} points.
+Plots the arcs of Proportional Edge Proximity Catch Digraph
+(PE-PCD) whose vertices are the data
+points in \code{Xp} in the multiple triangle case
+and the Delaunay triangles based on \code{Yp} points.
 
-PE proximity regions are defined with respect to the Delaunay triangles based on \code{Yp} points with
-expansion parameter \eqn{r \ge 1} and vertex regions in each triangle are based on the center \eqn{M=(\alpha,\beta,\gamma)}
-in barycentric coordinates in the interior of each Delaunay triangle or based on circumcenter of
-each Delaunay triangle (default for \eqn{M=(1,1,1)} which is the center of mass of the triangle).
-Each Delaunay triangle is first converted to an (nonscaled) basic triangle so that \code{M} will be the same
-type of center for each Delaunay triangle (this conversion is not necessary when \code{M} is \eqn{CM}).
+PE proximity regions are defined
+with respect to the Delaunay triangles based on \code{Yp} points
+with expansion parameter \eqn{r \ge 1}
+and vertex regions in each triangle are
+based on the center \eqn{M=(\alpha,\beta,\gamma)}
+in barycentric coordinates in the interior of each Delaunay triangle
+or based on circumcenter of
+each Delaunay triangle (default for \eqn{M=(1,1,1)}
+which is the center of mass of the triangle).
+Each Delaunay triangle is first converted to
+an (nonscaled) basic triangle so that \code{M} will be the same
+type of center for each Delaunay triangle
+(this conversion is not necessary
+when \code{M} is \eqn{CM}).
 
-Convex hull of \code{Yp} is partitioned by the Delaunay triangles based on \code{Yp} points
-(i.e., multiple triangles are the set of these Delaunay triangles whose union constitutes the
-convex hull of \code{Yp} points). Loops are not allowed so arcs are only possible
+Convex hull of \code{Yp} is partitioned by
+the Delaunay triangles based on \code{Yp} points
+(i.e., multiple triangles are the set of these Delaunay triangles
+whose union constitutes the
+convex hull of \code{Yp} points).
+Loops are not allowed so arcs are only possible
 for points inside the convex hull of \code{Yp} points.
 
-See (\insertCite{ceyhan:Phd-thesis,ceyhan:arc-density-PE,ceyhan:dom-num-NPE-Spat2011;textual}{pcds}) for more
-on the PE-PCDs.
-Also see (\insertCite{okabe:2000,ceyhan:comp-geo-2010,sinclair:2016;textual}{pcds}) for more on Delaunay triangulation and the corresponding algorithm.
+See (\insertCite{ceyhan:Phd-thesis,ceyhan:arc-density-PE,ceyhan:dom-num-NPE-Spat2011;textual}{pcds})
+for more on the PE-PCDs.
+Also, see (\insertCite{okabe:2000,ceyhan:comp-geo-2010,sinclair:2016;textual}{pcds})
+for more on Delaunay triangulation and the corresponding algorithm.
 }
 \examples{
 \dontrun{
@@ -74,7 +98,8 @@ nx<-20; ny<-5;  #try also nx<-40; ny<-10 or nx<-1000; ny<-10;
 
 set.seed(1)
 Xp<-cbind(runif(nx,0,1),runif(nx,0,1))
-Yp<-cbind(runif(ny,0,.25),runif(ny,0,.25))+cbind(c(0,0,0.5,1,1),c(0,1,.5,0,1))
+Yp<-cbind(runif(ny,0,.25),
+runif(ny,0,.25))+cbind(c(0,0,0.5,1,1),c(0,1,.5,0,1))
 #try also Yp<-cbind(runif(ny,0,1),runif(ny,0,1))
 
 M<-c(1,1,1)  #try also M<-c(1,2,3)
@@ -89,7 +114,8 @@ plotPEarcs(Xp,Yp,r,M,xlab="",ylab="")
 \insertAllCited{}
 }
 \seealso{
-\code{\link{plotPEarcs.tri}}, \code{\link{plotASarcs}}, and \code{\link{plotCSarcs}}
+\code{\link{plotPEarcs.tri}}, \code{\link{plotASarcs}},
+and \code{\link{plotCSarcs}}
 }
 \author{
 Elvan Ceyhan

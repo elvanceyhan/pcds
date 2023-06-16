@@ -12,10 +12,13 @@
 \item{\dots}{Additional parameters for \code{summary}.}
 }
 \value{
-\code{call} of the function defining the \code{object}, the defining vectors (i.e., initial and direction vectors),
+\code{call} of the function defining the \code{object},
+the defining vectors (i.e., initial and direction vectors),
 selected \eqn{x}, \eqn{y}, and \eqn{z} points on the line,
-equation of the line (in parametric form), and \code{coefficients} of the line
-(for the form: \code{x=x0 + A*t}, \code{y=y0 + B*t}, and \code{z=z0 + C*t}).
+equation of the line (in parametric form),
+and \code{coefficients} of the line
+(for the form: \code{x=x0 + A*t}, \code{y=y0 + B*t},
+and \code{z=z0 + C*t}).
 }
 \description{
 Returns the below information about the \code{object}:
@@ -32,7 +35,8 @@ Line3D(P,Q,.1)
 Line3D(P,Q,.1,dir.vec=FALSE)
 
 tr<-range(vecs);
-tf<-(tr[2]-tr[1])*.1 #how far to go at the lower and upper ends in the x-coordinate
+tf<-(tr[2]-tr[1])*.1
+#how far to go at the lower and upper ends in the x-coordinate
 tsq<-seq(-tf*10-tf,tf*10+tf,l=3) #try also l=10, 20 or 100
 
 lnPQ3D<-Line3D(P,Q,tsq)
@@ -42,5 +46,7 @@ summary(lnPQ3D)
 
 }
 \seealso{
-\code{\link{print.Lines3D}}, \code{\link{print.summary.Lines3D}}, and \code{\link{plot.Lines3D}}
+\code{\link{print.Lines3D}},
+\code{\link{print.summary.Lines3D}},
+and \code{\link{plot.Lines3D}}
 }

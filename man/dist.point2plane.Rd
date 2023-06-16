@@ -2,23 +2,30 @@
 % Please edit documentation in R/AuxGeometry.R
 \name{dist.point2plane}
 \alias{dist.point2plane}
-\title{The distance from a point to a plane spanned by three 3D points}
+\title{The distance from a point to a plane spanned
+by three 3D points}
 \usage{
 dist.point2plane(p, a, b, c)
 }
 \arguments{
-\item{p}{A 3D point, distance from \code{p} to the plane passing through points \code{a}, \code{b},
+\item{p}{A 3D point, distance from \code{p} to the plane
+passing through points \code{a}, \code{b},
 and \code{c} are to be computed.}
 
-\item{a, b, c}{3D points that determine the plane (i.e., through which the plane is passing).}
+\item{a, b, c}{3D points that determine the plane
+(i.e., through which the plane is passing).}
 }
 \value{
 A \code{list} with two elements
-\item{dis}{Distance from point \code{p} to the plane spanned by 3D points \code{a}, \code{b}, and \code{c}}
-\item{cl2pl}{The closest point on the plane spanned by 3D points \code{a}, \code{b}, and \code{c} to the point \code{p}}
+\item{dis}{Distance from point \code{p} to the plane
+spanned by 3D points \code{a}, \code{b}, and \code{c}}
+\item{cl2pl}{The closest point on the plane
+spanned by 3D points \code{a}, \code{b},
+and \code{c} to the point \code{p}}
 }
 \description{
-Returns the distance from a point \code{p} to the plane passing through points \code{a}, \code{b}, and \code{c} in 3D space.
+Returns the distance from a point \code{p} to the plane
+passing through points \code{a}, \code{b}, and \code{c} in 3D space.
 }
 \examples{
 \dontrun{
@@ -34,7 +41,8 @@ yseq<-seq(0,10,l=5)  #try also l=10, 20, or 100
 
 pl.grid<-Plane(P1,P2,P3,xseq,yseq)$z
 
-plot3D::persp3D(z = pl.grid, x = xseq, y = yseq, theta =225, phi = 30, ticktype = "detailed",
+plot3D::persp3D(z = pl.grid, x = xseq, y = yseq, theta =225, phi = 30,
+ticktype = "detailed",
 expand = 0.7, facets = FALSE, scale = TRUE,
 main="Point P and its Orthogonal Projection \n on the Plane Defined by P1, P2, P3")
 #plane spanned by points P1, P2, P3
@@ -54,7 +62,8 @@ phi = 30, expand = 0.5, col = "lightblue",
 
 }
 \seealso{
-\code{\link{dist.point2line}}, \code{\link{dist.point2set}}  and \code{\link{Dist}}
+\code{\link{dist.point2line}}, \code{\link{dist.point2set}},
+and \code{\link{Dist}}
 }
 \author{
 Elvan Ceyhan

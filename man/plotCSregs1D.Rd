@@ -30,11 +30,11 @@ partition the real line.}
 
 \item{c}{A positive real number in \eqn{(0,1)} parameterizing the center inside middle intervals
 with the default \code{c=.5}.
-For the interval, \eqn{(a,b)}, the parameterized center is \eqn{M_c=a+c(b-a)}.}
+For the interval, \code{int}\eqn{=(a,b)}, the parameterized center is \eqn{M_c=a+c(b-a)}.}
 
 \item{Jit}{A positive real number that determines the amount of jitter along the \eqn{y}-axis, default=\code{0.1} and
-\code{Xp} points are jittered according to \eqn{U(-Jit,Jit)} distribution along the \eqn{y}-axis
-where \code{Jit} equals to the range of the union of \code{Xp} and \code{Yp} points multiplied by \code{Jit}).}
+\code{Xp} points are jittered according to \eqn{U(-Jit,Jit)} distribution along the \eqn{y}-axis where \code{Jit} equals to the range of \code{Xp} and \code{Yp} and the
+proximity regions (intervals) multiplied by \code{Jit}).}
 
 \item{main}{An overall title for the plot (default=\code{NULL}).}
 
@@ -68,13 +68,12 @@ else centers of the intervals are not plotted.
 See also (\insertCite{ceyhan:revstat-2016;textual}{pcds}).
 }
 \examples{
-\dontrun{
 t<-2
 c<-.4
 a<-0; b<-10;
 
 #nx is number of X points (target) and ny is number of Y points (nontarget)
-nx<-20; ny<-5;  #try also nx<-40; ny<-10 or nx<-1000; ny<-10;
+nx<-20; ny<-4;  #try also nx<-40; ny<-10 or nx<-1000; ny<-10;
 
 set.seed(1)
 xr<-range(a,b)
@@ -84,7 +83,8 @@ Xp<-runif(nx,a-xf,b+xf)
 Yp<-runif(ny,a,b)
 
 plotCSregs1D(Xp,Yp,t,c,xlab="",ylab="")
-}
+
+plotCSregs1D(Xp,Yp+10,t,c,xlab="",ylab="")
 
 }
 \references{

@@ -73,7 +73,8 @@ Xlim<-range(Xp2)
 Ylim<-.005*c(-1,1)
 xd<-Xlim[2]-Xlim[1]
 plot(Xp2,rep(0,n+2),xlab="x", ylab=" ",xlim=Xlim+xd*c(-.05,.05), yaxt='n',
-     ylim=Ylim,pch=".",cex=3,main="X Points with One Interval")
+     ylim=Ylim,pch=".",cex=3,
+     main="X Points and One Interval (based on Y points)")
 abline(h=0,lty=2)
 #now, we add the intervals based on Y points
 par(new=TRUE)
@@ -112,7 +113,7 @@ NPEint(Xp[1],int,r,c)
 #> [1] 0.000000 3.676395
 ```
 
-Indicator for the presence of an arc from a (data or $\X$) point to another for PE-PCDs is the function `IndNPEint`
+Indicator for the presence of an arc from a (data or $\X$) point to another for PE-PCDs is the function `IarcPEint`
 which takes arguments `p1,p2,int,r,c` where
 
 - `p1` a 1D point whose PE proximity region is constructed,
@@ -123,41 +124,48 @@ This function returns $I(x_2 \in N_{PE}(x_1,r,c))$ for $x_2$, that is, returns 1
 0 otherwise.
 One can use it for points in the data set or for arbitrary points (as if they were in the data set).
 ```{r eval=F} 
-IndNPEint(7,7,int,r,c)
+IarcPEint(7,7,int,r,c)
 #> [1] 1
-IndNPEint(Xp[1],Xp[2],int,r,c)
+IarcPEint(Xp[1],Xp[2],int,r,c)
 #> [1] 0
 ```
 
-Number of arcs of the PE-PCD can be computed by the function `NumArcsPEint` with arguments `Xp,int,r,c`
+Number of arcs of the PE-PCD can be computed by the function `num.arcsPEint`
+which is an object of class "`NumArcs`" and takes arguments `Xp,int,r,c`
 where
 
 - `Xp` is a set of 1D points which constitute the vertices of PE-PCD
 - `int,r,c` are as in `NPEint`.
 
-The output is as in `NumArcsPE1D`.
+The output is as in `num.arcsPE1D`.
 
 ```{r eval=F} 
-NumArcsPEint(Xp,int,r,c)
-#> $num.arcs
-#> [1] 2
+Narcs = num.arcsPEint(Xp,int,r,c)
+summary(Narcs)
+#> Call:
+#> num.arcsPEint(Xp = Xp, int = int, r = r, c = c)
+#>
+#> Description of the output:
+#> Number of Arcs of the CS-PCD with vertices Xp and Quantities Related to the Support Interval
+#>
+#> Number of data (Xp) points in the range of Yp (nontarget) points =  4
+#> Number of data points in the partition intervals based on Yp points =  0 4 1
+#> Number of arcs in the entire digraph =  2
+#> Numbers of arcs in the induced subdigraphs in the partition intervals =  0 2 0
+#>
+#> End points of the support interval:
+#>  0 10
+#> Indices of data points in the intervals:
+#> left end interval:  NA
+#> middle interval:  1 2 3 4
+#> right end interval:  5 
 #> 
-#> $num.in.range
-#> [1] 4
-#> 
-#> $num.in.intervals
-#> [1] 0 4 1
-#> 
-#> $int.num.arcs
-#> [1] 0 2 0
-#> 
-#> $data.interval.indices
-#> [1] 2 2 2 2 3
+#plot(Narcs)
 ```
 
-The incidence matrix of the PE-PCD for the one interval case can be found by `IncMatPEint`, 
-using the `IncMatPEint(Xp,int,r,c)` command.
-It has the same arguments as `NumArcsPEint` function.
+The incidence matrix of the PE-PCD for the one interval case can be found by `inci.matPEint`, 
+using the `inci.matPEint(Xp,int,r,c)` command.
+It has the same arguments as `num.arcsPEint` function.
 
 Plot of the arcs in the digraph PE-PCD with vertices in or outside one interval is provided by the function `plotPEarcs.int`
 which has the arguments `Xp,int,r,c=.5,Jit=.1,main=NULL,xlab=NULL,ylab=NULL,xlim=NULL,ylim=NULL,center=FALSE, ...`
@@ -198,22 +206,22 @@ set.seed(1)
 plotPEregs.int(Xp,int,r,c,xlab="x",ylab="",center = TRUE)
 ```
 
-The function `ArcsPEint` is an object of class "`PCDs`" with 
-arguments are as in `NumArcsPEint` and the output list is as in the function `ArcsPE1D`.
+The function `arcsPEint` is an object of class "`PCDs`" with 
+arguments are as in `num.arcsPEint` and the output list is as in the function `arcsPE1D`.
 The `plot` function returns the same plot as in `plotPEarcs.int`, 
 hence we comment it out below.
 <!-- Arcs are jittered along the $y$-axis in the plot for better visualization. -->
 ```{r PEarcs1i, eval=F, fig.cap="Arcs of the PE-PCD for $X$ points in the interval $(0,10)$. Arcs are jittered along the $y$-axis for better visualization."}
-Arcs<-ArcsPEint(Xp,int,r,c)
+Arcs<-arcsPEint(Xp,int,r,c)
 Arcs
 #> Call:
-#> ArcsPEint(Xp = Xp, int = int, r = r, c = c)
+#> arcsPEint(Xp = Xp, int = int, r = r, c = c)
 #> 
 #> Type:
 #> [1] "Proportional Edge Proximity Catch Digraph (PE-PCD) for 1D Points with Expansion Parameter r = 1.5 and Centrality Parameter c = 0.4"
 summary(Arcs)
 #> Call:
-#> ArcsPEint(Xp = Xp, int = int, r = r, c = c)
+#> arcsPEint(Xp = Xp, int = int, r = r, c = c)
 #> 
 #> Type of the digraph:
 #> [1] "Proportional Edge Proximity Catch Digraph (PE-PCD) for 1D Points with Expansion Parameter r = 1.5 and Centrality Parameter c = 0.4"
@@ -269,40 +277,47 @@ NCSint(Xp[3],int,tau,c)
 #> [1]  0 10
 ```
 
-Indicator for the presence of an arc from a (data or $\X$) point to another for CS-PCDs is the function `IndNCSint`
-which takes the same arguments as `IndNPEint` with expansion parameter `r` replaced with `t`.
+Indicator for the presence of an arc from a (data or $\X$) point to another for CS-PCDs is the function `IarcCSint`
+which takes the same arguments as `IarcPEint` with expansion parameter `r` replaced with `t`.
 This function returns $I(x_2 \in N_{PE}(x_1,r,c))$ for $x_2$, that is, returns 1 if $x_2$ in $N_{PE}(x_1,r,c)$, 
 0 otherwise.
 One can use it for points in the data set or for arbitrary points (as if they were in the data set).
 ```{r eval=F} 
-IndNCSint(Xp[1],Xp[2],int,tau,c) #try also IndNCSint(Xp[2],Xp[1],int,tau,c)
+IarcCSint(Xp[1],Xp[2],int,tau,c) #try also IarcCSint(Xp[2],Xp[1],int,tau,c)
 #> [1] 0
 ```
 
-Number of arcs of the CS-PCD can be computed by the function `NumArcsCSint`
-which has the same arguments as `NumArcsPEint` with expansion parameter `r` replaced with `t`. 
-The output of this function is as in `NumArcsCS1D`. 
+Number of arcs of the CS-PCD can be computed by the function `num.arcsCSint`
+which is an object of class "`NumArcs`" and takes
+the same arguments as `num.arcsPEint` with expansion parameter `r` replaced with `t`. 
+The output of this function is as in `num.arcsCS1D`. 
 ```{r eval=F} 
-NumArcsCSint(Xp,int,tau,c)
-#> $num.arcs
-#> [1] 5
+Narcs = num.arcsCSint(Xp,int,tau,c)
+summary(Narcs)
+#> Call:
+#> num.arcsCSint(Xp = Xp, int = int, t = tau, c = c)
+#>
+#> Description of the output:
+#> Number of Arcs of the CS-PCD with vertices Xp and Quantities Related to the Support Interval
+#>
+#> Number of data (Xp) points in the range of Yp (nontarget) points =  4
+#> Number of data points in the partition intervals based on Yp points =  0 4 1
+#> Number of arcs in the entire digraph =  5
+#> Numbers of arcs in the induced subdigraphs in the partition intervals =  0 5 0
+#>
+#> End points of the support interval:
+#>  0 10
+#> Indices of data points in the intervals:
+#> left end interval:  NA
+#> middle interval:  1 2 3 4
+#> right end interval:  5 
 #> 
-#> $num.in.range
-#> [1] 4
-#> 
-#> $num.in.ints
-#> [1] 0 4 1
-#> 
-#> $int.num.arcs
-#> [1] 0 5 0
-#> 
-#> $data.int.ind
-#> [1] 2 2 2 2 3
+#plot(Narcs)
 ```
 
-The incidence matrix of the CS-PCD for the one interval case can be found by `IncMatCSint`, 
-using the `IncMatCSint(Xp,int,tau,c)` command.
-It has the same arguments as `NumArcsCSint` function.
+The incidence matrix of the CS-PCD for the one interval case can be found by `inci.matCSint`, 
+using the `inci.matCSint(Xp,int,tau,c)` command.
+It has the same arguments as `num.arcsCSint` function.
 
 Plot of the arcs in the digraph CS-PCD with vertices in or outside one interval is provided by the function `plotCSarcs.int`
 which has the same arguments as `plotPEarcs.int` with expansion parameter `r` replaced with `t`. 
@@ -341,22 +356,22 @@ set.seed(1)
 plotCSregs.int(Xp,int,tau,c,xlab="x",ylab="",center=TRUE)
 ```
 
-The function `ArcsPEint` is an object of class "`PCDs`" with 
-arguments are as in `NumArcsCSint` and the output list is as in the function `ArcsCS1D`.
+The function `arcsPEint` is an object of class "`PCDs`" with 
+arguments are as in `num.arcsCSint` and the output list is as in the function `arcsCS1D`.
 The `plot` function returns the same plot as in `plotCSarcs.int`, 
 hence we comment it out below.
 <!-- Arcs are jittered along the $y$-axis in the plot for better visualization. -->
 ```{r CSarcs1i, eval=F, fig.cap="Arcs of the CS-PCD for points in the interval $(0,10)$. Arcs are jittered along the $y$-axis for better visualization."}
-Arcs<-ArcsCSint(Xp,int,tau,c)
+Arcs<-arcsCSint(Xp,int,tau,c)
 Arcs
 #> Call:
-#> ArcsCSint(Xp = Xp, int = int, t = tau, c = c)
+#> arcsCSint(Xp = Xp, int = int, t = tau, c = c)
 #> 
 #> Type:
 #> [1] "Central Similarity Proximity Catch Digraph (CS-PCD) for 1D Points with Expansion Parameter t = 1.5 and Centrality Parameter c = 0.4"
 summary(Arcs)
 #> Call:
-#> ArcsCSint(Xp = Xp, int = int, t = tau, c = c)
+#> arcsCSint(Xp = Xp, int = int, t = tau, c = c)
 #> 
 #> Type of the digraph:
 #> [1] "Central Similarity Proximity Catch Digraph (CS-PCD) for 1D Points with Expansion Parameter t = 1.5 and Centrality Parameter c = 0.4"
@@ -393,7 +408,7 @@ plot(Arcs)
 
 PCDs in the 1D setting are constructed using the vertex regions based on a *center* or *central point* inside the support interval(s).
 We illustrate a center or central point in an interval.
-The function `centMc` takes arguments `int,c` and returns the central point $M_c=a+c(b-a)$ in the interval $[a,b]$.
+The function `centerMc` takes arguments `int,c` and returns the central point $M_c=a+c(b-a)$ in the interval $[a,b]$.
 On the other hand,
 the function `centersMc` takes arguments `Yp,c` where `Yp` is a vector real numbers that constitute the end points of intervals.
 It returns the central points of intervals based on the order statistics of a set 1D points `Yp`.
@@ -401,7 +416,7 @@ It returns the central points of intervals based on the order statistics of a se
 c<-.4 #try also c<-runif(1)
 a<-0; b<-10
 int = c(a,b)
-centMc(int,c)
+centerMc(int,c)
 #> [1] 4
 
 n<-5 #try also n=10, 50, 100
@@ -410,17 +425,17 @@ centersMc(y,c)
 #> [1] 0.2887174 0.6417875 0.7558345 0.9169039
 ```
 
-The function `rv.mid.int` takes arguments `p,int,c`
+The function `rel.vert.mid.int` takes arguments `p,int,c`
 where
 
 - `p`, a 1D point for which the vertex region is to be found
 and
-- `int,c` are as in `centMc`.
+- `int,c` are as in `centerMc`.
 This function returns the index of the vertex region in a middle interval that contains a given point.
 ```{r eval=F} 
 c<-.4
 a<-0; b<-10; int = c(a,b)
-rv.mid.int(6,int,c)
+rel.vert.mid.int(6,int,c)
 #> $rv
 #> [1] 2
 #> 
@@ -439,9 +454,9 @@ and also generate $n=$ `r n` points inside the interval $[$`r a` , `r b` $]$
 and provide the scatterplot of these points (jittered along the $y$-axis for
 better visualization) labeled according to the vertex region
 they reside in. 
-Type also `? rv.mid.int` for the code to generate this figure.
+Type also `? rel.vert.mid.int` for the code to generate this figure.
 ```{r 1DVR, eval=F, fig.cap="$M_c$-Vertex regions in the interval $(0,10)$. Also plotted are the $X$ points which are labeled according to the vertex region they reside in.", echo=FALSE}
-Mc<-centMc(int,c)
+Mc<-centerMc(int,c)
 n<-10  #try also n<-20
 xr<-range(a,b,Mc)
 xf<-(int[2]-int[1])*.5
@@ -449,7 +464,7 @@ Xp<-runif(n,a,b)
 
 Rv<-vector()
 for (i in 1:n)
-  Rv<-c(Rv,rv.mid.int(Xp[i],int,c)$rv)
+  Rv<-c(Rv,rel.vert.mid.int(Xp[i],int,c)$rv)
 #Rv
 
 jit<-.1
@@ -458,7 +473,7 @@ yjit<-runif(n,-jit,jit)
 Xlim<-range(a,b,Xp)
 xd<-Xlim[2]-Xlim[1]
 
-plot(cbind(Mc,0),main="Vertex region indices for the points", xlab=" ", ylab=" ",
+plot(cbind(Mc,0),main="Vertex region indices for the X points", xlab=" ", ylab=" ",
      xlim=Xlim+xd*c(-.05,.05),ylim=3*range(yjit),pch=".",cex=3)
 abline(h=0)
 points(Xp,yjit,pch=".",cex=3)
@@ -467,20 +482,20 @@ text(Xp,yjit,labels=factor(Rv))
 text(cbind(c(a,b,Mc),.02),c("rv=1","rv=2","Mc"))
 ```
 
-The function `rv.end.int` takes arguments `p,int` for the point whose vertex region is to be found and
+The function `rel.vert.end.int` takes arguments `p,int` for the point whose vertex region is to be found and
 the support interval.
 It returns the index of the end interval that contains a given point,
 1 for left end interval 2 for right end interval.
 ```{r eval=F} 
 a<-0; b<-10; int<-c(a,b)
-rv.end.int(-6,int)
+rel.vert.end.int(-6,int)
 #> $rv
 #> [1] 1
 #> 
 #> $int
 #> vertex 1 vertex 2 
 #>        0       10
-rv.end.int(16,int)
+rel.vert.end.int(16,int)
 #> $rv
 #> [1] 2
 #> 

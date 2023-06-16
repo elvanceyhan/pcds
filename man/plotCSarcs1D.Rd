@@ -29,11 +29,11 @@ plotCSarcs1D(
 
 \item{c}{A positive real number in \eqn{(0,1)} parameterizing the center inside middle intervals
 with the default \code{c=.5}.
-For the interval, \eqn{(a,b)}, the parameterized center is \eqn{M_c=a+c(b-a)}.}
+For the interval, \code{int}\eqn{=(a,b)}, the parameterized center is \eqn{M_c=a+c(b-a)}.}
 
 \item{Jit}{A positive real number that determines the amount of jitter along the \eqn{y}-axis, default=\code{0.1} and
-\code{Xp} points are jittered according to \eqn{U(-Jit,Jit)} distribution along the \eqn{y}-axis
-where \code{Jit} equals to the range of the union of \code{Xp} and \code{Yp} points multiplied by \code{Jit}).}
+\code{Xp} points are jittered according to \eqn{U(-Jit,Jit)} distribution along the \eqn{y}-axis where \code{Jit} equals to the range of \code{Xp} and \code{Yp} multiplied by
+\code{Jit}).}
 
 \item{main}{An overall title for the plot (default=\code{NULL}).}
 
@@ -66,13 +66,12 @@ as vertical lines in the plot, else centers of the intervals are not plotted.
 See also (\insertCite{ceyhan:revstat-2016;textual}{pcds}).
 }
 \examples{
-\dontrun{
 t<-1.5
 c<-.4
 a<-0; b<-10; int<-c(a,b)
 
 #nx is number of X points (target) and ny is number of Y points (nontarget)
-nx<-20; ny<-5;  #try also nx<-40; ny<-10 or nx<-1000; ny<-10;
+nx<-20; ny<-4;  #try also nx<-40; ny<-10 or nx<-1000; ny<-10;
 
 set.seed(1)
 xr<-range(a,b)
@@ -86,11 +85,16 @@ Ylim=c(-.2,.2)
 
 jit<-.1
 
+plotCSarcs1D(Xp,Yp,t,c,jit,xlab="",ylab="",xlim=Xlim,ylim=Ylim)
+
 set.seed(1)
 plotCSarcs1D(Xp,Yp,t=1.5,c=.3,jit,main="t=1.5, c=.3",xlab="",ylab="",centers=TRUE)
 set.seed(1)
 plotCSarcs1D(Xp,Yp,t=2,c=.3,jit,main="t=2, c=.3",xlab="",ylab="",centers=TRUE)
-}
+set.seed(1)
+plotCSarcs1D(Xp,Yp,t=1.5,c=.5,jit,main="t=1.5, c=.5",xlab="",ylab="",centers=TRUE)
+set.seed(1)
+plotCSarcs1D(Xp,Yp,t=2,c=.5,jit,main="t=2, c=.5",xlab="",ylab="",centers=TRUE)
 
 }
 \references{

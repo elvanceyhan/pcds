@@ -13,29 +13,38 @@
 }
 \value{
 The \code{call} of the \code{object} of class \code{"TriLines"},
-the defining \code{points}, selected \eqn{x} and \eqn{y} points on the line,
-equation of the line, together with the vertices of the triangle,
-and \code{coefficients} of the line (in the form: \code{y = slope * x + intercept}).
+the defining \code{points},
+selected \eqn{x} and \eqn{y} points on the line,
+equation of the line,
+together with the vertices of the triangle,
+and \code{coefficients} of the line
+(in the form: \code{y = slope * x + intercept}).
 }
 \description{
 Returns the below information about the \code{object}:
 
-\code{call} of the function defining the \code{object}, the defining \code{points}, selected \eqn{x} and \eqn{y} points on the line,
-equation of the line, together with the vertices of the triangle, and \code{coefficients} of the line.
+\code{call} of the function defining the \code{object},
+the defining \code{points},
+selected \eqn{x} and \eqn{y} points on the line,
+equation of the line, together with the vertices of the triangle,
+and \code{coefficients} of the line.
 }
 \examples{
 \dontrun{
 A<-c(0,0); B<-c(1,0); C<-c(1/2,sqrt(3)/2);
 Te<-rbind(A,B,C)
-xfence<-abs(A[1]-B[1])*.25 #how far to go at the lower and upper ends in the x-coordinate
+xfence<-abs(A[1]-B[1])*.25
+#how far to go at the lower and upper ends in the x-coordinate
 x<-seq(min(A[1],B[1])-xfence,max(A[1],B[1])+xfence,l=3)
 
-lnACM<-lA_CM.Te(x)
+lnACM<-lineA2CMinTe(x)
 lnACM
 summary(lnACM)
 }
 
 }
 \seealso{
-\code{\link{print.TriLines}}, \code{\link{print.summary.TriLines}}, and \code{\link{plot.TriLines}}
+\code{\link{print.TriLines}},
+\code{\link{print.summary.TriLines}},
+and \code{\link{plot.TriLines}}
 }

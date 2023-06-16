@@ -2,23 +2,23 @@
 % Please edit documentation in R/CentSim2D.R
 \name{funsCSGamTe}
 \alias{funsCSGamTe}
-\alias{Gam2CSTe}
-\alias{Gam3CSTe}
-\alias{Gam4CSTe}
-\alias{Gam5CSTe}
-\alias{Gam6CSTe}
-\title{The function \code{GamkCSTe} is for \eqn{k} (\eqn{k=2,3,4,5}) points constituting a dominating set for Central Similarity
+\alias{Idom.num2CSstd.tri}
+\alias{Idom.num3CSstd.tri}
+\alias{Idom.num4CSstd.tri}
+\alias{Idom.num5CSstd.tri}
+\alias{Idom.num6CSstd.tri}
+\title{The function \code{gammakCSstd.tri} is for \eqn{k} (\eqn{k=2,3,4,5}) points constituting a dominating set for Central Similarity
 Proximity Catch Digraphs (CS-PCDs) - standard equilateral triangle case}
 \usage{
-Gam2CSTe(p1, p2, Xp, t, ch.data.pnts = FALSE)
+Idom.num2CSstd.tri(p1, p2, Xp, t, ch.data.pnts = FALSE)
 
-Gam3CSTe(p1, p2, p3, Xp, t, ch.data.pnts = FALSE)
+Idom.num3CSstd.tri(p1, p2, p3, Xp, t, ch.data.pnts = FALSE)
 
-Gam4CSTe(p1, p2, p3, p4, Xp, t, ch.data.pnts = FALSE)
+Idom.num4CSstd.tri(p1, p2, p3, p4, Xp, t, ch.data.pnts = FALSE)
 
-Gam5CSTe(p1, p2, p3, p4, p5, Xp, t, ch.data.pnts = FALSE)
+Idom.num5CSstd.tri(p1, p2, p3, p4, p5, Xp, t, ch.data.pnts = FALSE)
 
-Gam6CSTe(p1, p2, p3, p4, p5, p6, Xp, t, ch.data.pnts = FALSE)
+Idom.num6CSstd.tri(p1, p2, p3, p4, p5, p6, Xp, t, ch.data.pnts = FALSE)
 }
 \arguments{
 \item{p1, p2, p3, p4, p5, p6}{The points \{\eqn{p1,\ldots,pk}\} are \eqn{k} 2D points
@@ -32,14 +32,14 @@ Gam6CSTe(p1, p2, p3, p4, p5, p6, Xp, t, ch.data.pnts = FALSE)
 data points in \code{Xp} or not (default is \code{FALSE}).}
 }
 \value{
-The function \code{GamkCSTe} returns \{\code{p1},...,\code{pk}\} is a dominating set of the CS-PCD) where
+The function \code{gammakCSstd.tri} returns \{\code{p1},...,\code{pk}\} is a dominating set of the CS-PCD) where
 vertices of the CS-PCD are the 2D data set \code{Xp}), that is, returns 1 if \{\code{p1},...,\code{pk}\}
 is a dominating set of CS-PCD, returns 0 otherwise.
 }
 \description{
-Four indicator functions: \code{Gam2CSTe}, \code{Gam3CSTe}, \code{Gam4CSTe}, \code{Gam5CSTe} and \code{Gam6CSTe}.
+Four indicator functions: \code{Idom.num2CSstd.tri}, \code{Idom.num3CSstd.tri}, \code{Idom.num4CSstd.tri}, \code{Idom.num5CSstd.tri} and \code{Idom.num6CSstd.tri}.
 
-The function \code{GamkCSTe} returns I(\{\code{p1},...,\code{pk}\} is a dominating set of the CS-PCD)
+The function \code{gammakCSstd.tri} returns I(\{\code{p1},...,\code{pk}\} is a dominating set of the CS-PCD)
 where vertices of CS-PCD are the 2D data set \code{Xp}, that is, returns 1 if \{\code{p1},...,\code{pk}\}
 is a dominating set of CS-PCD, returns 0 otherwise for \eqn{k=2,3,4,5,6}.
 
@@ -55,78 +55,78 @@ See also (\insertCite{ceyhan:Phd-thesis,ceyhan:comp-geo-2010,ceyhan:mcap2012;tex
 \examples{
 \dontrun{
 set.seed(123)
-#Examples for Gam2CSTe
+#Examples for Idom.num2CSstd.tri
 t<-1.5
 n<-10 #try also 10, 20 (it may take longer for larger n)
 
 set.seed(1)
 Xp<-runif.std.tri(n)$gen.points
 
-Gam2CSTe(Xp[1,],Xp[2,],Xp,t)
-Gam2CSTe(c(.2,.2),Xp[2,],Xp,t)
+Idom.num2CSstd.tri(Xp[1,],Xp[2,],Xp,t)
+Idom.num2CSstd.tri(c(.2,.2),Xp[2,],Xp,t)
 
 ind.gam2<-vector()
 for (i in 1:(n-1))
  for (j in (i+1):n)
- {if (Gam2CSTe(Xp[i,],Xp[j,],Xp,t)==1)
+ {if (Idom.num2CSstd.tri(Xp[i,],Xp[j,],Xp,t)==1)
   ind.gam2<-rbind(ind.gam2,c(i,j))}
 
 ind.gam2
 }
 
 \dontrun{
-#Examples for Gam3CSTe
+#Examples for Idom.num3CSstd.tri
 t<-1.5
 n<-10 #try also 10, 20 (it may take longer for larger n)
 
 set.seed(1)
 Xp<-runif.std.tri(n)$gen.points
 
-Gam3CSTe(Xp[1,],Xp[2,],Xp[3,],Xp,t)
+Idom.num3CSstd.tri(Xp[1,],Xp[2,],Xp[3,],Xp,t)
 
 ind.gam3<-vector()
 for (i in 1:(n-2))
  for (j in (i+1):(n-1))
    for (k in (j+1):n)
-   {if (Gam3CSTe(Xp[i,],Xp[j,],Xp[k,],Xp,t)==1)
+   {if (Idom.num3CSstd.tri(Xp[i,],Xp[j,],Xp[k,],Xp,t)==1)
     ind.gam3<-rbind(ind.gam3,c(i,j,k))}
 
 ind.gam3
 }
 
 \dontrun{
-#Examples for Gam4CSTe
+#Examples for Idom.num4CSstd.tri
 t<-1.5
 n<-10 #try also 10, 20 (it may take longer for larger n)
 
 set.seed(1)
 Xp<-runif.std.tri(n)$gen.points
 
-Gam4CSTe(Xp[1,],Xp[2,],Xp[3,],Xp[4,],Xp,t)
+Idom.num4CSstd.tri(Xp[1,],Xp[2,],Xp[3,],Xp[4,],Xp,t)
 
 ind.gam4<-vector()
 for (i in 1:(n-3))
  for (j in (i+1):(n-2))
    for (k in (j+1):(n-1))
      for (l in (k+1):n)
-     {if (Gam4CSTe(Xp[i,],Xp[j,],Xp[k,],Xp[l,],Xp,t)==1)
+     {if (Idom.num4CSstd.tri(Xp[i,],Xp[j,],Xp[k,],Xp[l,],Xp,t)==1)
       ind.gam4<-rbind(ind.gam4,c(i,j,k,l))}
 
 ind.gam4
 
-Gam4CSTe(c(.2,.2),Xp[2,],Xp[3,],Xp[4,],Xp,t,ch.data.pnts = FALSE)
+Idom.num4CSstd.tri(c(.2,.2),Xp[2,],Xp[3,],Xp[4,],Xp,t,ch.data.pnts = FALSE)
 #gives an error message if ch.data.pnts = TRUE since not all points are data points in Xp
 }
 
 \dontrun{
-#Examples for Gam5CSTe
+#Examples for Idom.num5CSstd.tri
 t<-1.5
 n<-10 #try also 10, 20 (it may take longer for larger n)
 
 set.seed(1)
 Xp<-runif.std.tri(n)$gen.points
 
-Gam5CSTe(Xp[1,],Xp[2,],Xp[3,],Xp[4,],Xp[5,],Xp,t)
+Idom.num5CSstd.tri(Xp[1,],Xp[2,],Xp[3,],Xp[4,],Xp[5,],Xp,t)
 
 ind.gam5<-vector()
 for (i1 in 1:(n-4))
@@ -134,24 +134,24 @@ for (i1 in 1:(n-4))
    for (i3 in (i2+1):(n-2))
      for (i4 in (i3+1):(n-1))
        for (i5 in (i4+1):n)
-       {if (Gam5CSTe(Xp[i1,],Xp[i2,],Xp[i3,],Xp[i4,],Xp[i5,],Xp,t)==1)
+       {if (Idom.num5CSstd.tri(Xp[i1,],Xp[i2,],Xp[i3,],Xp[i4,],Xp[i5,],Xp,t)==1)
         ind.gam5<-rbind(ind.gam5,c(i1,i2,i3,i4,i5))}
 
 ind.gam5
 
-Gam5CSTe(c(.2,.2),Xp[2,],Xp[3,],Xp[4,],Xp[5,],Xp,t,ch.data.pnts = FALSE)
+Idom.num5CSstd.tri(c(.2,.2),Xp[2,],Xp[3,],Xp[4,],Xp[5,],Xp,t,ch.data.pnts = FALSE)
 #gives an error message if ch.data.pnts = TRUE since not all points are data points in Xp
 }
 
 \dontrun{
-#Examples for Gam6CSTe
+#Examples for Idom.num6CSstd.tri
 t<-1.5
 n<-10 #try also 10, 20 (it may take longer for larger n)
 
 set.seed(1)
 Xp<-runif.std.tri(n)$gen.points
 
-Gam6CSTe(Xp[1,],Xp[2,],Xp[3,],Xp[4,],Xp[5,],Xp[6,],Xp,t)
+Idom.num6CSstd.tri(Xp[1,],Xp[2,],Xp[3,],Xp[4,],Xp[5,],Xp[6,],Xp,t)
 
 ind.gam6<-vector()
 for (i1 in 1:(n-5))
@@ -160,18 +160,18 @@ for (i1 in 1:(n-5))
      for (i4 in (i3+1):(n-2))
        for (i5 in (i4+1):(n-1))
          for (i6 in (i5+1):n)
-         {if (Gam6CSTe(Xp[i1,],Xp[i2,],Xp[i3,],Xp[i4,],Xp[i5,],Xp[i6,],Xp,t)==1)
+         {if (Idom.num6CSstd.tri(Xp[i1,],Xp[i2,],Xp[i3,],Xp[i4,],Xp[i5,],Xp[i6,],Xp,t)==1)
           ind.gam6<-rbind(ind.gam6,c(i1,i2,i3,i4,i5,i6))}
 
 ind.gam6
 
-Gam6CSTe(c(.2,.2),Xp[2,],Xp[3,],Xp[4,],Xp[5,],Xp[6,],Xp,t,ch.data.pnts = FALSE)
+Idom.num6CSstd.tri(c(.2,.2),Xp[2,],Xp[3,],Xp[4,],Xp[5,],Xp[6,],Xp,t,ch.data.pnts = FALSE)
 #gives an error message if ch.data.pnts = TRUE since not all points are data points in Xp
 }
 
 }
 \seealso{
-\code{\link{Gam1CSTe}}, \code{\link{Gam2PEtri}} and \code{\link{Gam2PEtetra}}
+\code{\link{Idom.num1CSstd.tri}}, \code{\link{Idom.num2PEtri}} and \code{\link{Idom.num2PEtetra}}
 }
 \author{
 Elvan Ceyhan

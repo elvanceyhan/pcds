@@ -2,32 +2,42 @@
 % Please edit documentation in R/AuxDelaunay.R
 \name{rel.verts.triCM}
 \alias{rel.verts.triCM}
-\title{The indices of the \eqn{CM}-vertex regions in a triangle that contains the points in a give data set}
+\title{The indices of the \eqn{CM}-vertex regions in a triangle
+that contains the points in a give data set}
 \usage{
 rel.verts.triCM(Xp, tri)
 }
 \arguments{
-\item{Xp}{A set of 2D points representing the set of data points for which indices of the vertex regions
+\item{Xp}{A set of 2D points representing the set of data points
+for which indices of the vertex regions
 containing them are to be determined.}
 
-\item{tri}{A \eqn{3 \times 2} matrix with each row representing a vertex of the triangle.}
+\item{tri}{A \eqn{3 \times 2} matrix with each row
+representing a vertex of the triangle.}
 }
 \value{
 A \code{list} with two elements
-\item{rv}{Indices (i.e., a \code{vector} of indices) of the vertices whose region contains points in \code{Xp}
+\item{rv}{Indices (i.e., a \code{vector} of indices) of the vertices
+whose region contains points in \code{Xp}
 in the triangle \code{tri}}
-\item{tri}{The vertices of the triangle, where row number corresponds to the vertex index in \code{rv}.}
+\item{tri}{The vertices of the triangle,
+where row number corresponds to the vertex index in \code{rv}.}
 }
 \description{
-Returns the indices of the vertices whose regions contain the points in data set \code{Xp} in
-a triangle \code{tri}\eqn{=(A,B,C)} and vertex regions are based on the center of mass \eqn{CM} of \code{tri}.
+Returns the indices of the vertices
+whose regions contain the points in data set \code{Xp} in
+a triangle \code{tri}\eqn{=(A,B,C)}
+and vertex regions are based on the center of mass \eqn{CM} of \code{tri}.
 (see the plots in the example for illustrations).
 
 The vertices of the  triangle \code{tri} are labeled as
-\eqn{1=A}, \eqn{2=B}, and \eqn{3=C} also according to the row number the vertex is recorded in \code{tri}.
-If a point in \code{Xp} is not inside \code{tri}, then the function yields \code{NA} as output for that entry.
+\eqn{1=A}, \eqn{2=B}, and \eqn{3=C} also
+according to the row number the vertex is recorded in \code{tri}.
+If a point in \code{Xp} is not inside \code{tri},
+then the function yields \code{NA} as output for that entry.
 The corresponding vertex region is the polygon
-with the vertex, \eqn{CM}, and midpoints the edges crossing the vertex.
+with the vertex, \eqn{CM},
+and midpoints the edges crossing the vertex.
 
 See also (\insertCite{ceyhan:Phd-thesis,ceyhan:comp-geo-2010,ceyhan:mcap2012;textual}{pcds}).
 }
@@ -59,7 +69,7 @@ plot(Tr,pch=".",xlab="",ylab="",axes=TRUE,xlim=Xlim+xd*c(-.05,.05),ylim=Ylim+yd*
 polygon(Tr)
 points(Xp,pch=".",col=1)
 L<-matrix(rep(CM,3),ncol=2,byrow=TRUE); R<-Ds
-segments(L[,1], L[,2], R[,1], R[,2], lty=2)
+segments(L[,1], L[,2], R[,1], R[,2], lty = 2)
 
 xc<-Tr[,1]+c(-.04,.05,.05)
 yc<-Tr[,2]+c(-.05,.05,.03)
@@ -79,7 +89,8 @@ text(Xp,labels=factor(rv$rv))
 \insertAllCited{}
 }
 \seealso{
-\code{\link{rel.verts.tri.cent}}, \code{\link{rel.verts.triCC}} and \code{\link{rel.verts.tri.nd}}
+\code{\link{rel.verts.tri}}, \code{\link{rel.verts.triCC}},
+and \code{\link{rel.verts.tri.nondegPE}}
 }
 \author{
 Elvan Ceyhan

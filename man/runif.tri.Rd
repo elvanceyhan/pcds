@@ -7,23 +7,32 @@
 runif.tri(n, tri)
 }
 \arguments{
-\item{n}{A positive integer representing the number of uniform points to be generated in the triangle.}
+\item{n}{A positive integer representing the number of uniform points
+to be generated in the triangle.}
 
-\item{tri}{A \eqn{3 \times 2} matrix with each row representing a vertex of the triangle.}
+\item{tri}{A \eqn{3 \times 2} matrix with each row
+representing a vertex of the triangle.}
 }
 \value{
 A \code{list} with the elements
-\item{type}{The type of the pattern from which points are to be generated}
+\item{type}{The type of the pattern
+from which points are to be generated}
 \item{mtitle}{The \code{"main"} title for the plot of the point pattern}
-\item{tess.points}{The vertices of the support of the uniformly generated points, it is the triangle
+\item{tess.points}{The vertices of the support of
+the uniformly generated points, it is the triangle
 \code{tri} for this function}
-\item{gen.points}{The output set of generated points uniformly in the triangle, \code{tri}.}
-\item{out.region}{The outer region which contains the support region, \code{NULL} for this function.}
-\item{desc.pat}{Description of the point pattern from which points are to be generated}
-\item{num.points}{The \code{vector} of two numbers, which are the number of generated points and the number
+\item{gen.points}{The output set of generated points uniformly
+in the triangle, \code{tri}.}
+\item{out.region}{The outer region which contains the support region,
+\code{NULL} for this function.}
+\item{desc.pat}{Description of the point pattern
+from which points are to be generated}
+\item{num.points}{The \code{vector} of two numbers,
+which are the number of generated points and the number
 of vertices of the support points (here it is 3).}
 \item{txt4pnts}{Description of the two numbers in \code{num.points}}
-\item{xlimit,ylimit}{The ranges of the \eqn{x}- and \eqn{y}-coordinates of the support, \code{tri}}
+\item{xlimit,ylimit}{The ranges of the \eqn{x}-
+and \eqn{y}-coordinates of the support, \code{tri}}
 }
 \description{
 An object of class \code{"Uniform"}.
@@ -57,7 +66,8 @@ text(xc,yc,txt.str)
 
 }
 \seealso{
-\code{\link{runif.std.tri}}, \code{\link{runif.bas.tri}}, and \code{\link{runifMT}}
+\code{\link{runif.std.tri}}, \code{\link{runif.basic.tri}},
+and \code{\link{runif.multi.tri}}
 }
 \author{
 Elvan Ceyhan

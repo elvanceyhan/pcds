@@ -2,36 +2,48 @@
 % Please edit documentation in R/AuxDelaunay.R
 \name{rel.edges.triCM}
 \alias{rel.edges.triCM}
-\title{The indices of the \eqn{CM}-edge regions in a triangle that contains the points in a give data set}
+\title{The indices of the \eqn{CM}-edge regions in a triangle
+that contains the points in a give data set}
 \usage{
 rel.edges.triCM(Xp, tri)
 }
 \arguments{
-\item{Xp}{A set of 2D points representing the set of data points for which indices of the edge regions
+\item{Xp}{A set of 2D points representing the set of data points
+for which indices of the edge regions
 containing them are to be determined.}
 
-\item{tri}{A \eqn{3 \times 2} matrix with each row representing a vertex of the triangle.}
+\item{tri}{A \eqn{3 \times 2} matrix with each row
+representing a vertex of the triangle.}
 }
 \value{
 A \code{list} with the elements
-\item{re}{Indices (i.e., a \code{vector} of indices) of the edges whose region contains points in \code{Xp}
+\item{re}{Indices (i.e., a \code{vector} of indices) of the edges
+whose region contains points in \code{Xp}
 in the triangle \code{tri}}
-\item{tri}{The vertices of the triangle, where row number corresponds to the vertex index in \code{rv}.}
-\item{desc}{Description of the edge labels as \code{"Edge labels are AB=3, BC=1, and AC=2"}.}
+\item{tri}{The vertices of the triangle,
+where row number corresponds to the vertex index in \code{rv}.}
+\item{desc}{Description of the edge labels as
+\code{"Edge labels are AB=3, BC=1, and AC=2"}.}
 }
 \description{
-Returns the indices of the edges whose regions contain the points in data set \code{Xp} in
-a triangle \code{tri}\eqn{=(A,B,C)} and edge regions are based on the center of mass \eqn{CM} of \code{tri}.
+Returns the indices of the edges
+whose regions contain the points in data set \code{Xp} in
+a triangle \code{tri}\eqn{=(A,B,C)}
+and edge regions are based on the center of mass \eqn{CM} of \code{tri}.
 (see the plots in the example for illustrations).
 
 The vertices of the  triangle \code{tri} are labeled as
-\eqn{1=A}, \eqn{2=B}, and \eqn{3=C} also according to the row number the vertex is recorded in \code{tri}
+\eqn{1=A}, \eqn{2=B}, and \eqn{3=C} also
+according to the row number the vertex is recorded in \code{tri}
 and the corresponding edges are \eqn{1=BC}, \eqn{2=AC}, and \eqn{3=AB}.
 
-If a point in \code{Xp} is not inside \code{tri}, then the function yields \code{NA} as output for that entry.
+If a point in \code{Xp} is not inside \code{tri},
+then the function yields \code{NA} as output for that entry.
 The corresponding edge region is the polygon
-with the vertex, \eqn{CM}, and vertices other than the non-adjacent vertex, i.e., edge region 1 is the triangle
-\eqn{T(B,CM,C)}, edge region 2 is \eqn{T(A,CM,C)} and edge region 3 is \eqn{T(A,B,CM)}.
+with the vertex, \eqn{CM},
+and vertices other than the non-adjacent vertex,
+i.e., edge region 1 is the triangle \eqn{T(B,CM,C)},
+edge region 2 is \eqn{T(A,CM,C)} and edge region 3 is \eqn{T(A,B,CM)}.
 
 See also (\insertCite{ceyhan:Phd-thesis,ceyhan:comp-geo-2010,ceyhan:mcap2012,ceyhan:arc-density-CS;textual}{pcds}).
 }
@@ -62,7 +74,7 @@ plot(Tr,pch=".",xlab="",ylab="",axes=TRUE,xlim=Xlim+xd*c(-.05,.05),ylim=Ylim+yd*
 polygon(Tr)
 points(Xp,pch=".",col=1)
 L<-Tr; R<-matrix(rep(CM,3),ncol=2,byrow=TRUE)
-segments(L[,1], L[,2], R[,1], R[,2], lty=2)
+segments(L[,1], L[,2], R[,1], R[,2], lty = 2)
 
 xc<-Tr[,1]+c(-.02,.03,.02)
 yc<-Tr[,2]+c(.02,.02,.04)
@@ -82,7 +94,8 @@ text(Xp,labels=factor(re$re))
 \insertAllCited{}
 }
 \seealso{
-\code{\link{rel.edges.tri.cent}}, \code{\link{rel.verts.tri.cent}} and \code{\link{rel.verts.tri.nd}}
+\code{\link{rel.edges.tri}}, \code{\link{rel.verts.tri}},
+and \code{\link{rel.verts.tri.nondegPE}}
 }
 \author{
 Elvan Ceyhan

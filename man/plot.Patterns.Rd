@@ -9,10 +9,13 @@
 \arguments{
 \item{x}{Object of class \code{Patterns}.}
 
-\item{asp}{A \code{numeric} value, giving the aspect ratio for \eqn{y}-axis to \eqn{x}-axis \eqn{y/x} (default is \code{NA}),
+\item{asp}{A \code{numeric} value,
+giving the aspect ratio for \eqn{y}-axis to \eqn{x}-axis \eqn{y/x}
+(default is \code{NA}),
 see the official help for \code{asp} by typing "\code{? asp}".}
 
-\item{xlab, ylab}{Titles for the \eqn{x} and \eqn{y} axes, respectively (default is \code{xlab="x"} and \code{ylab="y"}).}
+\item{xlab, ylab}{Titles for the \eqn{x} and \eqn{y} axes,
+respectively (default is \code{xlab="x"} and \code{ylab="y"}).}
 
 \item{\dots}{Additional parameters for \code{plot}.}
 }
@@ -20,7 +23,8 @@ see the official help for \code{asp} by typing "\code{? asp}".}
 None
 }
 \description{
-Plots the points generated from the pattern (color coded for each class) together with the
+Plots the points generated from the pattern
+(color coded for each class) together with the
 study window
 }
 \examples{
@@ -28,14 +32,17 @@ study window
 nx<-10; #try also 100 and 1000
 ny<-5; #try also 1
 e<-.15;
-Y<-cbind(runif(ny),runif(ny)) #with default bounding box (i.e., unit square)
+Y<-cbind(runif(ny),runif(ny))
+#with default bounding box (i.e., unit square)
 
-Xdt<-rseg.circ(nx,Y,e)
+Xdt<-rseg.circular(nx,Y,e)
 Xdt
 plot(Xdt,asp=1)
 }
 
 }
 \seealso{
-\code{\link{print.Patterns}}, \code{\link{summary.Patterns}}, and \code{\link{print.summary.Patterns}}
+\code{\link{print.Patterns}},
+\code{\link{summary.Patterns}},
+and \code{\link{print.summary.Patterns}}
 }

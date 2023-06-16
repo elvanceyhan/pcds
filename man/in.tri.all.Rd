@@ -9,26 +9,38 @@ in.tri.all(Xp, tri, boundary = TRUE)
 \arguments{
 \item{Xp}{A set of 2D points representing the set of data points.}
 
-\item{tri}{A \eqn{3 \times 2} matrix with each row representing a vertex of the triangle.}
+\item{tri}{A \eqn{3 \times 2} matrix with each row
+representing a vertex of the triangle.}
 
-\item{boundary}{A logical parameter (default=\code{FALSE}) to include boundary or not, so if it is \code{TRUE},
-the function checks if a point lies in the closure of the triangle (i.e., interior and boundary combined)
+\item{boundary}{A logical parameter (default=\code{FALSE})
+to include boundary or not, so if it is \code{TRUE},
+the function checks if a point lies in the closure of the triangle
+(i.e., interior and boundary combined)
 else it checks if the point lies in the interior of the triangle.}
 }
 \value{
-A logical output, if all data points in \code{Xp} are inside the triangle, \code{tri}, the output is \code{TRUE},
+A logical output,
+if all data points in \code{Xp} are inside the triangle, \code{tri},
+the output is \code{TRUE},
 else it is \code{FALSE}.
 }
 \description{
-Checks if all the data points in the 2D data set, \code{Xp}, lie in the triangle, \code{tri},
-using the barycentric coordinates, generally denoted as \eqn{(\alpha,\beta,\gamma)}.
+Checks if all the data points in the 2D data set, \code{Xp},
+lie in the triangle, \code{tri},
+using the barycentric coordinates,
+generally denoted as \eqn{(\alpha,\beta,\gamma)}.
 
-If all (normalized or non-normalized) barycentric coordinates of a point are positive then the point is
-inside the triangle, if all are nonnegative with one or more are zero, then the point falls in the boundary.
-If some of the barycentric coordinates are negative, then the point falls outside the triangle.
+If all (normalized or non-normalized) barycentric coordinates of a point
+are positive then the point is
+inside the triangle, if all are nonnegative with one or more are zero,
+then the point falls in the boundary.
+If some of the barycentric coordinates are negative,
+then the point falls outside the triangle.
 
-\code{boundary} is a logical argument (default=\code{TRUE}) to include boundary or not, so if it is \code{TRUE},
-the function checks if a point lies in the closure of the triangle (i.e., interior and boundary combined);
+\code{boundary} is a logical argument (default=\code{TRUE})
+to include boundary or not, so if it is \code{TRUE},
+the function checks if a point lies in the closure of the triangle
+(i.e., interior and boundary combined);
 else, it checks if the point lies in the interior of the triangle.
 }
 \examples{
@@ -41,30 +53,31 @@ in.tri.all(p,Tr)
 
 #for the vertex A
 in.tri.all(A,Tr)
-in.tri.all(A,Tr,boundary=FALSE)
+in.tri.all(A,Tr,boundary = FALSE)
 
 #for a point on the edge AB
 D3<-(A+B)/2
 in.tri.all(D3,Tr)
-in.tri.all(D3,Tr,boundary=FALSE)
+in.tri.all(D3,Tr,boundary = FALSE)
 
 #data set
 n<-10
 Xp<-cbind(runif(n),runif(n))
-in.tri.all(Xp,Tr,boundary=TRUE)
+in.tri.all(Xp,Tr,boundary = TRUE)
 
 Xp<-runif.std.tri(n)$gen.points
 in.tri.all(Xp,Tr)
-in.tri.all(Xp,Tr,boundary=FALSE)
+in.tri.all(Xp,Tr,boundary = FALSE)
 
 Xp<-runif.tri(n,Tr)$g
 in.tri.all(Xp,Tr)
-in.tri.all(Xp,Tr,boundary=FALSE)
+in.tri.all(Xp,Tr,boundary = FALSE)
 }
 
 }
 \seealso{
-\code{\link{in.triangle}} and \code{\link[interp]{on.convex.hull}} from the \code{interp} package for documentation for \code{in.convex.hull}
+\code{\link{in.triangle}} and \code{\link[interp]{on.convex.hull}}
+from the \code{interp} package for documentation for \code{in.convex.hull}
 }
 \author{
 Elvan Ceyhan

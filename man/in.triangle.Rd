@@ -7,33 +7,47 @@
 in.triangle(p, tri, boundary = TRUE)
 }
 \arguments{
-\item{p}{A 2D point to be checked whether it is inside the triangle or not.}
+\item{p}{A 2D point to be checked
+whether it is inside the triangle or not.}
 
-\item{tri}{A \eqn{3 \times 2} matrix with each row representing a vertex of the triangle.}
+\item{tri}{A \eqn{3 \times 2} matrix with each row
+representing a vertex of the triangle.}
 
-\item{boundary}{A logical parameter (default=\code{TRUE}) to include boundary or not, so if it is \code{TRUE},
-the function checks if the point, \code{p}, lies in the closure of the triangle (i.e., interior and boundary
-combined); else, it checks if \code{p} lies in the interior of the triangle.}
+\item{boundary}{A logical parameter (default=\code{TRUE})
+to include boundary or not, so if it is \code{TRUE},
+the function checks if the point, \code{p},
+lies in the closure of the triangle (i.e., interior and boundary
+combined); else, it checks if \code{p}
+lies in the interior of the triangle.}
 }
 \value{
 A \code{list} with two elements
-\item{in.tri}{A logical output, it is \code{TRUE}, if the point, \code{p}, is inside the triangle, \code{tri},
+\item{in.tri}{A logical output, it is \code{TRUE},
+if the point, \code{p}, is inside the triangle, \code{tri},
 else it is \code{FALSE}.}
-\item{barycentric}{The barycentric coordinates \eqn{(\alpha,\beta,\gamma)} of the point \code{p} with respect to
+\item{barycentric}{The barycentric coordinates \eqn{(\alpha,\beta,\gamma)}
+of the point \code{p} with respect to
 the triangle, \code{tri}.}
 }
 \description{
-Checks if the point \code{p} lies in the triangle, \code{tri}, using the barycentric
+Checks if the point \code{p} lies in the triangle,
+\code{tri}, using the barycentric
 coordinates, generally denoted as \eqn{(\alpha,\beta,\gamma)}.
 
 If all (normalized or non-normalized)
-barycentric coordinates are positive then the point \code{p} is inside the triangle,
-if all are nonnegative with one or more are zero, then \code{p} falls in the boundary. If some of the
-barycentric coordinates are negative, then \code{p} falls outside the triangle.
+barycentric coordinates are positive then the point \code{p} is
+inside the triangle,
+if all are nonnegative with one or more are zero,
+then \code{p} falls in the boundary. If some of the
+barycentric coordinates are negative,
+then \code{p} falls outside the triangle.
 
-\code{boundary} is a logical argument (default=\code{TRUE}) to include boundary or not, so if it is \code{TRUE},
-the function checks if the point, \code{p}, lies in the closure of the triangle (i.e., interior and boundary
-combined); else, it checks if \code{p} lies in the interior of the triangle.
+\code{boundary} is a logical argument (default=\code{TRUE})
+to include boundary or not, so if it is \code{TRUE},
+the function checks if the point, \code{p},
+lies in the closure of the triangle (i.e., interior and boundary
+combined); else, it checks if \code{p} lies
+in the interior of the triangle.
 }
 \examples{
 \dontrun{
@@ -46,12 +60,12 @@ in.triangle(p,Tr)
 
 #for the vertex A
 in.triangle(A,Tr)
-in.triangle(A,Tr,boundary=FALSE)
+in.triangle(A,Tr,boundary = FALSE)
 
 #for a point on the edge AB
 D3<-(A+B)/2
 in.triangle(D3,Tr)
-in.triangle(D3,Tr,boundary=FALSE)
+in.triangle(D3,Tr,boundary = FALSE)
 
 #for a NA entry point
 p<-c(NA,.2)
@@ -60,7 +74,8 @@ in.triangle(p,Tr)
 
 }
 \seealso{
-\code{\link{in.tri.all}} and \code{\link[interp]{on.convex.hull}} from the \code{interp} package for documentation for \code{in.convex.hull}
+\code{\link{in.tri.all}} and \code{\link[interp]{on.convex.hull}}
+from the \code{interp} package for documentation for \code{in.convex.hull}
 }
 \author{
 Elvan Ceyhan

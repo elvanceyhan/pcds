@@ -19,12 +19,16 @@
 \arguments{
 \item{x}{Object of class \code{Planes}.}
 
-\item{x.grid.size, y.grid.size}{the size of the grids for the \eqn{x} and \eqn{y} axes, default is 10 for both}
+\item{x.grid.size, y.grid.size}{the size of the grids
+for the \eqn{x} and \eqn{y} axes, default is 10 for both}
 
-\item{xlab, ylab, zlab}{Titles for the \eqn{x}, \eqn{y}, and \eqn{z} axes,
-respectively (default is \code{xlab="x"}, \code{ylab="y"}, and \code{zlab="z"}).}
+\item{xlab, ylab, zlab}{Titles for the \eqn{x}, \eqn{y},
+and \eqn{z} axes,
+respectively (default is \code{xlab="x"}, \code{ylab="y"},
+and \code{zlab="z"}).}
 
-\item{theta, phi}{The angles defining the viewing direction, default is 40 for both.
+\item{theta, phi}{The angles defining the viewing direction,
+default is 40 for both.
 \code{theta} gives the azimuthal direction and
 \code{phi} the colatitude. see \code{\link[graphics]{persp}}.}
 
@@ -42,17 +46,22 @@ P<-c(1,10,3); Q<-c(1,1,3); C<-c(3,9,12)
 pts<-rbind(P,Q,C)
 
 xr<-range(pts[,1]); yr<-range(pts[,2])
-xf<-(xr[2]-xr[1])*.1 #how far to go at the lower and upper ends in the x-coordinate
-yf<-(yr[2]-yr[1])*.1 #how far to go at the lower and upper ends in the y-coordinate
+xf<-(xr[2]-xr[1])*.1
+#how far to go at the lower and upper ends in the x-coordinate
+yf<-(yr[2]-yr[1])*.1
+#how far to go at the lower and upper ends in the y-coordinate
 x<-seq(xr[1]-xf,xr[2]+xf,l=5) #try also l=10, 20 or 100
 y<-seq(yr[1]-yf,yr[2]+yf,l=5) #try also l=10, 20 or 100
 
 plPQC<-Plane(P,Q,C,x,y)
 plPQC
-plot(plPQC,theta = 225, phi = 30, expand = 0.7, facets = FALSE, scale = TRUE)
+plot(plPQC,theta = 225, phi = 30, expand = 0.7,
+facets = FALSE, scale = TRUE)
 }
 
 }
 \seealso{
-\code{\link{print.Planes}}, \code{\link{summary.Planes}}, and \code{\link{print.summary.Planes}}
+\code{\link{print.Planes}},
+\code{\link{summary.Planes}},
+and \code{\link{print.summary.Planes}}
 }

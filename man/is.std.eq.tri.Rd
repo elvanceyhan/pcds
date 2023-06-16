@@ -7,14 +7,17 @@
 is.std.eq.tri(tri)
 }
 \arguments{
-\item{tri}{A \eqn{3 \times 2} matrix with each row representing a vertex of the triangle.}
+\item{tri}{A \eqn{3 \times 2} matrix with each row
+representing a vertex of the triangle.}
 }
 \value{
-\code{TRUE} if \code{tri} is a standard equilateral triangle, else \code{FALSE}.
+\code{TRUE} if \code{tri} is a standard equilateral triangle,
+else \code{FALSE}.
 }
 \description{
-Checks whether the triangle, \code{tri}, is the standard equilateral triangle \eqn{T_e=T((0,0),(1,0),(1/2,\sqrt{3}/2))}
-or not.
+Checks whether the triangle, \code{tri},
+is the standard equilateral triangle
+\eqn{T_e=T((0,0),(1,0),(1/2,\sqrt{3}/2))} or not.
 }
 \examples{
 \dontrun{

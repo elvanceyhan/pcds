@@ -118,7 +118,7 @@ plot(Xdt)
 ```
 
 There is also uniform point generation capability in a standard equilateral triangle, or in  the standard basic triangle,
-with the functions `runif.std.tri` and `runif.bas.tri`,
+with the functions `runif.std.tri` and `runif.basic.tri`,
 with arguments `n` and `n,c1,c2`, respectively, see the corresponding help pages for the details.
 These functions are mostly for simulation purposes, 
 as PE- and CS-PCDs are geometry invariant, and AS-PCD is
@@ -140,9 +140,9 @@ Yp<-cbind(runif(ny,0,10),runif(ny,0,10))
 We first generate `r ny` $\Y$ points uniformly in the unit square $(0,1) \times (0,1)$ 
 (which will form the vertices of the Delaunay triangles).
 
-Next, we generate  $n_x=$ `r nx` $\X$ points uniformly in the convex hull of the 5 $Y$ points (i.e. in the union of the Delaunay triangles based on `r ny` $Y$ points) using the function `runifMT`,
+Next, we generate  $n_x=$ `r nx` $\X$ points uniformly in the convex hull of the 5 $Y$ points (i.e. in the union of the Delaunay triangles based on `r ny` $Y$ points) using the function `runif.multi.tri`,
 and provide the summary of these uniform points and the corresponding scatterplot (together with the Delaunay triangles).
-The function `runifMT` is an object of class `Uniform`
+The function `runif.multi.tri` is an object of class `Uniform`
 and takes arguments `n,Yp,DTmesh` where
 
 - `n`, a positive integer representing the number of uniform points to be generated 
@@ -156,7 +156,7 @@ and their indices (labeled `$i`).
 The `plot` of the object returns the scatterplot of the $\X$ points 
 together with Delaunay triangulation of $\Y$ points.
 ```{r CSRmT, fig.cap="Scatterplot of the uniform $X$ points in the Delaunay triangles based on 5 $Y$ points."}
-Xdt<-runifMT(nx,Yp)  #data under CSR in the convex hull of Ypoints
+Xdt<-runif.multi.tri(nx,Yp)  #data under CSR in the convex hull of Ypoints
 Xdt
 summary(Xdt)
 plot(Xdt)
@@ -335,9 +335,9 @@ We first generate `r ny` $\Y$ points uniformly in the unit square which will for
 and specify `delta=` `r del` for type I segregation.
 
 We generate $n=$ `r nx` $\X$ points uniformly inside the type I segregation support in the union of 
-the Delaunay triangles (i.e. in the convex hull of the $\Y$ points) using the function `rsegMT`,
+the Delaunay triangles (i.e. in the convex hull of the $\Y$ points) using the function `rseg.multi.tri`,
 and provide the summary of these segregated points and the corresponding scatterplot (together with the triangles).
-The function `rsegMT` is an object of class `Patterns` and takes arguments `n,Yp,delta,DTmesh,DTr` where
+The function `rseg.multi.tri` is an object of class `Patterns` and takes arguments `n,Yp,delta,DTmesh,DTr` where
 
 - `n`, a positive integer representing the number of points to be generated.
 - `Yp`, a set of 2D points from which Delaunay triangulation is constructed.
@@ -353,7 +353,7 @@ Its `call`, `summary`, and `plot` are as in `rseg.tri`.
 The `plot` of the object is the scatterplot of the $\X$ points
 together with Delaunay triangulation of $\Y$ points.
 ```{r segmT, fig.cap="Scatterplot of the $X$ points segregated (in a type I fashion) from the $Y$ points."}
-Xdt<-rsegMT(nx,Yp,del)
+Xdt<-rseg.multi.tri(nx,Yp,del)
 Xdt
 summary(Xdt)
 plot(Xdt)
@@ -381,9 +381,9 @@ Yp<-cbind(runif(ny),runif(ny))
 ```
 We first generate `r ny` $\Y$ points uniformly in the unit square and specify `e=` `r e` for circular segregation.
 
-We generate $n=$ `r nx` $\X$ points uniformly inside the circular segregation support using the function `rseg.circ`,
+We generate $n=$ `r nx` $\X$ points uniformly inside the circular segregation support using the function `rseg.circular`,
 and provide the summary of these segregated points and the corresponding scatterplot (together with the $\Y$ points).
-The function `rseg.circ` is an object of class `Patterns` and takes arguments `n,Yp,e,a1,a2,b1,b2)` where
+The function `rseg.circular` is an object of class `Patterns` and takes arguments `n,Yp,e,a1,a2,b1,b2)` where
 
 - `n`, a positive integer representing the number of points to be generated.
 - `Yp`, a set of 2D points representing the reference points. The generated points are segregated
@@ -396,20 +396,20 @@ balls).
 - `b1,b2`, the real numbers representing the range of $y$-coordinates in the region
 (default is the range of $y$-coordinates of the `Yp` points).
 
-Its `call`, `summary`, and `plot` are as in `rsegMT`.
+Its `call`, `summary`, and `plot` are as in `rseg.multi.tri`.
 The `plot` of the object is the scatterplot of the $\X$ points together with $\Y$ points 
 (here we use `asp=1` so that the prohibited regions are actually depicted as circles).
 ```{r segmTcirc, eval=F, fig.cap="Scatterplot of the $X$ points segregated (in a circular fashion) from the $Y$ points in the unit square."}
-Xdt<-rseg.circ(nx,Yp,e)
+Xdt<-rseg.circular(nx,Yp,e)
 Xdt
 #> Call:
-#> rseg.circ(n = nx, Yp = Yp, e = e)
+#> rseg.circular(n = nx, Yp = Yp, e = e)
 #> 
 #> Type:
 #> [1] "Segregation of 10 X points from 5 Y points with circular exclusion parameter e = 0.15"
 summary(Xdt)
 #> Call:
-#> rseg.circ(n = nx, Yp = Yp, e = e)
+#> rseg.circular(n = nx, Yp = Yp, e = e)
 #> 
 #> Type of the Pattern
 #> [1] "Segregation of 10 X points from 5 Y points with circular exclusion parameter e = 0.15"
@@ -482,21 +482,21 @@ The same triangle $T$ used in the CSR illustration in Section \@ref(sec:CSR1T) i
 and the support of the segregated $\X$ points will be subset of this triangle.
 We specify `delta=` `r del` for the type I association pattern.
 
-We generate $n=$ `r n` $\X$ points uniformly inside the type I association support in $T$ using the function `rasc.tri`, 
+We generate $n=$ `r n` $\X$ points uniformly inside the type I association support in $T$ using the function `rassoc.tri`, 
 and provide the summary of these associated points and the corresponding scatterplot (together with the triangle).
 The function `racs.tri` is an object of class `Patterns` and has the arguments as `rseg.tri`. 
 Its `call`, `summary`, and `plot` are also as in `rseg.tri`.
 ```{r asc1T, eval=F, fig.cap="Scatterplot of the points associated (in a type I fashion) with the vertices of the triangle $T=T(A,B,C)$ with vertices $A=(1,1)$, $B=(2,0)$, and $C=(1.5,2)$."}
-Xdt<-rasc.tri(n,Tr,del)
+Xdt<-rassoc.tri(n,Tr,del)
 Xdt
 #> Call:
-#> rasc.tri(n = n, tri = Tr, delta = del)
+#> rassoc.tri(n = n, tri = Tr, delta = del)
 #> 
 #> Type:
 #> [1] "Type I Association of 5 points in the triangle with vertices (1,1), (2,0) and (1.5,2.33) with attraction parameter delta = 0.4"
 summary(Xdt)
 #> Call:
-#> rasc.tri(n = n, tri = Tr, delta = del)
+#> rassoc.tri(n = n, tri = Tr, delta = del)
 #> 
 #> Type of the Pattern
 #> [1] "Type I Association of 5 points in the triangle with vertices (1,1), (2,0) and (1.5,2.33) with attraction parameter delta = 0.4"
@@ -546,11 +546,11 @@ and specify `delta=` `r del` for type I association.
 
 We generate $n=$ `r nx` $\X$ points uniformly inside the type I association support 
 in the union of the Delaunay triangles (or in the convex hull
-of the $\Y$ points) using the function `rascMT`, 
+of the $\Y$ points) using the function `rassoc.multi.tri`, 
 and provide the summary of these associated points and the corresponding scatterplot (together with the triangles).
-The function `rascMT` is an object of class `Patterns` and its arguments, `call`, `summary`, and `plot` are as in `rsegMT`.
+The function `rassoc.multi.tri` is an object of class `Patterns` and its arguments, `call`, `summary`, and `plot` are as in `rseg.multi.tri`.
 ```{r ascmT, fig.cap="Scatterplot of the $X$ points associated (in a type I fashion) with the $Y$ points."}
-Xdt<-rascMT(nx,Yp,del)
+Xdt<-rassoc.multi.tri(nx,Yp,del)
 Xdt
 summary(Xdt)
 plot(Xdt)
@@ -576,22 +576,22 @@ nx<-10;  #try also nx<-100 or 1000;
 ```
 We first generate `r ny` $\Y$ points uniformly in the unit square and specify `e=` `r e` for circular association.
 
-We generate $n=$ `r nx` $\X$ points uniformly inside the circular association support using the function `rasc.circ`,
+We generate $n=$ `r nx` $\X$ points uniformly inside the circular association support using the function `rassoc.circular`,
 and provide the summary of these associated points and the corresponding scatterplot (together with the $\Y$ points).
-The function `rasc.circ` is an object of class `Patterns` and its arguments,  `call`, `summary`, and `plot` are as in `rseg.circ`.
+The function `rassoc.circular` is an object of class `Patterns` and its arguments,  `call`, `summary`, and `plot` are as in `rseg.circular`.
 We use `asp=1` in the `plot` of the object
 so that the support of the $\X$ points (i.e., the allowed regions) are actually depicted as circles.
 ```{r ascmTcirc, eval=F, fig.cap="Scatterplot of the $X$ points associated (in a circular fashion) with the $Y$ points."}
-Xdt<-rasc.circ(nx,Yp,e)
+Xdt<-rassoc.circular(nx,Yp,e)
 Xdt
 #> Call:
-#> rasc.circ(n = nx, Yp = Yp, e = e)
+#> rassoc.circular(n = nx, Yp = Yp, e = e)
 #> 
 #> Type:
 #> [1] "Association of 10 points with 5 Y points with circular attraction parameter e = 0.15"
 summary(Xdt)
 #> Call:
-#> rasc.circ(n = nx, Yp = Yp, e = e)
+#> rassoc.circular(n = nx, Yp = Yp, e = e)
 #> 
 #> Type of the Pattern
 #> [1] "Association of 10 points with 5 Y points with circular attraction parameter e = 0.15"
@@ -636,15 +636,15 @@ being placed and uniformly inside a disc of radius `scale` centered on the paren
 The resulting point pattern is a realization of the classical "stationary Matérn cluster process" 
 generated inside the window `win`.
 
-The main difference of `rasc.matern` and `rMatClust` in `spatstat.random` package is that in `rasc.matern`
+The main difference of `rassoc.matern` and `rMatClust` in `spatstat.random` package is that in `rassoc.matern`
 the "parent" points are $\Y$ points which are given beforehand and are not discarded at the end 
 and the offspring points are the points associated with the reference points, $\Y$.
-Notice that in `rasc.matern`, the parent and offspring points belong to different classes.
+Notice that in `rassoc.matern`, the parent and offspring points belong to different classes.
 The argument `e` must be positive and very large values of `e` provide patterns closer to CSR pattern.
 
-This function is also similar to `rasc.circ`, 
-where `rasc.circ` needs the study window to be specified,
-while `rasc.matern` does not.
+This function is also similar to `rassoc.circular`, 
+where `rassoc.circular` needs the study window to be specified,
+while `rassoc.matern` does not.
 
 ```{r SPch9, eval=F}
 ny<-5;
@@ -656,23 +656,23 @@ nx<-10;  #try also nx<-100 or 1000;
 ```
 We first generate `r ny` $\Y$ points and specify `e=` `r e` for the Matérn-like association.
 
-We generate $n=$ `r nx` $\X$ points from the Matérn-like association using the function `rasc.matern`,
+We generate $n=$ `r nx` $\X$ points from the Matérn-like association using the function `rassoc.matern`,
 and provide the summary of these associated points and the corresponding scatterplot (together with the $\Y$ points).
-The function `rasc.matern` is an object of class `Patterns` and its arguments, 
-`call`, `summary`, and `plot` are as in `rasc.circ`.
+The function `rassoc.matern` is an object of class `Patterns` and its arguments, 
+`call`, `summary`, and `plot` are as in `rassoc.circular`.
 We use `asp=1` in the `plot` of the object so that the support of the $\X$ points 
 (i.e., the allowed regions) are actually depicted as circles.
 ```{r ascmTmat, eval=F, fig.cap="Scatterplot of the $X$ points associated (in a Matérn-like fashion) with the $Y$ points."}
-Xdt<-rasc.matern(nx,Yp,e)
+Xdt<-rassoc.matern(nx,Yp,e)
 Xdt
 #> Call:
-#> rasc.matern(n = nx, Yp = Yp, e = e)
+#> rassoc.matern(n = nx, Yp = Yp, e = e)
 #> 
 #> Type:
 #> [1] "Matern-like Association of 10 points with 5 Y points with circular attraction parameter e = 0.15"
 summary(Xdt)
 #> Call:
-#> rasc.matern(n = nx, Yp = Yp, e = e)
+#> rassoc.matern(n = nx, Yp = Yp, e = e)
 #> 
 #> Type of the Pattern
 #> [1] "Matern-like Association of 10 points with 5 Y points with circular attraction parameter e = 0.15"
@@ -705,7 +705,7 @@ plot(Xdt,asp=1)
 
 There is also point generation capability from association pattern in a standard equilateral triangle with two types of association.
 Type I is the above described one and Type II association (described below),
-with the relevant functions `rasc.std.tri` and `rascII.std.tri`,
+with the relevant functions `rassoc.std.tri` and `rassocII.std.tri`,
 with arguments `n,eps` for both, see the corresponding help pages for the details.
 These functions are mostly for simulation purposes, as arc density and domination number of PE- and CS-PCDs are geometry invariant.
 *Type II association* is the pattern in which only a region of points inside the triangle

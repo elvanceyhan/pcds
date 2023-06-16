@@ -40,6 +40,12 @@ a<-0; b<-10; int<-c(a,b)
 
 NCSint(7,int,t,c)
 NCSint(17,int,t,c)
+NCSint(1,int,t,c)
+NCSint(-1,int,t,c)
+
+NCSint(3,int,t,c)
+NCSint(4,int,t,c)
+NCSint(a,int,t,c)
 
 }
 \references{

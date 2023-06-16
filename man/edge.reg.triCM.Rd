@@ -2,33 +2,51 @@
 % Please edit documentation in R/AuxDelaunay.R
 \name{edge.reg.triCM}
 \alias{edge.reg.triCM}
-\title{The vertices of the \eqn{CM}-edge region in a triangle that contains the point}
+\title{The vertices of the \eqn{CM}-edge region in a triangle
+that contains the point}
 \usage{
 edge.reg.triCM(p, tri)
 }
 \arguments{
-\item{p}{A 2D point for which \eqn{CM}-edge region it resides in is to be determined in the triangle \code{tri}.}
+\item{p}{A 2D point for which \eqn{CM}-edge region it resides in is
+to be determined in the triangle \code{tri}.}
 
-\item{tri}{A \eqn{3 \times 2} matrix with each row representing a vertex of the triangle.}
+\item{tri}{A \eqn{3 \times 2} matrix with each row
+representing a vertex of the triangle.}
 }
 \value{
-The \eqn{CM}-edge region that contains point, \code{p} in the triangle \code{tri}. The related edges are given as
-vertices \code{ABC} for \eqn{re=3}, as \code{BCA} for \eqn{re=1} and as \code{CAB} for \eqn{re=2} where edges are labeled as 3
+The \eqn{CM}-edge region that contains point,
+\code{p} in the triangle \code{tri}.
+The related edges are given as
+vertices \code{ABC} for \eqn{re=3},
+as \code{BCA} for \eqn{re=1} and as \code{CAB} for \eqn{re=2}
+where edges are labeled as 3
 for edge \eqn{AB}, 1 for edge \eqn{BC}, and 2 for edge \eqn{AC}.
 }
 \description{
 Returns the edge whose region contains point, \code{p}, in
-the triangle \code{tri}\eqn{=T(A,B,C)} with edge regions based on center of mass \eqn{CM=(A+B+C)/3}.
+the triangle \code{tri}\eqn{=T(A,B,C)}
+with edge regions based on center of mass \eqn{CM=(A+B+C)/3}.
 
-This function is related to \code{\link{re.triCM}}, but unlike \code{\link{re.triCM}} the related edges are given as vertices \code{ABC}
-for \eqn{re=3}, as \code{BCA} for \eqn{re=1} and as \code{CAB} for \eqn{re=2} where edges are labeled as 3 for edge \eqn{AB}, 1 for edge \eqn{BC},
-and 2 for edge \eqn{AC}. The vertices are given one vertex in each row in the output, e.g., \eqn{ABC} is printed
-as \code{rbind(A,B,C)}, where row 1 has the entries of vertex A, row 2 has the entries of vertex B,
+This function is related to \code{\link{rel.edge.triCM}},
+but unlike \code{\link{rel.edge.triCM}}
+the related edges are given as vertices \code{ABC}
+for \eqn{re=3}, as \code{BCA} for \eqn{re=1}
+and as \code{CAB} for \eqn{re=2}
+where edges are labeled as 3 for edge \eqn{AB},
+1 for edge \eqn{BC},
+and 2 for edge \eqn{AC}.
+The vertices are given one vertex in each row in the output,
+e.g., \eqn{ABC} is printed as \code{rbind(A,B,C)},
+where row 1 has the entries of vertex A,
+row 2 has the entries of vertex B,
 and row 3 has the entries of vertex C.
 
-If the point, \code{p}, is not inside \code{tri}, then the function yields \code{NA} as output.
+If the point, \code{p}, is not inside \code{tri},
+then the function yields \code{NA} as output.
 
-Edge region for BCA is the triangle \eqn{T(B,C,CM)}, edge region CAB is \eqn{T(A,C,CM)}, and edge region ABC is \eqn{T(A,B,CM)}.
+Edge region for BCA is the triangle \eqn{T(B,C,CM)},
+edge region CAB is \eqn{T(A,C,CM)}, and edge region ABC is \eqn{T(A,B,CM)}.
 
 See also (\insertCite{ceyhan:Phd-thesis,ceyhan:comp-geo-2010,ceyhan:mcap2012;textual}{pcds}).
 }
@@ -56,7 +74,7 @@ yd<-Ylim[2]-Ylim[1]
 plot(Tr,pch=".",xlab="",ylab="",axes=TRUE,xlim=Xlim+xd*c(-.05,.05),ylim=Ylim+yd*c(-.05,.05))
 polygon(Tr)
 L<-Tr; R<-matrix(rep(CM,3),ncol=2,byrow=TRUE)
-segments(L[,1], L[,2], R[,1], R[,2], lty=2)
+segments(L[,1], L[,2], R[,1], R[,2], lty = 2)
 
 txt<-rbind(Tr,CM,p1,p2,p3)
 xc<-txt[,1]+c(-.02,.02,.02,-.05,0,0,0)
@@ -70,8 +88,9 @@ text(xc,yc,txt.str)
 \insertAllCited{}
 }
 \seealso{
-\code{\link{re.tri.cent}}, \code{\link{re.triCM}}, \code{\link{re.bas.triCM}},
-\code{\link{re.bas.tri.cent}}, \code{\link{reTeCM}}, and \code{\link{edge.reg.triCM}}
+\code{\link{rel.edge.tri}}, \code{\link{rel.edge.triCM}},
+\code{\link{rel.edge.basic.triCM}}, \code{\link{rel.edge.basic.tri}},
+\code{\link{rel.edge.std.triCM}}, and \code{\link{edge.reg.triCM}}
 }
 \author{
 Elvan Ceyhan

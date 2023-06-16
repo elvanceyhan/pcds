@@ -2,40 +2,56 @@
 % Please edit documentation in R/PatternGen.R
 \name{rsegII.std.tri}
 \alias{rsegII.std.tri}
-\title{Generation of points segregated (in a Type II fashion) from the vertices of \eqn{T_e}}
+\title{Generation of points segregated (in a Type II fashion)
+from the vertices of \eqn{T_e}}
 \usage{
 rsegII.std.tri(n, eps)
 }
 \arguments{
-\item{n}{A positive integer representing the number of points to be generated.}
+\item{n}{A positive integer
+representing the number of points to be generated.}
 
-\item{eps}{A positive real number representing the parameter of type II segregation (which is the
+\item{eps}{A positive real number
+representing the parameter of type II segregation (which is the
 distance from the interior triangle points to the boundary of \eqn{T_e}).}
 }
 \value{
 A \code{list} with the elements
 \item{type}{The type of the point pattern}
 \item{mtitle}{The \code{"main"} title for the plot of the point pattern}
-\item{parameters}{The exclusion parameter, \code{eps}, of the segregation pattern, which is the distance
-from the interior triangle to \eqn{T_e}}
+\item{parameters}{The exclusion parameter,
+\code{eps}, of the segregation pattern,
+which is the distance from the interior triangle to \eqn{T_e}}
 \item{ref.points}{The input set of points \code{Y};
-reference points, i.e., points from which generated points are segregated (i.e., vertices of \eqn{T_e}).}
-\item{gen.points}{The output set of generated points segregated from \code{Y} points (i.e., vertices of \eqn{T_e}).}
-\item{tri.Y}{Logical output for triangulation based on \code{Y} points should be implemented or not.
-if \code{TRUE} triangulation based on \code{Y} points is to be implemented (default is set to \code{FALSE}).}
+reference points, i.e., points
+from which generated points are segregated (i.e., vertices of \eqn{T_e}).}
+\item{gen.points}{The output set of generated points
+segregated from \code{Y} points
+(i.e., vertices of \eqn{T_e}).}
+\item{tri.Y}{Logical output for triangulation
+based on \code{Y} points should be implemented or not.
+if \code{TRUE} triangulation based on \code{Y} points is to be implemented
+(default is set to \code{FALSE}).}
 \item{desc.pat}{Description of the point pattern}
-\item{num.points}{The \code{vector} of two numbers, which are the number of generated points and
+\item{num.points}{The \code{vector} of two numbers,
+which are the number of generated points and
 the number of reference (i.e., \code{Y}) points, which is 3 here.}
-\item{xlimit,ylimit}{The ranges of the \eqn{x}- and \eqn{y}-coordinates of the reference points, which are the
-vertices of \eqn{T_e} here}
+\item{xlimit,ylimit}{The ranges of the \eqn{x}-
+and \eqn{y}-coordinates of the reference points,
+which are the vertices of \eqn{T_e} here}
 }
 \description{
 An object of class \code{"Patterns"}.
-Generates \code{n} points uniformly in the standard equilateral triangle \eqn{T_e=T((0,0),(1,0),(1/2,\sqrt{3}/2))}
-under the type II segregation alternative for \code{eps} in \eqn{(0,\sqrt{3}/6=0.2886751]}.
+Generates \code{n} points uniformly
+in the standard equilateral triangle
+\eqn{T_e=T((0,0),(1,0),(1/2,\sqrt{3}/2))}
+under the type II segregation alternative
+for \code{eps} in \eqn{(0,\sqrt{3}/6=0.2886751]}.
 
-In the type II segregation, the annular forbidden regions around the edges are determined by
-the parameter \code{eps} which is the distance from the interior triangle (i.e., support for the segregation)
+In the type II segregation, the annular forbidden regions
+around the edges are determined by
+the parameter \code{eps} which is the distance from the interior triangle
+(i.e., support for the segregation)
 to \eqn{T_e} (see examples for a sample plot.)
 }
 \examples{
@@ -57,7 +73,8 @@ yd<-Ylim[2]-Ylim[1]
 
 Xp<-Xdt$gen.points
 
-plot(Te,pch=".",xlab="",ylab="",main="Type II segregation in the \n standard equilateral triangle",
+plot(Te,pch=".",xlab="",ylab="",
+main="Type II segregation in the \n standard equilateral triangle",
      xlim=Xlim+xd*c(-.01,.01),ylim=Ylim+yd*c(-.01,.01))
 polygon(Te)
 points(Xp)
@@ -67,7 +84,8 @@ C1<-c(1/2,sqrt(3)/2-2*eps);
 A1<-c(eps*sqrt(3),eps); B1<-c(1-eps*sqrt(3),eps);
 supp<-rbind(A1,B1,C1)
 
-plot(Te,asp=1,pch=".",xlab="",ylab="",main="Support of the Type II Segregation",
+plot(Te,asp=1,pch=".",xlab="",ylab="",
+main="Support of the Type II Segregation",
      xlim=Xlim+xd*c(-.01,.01),ylim=Ylim+yd*c(-.01,.01))
   polygon(Te)
   polygon(supp,col=5)
@@ -75,7 +93,8 @@ points(Xp)
 
 }
 \seealso{
-\code{\link{rseg.circ}}, \code{\link{rasc.circ}},  \code{\link{rseg.std.tri}}, and \code{\link{rsegMT}}
+\code{\link{rseg.circular}}, \code{\link{rassoc.circular}},
+\code{\link{rseg.std.tri}}, and \code{\link{rseg.multi.tri}}
 }
 \author{
 Elvan Ceyhan

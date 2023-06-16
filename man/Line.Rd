@@ -2,50 +2,71 @@
 % Please edit documentation in R/AuxGeometry.R
 \name{Line}
 \alias{Line}
-\title{The line joining two distinct 2D points \code{a} and \code{b}}
+\title{The line joining two distinct 2D points
+\code{a} and \code{b}}
 \usage{
 Line(a, b, x)
 }
 \arguments{
-\item{a, b}{2D points that determine the straight line (i.e., through which the straight line passes).}
+\item{a, b}{2D points that determine the straight line
+(i.e., through which the straight line passes).}
 
-\item{x}{A scalar or a \code{vector} of scalars representing the \eqn{x}-coordinates of the line.}
+\item{x}{A scalar or a \code{vector} of scalars
+representing the \eqn{x}-coordinates of the line.}
 }
 \value{
 A \code{list} with the elements
 \item{desc}{A description of the line}
 \item{mtitle}{The \code{"main"} title for the plot of the line}
-\item{points}{The input points \code{a} and \code{b} through which the straight line passes
-(stacked row-wise, i.e., row 1 is point \code{a} and row 2 is point \code{b}).}
-\item{x}{The input scalar or \code{vector} which constitutes the \eqn{x}-coordinates of the point(s) of interest
+\item{points}{The input points \code{a} and \code{b}
+through which the straight line passes
+(stacked row-wise, i.e., row 1 is point \code{a}
+and row 2 is point \code{b}).}
+\item{x}{The input scalar or \code{vector}
+which constitutes the \eqn{x}-coordinates of the point(s) of interest
 on the line.}
-\item{y}{The output scalar or \code{vector} which constitutes the \eqn{y}-coordinates of the point(s) of interest
-on the line. If \code{x} is a scalar, then \code{y} will be a scalar and if \code{x} is a \code{vector} of scalars,
+\item{y}{The output scalar or \code{vector}
+which constitutes the \eqn{y}-coordinates of the point(s) of interest
+on the line. If \code{x} is a scalar,
+then \code{y} will be a scalar
+and if \code{x} is a \code{vector} of scalars,
 then \code{y} will be a \code{vector} of scalars.}
-\item{slope}{Slope of the line, \code{Inf} is allowed, passing through points \code{a} and \code{b} }
-\item{intercept}{Intercept of the line passing through points \code{a} and \code{b}}
-\item{equation}{Equation of the line passing through points \code{a} and \code{b}}
+\item{slope}{Slope of the line, \code{Inf} is allowed,
+passing through points \code{a} and \code{b} }
+\item{intercept}{Intercept of the line
+passing through points \code{a} and \code{b}}
+\item{equation}{Equation of the line
+passing through points \code{a} and \code{b}}
 }
 \description{
 An object of class \code{"Lines"}.
-Returns the \code{equation, slope, intercept}, and \eqn{y}-coordinates of the line crossing two
-distinct 2D points \code{a} and \code{b} with \eqn{x}-coordinates provided in \code{vector} \code{x}.
+Returns the \code{equation, slope, intercept},
+and \eqn{y}-coordinates of the line crossing two
+distinct 2D points \code{a} and \code{b}
+with \eqn{x}-coordinates provided in \code{vector} \code{x}.
 
-This function is different from the \code{\link[stats]{line}} function in the standard \code{stats} package
+This function is different from the \code{\link[stats]{line}} function
+in the standard \code{stats} package
 in \code{R} in the sense that \code{Line(a,b,x)} fits the line passing
-through points \code{a} and \code{b} and returns various quantities (see below) for this line and \code{x} is
-the \eqn{x}-coordinates of the points we want to find on the \code{Line(a,b,x)} while \code{line(a,b)} fits the line robustly
-whose \eqn{x}-coordinates are in \code{a} and \eqn{y}-coordinates are in \code{b}.
+through points \code{a} and \code{b}
+and returns various quantities (see below) for this line and \code{x} is
+the \eqn{x}-coordinates of the points
+we want to find on the \code{Line(a,b,x)}
+while \code{line(a,b)} fits the line robustly
+whose \eqn{x}-coordinates are in \code{a}
+and \eqn{y}-coordinates are in \code{b}.
 
 \code{Line(a,b,x)} and \code{line(x,Line(A,B,x)$y)}
-would yield the same straight line (i.e., the line with the same coefficients.)
+would yield the same straight line
+(i.e., the line with the same coefficients.)
 }
 \examples{
 \dontrun{
 A<-c(-1.22,-2.33); B<-c(2.55,3.75)
 
 xr<-range(A,B);
-xf<-(xr[2]-xr[1])*.1 #how far to go at the lower and upper ends in the x-coordinate
+xf<-(xr[2]-xr[1])*.1
+#how far to go at the lower and upper ends in the x-coordinate
 x<-seq(xr[1]-xf,xr[2]+xf,l=5)  #try also l=10, 20, or 100
 
 lnAB<-Line(A,B,x)
@@ -53,7 +74,8 @@ lnAB
 summary(lnAB)
 plot(lnAB)
 
-line(A,B)  #this takes vector A as the x points and vector B as the y points and fits the line
+line(A,B)
+#this takes vector A as the x points and vector B as the y points and fits the line
 #for example, try
 x=runif(100); y=x+(runif(100,-.05,.05))
 plot(x,y)
@@ -72,8 +94,8 @@ plot(rbind(A,B),pch=1,xlab="x",ylab="y",
 xlim=Xlim+xd*c(-.05,.05),ylim=Ylim+yd*c(-.05,.05))
 if (!is.na(y[1])) {lines(x,y,lty=1)} else {abline(v=A[1])}
 text(rbind(A+pf,B+pf),c("A","B"))
-int<-my_round(lnAB$intercep,2)  #intercept
-sl<-my_round(lnAB$slope,2)  #slope
+int<-round(lnAB$intercep,2)  #intercept
+sl<-round(lnAB$slope,2)  #slope
 text(rbind((A+B)/2+pf*3),ifelse(is.na(int),paste("x=",A[1]),
 ifelse(sl==0,paste("y=",int),
 ifelse(sl==1,ifelse(sign(int)<0,paste("y=x",int),paste("y=x+",int)),
@@ -82,7 +104,8 @@ ifelse(sign(int)<0,paste("y=",sl,"x",int),paste("y=",sl,"x+",int))))))
 
 }
 \seealso{
-\code{\link{slope}}, \code{\link{paraline}}, \code{\link{perpline}}, \code{\link[stats]{line}}
+\code{\link{slope}}, \code{\link{paraline}},
+\code{\link{perpline}}, \code{\link[stats]{line}}
 in the generic \code{stats} package and and \code{\link{Line3D}}
 }
 \author{

@@ -2,26 +2,34 @@
 % Please edit documentation in R/AuxGeometry.R
 \name{radius}
 \alias{radius}
-\title{The radius of a point from one class with respect to points from the other class}
+\title{The radius of a point from one class with respect
+to points from the other class}
 \usage{
 radius(p, Y)
 }
 \arguments{
-\item{p}{A \eqn{d}-dimensional point for which radius is computed. Radius of \code{p} equals to the
+\item{p}{A \eqn{d}-dimensional point for which radius is computed.
+Radius of \code{p} equals to the
 distance to the closest \code{Y} point to \code{p}.}
 
-\item{Y}{A set of \eqn{d}-dimensional points representing the reference points for the balls. That is, radius
-of the point \code{p} is defined as the minimum distance to the \code{Y} points.}
+\item{Y}{A set of \eqn{d}-dimensional points
+representing the reference points for the balls. That is, radius
+of the point \code{p} is defined
+as the minimum distance to the \code{Y} points.}
 }
 \value{
 A \code{list} with three elements
-\item{rad}{Radius value for the point, \code{p} defined as \eqn{\min_{y in Y} d(p,y)}}
-\item{index.of.clYpnt}{Index of the closest \code{Y} points to the point \code{p}}
+\item{rad}{Radius value for the point, \code{p}
+defined as \eqn{\min_{y in Y} d(p,y)}}
+\item{index.of.clYpnt}{Index of the closest \code{Y} points
+to the point \code{p}}
 \item{closest.Ypnt}{The closest \code{Y} point to the point \code{p}}
 }
 \description{
-Returns the radius for the ball centered at point \code{p} with radius=min distance to \code{Y} points.
-That is, for the point \code{p} \eqn{radius= \min_{y \in Y}d(p,y)} (i.e., distance from \code{p} to the closest \code{Y} point).
+Returns the radius for the ball centered
+at point \code{p} with radius=min distance to \code{Y} points.
+That is, for the point \code{p} \eqn{radius= \min_{y \in Y}d(p,y)}
+(i.e., distance from \code{p} to the closest \code{Y} point).
 The point \code{p} and \code{Y} points must be of same dimension.
 }
 \examples{

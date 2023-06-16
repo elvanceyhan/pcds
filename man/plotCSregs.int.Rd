@@ -32,8 +32,8 @@ with the default \code{c=.5}.
 For the interval, \code{int}\eqn{=(a,b)}, the parameterized center is \eqn{M_c=a+c(b-a)}.}
 
 \item{Jit}{A positive real number that determines the amount of jitter along the \eqn{y}-axis, default=\code{0.1} and
-\code{Xp} points are jittered according to \eqn{U(-Jit,Jit)} distribution along the \eqn{y}-axis
-where \code{Jit} equals to the range of the union of \code{Xp} and \code{Yp} points multiplied by \code{Jit}).}
+\code{Xp} points are jittered according to \eqn{U(-Jit,Jit)} distribution along the \eqn{y}-axis where \code{Jit} equals to the range of \code{Xp} and proximity region
+intervals multiplied by \code{Jit}).}
 
 \item{main}{An overall title for the plot (default=\code{NULL}).}
 
@@ -59,7 +59,6 @@ regions and \code{Xp}) is added to the \eqn{y}-direction.
 center of the interval as a vertical line in the plot, else center of the interval is not plotted.
 }
 \examples{
-\dontrun{
 c<-.4
 tau<-2
 a<-0; b<-10; int<-c(a,b)
@@ -69,15 +68,22 @@ xf<-(int[2]-int[1])*.1
 
 Xp<-runif(n,a-xf,b+xf)  #try also Xp<-runif(n,a-5,b+5)
 
+plotCSregs.int(7,int,tau,c,xlab="x",ylab="")
+
 plotCSregs.int(Xp,int,tau,c,xlab="x",ylab="")
-}
+
+plotCSregs.int(17,int,tau,c,xlab="x",ylab="")
+plotCSregs.int(1,int,tau,c,xlab="x",ylab="")
+plotCSregs.int(4,int,tau,c,xlab="x",ylab="")
+
+plotCSregs.int(-7,int,tau,c,xlab="x",ylab="")
 
 }
 \references{
 \insertAllCited{}
 }
 \seealso{
-\code{\link{plotCSregs1D}}, \code{\link{plotCSregs.int}}, and \code{\link{plotPEregs.int}}
+\code{\link{plotCSregs1D}}, \code{\link{plotCSregs}}, and \code{\link{plotPEregs.int}}
 }
 \author{
 Elvan Ceyhan

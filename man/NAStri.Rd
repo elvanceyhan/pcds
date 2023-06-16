@@ -59,7 +59,7 @@ P1<-as.numeric(runif.tri(1,Tr)$g)  #try also P1<-c(1.3,1.2)
 NAStri(P1,Tr,M)
 
 #or try
-Rv<-rv.triCC(P1,Tr)$rv
+Rv<-rel.vert.triCC(P1,Tr)$rv
 NAStri(P1,Tr,M,Rv)
 
 NAStri(c(3,5),Tr,M)
@@ -73,19 +73,19 @@ NAStri(P3,Tr,M)
 if (dimension(M)==3) {M<-bary2cart(M,Tr)}
 #need to run this when M is given in barycentric coordinates
 
-CC<-circ.cent.tri(Tr)  #the circumcenter
+CC<-circumcenter.tri(Tr)  #the circumcenter
 
 if (isTRUE(all.equal(M,CC)) || identical(M,"CC"))
 {cent<-CC
 D1<-(B+C)/2; D2<-(A+C)/2; D3<-(A+B)/2;
 Ds<-rbind(D1,D2,D3)
 cent.name<-"CC"
-rv<-rv.triCC(P1,Tr)$rv
+rv<-rel.vert.triCC(P1,Tr)$rv
 } else
 {cent<-M
 cent.name<-"M"
-Ds<-cent2edges.tri(Tr,M)
-rv<-rv.tri.cent(P1,Tr,M)$rv
+Ds<-prj.cent2edges(Tr,M)
+rv<-rel.vert.tri(P1,Tr,M)$rv
 }
 RV<-Tr[rv,]
 rad<-Dist(P1,RV)
@@ -144,7 +144,7 @@ NAStri(P1,Tr,M)
 \insertAllCited{}
 }
 \seealso{
-\code{\link{NASbas.tri}}, \code{\link{NPEtri}}, \code{\link{NCStri}} and \code{\link{IndNAStri}}
+\code{\link{NASbasic.tri}}, \code{\link{NPEtri}}, \code{\link{NCStri}} and \code{\link{IarcAStri}}
 }
 \author{
 Elvan Ceyhan

@@ -12,21 +12,33 @@
 \item{\dots}{Additional parameters for \code{summary}.}
 }
 \value{
-The \code{call} of the \code{object} of class \code{"PCDs"}, the \code{type} of the proximity catch digraph (PCD),
-(i.e. the description of the PCD), some of the partition (i.e. intervalization in the 1D case and triangulation
-in the 2D case) points (i.e., vertices of the intervals or the triangles), some of the tails (or source points)
-and the heads (or end points) of the arcs of the PCD, parameter of the PCD, and various quantities (number of vertices,
-number of arcs and arc density of the PCDs, number of vertices for the partition and number of partition cells
+The \code{call} of the \code{object} of class \code{"PCDs"},
+the \code{type} of the proximity catch digraph (PCD),
+(i.e. the description of the PCD), some of the partition
+(i.e. intervalization in the 1D case and triangulation
+in the 2D case) points
+(i.e., vertices of the intervals or the triangles),
+parameter(s) of the PCD, and various quantities
+(number of vertices,
+number of arcs and arc density of the PCDs,
+number of vertices for the partition
+and number of partition cells
 (i.e., intervals or triangles)).
 }
 \description{
 Returns the below information about the \code{object}:
 
-\code{call} of the function defining the \code{object}, the \code{type} of the proximity catch digraph (PCD),
-(i.e. the description of the PCD), some of the partition (i.e. intervalization in the 1D case and triangulation
-in the 2D case) points (i.e., vertices of the intervals or the triangles), some of the tails (or source points)
-and the heads (or end points) of the arcs of the PCD, parameter of the PCD, and various quantities (number of vertices,
-number of arcs and arc density of the PCDs, number of vertices for the partition and number of partition cells
+\code{call} of the function defining the \code{object},
+the \code{type} of the proximity catch digraph (PCD),
+(i.e. the description of the PCD),
+some of the partition
+(i.e. intervalization in the 1D case and triangulation
+in the 2D case) points
+(i.e., vertices of the intervals or the triangles),
+parameter(s) of the PCD, and various quantities
+(number of vertices,
+number of arcs and arc density of the PCDs,
+number of vertices for the partition and number of partition cells
 (i.e., intervals or triangles)).
 }
 \examples{
@@ -36,12 +48,14 @@ Tr<-rbind(A,B,C);
 n<-10
 Xp<-runif.tri(n,Tr)$g
 M<-as.numeric(runif.tri(1,Tr)$g)
-Arcs<-ArcsAStri(Xp,Tr,M)
+Arcs<-arcsAStri(Xp,Tr,M)
 Arcs
 summary(Arcs)
 }
 
 }
 \seealso{
-\code{\link{print.PCDs}}, \code{\link{print.summary.PCDs}}, and \code{\link{plot.PCDs}}
+\code{\link{print.PCDs}},
+\code{\link{print.summary.PCDs}},
+and \code{\link{plot.PCDs}}
 }

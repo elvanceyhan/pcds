@@ -2,65 +2,82 @@
 % Please edit documentation in R/AuxDelaunay.R
 \name{funsAB2MTe}
 \alias{funsAB2MTe}
-\alias{lA_M.Te}
-\alias{lB_M.Te}
-\alias{lC_M.Te}
-\title{The lines joining the three vertices of the standard equilateral triangle to a center, \code{M}, of it}
+\alias{lineA2MinTe}
+\alias{lineB2MinTe}
+\alias{lineC2MinTe}
+\title{The lines joining the three vertices of
+the standard equilateral triangle to a center, \code{M}, of it}
 \usage{
-lA_M.Te(x, M)
+lineA2MinTe(x, M)
 
-lB_M.Te(x, M)
+lineB2MinTe(x, M)
 
-lC_M.Te(x, M)
+lineC2MinTe(x, M)
 }
 \arguments{
 \item{x}{A single scalar or a \code{vector} of scalars.}
 
-\item{M}{A 2D point in Cartesian coordinates or a 3D point in barycentric coordinates
-which serves as a center in the interior of the standard equilateral triangle.}
+\item{M}{A 2D point in Cartesian coordinates
+or a 3D point in barycentric coordinates
+which serves as a center
+in the interior of the standard equilateral triangle.}
 }
 \value{
 A \code{list} with the elements
 \item{txt1}{Longer description of the line.}
-\item{txt2}{Shorter description of the line (to be inserted over the line in the plot).}
+\item{txt2}{Shorter description of the line
+(to be inserted over the line in the plot).}
 \item{mtitle}{The \code{"main"} title for the plot of the line.}
 \item{cent}{The center chosen inside the standard equilateral triangle.}
-\item{cent.name}{The name of the center inside the standard equilateral triangle.}
-\item{tri}{The triangle (it is the standard equilateral triangle for this function).}
-\item{x}{The input vector, can be a scalar or a \code{vector} of scalars,
-which constitute the \eqn{x}-coordinates of the point(s) of interest on the line.}
-\item{y}{The output vector, will be a scalar if \code{x} is a scalar or a \code{vector} of scalars if \code{x} is
-a \code{vector} of scalar, constitutes the \eqn{y}-coordinates of the point(s) of interest on the line.}
+\item{cent.name}{The name of the center
+inside the standard equilateral triangle.}
+\item{tri}{The triangle
+(it is the standard equilateral triangle for this function).}
+\item{x}{The input vector, can be a scalar
+or a \code{vector} of scalars,
+which constitute the \eqn{x}-coordinates of the point(s) of interest
+on the line.}
+\item{y}{The output vector,
+will be a scalar if \code{x} is a scalar
+or a \code{vector} of scalars if \code{x} is
+a \code{vector} of scalar,
+constitutes the \eqn{y}-coordinates of the point(s) of interest on the line.}
 \item{slope}{Slope of the line.}
 \item{intercept}{Intercept of the line.}
 \item{equation}{Equation of the line.}
 }
 \description{
-Three functions, \code{lA_M.Te}, \code{lB_M.Te} and \code{lC_M.Te} of class \code{"TriLines"}.
-Returns the \code{equation, slope, intercept}, and \eqn{y}-coordinates of the lines joining \eqn{A} and \code{M},
+Three functions, \code{lineA2MinTe}, \code{lineB2MinTe} and \code{lineC2MinTe}
+of class \code{"TriLines"}.
+Returns the \code{equation, slope, intercept},
+and \eqn{y}-coordinates of the lines joining \eqn{A} and \code{M},
 \eqn{B} and \code{M}, and also \eqn{C} and \code{M}.
 
-\code{lA_M.Te} is the line joining \eqn{A} to the center, \code{M}, \code{lB_M.Te} is the line joining \eqn{B} to \code{M},
-and \code{lC_M.Te} is the line joining C to \code{M}, in the standard equilateral triangle \eqn{T_e=(A,B,C)}
-with \eqn{A=(0,0)}, \eqn{B=(1,0)}, \eqn{C=(1/2,\sqrt{3}/2)}; \eqn{x}-coordinates are provided in \code{vector} \code{x}
+\code{lineA2MinTe} is the line joining \eqn{A} to the center, \code{M},
+\code{lineB2MinTe} is the line joining \eqn{B} to \code{M},
+and \code{lineC2MinTe} is the line joining C to \code{M},
+in the standard equilateral triangle \eqn{T_e=(A,B,C)}
+with \eqn{A=(0,0)}, \eqn{B=(1,0)}, \eqn{C=(1/2,\sqrt{3}/2)};
+\eqn{x}-coordinates are provided in \code{vector} \code{x}
 }
 \examples{
 \dontrun{
-#Examples for lA_M.Te
+#Examples for lineA2MinTe
 A<-c(0,0); B<-c(1,0); C<-c(1/2,sqrt(3)/2);
 Te<-rbind(A,B,C)
 
 M<-c(.65,.2)  #try also M<-c(1,1,1)
 
-xfence<-abs(A[1]-B[1])*.25 #how far to go at the lower and upper ends in the x-coordinate
-x<-seq(min(A[1],B[1])-xfence,max(A[1],B[1])+xfence,by=.1)  #try also by=.01
+xfence<-abs(A[1]-B[1])*.25
+#how far to go at the lower and upper ends in the x-coordinate
+x<-seq(min(A[1],B[1])-xfence,max(A[1],B[1])+xfence,by = .1)  #try also by = .01
 
-lnAM<-lA_M.Te(x,M)
+lnAM<-lineA2MinTe(x,M)
 lnAM
 summary(lnAM)
 plot(lnAM)
 
-Ds<-cent2edges.tri(Te,M)
+Ds<-prj.cent2edges(Te,M)
 #finds the projections from a point M=(m1,m2) to the edges on the
 #extension of the lines joining M to the vertices in the triangle Te
 
@@ -73,47 +90,50 @@ plot(Te,pch=".",xlab="",ylab="",
 xlim=Xlim+xd*c(-.05,.05),ylim=Ylim+yd*c(-.05,.05))
 polygon(Te)
 L<-Te; R<-rbind(M,M,M)
-segments(L[,1], L[,2], R[,1], R[,2], lty=2)
+segments(L[,1], L[,2], R[,1], R[,2], lty = 2)
 L<-Ds; R<-rbind(M,M,M)
-segments(L[,1], L[,2], R[,1], R[,2], lty=3,col=2)
+segments(L[,1], L[,2], R[,1], R[,2], lty = 3,col=2)
 
-txt<-rbind(Te,M,Ds,c(.25,lA_M.Te(.25,M)$y),c(.4,lB_M.Te(.4,M)$y),
-c(.60,lC_M.Te(.60,M)$y))
+txt<-rbind(Te,M,Ds,c(.25,lineA2MinTe(.25,M)$y),c(.4,lineB2MinTe(.4,M)$y),
+c(.60,lineC2MinTe(.60,M)$y))
 xc<-txt[,1]+c(-.02,.02,.02,.02,.04,-.03,.0,0,0,0)
 yc<-txt[,2]+c(.02,.02,.02,.05,.02,.03,-.03,0,0,0)
-txt.str<-c("A","B","C","M","D1","D2","D3","lA_M.Te(x)","lB_M.Te(x)","lC_M.Te(x)")
+txt.str<-c("A","B","C","M","D1","D2","D3","lineA2MinTe(x)","lineB2MinTe(x)","lineC2MinTe(x)")
 text(xc,yc,txt.str)
 
-lA_M.Te(.25,M)
+lineA2MinTe(.25,M)
 }
 
 \dontrun{
-#Examples for lB_M.Te
+#Examples for lineB2MinTe
 A<-c(0,0); B<-c(1,0); C<-c(1/2,sqrt(3)/2);
 Te<-rbind(A,B,C)
 
 M<-c(.65,.2)  #try also M<-c(1,1,1)
 
-xfence<-abs(A[1]-B[1])*.25 #how far to go at the lower and upper ends in the x-coordinate
-x<-seq(min(A[1],B[1])-xfence,max(A[1],B[1])+xfence,by=.5)  #try also by=.1
+xfence<-abs(A[1]-B[1])*.25
+#how far to go at the lower and upper ends in the x-coordinate
+x<-seq(min(A[1],B[1])-xfence,max(A[1],B[1])+xfence,by = .5)  #try also by = .1
 
-lnBM<-lB_M.Te(x,M)
+lnBM<-lineB2MinTe(x,M)
 lnBM
 summary(lnBM)
 plot(lnBM)
 }
 
 \dontrun{
-#Examples for lC_M.Te
+#Examples for lineC2MinTe
 A<-c(0,0); B<-c(1,0); C<-c(1/2,sqrt(3)/2);
 Te<-rbind(A,B,C)
 
 M<-c(.65,.2)  #try also M<-c(1,1,1)
 
-xfence<-abs(A[1]-B[1])*.25 #how far to go at the lower and upper ends in the x-coordinate
-x<-seq(min(A[1],B[1])-xfence,max(A[1],B[1])+xfence,by=.5)  #try also by=.1
+xfence<-abs(A[1]-B[1])*.25
+#how far to go at the lower and upper ends in the x-coordinate
+x<-seq(min(A[1],B[1])-xfence,max(A[1],B[1])+xfence,by = .5)
+#try also by = .1
 
-lnCM<-lC_M.Te(x,M)
+lnCM<-lineC2MinTe(x,M)
 lnCM
 summary(lnCM)
 plot(lnCM)
@@ -121,5 +141,5 @@ plot(lnCM)
 
 }
 \seealso{
-\code{\link{lA_CM.Te}} and \code{\link{lB_CM.Te}}
+\code{\link{lineA2CMinTe}} and \code{\link{lineB2CMinTe}}
 }

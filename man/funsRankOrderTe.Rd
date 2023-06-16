@@ -2,49 +2,59 @@
 % Please edit documentation in R/AuxExtrema.R
 \name{funsRankOrderTe}
 \alias{funsRankOrderTe}
-\alias{rank.d2e.Te}
-\alias{order.d2e.Te}
-\title{Returns the ranks and orders of points in decreasing distance to the edges of the triangle}
+\alias{rank.dist2edges.std.tri}
+\alias{order.dist2edges.std.tri}
+\title{Returns the ranks and orders of points in decreasing distance
+to the edges of the triangle}
 \usage{
-rank.d2e.Te(Xp, dec = TRUE)
+rank.dist2edges.std.tri(Xp, dec = TRUE)
 
-order.d2e.Te(Xp, dec = TRUE)
+order.dist2edges.std.tri(Xp, dec = TRUE)
 }
 \arguments{
-\item{Xp}{A set of 2D points representing the data set in which ranking in terms of the distance
+\item{Xp}{A set of 2D points representing the data set
+in which ranking in terms of the distance
 to the edges of \eqn{T_e} is performed.}
 
-\item{dec}{A logical argument indicating the how the ranking will be performed. If \code{TRUE},
-the ranks are for decreasing distances,and if \code{FALSE} they will be in increasing distances,
+\item{dec}{A logical argument
+indicating the how the ranking will be performed.
+If \code{TRUE},
+the ranks are for decreasing distances,
+and if \code{FALSE} they will be in increasing distances,
 default is \code{TRUE}.}
 }
 \value{
 A \code{list} with two elements
 \item{distances}{Distances from data points to the edges of \eqn{T_e}}
-\item{dist.rank}{The ranks of the data points in decreasing distances to the edges of \eqn{T_e}}
+\item{dist.rank}{The ranks of the data points
+in decreasing distances to the edges of \eqn{T_e}}
 }
 \description{
-Two functions: \code{rank.d2e.Te} and \code{order.d2e.Te}.
+Two functions: \code{rank.dist2edges.std.tri} and \code{order.dist2edges.std.tri}.
 
-\code{rank.d2e.Te} finds the ranks of the distances of points in data, \code{Xp}, to the edges of the standard equilateral triangle
+\code{rank.dist2edges.std.tri} finds the ranks of the distances of points
+in data, \code{Xp}, to the edges of the standard equilateral triangle
 \eqn{T_e=T((0,0),(1,0),(1/2,\sqrt{3}/2))}
 
-\code{dec} is a logical argument, default is \code{TRUE}, so the ranks are for decreasing distances, if \code{FALSE} it will be
+\code{dec} is a logical argument, default is \code{TRUE},
+so the ranks are for decreasing distances, if \code{FALSE} it will be
 in increasing distances.
 
-\code{order.d2e.Te} finds the orders of the distances of points in data, \code{Xp}, to the edges of \eqn{T_e}. The arguments are
-as in \code{rank.d2e.Te}.
+\code{order.dist2edges.std.tri} finds the orders of the distances of points
+in data, \code{Xp}, to the edges of \eqn{T_e}.
+The arguments are as in \code{rank.dist2edges.std.tri}.
 }
 \examples{
 \dontrun{
-#Examples for rank.d2e.Te
+#Examples for rank.dist2edges.std.tri
 n<-10
 set.seed(1)
 Xp<-runif.std.tri(n)$gen.points
 
-dec.dist<-rank.d2e.Te(Xp)
+dec.dist<-rank.dist2edges.std.tri(Xp)
 dec.dist
-dec.dist.rank<-dec.dist[[2]] #the rank of distances to the edges in decreasing order
+dec.dist.rank<-dec.dist[[2]]
+#the rank of distances to the edges in decreasing order
 dec.dist.rank
 
 A<-c(0,0); B<-c(1,0); C<-c(1/2,sqrt(3)/2);
@@ -55,33 +65,37 @@ Ylim<-range(Te[,2])
 xd<-Xlim[2]-Xlim[1]
 yd<-Ylim[2]-Ylim[1]
 
-plot(A,pch=".",xlab="",ylab="",xlim=Xlim+xd*c(-.0,.01),ylim=Ylim+yd*c(-.01,.01))
+plot(A,pch=".",xlab="",ylab="",xlim=Xlim+xd*c(-.0,.01),
+ylim=Ylim+yd*c(-.01,.01))
 polygon(Te)
 points(Xp,pch=".")
 text(Xp,labels = factor(dec.dist.rank) )
 
-inc.dist<-rank.d2e.Te(Xp,dec = FALSE)
+inc.dist<-rank.dist2edges.std.tri(Xp,dec = FALSE)
 inc.dist
-inc.dist.rank<-inc.dist[[2]] #the rank of distances to the edges in increasing order
+inc.dist.rank<-inc.dist[[2]]
+#the rank of distances to the edges in increasing order
 inc.dist.rank
 dist<-inc.dist[[1]] #distances to the edges of the std eq. triangle
 dist
 
 plot(A,pch=".",xlab="",ylab="",xlim=Xlim,ylim=Ylim)
 polygon(Te)
-points(Xp,pch=".",xlab="",ylab="", main="",xlim=Xlim+xd*c(-.05,.05),ylim=Ylim+yd*c(-.05,.05))
+points(Xp,pch=".",xlab="",ylab="", main="",xlim=Xlim+xd*c(-.05,.05),
+ylim=Ylim+yd*c(-.05,.05))
 text(Xp,labels = factor(inc.dist.rank))
 }
 
 \dontrun{
-#Examples for order.d2e.Te
+#Examples for order.dist2edges.std.tri
 n<-10
 set.seed(1)
 Xp<-runif.std.tri(n)$gen.points  #try also Xp<-cbind(runif(n),runif(n))
 
-dec.dist<-order.d2e.Te(Xp)
+dec.dist<-order.dist2edges.std.tri(Xp)
 dec.dist
-dec.dist.order<-dec.dist[[2]] #the order of distances to the edges in decreasing order
+dec.dist.order<-dec.dist[[2]]
+#the order of distances to the edges in decreasing order
 dec.dist.order
 
 A<-c(0,0); B<-c(1,0); C<-c(1/2,sqrt(3)/2);
@@ -92,20 +106,23 @@ Ylim<-range(Te[,2])
 xd<-Xlim[2]-Xlim[1]
 yd<-Ylim[2]-Ylim[1]
 
-plot(A,pch=".",xlab="",ylab="",xlim=Xlim+xd*c(-.01,.01),ylim=Ylim+yd*c(-.01,.01))
+plot(A,pch=".",xlab="",ylab="",xlim=Xlim+xd*c(-.01,.01),
+ylim=Ylim+yd*c(-.01,.01))
 polygon(Te)
 points(Xp,pch=".")
 text(Xp[dec.dist.order,],labels = factor(1:n) )
 
-inc.dist<-order.d2e.Te(Xp,dec = FALSE)
+inc.dist<-order.dist2edges.std.tri(Xp,dec = FALSE)
 inc.dist
-inc.dist.order<-inc.dist[[2]] #the order of distances to the edges in increasing order
+inc.dist.order<-inc.dist[[2]]
+#the order of distances to the edges in increasing order
 inc.dist.order
 dist<-inc.dist[[1]] #distances to the edges of the std eq. triangle
 dist
 dist[inc.dist.order] #distances in increasing order
 
-plot(A,pch=".",xlab="",ylab="",xlim=Xlim+xd*c(-.05,.05),ylim=Ylim+yd*c(-.05,.05))
+plot(A,pch=".",xlab="",ylab="",xlim=Xlim+xd*c(-.05,.05),
+ylim=Ylim+yd*c(-.05,.05))
 polygon(Te)
 points(Xp,pch=".")
 text(Xp[inc.dist.order,],labels = factor(1:n))

@@ -32,11 +32,10 @@ See also (\insertCite{ceyhan:revstat-2016;textual}{pcds}).
 funsMuVarCSend.int
 }
 \examples{
-\dontrun{
 #Examples for muCSend.int
 muCSend.int(1.2)
 
-tseq<-seq(0.01,5,by=.1)
+tseq<-seq(0.01,5,by=.05)
 ltseq<-length(tseq)
 
 mu.end<-vector()
@@ -45,16 +44,16 @@ for (i in 1:ltseq)
   mu.end<-c(mu.end,muCSend.int(tseq[i]))
 }
 
+oldpar <- par(no.readonly = TRUE)
 par(mar = c(5,4,4,2) + 0.1)
 plot(tseq, mu.end,type="l",
 ylab=expression(paste(mu,"(t)")),xlab="t",lty=1,xlim=range(tseq),ylim=c(0,1))
-}
+par(oldpar)
 
-\dontrun{
 #Examples for asyvarCSend.int
 asyvarCSend.int(1.2)
 
-tseq<-seq(.01,5,by=.1)
+tseq<-seq(.01,5,by=.05)
 ltseq<-length(tseq)
 
 var.end<-vector()
@@ -63,9 +62,10 @@ for (i in 1:ltseq)
   var.end<-c(var.end,asyvarCSend.int(tseq[i]))
 }
 
+oldpar <- par(no.readonly = TRUE)
 par(mar=c(5,5,4,2))
 plot(tseq, var.end,type="l",xlab="t",ylab=expression(paste(sigma^2,"(t)")),lty=1,xlim=range(tseq))
-}
+par(oldpar)
 
 }
 \references{

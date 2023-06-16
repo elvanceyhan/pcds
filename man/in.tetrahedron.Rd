@@ -7,39 +7,56 @@
 in.tetrahedron(p, th, boundary = TRUE)
 }
 \arguments{
-\item{p}{A 3D point to be checked whether it is inside the tetrahedron or not.}
+\item{p}{A 3D point to be checked
+whether it is inside the tetrahedron or not.}
 
-\item{th}{A \eqn{4 \times 3} matrix with each row representing a vertex of the tetrahedron.}
+\item{th}{A \eqn{4 \times 3} matrix with each row
+representing a vertex of the tetrahedron.}
 
-\item{boundary}{A logical parameter (default=\code{TRUE}) to include boundary or not, so if it is \code{TRUE},
-the function checks if the point, \code{p}, lies in the closure of the tetrahedron (i.e., interior and boundary
-combined); else, it checks if \code{p} lies in the interior of the tetrahedron.}
+\item{boundary}{A logical parameter (default=\code{TRUE})
+to include boundary or not, so if it is \code{TRUE},
+the function checks if the point, \code{p},
+lies in the closure of the tetrahedron (i.e., interior and boundary
+combined); else, it checks if \code{p}
+lies in the interior of the tetrahedron.}
 }
 \value{
 A \code{list} with two elements
-\item{in.tetra}{A logical output, if the point, \code{p}, is inside the tetrahedron, \code{th}, it is \code{TRUE},
+\item{in.tetra}{A logical output, if the point, \code{p},
+is inside the tetrahedron, \code{th}, it is \code{TRUE},
 else it is \code{FALSE}.}
-\item{barycentric}{The barycentric coordinates of the point \code{p} with respect to the tetrahedron, \code{th}.}
+\item{barycentric}{The barycentric coordinates of the point \code{p}
+with respect to the tetrahedron, \code{th}.}
 }
 \description{
-Checks if the point \code{p} lies in the tetrahedron, \code{th}, using the barycentric coordinates, generally denoted as
-\eqn{(\alpha,\beta,\gamma)}. If all (normalized or non-normalized) barycentric coordinates are positive then the
-point \code{p} is inside the tetrahedron, if all are nonnegative with one or more are zero, then \code{p} falls on the
-boundary. If some of the barycentric coordinates are negative, then \code{p} falls outside the tetrahedron.
+Checks if the point \code{p} lies
+in the tetrahedron, \code{th},
+ using the barycentric coordinates, generally denoted as
+\eqn{(\alpha,\beta,\gamma)}.
+If all (normalized or non-normalized) barycentric coordinates are positive
+then the point \code{p} is inside the tetrahedron,
+if all are nonnegative with one or more are zero,
+then \code{p} falls on the boundary.
+If some of the barycentric coordinates are negative,
+then \code{p} falls outside the tetrahedron.
 
-\code{boundary} is a logical argument (default=\code{FALSE}) to include boundary or not, so if it is \code{TRUE},
-the function checks if the point, \code{p}, lies in the closure of the tetrahedron (i.e., interior and boundary
-combined) else it checks if \code{p} lies in the interior of the tetrahedron.
+\code{boundary} is a logical argument (default=\code{FALSE})
+to include boundary or not, so if it is \code{TRUE},
+the function checks if the point, \code{p},
+lies in the closure of the tetrahedron (i.e., interior and boundary
+combined) else it checks if \code{p} lies
+in the interior of the tetrahedron.
 }
 \examples{
 \dontrun{
-A<-c(0,0,0); B<-c(1,0,0); C<-c(1/2,sqrt(3)/2,0); D<-c(1/2,sqrt(3)/6,sqrt(6)/3); P<-c(.1,.1,.1)
+A<-c(0,0,0); B<-c(1,0,0); C<-c(1/2,sqrt(3)/2,0);
+D<-c(1/2,sqrt(3)/6,sqrt(6)/3); P<-c(.1,.1,.1)
 tetra<-rbind(A,B,C,D)
 
-in.tetrahedron(P,tetra,boundary=FALSE)
+in.tetrahedron(P,tetra,boundary = FALSE)
 
 in.tetrahedron(C,tetra)
-in.tetrahedron(C,tetra,boundary=FALSE)
+in.tetrahedron(C,tetra,boundary = FALSE)
 
 n1<-5; n2<-5; n<-n1+n2
 Xp<-rbind(cbind(runif(n1),runif(n1,0,sqrt(3)/2),runif(n1,0,sqrt(6)/3)),
@@ -47,7 +64,7 @@ Xp<-rbind(cbind(runif(n1),runif(n1,0,sqrt(3)/2),runif(n1,0,sqrt(6)/3)),
 
 in.tetra<-vector()
 for (i in 1:n)
-{in.tetra<-c(in.tetra,in.tetrahedron(Xp[i,],tetra,boundary=TRUE)$in.tetra) }
+{in.tetra<-c(in.tetra,in.tetrahedron(Xp[i,],tetra,boundary = TRUE)$in.tetra) }
 
 in.tetra
 dat.tet<-Xp[in.tetra,]
@@ -60,15 +77,18 @@ xd<-Xlim[2]-Xlim[1]
 yd<-Ylim[2]-Ylim[1]
 zd<-Zlim[2]-Zlim[1]
 
-plot3D::scatter3D(Xp[,1],Xp[,2],Xp[,3], phi=40,theta=40, bty = "g", pch = 20, cex = 1,
-ticktype="detailed",xlim=Xlim+xd*c(-.05,.05),ylim=Ylim+yd*c(-.05,.05),zlim=Zlim+zd*c(-.05,.05))
+plot3D::scatter3D(Xp[,1],Xp[,2],Xp[,3], phi=40,theta=40,
+bty = "g", pch = 20, cex = 1,
+ticktype="detailed",xlim=Xlim+xd*c(-.05,.05),
+ylim=Ylim+yd*c(-.05,.05),zlim=Zlim+zd*c(-.05,.05))
 #add the vertices of the tetrahedron
 plot3D::points3D(tetra[,1],tetra[,2],tetra[,3], add=TRUE)
 plot3D::points3D(dat.tet[,1],dat.tet[,2],dat.tet[,3],pch=4, add=TRUE)
 L<-rbind(A,A,A,B,B,C); R<-rbind(B,C,D,C,D,D)
 plot3D::segments3D(L[,1], L[,2], L[,3], R[,1], R[,2],R[,3], add=TRUE,lwd=2)
 
-plot3D::text3D(tetra[,1],tetra[,2],tetra[,3], labels=c("A","B","C","D"), add=TRUE)
+plot3D::text3D(tetra[,1],tetra[,2],tetra[,3],
+labels=c("A","B","C","D"), add=TRUE)
 
 in.tetrahedron(P,tetra) #this works fine
 }

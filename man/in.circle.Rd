@@ -7,27 +7,40 @@
 in.circle(p, cent, rad, boundary = TRUE)
 }
 \arguments{
-\item{p}{A 2D point to be checked whether it is inside the circle or not.}
+\item{p}{A 2D point to be checked
+whether it is inside the circle or not.}
 
-\item{cent}{A 2D point in Cartesian coordinates which serves as the center of the circle.}
+\item{cent}{A 2D point in Cartesian coordinates
+which serves as the center of the circle.}
 
-\item{rad}{A positive real number which serves as the radius of the circle.}
+\item{rad}{A positive real number
+which serves as the radius of the circle.}
 
-\item{boundary}{A logical parameter (default=\code{TRUE}) to include boundary or not, so if it is \code{TRUE},
-the function checks if the point, \code{p}, lies in the closure of the circle (i.e., interior and
-boundary combined); else, it checks if \code{p} lies in the interior of the circle.}
+\item{boundary}{A logical parameter (default=\code{TRUE})
+to include boundary or not, so if it is \code{TRUE},
+the function checks if the point, \code{p},
+lies in the closure of the circle (i.e., interior and
+boundary combined); else,
+it checks if \code{p} lies in the interior of the circle.}
 }
 \value{
-Indicator for the point \code{p} being inside the circle or not, i.e., returns 1 or \code{TRUE}
+Indicator for the point \code{p} being
+inside the circle or not, i.e., returns 1 or \code{TRUE}
 if \code{p} is inside the circle, and 0 otherwise.
 }
 \description{
-Checks if the point \code{p} lies in the circle with center \code{cent} and radius \code{rad},
-denoted as \code{C(cent,rad)}. So, it returns 1 or \code{TRUE} if \code{p} is inside the circle, and 0 otherwise.
+Checks if the point \code{p} lies
+in the circle with center \code{cent} and radius \code{rad},
+denoted as \code{C(cent,rad)}.
+So, it returns 1 or \code{TRUE} if \code{p} is
+inside the circle, and 0 otherwise.
 
-\code{boundary} is a logical argument (default=\code{FALSE}) to include boundary or not, so if it is \code{TRUE},
-the function checks if the point, \code{p}, lies in the closure of the circle (i.e., interior and
-boundary combined) else it checks if \code{p} lies in the interior of the circle.
+\code{boundary} is a logical argument (default=\code{FALSE})
+to include boundary or not, so if it is \code{TRUE},
+the function checks if the point, \code{p},
+lies in the closure of the circle (i.e., interior and
+boundary combined) else it checks
+if \code{p} lies in the interior of the circle.
 }
 \examples{
 \dontrun{
@@ -46,8 +59,9 @@ in.circle(p,cent,rad,boundary=FALSE)
 
 }
 \seealso{
-\code{\link{in.triangle}}, \code{\link{in.tetrahedron}},  and
-\code{\link[interp]{on.convex.hull}} from the \code{interp} package for documentation for \code{in.convex.hull}
+\code{\link{in.triangle}}, \code{\link{in.tetrahedron}}, and
+\code{\link[interp]{on.convex.hull}} from the \code{interp} package
+for documentation for \code{in.convex.hull}
 }
 \author{
 Elvan Ceyhan

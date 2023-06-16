@@ -9,12 +9,17 @@
 \arguments{
 \item{x}{Object of class \code{Uniform}.}
 
-\item{asp}{A \code{numeric} value, giving the aspect ratio for \eqn{y}-axis to \eqn{x}-axis \eqn{y/x} for the 2D case,
+\item{asp}{A \code{numeric} value,
+giving the aspect ratio for \eqn{y}-axis to \eqn{x}-axis
+\eqn{y/x} for the 2D case,
 it is redundant in the 3D case (default is \code{NA}),
 see the official help for \code{asp} by typing "\code{? asp}".}
 
-\item{xlab, ylab, zlab}{Titles for the \eqn{x} and \eqn{y} axes in the 2D case, and \eqn{x}, \eqn{y}, and \eqn{z} axes in the 3D case,
-respectively (default is \code{xlab="x"}, \code{ylab="y"}, and \code{zlab="z"}).}
+\item{xlab, ylab, zlab}{Titles for the \eqn{x} and \eqn{y} axes
+in the 2D case,
+and \eqn{x}, \eqn{y}, and \eqn{z} axes in the 3D case,
+respectively (default is \code{xlab="x"}, \code{ylab="y"},
+and \code{zlab="z"}).}
 
 \item{\dots}{Additional parameters for \code{plot}.}
 }
@@ -22,7 +27,8 @@ respectively (default is \code{xlab="x"}, \code{ylab="y"}, and \code{zlab="z"}).
 None
 }
 \description{
-Plots the points generated from the uniform distribution together with the support region
+Plots the points generated from the uniform distribution
+together with the support region
 }
 \examples{
 \dontrun{
@@ -37,5 +43,7 @@ plot(Xdt,asp=1)
 
 }
 \seealso{
-\code{\link{print.Uniform}}, \code{\link{summary.Uniform}}, and \code{\link{print.summary.Uniform}}
+\code{\link{print.Uniform}},
+\code{\link{summary.Uniform}},
+and \code{\link{print.summary.Uniform}}
 }

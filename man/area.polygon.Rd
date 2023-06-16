@@ -7,15 +7,18 @@
 area.polygon(h)
 }
 \arguments{
-\item{h}{A \code{vector} of \eqn{n} 2D points, stacked row-wise, each row representing a vertex of the polygon,
+\item{h}{A \code{vector} of \eqn{n} 2D points, stacked row-wise,
+each row representing a vertex of the polygon,
 where \eqn{n} is the number of vertices of the polygon.}
 }
 \value{
 area of the polygon \code{h}
 }
 \description{
-Returns the area of the polygon, \code{h}, in the real plane \eqn{R^{2}}; the vertices of the polygon \code{h}
-must be provided in clockwise or counter-clockwise order, otherwise the function does not yield
+Returns the area of the polygon, \code{h},
+in the real plane \eqn{R^{2}}; the vertices of the polygon \code{h}
+must be provided in clockwise or counter-clockwise order,
+otherwise the function does not yield
 the area of the polygon. Also, the polygon could be convex or non-convex.
 See (\insertCite{weisstein-area-poly;textual}{pcds}).
 }
@@ -26,7 +29,8 @@ Tr<-rbind(A,B,C);
 area.polygon(Tr)
 
 A<-c(0,0); B<-c(1,0); C<-c(.7,.6); D<-c(0.3,.8);
-h1<-rbind(A,B,C,D);  #try also h1<-rbind(A,B,D,C) or h1<-rbind(A,C,B,D) or h1<-rbind(A,D,C,B);
+h1<-rbind(A,B,C,D);
+#try also h1<-rbind(A,B,D,C) or h1<-rbind(A,C,B,D) or h1<-rbind(A,D,C,B);
 area.polygon(h1)
 
 Xlim<-range(h1[,1])

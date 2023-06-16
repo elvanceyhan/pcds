@@ -4,31 +4,43 @@
 \alias{funsCartBary}
 \alias{cart2bary}
 \alias{bary2cart}
-\title{Converts of a point in Cartesian coordinates to Barycentric coordinates and vice versa}
+\title{Converts of a point in Cartesian coordinates to Barycentric coordinates
+and vice versa}
 \usage{
 cart2bary(P, tri)
 
 bary2cart(P, tri)
 }
 \arguments{
-\item{P}{A 2D point for \code{cart2bary}, and a \code{vector} of three \code{numeric} entries for \code{bary2cart}.}
+\item{P}{A 2D point for \code{cart2bary},
+and a \code{vector} of three \code{numeric} entries for \code{bary2cart}.}
 
-\item{tri}{A \eqn{3 \times 2} matrix with each row representing a vertex of the triangle.}
+\item{tri}{A \eqn{3 \times 2} matrix with each row
+representing a vertex of the triangle.}
 }
 \value{
-\code{cart2bary} returns the barycentric coordinates of a given point \code{P}\eqn{=(x,y)} and
-\code{bary2cart} returns the Cartesian coordinates of the point \code{P}\eqn{=(t_1,t_2,t_3)} (not necessarily normalized)
+\code{cart2bary} returns the barycentric coordinates
+of a given point \code{P}\eqn{=(x,y)} and
+\code{bary2cart} returns the Cartesian coordinates
+of the point \code{P}\eqn{=(t_1,t_2,t_3)}
+(not necessarily normalized).
 }
 \description{
 Two functions: \code{cart2bary} and \code{bary2cart}.
 
-\code{cart2bary} converts Cartesian coordinates of a given point \code{P}\eqn{=(x,y)} to barycentric coordinates
-(in the normalized form) with respect to the triangle \code{tri}\eqn{=(v_1,v_2,v_3)}
-with vertex labeling done row-wise in \code{tri} (i.e., row \eqn{i} corresponds to vertex \eqn{v_i} for \eqn{i=1,2,3}).
+\code{cart2bary} converts Cartesian coordinates of
+a given point \code{P}\eqn{=(x,y)} to barycentric coordinates
+(in the normalized form)
+with respect to the triangle \code{tri}\eqn{=(v_1,v_2,v_3)}
+with vertex labeling done row-wise in \code{tri}
+(i.e., row \eqn{i} corresponds to vertex \eqn{v_i} for \eqn{i=1,2,3}).
 
-\code{bary2cart} converts barycentric coordinates of the point \code{P}\eqn{=(t_1,t_2,t_3)} (not necessarily normalized) to
+\code{bary2cart} converts barycentric coordinates of
+the point \code{P}\eqn{=(t_1,t_2,t_3)}
+(not necessarily normalized) to
 Cartesian coordinates according to the coordinates of the triangle, \code{tri}.
-For information on barycentric coordinates, see (\insertCite{weisstein-barycentric;textual}{pcds}).
+For information on barycentric coordinates,
+see (\insertCite{weisstein-barycentric;textual}{pcds}).
 }
 \examples{
 \dontrun{

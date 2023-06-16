@@ -12,15 +12,20 @@
 \item{\dots}{Additional parameters for \code{summary}.}
 }
 \value{
-The \code{call} of the \code{object} of class \code{"Patterns"}, the \code{type} of the pattern, \code{parameters} of the pattern,
-study window, some sample points from the generated pattern, reference points (if any for the bivariate pattern),
+The \code{call} of the \code{object} of class \code{"Patterns"},
+the \code{type} of the pattern, \code{parameters} of the pattern,
+study window, some sample points from the generated pattern,
+reference points (if any for the bivariate pattern),
 and number of points for each class
 }
 \description{
-Returns the below information about the \code{object}:
+Returns the below information
+about the \code{object}:
 
-\code{call} of the function defining the \code{object}, the \code{type} of the pattern, \code{parameters} of the pattern,
-study window, some sample points from the generated pattern, reference points (if any for the bivariate pattern),
+\code{call} of the function defining the \code{object},
+the \code{type} of the pattern, \code{parameters} of the pattern,
+study window, some sample points from the generated pattern,
+reference points (if any for the bivariate pattern),
 and number of points for each class
 }
 \examples{
@@ -28,14 +33,17 @@ and number of points for each class
 nx<-10; #try also 10, 100, and 1000
 ny<-5; #try also 1
 e<-.15;
-Y<-cbind(runif(ny),runif(ny)) #with default bounding box (i.e., unit square)
+Y<-cbind(runif(ny),runif(ny))
+#with default bounding box (i.e., unit square)
 
-Xdt<-rseg.circ(nx,Y,e)
+Xdt<-rseg.circular(nx,Y,e)
 Xdt
 summary(Xdt)
 }
 
 }
 \seealso{
-\code{\link{print.Patterns}}, \code{\link{print.summary.Patterns}}, and \code{\link{plot.Patterns}}
+\code{\link{print.Patterns}},
+\code{\link{print.summary.Patterns}},
+and \code{\link{plot.Patterns}}
 }

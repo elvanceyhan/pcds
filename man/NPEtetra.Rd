@@ -53,7 +53,7 @@ NPEtetra(Xp[1,],tetra,r)  #uses the default M="CM"
 NPEtetra(Xp[1,],tetra,r,M="CC")
 
 #or try
-RV<-rv.tetraCM(Xp[1,],tetra)$rv
+RV<-rel.vert.tetraCM(Xp[1,],tetra)$rv
 NPEtetra(Xp[1,],tetra,r,M,rv=RV)
 
 P1<-c(.1,.1,.1)

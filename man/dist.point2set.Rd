@@ -14,14 +14,20 @@ dist.point2set(p, Yp)
 \value{
 A \code{list} with the elements
 \item{distance}{Distance from point \code{p} to set \code{Yp}}
-\item{ind.cl.point}{Index of the closest point in set \code{Yp} to the point \code{p}}
-\item{closest.point}{The closest point in set \code{Yp} to the point \code{p}}
+\item{ind.cl.point}{Index of the closest point in set \code{Yp}
+to the point \code{p}}
+\item{closest.point}{The closest point
+in set \code{Yp} to the point \code{p}}
 }
 \description{
-Returns the Euclidean distance between a point \code{p} and set of points \code{Yp} and the
-closest point in set \code{Yp} to \code{p}. Distance between a point and a set is by definition the distance
-from the point to the closest point in the set. \code{p} should be of finite dimension and \code{Yp} should
-be of finite cardinality and \code{p} and elements of \code{Yp} must have the same dimension.
+Returns the Euclidean distance between a point \code{p}
+and set of points \code{Yp} and the
+closest point in set \code{Yp} to \code{p}.
+Distance between a point and a set is by definition the distance
+from the point to the closest point in the set.
+\code{p} should be of finite dimension and \code{Yp} should
+be of finite cardinality and \code{p}
+and elements of \code{Yp} must have the same dimension.
 }
 \examples{
 \dontrun{
@@ -34,7 +40,8 @@ dist.point2set(c(1,2),X2)
 
 x<-runif(1)
 y<-as.matrix(runif(10))
-dist.point2set(x,y)  #this works, because x is a 1D point, and y is treated as a set of 10 1D points
+dist.point2set(x,y)
+#this works, because x is a 1D point, and y is treated as a set of 10 1D points
 #but will give an error message if y<-runif(10) is used above
 }
 

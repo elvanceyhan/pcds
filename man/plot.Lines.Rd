@@ -9,10 +9,12 @@
 \arguments{
 \item{x}{Object of class \code{Lines}.}
 
-\item{asp}{A \code{numeric} value, giving the aspect ratio for \eqn{y}-axis to \eqn{x}-axis \eqn{y/x} (default is \code{NA}),
+\item{asp}{A \code{numeric} value, giving the aspect ratio
+for \eqn{y}-axis to \eqn{x}-axis \eqn{y/x} (default is \code{NA}),
 see the official help for \code{asp} by typing "\code{? asp}".}
 
-\item{xlab, ylab}{Titles for the \eqn{x} and \eqn{y} axes, respectively (default is \code{xlab="x"} and \code{ylab="y"}).}
+\item{xlab, ylab}{Titles for the \eqn{x} and \eqn{y} axes,
+respectively (default is \code{xlab="x"} and \code{ylab="y"}).}
 
 \item{\dots}{Additional parameters for \code{plot}.}
 }
@@ -26,7 +28,8 @@ Plots the line together with the defining \code{points}.
 \dontrun{
 A<-c(-1.22,-2.33); B<-c(2.55,3.75)
 xr<-range(A,B);
-xf<-(xr[2]-xr[1])*.1 #how far to go at the lower and upper ends in the x-coordinate
+xf<-(xr[2]-xr[1])*.1
+#how far to go at the lower and upper ends in the x-coordinate
 x<-seq(xr[1]-xf,xr[2]+xf,l=3) #try also l=10, 20 or 100
 
 lnAB<-Line(A,B,x)
@@ -36,5 +39,6 @@ plot(lnAB)
 
 }
 \seealso{
-\code{\link{print.Lines}}, \code{\link{summary.Lines}}, and \code{\link{print.summary.Lines}}
+\code{\link{print.Lines}}, \code{\link{summary.Lines}},
+and \code{\link{print.summary.Lines}}
 }

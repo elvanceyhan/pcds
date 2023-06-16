@@ -1,4 +1,8 @@
+##################################################################################################################
+################################CENTRAL SIMILARITY FUNCTIONS######################################################
+##################################################################################################################
 #CentSim1D.R;
+#################################################################
 #Functions for NCS in R^1
 #################################################################
 
@@ -25,14 +29,14 @@
 #' @param t A positive real number which serves as the expansion parameter in CS proximity region.
 #' @param c A positive real number in \eqn{(0,1)} parameterizing the center inside \code{int}\eqn{=(a,b)}
 #' with the default \code{c=.5}.
-#' For the interval, \eqn{(a,b)}, the parameterized center is \eqn{M_c=a+c(b-a)}.
+#' For the interval, \code{int}\eqn{=(a,b)}, the parameterized center is \eqn{M_c=a+c(b-a)}.
 #' @param int A \code{vector} of two real numbers representing an interval.
 #' @param rv Index of the end interval containing the point, either \code{1,2} or \code{NULL} (default is \code{NULL}).
 #'
 #' @return \eqn{I(p_2} in \eqn{N_{CS}(p_1,t,c))} for points \eqn{p_1} and \eqn{p_2} that is, returns 1 if \eqn{p_2} is in \eqn{N_{CS}(p_1,t,c)},
 #' returns 0 otherwise
 #'
-#' @seealso \code{\link{IndNCSend.int}}, \code{\link{IndNPEmid.int}}, and \code{\link{IndNPEend.int}}
+#' @seealso \code{\link{IarcCSend.int}}, \code{\link{IarcPEmid.int}}, and \code{\link{IarcPEend.int}}
 #'
 #' @references
 #' \insertAllCited{}
@@ -40,21 +44,31 @@
 #' @author Elvan Ceyhan
 #'
 #' @examples
-#' \dontrun{
 #' c<-.5
 #' t<-2
 #' a<-0; b<-10; int<-c(a,b)
 #'
-#' IndNCSmid.int(7,5,int,t,c)
-#' IndNCSmid.int(1,3,int,t,c)
+#' IarcCSmid.int(7,5,int,t,c)
+#' IarcCSmid.int(7,7,int,t,c)
+#' IarcCSmid.int(7,5,int,t,c=.4)
+#'
+#' IarcCSmid.int(1,3,int,t,c)
+#'
+#' IarcCSmid.int(9,11,int,t,c)
+#'
+#' IarcCSmid.int(19,1,int,t,c)
+#' IarcCSmid.int(19,19,int,t,c)
+#'
+#' IarcCSmid.int(3,5,int,t,c)
 #'
 #' #or try
-#' Rv<-rv.mid.int(3,int,c)$rv
-#' IndNCSmid.int(3,5,int,t,c,rv=Rv)
-#' }
+#' Rv<-rel.vert.mid.int(3,int,c)$rv
+#' IarcCSmid.int(3,5,int,t,c,rv=Rv)
 #'
-#' @export IndNCSmid.int
-IndNCSmid.int <- function(p1,p2,int,t,c=.5,rv=NULL)
+#' IarcCSmid.int(7,5,int,t,c)
+#'
+#' @export IarcCSmid.int
+IarcCSmid.int <- function(p1,p2,int,t,c=.5,rv=NULL)
 {
   if (!is.point(p1,1) || !is.point(p2,1) )
   {stop('p1 and p2 must be scalars')}
@@ -62,7 +76,7 @@ IndNCSmid.int <- function(p1,p2,int,t,c=.5,rv=NULL)
   if (!is.point(t,1) || t<=0)
   {stop('r must be a scalar greater than 0')}
 
-  if (!is.point(c,1) || c <= 0 || c >= 1)
+  if (!is.point(c,1) || c<=0 || c>=1)
   {stop('c must be a scalar in (0,1)')}
 
   if (!is.point(int))
@@ -80,7 +94,7 @@ IndNCSmid.int <- function(p1,p2,int,t,c=.5,rv=NULL)
   {arc<-0; return(arc); stop}
 
   if (is.null(rv))
-  {rv<-rv.mid.int(p1,int,c)$rv #determines the vertex region for 1D point p1
+  {rv<-rel.vert.mid.int(p1,int,c)$rv #determines the vertex region for 1D point p1
   } else
   {  if (!is.numeric(rv) || sum(rv==c(1,2))!=1)
   {stop('vertex index, rv, must be 1 or 2')}}
@@ -124,7 +138,7 @@ IndNCSmid.int <- function(p1,p2,int,t,c=.5,rv=NULL)
 #' with expansion parameter, \eqn{r \ge 1}, and centrality parameter, \eqn{c \in (0,1)}. PE proximity regions are defined only
 #' for \code{Xp} points inside the interval \code{int}, i.e., arcs are possible for such points only.
 #'
-#' @seealso \code{\link{NumArcsCSend.int}}, \code{\link{NumArcsPEmid.int}}, and \code{\link{NumArcsPEend.int}}
+#' @seealso \code{\link{num.arcsCSend.int}}, \code{\link{num.arcsPEmid.int}}, and \code{\link{num.arcsPEend.int}}
 #'
 #' @references
 #' \insertAllCited{}
@@ -132,20 +146,34 @@ IndNCSmid.int <- function(p1,p2,int,t,c=.5,rv=NULL)
 #' @author Elvan Ceyhan
 #'
 #' @examples
-#' \dontrun{
 #' c<-.4
 #' t<-2
 #' a<-0; b<-10; int<-c(a,b)
 #'
 #' n<-10
 #' Xp<-runif(n,a,b)
-#' NumArcsCSmid.int(Xp,int,t,c)
-#' NumArcsCSmid.int(Xp,int,t,c=.3)
-#' NumArcsCSmid.int(Xp,int,t=1.5,c)
-#' }
+#' num.arcsCSmid.int(Xp,int,t,c)
 #'
-#' @export NumArcsCSmid.int
-NumArcsCSmid.int <- function(Xp,int,t,c=.5)
+#' num.arcsCSmid.int(Xp,int,t,c=.3)
+#'
+#' num.arcsCSmid.int(Xp,int,t=1.5,c)
+#'
+#' #num.arcsCSmid.int(Xp,int,t,c+5) #gives error
+#' #num.arcsCSmid.int(Xp,int,t,c+10)
+#'
+#' n<-10  #try also n<-20
+#' Xp<-runif(n,a-5,b+5)
+#' num.arcsCSint(Xp,int,t,c)
+#'
+#' Xp<-runif(n,a+10,b+10)
+#' num.arcsCSmid.int(Xp,int,t,c)
+#'
+#' n<-10
+#' Xp<-runif(n,a,b)
+#' num.arcsCSmid.int(Xp,int,t,c)
+#'
+#' @export num.arcsCSmid.int
+num.arcsCSmid.int <- function(Xp,int,t,c=.5)
 {
   if (!is.point(Xp,length(Xp)))
   {stop('Xp vector of numerical entries')}
@@ -153,7 +181,7 @@ NumArcsCSmid.int <- function(Xp,int,t,c=.5)
   if (!is.point(t,1) || t<=0)
   {stop('t must be a scalar greater than 0')}
 
-  if (!is.point(c,1) || c <= 0 || c >= 1)
+  if (!is.point(c,1) || c<=0 || c>=1)
   {stop('c must be a scalar in (0,1)')}
 
   if (!is.point(int))
@@ -174,16 +202,16 @@ NumArcsCSmid.int <- function(Xp,int,t,c=.5)
       arcs<-arcs+0
     } else
     {
-      v<-rv.mid.int(x1,int,c)$rv
+      v<-rel.vert.mid.int(x1,int,c)$rv
       if (v==1)
       {
         xR<-x1+t*(1-c)*(x1-y1)/c
         xL<-x1-t*(x1-y1)
-        arcs<-arcs+sum((Xp <= min(xR,y2)) & (Xp >= max(xL,y1)))-1 #minus 1 is for loops
+        arcs<-arcs+sum((Xp < min(xR,y2)) & (Xp > max(xL,y1)))-1 #minus 1 is for loops
       } else {
         xR <-x1+t*(y2-x1)
         xL <-x1-c*t*(y2-x1)/(1-c)
-        arcs<-arcs+sum((Xp <= min(xR,y2)) & (Xp >= max(xL,y1)))-1
+        arcs<-arcs+sum((Xp < min(xR,y2)) & (Xp > max(xL,y1)))-1
       }
     }
     }
@@ -212,7 +240,7 @@ NumArcsCSmid.int <- function(Xp,int,t,c=.5)
 #'
 #' @param t A positive real number which serves as the expansion parameter in CS proximity region.
 #' @param c A positive real number in \eqn{(0,1)} parameterizing the center inside \code{int}\eqn{=(a,b)}.
-#' For the interval, \eqn{(a,b)}, the parameterized center is \eqn{M_c=a+c(b-a)}.
+#' For the interval, \code{int}\eqn{=(a,b)}, the parameterized center is \eqn{M_c=a+c(b-a)}.
 #'
 #' @return \code{muCS1D} returns the mean and \code{asyvarCS1D} returns the asymptotic variance of the
 #' arc density of CS-PCD for uniform data in an interval
@@ -230,13 +258,13 @@ NULL
 #' @author Elvan Ceyhan
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' #Examples for muCS1D
 #' muCS1D(1.2,.4)
 #' muCS1D(1.2,.6)
 #'
-#' tseq<-seq(0.01,5,by=.1)
-#' cseq<-seq(0.01,.99,by=.1)
+#' tseq<-seq(0.01,5,by=.05)
+#' cseq<-seq(0.01,.99,by=.05)
 #'
 #' ltseq<-length(tseq)
 #' lcseq<-length(cseq)
@@ -259,7 +287,7 @@ muCS1D <- function(t,c)
   if (!is.point(t,1) || t<=0)
   {stop('t must be a scalar greater than 0')}
 
-  if (!is.point(c,1) || c <= 0 || c >= 1)
+  if (!is.point(c,1) || c<=0 || c>=1)
   {stop('c must be a scalar in (0,1)')}
 
   mean<-0;
@@ -275,12 +303,12 @@ muCS1D <- function(t,c)
 #' @rdname funsMuVarCS1D
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' #Examples for asyvarCS1D
 #' asyvarCS1D(1.2,.8)
 #'
-#' tseq<-seq(0.01,5,by=.1)
-#' cseq<-seq(0.01,.99,by=.1)
+#' tseq<-seq(0.01,5,by=.05)
+#' cseq<-seq(0.01,.99,by=.05)
 #'
 #' ltseq<-length(tseq)
 #' lcseq<-length(cseq)
@@ -303,7 +331,7 @@ asyvarCS1D <- function(t,c)
   if (!is.point(t,1) || t<=0)
   {stop('t must be a scalar greater than 0')}
 
-  if (!is.point(c,1) || c <= 0 || c >= 1)
+  if (!is.point(c,1) || c<=0 || c>=1)
   {stop('c must be a scalar in (0,1)')}
 
   asyvar<-0;
@@ -360,7 +388,7 @@ asyvarCS1D <- function(t,c)
 #' \item{method}{Description of the hypothesis test}
 #' \item{data.name}{Name of the data set}
 #'
-#' @seealso \code{\link{TSArcDensPEint}}
+#' @seealso \code{\link{PEarc.dens.test.int}}
 #'
 #' @references
 #' \insertAllCited{}
@@ -368,21 +396,38 @@ asyvarCS1D <- function(t,c)
 #' @author Elvan Ceyhan
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' c<-.4
 #' t<-2
 #' a<-0; b<-10; int<-c(a,b)
 #'
-#' n<-100
+#' n<-10
 #' Xp<-runif(n,a,b)
 #'
-#' TSArcDensCSint(Xp,int,t,c)
-#' TSArcDensCSint(Xp,int,t,c=.3)
-#' TSArcDensCSint(Xp,int,t=1.5,c)
+#' num.arcsCSmid.int(Xp,int,t,c)
+#' CSarc.dens.test.int(Xp,int,t,c)
+#'
+#' num.arcsCSmid.int(Xp,int,t,c=.3)
+#' CSarc.dens.test.int(Xp,int,t,c=.3)
+#'
+#' num.arcsCSmid.int(Xp,int,t=1.5,c)
+#' CSarc.dens.test.int(Xp,int,t=1.5,c)
+#'
+#' Xp<-runif(n,a-1,b+1)
+#' num.arcsCSmid.int(Xp,int,t,c)
+#' CSarc.dens.test.int(Xp,int,t,c)
+#'
+#' c<-.4
+#' t<-.5
+#' a<-0; b<-10; int<-c(a,b)
+#' n<-10  #try also n<-20
+#' Xp<-runif(n,a,b)
+#'
+#' CSarc.dens.test.int(Xp,int,t,c)
 #' }
 #'
-#' @export TSArcDensCSint
-TSArcDensCSint <- function(Xp,int,t,c=.5,alternative = c("two.sided", "less", "greater"),conf.level = 0.95)
+#' @export CSarc.dens.test.int
+CSarc.dens.test.int <- function(Xp,int,t,c=.5,alternative = c("two.sided", "less", "greater"),conf.level = 0.95)
 {
   dname <-deparse(substitute(Xp))
 
@@ -396,7 +441,7 @@ TSArcDensCSint <- function(Xp,int,t,c=.5,alternative = c("two.sided", "less", "g
   if (!is.point(t,1) || t<=0)
   {stop('t must be a scalar greater than 0')}
 
-  if (!is.point(c,1) || c <= 0 || c >= 1)
+  if (!is.point(c,1) || c<=0 || c>=1)
   {stop('c must be a scalar in (0,1)')}
 
   if (!is.point(int))
@@ -415,7 +460,7 @@ TSArcDensCSint <- function(Xp,int,t,c=.5,alternative = c("two.sided", "less", "g
   if (n<=1)
   {stop('There are not enough Xp points in the interval, int, to compute arc density!')}
 
-  num.arcs<-NumArcsCSmid.int(Xp,int,t,c)
+  num.arcs<-num.arcsCSmid.int(Xp,int,t,c)
   arc.dens<-num.arcs/(n*(n-1))
   estimate1<-arc.dens
   mn<-muCS1D(t,c)
@@ -443,7 +488,7 @@ TSArcDensCSint <- function(Xp,int,t,c=.5,alternative = c("two.sided", "less", "g
     cint <-arc.dens+c(-cint, cint)*sqrt(asy.var/n)
   }
 
-  attr(cint, "conf.level") <-conf.level
+  attr(cint, "conf.level") <- conf.level
 
   rval <-list(
     statistic=TS,
@@ -479,7 +524,7 @@ TSArcDensCSint <- function(Xp,int,t,c=.5,alternative = c("two.sided", "less", "g
 #' Under the null hypothesis of uniformity of \code{Xp} points in the range of \code{Yp} points, arc density
 #' of CS-PCD whose vertices are \code{Xp} points equals to its expected value under the uniform distribution and
 #' \code{alternative} could be two-sided, or left-sided (i.e., data is accumulated around the \code{Yp} points, or association)
-#' or right-sided (i.e., data is accumulated around the centers of the triangles, or segregation).
+#' or right-sided (i.e., data is accumulated around the centers of the intervals, or segregation).
 #'
 #' CS proximity region is constructed with the expansion parameter \eqn{t > 0} and centrality parameter \code{c} which yields
 #' \eqn{M}-vertex regions. More precisely, for a middle interval \eqn{(y_{(i)},y_{(i+1)})}, the center is
@@ -491,8 +536,8 @@ TSArcDensCSint <- function(Xp,int,t,c=.5,alternative = c("two.sided", "less", "g
 #'
 #' @param Xp A set of 1D points which constitute the vertices of the CS-PCD.
 #' @param Yp A set of 1D points which constitute the end points of the partition intervals.
-#' @param support.int Support interval \eqn{(a,b)} with \eqn{a<b}. Uniformity of \code{Xp} points in this interval
-#' is tested.
+#' @param support.int Support interval \eqn{(a,b)} with \eqn{a<b}.
+#' Uniformity of \code{Xp} points in this interval is tested. Default is \code{NULL}.
 #' @param t A positive real number which serves as the expansion parameter in CS proximity region.
 #' @param c A positive real number which serves as the centrality parameter in CS proximity region;
 #' must be in \eqn{(0,1)} (default \code{c=.5}).
@@ -514,7 +559,7 @@ TSArcDensCSint <- function(Xp,int,t,c=.5,alternative = c("two.sided", "less", "g
 #' \item{method}{Description of the hypothesis test}
 #' \item{data.name}{Name of the data set}
 #'
-#' @seealso \code{\link{TSArcDensCS}} and \code{\link{TSArcDensCSint}}
+#' @seealso \code{\link{CSarc.dens.test}} and \code{\link{CSarc.dens.test.int}}
 #'
 #' @references
 #' \insertAllCited{}
@@ -522,13 +567,12 @@ TSArcDensCSint <- function(Xp,int,t,c=.5,alternative = c("two.sided", "less", "g
 #' @author Elvan Ceyhan
 #'
 #' @examples
-#' \dontrun{
 #' tau<-2
 #' c<-.4
 #' a<-0; b<-10; int=c(a,b)
 #'
 #' #nx is number of X points (target) and ny is number of Y points (nontarget)
-#' nx<-100; ny<-4;  #try also nx<-40; ny<-10 or nx<-1000; ny<-10;
+#' nx<-20; ny<-4;  #try also nx<-40; ny<-10 or nx<-1000; ny<-10;
 #'
 #' set.seed(1)
 #' xf<-(int[2]-int[1])*.1
@@ -536,15 +580,21 @@ TSArcDensCSint <- function(Xp,int,t,c=.5,alternative = c("two.sided", "less", "g
 #' Xp<-runif(nx,a-xf,b+xf)
 #' Yp<-runif(ny,a,b)
 #'
-#' TSArcDensCS1D(Xp,Yp,int,tau,c)
-#' TSArcDensCS1D(Xp,Yp,int,tau,c,alt="l")
-#' TSArcDensCS1D(Xp,Yp,int,tau,c,alt="g")
+#' CSarc.dens.test1D(Xp,Yp,tau,c,int)
+#' CSarc.dens.test1D(Xp,Yp,tau,c,int,alt="l")
+#' CSarc.dens.test1D(Xp,Yp,tau,c,int,alt="g")
 #'
-#' TSArcDensCS1D(Xp,Yp,int,tau,c,end.int.cor = TRUE)
-#' }
+#' CSarc.dens.test1D(Xp,Yp,tau,c,int,end.int.cor = TRUE)
 #'
-#' @export TSArcDensCS1D
-TSArcDensCS1D <- function(Xp,Yp,support.int,t,c=.5,end.int.cor=FALSE,
+#' Yp2<-runif(ny,a,b)+11
+#' CSarc.dens.test1D(Xp,Yp2,tau,c,int)
+#'
+#' n<-10  #try also n<-20
+#' Xp<-runif(n,a,b)
+#' CSarc.dens.test1D(Xp,Yp,tau,c,int)
+#'
+#' @export CSarc.dens.test1D
+CSarc.dens.test1D <- function(Xp,Yp,t,c=.5,support.int=NULL,end.int.cor=FALSE,
                             alternative=c("two.sided", "less", "greater"),conf.level = 0.95)
 {
   dname <-deparse(substitute(Xp))
@@ -556,13 +606,17 @@ TSArcDensCS1D <- function(Xp,Yp,support.int,t,c=.5,end.int.cor=FALSE,
   if ((!is.point(Xp,length(Xp)) || !is.point(Yp,length(Yp))))
   {stop('Xp and Yp must be 1D vectors of numerical entries.')}
 
-  if (length(Yp)<2)
-  {stop('Yp must be of length >2')}
+  nx =length(Xp); ny = length(Yp)
+  if (ny<2)
+  {stop('Yp must be of length > 2')}
 
+  if (!is.null(support.int))
+  {
   if (!is.point(support.int) || support.int[2]<=support.int[1])
   {stop('support.int must be an interval as (a,b) with a<b')}
+  }
 
-  if (!is.point(c,1) || c <= 0 || c >= 1)
+  if (!is.point(c,1) || c<=0 || c>=1)
   {stop('c must be a scalar in (0,1)')}
 
   if (!is.point(t,1) || t <=0)
@@ -572,7 +626,7 @@ TSArcDensCS1D <- function(Xp,Yp,support.int,t,c=.5,end.int.cor=FALSE,
     if (length(conf.level) != 1 || is.na(conf.level) || conf.level < 0 || conf.level > 1)
       stop("conf.level must be a number between 0 and 1")
 
-  Arcs<-NumArcsCS1D(Xp,Yp,t,c)  #uses the default c=.5, unless specified otherwise
+  Arcs<-num.arcsCS1D(Xp,Yp,t,c)  #uses the default c=.5, unless specified otherwise
   NinR<-Arcs$num.in.range #number of Xp points in the range of Yp points
 
   num.arcs.ints = Arcs$int.num.arcs #vector of number of arcs in the partition intervals
@@ -582,7 +636,7 @@ TSArcDensCS1D <- function(Xp,Yp,support.int,t,c=.5,end.int.cor=FALSE,
   Wvec<-Arcs$w
   LW<-Wvec/sum(Wvec)
 
-  dat.int.ind = Arcs$data.int #indices of partition intervals in which data points reside
+  dat.int.ind = Arcs$data.int.ind #indices of partition intervals in which data points reside
   mid.ind = which(dat.int.ind!=1 & dat.int.ind!=n.int) #indices of Xp points in range of Yp points (i.e., in middle intervals)
   dat.int.ind = dat.int.ind[mid.ind] #removing the end interval indices
   dat.mid = Xp[mid.ind] #Xp points in range of Yp points (i.e., in middle intervals)
@@ -606,11 +660,11 @@ TSArcDensCS1D <- function(Xp,Yp,support.int,t,c=.5,end.int.cor=FALSE,
   asy.var0<-asyvarCS1D(t,c)  #asy variance value for the (t,c) pair
   asy.var<-asy.var0*sum(LW^3)+4*asy.mean0^2*(sum(LW^3)-(sum(LW^2))^2)
 
-  n<-length(Xp)  #number of X points
   if (NinR  == 0)
-  {warning('There is no Xp point in the range of Yp points to compute arc density, but as this is clearly a segregation pattern, arc density is taken to be 1!')
+  {warning('There is no Xp point in the range of Yp points to compute arc density,
+           but as this is clearly a segregation pattern, arc density is taken to be 1!')
     arc.dens=1
-    TS0<-sqrt(n)*(arc.dens-asy.mean)/sqrt(asy.var)  #standardized test stat
+    TS0<-sqrt(nx)*(arc.dens-asy.mean)/sqrt(asy.var)  #standardized test stat
   } else
   {  arc.dens<-num.arcs/(NinR*(NinR-1))
   TS0<-sqrt(NinR)*(arc.dens-asy.mean)/sqrt(asy.var)  #standardized test stat}  #arc density
@@ -622,9 +676,11 @@ TSArcDensCS1D <- function(Xp,Yp,support.int,t,c=.5,end.int.cor=FALSE,
   if (end.int.cor==F)
   {
     TS<-TS0
-    method <-c(method," without End Interval Correction")
-  } else
+    method <-c(method,"\n without End Interval Correction")
+  }
+  else
   {
+    n<-length(Xp)  #number of X points
     m<-length(Yp)  #number of Y points
     NoutRange<-n-NinR #number of points outside of the range
 
@@ -632,7 +688,7 @@ TSArcDensCS1D <- function(Xp,Yp,support.int,t,c=.5,end.int.cor=FALSE,
     exp.prop.out<-2/m  #expected proportion of points outside range of Y points
 
     TS<-TS0+abs(TS0)*sign(prop.out-exp.prop.out)*(prop.out-exp.prop.out)^2
-    method <-c(method," with End Interval Correction")
+    method <-c(method,"\n with End Interval Correction")
   }
 
   names(estimate1) <-c("arc density")
@@ -655,7 +711,7 @@ TSArcDensCS1D <- function(Xp,Yp,support.int,t,c=.5,end.int.cor=FALSE,
     cint <-arc.dens+c(-cint, cint)*sqrt(asy.var/NinR)
   }
 
-  attr(cint, "conf.level") <-conf.level
+  attr(cint, "conf.level") <- conf.level
 
   rval <-list(
     statistic=TS,
@@ -697,7 +753,7 @@ TSArcDensCS1D <- function(Xp,Yp,support.int,t,c=.5,end.int.cor=FALSE,
 #' @param t A positive real number which serves as the expansion parameter in CS proximity region.
 #' @param c A positive real number in \eqn{(0,1)} parameterizing the center inside middle intervals
 #' with the default \code{c=.5}.
-#' For the interval, \eqn{(a,b)}, the parameterized center is \eqn{M_c=a+c(b-a)}.
+#' For the interval, \code{int}\eqn{=(a,b)}, the parameterized center is \eqn{M_c=a+c(b-a)}.
 #'
 #' @return A \code{list} with the elements
 #' \item{type}{A description of the type of the digraph}
@@ -713,8 +769,8 @@ TSArcDensCS1D <- function(Xp,Yp,support.int,t,c=.5,end.int.cor=FALSE,
 #' \item{quant}{Various quantities for the digraph: number of vertices, number of partition points,
 #' number of intervals, number of arcs, and arc density.}
 #'
-#' @seealso \code{\link{ArcsPEend.int}}, \code{\link{ArcsPE1D}}, \code{\link{ArcsCSmid.int}},
-#'  \code{\link{ArcsCSend.int}} and \code{\link{ArcsCS1D}}
+#' @seealso \code{\link{arcsPEend.int}}, \code{\link{arcsPE1D}}, \code{\link{arcsCSmid.int}},
+#'  \code{\link{arcsCSend.int}} and \code{\link{arcsCS1D}}
 #'
 #' @references
 #' \insertAllCited{}
@@ -722,7 +778,6 @@ TSArcDensCS1D <- function(Xp,Yp,support.int,t,c=.5,end.int.cor=FALSE,
 #' @author Elvan Ceyhan
 #'
 #' @examples
-#' \dontrun{
 #' t<-1.5
 #' c<-.4
 #' a<-0; b<-10
@@ -734,7 +789,10 @@ TSArcDensCS1D <- function(Xp,Yp,support.int,t,c=.5,end.int.cor=FALSE,
 #' Xp<-runif(nx,a,b)
 #' Yp<-runif(ny,a,b)
 #'
-#' Arcs<-ArcsCSmid.int(Xp,Yp,t,c)
+#' arcsCSmid.int(Xp,Yp,t,c)
+#' arcsCSmid.int(Xp,Yp+10,t,c)
+#'
+#' Arcs<-arcsCSmid.int(Xp,Yp,t,c)
 #' Arcs
 #' summary(Arcs)
 #' plot(Arcs)
@@ -762,10 +820,11 @@ TSArcDensCS1D <- function(Xp,Yp,support.int,t,c=.5,end.int.cor=FALSE,
 #' nx<-20; ny<-4;  #try also nx<-40; ny<-10 or nx<-1000; ny<-10;
 #' Xp<-runif(nx,a,b)
 #' Yp<-runif(ny,a,b)
-#' }
 #'
-#' @export ArcsCSmid.int
-ArcsCSmid.int <- function(Xp,Yp,t,c=.5)
+#' arcsCSmid.int(Xp,Yp,t,c)
+#'
+#' @export arcsCSmid.int
+arcsCSmid.int <- function(Xp,Yp,t,c=.5)
 {
   xname <-deparse(substitute(Xp))
   yname <-deparse(substitute(Yp))
@@ -776,7 +835,7 @@ ArcsCSmid.int <- function(Xp,Yp,t,c=.5)
   if (!is.point(t,1) || t<=0)
   {stop('t must be a scalar greater than 0')}
 
-  if (!is.point(c,1) || c <= 0 || c >= 1)
+  if (!is.point(c,1) || c<=0 || c>=1)
   {stop('c must be a scalar in (0,1)')}
 
   nx<-length(Xp); ny<-length(Yp)
@@ -821,7 +880,7 @@ ArcsCSmid.int <- function(Xp,Yp,t,c=.5)
           y1<-Ys[i]; y2<-Ys[i+1]; int<-c(y1,y2)
           for (j in 1:ni)
           {x1 <-Xi[j]; Xinl<-Xi[-j] #to avoid loops
-          v<-rv.mid.int(x1,int,c)$rv
+          v<-rel.vert.mid.int(x1,int,c)$rv
           if (v==1)
           {
             xR<-x1+t*(1-c)*(x1-y1)/c
@@ -901,7 +960,7 @@ ArcsCSmid.int <- function(Xp,Yp,t,c=.5)
 #' @return \eqn{I(p_2} in \eqn{N_{CS}(p_1,t))} for points \eqn{p_1} and \eqn{p_2}, that is, returns 1 if \eqn{p_2} is in \eqn{N_{CS}(p_1,t)}
 #' (i.e., if there is an arc from \eqn{p_1} to \eqn{p_2}), returns 0 otherwise
 #'
-#' @seealso \code{\link{IndNCSmid.int}}, \code{\link{IndNPEmid.int}}, and \code{\link{IndNPEend.int}}
+#' @seealso \code{\link{IarcCSmid.int}}, \code{\link{IarcPEmid.int}}, and \code{\link{IarcPEend.int}}
 #'
 #' @references
 #' \insertAllCited{}
@@ -912,11 +971,23 @@ ArcsCSmid.int <- function(Xp,Yp,t,c=.5)
 #' a<-0; b<-10; int<-c(a,b)
 #' t<-2
 #'
-#' IndNCSend.int(15,17,int,t)
-#' IndNCSend.int(1.5,17,int,t)
+#' IarcCSend.int(15,17,int,t)
+#' IarcCSend.int(15,15,int,t)
 #'
-#' @export IndNCSend.int
-IndNCSend.int <- function(p1,p2,int,t,rv=NULL)
+#' IarcCSend.int(1.5,17,int,t)
+#' IarcCSend.int(1.5,1.5,int,t)
+#'
+#' IarcCSend.int(-15,17,int,t)
+#'
+#' IarcCSend.int(-15,-17,int,t)
+#'
+#' a<-0; b<-10; int<-c(a,b)
+#' t<-.5
+#'
+#' IarcCSend.int(15,17,int,t)
+#'
+#' @export IarcCSend.int
+IarcCSend.int <- function(p1,p2,int,t,rv=NULL)
 {
   if (!is.point(p1,1) || !is.point(p2,1) )
   {stop('p1 and p2 must be scalars')}
@@ -934,11 +1005,11 @@ IndNCSend.int <- function(p1,p2,int,t,rv=NULL)
   if (p1==p2 )
   {arc<-1; return(arc); stop}
 
-  if ((p1 >= y1 & p1 <= y2) || (p2 >= y1 & p2 <= y2))
+  if ((p1>y1 & p1<y2) || (p2>y1 & p2<y2))
   {arc<-0; return(arc); stop}
 
   if (is.null(rv))
-  {rv<-rv.end.int(p1,int)$rv #determines the vertex for the end interval for 1D point p1
+  {rv<-rel.vert.end.int(p1,int)$rv #determines the vertex for the end interval for 1D point p1
   } else
   {  if (!is.numeric(rv) || sum(rv==c(1,2))!=1)
   {stop('vertex index, rv, must be 1 or 2')}}
@@ -946,9 +1017,9 @@ IndNCSend.int <- function(p1,p2,int,t,rv=NULL)
   arc<-0;
   if (rv==1)
   {
-    if ( p2 <= p1+t*(y1-p1) & p2 >= p1-t*(y1-p1) ) {arc <-1}
+    if ( p2 < p1+t*(y1-p1) & p2 > p1-t*(y1-p1) ) {arc <-1}
   } else {
-    if ( p2 <= p1+t*(p1-y2) & p2 >= p1-t*(p1-y2) ) {arc<-1}
+    if ( p2 < p1+t*(p1-y2) & p2 > p1-t*(p1-y2) ) {arc<-1}
   }
   arc
 } #end of the function
@@ -977,7 +1048,7 @@ IndNCSend.int <- function(p1,p2,int,t,rv=NULL)
 #' @return Number of arcs for the CS-PCD with vertices being 1D data set, \code{Xp},
 #' expansion parameter, \code{t}, for the end intervals.
 #'
-#' @seealso \code{\link{NumArcsCSmid.int}}, \code{\link{NumArcsPEmid.int}}, and \code{\link{NumArcsPEend.int}}
+#' @seealso \code{\link{num.arcsCSmid.int}}, \code{\link{num.arcsPEmid.int}}, and \code{\link{num.arcsPEend.int}}
 #'
 #' @references
 #' \insertAllCited{}
@@ -985,20 +1056,31 @@ IndNCSend.int <- function(p1,p2,int,t,rv=NULL)
 #' @author Elvan Ceyhan
 #'
 #' @examples
-#' \dontrun{
 #' a<-0; b<-10; int<-c(a,b)
 #'
-#' n<-10
+#' n<-5
 #' XpL<-runif(n,a-5,a)
 #' XpR<-runif(n,b,b+5)
 #' Xp<-c(XpL,XpR)
 #'
-#' NumArcsCSend.int(Xp,int,t=1.2)
-#' NumArcsCSend.int(Xp,int,t=2)
-#' }
+#' num.arcsCSend.int(Xp,int,t=2)
 #'
-#' @export NumArcsCSend.int
-NumArcsCSend.int <- function(Xp,int,t)
+#' num.arcsCSend.int(Xp,int,t=1.2)
+#'
+#' num.arcsCSend.int(Xp,int,t=4)
+#'
+#' num.arcsCSend.int(Xp,int,t=2+5)
+#' #num.arcsCSend.int(Xp,int,t=c(-5,15))
+#'
+#' n<-10  #try also n<-20
+#' Xp2<-runif(n,a-5,b+5)
+#' num.arcsCSend.int(Xp2,int,t=2)
+#'
+#' t<-.5
+#' num.arcsCSend.int(Xp,int,t)
+#'
+#' @export num.arcsCSend.int
+num.arcsCSend.int <- function(Xp,int,t)
 {
   if (!is.point(Xp,length(Xp)))
   {stop('Xp must be a 1D vector of numerical entries')}
@@ -1021,10 +1103,10 @@ NumArcsCSend.int <- function(Xp,int,t)
   {
     arcs<-0
     for (i in 1:n)
-    {p1<-Xp[i]; rv<-rv.end.int(p1,int)$rv
+    {p1<-Xp[i]; rv<-rel.vert.end.int(p1,int)$rv
     for (j in ((1:n)[-i]) )
     {p2<-Xp[j]
-    arcs<-arcs + IndNCSend.int(p1,p2,int,t,rv)
+    arcs<-arcs+IarcCSend.int(p1,p2,int,t,rv)
     }
     }
   }
@@ -1067,11 +1149,10 @@ NULL
 #' @author Elvan Ceyhan
 #'
 #' @examples
-#' \dontrun{
 #' #Examples for muCSend.int
 #' muCSend.int(1.2)
 #'
-#' tseq<-seq(0.01,5,by=.1)
+#' tseq<-seq(0.01,5,by=.05)
 #' ltseq<-length(tseq)
 #'
 #' mu.end<-vector()
@@ -1080,10 +1161,11 @@ NULL
 #'   mu.end<-c(mu.end,muCSend.int(tseq[i]))
 #' }
 #'
+#' oldpar <- par(no.readonly = TRUE)
 #' par(mar = c(5,4,4,2) + 0.1)
 #' plot(tseq, mu.end,type="l",
 #' ylab=expression(paste(mu,"(t)")),xlab="t",lty=1,xlim=range(tseq),ylim=c(0,1))
-#' }
+#' par(oldpar)
 #'
 #' @export muCSend.int
 muCSend.int <- function(t)
@@ -1106,11 +1188,10 @@ muCSend.int <- function(t)
 #' @author Elvan Ceyhan
 #'
 #' @examples
-#' \dontrun{
 #' #Examples for asyvarCSend.int
 #' asyvarCSend.int(1.2)
 #'
-#' tseq<-seq(.01,5,by=.1)
+#' tseq<-seq(.01,5,by=.05)
 #' ltseq<-length(tseq)
 #'
 #' var.end<-vector()
@@ -1119,9 +1200,10 @@ muCSend.int <- function(t)
 #'   var.end<-c(var.end,asyvarCSend.int(tseq[i]))
 #' }
 #'
+#' oldpar <- par(no.readonly = TRUE)
 #' par(mar=c(5,5,4,2))
 #' plot(tseq, var.end,type="l",xlab="t",ylab=expression(paste(sigma^2,"(t)")),lty=1,xlim=range(tseq))
-#' }
+#' par(oldpar)
 #'
 #' @export asyvarCSend.int
 asyvarCSend.int <- function(t)
@@ -1176,8 +1258,8 @@ asyvarCSend.int <- function(t)
 #' \item{quant}{Various quantities for the digraph: number of vertices, number of partition points,
 #' number of intervals (which is 2 for end intervals), number of arcs, and arc density.}
 #'
-#' @seealso \code{\link{ArcsCSmid.int}}, \code{\link{ArcsCS1D}} , \code{\link{ArcsPEmid.int}},
-#' \code{\link{ArcsPEend.int}}  and \code{\link{ArcsPE1D}}
+#' @seealso \code{\link{arcsCSmid.int}}, \code{\link{arcsCS1D}} , \code{\link{arcsPEmid.int}},
+#' \code{\link{arcsPEend.int}}  and \code{\link{arcsPE1D}}
 #'
 #' @references
 #' \insertAllCited{}
@@ -1185,12 +1267,11 @@ asyvarCSend.int <- function(t)
 #' @author Elvan Ceyhan
 #'
 #' @examples
-#' \dontrun{
 #' t<-1.5
 #' a<-0; b<-10; int<-c(a,b)
 #'
 #' #nx is number of X points (target) and ny is number of Y points (nontarget)
-#' nx<-100; ny<-5;  #try also nx<-40; ny<-10 or nx<-1000; ny<-10;
+#' nx<-20; ny<-4;  #try also nx<-40; ny<-10 or nx<-1000; ny<-10;
 #'
 #' set.seed(1)
 #' xr<-range(a,b)
@@ -1199,7 +1280,9 @@ asyvarCSend.int <- function(t)
 #' Xp<-runif(nx,a-xf,b+xf)
 #' Yp<-runif(ny,a,b)
 #'
-#' Arcs<-ArcsCSend.int(Xp,Yp,t)
+#' arcsCSend.int(Xp,Yp,t)
+#'
+#' Arcs<-arcsCSend.int(Xp,Yp,t)
 #' Arcs
 #' summary(Arcs)
 #' plot(Arcs)
@@ -1220,10 +1303,11 @@ asyvarCSend.int <- function(t)
 #' points(Xp, yjit,pch=".",cex=3)
 #' abline(v=Yp,lty=2)
 #' arrows(S, yjit, E, yjit, length = .05, col= 4)
-#' }
 #'
-#' @export ArcsCSend.int
-ArcsCSend.int <- function(Xp,Yp,t)
+#' arcsCSend.int(Xp,Yp,t)
+#'
+#' @export arcsCSend.int
+arcsCSend.int <- function(Xp,Yp,t)
 {
   xname <-deparse(substitute(Xp))
   yname <-deparse(substitute(Yp))
@@ -1326,10 +1410,10 @@ ArcsCSend.int <- function(Xp,Yp,t)
 #' @param t A positive real number which serves as the expansion parameter in CS proximity region.
 #' @param c A positive real number in \eqn{(0,1)} parameterizing the center inside middle intervals
 #' with the default \code{c=.5}.
-#' For the interval, \eqn{(a,b)}, the parameterized center is \eqn{M_c=a+c(b-a)}.
+#' For the interval, \code{int}\eqn{=(a,b)}, the parameterized center is \eqn{M_c=a+c(b-a)}.
 #' @param Jit A positive real number that determines the amount of jitter along the \eqn{y}-axis, default=\code{0.1} and
-#' \code{Xp} points are jittered according to \eqn{U(-Jit,Jit)} distribution along the \eqn{y}-axis
-#' where \code{Jit} equals to the range of the union of \code{Xp} and \code{Yp} points multiplied by \code{Jit}).
+#' \code{Xp} points are jittered according to \eqn{U(-Jit,Jit)} distribution along the \eqn{y}-axis where \code{Jit} equals to the range of \code{Xp} and \code{Yp} multiplied by
+#' \code{Jit}).
 #' @param main An overall title for the plot (default=\code{NULL}).
 #' @param xlab,ylab Titles of the \eqn{x} and \eqn{y} axes in the plot (default=\code{NULL} for both).
 #' @param xlim,ylim Two \code{numeric} vectors of length 2, giving the \eqn{x}- and \eqn{y}-coordinate ranges
@@ -1349,13 +1433,12 @@ ArcsCSend.int <- function(Xp,Yp,t)
 #' @author Elvan Ceyhan
 #'
 #' @examples
-#' \dontrun{
 #' t<-1.5
 #' c<-.4
 #' a<-0; b<-10; int<-c(a,b)
 #'
 #' #nx is number of X points (target) and ny is number of Y points (nontarget)
-#' nx<-20; ny<-5;  #try also nx<-40; ny<-10 or nx<-1000; ny<-10;
+#' nx<-20; ny<-4;  #try also nx<-40; ny<-10 or nx<-1000; ny<-10;
 #'
 #' set.seed(1)
 #' xr<-range(a,b)
@@ -1369,17 +1452,22 @@ ArcsCSend.int <- function(Xp,Yp,t)
 #'
 #' jit<-.1
 #'
+#' plotCSarcs1D(Xp,Yp,t,c,jit,xlab="",ylab="",xlim=Xlim,ylim=Ylim)
+#'
 #' set.seed(1)
 #' plotCSarcs1D(Xp,Yp,t=1.5,c=.3,jit,main="t=1.5, c=.3",xlab="",ylab="",centers=TRUE)
 #' set.seed(1)
 #' plotCSarcs1D(Xp,Yp,t=2,c=.3,jit,main="t=2, c=.3",xlab="",ylab="",centers=TRUE)
-#' }
+#' set.seed(1)
+#' plotCSarcs1D(Xp,Yp,t=1.5,c=.5,jit,main="t=1.5, c=.5",xlab="",ylab="",centers=TRUE)
+#' set.seed(1)
+#' plotCSarcs1D(Xp,Yp,t=2,c=.5,jit,main="t=2, c=.5",xlab="",ylab="",centers=TRUE)
 #'
 #' @export plotCSarcs1D
 plotCSarcs1D <- function(Xp,Yp,t,c=.5,Jit=.1,main=NULL,xlab=NULL,ylab=NULL,xlim=NULL,ylim=NULL,centers=FALSE, ...)
 {
-  arcs.mid<-ArcsCSmid.int(Xp,Yp,t,c)
-  arcs.end<-ArcsCSend.int(Xp,Yp,t)
+  arcs.mid<-arcsCSmid.int(Xp,Yp,t,c)
+  arcs.end<-arcsCSend.int(Xp,Yp,t)
   S<-c(arcs.mid$S, arcs.end$S)
   E<-c(arcs.mid$E, arcs.end$E)
 
@@ -1457,6 +1545,12 @@ plotCSarcs1D <- function(Xp,Yp,t,c=.5,Jit=.1,main=NULL,xlab=NULL,ylab=NULL,xlim=
 #'
 #' NCSint(7,int,t,c)
 #' NCSint(17,int,t,c)
+#' NCSint(1,int,t,c)
+#' NCSint(-1,int,t,c)
+#'
+#' NCSint(3,int,t,c)
+#' NCSint(4,int,t,c)
+#' NCSint(a,int,t,c)
 #'
 #' @export NCSint
 NCSint <- function(x,int,t,c=.5)
@@ -1467,7 +1561,7 @@ NCSint <- function(x,int,t,c=.5)
   if (!is.point(t,1) || t <=0)
   {stop('t must be a scalar greater than 0')}
 
-  if (!is.point(c,1) || c <= 0 || c >= 1)
+  if (!is.point(c,1) || c<=0 || c>=1)
   {stop('c must be a scalar in (0,1)')}
 
   if (!is.point(int))
@@ -1524,7 +1618,7 @@ NCSint <- function(x,int,t,c=.5)
 #'
 #' @return \eqn{I(p_2} in \eqn{N_{CS}(p_1,t,c))} for p2, that is, returns 1 if \eqn{p_2} in \eqn{N_{CS}(p_1,t,c)}, returns 0 otherwise
 #'
-#' @seealso \code{\link{IndNCSmid.int}}, \code{\link{IndNCSend.int}} and \code{\link{IndNPEint}}
+#' @seealso \code{\link{IarcCSmid.int}}, \code{\link{IarcCSend.int}} and \code{\link{IarcPEint}}
 #'
 #' @references
 #' \insertAllCited{}
@@ -1536,11 +1630,26 @@ NCSint <- function(x,int,t,c=.5)
 #' t<-2
 #' a<-0; b<-10; int<-c(a,b)
 #'
-#' IndNCSint(7,5,int,t,c)
-#' IndNCSint(1,3,int,t,c)
+#' IarcCSint(7,5,int,t,c)
+#' IarcCSint(17,17,int,t,c)
+#' IarcCSint(15,17,int,t,c)
+#' IarcCSint(1,3,int,t,c)
 #'
-#' @export IndNCSint
-IndNCSint <- function(p1,p2,int,t,c=.5)
+#' IarcCSint(-17,17,int,t,c)
+#'
+#' IarcCSint(3,5,int,t,c)
+#' IarcCSint(3,3,int,t,c)
+#' IarcCSint(4,5,int,t,c)
+#' IarcCSint(a,5,int,t,c)
+#'
+#' c<-.4
+#' r<-2
+#' a<-0; b<-10; int<-c(a,b)
+#'
+#' IarcCSint(7,5,int,t,c)
+#'
+#' @export IarcCSint
+IarcCSint <- function(p1,p2,int,t,c=.5)
 {
   if (!is.point(p2,1) )
   {stop('p2 must be a scalar')}
@@ -1573,8 +1682,8 @@ IndNCSint <- function(p1,p2,int,t,c=.5)
 #' For the interval, \code{int}\eqn{=(a,b)}, the parameterized center is \eqn{M_c=a+c(b-a)}.
 #' @param int A \code{vector} of two real numbers representing an interval.
 #' @param Jit A positive real number that determines the amount of jitter along the \eqn{y}-axis, default=\code{0.1} and
-#' \code{Xp} points are jittered according to \eqn{U(-Jit,Jit)} distribution along the \eqn{y}-axis
-#' where \code{Jit} equals to the range of the union of \code{Xp} and \code{Yp} points multiplied by \code{Jit}).
+#' \code{Xp} points are jittered according to \eqn{U(-Jit,Jit)} distribution along the \eqn{y}-axis where \code{Jit} equals to the range of \code{Xp} and proximity region
+#' intervals multiplied by \code{Jit}).
 #' @param main An overall title for the plot (default=\code{NULL}).
 #' @param xlab,ylab Titles for the \eqn{x} and \eqn{y} axes, respectively (default=\code{NULL} for both).
 #' @param xlim,ylim Two \code{numeric} vectors of length 2, giving the \eqn{x}- and \eqn{y}-coordinate ranges.
@@ -1584,7 +1693,7 @@ IndNCSint <- function(p1,p2,int,t,c=.5)
 #'
 #' @return Plot of the CS proximity regions for 1D points in or outside the interval \code{int}
 #'
-#' @seealso \code{\link{plotCSregs1D}}, \code{\link{plotCSregs.int}}, and \code{\link{plotPEregs.int}}
+#' @seealso \code{\link{plotCSregs1D}}, \code{\link{plotCSregs}}, and \code{\link{plotPEregs.int}}
 #'
 #' @references
 #' \insertAllCited{}
@@ -1592,7 +1701,6 @@ IndNCSint <- function(p1,p2,int,t,c=.5)
 #' @author Elvan Ceyhan
 #'
 #' @examples
-#' \dontrun{
 #' c<-.4
 #' tau<-2
 #' a<-0; b<-10; int<-c(a,b)
@@ -1602,8 +1710,15 @@ IndNCSint <- function(p1,p2,int,t,c=.5)
 #'
 #' Xp<-runif(n,a-xf,b+xf)  #try also Xp<-runif(n,a-5,b+5)
 #'
+#' plotCSregs.int(7,int,tau,c,xlab="x",ylab="")
+#'
 #' plotCSregs.int(Xp,int,tau,c,xlab="x",ylab="")
-#' }
+#'
+#' plotCSregs.int(17,int,tau,c,xlab="x",ylab="")
+#' plotCSregs.int(1,int,tau,c,xlab="x",ylab="")
+#' plotCSregs.int(4,int,tau,c,xlab="x",ylab="")
+#'
+#' plotCSregs.int(-7,int,tau,c,xlab="x",ylab="")
 #'
 #' @export plotCSregs.int
 plotCSregs.int <- function(Xp,int,t,c=.5,Jit=.1,main=NULL,xlab=NULL,ylab=NULL,xlim=NULL,ylim=NULL,center=FALSE, ...)
@@ -1655,10 +1770,17 @@ plotCSregs.int <- function(Xp,int,t,c=.5,Jit=.1,main=NULL,xlab=NULL,ylab=NULL,xl
 
 #################################################################
 
-#' @title Number of arcs of  Central Similarity Proximity Catch Digraphs (CS-PCDs) - one interval case
+#' @title Number of arcs of Central Similarity Proximity Catch Digraphs (CS-PCDs)
+#' and quantities related to the interval - one interval case
 #'
-#' @description Returns the number of arcs and various other quantities, vectors, and lists for Central Similarity Proximity Catch Digraph
-#' (CS-PCD) whose vertices are the data points in \code{Xp} in the one middle interval case.
+#' @description
+#' An object of class \code{"NumArcs"}.
+#' Returns the number of arcs of Central Similarity Proximity Catch Digraphs (CS-PCDs)
+#' whose vertices are the
+#' data points in \code{Xp} in the one middle interval case.
+#' It also provides number of vertices
+#' (i.e., number of data points inside the intervals)
+#' and indices of the data points that reside in the intervals.
 #'
 #' The data points could be inside or outside the interval is \code{int}\eqn{=(a,b)}.
 #'
@@ -1677,16 +1799,24 @@ plotCSregs.int <- function(Xp,int,t,c=.5,Jit=.1,main=NULL,xlab=NULL,ylab=NULL,xl
 #' @param int A \code{vector} of two real numbers representing an interval.
 #'
 #' @return A \code{list} with the elements
+#' \item{desc}{A short description of the output: number of arcs
+#' and quantities related to the interval}
 #' \item{num.arcs}{Total number of arcs in all intervals (including the end intervals),
 #' i.e., the number of arcs for the entire CS-PCD}
 #' \item{num.in.range}{Number of \code{Xp} points in the interval \code{int}}
 #' \item{num.in.ints}{The vector of number of \code{Xp} points in the partition intervals (including the end intervals)}
-#' \item{int.num.arcs}{The \code{vector} of the number of arcs of the components of the CS-PCD in the
+#' \item{int.num.arcs}{The \code{vector} of the number of arcs of the component of the CS-PCD in the
 #' partition intervals (including the end intervals)}
 #' \item{data.int.ind}{A \code{vector} of indices of partition intervals in which data points reside.
 #' Partition intervals are numbered from left to right with 1 being the left end interval.}
+#' \item{ind.left.end, ind.mid, ind.right.end}{Indices of data points in the left end interval,
+#' middle interval, and right end interval (respectively)}
+#' \item{tess.points}{Points on which the tessellation of the study region is performed, here, tessellation
+#' is the support interval.}
+#' \item{vertices}{Vertices of the digraph, \code{Xp}.}
 #'
-#' @seealso \code{\link{NumArcsCSmid.int}}, \code{\link{NumArcsCSend.int}}, and \code{\link{NumArcsPEint}}
+#' @seealso \code{\link{num.arcsCSmid.int}}, \code{\link{num.arcsCSend.int}},
+#' and \code{\link{num.arcsPEint}}
 #'
 #' @references
 #' \insertAllCited{}
@@ -1694,7 +1824,6 @@ plotCSregs.int <- function(Xp,int,t,c=.5,Jit=.1,main=NULL,xlab=NULL,ylab=NULL,xl
 #' @author Elvan Ceyhan
 #'
 #' @examples
-#' \dontrun{
 #' c<-.4
 #' t<-2
 #' a<-0; b<-10; int<-c(a,b)
@@ -1702,13 +1831,13 @@ plotCSregs.int <- function(Xp,int,t,c=.5,Jit=.1,main=NULL,xlab=NULL,ylab=NULL,xl
 #' n<-10
 #' set.seed(1)
 #' Xp<-runif(n,a,b)
-#' NumArcsCSint(Xp,int,t,c)
-#' NumArcsCSint(Xp,int,t,c=.3)
-#' NumArcsCSint(Xp,int,t=1.5,c)
-#' }
+#' Narcs = num.arcsCSint(Xp,int,t,c)
+#' Narcs
+#' summary(Narcs)
+#' plot(Narcs)
 #'
-#' @export NumArcsCSint
-NumArcsCSint <- function(Xp,int,t,c=.5)
+#' @export num.arcsCSint
+num.arcsCSint <- function(Xp,int,t,c=.5)
 {
   if (!is.point(Xp,length(Xp)))
   {stop('Xp must be a 1D vector of numerical entries')}
@@ -1724,17 +1853,19 @@ NumArcsCSint <- function(Xp,int,t,c=.5)
   } else
   {
     int.ind = rep(0,nx)
-    ind.mid = which(Xp >= y1 & Xp <= y2)
+    ind.mid = which(Xp>=y1 & Xp <= y2)
     dat.mid<-Xp[ind.mid] # Xp points inside the int
     dat.left= Xp[Xp<y1]; dat.right= Xp[Xp>y2]
-    int.ind[which(Xp<y1)]=1
+    ind.left.end = which(Xp<y1)
+    ind.right.end = which(Xp>y2)
+    int.ind[ind.left.end]=1
     int.ind[ind.mid]=2
-    int.ind[which(Xp>y2)]=3
+    int.ind[ind.right.end]=3
 
     # number of arcs for the intervals
-    narcs.left = NumArcsCSend.int(dat.left,int,t)
-    narcs.right = NumArcsCSend.int(dat.right,int,t)
-    narcs.mid = NumArcsCSmid.int(dat.mid,int,t,c)
+    narcs.left = num.arcsCSend.int(dat.left,int,t)
+    narcs.right = num.arcsCSend.int(dat.right,int,t)
+    narcs.mid = num.arcsCSmid.int(dat.mid,int,t,c)
     arcs = c(narcs.left,narcs.mid,narcs.right)
 
     ni.vec = c(length(dat.left),length(dat.mid),length(dat.right))
@@ -1744,21 +1875,40 @@ NumArcsCSint <- function(Xp,int,t,c=.5)
 
   NinInt = ni.vec[2]
 
-  res<-list(num.arcs=narcs, #number of arcs for the CS-PCD
+  desc<-"Number of Arcs of the CS-PCD with vertices Xp and Quantities Related to the Support Interval"
+
+  res<-list(desc=desc, #description of the output
+            num.arcs=narcs, #number of arcs for the CS-PCD
+            int.num.arcs=arcs, #vector of number of arcs for the partition intervals
             num.in.range=NinInt, #number of Xp points in the interval, int
             num.in.ints=ni.vec, #vector of numbers of Xp points in the partition intervals
-            int.num.arcs=arcs, #vector of number of arcs for the partition intervals
-            data.int.ind=int.ind) #indices of partition intervals in which data points reside, i.e., column number of part.int for each Xp point
+            data.int.ind=int.ind, #indices of partition intervals in which data points reside, i.e., column number of part.int for each Xp point
+            ind.mid =ind.mid, #indices of data points in the middle interval
+            ind.left.end =ind.left.end, #indices of data points in the left end interval
+            ind.right.end =ind.right.end, #indices of data points in the right end interval
+            tess.points=int, #tessellation points
+            vertices=Xp #vertices of the digraph
+  )
+
+  class(res)<-"NumArcs"
+  res$call <-match.call()
+
   res
 } #end of the function
 #'
 
 #################################################################
 
-#' @title Number of arcs of Central Similarity Proximity Catch Digraphs (CS-PCDs) for 1D data - multiple interval case
+#' @title Number of arcs of Central Similarity Proximity Catch Digraphs (CS-PCDs)
+#' and related quantities of the induced subdigraphs for points in the partition intervals -
+#' multiple interval case
 #'
-#' @description Returns the number of arcs of Central Similarity Proximity Catch Digraph (CS-PCD) whose vertices are
-#' the data points in \code{Xp} in the multiple interval case.
+#' @description
+#' An object of class \code{"NumArcs"}.
+#' Returns the number of arcs and various other quantities related to the partition intervals
+#' for Central Similarity Proximity Catch Digraph
+#' (CS-PCD) whose vertices are the data points in \code{Xp}
+#' in the multiple interval case.
 #'
 #' For this function, CS proximity regions are constructed data points inside or outside the intervals based
 #' on \code{Yp} points with expansion parameter \eqn{t \ge 0} and centrality parameter \eqn{c \in (0,1)}. That is, for this function,
@@ -1774,9 +1924,11 @@ NumArcsCSint <- function(Xp,int,t,c=.5)
 #' must be \eqn{> 0}.
 #' @param c A positive real number in \eqn{(0,1)} parameterizing the center inside the middle (partition) intervals
 #' with the default \code{c=.5}.
-#' For an interval, \eqn{(a,b)}, the parameterized center is \eqn{M_c=a+c(b-a)}.
+#' For an interval, \code{int}\eqn{=(a,b)}, the parameterized center is \eqn{M_c=a+c(b-a)}.
 #'
 #' @return A \code{list} with the elements
+#' \item{desc}{A short description of the output: number of arcs
+#' and related quantities for the induced subdigraphs in the partition intervals}
 #' \item{num.arcs}{Total number of arcs in all intervals (including the end intervals),
 #' i.e., the number of arcs for the entire CS-PCD}
 #' \item{num.in.range}{Number of \code{Xp} points in the range or convex hull of \code{Yp} points}
@@ -1784,14 +1936,18 @@ NumArcsCSint <- function(Xp,int,t,c=.5)
 #' based on \code{Yp} points}
 #' \item{weight.vec}{The \code{vector} of the lengths of the middle partition intervals (i.e., end intervals excluded)
 #' based on \code{Yp} points}
-#' \item{int.num.arcs}{The \code{vector} of the number of arcs of the components of the CS-PCD in the
+#' \item{int.num.arcs}{The \code{vector} of the number of arcs of the component of the CS-PCD in the
 #' partition intervals (including the end intervals) based on \code{Yp} points}
-#' \item{part.int}{A matrix with columns corresponding to the partition intervals based on \code{Yp} points.}
+#' \item{part.int}{A list of partition intervals based on \code{Yp} points}
 #' \item{data.int.ind}{A \code{vector} of indices of partition intervals in which data points reside,
 #' i.e., column number of \code{part.int} is provided for each \code{Xp} point. Partition intervals are numbered from left to right
 #' with 1 being the left end interval.}
+#' \item{tess.points}{Points on which the tessellation of the study region is performed, here, tessellation
+#' is the partition intervals based on \code{Yp} points.}
+#' \item{vertices}{Vertices of the digraph, \code{Xp}.}
 #'
-#' @seealso \code{\link{NumArcsCSint}}, \code{\link{NumArcsCSmid.int}}, \code{\link{NumArcsCSend.int}}, and \code{\link{NumArcsPE1D}}
+#' @seealso \code{\link{num.arcsCSint}}, \code{\link{num.arcsCSmid.int}},
+#' \code{\link{num.arcsCSend.int}}, and \code{\link{num.arcsPE1D}}
 #'
 #' @references
 #' \insertAllCited{}
@@ -1799,13 +1955,12 @@ NumArcsCSint <- function(Xp,int,t,c=.5)
 #' @author Elvan Ceyhan
 #'
 #' @examples
-#' \dontrun{
 #' tau<-1.5
 #' c<-.4
 #' a<-0; b<-10; int<-c(a,b);
 #'
 #' #nx is number of X points (target) and ny is number of Y points (nontarget)
-#' nx<-20; ny<-5;  #try also nx<-40; ny<-10 or nx<-1000; ny<-10;
+#' nx<-20; ny<-4;  #try also nx<-40; ny<-10 or nx<-1000; ny<-10;
 #'
 #' set.seed(1)
 #' xf<-(int[2]-int[1])*.1
@@ -1813,13 +1968,13 @@ NumArcsCSint <- function(Xp,int,t,c=.5)
 #' Xp<-runif(nx,a-xf,b+xf)
 #' Yp<-runif(ny,a,b)
 #'
-#' NumArcsCS1D(Xp,Yp,tau,c)
-#' NumArcsCS1D(Xp,Yp,tau,c=.3)
-#' NumArcsCS1D(Xp,Yp,t=2,c)
-#' }
+#' Narcs = num.arcsCS1D(Xp,Yp,tau,c)
+#' Narcs
+#' summary(Narcs)
+#' plot(Narcs)
 #'
-#' @export NumArcsCS1D
-NumArcsCS1D <- function(Xp,Yp,t,c=.5)
+#' @export num.arcsCS1D
+num.arcsCS1D <- function(Xp,Yp,t,c=.5)
 {
   if (!is.point(Yp,length(Yp)) )
   {stop('Yp must be 1D vector of numerical entries')}
@@ -1834,16 +1989,15 @@ NumArcsCS1D <- function(Xp,Yp,t,c=.5)
   Yrange=c(ymin, ymax)
 
   int.ind = rep(0,nx)
-  dat.mid<-Xp[Xp>=ymin & Xp <= ymax] # Xp points inside  min(Yp) and max (Yp)
+  dat.mid<-Xp[Xp>ymin & Xp < ymax] # Xp points inside  min(Yp) and max (Yp)
   dat.left= Xp[Xp<ymin]; dat.right= Xp[Xp>ymax]
   int.ind[which(Xp<ymin)]=1
   int.ind[which(Xp>ymax)]=ny+1
 
   #for end intervals
-  narcs.left = NumArcsCSend.int(dat.left,Yrange,t)
-  narcs.right = NumArcsCSend.int(dat.right,Yrange,t)
+  narcs.left = num.arcsCSend.int(dat.left,Yrange,t)
+  narcs.right = num.arcsCSend.int(dat.right,Yrange,t)
   arcs=narcs.left
-  narcs<-narcs.left + narcs.right
 
   #for middle intervals
   n.int<-ny-1 #number of Yp middle intervals
@@ -1858,34 +2012,37 @@ NumArcsCS1D <- function(Xp,Yp,t,c=.5)
 
   part.ints =rbind(c(-Inf,ymin),Yspacings,c(ymax,Inf))
 
-  for (i in 1:n.int) #to determine which interval data points reside
-  {
-    ind = which(Xp>=Ys[i] & Xp <= Ys[i+1])
-    dat.int<-Xp[ind] #X points in the ith Yp mid interval
-    int.ind[ind] = i+1
-  }
-
   ni.vec = vector()
   for (i in 1:n.int)
   {
-    dat.int<-Xp[int.ind==i+1] #X points in the ith Yp mid interval
+    ind = which(Xp>=Ys[i] & Xp < Ys[i+1])
+    dat.int<-Xp[ind] #X points in the ith Yp mid interval
+    int.ind[ind] = i+1
     ni.vec = c(ni.vec,length(dat.int))
-    narcs.mid = NumArcsCSmid.int(dat.int,Yspacings[i,],t,c)
+    narcs.mid = num.arcsCSmid.int(dat.int,Yspacings[i,],t,c)
     arcs = c(arcs,narcs.mid)
-    narcs<-narcs + narcs.mid
   }
-
   ni.vec = c(length(dat.left),ni.vec,length(dat.right))
-  # data.part.ints =c(list(dat.left),data.part.ints,list(dat.right))
   arcs = c(arcs,narcs.right) #reordering the number of arcs vector according to the order of the intervals, from left to right
+  narcs = sum(arcs)
 
-  res<-list(num.arcs=narcs, #number of arcs for the entire PCD
-            num.in.range=nx2, #number of Xp points in the range of Yp points
-            num.in.intervals=ni.vec, #number of Xp points in the partition intervals
-            weight.vec=Wvec, #lengths of the middle partition intervals
+  desc<-"Number of Arcs of the CS-PCD with vertices Xp and Related Quantities for the Induced Subdigraphs for the Points in the Partition Intervals"
+
+  res<-list(desc=desc, #description of the output
+            num.arcs=narcs, #number of arcs for the entire PCD
             int.num.arcs=arcs, #vector of number of arcs for the partition intervals
+            num.in.range=nx2, #number of Xp points in the range of Yp points
+            num.in.ints=ni.vec, #number of Xp points in the partition intervals
+            weight.vec=Wvec, #lengths of the middle partition intervals
             partition.intervals=t(part.ints), #matrix of the partition intervals, each column is one interval
-            data.interval.indices=int.ind) #indices of partition intervals in which data points reside, i.e., column number of part.int for each Xp point
+            data.int.ind=int.ind, #indices of partition intervals in which data points reside, i.e., column number of part.int for each Xp point
+            tess.points=Yp, #tessellation points
+            vertices=Xp #vertices of the digraph
+  )
+
+  class(res)<-"NumArcs"
+  res$call <-match.call()
+
   res
 } #end of the function
 #'
@@ -1926,7 +2083,7 @@ NumArcsCS1D <- function(Xp,Yp,t,c=.5)
 #' \item{quant}{Various quantities for the digraph: number of vertices, number of partition points,
 #' number of intervals, number of arcs, and arc density.}
 #'
-#' @seealso \code{\link{ArcsCS1D}}, \code{\link{ArcsCSmid.int}}, \code{\link{ArcsCSend.int}}, and \code{\link{ArcsPE1D}}
+#' @seealso \code{\link{arcsCS1D}}, \code{\link{arcsCSmid.int}}, \code{\link{arcsCSend.int}}, and \code{\link{arcsPE1D}}
 #'
 #' @references
 #' \insertAllCited{}
@@ -1934,7 +2091,6 @@ NumArcsCS1D <- function(Xp,Yp,t,c=.5)
 #' @author Elvan Ceyhan
 #'
 #' @examples
-#' \dontrun{
 #' tau<-2
 #' c<-.4
 #' a<-0; b<-10; int<-c(a,b);
@@ -1947,14 +2103,19 @@ NumArcsCS1D <- function(Xp,Yp,t,c=.5)
 #' set.seed(1)
 #' Xp<-runif(n,a-xf,b+xf)
 #'
-#' Arcs<-ArcsCSint(Xp,int,tau,c)
+#' Arcs<-arcsCSint(Xp,int,tau,c)
 #' Arcs
 #' summary(Arcs)
 #' plot(Arcs)
-#' }
 #'
-#' @export ArcsCSint
-ArcsCSint <- function(Xp,int,t,c=.5)
+#' Xp<-runif(n,a+10,b+10)
+#' Arcs=arcsCSint(Xp,int,tau,c)
+#' Arcs
+#' summary(Arcs)
+#' plot(Arcs)
+#'
+#' @export arcsCSint
+arcsCSint <- function(Xp,int,t,c=.5)
 {
   xname <-deparse(substitute(Xp))
   yname <-deparse(substitute(int))
@@ -1965,7 +2126,7 @@ ArcsCSint <- function(Xp,int,t,c=.5)
   if (!is.point(t,1) || t <=0)
   {stop('t must be a scalar greater than 0')}
 
-  if (!is.point(c,1) || c <= 0 || c >= 1)
+  if (!is.point(c,1) || c<=0 || c>=1)
   {stop('c must be a scalar in (0,1)')}
 
   nx<-length(Xp)
@@ -1990,7 +2151,7 @@ ArcsCSint <- function(Xp,int,t,c=.5)
     if (nle>1 )
     {
       for (j in 1:nle)
-      {x1<-XLe[j];  xLe<-XLe[-j] #to avoid loops
+      {x1 <-XLe[j];  xLe<-XLe[-j] #to avoid loops
       xR<-x1+t*(y1-x1); xL<-x1-t*(y1-x1)
       ind.tails<-((xLe < min(xR,y1)) & (xLe > xL))
       st<-sum(ind.tails)  #sum of tails of the arcs with head XLe[j]
@@ -2005,7 +2166,7 @@ ArcsCSint <- function(Xp,int,t,c=.5)
     {
       for (j in 1:nx2)
       {x1 <-Xint[j] ; Xinl<-Xint[-j] #to avoid loops
-      v<-rv.mid.int(x1,int,c)$rv
+      v<-rel.vert.mid.int(x1,int,c)$rv
       if (v==1)
       {
         xR<-x1+t*(1-c)*(x1-y1)/c
@@ -2040,7 +2201,7 @@ ArcsCSint <- function(Xp,int,t,c=.5)
   if (length(S)==0)
   {S<-E<-NA}
 
-  param<-c(c,t)
+  param<-list(c,t)
   names(param)<-c("centrality parameter","expansion parameter")
 
   typ<-paste("Central Similarity Proximity Catch Digraph (CS-PCD) for 1D Points with Expansion Parameter t = ",t, " and Centrality Parameter c = ",c,sep="")
@@ -2068,98 +2229,6 @@ ArcsCSint <- function(Xp,int,t,c=.5)
   class(res)<-"PCDs"
   res$call <-match.call()
   res
-} #end of the function
-#'
-
-#################################################################
-
-#' @title Incidence matrix for Central Similarity Proximity Catch Digraphs (CS-PCDs)
-#' for 1D data - one interval case
-#'
-#' @description Returns the incidence matrix for the CS-PCD for a given 1D numerical data set, \code{Xp},
-#' as the vertices of the digraph and \code{int} determines the end points of the interval (in the one interval case).
-#' Loops are allowed, so the diagonal entries are all equal to 1.
-#'
-#' CS proximity region is constructed
-#' with an expansion parameter \eqn{r \ge 1} and a centrality parameter \eqn{c \in (0,1)}.
-#'
-#' See also (\insertCite{ceyhan:metrika-2012;textual}{pcds}).
-#'
-#' @param Xp a set of 1D points which constitutes the vertices of the digraph.
-#' @param int A \code{vector} of two real numbers representing an interval.
-#' @param t A positive real number which serves as the expansion parameter in CS proximity region.
-#' @param c A positive real number in \eqn{(0,1)} parameterizing the center inside middle intervals
-#' with the default \code{c=.5}.
-#' For the interval, \code{int}\eqn{=(a,b)}, the parameterized center is \eqn{M_c=a+c(b-a)}.
-#'
-#' @return Incidence matrix for the CS-PCD with vertices being 1D data set, \code{Xp},
-#' and \code{int} determines the end points of the intervals (in the one interval case)
-#'
-#' @seealso \code{\link{IncMatPEint}}, \code{\link{IncMatCS1D}}, \code{\link{IncMatCStri}}, and \code{\link{IncMatCS}}
-#'
-#' @references
-#' \insertAllCited{}
-#'
-#' @author Elvan Ceyhan
-#'
-#' @examples
-#' \dontrun{
-#' c<-.4
-#' r<-2
-#' a<-0; b<-10; int<-c(a,b)
-#'
-#' xf<-(int[2]-int[1])*.1
-#'
-#' set.seed(123)
-#'
-#' n<-10
-#' Xp<-runif(n,a-xf,b+xf)
-#'
-#' IM<-IncMatCSint(Xp,int,r,c)
-#' IM
-#'
-#' dom.greedy(IM)
-#' IndUBdom(IM,6)
-#' dom.exact(IM)
-#' }
-#'
-#' @export IncMatCSint
-IncMatCSint <- function(Xp,int,t,c=.5)
-{
-  if (!is.point(Xp,length(Xp)) )
-  {stop('Xp must be a 1D vector of numerical entries')}
-
-  if (!is.point(t,1) || t<=0)
-  {stop('t must be a scalar >0')}
-
-  if (!is.point(c,1) || c <= 0 || c >= 1)
-  {stop('c must be a scalar in (0,1)')}
-
-  nx<-length(Xp); #ny<-length(Yp)
-
-  if (nx==0)
-  {stop('Not enough points to construct CS-PCD')}
-
-  if (nx>=1)
-  {
-    y1=int[1]; y2<-int[2];
-
-    pr<-c() #proximity region
-    for (i in 1:nx)
-    { x1<-Xp[i]
-    pr<-rbind(pr,NCSint(x1,int,t,c))
-    }
-
-    inc.mat<-matrix(0, nrow=nx, ncol=nx)
-    for (i in 1:nx)
-    { reg<-pr[i,]
-    for (j in 1:nx)
-    {
-      inc.mat[i,j]<-sum(Xp[j]>=reg[1] & Xp[j]<=reg[2])
-    }
-    }
-  }
-  inc.mat
 } #end of the function
 #'
 
@@ -2208,7 +2277,6 @@ IncMatCSint <- function(Xp,int,t,c=.5)
 #' @author Elvan Ceyhan
 #'
 #' @examples
-#' \dontrun{
 #' tau<-2
 #' c<-.4
 #' a<-0; b<-10; int<-c(a,b)
@@ -2225,16 +2293,17 @@ IncMatCSint <- function(Xp,int,t,c=.5)
 #' Ylim=3*c(-1,1)
 #'
 #' jit<-.1
+#' plotCSarcs.int(Xp,int,t=tau,c,jit,xlab="",ylab="",xlim=Xlim,ylim=Ylim)
+#'
 #' set.seed(1)
 #' plotCSarcs.int(Xp,int,t=1.5,c=.3,jit,xlab="",ylab="",center=TRUE)
 #' set.seed(1)
 #' plotCSarcs.int(Xp,int,t=2,c=.4,jit,xlab="",ylab="",center=TRUE)
-#' }
 #'
 #' @export plotCSarcs.int
 plotCSarcs.int <- function(Xp,int,t,c=.5,Jit=.1,main=NULL,xlab=NULL,ylab=NULL,xlim=NULL,ylim=NULL,center=FALSE, ...)
 {
-  arcs<-ArcsCS1D(Xp,int,t,c)
+  arcs<-arcsCS1D(Xp,int,t,c)
   S<-arcs$S
   E<-arcs$E
 
@@ -2287,7 +2356,7 @@ plotCSarcs.int <- function(Xp,int,t,c=.5,Jit=.1,main=NULL,xlab=NULL,ylab=NULL,xl
 #' It also provides various descriptions and quantities about the arcs of the CS-PCD
 #' such as number of arcs, arc density, etc.
 #'
-#' Equivalent to function \code{\link{ArcsCS1D}}.
+#' Equivalent to function \code{\link{arcsCS1D}}.
 #'
 #' See also (\insertCite{ceyhan:revstat-2016;textual}{pcds}).
 #'
@@ -2296,7 +2365,7 @@ plotCSarcs.int <- function(Xp,int,t,c=.5,Jit=.1,main=NULL,xlab=NULL,ylab=NULL,xl
 #' @param t A positive real number which serves as the expansion parameter in CS proximity region.
 #' @param c A positive real number in \eqn{(0,1)} parameterizing the center inside middle intervals
 #' with the default \code{c=.5}.
-#' For the interval, \eqn{(a,b)}, the parameterized center is \eqn{M_c=a+c(b-a)}.
+#' For the interval, \code{int}\eqn{=(a,b)}, the parameterized center is \eqn{M_c=a+c(b-a)}.
 #'
 #' @return A \code{list} with the elements
 #' \item{type}{A description of the type of the digraph}
@@ -2312,7 +2381,7 @@ plotCSarcs.int <- function(Xp,int,t,c=.5,Jit=.1,main=NULL,xlab=NULL,ylab=NULL,xl
 #' \item{quant}{Various quantities for the digraph: number of vertices, number of partition points,
 #' number of intervals, number of arcs, and arc density.}
 #'
-#' @seealso \code{\link{ArcsCSend.int}}, \code{\link{ArcsCSmid.int}}, \code{\link{ArcsCS1D}}, and \code{\link{ArcsPE1D}}
+#' @seealso \code{\link{arcsCSend.int}}, \code{\link{arcsCSmid.int}}, \code{\link{arcsCS1D}}, and \code{\link{arcsPE1D}}
 #'
 #' @references
 #' \insertAllCited{}
@@ -2320,13 +2389,12 @@ plotCSarcs.int <- function(Xp,int,t,c=.5,Jit=.1,main=NULL,xlab=NULL,ylab=NULL,xl
 #' @author Elvan Ceyhan
 #'
 #' @examples
-#' \dontrun{
 #' t<-2
 #' c<-.4
 #' a<-0; b<-10;
 #'
 #' #nx is number of X points (target) and ny is number of Y points (nontarget)
-#' nx<-20; ny<-5;  #try also nx<-40; ny<-10 or nx<-1000; ny<-10;
+#' nx<-20; ny<-4;  #try also nx<-40; ny<-10 or nx<-1000; ny<-10;
 #'
 #' set.seed(1)
 #' xr<-range(a,b)
@@ -2335,13 +2403,17 @@ plotCSarcs.int <- function(Xp,int,t,c=.5,Jit=.1,main=NULL,xlab=NULL,ylab=NULL,xl
 #' Xp<-runif(nx,a-xf,b+xf)
 #' Yp<-runif(ny,a,b)
 #'
-#' Arcs<-ArcsCS1D(Xp,Yp,t,c)
+#' Arcs<-arcsCS1D(Xp,Yp,t,c)
 #' Arcs
 #' summary(Arcs)
 #' plot(Arcs)
 #'
 #' S<-Arcs$S
 #' E<-Arcs$E
+#'
+#' arcsCS1D(Xp,Yp,t,c)
+#'
+#' arcsCS1D(Xp,Yp+10,t,c)
 #'
 #' jit<-.1
 #' yjit<-runif(nx,-jit,jit)
@@ -2356,10 +2428,18 @@ plotCSarcs.int <- function(Xp,int,t,c=.5,Jit=.1,main=NULL,xlab=NULL,ylab=NULL,xl
 #' points(Xp, yjit,pch=".",cex=3)
 #' abline(v=Yp,lty=2)
 #' arrows(S, yjit, E, yjit, length = .05, col= 4)
-#' }
 #'
-#' @export ArcsCS1D
-ArcsCS1D <- function(Xp,Yp,t,c=.5)
+#' t<-2
+#' c<-.4
+#' a<-0; b<-10;
+#' nx<-20; ny<-4;  #try also nx<-40; ny<-10 or nx<-1000; ny<-10;
+#' Xp<-runif(nx,a,b)
+#' Yp<-runif(ny,a,b)
+#'
+#' arcsCS1D(Xp,Yp,t,c)
+#'
+#' @export arcsCS1D
+arcsCS1D <- function(Xp,Yp,t,c=.5)
 {
   xname <-deparse(substitute(Xp))
   yname <-deparse(substitute(Yp))
@@ -2370,7 +2450,7 @@ ArcsCS1D <- function(Xp,Yp,t,c=.5)
   if (!is.point(t,1) || t<=0)
   {stop('t must be a scalar greater than 0')}
 
-  if (!is.point(c,1) || c <= 0 || c >= 1)
+  if (!is.point(c,1) || c<=0 || c>=1)
   {stop('c must be a scalar in (0,1)')}
 
   nx<-length(Xp); ny<-length(Yp)
@@ -2427,7 +2507,7 @@ ArcsCS1D <- function(Xp,Yp,t,c=.5)
           y1<-Ys[i]; y2<-Ys[i+1]; int<-c(y1,y2)
           for (j in 1:ni)
           {x1 <-Xi[j] ; Xinl<-Xi[-j] #to avoid loops
-          v<-rv.mid.int(x1,int,c)$rv
+          v<-rel.vert.mid.int(x1,int,c)$rv
           if (v==1)
           {
             xR<-x1+t*(1-c)*(x1-y1)/c
@@ -2515,12 +2595,12 @@ ArcsCS1D <- function(Xp,Yp,t,c=.5)
 #' @param t A positive real number which serves as the expansion parameter in CS proximity region.
 #' @param c A positive real number in \eqn{(0,1)} parameterizing the center inside middle intervals
 #' with the default \code{c=.5}.
-#' For the interval, \eqn{(a,b)}, the parameterized center is \eqn{M_c=a+c(b-a)}.
+#' For the interval, \code{int}\eqn{=(a,b)}, the parameterized center is \eqn{M_c=a+c(b-a)}.
 #'
 #' @return Incidence matrix for the CS-PCD with vertices being 1D data set, \code{Xp},
 #' and \code{Yp} determines the end points of the intervals (the multi-interval case)
 #'
-#' @seealso \code{\link{IncMatCS1D}}, \code{\link{IncMatPEtri}}, and \code{\link{IncMatPE}}
+#' @seealso \code{\link{inci.matCS1D}}, \code{\link{inci.matPEtri}}, and \code{\link{inci.matPE}}
 #'
 #' @references
 #' \insertAllCited{}
@@ -2528,7 +2608,6 @@ ArcsCS1D <- function(Xp,Yp,t,c=.5)
 #' @author Elvan Ceyhan
 #'
 #' @examples
-#' \dontrun{
 #' t<-2
 #' c<-.4
 #' a<-0; b<-10;
@@ -2538,14 +2617,34 @@ ArcsCS1D <- function(Xp,Yp,t,c=.5)
 #' Xp<-runif(nx,a,b)
 #' Yp<-runif(ny,a,b)
 #'
-#' IM<-IncMatCS1D(Xp,Yp,t,c)
+#' IM<-inci.matCS1D(Xp,Yp,t,c)
 #' IM
-#' dom.greedy(IM) #try also dom.exact(IM)  #might take a long time depending on nx
-#' IndUBdom(IM,5)
+#' dom.num.greedy(IM)
+#' \donttest{
+#' dom.num.exact(IM)  #might take a long time depending on nx
 #' }
+#' Idom.num.up.bnd(IM,5)
 #'
-#' @export IncMatCS1D
-IncMatCS1D <- function(Xp,Yp,t,c=.5)
+#' Arcs<-arcsCS1D(Xp,Yp,t,c)
+#' Arcs
+#' summary(Arcs)
+#' plot(Arcs)
+#'
+#' inci.matCS1D(Xp,Yp+10,t,c)
+#'
+#' t<-2
+#' c<-.4
+#' a<-0; b<-10;
+#' #nx is number of X points (target) and ny is number of Y points (nontarget)
+#' nx<-20; ny<-4;  #try also nx<-40; ny<-10 or nx<-1000; ny<-10;
+#'
+#' Xp<-runif(nx,a,b)
+#' Yp<-runif(ny,a,b)
+#'
+#' inci.matCS1D(Xp,Yp,t,c)
+#'
+#' @export inci.matCS1D
+inci.matCS1D <- function(Xp,Yp,t,c=.5)
 {
   if (!is.point(Xp,length(Xp)) || !is.point(Yp,length(Yp)) )
   {stop('Xp and Yp must be 1D vectors of numerical entries')}
@@ -2553,7 +2652,7 @@ IncMatCS1D <- function(Xp,Yp,t,c=.5)
   if (!is.point(t,1) || t<=0)
   {stop('t must be a scalar greater than 0')}
 
-  if (!is.point(c,1) || c <= 0 || c >= 1)
+  if (!is.point(c,1) || c<=0 || c>=1)
   {stop('c must be a scalar in (0,1)')}
 
   nx<-length(Xp); ny<-length(Yp)
@@ -2583,6 +2682,101 @@ IncMatCS1D <- function(Xp,Yp,t,c=.5)
         }
       }
     }
+    }
+
+    inc.mat<-matrix(0, nrow=nx, ncol=nx)
+    for (i in 1:nx)
+    { reg<-pr[i,]
+    for (j in 1:nx)
+    {
+      inc.mat[i,j]<-sum(Xp[j]>=reg[1] & Xp[j]<reg[2])
+    }
+    }
+  }
+  inc.mat
+} #end of the function
+#'
+
+#################################################################
+
+#' @title Incidence matrix for Central Similarity Proximity Catch Digraphs (CS-PCDs)
+#' for 1D data - one interval case
+#'
+#' @description Returns the incidence matrix for the CS-PCD for a given 1D numerical data set, \code{Xp},
+#' as the vertices of the digraph and \code{int} determines the end points of the interval (in the one interval case).
+#' Loops are allowed, so the diagonal entries are all equal to 1.
+#'
+#' CS proximity region is constructed
+#' with an expansion parameter \eqn{t > 0} and a centrality parameter \eqn{c \in (0,1)}.
+#'
+#' See also (\insertCite{ceyhan:revstat-2016;textual}{pcds}).
+#'
+#' @param Xp a set of 1D points which constitutes the vertices of the digraph.
+#' @param int A \code{vector} of two real numbers representing an interval.
+#' @param t A positive real number which serves as the expansion parameter in CS proximity region.
+#' @param c A positive real number in \eqn{(0,1)} parameterizing the center inside middle intervals
+#' with the default \code{c=.5}.
+#' For the interval, \code{int}\eqn{=(a,b)}, the parameterized center is \eqn{M_c=a+c(b-a)}.
+#'
+#' @return Incidence matrix for the CS-PCD with vertices being 1D data set, \code{Xp},
+#' and \code{int} determines the end points of the intervals (in the one interval case)
+#'
+#' @seealso \code{\link{inci.matCS1D}}, \code{\link{inci.matPE1D}},
+#' \code{\link{inci.matPEtri}}, and \code{\link{inci.matPE}}
+#'
+#' @references
+#' \insertAllCited{}
+#'
+#' @author Elvan Ceyhan
+#'
+#' @examples
+#' \dontrun{
+#' c<-.4
+#' t<-1
+#' a<-0; b<-10; int<-c(a,b)
+#'
+#' xf<-(int[2]-int[1])*.1
+#'
+#' set.seed(123)
+#'
+#' n<-10
+#' Xp<-runif(n,a-xf,b+xf)
+#'
+#' IM<-inci.matCSint(Xp,int,t,c)
+#' IM
+#'
+#' dom.num.greedy(IM)
+#' Idom.num.up.bnd(IM,3)
+#' dom.num.exact(IM)
+#'
+#' inci.matCSint(Xp,int+10,t,c)
+#' }
+#'
+#' @export inci.matCSint
+inci.matCSint <- function(Xp,int,t,c=.5)
+{
+  if (!is.point(Xp,length(Xp)) )
+  {stop('Xp must be a 1D vector of numerical entries')}
+
+  if (!is.point(t,1) || t<=0)
+  {stop('t must be a scalar greater than 0')}
+
+  if (!is.point(c,1) || c <= 0 || c >= 1)
+  {stop('c must be a scalar in (0,1)')}
+
+  nx<-length(Xp); #ny<-length(Yp)
+
+  if (nx==0)
+  {stop('Not enough points to construct PE-PCD')}
+
+  if (nx>=1)
+  {
+    y1=int[1]; y2<-int[2];
+
+    pr<-c() #proximity region
+    for (i in 1:nx)
+    { x1<-Xp[i]
+    pr<-rbind(pr,NCSint(x1,int,t,c))
     }
 
     inc.mat<-matrix(0, nrow=nx, ncol=nx)
@@ -2623,10 +2817,10 @@ IncMatCS1D <- function(Xp,Yp,t,c=.5)
 #' @param t A positive real number which serves as the expansion parameter in CS proximity region.
 #' @param c A positive real number in \eqn{(0,1)} parameterizing the center inside middle intervals
 #' with the default \code{c=.5}.
-#' For the interval, \eqn{(a,b)}, the parameterized center is \eqn{M_c=a+c(b-a)}.
+#' For the interval, \code{int}\eqn{=(a,b)}, the parameterized center is \eqn{M_c=a+c(b-a)}.
 #' @param Jit A positive real number that determines the amount of jitter along the \eqn{y}-axis, default=\code{0.1} and
-#' \code{Xp} points are jittered according to \eqn{U(-Jit,Jit)} distribution along the \eqn{y}-axis
-#' where \code{Jit} equals to the range of the union of \code{Xp} and \code{Yp} points multiplied by \code{Jit}).
+#' \code{Xp} points are jittered according to \eqn{U(-Jit,Jit)} distribution along the \eqn{y}-axis where \code{Jit} equals to the range of \code{Xp} and \code{Yp} and the
+#' proximity regions (intervals) multiplied by \code{Jit}).
 #' @param main An overall title for the plot (default=\code{NULL}).
 #' @param xlab,ylab Titles of the \eqn{x} and \eqn{y} axes in the plot (default=\code{NULL} for both).
 #' @param xlim,ylim Two \code{numeric} vectors of length 2, giving the \eqn{x}- and \eqn{y}-coordinate ranges
@@ -2646,13 +2840,12 @@ IncMatCS1D <- function(Xp,Yp,t,c=.5)
 #' @author Elvan Ceyhan
 #'
 #' @examples
-#' \dontrun{
 #' t<-2
 #' c<-.4
 #' a<-0; b<-10;
 #'
 #' #nx is number of X points (target) and ny is number of Y points (nontarget)
-#' nx<-20; ny<-5;  #try also nx<-40; ny<-10 or nx<-1000; ny<-10;
+#' nx<-20; ny<-4;  #try also nx<-40; ny<-10 or nx<-1000; ny<-10;
 #'
 #' set.seed(1)
 #' xr<-range(a,b)
@@ -2662,7 +2855,8 @@ IncMatCS1D <- function(Xp,Yp,t,c=.5)
 #' Yp<-runif(ny,a,b)
 #'
 #' plotCSregs1D(Xp,Yp,t,c,xlab="",ylab="")
-#' }
+#'
+#' plotCSregs1D(Xp,Yp+10,t,c,xlab="",ylab="")
 #'
 #' @export plotCSregs1D
 plotCSregs1D <- function(Xp,Yp,t,c=.5,Jit=.1,main=NULL,xlab=NULL,ylab=NULL,xlim=NULL,ylim=NULL,centers=FALSE, ...)
@@ -2673,12 +2867,12 @@ plotCSregs1D <- function(Xp,Yp,t,c=.5,Jit=.1,main=NULL,xlab=NULL,ylab=NULL,xlim=
   if (!is.point(t,1) || t<=0)
   {stop('t must be a scalar greater than 0')}
 
-  if (!is.point(c,1) || c <= 0 || c >= 1)
+  if (!is.point(c,1) || c<=0 || c>=1)
   {stop('c must be a scalar in (0,1)')}
 
   nx<-length(Xp); ny<-length(Yp)
 
-  if (ny<1 || nx<1)
+  if (ny < 1 || nx < 1)
   {stop('Both Xp and Yp points must be nonempty to construct PE-PCD')}
 
   LE<-RE<-vector()
@@ -2822,30 +3016,29 @@ plotCSregs1D <- function(Xp,Yp,t,c=.5,Jit=.1,main=NULL,xlab=NULL,ylab=NULL,xlim=
 #' @return \eqn{I(}\code{p} is a dominating point of CS-PCD\eqn{)} where the vertices of the CS-PCD are the 1D data set \code{Xp}),
 #' that is, returns 1 if \code{p} is a dominating point, returns 0 otherwise
 #'
-#' @seealso \code{\link{Gam1PEint}}
+#' @seealso \code{\link{Idom.num1PEint}}
 #'
 #' @author Elvan Ceyhan
 #'
 #' @examples
-#' \dontrun{
 #' t<-2
 #' c<-.4
 #' a<-0; b<-10; int<-c(a,b)
 #'
-#' Mc<-centMc(int,c)
+#' Mc<-centerMc(int,c)
 #' n<-10
 #'
 #' set.seed(1)
 #' Xp<-runif(n,a,b)
 #'
-#' Gam1CSint(Xp[5],Xp,int,t,c)
+#' Idom.num1CSint(Xp[5],Xp,int,t,c)
 #'
-#' Gam1CSint(2,Xp,int,t,c,ch.data.pnt = FALSE)
+#' Idom.num1CSint(2,Xp,int,t,c,ch.data.pnt = FALSE)
 #' #gives an error if ch.data.pnt = TRUE since p is not a data point in Xp
 #'
 #' gam.vec<-vector()
 #' for (i in 1:n)
-#' {gam.vec<-c(gam.vec,Gam1CSint(Xp[i],Xp,int,t,c))}
+#' {gam.vec<-c(gam.vec,Idom.num1CSint(Xp[i],Xp,int,t,c))}
 #'
 #' ind.gam1<-which(gam.vec==1)
 #' ind.gam1
@@ -2855,8 +3048,8 @@ plotCSregs1D <- function(Xp,Yp,t,c=.5,Jit=.1,main=NULL,xlab=NULL,ylab=NULL,xlim=
 #' {domset<-NA}
 #'
 #' #or try
-#' Rv<-rv.mid.int(Xp[5],int,c)$rv
-#' Gam1CSint(Xp[5],Xp,int,t,c,Rv)
+#' Rv<-rel.vert.mid.int(Xp[5],int,c)$rv
+#' Idom.num1CSint(Xp[5],Xp,int,t,c,Rv)
 #'
 #' Xlim<-range(a,b,Xp)
 #' xd<-Xlim[2]-Xlim[1]
@@ -2867,10 +3060,15 @@ plotCSregs1D <- function(Xp,Yp,t,c=.5,Jit=.1,main=NULL,xlab=NULL,ylab=NULL,xlim=
 #' points(cbind(Xp,0))
 #' points(cbind(domset,0),pch=4,col=2)
 #' text(cbind(c(a,b,Mc),-0.1),c("a","b","Mc"))
-#' }
 #'
-#' @export Gam1CSint
-Gam1CSint <- function(p,Xp,int,t,c=.5,rv=NULL,ch.data.pnt=FALSE)
+#' Idom.num1CSint(Xp[5],Xp,int,t,c)
+#'
+#' n<-10
+#' Xp2<-runif(n,a+b,b+10)
+#' Idom.num1CSint(5,Xp2,int,t,c)
+#'
+#' @export Idom.num1CSint
+Idom.num1CSint <- function(p,Xp,int,t,c=.5,rv=NULL,ch.data.pnt=FALSE)
 {
   if (!is.point(p,1) )
   {stop('p must be a scalar')}
@@ -2881,7 +3079,7 @@ Gam1CSint <- function(p,Xp,int,t,c=.5,rv=NULL,ch.data.pnt=FALSE)
   if (!is.point(t,1) || t<=0)
   {stop('t must be a scalar greater than 0')}
 
-  if (!is.point(c,1) || c <= 0 || c >= 1)
+  if (!is.point(c,1) || c<=0 || c>=1)
   {stop('c must be a scalar in (0,1)')}
 
   if (!is.point(int))
@@ -2898,7 +3096,7 @@ Gam1CSint <- function(p,Xp,int,t,c=.5,rv=NULL,ch.data.pnt=FALSE)
   {stop('interval is degenerate or void, left end must be smaller than right end')}
 
   if (is.null(rv))
-  {rv<-rv.mid.int(p,int,c)$rv #determines the vertex region for 1D point p
+  {rv<-rel.vert.mid.int(p,int,c)$rv #determines the vertex region for 1D point p
   } else
   {  if (!is.numeric(rv) || sum(rv==c(1,2,3))!=1)
   {stop('vertex index, rv, must be 1, 2 or 3')}}
@@ -2907,7 +3105,7 @@ Gam1CSint <- function(p,Xp,int,t,c=.5,rv=NULL,ch.data.pnt=FALSE)
   n<-length(Xp)
   dom<-1; i<-1;
   while (i <= n & dom==1)
-  {if (IndNCSint(p,Xp[i],int,t,c)==0)
+  {if (IarcCSint(p,Xp[i],int,t,c)==0)
   {dom<-0;}
     i<-i+1;
   }

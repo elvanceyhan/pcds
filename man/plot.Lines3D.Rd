@@ -9,7 +9,8 @@
 \arguments{
 \item{x}{Object of class \code{Lines3D}.}
 
-\item{xlab, ylab, zlab}{Titles for the \eqn{x}, \eqn{y}, and \eqn{z} axes, respectively (default is \code{xlab="x"}, \code{ylab="y"}
+\item{xlab, ylab, zlab}{Titles for the \eqn{x}, \eqn{y}, and \eqn{z} axes,
+respectively (default is \code{xlab="x"}, \code{ylab="y"}
 and \code{zlab="z"}).}
 
 \item{theta, phi}{The angles defining the viewing direction.
@@ -22,7 +23,8 @@ See \code{\link[plot3D]{persp3D}} for more details.}
 None
 }
 \description{
-Plots the line together with the defining vectors (i.e., the initial and direction vectors).
+Plots the line together with the defining vectors
+(i.e., the initial and direction vectors).
 }
 \examples{
 \dontrun{
@@ -32,7 +34,8 @@ Line3D(P,Q,.1)
 Line3D(P,Q,.1,dir.vec=FALSE)
 
 tr<-range(vecs);
-tf<-(tr[2]-tr[1])*.1 #how far to go at the lower and upper ends in the x-coordinate
+tf<-(tr[2]-tr[1])*.1
+#how far to go at the lower and upper ends in the x-coordinate
 tsq<-seq(-tf*10-tf,tf*10+tf,l=3) #try also l=10, 20 or 100
 
 lnPQ3D<-Line3D(P,Q,tsq)
@@ -42,5 +45,6 @@ plot(lnPQ3D)
 
 }
 \seealso{
-\code{\link{print.Lines3D}}, \code{\link{summary.Lines3D}}, and \code{\link{print.summary.Lines3D}}
+\code{\link{print.Lines3D}}, \code{\link{summary.Lines3D}},
+and \code{\link{print.summary.Lines3D}}
 }

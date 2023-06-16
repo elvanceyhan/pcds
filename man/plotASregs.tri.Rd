@@ -76,14 +76,14 @@ plotASregs.tri(Xp,Tr,M,main="Proximity Regions for AS-PCD", xlab="",ylab="",vert
 
 # or try the default center
 #plotASregs.tri(Xp,Tr,main="Proximity Regions for AS-PCD", xlab="",ylab="",vert.reg=TRUE);
-M = (ArcsAStri(Xp,Tr)$param)$c #the part "M = as.numeric(ArcsAStri(Xp,Tr)$param)" is optional,
+M = (arcsAStri(Xp,Tr)$param)$c #the part "M = as.numeric(arcsAStri(Xp,Tr)$param)" is optional,
 #for the below annotation of the plot
 
 #can add vertex labels and text to the figure (with vertex regions)
 #but first we need to determine whether the center used for vertex regions is CC or not
 #see the description for more detail.
-CC<-circ.cent.tri(Tr)
-#Arcs<-ArcsAStri(Xp,Tr,M)
+CC<-circumcenter.tri(Tr)
+#Arcs<-arcsAStri(Xp,Tr,M)
 #M = as.numeric(Arcs$parameters)
 if (isTRUE(all.equal(M,CC)) || identical(M,"CC"))
 {cent<-CC
@@ -93,7 +93,7 @@ cent.name<-"CC"
 } else
 {cent<-M
 cent.name<-"M"
-Ds<-cent2edges.tri(Tr,M)
+Ds<-prj.cent2edges(Tr,M)
 }
 
 #now we add the vertex names and annotation

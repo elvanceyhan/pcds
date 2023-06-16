@@ -2,7 +2,8 @@
 % Please edit documentation in R/PropEdge2D.R
 \name{plotPEregs}
 \alias{plotPEregs}
-\title{The plot of the Proportional Edge (PE) Proximity Regions for a 2D data set - multiple triangle case}
+\title{The plot of the Proportional Edge (PE) Proximity Regions
+for a 2D data set - multiple triangle case}
 \usage{
 plotPEregs(
   Xp,
@@ -19,48 +20,65 @@ plotPEregs(
 )
 }
 \arguments{
-\item{Xp}{A set of 2D points for which PE proximity regions are constructed.}
+\item{Xp}{A set of 2D points
+for which PE proximity regions are constructed.}
 
-\item{Yp}{A set of 2D points which constitute the vertices of the Delaunay triangles.}
+\item{Yp}{A set of 2D points
+which constitute the vertices of the Delaunay triangles.}
 
-\item{r}{A positive real number which serves as the expansion parameter in PE proximity region;
+\item{r}{A positive real number
+which serves as the expansion parameter in PE proximity region;
 must be \eqn{\ge 1}.}
 
-\item{M}{A 3D point in barycentric coordinates which serves as a center in the interior of each Delaunay
-triangle or circumcenter of each Delaunay triangle (for this, argument should be set as \code{M="CC"}),
-default for \eqn{M=(1,1,1)} which is the center of mass of each triangle.}
+\item{M}{A 3D point in barycentric coordinates
+which serves as a center in the interior of each Delaunay
+triangle or circumcenter of each Delaunay triangle
+(for this, argument should be set as \code{M="CC"}),
+default for \eqn{M=(1,1,1)}
+ which is the center of mass of each triangle.}
 
-\item{asp}{A \code{numeric} value, giving the aspect ratio \eqn{y/x} (default is \code{NA}),
+\item{asp}{A \code{numeric} value,
+giving the aspect ratio \eqn{y/x} (default is \code{NA}),
 see the official help page for \code{asp} by typing "\code{? asp}".}
 
 \item{main}{An overall title for the plot (default=\code{NULL}).}
 
-\item{xlab, ylab}{Titles for the \eqn{x} and \eqn{y} axes, respectively (default=\code{NULL} for both)}
+\item{xlab, ylab}{Titles for the \eqn{x} and \eqn{y} axes,
+respectively (default=\code{NULL} for both)}
 
-\item{xlim, ylim}{Two \code{numeric} vectors of length 2, giving the \eqn{x}- and \eqn{y}-coordinate ranges
+\item{xlim, ylim}{Two \code{numeric} vectors of length 2,
+giving the \eqn{x}- and \eqn{y}-coordinate ranges
 (default=\code{NULL} for both).}
 
 \item{\dots}{Additional \code{plot} parameters.}
 }
 \value{
-Plot of the \code{Xp} points, Delaunay triangles based on \code{Yp} points and also the PE proximity regions
+Plot of the \code{Xp} points,
+Delaunay triangles based on \code{Yp} points
+and also the PE proximity regions
 for \code{Xp} points inside the convex hull of \code{Yp} points
 }
 \description{
-Plots the points in and outside of the Delaunay triangles based on \code{Yp} points which partition
+Plots the points in and outside of the Delaunay triangles
+based on \code{Yp} points which partition
 the convex hull of \code{Yp} points and also plots the PE proximity regions
 for \code{Xp} points and the Delaunay triangles based on \code{Yp} points.
 
-PE proximity regions are constructed with respect to the Delaunay triangles with the expansion parameter
+PE proximity regions are constructed
+with respect to the Delaunay triangles with the expansion parameter
 \eqn{r \ge 1}.
 
-Vertex regions in each triangle is based on the center \eqn{M=(\alpha,\beta,\gamma)}
-in barycentric coordinates in the interior of each Delaunay triangle or based on circumcenter of
-each Delaunay triangle (default for \eqn{M=(1,1,1)} which is the center of mass of the triangle).
+Vertex regions in each triangle is
+based on the center \eqn{M=(\alpha,\beta,\gamma)}
+in barycentric coordinates in the interior of each Delaunay triangle
+or based on circumcenter of
+each Delaunay triangle (default for \eqn{M=(1,1,1)}
+which is the center of mass of the triangle).
 
-See (\insertCite{ceyhan:Phd-thesis,ceyhan:arc-density-PE,ceyhan:dom-num-NPE-Spat2011;textual}{pcds}) for more
-on the PE proximity regions.
-Also see (\insertCite{okabe:2000,ceyhan:comp-geo-2010,sinclair:2016;textual}{pcds}) for more on Delaunay triangulation and the corresponding algorithm.
+See (\insertCite{ceyhan:Phd-thesis,ceyhan:arc-density-PE,ceyhan:dom-num-NPE-Spat2011;textual}{pcds})
+for more on the PE proximity regions.
+Also, see (\insertCite{okabe:2000,ceyhan:comp-geo-2010,sinclair:2016;textual}{pcds})
+for more on Delaunay triangulation and the corresponding algorithm.
 }
 \examples{
 \dontrun{
@@ -69,7 +87,8 @@ nx<-20; ny<-5;  #try also nx<-40; ny<-10 or nx<-1000; ny<-10;
 
 set.seed(1)
 Xp<-cbind(runif(nx,0,1),runif(nx,0,1))
-Yp<-cbind(runif(ny,0,.25),runif(ny,0,.25))+cbind(c(0,0,0.5,1,1),c(0,1,.5,0,1))
+Yp<-cbind(runif(ny,0,.25),
+runif(ny,0,.25))+cbind(c(0,0,0.5,1,1),c(0,1,.5,0,1))
 #try also Yp<-cbind(runif(ny,0,1),runif(ny,0,1))
 
 M<-c(1,1,1)  #try also M<-c(1,2,3)
@@ -83,7 +102,8 @@ plotPEregs(Xp,Yp,r,M,xlab="",ylab="")
 \insertAllCited{}
 }
 \seealso{
-\code{\link{plotPEregs.tri}}, \code{\link{plotASregs}} and \code{\link{plotCSregs}}
+\code{\link{plotPEregs.tri}}, \code{\link{plotASregs}},
+and \code{\link{plotCSregs}}
 }
 \author{
 Elvan Ceyhan

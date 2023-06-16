@@ -5,7 +5,7 @@
 
 # funsTbMid2CC
 #'
-#' @title Two functions \code{lD1CCinTb} and \code{lD2CCinTb} which are of class \code{"TriLines"} ---
+#' @title Two functions \code{lineD1CCinTb} and \code{lineD2CCinTb} which are of class \code{"TriLines"} ---
 #' The lines joining the midpoints of edges to the circumcenter (\eqn{CC}) in the standard basic triangle.
 #'
 #' @description Returns the \code{equation, slope, intercept}, and \eqn{y}-coordinates of the lines
@@ -42,8 +42,8 @@
 #' @name funsTbMid2CC
 NULL
 #'
-#' @seealso \code{\link{lA_CM.Te}}, \code{\link{lB_CM.Te}}, \code{\link{lA_M.Te}}, \code{\link{lB_M.Te}},
-#' and \code{\link{lC_M.Te}}
+#' @seealso \code{\link{lineA2CMinTe}}, \code{\link{lineB2CMinTe}}, \code{\link{lineA2MinTe}},
+#' \code{\link{lineB2MinTe}}, and \code{\link{lineC2MinTe}}
 #'
 #' @rdname funsTbMid2CC
 #'
@@ -51,7 +51,7 @@ NULL
 #'
 #' @examples
 #' \dontrun{
-#' #Examples for lD1CCinTb
+#' #Examples for lineD1CCinTb
 #' c1<-.4; c2<-.6;
 #' A<-c(0,0); B<-c(1,0); C<-c(c1,c2);  #the vertices of the standard basic triangle Tb
 #'
@@ -60,18 +60,18 @@ NULL
 #' xfence<-abs(A[1]-B[1])*.25 #how far to go at the lower and upper ends in the x-coordinate
 #' x<-seq(min(A[1],B[1])-xfence,max(A[1],B[1])+xfence,by=.1)  #try also by=.01
 #'
-#' lnD1CC<-lD1CCinTb(x,c1,c2)
+#' lnD1CC<-lineD1CCinTb(x,c1,c2)
 #' lnD1CC
 #' summary(lnD1CC)
 #' plot(lnD1CC)
 #'
-#' CC<-circ.cent.bas.tri(c1,c2)  #the circumcenter
+#' CC<-circumcenter.basic.tri(c1,c2)  #the circumcenter
 #' CC
 #' D1<-(B+C)/2; D2<-(A+C)/2; D3<-(A+B)/2; #midpoints of the edges
 #' Ds<-rbind(D1,D2,D3)
 #'
 #' x1<-seq(0,1,by=.1)  #try also by=.01
-#' y1<-lD1CCinTb(x1,c1,c2)$y
+#' y1<-lineD1CCinTb(x1,c1,c2)$y
 #'
 #' Xlim<-range(Tb[,1],x1)
 #' Ylim<-range(Tb[,2],y1)
@@ -90,15 +90,15 @@ NULL
 #' text(xc,yc,txt.str)
 #'
 #' lines(x1,y1,type="l",lty=2)
-#' text(.8,.5,"lD1CCinTb")
+#' text(.8,.5,"lineD1CCinTb")
 #'
 #' c1<-.4; c2<-.6;
 #' x1<-seq(0,1,by=.1)  #try also by=.01
-#' lD1CCinTb(x1,c1,c2)
+#' lineD1CCinTb(x1,c1,c2)
 #' }
 #'
 #' @export
-lD1CCinTb <- function(x,c1,c2)
+lineD1CCinTb <- function(x,c1,c2)
 {
   dname <-deparse(substitute(x))
 
@@ -113,7 +113,7 @@ lD1CCinTb <- function(x,c1,c2)
 
   A<-c(0,0); B<-c(1,0); C<-c(c1,c2);  #the vertices of the standard basic triangle
   Tr<-rbind(A,B,C)
-  M<-circ.cent.tri(Tr)
+  M<-circumcenter.tri(Tr)
 
   sl<-(1-c1)/c2
   int<--1/2*(-c2^2-c1^2-2*0+2*c1*0+1)/c2
@@ -124,7 +124,7 @@ lD1CCinTb <- function(x,c1,c2)
   cname <-"CC"
 
   txt1<-"Line joining midpoint of the edge BC, D1, to CC (circumcenter) in the standard basic triangle Tb=T(A,B,C)=T((0,0),(1,0),(c1,c2))"
-  txt2<-paste("lD1CCinTb(",dname,")",sep="")
+  txt2<-paste("lineD1CCinTb(",dname,")",sep="")
 
   res<-list(
     txt1=txt1, txt2=txt2,
@@ -146,7 +146,7 @@ lD1CCinTb <- function(x,c1,c2)
 #'
 #' @examples
 #' \dontrun{
-#' #Examples for lD2CCinTb
+#' #Examples for lineD2CCinTb
 #' c1<-.4; c2<-.6;
 #' A<-c(0,0); B<-c(1,0); C<-c(c1,c2);  #the vertices of the standard basic triangle Tb
 #'
@@ -155,18 +155,18 @@ lD1CCinTb <- function(x,c1,c2)
 #' xfence<-abs(A[1]-B[1])*.25 #how far to go at the lower and upper ends in the x-coordinate
 #' x<-seq(min(A[1],B[1])-xfence,max(A[1],B[1])+xfence,by=.1)  #try also by=.01
 #'
-#' lnD2CC<-lD2CCinTb(x,c1,c2)
+#' lnD2CC<-lineD2CCinTb(x,c1,c2)
 #' lnD2CC
 #' summary(lnD2CC)
 #' plot(lnD2CC)
 #'
-#' CC<-circ.cent.bas.tri(c1,c2)  #the circumcenter
+#' CC<-circumcenter.basic.tri(c1,c2)  #the circumcenter
 #' CC
 #' D1<-(B+C)/2; D2<-(A+C)/2; D3<-(A+B)/2; #midpoints of the edges
 #' Ds<-rbind(D1,D2,D3)
 #'
 #' x2<-seq(0,1,by=.1)  #try also by=.01
-#' y2<-lD2CCinTb(x2,c1,c2)$y
+#' y2<-lineD2CCinTb(x2,c1,c2)$y
 #'
 #' Xlim<-range(Tb[,1],x1)
 #' Ylim<-range(Tb[,2],y2)
@@ -185,11 +185,11 @@ lD1CCinTb <- function(x,c1,c2)
 #' text(xc,yc,txt.str)
 #'
 #' lines(x2,y2,type="l",lty=2)
-#' text(0,.5,"lD2CCinTb")
+#' text(0,.5,"lineD2CCinTb")
 #' }
 #'
 #' @export
-lD2CCinTb <- function(x,c1,c2)
+lineD2CCinTb <- function(x,c1,c2)
 {
   dname <-deparse(substitute(x))
 
@@ -204,7 +204,7 @@ lD2CCinTb <- function(x,c1,c2)
 
   A<-c(0,0); B<-c(1,0); C<-c(c1,c2);  #the vertices of the standard basic triangle
   Tr<-rbind(A,B,C)
-  M<-circ.cent.tri(Tr)
+  M<-circumcenter.tri(Tr)
 
   sl<--c1/c2
   int<--1/2*(-c2^2-c1^2+2*c1*0)/c2
@@ -215,7 +215,7 @@ lD2CCinTb <- function(x,c1,c2)
   cname <-"CC"
 
   txt1<-"Line joining midpoint of the edge AC, D2, to CC (circumcenter) in the standard basic triangle Tb=T(A,B,C)=T((0,0),(1,0),(c1,c2))"
-  txt2<-paste("lD2CCinTb(",dname,")",sep="")
+  txt2<-paste("lineD2CCinTb(",dname,")",sep="")
 
   res<-list(
     txt1=txt1, txt2=txt2,
@@ -462,7 +462,7 @@ angle.str2end <- function(a,b,c,radian=TRUE)
 #' @return point(s) of intersection between the circle and the line (if they do not intersect, the function
 #' yields \code{NULL} as the output)
 #'
-#' @seealso \code{\link{int.2lines}}
+#' @seealso \code{\link{intersect2lines}}
 #'
 #' @author Elvan Ceyhan
 #'
@@ -473,21 +473,21 @@ angle.str2end <- function(a,b,c,radian=TRUE)
 #' cent<-c(1.1,1.1)*100
 #' rad<-2*100
 #'
-#' int.circ.line(P1,P2,cent,rad)
-#' int.circ.line(P2,P1,cent,rad)
-#' int.circ.line(P1,P1+c(0,1),cent,rad)
-#' int.circ.line(P1+c(0,1),P1,cent,rad)
+#' intersect.line.circle(P1,P2,cent,rad)
+#' intersect.line.circle(P2,P1,cent,rad)
+#' intersect.line.circle(P1,P1+c(0,1),cent,rad)
+#' intersect.line.circle(P1+c(0,1),P1,cent,rad)
 #'
 #' dist.point2line(cent,P1,P2)
 #' rad2<-dist.point2line(cent,P1,P2)$d
-#' int.circ.line(P1,P2,cent,rad2)
-#' int.circ.line(P1,P2,cent,rad=.8)
-#' int.circ.line(P1,P2,cent,rad=.78)
+#' intersect.line.circle(P1,P2,cent,rad2)
+#' intersect.line.circle(P1,P2,cent,rad=.8)
+#' intersect.line.circle(P1,P2,cent,rad=.78)
 #'
 #' #plot of the line and the circle
 #' A<-c(.3,.2); B<-c(.6,.3); cent<-c(1,1); rad<-2 #check dist.point2line(cent,A,B)$dis, .3
 #'
-#' IPs<-int.circ.line(A,B,cent,rad)
+#' IPs<-intersect.line.circle(A,B,cent,rad)
 #'
 #' xr<-range(A[1],B[1],cent[1])
 #' xf<-(xr[2]-xr[1])*.1 #how far to go at the lower and upper ends in the x-coordinate
@@ -514,8 +514,8 @@ angle.str2end <- function(a,b,c,radian=TRUE)
 #' text(txt+cbind(rep(xd*.03,nrow(txt)),rep(-yd*.03,nrow(txt))),c("A","B","M",IP.txt))
 #' }
 #'
-#' @export int.circ.line
-int.circ.line <- function(p1,p2,cent,rad)
+#' @export intersect.line.circle
+intersect.line.circle <- function(p1,p2,cent,rad)
 {
   if (!is.point(p1) || !is.point(p2) || !is.point(cent) )
   {stop('p1 and p2 and cent must be all numeric 2D points')}
@@ -625,7 +625,7 @@ int.circ.line <- function(p1,p2,cent,rad)
 #' Here points in row 1 and row 2 constitute the end points of one arc-slice, points on row 3 and row 4
 #' constitute the end points for the next arc-slice and so on.}
 #'
-#' @seealso \code{\link{NAStri}} and \code{\link{IndNASbas.tri}}
+#' @seealso \code{\link{NAStri}} and \code{\link{IarcASbasic.tri}}
 #'
 #' @references
 #' \insertAllCited{}
@@ -639,47 +639,47 @@ int.circ.line <- function(p1,p2,cent,rad)
 #' Tb<-rbind(A,B,C)
 #'
 #' set.seed(1)
-#' M<-as.numeric(runif.bas.tri(1,c1,c2)$g)  #try also M<-c(.6,.2)
+#' M<-as.numeric(runif.basic.tri(1,c1,c2)$g)  #try also M<-c(.6,.2)
 #'
-#' P1<-as.numeric(runif.bas.tri(1,c1,c2)$g);  #try also P1<-c(.3,.2)
-#' NASbas.tri(P1,c1,c2)  #default with M="CC"
-#' NASbas.tri(P1,c1,c2,M)
+#' P1<-as.numeric(runif.basic.tri(1,c1,c2)$g);  #try also P1<-c(.3,.2)
+#' NASbasic.tri(P1,c1,c2)  #default with M="CC"
+#' NASbasic.tri(P1,c1,c2,M)
 #'
 #' #or try
-#' Rv<-rv.bas.triCC(P1,c1,c2)$rv
-#' NASbas.tri(P1,c1,c2,M,Rv)
+#' Rv<-rel.vert.basic.triCC(P1,c1,c2)$rv
+#' NASbasic.tri(P1,c1,c2,M,Rv)
 #'
-#' NASbas.tri(c(3,5),c1,c2,M)
+#' NASbasic.tri(c(3,5),c1,c2,M)
 #'
 #' P2<-c(.5,.4)
-#' NASbas.tri(P2,c1,c2,M)
+#' NASbasic.tri(P2,c1,c2,M)
 #'
 #' P3<-c(1.5,.4)
-#' NASbas.tri(P3,c1,c2,M)
+#' NASbasic.tri(P3,c1,c2,M)
 #'
 #' if (dimension(M)==3) {M<-bary2cart(M,Tr)}
 #' #need to run this when M is given in barycentric coordinates
 #'
 #' #plot of the NAS region
-#' P1<-as.numeric(runif.bas.tri(1,c1,c2)$g);
-#' CC<-circ.cent.bas.tri(c1,c2)
+#' P1<-as.numeric(runif.basic.tri(1,c1,c2)$g);
+#' CC<-circumcenter.basic.tri(c1,c2)
 #'
 #' if (isTRUE(all.equal(M,CC)) || identical(M,"CC"))
 #' {cent<-CC
 #' D1<-(B+C)/2; D2<-(A+C)/2; D3<-(A+B)/2;
 #' Ds<-rbind(D1,D2,D3)
 #' cent.name<-"CC"
-#' rv<-rv.bas.triCC(P1,c1,c2)$rv
+#' rv<-rel.vert.basic.triCC(P1,c1,c2)$rv
 #' } else
 #' {cent<-M
 #' cent.name<-"M"
-#' Ds<-cent2edges.bas.tri(c1,c2,M)
-#' rv<-rv.bas.tri.cent(P1,c1,c2,M)$rv
+#' Ds<-prj.cent2edges.basic.tri(c1,c2,M)
+#' rv<-rel.vert.basic.tri(P1,c1,c2,M)$rv
 #' }
 #' RV<-Tb[rv,]
 #' rad<-Dist(P1,RV)
 #'
-#' Int.Pts<-NASbas.tri(P1,c1,c2,M)
+#' Int.Pts<-NASbasic.tri(P1,c1,c2,M)
 #'
 #' Xlim<-range(Tb[,1],P1[1]+rad,P1[1]-rad)
 #' Ylim<-range(Tb[,2],P1[2]+rad,P1[2]-rad)
@@ -721,11 +721,11 @@ int.circ.line <- function(p1,p2,cent,rad)
 #'
 #' c1<-.4; c2<-.6;
 #' P1<-c(.3,.2)
-#' NASbas.tri(P1,c1,c2,M)
+#' NASbasic.tri(P1,c1,c2,M)
 #' }
 #'
-#' @export NASbas.tri
-NASbas.tri <- function(p,c1,c2,M="CC",rv=NULL,dec=4)
+#' @export NASbasic.tri
+NASbasic.tri <- function(p,c1,c2,M="CC",rv=NULL,dec=4)
 {
   if (!is.point(p))
   {stop('p must be a numeric 2D point')}
@@ -736,21 +736,21 @@ NASbas.tri <- function(p,c1,c2,M="CC",rv=NULL,dec=4)
   if (c1<0 || c1>1/2 || c2<=0 || (1-c1)^2+c2^2 >1)
   {stop('c1 must be in [0,1/2], c2 > 0 and (1-c1)^2+c2^2 <= 1')}
 
-    if (!(is.point(M) || is.point(M,3) || identical(M,"CC")))
+  if (!(is.point(M) || is.point(M,3) || identical(M,"CC")))
   {stop('M must be the circumcenter "CC" or a numeric 2D point for Cartesian coordinates or
           3D point for barycentric coordinates')}
 
   y1<-c(0,0); y2<-c(1,0); y3<-c(c1,c2); Tb<-rbind(y1,y2,y3)
 
-  CC = circ.cent.tri(Tb)
+  CC = circumcenter.tri(Tb)
   if (identical(M,"CC") )
-    { M<-CC }
+  { M<-CC }
 
-    if (dimension(M)==3)
-    {M<-bary2cart(M,Tb)}
+  if (dimension(M)==3)
+  {M<-bary2cart(M,Tb)}
 
-    if (!(isTRUE(all.equal(M,CC)) || in.triangle(M,Tb,boundary=FALSE)$in.tri))
-    {stop('center is not the circumcenter or not in the interior of the triangle')}
+  if (!(isTRUE(all.equal(M,CC)) || in.triangle(M,Tb,boundary=FALSE)$in.tri))
+  {stop('center is not the circumcenter or not in the interior of the triangle')}
 
   #If p is outside the closed triangle
   if (!in.triangle(p,Tb,boundary=TRUE)$in.tri)
@@ -761,7 +761,7 @@ NASbas.tri <- function(p,c1,c2,M="CC",rv=NULL,dec=4)
   {reg<-list(L=p, R=p, Arc.Slices=NULL); return(reg); stop}
 
   if (is.null(rv))
-  { rv<-ifelse(isTRUE(all.equal(M,CC)),rv.bas.triCC(p,c1,c2)$rv,rv.bas.tri.cent(p,c1,c2,M)$rv)  #vertex region for pt
+  { rv<-ifelse(isTRUE(all.equal(M,CC)),rel.vert.basic.triCC(p,c1,c2)$rv,rel.vert.basic.tri(p,c1,c2,M)$rv)  #vertex region for pt
   } else
   {  if (!is.numeric(rv) || sum(rv==c(1,2,3))!=1)
   {stop('vertex index, rv, must be 1, 2 or 3')}}
@@ -777,7 +777,7 @@ NASbas.tri <- function(p,c1,c2,M="CC",rv=NULL,dec=4)
       Arc.Pts<-NULL
     } else
     {
-      pts1<-int.circ.line(y1,y2,p,rad); pts2<-int.circ.line(y2,y3,p,rad); pts3<-int.circ.line(y1,y3,p,rad)
+      pts1<-intersect.line.circle(y1,y2,p,rad); pts2<-intersect.line.circle(y2,y3,p,rad); pts3<-intersect.line.circle(y1,y3,p,rad)
 
       if (length(pts1)/2>1)
       {p1<-y1; p2<-pts1[2,]
@@ -827,7 +827,7 @@ NASbas.tri <- function(p,c1,c2,M="CC",rv=NULL,dec=4)
         Arc.Pts<-NULL
       } else
       {
-        pts1<-int.circ.line(y2,y3,p,rad); pts2<-int.circ.line(y3,y1,p,rad); pts3<-int.circ.line(y2,y1,p,rad)
+        pts1<-intersect.line.circle(y2,y3,p,rad); pts2<-intersect.line.circle(y3,y1,p,rad); pts3<-intersect.line.circle(y2,y1,p,rad)
 
         if (length(pts1)/2>1)
         {
@@ -876,7 +876,7 @@ NASbas.tri <- function(p,c1,c2,M="CC",rv=NULL,dec=4)
         Arc.Pts<-NULL
       } else
       {
-        pts1<-int.circ.line(y3,y1,p,rad); pts2<-int.circ.line(y1,y2,p,rad); pts3<-int.circ.line(y3,y2,p,rad)
+        pts1<-intersect.line.circle(y3,y1,p,rad); pts2<-intersect.line.circle(y1,y2,p,rad); pts3<-intersect.line.circle(y3,y2,p,rad)
 
         if (length(pts1)/2>1)
         { p1<-y3; p2<-pts1[2,]
@@ -981,7 +981,7 @@ NASbas.tri <- function(p,c1,c2,M="CC",rv=NULL,dec=4)
 #' @return \eqn{I(p2 \in N_{AS}(p1))} for points \code{p1} and \code{p2}, that is, returns 1 if \eqn{p2} is in \eqn{N_{AS}(p1)}
 #' (i.e., if there is an arc from \code{p1} to \code{p2}), returns 0 otherwise.
 #'
-#' @seealso \code{\link{IndNAStri}} and \code{\link{NAStri}}
+#' @seealso \code{\link{IarcAStri}} and \code{\link{NAStri}}
 #'
 #' @references
 #' \insertAllCited{}
@@ -994,39 +994,39 @@ NASbas.tri <- function(p,c1,c2,M="CC",rv=NULL,dec=4)
 #' A<-c(0,0); B<-c(1,0); C<-c(c1,c2);
 #' Tb<-rbind(A,B,C)
 #'
-#' M<-as.numeric(runif.bas.tri(1,c1,c2)$g)  #try also M<-c(.6,.2)
+#' M<-as.numeric(runif.basic.tri(1,c1,c2)$g)  #try also M<-c(.6,.2)
 #'
-#' P1<-as.numeric(runif.bas.tri(1,c1,c2)$g)
-#' P2<-as.numeric(runif.bas.tri(1,c1,c2)$g)
-#' IndNASbas.tri(P1,P2,c1,c2,M)
+#' P1<-as.numeric(runif.basic.tri(1,c1,c2)$g)
+#' P2<-as.numeric(runif.basic.tri(1,c1,c2)$g)
+#' IarcASbasic.tri(P1,P2,c1,c2,M)
 #'
 #' P1<-c(.3,.2)
 #' P2<-c(.6,.2)
-#' IndNASbas.tri(P1,P2,c1,c2,M)
+#' IarcASbasic.tri(P1,P2,c1,c2,M)
 #'
 #' #or try
-#' Rv<-rv.bas.triCC(P1,c1,c2)$rv
-#' IndNASbas.tri(P1,P2,c1,c2,M,Rv)
+#' Rv<-rel.vert.basic.triCC(P1,c1,c2)$rv
+#' IarcASbasic.tri(P1,P2,c1,c2,M,Rv)
 #'
 #' P1<-c(.3,.2)
 #' P2<-c(.8,.2)
-#' IndNASbas.tri(P1,P2,c1,c2,M)
+#' IarcASbasic.tri(P1,P2,c1,c2,M)
 #'
 #' P3<-c(.5,.4)
-#' IndNASbas.tri(P1,P3,c1,c2,M)
+#' IarcASbasic.tri(P1,P3,c1,c2,M)
 #'
 #' P4<-c(1.5,.4)
-#' IndNASbas.tri(P1,P4,c1,c2,M)
-#' IndNASbas.tri(P4,P4,c1,c2,M)
+#' IarcASbasic.tri(P1,P4,c1,c2,M)
+#' IarcASbasic.tri(P4,P4,c1,c2,M)
 #'
 #' c1<-.4; c2<-.6;
 #' P1<-c(.3,.2)
 #' P2<-c(.6,.2)
-#' IndNASbas.tri(P1,P2,c1,c2,M)
+#' IarcASbasic.tri(P1,P2,c1,c2,M)
 #' }
 #'
-#' @export IndNASbas.tri
-IndNASbas.tri <- function(p1,p2,c1,c2,M="CC",rv=NULL)
+#' @export IarcASbasic.tri
+IarcASbasic.tri <- function(p1,p2,c1,c2,M="CC",rv=NULL)
 {
   if (!is.point(p1) || !is.point(p2) )
   {stop('p1 and p2 must both be numeric 2D points')}
@@ -1043,7 +1043,7 @@ IndNASbas.tri <- function(p1,p2,c1,c2,M="CC",rv=NULL)
 
   y1<-c(0,0); y2<-c(1,0); y3<-c(c1,c2); Tb<-rbind(y1,y2,y3)
 
-  CC = circ.cent.tri(Tb)
+  CC = circumcenter.tri(Tb)
   if (identical(M,"CC") )
   { M<-CC }
 
@@ -1060,7 +1060,7 @@ IndNASbas.tri <- function(p1,p2,c1,c2,M="CC",rv=NULL)
   {arc<-0; return(arc); stop}
 
   if (is.null(rv))
-  { rv<-ifelse(isTRUE(all.equal(M,CC)),rv.bas.triCC(p1,c1,c2)$rv,rv.bas.tri.cent(p1,c1,c2,M)$rv)  #vertex region for pt
+  { rv<-ifelse(isTRUE(all.equal(M,CC)),rel.vert.basic.triCC(p1,c1,c2)$rv,rel.vert.basic.tri(p1,c1,c2,M)$rv)  #vertex region for pt
   } else
   {  if (!is.numeric(rv) || sum(rv==c(1,2,3))!=1)
   {stop('vertex index, rv, must be 1, 2 or 3')}}
@@ -1121,7 +1121,7 @@ IndNASbas.tri <- function(p1,p2,c1,c2,M="CC",rv=NULL)
 #' \item{Angles}{The angles (in radians) between the vectors joining arc slice end points to the point \code{p}
 #' with the horizontal line crossing the point \code{p}}
 #'
-#' @seealso \code{\link{NASbas.tri}}, \code{\link{NPEtri}}, \code{\link{NCStri}} and \code{\link{IndNAStri}}
+#' @seealso \code{\link{NASbasic.tri}}, \code{\link{NPEtri}}, \code{\link{NCStri}} and \code{\link{IarcAStri}}
 #'
 #' @references
 #' \insertAllCited{}
@@ -1139,7 +1139,7 @@ IndNASbas.tri <- function(p1,p2,c1,c2,M="CC",rv=NULL)
 #' NAStri(P1,Tr,M)
 #'
 #' #or try
-#' Rv<-rv.triCC(P1,Tr)$rv
+#' Rv<-rel.vert.triCC(P1,Tr)$rv
 #' NAStri(P1,Tr,M,Rv)
 #'
 #' NAStri(c(3,5),Tr,M)
@@ -1153,19 +1153,19 @@ IndNASbas.tri <- function(p1,p2,c1,c2,M="CC",rv=NULL)
 #' if (dimension(M)==3) {M<-bary2cart(M,Tr)}
 #' #need to run this when M is given in barycentric coordinates
 #'
-#' CC<-circ.cent.tri(Tr)  #the circumcenter
+#' CC<-circumcenter.tri(Tr)  #the circumcenter
 #'
 #' if (isTRUE(all.equal(M,CC)) || identical(M,"CC"))
 #' {cent<-CC
 #' D1<-(B+C)/2; D2<-(A+C)/2; D3<-(A+B)/2;
 #' Ds<-rbind(D1,D2,D3)
 #' cent.name<-"CC"
-#' rv<-rv.triCC(P1,Tr)$rv
+#' rv<-rel.vert.triCC(P1,Tr)$rv
 #' } else
 #' {cent<-M
 #' cent.name<-"M"
-#' Ds<-cent2edges.tri(Tr,M)
-#' rv<-rv.tri.cent(P1,Tr,M)$rv
+#' Ds<-prj.cent2edges(Tr,M)
+#' rv<-rel.vert.tri(P1,Tr,M)$rv
 #' }
 #' RV<-Tr[rv,]
 #' rad<-Dist(P1,RV)
@@ -1238,7 +1238,7 @@ NAStri <- function(p,tri,M="CC",rv=NULL,dec=4)
   {stop('M must be the circumcenter "CC" or a numeric 2D point for Cartesian coordinates or
           3D point for barycentric coordinates')}
 
-  CC = circ.cent.tri(tri)
+  CC = circumcenter.tri(tri)
   if (identical(M,"CC") )
   { M<-CC }
 
@@ -1260,7 +1260,7 @@ NAStri <- function(p,tri,M="CC",rv=NULL,dec=4)
   ifelse(Tr[2,2]>Tr[3,2],tri<-Tr[c(1,3,2),],tri<-Tr)   #arcs are provided in counter-clockwise
 
   if (is.null(rv))
-  { rv<-ifelse(isTRUE(all.equal(M,CC)),rv.triCC(p,tri)$rv,rv.tri.cent(p,tri,M)$rv)  #vertex region for p
+  { rv<-ifelse(isTRUE(all.equal(M,CC)),rel.vert.triCC(p,tri)$rv,rel.vert.tri(p,tri,M)$rv)  #vertex region for p
   } else
   {  if (!is.numeric(rv) || sum(rv==c(1,2,3))!=1)
   {stop('vertex index, rv, must be 1, 2 or 3')}}
@@ -1276,7 +1276,7 @@ NAStri <- function(p,tri,M="CC",rv=NULL,dec=4)
     Arc.Pts<-NULL
   } else
   {
-    pts1<-int.circ.line(y1,y2,p,rad); pts2<-int.circ.line(y2,y3,p,rad); pts3<-int.circ.line(y1,y3,p,rad)
+    pts1<-intersect.line.circle(y1,y2,p,rad); pts2<-intersect.line.circle(y2,y3,p,rad); pts3<-intersect.line.circle(y1,y3,p,rad)
 
     if (length(pts1)/2>1)
     {p1<-y1; p2<-pts1[2,]
@@ -1326,7 +1326,7 @@ NAStri <- function(p,tri,M="CC",rv=NULL,dec=4)
         Arc.Pts<-NULL
       } else
       {
-        pts1<-int.circ.line(y2,y3,p,rad); pts2<-int.circ.line(y3,y1,p,rad); pts3<-int.circ.line(y2,y1,p,rad)
+        pts1<-intersect.line.circle(y2,y3,p,rad); pts2<-intersect.line.circle(y3,y1,p,rad); pts3<-intersect.line.circle(y2,y1,p,rad)
 
         if (length(pts1)/2>1)
         {
@@ -1375,7 +1375,7 @@ NAStri <- function(p,tri,M="CC",rv=NULL,dec=4)
         Arc.Pts<-NULL
       } else
       {
-        pts1<-int.circ.line(y3,y1,p,rad); pts2<-int.circ.line(y1,y2,p,rad); pts3<-int.circ.line(y3,y2,p,rad)
+        pts1<-intersect.line.circle(y3,y1,p,rad); pts2<-intersect.line.circle(y1,y2,p,rad); pts3<-intersect.line.circle(y3,y2,p,rad)
 
         if (length(pts1)/2>1)
         { p1<-y3; p2<-pts1[2,]
@@ -1471,7 +1471,7 @@ NAStri <- function(p,tri,M="CC",rv=NULL,dec=4)
 #'
 #' @return \eqn{I(p2 \in N_{AS}(p1))} for \code{p1}, that is, returns 1 if \eqn{p2} is in \eqn{N_{AS}(p1)}, returns 0 otherwise
 #'
-#' @seealso \code{\link{IndNASbas.tri}}, \code{\link{IndNPEtri}}, and \code{\link{IndNCStri}}
+#' @seealso \code{\link{IarcASbasic.tri}}, \code{\link{IarcPEtri}}, and \code{\link{IarcCStri}}
 #'
 #' @references
 #' \insertAllCited{}
@@ -1488,34 +1488,34 @@ NAStri <- function(p,tri,M="CC",rv=NULL,dec=4)
 #'
 #' P1<-as.numeric(runif.tri(1,Tr)$g)
 #' P2<-as.numeric(runif.tri(1,Tr)$g)
-#' IndNAStri(P1,P2,Tr,M)
+#' IarcAStri(P1,P2,Tr,M)
 #'
 #' P1<-c(1.3,1.2)
 #' P2<-c(1.8,.5)
-#' IndNAStri(P1,P2,Tr,M)
-#' IndNAStri(P1,P1,Tr,M)
+#' IarcAStri(P1,P2,Tr,M)
+#' IarcAStri(P1,P1,Tr,M)
 #'
 #' #or try
-#' Rv<-rv.triCC(P1,Tr)$rv
-#' IndNAStri(P1,P2,Tr,M,Rv)
+#' Rv<-rel.vert.triCC(P1,Tr)$rv
+#' IarcAStri(P1,P2,Tr,M,Rv)
 #'
 #' P3<-c(1.6,1.4)
-#' IndNAStri(P1,P3,Tr,M)
+#' IarcAStri(P1,P3,Tr,M)
 #'
 #' P4<-c(1.5,1.0)
-#' IndNAStri(P1,P4,Tr,M)
+#' IarcAStri(P1,P4,Tr,M)
 #'
 #' P5<-c(.5,1.0)
-#' IndNAStri(P1,P5,Tr,M)
-#' IndNAStri(P5,P5,Tr,M)
+#' IarcAStri(P1,P5,Tr,M)
+#' IarcAStri(P5,P5,Tr,M)
 #'
 #' #or try
-#' Rv<-rv.triCC(P5,Tr)$rv
-#' IndNAStri(P5,P5,Tr,M,Rv)
+#' Rv<-rel.vert.triCC(P5,Tr)$rv
+#' IarcAStri(P5,P5,Tr,M,Rv)
 #' }
 #'
-#' @export IndNAStri
-IndNAStri <- function(p1,p2,tri,M="CC",rv=NULL)
+#' @export IarcAStri
+IarcAStri <- function(p1,p2,tri,M="CC",rv=NULL)
 {
   if (!is.point(p1) || !is.point(p2) )
   {stop('p1 and p2 must both be numeric 2D points')}
@@ -1533,7 +1533,7 @@ IndNAStri <- function(p1,p2,tri,M="CC",rv=NULL)
   {stop('M must be the circumcenter "CC" or a numeric 2D point for Cartesian coordinates or
           3D point for barycentric coordinates')}
 
-  CC = circ.cent.tri(tri)
+  CC = circumcenter.tri(tri)
   if (identical(M,"CC") )
   { M<-CC }
 
@@ -1550,7 +1550,7 @@ IndNAStri <- function(p1,p2,tri,M="CC",rv=NULL)
   {arc<-0; return(arc); stop}
 
   if (is.null(rv))
-  { rv<-ifelse(isTRUE(all.equal(M,CC)),rv.triCC(p1,tri)$rv,rv.tri.cent(p1,tri,M)$rv)  #vertex region for pt
+  { rv<-ifelse(isTRUE(all.equal(M,CC)),rel.vert.triCC(p1,tri)$rv,rel.vert.tri(p1,tri,M)$rv)  #vertex region for pt
   } else
   {  if (!is.numeric(rv) || sum(rv==c(1,2,3))!=1)
   {stop('vertex index, rv, must be 1, 2 or 3')}}
@@ -1574,10 +1574,14 @@ IndNAStri <- function(p1,p2,tri,M="CC",rv=NULL)
 
 #################################################################
 
-#' @title Number of arcs of Arc Slice Proximity Catch Digraphs (AS-PCDs) - one triangle case
+#' @title Number of arcs of Arc Slice Proximity Catch Digraphs (AS-PCDs)
+#' and quantities related to the triangle - one triangle case
 #'
-#' @description Returns the number of arcs of Arc Slice Proximity Catch Digraphs (AS-PCDs)
-#' whose vertices are the 2D data set, \code{Xp}. It also provides number of vertices (i.e., number of data points inside the triangle)
+#' @description
+#' An object of class \code{"NumArcs"}.
+#' Returns the number of arcs of Arc Slice Proximity Catch Digraphs (AS-PCDs)
+#' whose vertices are the 2D data set, \code{Xp}.
+#' It also provides number of vertices (i.e., number of data points inside the triangle)
 #' and indices of the data points that reside in the triangle.
 #'
 #' The data points could be inside or outside a general
@@ -1599,11 +1603,16 @@ IndNAStri <- function(p1,p2,tri,M="CC",rv=NULL)
 #' default is \code{M="CC"} i.e., the circumcenter of \code{tri}.
 #'
 #' @return A \code{list} with the elements
+#' \item{desc}{A short description of the output: number of arcs
+#' and quantities related to the triangle}
 #' \item{num.arcs}{Number of arcs of the AS-PCD}
 #' \item{num.in.tri}{Number of \code{Xp} points in the triangle, \code{tri}}
 #' \item{ind.in.tri}{The vector of indices of the \code{Xp} points that reside in the triangle}
+#' \item{tess.points}{Points on which the tessellation of the study region is performed, here, tessellation
+#' is the support triangle.}
+#' \item{vertices}{Vertices of the digraph, \code{Xp}.}
 #'
-#' @seealso \code{\link{NumArcsAS}}, \code{\link{NumArcsPEtri}}, and \code{\link{NumArcsCStri}}
+#' @seealso \code{\link{num.arcsAS}}, \code{\link{num.arcsPEtri}}, and \code{\link{num.arcsCStri}}
 #'
 #' @references
 #' \insertAllCited{}
@@ -1621,16 +1630,14 @@ IndNAStri <- function(p1,p2,tri,M="CC",rv=NULL)
 #'
 #' M<-as.numeric(runif.tri(1,Tr)$g)  #try also M<-c(1.6,1.2)
 #'
-#' NumArcsAStri(Xp,Tr,M)
-#'
-#' Xp2=Xp+1
-#' NumArcsAStri(Xp2,Tr,M)
-#'
-#' NumArcsAStri(rbind(Xp,c(0,2)),Tr,M)
+#' Narcs = num.arcsAStri(Xp,Tr,M)
+#' Narcs
+#' summary(Narcs)
+#' plot(Narcs)
 #' }
 #'
-#' @export NumArcsAStri
-NumArcsAStri <- function(Xp,tri,M="CC")
+#' @export num.arcsAStri
+num.arcsAStri <- function(Xp,tri,M="CC")
 {
   if (!is.numeric(as.matrix(Xp)))
   {stop('Xp must be numeric')}
@@ -1656,7 +1663,7 @@ NumArcsAStri <- function(Xp,tri,M="CC")
   {stop('M must be the circumcenter "CC" or a numeric 2D point for Cartesian coordinates or
           3D point for barycentric coordinates')}
 
-  CC = circ.cent.tri(tri)
+  CC = circumcenter.tri(tri)
   if (identical(M,"CC") )
   { M<-CC }
 
@@ -1677,24 +1684,32 @@ NumArcsAStri <- function(Xp,tri,M="CC")
     for (i in 1:n)
     { p1<-Xp[i,]
     if (in.triangle(p1,tri,boundary=TRUE)$in.tri)
-    { vert<-ifelse(isTRUE(all.equal(M,CC)),rv.triCC(p1,tri)$rv,rv.tri.cent(p1,tri,M)$rv)  #vertex region for pt
+    { vert<-ifelse(isTRUE(all.equal(M,CC)),rel.vert.triCC(p1,tri)$rv,rel.vert.tri(p1,tri,M)$rv)  #vertex region for pt
     ind.in.tri = c(ind.in.tri,i)
 
-     for (j in (1:n)[-i])  #to avoid loops
+    for (j in (1:n)[-i])  #to avoid loops
     {
-      arcs<-arcs+IndNAStri(p1,Xp[j,],tri,M,rv=vert)
+      arcs<-arcs+IarcAStri(p1,Xp[j,],tri,M,rv=vert)
     }
     }
     }
   }
 
   NinTri = length(ind.in.tri)
+  desc<-"Number of Arcs of the AS-PCD and the Related Quantities with vertices Xp in One Triangle"
 
-  res<-list(num.arcs=arcs, #number of arcs for the AS-PCD
+  res<-list(desc=desc, #description of the output
+            num.arcs=arcs, #number of arcs for the AS-PCD
             num.in.tri=NinTri, # number of Xp points in CH of Yp points
-            ind.in.tri=ind.in.tri) #indices of data points inside the triangle
+            ind.in.tri=ind.in.tri, #indices of data points inside the triangle
+            tess.points=tri, #tessellation points
+            vertices=Xp #vertices of the digraph
+  )
 
-res
+  class(res)<-"NumArcs"
+  res$call <-match.call()
+
+  res
 } #end of the function
 #'
 
@@ -1731,7 +1746,7 @@ res
 #' @return Arc density of AS-PCD whose vertices are the 2D numerical data set, \code{Xp};
 #' AS proximity regions are defined with respect to the triangle \code{tri} and \eqn{CC}-vertex regions.
 #'
-#' @seealso \code{\link{ASarcdens.tri}}, \code{\link{CSarcdens.tri}}, and \code{\link{NumArcsAStri}}
+#' @seealso \code{\link{ASarc.dens.tri}}, \code{\link{CSarc.dens.tri}}, and \code{\link{num.arcsAStri}}
 #'
 #' @references
 #' \insertAllCited{}
@@ -1750,15 +1765,15 @@ res
 #'
 #' M<-as.numeric(runif.tri(1,Tr)$g)  #try also M<-c(1.6,1.2)
 #'
-#' NumArcsAStri(Xp,Tr,M)
-#' ASarcdens.tri(Xp,Tr,M)
-#' ASarcdens.tri(Xp,Tr,M,tri.cor = FALSE)
+#' num.arcsAStri(Xp,Tr,M)
+#' ASarc.dens.tri(Xp,Tr,M)
+#' ASarc.dens.tri(Xp,Tr,M,tri.cor = FALSE)
 #'
-#' ASarcdens.tri(Xp,Tr,M)
+#' ASarc.dens.tri(Xp,Tr,M)
 #' }
 #'
-#' @export ASarcdens.tri
-ASarcdens.tri <- function(Xp,tri,M="CC",tri.cor=FALSE)
+#' @export ASarc.dens.tri
+ASarc.dens.tri <- function(Xp,tri,M="CC",tri.cor=FALSE)
 {
   if (!is.numeric(as.matrix(Xp)) )
   {stop('Xp must be numeric')}
@@ -1784,7 +1799,7 @@ ASarcdens.tri <- function(Xp,tri,M="CC",tri.cor=FALSE)
   {stop('M must be the circumcenter "CC" or a numeric 2D point for Cartesian coordinates or
           3D point for barycentric coordinates')}
 
-  CC = circ.cent.tri(tri)
+  CC = circumcenter.tri(tri)
   if (identical(M,"CC") )
   { M<-CC }
 
@@ -1795,7 +1810,7 @@ ASarcdens.tri <- function(Xp,tri,M="CC",tri.cor=FALSE)
   {stop('center is not the circumcenter or not in the interior of the triangle')}
 
   nx<-nrow(Xp)
-  narcs<-NumArcsAStri(Xp,tri,M)$num.arcs
+  narcs<-num.arcsAStri(Xp,tri,M)$num.arcs
 
   if (tri.cor==TRUE)
   {
@@ -1849,7 +1864,7 @@ ASarcdens.tri <- function(Xp,tri,M="CC",tri.cor=FALSE)
 #' @return \eqn{I(pt \in \cup_{x in S}N_{AS}(x,r))}, that is, returns 1 if \code{p} is in \code{S} or inside \eqn{N_{AS}(x)} for at least
 #' one \eqn{x} in \code{S}, returns 0 otherwise, where AS proximity region is constructed in \code{tri}
 #'
-#' @seealso \code{\link{IndNAStri}}, \code{\link{IndNAStriSet}}, and \code{\link{IndNCStriSet}}
+#' @seealso \code{\link{IarcAStri}}, \code{\link{IarcASset2pnt.tri}}, and \code{\link{IarcCSset2pnt.tri}}
 #'
 #' @references
 #' \insertAllCited{}
@@ -1869,35 +1884,35 @@ ASarcdens.tri <- function(Xp,tri,M="CC",tri.cor=FALSE)
 #'
 #' M<-as.numeric(runif.tri(1,Tr)$g)  #try also M<-c(1.6,1.2)
 #'
-#' IndNAStriSet(S,Xp[3,],Tr,M)
+#' IarcASset2pnt.tri(S,Xp[3,],Tr,M)
 #'
 #' S<-rbind(Xp[1,],Xp[2,],Xp[3,],Xp[5,])
-#' IndNAStriSet(S,Xp[3,],Tr,M)
+#' IarcASset2pnt.tri(S,Xp[3,],Tr,M)
 #'
-#' IndNAStriSet(S,Xp[6,],Tr,M)
+#' IarcASset2pnt.tri(S,Xp[6,],Tr,M)
 #'
 #' S<-rbind(c(.1,.1),c(.3,.4),c(.5,.3))
-#' IndNAStriSet(S,Xp[3,],Tr,M)
+#' IarcASset2pnt.tri(S,Xp[3,],Tr,M)
 #'
-#' IndNAStriSet(c(.2,.5),Xp[2,],Tr,M)
-#' IndNAStriSet(Xp,c(.2,.5),Tr,M)
-#' IndNAStriSet(Xp,Xp[2,],Tr,M)
-#' IndNAStriSet(c(.2,.5),c(.2,.5),Tr,M)
-#' IndNAStriSet(Xp[5,],Xp[2,],Tr,M)
+#' IarcASset2pnt.tri(c(.2,.5),Xp[2,],Tr,M)
+#' IarcASset2pnt.tri(Xp,c(.2,.5),Tr,M)
+#' IarcASset2pnt.tri(Xp,Xp[2,],Tr,M)
+#' IarcASset2pnt.tri(c(.2,.5),c(.2,.5),Tr,M)
+#' IarcASset2pnt.tri(Xp[5,],Xp[2,],Tr,M)
 #'
 #' S<-rbind(Xp[1,],Xp[2,],Xp[3,],Xp[5,],c(.2,.5))
-#' IndNAStriSet(S,Xp[3,],Tr,M)
+#' IarcASset2pnt.tri(S,Xp[3,],Tr,M)
 #'
 #' P<-c(.4,.2)
 #' S<-Xp[c(1,3,4),]
-#' IndNAStriSet(Xp,P,Tr,M)
-#' IndNAStriSet(S,P,Tr,M)
+#' IarcASset2pnt.tri(Xp,P,Tr,M)
+#' IarcASset2pnt.tri(S,P,Tr,M)
 #'
-#' IndNAStriSet(rbind(S,S),P,Tr,M)
+#' IarcASset2pnt.tri(rbind(S,S),P,Tr,M)
 #' }
 #'
-#' @export IndNAStriSet
-IndNAStriSet <- function(S,p,tri,M="CC")
+#' @export IarcASset2pnt.tri
+IarcASset2pnt.tri <- function(S,p,tri,M="CC")
 {
   if (!is.numeric(as.matrix(S)))
   {stop('S must be a matrix of numeric values')}
@@ -1926,7 +1941,7 @@ IndNAStriSet <- function(S,p,tri,M="CC")
   {stop('M must be the circumcenter "CC" or a numeric 2D point for Cartesian coordinates or
           3D point for barycentric coordinates')}
 
-  CC = circ.cent.tri(tri)
+  CC = circumcenter.tri(tri)
   if (identical(M,"CC") )
   { M<-CC }
 
@@ -1940,7 +1955,7 @@ IndNAStriSet <- function(S,p,tri,M="CC")
   dom<-0; i<-1;
   while (dom ==0 && i<= k)
   {
-    if (IndNAStri(S[i,],p,tri,M)==1)
+    if (IarcAStri(S[i,],p,tri,M)==1)
     {dom<-1};
     i<-i+1;
   }
@@ -1975,7 +1990,7 @@ IndNAStriSet <- function(S,p,tri,M="CC")
 #' vertices are the data points in \code{Xp}; returns 0 otherwise, where AS proximity region is constructed in
 #' the triangle \code{tri}.
 #'
-#' @seealso \code{\link{IndNAStriSet}}, \code{\link{IndNPEtri.domset}} and \code{\link{IndNCStri.domset}}
+#' @seealso \code{\link{IarcASset2pnt.tri}}, \code{\link{Idom.setPEtri}} and \code{\link{Idom.setCStri}}
 #'
 #' @references
 #' \insertAllCited{}
@@ -1995,34 +2010,34 @@ IndNAStriSet <- function(S,p,tri,M="CC")
 #' M<-as.numeric(runif.tri(1,Tr)$g)  #try also M<-c(1.6,1.2)
 #'
 #' S<-rbind(Xp[1,],Xp[2,])
-#' IndNAStri.domset(S,Xp,Tr,M)
+#' Idom.setAStri(S,Xp,Tr,M)
 #'
 #' S<-rbind(Xp[1,],Xp[2,],Xp[3,],Xp[5,])
-#' IndNAStri.domset(S,Xp,Tr,M)
+#' Idom.setAStri(S,Xp,Tr,M)
 #'
 #' S<-rbind(c(.1,.1),c(.3,.4),c(.5,.3))
-#' IndNAStri.domset(S,Xp,Tr,M)
+#' Idom.setAStri(S,Xp,Tr,M)
 #'
-#' IndNAStri.domset(c(.2,.5),Xp,Tr,M)
-#' IndNAStri.domset(c(.2,.5),c(.2,.5),Tr,M)
-#' IndNAStri.domset(Xp[5,],Xp[2,],Tr,M)
+#' Idom.setAStri(c(.2,.5),Xp,Tr,M)
+#' Idom.setAStri(c(.2,.5),c(.2,.5),Tr,M)
+#' Idom.setAStri(Xp[5,],Xp[2,],Tr,M)
 #'
 #' S<-rbind(Xp[1,],Xp[2,],Xp[3,],Xp[5,],c(.2,.5))
-#' IndNAStri.domset(S,Xp[3,],Tr,M)
+#' Idom.setAStri(S,Xp[3,],Tr,M)
 #'
-#' IndNAStri.domset(Xp,Xp,Tr,M)
+#' Idom.setAStri(Xp,Xp,Tr,M)
 #'
 #' P<-c(.4,.2)
 #' S<-Xp[c(1,3,4),]
-#' IndNAStri.domset(Xp,P,Tr,M)
-#' IndNAStri.domset(S,P,Tr,M)
-#' IndNAStri.domset(S,Xp,Tr,M)
+#' Idom.setAStri(Xp,P,Tr,M)
+#' Idom.setAStri(S,P,Tr,M)
+#' Idom.setAStri(S,Xp,Tr,M)
 #'
-#' IndNAStri.domset(rbind(S,S),Xp,Tr,M)
+#' Idom.setAStri(rbind(S,S),Xp,Tr,M)
 #' }
 #'
-#' @export IndNAStri.domset
-IndNAStri.domset <- function(S,Xp,tri,M="CC")
+#' @export Idom.setAStri
+Idom.setAStri <- function(S,Xp,tri,M="CC")
 {
   if (!is.numeric(as.matrix(S)) || !is.numeric(as.matrix(Xp)))
   {stop('S and Xp must be numeric')}
@@ -2056,7 +2071,7 @@ IndNAStri.domset <- function(S,Xp,tri,M="CC")
   {stop('M must be the circumcenter "CC" or a numeric 2D point for Cartesian coordinates or
           3D point for barycentric coordinates')}
 
-  CC = circ.cent.tri(tri)
+  CC = circumcenter.tri(tri)
   if (identical(M,"CC") )
   { M<-CC }
 
@@ -2072,7 +2087,7 @@ IndNAStri.domset <- function(S,Xp,tri,M="CC")
   dom<-1; i<-1;
   while (dom ==1 && i<= n)
   {
-    if (IndNAStriSet(S,Xp[i,],tri,M)==0)  #this is where tri is used
+    if (IarcASset2pnt.tri(S,Xp[i,],tri,M)==0)  #this is where tri is used
     {dom<-0};
     i<-i+1;
   }
@@ -2109,13 +2124,13 @@ IndNAStri.domset <- function(S,Xp,tri,M="CC")
 #' @return A \code{list} with the elements
 #' \item{domUB}{The suggested upper bound (to be checked) for the domination number of AS-PCD.
 #' It is prespecified as \code{k} in the function arguments.}
-#' \item{IndUBdom}{The indicator for the upper bound for domination number of AS-PCD being the
+#' \item{Idom.num.up.bnd}{The indicator for the upper bound for domination number of AS-PCD being the
 #' specified value \code{k} or not. It returns 1 if the upper bound is \code{k}, and 0 otherwise.}
-#' \item{ind.domset}{The vertices (i.e., data points) in the dominating set of size \code{k} if it exists,
+#' \item{ind.dom.set}{The vertices (i.e., data points) in the dominating set of size \code{k} if it exists,
 #' otherwise it yields \code{NULL}.}
 #'
-#' @seealso \code{\link{IndNCSdomUBtri}}, \code{\link{IndNCSdomUBTe}}, \code{\link{IndUBdom}},
-#' and \code{\link{dom.exact}}
+#' @seealso \code{\link{Idom.numCSup.bnd.tri}}, \code{\link{Idom.numCSup.bnd.std.tri}}, \code{\link{Idom.num.up.bnd}},
+#' and \code{\link{dom.num.exact}}
 #'
 #' @author Elvan Ceyhan
 #'
@@ -2131,21 +2146,21 @@ IndNAStri.domset <- function(S,Xp,tri,M="CC")
 #'
 #' M<-as.numeric(runif.tri(1,Tr)$g)  #try also M<-c(1.6,1.2)
 #'
-#' IndASdomUBtri(Xp,1,Tr)
+#' Idom.numASup.bnd.tri(Xp,1,Tr)
 #'
 #' for (k in 1:n)
-#'   print(c(k,IndASdomUBtri(Xp,k,Tr,M)))
+#'   print(c(k,Idom.numASup.bnd.tri(Xp,k,Tr,M)))
 #'
-#' IndASdomUBtri(Xp,k=4,Tr,M)
+#' Idom.numASup.bnd.tri(Xp,k=4,Tr,M)
 #'
 #' P<-c(.4,.2)
-#' IndASdomUBtri(P,1,Tr,M)
+#' Idom.numASup.bnd.tri(P,1,Tr,M)
 #'
-#' IndASdomUBtri(rbind(Xp,Xp),k=2,Tr,M)
+#' Idom.numASup.bnd.tri(rbind(Xp,Xp),k=2,Tr,M)
 #' }
 #'
-#' @export IndASdomUBtri
-IndASdomUBtri <- function(Xp,k,tri,M="CC")
+#' @export Idom.numASup.bnd.tri
+Idom.numASup.bnd.tri <- function(Xp,k,tri,M="CC")
 {
   if (!is.numeric(as.matrix(Xp)))
   {stop('Xp must be numeric')}
@@ -2171,7 +2186,7 @@ IndASdomUBtri <- function(Xp,k,tri,M="CC")
   {stop('M must be the circumcenter "CC" or a numeric 2D point for Cartesian coordinates or
           3D point for barycentric coordinates')}
 
-  CC = circ.cent.tri(tri)
+  CC = circumcenter.tri(tri)
   if (identical(M,"CC") )
   { M<-CC }
 
@@ -2187,13 +2202,13 @@ IndASdomUBtri <- function(Xp,k,tri,M="CC")
   dom<-0; j<-1; domset<-c();
   while (j<=N1 && dom==0)
   {
-    if (IndNAStri.domset(Xp[xc[,j],],Xp,tri,M)==1)  #this is where triangle tri is used
+    if (Idom.setAStri(Xp[xc[,j],],Xp,tri,M)==1)  #this is where triangle tri is used
     {dom<-1; domset<-Xp[xc[,j],];}
     j<-j+1;
   }
 
   list(domUB=k, #upper bound for the domination number of AS-PCD
-       IndUBdom=dom, #indicator that domination number <=k
+       Idom.num.up.bnd=dom, #indicator that domination number <=k
        domset=domset #a dominating set of size k (if exists)
   )
 } #end of the function
@@ -2201,15 +2216,21 @@ IndASdomUBtri <- function(Xp,k,tri,M="CC")
 
 #################################################################
 
-#' @title Number of arcs of Arc Slice Proximity Catch Digraphs (AS-PCDs) - multiple triangle case
+#' @title Number of arcs of Arc Slice Proximity Catch Digraphs (AS-PCDs) and related
+#' quantities of the induced subdigraphs for points in the Delaunay triangles - multiple triangle case
 #'
-#' @description Returns the number of arcs and various other quantities, vectors, and lists for Arc Slice Proximity Catch Digraph
-#' (AS-PCD) whose vertices are the data points in \code{Xp} in the multiple triangle case.
+#' @description
+#' An object of class \code{"NumArcs"}.
+#' Returns the number of arcs and various other quantities related to the Delaunay triangles
+#' for Arc Slice Proximity Catch Digraph (AS-PCD) whose vertices are the data points in \code{Xp}
+#' in the multiple triangle case.
 #'
 #' AS proximity regions are defined with respect to the
-#' Delaunay triangles based on \code{Yp} points and vertex regions in each triangle are based on the center \code{M="CC"}
-#' for circumcenter of each Delaunay triangle or \eqn{M=(\alpha,\beta,\gamma)} in barycentric coordinates in the
-#' interior of each Delaunay triangle; default is \code{M="CC"} i.e., circumcenter of each triangle.
+#' Delaunay triangles based on \code{Yp} points and vertex regions in each triangle
+#' are based on the center \code{M="CC"} for circumcenter of each Delaunay triangle
+#' or \eqn{M=(\alpha,\beta,\gamma)} in barycentric coordinates in the
+#' interior of each Delaunay triangle;
+#' default is \code{M="CC"} i.e., circumcenter of each triangle.
 #'
 #' Convex hull of \code{Yp} is partitioned by the Delaunay triangles based on \code{Yp} points
 #' (i.e., multiple triangles are the set of these Delaunay triangles whose union constitutes
@@ -2226,6 +2247,8 @@ IndASdomUBtri <- function(Xp,k,tri,M="CC")
 #' default is \code{M="CC"} i.e., the circumcenter of each triangle.
 #'
 #' @return A \code{list} with the elements
+#' \item{desc}{A short description of the output: number of arcs
+#' and related quantities for the induced subdigraphs in the Delaunay triangles}
 #' \item{num.arcs}{Total number of arcs in all triangles, i.e., the number of arcs for the entire AS-PCD}
 #' \item{num.in.conhull}{Number of \code{Xp} points in the convex hull of \code{Yp} points}
 #' \item{num.in.tris}{The vector of number of \code{Xp} points in the Delaunay triangles based on \code{Yp} points}
@@ -2236,8 +2259,11 @@ IndASdomUBtri <- function(Xp,k,tri,M="CC")
 #' each column corresponds to the vector of indices of the vertices of one of the Delaunay triangle.}
 #' \item{data.tri.ind}{A \code{vector} of indices of vertices of the Delaunay triangles in which data points reside,
 #' i.e., column number of \code{del.tri.ind} for each \code{Xp} point.}
+#' \item{tess.points}{Points on which the tessellation of the study region is performed, here, tessellation
+#' is the Delaunay triangulation based on \code{Yp} points.}
+#' \item{vertices}{Vertices of the digraph, \code{Xp}.}
 #'
-#' @seealso \code{\link{NumArcsAStri}}, \code{\link{NumArcsPE}}, and \code{\link{NumArcsCS}}
+#' @seealso \code{\link{num.arcsAStri}}, \code{\link{num.arcsPE}}, and \code{\link{num.arcsCS}}
 #'
 #' @references
 #' \insertAllCited{}
@@ -2253,22 +2279,16 @@ IndASdomUBtri <- function(Xp,k,tri,M="CC")
 #' Yp<-cbind(runif(ny,0,.25),runif(ny,0,.25))+cbind(c(0,0,0.5,1,1),c(0,1,.5,0,1))
 #' #try also Yp<-cbind(runif(ny,0,1),runif(ny,0,1))
 #'
-#' plotDeltri(Xp,Yp,xlab="",ylab="")
-#'
 #' M<-"CC"  #try also M<-c(1,1,1)
+#' Narcs = num.arcsAS(Xp,Yp,M)
+#' Narcs
+#' summary(Narcs)
+#' plot(Narcs)
 #'
-#' NumArcsAS(Xp,Yp,M)
-#' NumArcsAS(Xp,Yp[1:3,],M)
-#' NumArcsAS(c(.4,.2),Yp,M)
-#'
-#' Xp2=Xp+10
-#' NumArcsAS(Xp2,Yp,M)
-#'
-#' NumArcsAS(Xp,rbind(Yp,Yp),M)
 #' }
 #'
-#' @export NumArcsAS
-NumArcsAS <- function(Xp,Yp,M="CC")
+#' @export num.arcsAS
+num.arcsAS <- function(Xp,Yp,M="CC")
 {
   if (!is.numeric(as.matrix(Xp)) || !is.numeric(as.matrix(Yp)))
   {stop('Xp and Yp must be numeric')}
@@ -2306,57 +2326,67 @@ NumArcsAS <- function(Xp,Yp,M="CC")
   }
 
   if (ny==3)
+  { tri<-as.basic.tri(Yp)$tri
+  NumArcs = num.arcsAStri(Xp,tri,M)
+  #Tri.Ind<-indices.delaunay.tri(Xp,Yp)  #returns 1's if the points Xp[i,]'s are inside triangle based on Yp, NA otherwise
+  NinTri<-NumArcs$num.in.tri #length(inTri)  #number of points in the triangle
+
+  if (NinTri==0)
+  {Tot.Arcs<-0;
+  ni.vec<-arcs<-rep(0,ndt)
+  data.tri.ind = NA
+  } else
   {
-    Tri.Ind<-indices.del.tri(Xp,Yp)  #returns 1's if the points Xp[i,]'s are inside triangle based on Yp, NA otherwise
+    Xdt<-matrix(Xp[NumArcs$ind.in.tri,],ncol=2) #matrix(Xp[inTri,],ncol=2)
+    tri<-as.basic.tri(Yp)$tri #convert the triangle Yp into an nonscaled basic triangle, see as.basic.tri help page
+    Wvec<-area.polygon(tri)
+    Tot.Arcs<- NumArcs$num.arcs #num.arcsAStri(Xdt,tri,M)$num.arcs  #number of arcs in the triangle Yp
+    ni.vec = NumArcs$num.in.tri
+    Tri.Ind = NumArcs$ind.in.tri
+    data.tri.ind = rep(NA,nx)
+    data.tri.ind[Tri.Ind] =1
+    arcs = NumArcs$num.arcs
+  }
 
-    inTri<-which(Tri.Ind==1)
-    NinTri<-length(inTri)  #number of points in the triangle
-
-    if (NinTri==0)
-    {Tot.Arcs<-0;
-    ni.vec<-arcs<-rep(0,ndt)
-    data.tri.ind =NULL
-    } else
-    {
-      Xdt<-matrix(Xp[inTri,],ncol=2)
-      tri<-as.bas.tri(Yp)$tri #convert the triangle Yp into an nonscaled basic triangle, see as.bas.tri help page
-      Wvec<-area.polygon(tri)
-      Tot.Arcs<-NumArcsAStri(Xdt,tri,M)$num.arcs  #number of arcs in the triangle Yp
-    }
-    res<-list(num.arcs=Tot.Arcs,
-              tri.num.arcs=Tot.Arcs,
-              num.in.conv.hull=NinTri,
-              num.in.tris=NinTri,
-              weight.vec=Wvec,
-              del.tri.ind=t(Ytri),
-              data.tri.ind=Tri.Ind )
+  desc<-"Number of Arcs of the AS-PCD with vertices Xp and Related Quantities for the Induced Subdigraph for the Points in the Delaunay Triangle"
+  res<-list(desc=desc, #description of the output
+            num.arcs=Tot.Arcs,
+            tri.num.arcs=arcs,
+            num.in.conv.hull=NinTri,
+            num.in.tris=ni.vec,
+            weight.vec=Wvec,
+            del.tri.ind=t(Ytri),
+            data.tri.ind=data.tri.ind,
+            tess.points=Yp, #tessellation points
+            vertices=Xp #vertices of the digraph
+  )
   } else
   {
     if (NinCH==0)
     {Tot.Arcs<-0;
     ni.vec<-arcs<-rep(0,ndt)
-    data.tri.ind =NULL
+    data.tri.ind = NA
     } else
     {
-      Tri.Ind<-indices.del.tri(Xp,Yp,Ytrimesh) #indices of triangles in which the points in the data fall
-
+      Tri.Ind<-indices.delaunay.tri(Xp,Yp,Ytrimesh) #indices of triangles in which the points in the data fall
+      ind.in.CH = which(!is.na(Tri.Ind))
       #calculation of the total number of arcs
       ni.vec<-arcs<-vector()
-      # data.del.tris = del.tris=list()
+      # data.delaunay.tris = del.tris=list()
       data.tri.ind = rep(NA,nx)
       for (i in 1:ndt)
       {
         dt.ind=which(Tri.Ind==i) #which indices of data points residing in ith Delaunay triangle
         Xpi<-Xp[dt.ind,] #points in ith Delaunay triangle
         data.tri.ind[dt.ind] =i #assigning the index of the Delaunay triangle that contains the data point
-        #  data.del.tris=c(data.del.tris,list(Xpi))
+        #  data.delaunay.tris=c(data.delaunay.tris,list(Xpi))
         ifelse(ndt==1,Tri<-Yp[Ytri,],Tri<-Yp[Ytri[i,],])  #vertices of ith triangle
-        tri<-as.bas.tri(Tri)$tri #convert the triangle Tri into an nonscaled basic triangle, see as.bas.tri help page
+        tri<-as.basic.tri(Tri)$tri #convert the triangle Tri into an nonscaled basic triangle, see as.basic.tri help page
         #  del.tris=rbind(del.tris,tri)
         ni.vec<-c(ni.vec,length(Xpi)/2)  #number of points in ith Delaunay triangle
 
-        ifelse(identical(M,"CC"),cent<-circ.cent.tri(tri),cent<-M)
-        num.arcs<-NumArcsAStri(Xpi,tri,M)$num.arcs  #number of arcs in ith triangle
+        ifelse(identical(M,"CC"),cent<-circumcenter.tri(tri),cent<-M)
+        num.arcs<-num.arcsAStri(Xpi,tri,M)$num.arcs  #number of arcs in ith triangle
         arcs<-c(arcs,num.arcs)  #number of arcs in all triangles as a vector
 
       }
@@ -2364,16 +2394,26 @@ NumArcsAS <- function(Xp,Yp,M="CC")
       Tot.Arcs<-sum(arcs)  #the total number of arcs in all triangles
     }
 
-    res<-list(num.arcs=Tot.Arcs, #number of arcs for the entire PCD
+    desc<-"Number of Arcs of the AS-PCD with vertices Xp and Related Quantities for the Induced Subdigraphs for the Points in the Delaunay Triangles"
+
+    res<-list(desc=desc, #description of the output
+              num.arcs=Tot.Arcs, #number of arcs for the entire PCD
               tri.num.arcs=arcs, #vector of number of arcs for the Delaunay triangles
-              num.in.conv.hull=NinCH, # number of Xp points in CH of Yp points
+              num.in.conv.hull=NinCH, #number of Xp points in CH of Yp points
+              ind.in.conv.hull= ind.in.CH, #indices of Xp points in CH of Yp points
               num.in.tris=ni.vec, # vector of number of Xp points in the Delaunay triangles
               weight.vec=Wvec, #areas of Delaunay triangles
-              del.tri.ind=t(Ytri), # indices of the Delaunay triangles, each column correponds to the indices of the vertices of one triangle
-              data.tri.ind=data.tri.ind) #indices of vertices of the Delaunay triangles in which data points reside, i.e., column number of del.tri for each Xp point
+              del.tri.ind=t(Ytri), # indices of the vertices of the Delaunay triangles, i.e., each column corresponds to the indices of the vertices of one Delaunay triangle
+              data.tri.ind=data.tri.ind, #indices of the Delaunay triangles in which data points reside, i.e., column number of del.tri.ind for each Xp point
+              tess.points=Yp, #tessellation points
+              vertices=Xp #vertices of the digraph
+    )
   }
-res
 
+  class(res)<-"NumArcs"
+  res$call <-match.call()
+
+  res
 } #end of the function
 #'
 
@@ -2401,7 +2441,7 @@ res
 #' and AS proximity regions are defined with respect to the triangle \code{tri} and
 #' vertex regions based on circumcenter.
 #'
-#' @seealso \code{\link{IncMatAS}}, \code{\link{IncMatPEtri}}, and \code{\link{IncMatCStri}}
+#' @seealso \code{\link{inci.matAS}}, \code{\link{inci.matPEtri}}, and \code{\link{inci.matCStri}}
 #'
 #' @references
 #' \insertAllCited{}
@@ -2410,6 +2450,7 @@ res
 #'
 #' @examples
 #' \dontrun{
+#'
 #' A<-c(1,1); B<-c(2,0); C<-c(1.5,2);
 #' Tr<-rbind(A,B,C);
 #' n<-10
@@ -2422,12 +2463,12 @@ res
 #' IM<-IncMatAStri(Xp,Tr,M)
 #' IM
 #'
-#' dom.greedy(IM)
-#' dom.exact(IM)
+#' dom.num.greedy(IM)
+#' dom.num.exact(IM)
 #' }
 #'
-#' @export IncMatAStri
-IncMatAStri <- function(Xp,tri,M="CC")
+#' @export inci.matAStri
+inci.matAStri <- function(Xp,tri,M="CC")
 {
   if (!is.numeric(as.matrix(Xp)))
   {stop('Xp must be numeric')}
@@ -2453,7 +2494,7 @@ IncMatAStri <- function(Xp,tri,M="CC")
   {stop('M must be the circumcenter "CC" or a numeric 2D point for Cartesian coordinates or
           3D point for barycentric coordinates')}
 
-  CC = circ.cent.tri(tri)
+  CC = circumcenter.tri(tri)
   if (identical(M,"CC") )
   { M<-CC }
 
@@ -2469,10 +2510,10 @@ IncMatAStri <- function(Xp,tri,M="CC")
   {
     for (i in 1:n)
     {p1<-Xp[i,]
-    vert<-ifelse(isTRUE(all.equal(M,circ.cent.tri(tri)))==TRUE,rv.triCC(p1,tri)$rv,rv.tri.cent(p1,tri,M)$rv)  #vertex region for pt
+    vert<-ifelse(isTRUE(all.equal(M,circumcenter.tri(tri)))==TRUE,rel.vert.triCC(p1,tri)$rv,rel.vert.tri(p1,tri,M)$rv)  #vertex region for pt
     for (j in ((1:n)) )
     {p2<-Xp[j,]
-    inc.mat[i,j]<-IndNAStri(p1,p2,tri,M,rv=vert)
+    inc.mat[i,j]<-IarcAStri(p1,p2,tri,M,rv=vert)
     }
     }
   }
@@ -2506,7 +2547,7 @@ IncMatAStri <- function(Xp,tri,M="CC")
 #' @return Incidence matrix for the AS-PCD whose vertices are the 2D data set, \code{Xp},
 #' and AS proximity regions are defined in the Delaunay triangles based on \code{Yp} points.
 #'
-#' @seealso \code{\link{IncMatAStri}}, \code{\link{IncMatPE}}, and \code{\link{IncMatCS}}
+#' @seealso \code{\link{inci.matAStri}}, \code{\link{inci.matPE}}, and \code{\link{inci.matCS}}
 #'
 #' @references
 #' \insertAllCited{}
@@ -2525,17 +2566,17 @@ IncMatAStri <- function(Xp,tri,M="CC")
 #'
 #' M<-"CC"  #try also M<-c(1,1,1)
 #'
-#' IM<-IncMatAS(Xp,Yp,M)
+#' IM<-inci.matAS(Xp,Yp,M)
 #' IM
-#' dom.greedy(IM)  #try also dom.exact(IM)  #this might take a long time for large  nx
+#' dom.num.greedy(IM)  #try also dom.num.exact(IM)  #this might take a long time for large  nx
 #'
-#' IM<-IncMatAS(Xp,Yp[1:3,],M)
+#' IM<-inci.matAS(Xp,Yp[1:3,],M)
 #'
-#' IncMatAS(Xp,rbind(Yp,Yp))
+#' inci.matAS(Xp,rbind(Yp,Yp))
 #' }
 #'
-#' @export IncMatAS
-IncMatAS <- function(Xp,Yp,M="CC")
+#' @export inci.matAS
+inci.matAS <- function(Xp,Yp,M="CC")
 {
   if (!is.numeric(as.matrix(Xp)) || !is.numeric(as.matrix(Yp)))
   {stop('Xp and Yp must be numeric')}
@@ -2554,7 +2595,7 @@ IncMatAS <- function(Xp,Yp,M="CC")
 
   if (nrow(Yp)==3)
   {
-    inc.mat<-IncMatAStri(Xp,Yp,M)
+    inc.mat<-inci.matAStri(Xp,Yp,M)
   } else
   {
     if ((!is.point(M,3) && M!="CC") || !all(M>0))
@@ -2588,11 +2629,11 @@ IncMatAS <- function(Xp,Yp,M="CC")
       if (i.tr[i]!=0)
       {
         Yi.Tri<-Yp[DTr[i.tr[i],],]
-        Yi.tri<-as.bas.tri(Yi.Tri)$tri #convert the triangle Yi.Tri into an nonscaled basic triangle, see as.bas.tri help page
-        vert<-ifelse(identical(M,"CC"),rv.triCC(p1,Yi.tri)$rv,rv.tri.cent(p1,Yi.tri,M)$rv)  #vertex region for pt
+        Yi.tri<-as.basic.tri(Yi.Tri)$tri #convert the triangle Yi.Tri into an nonscaled basic triangle, see as.basic.tri help page
+        vert<-ifelse(identical(M,"CC"),rel.vert.triCC(p1,Yi.tri)$rv,rel.vert.tri(p1,Yi.tri,M)$rv)  #vertex region for pt
         for (j in 1:nx )
         {p2<-Xp[j,]
-        inc.mat[i,j]<-IndNAStri(p1,p2,Yi.tri,M,rv=vert)
+        inc.mat[i,j]<-IarcAStri(p1,p2,Yi.tri,M,rv=vert)
         }
       }
       }
@@ -2645,7 +2686,7 @@ IncMatAS <- function(Xp,Yp,M="CC")
 #' @return I(\code{p} is a dominating point of the AS-PCD) where the vertices of the AS-PCD are the 2D data set \code{Xp},
 #' that is, returns 1 if \code{p} is a dominating point, returns 0 otherwise
 #'
-#' @seealso \code{\link{Gam1AStri}} and \code{\link{Gam1PEbas.tri}}
+#' @seealso \code{\link{Idom.num1AStri}} and \code{\link{Idom.num1PEbasic.tri}}
 #'
 #' @references
 #' \insertAllCited{}
@@ -2660,30 +2701,30 @@ IncMatAS <- function(Xp,Yp,M="CC")
 #' n<-10
 #'
 #' set.seed(1)
-#' Xp<-runif.bas.tri(n,c1,c2)$g
+#' Xp<-runif.basic.tri(n,c1,c2)$g
 #'
-#' M<-as.numeric(runif.bas.tri(1,c1,c2)$g)  #try also M<-c(.6,.2)
+#' M<-as.numeric(runif.basic.tri(1,c1,c2)$g)  #try also M<-c(.6,.2)
 #'
-#' Gam1ASbas.tri(Xp[1,],Xp,c1,c2,M)
+#' Idom.num1ASbasic.tri(Xp[1,],Xp,c1,c2,M)
 #'
 #' gam.vec<-vector()
 #' for (i in 1:n)
-#' {gam.vec<-c(gam.vec,Gam1ASbas.tri(Xp[i,],Xp,c1,c2,M))}
+#' {gam.vec<-c(gam.vec,Idom.num1ASbasic.tri(Xp[i,],Xp,c1,c2,M))}
 #'
 #' ind.gam1<-which(gam.vec==1)
 #' ind.gam1
 #'
 #' #or try
-#' Rv<-rv.bas.triCC(Xp[1,],c1,c2)$rv
-#' Gam1ASbas.tri(Xp[1,],Xp,c1,c2,M,Rv)
+#' Rv<-rel.vert.basic.triCC(Xp[1,],c1,c2)$rv
+#' Idom.num1ASbasic.tri(Xp[1,],Xp,c1,c2,M,Rv)
 #'
-#' Gam1ASbas.tri(c(.2,.4),Xp,c1,c2,M)
-#' Gam1ASbas.tri(c(.2,.4),c(.2,.4),c1,c2,M)
+#' Idom.num1ASbasic.tri(c(.2,.4),Xp,c1,c2,M)
+#' Idom.num1ASbasic.tri(c(.2,.4),c(.2,.4),c1,c2,M)
 #'
 #' Xp2<-rbind(Xp,c(.2,.4))
-#' Gam1ASbas.tri(Xp[1,],Xp2,c1,c2,M)
+#' Idom.num1ASbasic.tri(Xp[1,],Xp2,c1,c2,M)
 #'
-#' CC<-circ.cent.bas.tri(c1,c2)  #the circumcenter
+#' CC<-circumcenter.basic.tri(c1,c2)  #the circumcenter
 #'
 #' if (dimension(M)==3) {M<-bary2cart(M,Tb)}
 #' #need to run this when M is given in barycentric coordinates
@@ -2696,7 +2737,7 @@ IncMatAS <- function(Xp,Yp,M="CC")
 #' } else
 #' {cent<-M
 #' cent.name<-"M"
-#' Ds<-cent2edges.bas.tri(c1,c2,M)
+#' Ds<-prj.cent2edges.basic.tri(c1,c2,M)
 #' }
 #'
 #' Xlim<-range(Tb[,1],Xp[,1])
@@ -2718,16 +2759,16 @@ IncMatAS <- function(Xp,Yp,M="CC")
 #' txt.str<-c("A","B","C",cent.name,"D1","D2","D3")
 #' text(xc,yc,txt.str)
 #'
-#' Gam1ASbas.tri(c(.4,.2),Xp,c1,c2,M)
+#' Idom.num1ASbasic.tri(c(.4,.2),Xp,c1,c2,M)
 #'
-#' Gam1ASbas.tri(c(.5,.11),Xp,c1,c2,M)
+#' Idom.num1ASbasic.tri(c(.5,.11),Xp,c1,c2,M)
 #'
-#' Gam1ASbas.tri(c(.5,.11),Xp,c1,c2,M,ch.data.pnt=FALSE)
+#' Idom.num1ASbasic.tri(c(.5,.11),Xp,c1,c2,M,ch.data.pnt=FALSE)
 #' #gives an error message if ch.data.pnt=TRUE since the point is not in the standard basic triangle
 #' }
 #'
 #' @export
-Gam1ASbas.tri <- function(p,Xp,c1,c2,M="CC",rv=NULL,ch.data.pnt=FALSE)
+Idom.num1ASbasic.tri <- function(p,Xp,c1,c2,M="CC",rv=NULL,ch.data.pnt=FALSE)
 {
   if (!is.point(p))
   {stop('p must be a numeric point of dimension 2')}
@@ -2756,7 +2797,7 @@ Gam1ASbas.tri <- function(p,Xp,c1,c2,M="CC",rv=NULL,ch.data.pnt=FALSE)
   {stop('M must be the circumcenter "CC" or a numeric 2D point for Cartesian coordinates or
           3D point for barycentric coordinates')}
 
-  CC = circ.cent.tri(Tb)
+  CC = circumcenter.tri(Tb)
   if (identical(M,"CC") )
   { M<-CC }
 
@@ -2777,7 +2818,7 @@ Gam1ASbas.tri <- function(p,Xp,c1,c2,M="CC",rv=NULL,ch.data.pnt=FALSE)
   {dom<-0; return(dom); stop}
 
   if (is.null(rv))
-  { rv<-ifelse(isTRUE(all.equal(M,CC)),rv.bas.triCC(p,c1,c2)$rv,rv.bas.tri.cent(p,c1,c2,M)$rv)  #vertex region for pt
+  { rv<-ifelse(isTRUE(all.equal(M,CC)),rel.vert.basic.triCC(p,c1,c2)$rv,rel.vert.basic.tri(p,c1,c2,M)$rv)  #vertex region for pt
   } else
   {  if (!is.numeric(rv) || sum(rv==c(1,2,3))!=1)
   {stop('vertex index, rv, must be 1, 2 or 3')}}
@@ -2786,7 +2827,7 @@ Gam1ASbas.tri <- function(p,Xp,c1,c2,M="CC",rv=NULL,ch.data.pnt=FALSE)
   dom<-1; i<-1;
 
   while (i <= n & dom==1)
-  {if (IndNASbas.tri(p,Xp[i,],c1,c2,M,rv)==0)
+  {if (IarcASbasic.tri(p,Xp[i,],c1,c2,M,rv)==0)
     dom<-0;
   i<-i+1;
   }
@@ -2829,7 +2870,7 @@ Gam1ASbas.tri <- function(p,Xp,c1,c2,M="CC",rv=NULL,ch.data.pnt=FALSE)
 #' @return I(\code{p} is a dominating point of the AS-PCD whose vertices are the 2D data set \code{Xp}),
 #' that is, returns 1 if \code{p} is a dominating point of the AS-PCD, returns 0 otherwise
 #'
-#' @seealso \code{\link{Gam1ASbas.tri}}
+#' @seealso \code{\link{Idom.num1ASbasic.tri}}
 #'
 #' @references
 #' \insertAllCited{}
@@ -2847,32 +2888,32 @@ Gam1ASbas.tri <- function(p,Xp,c1,c2,M="CC",rv=NULL,ch.data.pnt=FALSE)
 #'
 #' M<-as.numeric(runif.tri(1,Tr)$g)  #try also M<-c(1.6,1.2)
 #'
-#' Gam1AStri(Xp[1,],Xp,Tr,M)
-#' Gam1AStri(Xp[1,],Xp[1,],Tr,M)
-#' Gam1AStri(c(1.5,1.5),c(1.6,1),Tr,M)
-#' Gam1AStri(c(1.6,1),c(1.5,1.5),Tr,M)
+#' Idom.num1AStri(Xp[1,],Xp,Tr,M)
+#' Idom.num1AStri(Xp[1,],Xp[1,],Tr,M)
+#' Idom.num1AStri(c(1.5,1.5),c(1.6,1),Tr,M)
+#' Idom.num1AStri(c(1.6,1),c(1.5,1.5),Tr,M)
 #'
 #' gam.vec<-vector()
 #' for (i in 1:n)
-#' {gam.vec<-c(gam.vec,Gam1AStri(Xp[i,],Xp,Tr,M))}
+#' {gam.vec<-c(gam.vec,Idom.num1AStri(Xp[i,],Xp,Tr,M))}
 #'
 #' ind.gam1<-which(gam.vec==1)
 #' ind.gam1
 #'
 #' #or try
-#' Rv<-rv.triCC(Xp[1,],Tr)$rv
-#' Gam1AStri(Xp[1,],Xp,Tr,M,Rv)
+#' Rv<-rel.vert.triCC(Xp[1,],Tr)$rv
+#' Idom.num1AStri(Xp[1,],Xp,Tr,M,Rv)
 #'
-#' Gam1AStri(c(.2,.4),Xp,Tr,M)
-#' Gam1AStri(c(.2,.4),c(.2,.4),Tr,M)
+#' Idom.num1AStri(c(.2,.4),Xp,Tr,M)
+#' Idom.num1AStri(c(.2,.4),c(.2,.4),Tr,M)
 #'
 #' Xp2<-rbind(Xp,c(.2,.4))
-#' Gam1AStri(Xp[1,],Xp2,Tr,M)
+#' Idom.num1AStri(Xp[1,],Xp2,Tr,M)
 #'
 #' if (dimension(M)==3) {M<-bary2cart(M,Tr)}
 #' #need to run this when M is given in barycentric coordinates
 #'
-#' CC<-circ.cent.tri(Tr)  #the circumcenter
+#' CC<-circumcenter.tri(Tr)  #the circumcenter
 #'
 #' if (isTRUE(all.equal(M,CC)) || identical(M,"CC"))
 #' {cent<-CC
@@ -2882,7 +2923,7 @@ Gam1ASbas.tri <- function(p,Xp,c1,c2,M="CC",rv=NULL,ch.data.pnt=FALSE)
 #' } else
 #' {cent<-M
 #' cent.name<-"M"
-#' Ds<-cent2edges.tri(Tr,M)
+#' Ds<-prj.cent2edges(Tr,M)
 #' }
 #'
 #' Xlim<-range(Tr[,1],Xp[,1])
@@ -2903,16 +2944,16 @@ Gam1ASbas.tri <- function(p,Xp,c1,c2,M="CC",rv=NULL,ch.data.pnt=FALSE)
 #' txt.str<-c("A","B","C",cent.name,"D1","D2","D3")
 #' text(xc,yc,txt.str)
 #'
-#' Gam1AStri(c(1.5,1.1),Xp,Tr,M)
+#' Idom.num1AStri(c(1.5,1.1),Xp,Tr,M)
 #'
-#' Gam1AStri(c(1.5,1.1),Xp,Tr,M)
+#' Idom.num1AStri(c(1.5,1.1),Xp,Tr,M)
 #'
-#' Gam1AStri(c(1.5,1.1),Xp,Tr,M,ch.data.pnt=FALSE)
+#' Idom.num1AStri(c(1.5,1.1),Xp,Tr,M,ch.data.pnt=FALSE)
 #' #gives an error message if ch.data.pnt=TRUE since point p is not a data point in Xp
 #' }
 #'
 #' @export
-Gam1AStri <- function(p,Xp,tri,M="CC",rv=NULL,ch.data.pnt=FALSE)
+Idom.num1AStri <- function(p,Xp,tri,M="CC",rv=NULL,ch.data.pnt=FALSE)
 {
   if (!is.point(p))
   {stop('p must be a numeric point of dimension 2')}
@@ -2944,7 +2985,7 @@ Gam1AStri <- function(p,Xp,tri,M="CC",rv=NULL,ch.data.pnt=FALSE)
   {stop('M must be the circumcenter "CC" or a numeric 2D point for Cartesian coordinates or
           3D point for barycentric coordinates')}
 
-  CC = circ.cent.tri(tri)
+  CC = circumcenter.tri(tri)
   if (identical(M,"CC") )
   { M<-CC }
 
@@ -2964,7 +3005,7 @@ Gam1AStri <- function(p,Xp,tri,M="CC",rv=NULL,ch.data.pnt=FALSE)
   {dom<-0; return(dom); stop}
 
   if (is.null(rv))
-  { rv<-ifelse(isTRUE(all.equal(M,CC)),rv.triCC(p,tri)$rv,rv.tri.cent(p,tri,M)$rv)  #vertex region for pt
+  { rv<-ifelse(isTRUE(all.equal(M,CC)),rel.vert.triCC(p,tri)$rv,rel.vert.tri(p,tri,M)$rv)  #vertex region for pt
   } else
   {  if (!is.numeric(rv) || sum(rv==c(1,2,3))!=1)
   {stop('vertex index, rv, must be 1, 2 or 3')}}
@@ -2972,7 +3013,7 @@ Gam1AStri <- function(p,Xp,tri,M="CC",rv=NULL,ch.data.pnt=FALSE)
   n<-nrow(Xp)
   dom<-1; i<-1;
   while (i <= n & dom==1)
-  {if (IndNAStri(p,Xp[i,],tri,M,rv)==0)
+  {if (IarcAStri(p,Xp[i,],tri,M,rv)==0)
     dom<-0;
   i<-i+1;
   }
@@ -3145,7 +3186,7 @@ is.in.data <- function(p,Xp)
 #' @return \eqn{I(}\{\code{p1,p2}\} is a dominating set of the AS-PCD\eqn{)} where the vertices of AS-PCD are the 2D data set \code{Xp}),
 #' that is, returns 1 if \{\code{p1,p2}\} is a dominating set of AS-PCD, returns 0 otherwise
 #'
-#' @seealso \code{\link{Gam2AStri}}
+#' @seealso \code{\link{Idom.num2AStri}}
 #'
 #' @references
 #' \insertAllCited{}
@@ -3160,41 +3201,41 @@ is.in.data <- function(p,Xp)
 #' n<-10
 #'
 #' set.seed(1)
-#' Xp<-runif.bas.tri(n,c1,c2)$g
+#' Xp<-runif.basic.tri(n,c1,c2)$g
 #'
-#' M<-as.numeric(runif.bas.tri(1,c1,c2)$g)  #try also M<-c(.6,.2)
+#' M<-as.numeric(runif.basic.tri(1,c1,c2)$g)  #try also M<-c(.6,.2)
 #'
-#' Gam2ASbas.tri(Xp[1,],Xp[2,],Xp,c1,c2,M)
-#' Gam2ASbas.tri(Xp[1,],Xp[1,],Xp,c1,c2,M)  #one point can not a dominating set of size two
+#' Idom.num2ASbasic.tri(Xp[1,],Xp[2,],Xp,c1,c2,M)
+#' Idom.num2ASbasic.tri(Xp[1,],Xp[1,],Xp,c1,c2,M)  #one point can not a dominating set of size two
 #'
-#' Gam2ASbas.tri(c(.2,.4),c(.2,.5),rbind(c(.2,.4),c(.2,.5)),c1,c2,M)
+#' Idom.num2ASbasic.tri(c(.2,.4),c(.2,.5),rbind(c(.2,.4),c(.2,.5)),c1,c2,M)
 #'
 #' ind.gam2<-vector()
 #' for (i in 1:(n-1))
 #'   for (j in (i+1):n)
-#'   {if (Gam2ASbas.tri(Xp[i,],Xp[j,],Xp,c1,c2,M)==1)
+#'   {if (Idom.num2ASbasic.tri(Xp[i,],Xp[j,],Xp,c1,c2,M)==1)
 #'    ind.gam2<-rbind(ind.gam2,c(i,j))}
 #' ind.gam2
 #'
 #' #or try
-#' rv1<-rv.bas.triCC(Xp[1,],c1,c2)$rv
-#' rv2<-rv.bas.triCC(Xp[2,],c1,c2)$rv
-#' Gam2ASbas.tri(Xp[1,],Xp[2,],Xp,c1,c2,M,rv1,rv2)
-#' Gam2ASbas.tri(c(.2,.4),Xp[2,],Xp,c1,c2,M,rv1,rv2)
+#' rv1<-rel.vert.basic.triCC(Xp[1,],c1,c2)$rv
+#' rv2<-rel.vert.basic.triCC(Xp[2,],c1,c2)$rv
+#' Idom.num2ASbasic.tri(Xp[1,],Xp[2,],Xp,c1,c2,M,rv1,rv2)
+#' Idom.num2ASbasic.tri(c(.2,.4),Xp[2,],Xp,c1,c2,M,rv1,rv2)
 #'
 #' #or try
-#' rv1<-rv.bas.triCC(Xp[1,],c1,c2)$rv
-#' Gam2ASbas.tri(Xp[1,],Xp[2,],Xp,c1,c2,M,rv1)
+#' rv1<-rel.vert.basic.triCC(Xp[1,],c1,c2)$rv
+#' Idom.num2ASbasic.tri(Xp[1,],Xp[2,],Xp,c1,c2,M,rv1)
 #'
 #' #or try
-#' Rv2<-rv.bas.triCC(Xp[2,],c1,c2)$rv
-#' Gam2ASbas.tri(Xp[1,],Xp[2,],Xp,c1,c2,M,rv2=Rv2)
+#' Rv2<-rel.vert.basic.triCC(Xp[2,],c1,c2)$rv
+#' Idom.num2ASbasic.tri(Xp[1,],Xp[2,],Xp,c1,c2,M,rv2=Rv2)
 #'
-#' Gam2ASbas.tri(c(.3,.2),c(.35,.25),Xp,c1,c2,M)
+#' Idom.num2ASbasic.tri(c(.3,.2),c(.35,.25),Xp,c1,c2,M)
 #' }
 #'
 #' @export
-Gam2ASbas.tri <- function(p1,p2,Xp,c1,c2,M="CC",rv1=NULL,rv2=NULL,ch.data.pnts=FALSE)
+Idom.num2ASbasic.tri <- function(p1,p2,Xp,c1,c2,M="CC",rv1=NULL,rv2=NULL,ch.data.pnts=FALSE)
 {
   if (!is.point(p1) || !is.point(p2) )
   {stop('p1 and p2 must both be numeric 2D points')}
@@ -3225,7 +3266,7 @@ Gam2ASbas.tri <- function(p1,p2,Xp,c1,c2,M="CC",rv1=NULL,rv2=NULL,ch.data.pnts=F
   {stop('M must be the circumcenter "CC" or a numeric 2D point for Cartesian coordinates or
           3D point for barycentric coordinates')}
 
-  CC = circ.cent.tri(Tb)
+  CC = circumcenter.tri(Tb)
   if (identical(M,"CC") )
   { M<-CC }
 
@@ -3245,13 +3286,13 @@ Gam2ASbas.tri <- function(p1,p2,Xp,c1,c2,M="CC",rv1=NULL,rv2=NULL,ch.data.pnts=F
   {dom<-0; return(dom); stop}
 
   if (is.null(rv1))
-  { rv1<-ifelse(isTRUE(all.equal(M,CC)),rv.bas.triCC(p1,c1,c2)$rv,rv.bas.tri.cent(p1,c1,c2,M)$rv)  #vertex region for pt
+  { rv1<-ifelse(isTRUE(all.equal(M,CC)),rel.vert.basic.triCC(p1,c1,c2)$rv,rel.vert.basic.tri(p1,c1,c2,M)$rv)  #vertex region for pt
   } else
   {  if (!is.numeric(rv1) || sum(rv1==c(1,2,3))!=1)
   {stop('vertex index, rv1, must be 1, 2 or 3')}}
 
   if (is.null(rv2))
-  { rv2<-ifelse(isTRUE(all.equal(M,circ.cent.tri(Tb)))== TRUE,rv.bas.triCC(p2,c1,c2)$rv,rv.bas.tri.cent(p2,c1,c2,M)$rv)  #vertex region for pt
+  { rv2<-ifelse(isTRUE(all.equal(M,circumcenter.tri(Tb)))== TRUE,rel.vert.basic.triCC(p2,c1,c2)$rv,rel.vert.basic.tri(p2,c1,c2,M)$rv)  #vertex region for pt
   } else
   {  if (!is.numeric(rv2) || sum(rv2==c(1,2,3))!=1)
   {stop('vertex index, rv2, must be 1, 2 or 3')}}
@@ -3259,7 +3300,7 @@ Gam2ASbas.tri <- function(p1,p2,Xp,c1,c2,M="CC",rv1=NULL,rv2=NULL,ch.data.pnts=F
   n<-nrow(Xp)
   dom<-1; i<-1;
   while (i <= n & dom==1)
-  {if (max(IndNASbas.tri(p1,Xp[i,],c1,c2,M,rv=rv1),IndNASbas.tri(p2,Xp[i,],c1,c2,M,rv=rv2))==0)
+  {if (max(IarcASbasic.tri(p1,Xp[i,],c1,c2,M,rv=rv1),IarcASbasic.tri(p2,Xp[i,],c1,c2,M,rv=rv2))==0)
     dom<-0;
   i<-i+1;
   }
@@ -3306,7 +3347,7 @@ Gam2ASbas.tri <- function(p1,p2,Xp,c1,c2,M="CC",rv1=NULL,rv2=NULL,ch.data.pnts=F
 #' @return \eqn{I(}\{\code{p1,p2}\} is a dominating set of the AS-PCD\eqn{)} where vertices of the AS-PCD are the 2D data set \code{Xp}),
 #' that is, returns 1 if \{\code{p1,p2}\} is a dominating set of AS-PCD, returns 0 otherwise
 #'
-#' @seealso \code{\link{Gam2ASbas.tri}}
+#' @seealso \code{\link{Idom.num2ASbasic.tri}}
 #'
 #' @references
 #' \insertAllCited{}
@@ -3324,43 +3365,43 @@ Gam2ASbas.tri <- function(p1,p2,Xp,c1,c2,M="CC",rv1=NULL,rv2=NULL,ch.data.pnts=F
 #'
 #' M<-as.numeric(runif.tri(1,Tr)$g)  #try also M<-c(1.6,1.2)
 #'
-#' Gam2AStri(Xp[1,],Xp[2,],Xp,Tr,M)
-#' Gam2AStri(Xp[1,],Xp[1,],Xp,Tr,M)  #same two points cannot be a dominating set of size 2
+#' Idom.num2AStri(Xp[1,],Xp[2,],Xp,Tr,M)
+#' Idom.num2AStri(Xp[1,],Xp[1,],Xp,Tr,M)  #same two points cannot be a dominating set of size 2
 #'
-#' Gam2AStri(c(.2,.4),Xp[2,],Xp,Tr,M)
-#' Gam2AStri(c(.2,.4),c(.2,.5),Xp,Tr,M)
-#' Gam2AStri(c(.2,.4),c(.2,.5),rbind(c(.2,.4),c(.2,.5)),Tr,M)
+#' Idom.num2AStri(c(.2,.4),Xp[2,],Xp,Tr,M)
+#' Idom.num2AStri(c(.2,.4),c(.2,.5),Xp,Tr,M)
+#' Idom.num2AStri(c(.2,.4),c(.2,.5),rbind(c(.2,.4),c(.2,.5)),Tr,M)
 #'
 #' #or try
-#' rv1<-rv.triCC(c(.2,.4),Tr)$rv
-#' rv2<-rv.triCC(c(.2,.5),Tr)$rv
-#' Gam2AStri(c(.2,.4),c(.2,.5),rbind(c(.2,.4),c(.2,.5)),Tr,M,rv1,rv2)
+#' rv1<-rel.vert.triCC(c(.2,.4),Tr)$rv
+#' rv2<-rel.vert.triCC(c(.2,.5),Tr)$rv
+#' Idom.num2AStri(c(.2,.4),c(.2,.5),rbind(c(.2,.4),c(.2,.5)),Tr,M,rv1,rv2)
 #'
 #' ind.gam2<-vector()
 #' for (i in 1:(n-1))
 #'   for (j in (i+1):n)
-#'   {if (Gam2AStri(Xp[i,],Xp[j,],Xp,Tr,M)==1)
+#'   {if (Idom.num2AStri(Xp[i,],Xp[j,],Xp,Tr,M)==1)
 #'    ind.gam2<-rbind(ind.gam2,c(i,j))}
 #' ind.gam2
 #'
 #' #or try
-#' rv1<-rv.triCC(Xp[1,],Tr)$rv
-#' rv2<-rv.triCC(Xp[2,],Tr)$rv
-#' Gam2AStri(Xp[1,],Xp[2,],Xp,Tr,M,rv1,rv2)
+#' rv1<-rel.vert.triCC(Xp[1,],Tr)$rv
+#' rv2<-rel.vert.triCC(Xp[2,],Tr)$rv
+#' Idom.num2AStri(Xp[1,],Xp[2,],Xp,Tr,M,rv1,rv2)
 #'
 #' #or try
-#' rv1<-rv.triCC(Xp[1,],Tr)$rv
-#' Gam2AStri(Xp[1,],Xp[2,],Xp,Tr,M,rv1)
+#' rv1<-rel.vert.triCC(Xp[1,],Tr)$rv
+#' Idom.num2AStri(Xp[1,],Xp[2,],Xp,Tr,M,rv1)
 #'
 #' #or try
-#' Rv2<-rv.triCC(Xp[2,],Tr)$rv
-#' Gam2AStri(Xp[1,],Xp[2,],Xp,Tr,M,rv2=Rv2)
+#' Rv2<-rel.vert.triCC(Xp[2,],Tr)$rv
+#' Idom.num2AStri(Xp[1,],Xp[2,],Xp,Tr,M,rv2=Rv2)
 #'
-#' Gam2AStri(c(1.3,1.2),c(1.35,1.25),Xp,Tr,M)
+#' Idom.num2AStri(c(1.3,1.2),c(1.35,1.25),Xp,Tr,M)
 #' }
 #'
-#' @export Gam2AStri
-Gam2AStri <- function(p1,p2,Xp,tri,M="CC",rv1=NULL,rv2=NULL,ch.data.pnts=FALSE)
+#' @export Idom.num2AStri
+Idom.num2AStri <- function(p1,p2,Xp,tri,M="CC",rv1=NULL,rv2=NULL,ch.data.pnts=FALSE)
 {
   if (!is.point(p1) || !is.point(p2) )
   {stop('p1 and p2 must both be numeric 2D points')}
@@ -3398,7 +3439,7 @@ Gam2AStri <- function(p1,p2,Xp,tri,M="CC",rv1=NULL,rv2=NULL,ch.data.pnts=FALSE)
   {stop('M must be the circumcenter "CC" or a numeric 2D point for Cartesian coordinates or
           3D point for barycentric coordinates')}
 
-  CC = circ.cent.tri(tri)
+  CC = circumcenter.tri(tri)
   if (identical(M,"CC") )
   { M<-CC }
 
@@ -3412,13 +3453,13 @@ Gam2AStri <- function(p1,p2,Xp,tri,M="CC",rv1=NULL,rv2=NULL,ch.data.pnts=FALSE)
   {dom<-0; return(dom); stop}
 
   if (is.null(rv1))
-  { rv1<-ifelse(isTRUE(all.equal(M,CC)),rv.triCC(p1,tri)$rv,rv.tri.cent(p1,tri,M)$rv)  #vertex region for pt
+  { rv1<-ifelse(isTRUE(all.equal(M,CC)),rel.vert.triCC(p1,tri)$rv,rel.vert.tri(p1,tri,M)$rv)  #vertex region for pt
   } else
   {  if (!is.numeric(rv1) || sum(rv1==c(1,2,3))!=1)
   {stop('vertex index, rv1, must be 1, 2 or 3')}}
 
   if (is.null(rv2))
-  { rv2<-ifelse(isTRUE(all.equal(M,CC)),rv.triCC(p2,tri)$rv,rv.tri.cent(p2,tri,M)$rv)  #vertex region for pt
+  { rv2<-ifelse(isTRUE(all.equal(M,CC)),rel.vert.triCC(p2,tri)$rv,rel.vert.tri(p2,tri,M)$rv)  #vertex region for pt
   } else
   {  if (!is.numeric(rv2) || sum(rv2==c(1,2,3))!=1)
   {stop('vertex index, rv2, must be 1, 2 or 3')}}
@@ -3426,7 +3467,7 @@ Gam2AStri <- function(p1,p2,Xp,tri,M="CC",rv1=NULL,rv2=NULL,ch.data.pnts=FALSE)
   n<-nrow(Xp)
   dom<-1; i<-1;
   while (i <= n & dom==1)
-  {if (max(IndNAStri(p1,Xp[i,],tri,M,rv=rv1),IndNAStri(p2,Xp[i,],tri,M,rv=rv2))==0)
+  {if (max(IarcAStri(p1,Xp[i,],tri,M,rv=rv1),IarcAStri(p2,Xp[i,],tri,M,rv=rv2))==0)
     dom<-0;
   i<-i+1;
   }
@@ -3477,8 +3518,8 @@ Gam2AStri <- function(p1,p2,Xp,tri,M="CC",rv1=NULL,rv2=NULL,ch.data.pnts=FALSE)
 #' \item{quant}{Various quantities for the digraph: number of vertices, number of partition points,
 #' number of intervals, number of arcs, and arc density.}
 #'
-#' @seealso \code{\link{ArcsAS}}, \code{\link{ArcsPEtri}}, \code{\link{ArcsCStri}}, \code{\link{ArcsPE}},
-#' and \code{\link{ArcsCS}}
+#' @seealso \code{\link{arcsAS}}, \code{\link{arcsPEtri}}, \code{\link{arcsCStri}}, \code{\link{arcsPE}},
+#' and \code{\link{arcsCS}}
 #'
 #' @references
 #' \insertAllCited{}
@@ -3495,9 +3536,9 @@ Gam2AStri <- function(p1,p2,Xp,tri,M="CC",rv1=NULL,rv2=NULL,ch.data.pnts=FALSE)
 #' set.seed(1)
 #' Xp<-runif.tri(n,Tr)$g
 #'
-#' M<-as.numeric(runif.tri(1,Tr)$g)  #try also  M<-c(1.6,1.2) or M<-circ.cent.tri(Tr)
+#' M<-as.numeric(runif.tri(1,Tr)$g)  #try also  M<-c(1.6,1.2) or M<-circumcenter.tri(Tr)
 #'
-#' Arcs<-ArcsAStri(Xp,Tr,M) #try also Arcs<-ArcsAStri(Xp,Tr)
+#' Arcs<-arcsAStri(Xp,Tr,M) #try also Arcs<-arcsAStri(Xp,Tr)
 #' #uses the default center, namely circumcenter for M
 #' Arcs
 #' summary(Arcs)
@@ -3506,7 +3547,7 @@ Gam2AStri <- function(p1,p2,Xp,tri,M="CC",rv1=NULL,rv2=NULL,ch.data.pnts=FALSE)
 #' #can add vertex regions
 #' #but we first need to determine center is the circumcenter or not,
 #' #see the description for more detail.
-#' CC<-circ.cent.tri(Tr)
+#' CC<-circumcenter.tri(Tr)
 #' M = as.numeric(Arcs$parameters[[1]])
 #' if (isTRUE(all.equal(M,CC)) || identical(M,"CC"))
 #' {cent<-CC
@@ -3516,7 +3557,7 @@ Gam2AStri <- function(p1,p2,Xp,tri,M="CC",rv1=NULL,rv2=NULL,ch.data.pnts=FALSE)
 #' } else
 #' {cent<-M
 #' cent.name<-"M"
-#' Ds<-cent2edges.tri(Tr,M)
+#' Ds<-prj.cent2edges(Tr,M)
 #' }
 #' L<-rbind(cent,cent,cent); R<-Ds
 #' segments(L[,1], L[,2], R[,1], R[,2], lty=2)
@@ -3529,8 +3570,8 @@ Gam2AStri <- function(p1,p2,Xp,tri,M="CC",rv1=NULL,rv2=NULL,ch.data.pnts=FALSE)
 #' text(xc,yc,txt.str)
 #' }
 #'
-#' @export ArcsAStri
-ArcsAStri <- function(Xp,tri,M="CC")
+#' @export arcsAStri
+arcsAStri <- function(Xp,tri,M="CC")
 {
   xname <-deparse(substitute(Xp))
   yname <-deparse(substitute(tri))
@@ -3555,7 +3596,7 @@ ArcsAStri <- function(Xp,tri,M="CC")
   if (round(D0,14)==0)
   {stop('the triangle is degenerate')}
 
-  CC <- circ.cent.tri(tri)
+  CC <- circumcenter.tri(tri)
   if (identical(M,"CC"))
   {M<-CC
   } else
@@ -3585,11 +3626,11 @@ ArcsAStri <- function(Xp,tri,M="CC")
     for (j in 1:n2)
     {
       p1<-Xtri[j,];
-      RV1<-ifelse(isTRUE(all.equal(M,CC)),rv.triCC(p1,tri)$rv,rv.tri.cent(p1,tri,M)$rv) #vertex region for p1
+      RV1<-ifelse(isTRUE(all.equal(M,CC)),rel.vert.triCC(p1,tri)$rv,rel.vert.tri(p1,tri,M)$rv) #vertex region for p1
       for (k in (1:n2)[-j])  #to avoid loops
       {
         p2<-Xtri[k,];
-        if (IndNAStri(p1,p2,tri,M,RV1)==1)
+        if (IarcAStri(p1,p2,tri,M,RV1)==1)
         {
           S <-rbind(S,Xtri[j,]); E <-rbind(E,Xtri[k,]);
         }
@@ -3600,17 +3641,17 @@ ArcsAStri <- function(Xp,tri,M="CC")
   param<-list(M)
   Mr<-round(M,2)
   if (identical(M,"CC") || isTRUE(all.equal(M,CC)))
-      { cname <-"CC"
-      names(param)<-c("circumcenter")
-        typ<-"Arc Slice Proximity Catch Digraph (AS-PCD) for 2D Points in the Triangle with CC-Vertex Regions"
-        main.txt<-"Arcs of AS-PCD with CC-Vertex Regions"
-        } else
-        {
-          cname <-"M"
-          names(param)<-c("center")
-        typ<-paste("Arc Slice Proximity Catch Digraph (AS-PCD) for 2D Points in the Triangle with Center ", cname," = (",Mr[1],",",Mr[2],")",sep="")
-        main.txt<-paste("Arcs of AS-PCD with Center ", cname," = (",Mr[1],",",Mr[2],")",sep="")
-        }
+  { cname <-"CC"
+  names(param)<-c("circumcenter")
+  typ<-"Arc Slice Proximity Catch Digraph (AS-PCD) for 2D Points in the Triangle with CC-Vertex Regions"
+  main.txt<-"Arcs of AS-PCD with CC-Vertex Regions"
+  } else
+  {
+    cname <-"M"
+    names(param)<-c("center")
+    typ<-paste("Arc Slice Proximity Catch Digraph (AS-PCD) for 2D Points in the Triangle with Center ", cname," = (",Mr[1],",",Mr[2],")",sep="")
+    main.txt<-paste("Arcs of AS-PCD with Center ", cname," = (",Mr[1],",",Mr[2],")",sep="")
+  }
 
   nvert<-n2; ny<-3; ntri<-1; narcs=ifelse(!is.null(S),nrow(S),0);
   arc.dens<-ifelse(nvert>1,narcs/(nvert*(nvert-1)),NA)
@@ -3694,13 +3735,13 @@ ArcsAStri <- function(Xp,tri,M="CC")
 #'
 #' # or try the default center
 #' #plotASarcs.tri(Xp,Tr,asp=1,main="arcs of AS-PCD",xlab="",ylab="",vert.reg = TRUE);
-#' #M = (ArcsAStri(Xp,Tr)$param)$c #the part "M = as.numeric(ArcsAStri(Xp,Tr)$param)" is optional,
+#' #M = (arcsAStri(Xp,Tr)$param)$c #the part "M = as.numeric(arcsAStri(Xp,Tr)$param)" is optional,
 #' #for the below annotation of the plot
 #'
 #' #can add vertex labels and text to the figure (with vertex regions)
 #' #but first we need to determine whether the center used for vertex regions is CC or not
 #' #see the description for more detail.
-#' CC<-circ.cent.tri(Tr)
+#' CC<-circumcenter.tri(Tr)
 #'
 #' if (isTRUE(all.equal(M,CC)) || identical(M,"CC"))
 #' {cent<-CC
@@ -3710,7 +3751,7 @@ ArcsAStri <- function(Xp,tri,M="CC")
 #' } else
 #' {cent<-M
 #' cent.name<-"M"
-#' Ds<-cent2edges.tri(Tr,M)
+#' Ds<-prj.cent2edges(Tr,M)
 #' }
 #'
 #' #now we add the vertex names and annotation
@@ -3724,10 +3765,10 @@ ArcsAStri <- function(Xp,tri,M="CC")
 #' @export plotASarcs.tri
 plotASarcs.tri <- function(Xp,tri,M="CC",asp=NA,main=NULL,xlab=NULL,ylab=NULL,xlim=NULL,ylim=NULL,vert.reg=FALSE,...)
 {
-  ArcsAS<-ArcsAStri(Xp,tri,M)
-  S<-ArcsAS$S
-  E<-ArcsAS$E
-  cent = (ArcsAS$param)$c
+  arcsAS<-arcsAStri(Xp,tri,M)
+  S<-arcsAS$S
+  E<-arcsAS$E
+  cent = (arcsAS$param)$c
 
   if (is.null(xlim))
   {Xlim<-range(tri[,1],Xp[,1],cent[1])
@@ -3740,7 +3781,7 @@ plotASarcs.tri <- function(Xp,tri,M="CC",asp=NA,main=NULL,xlab=NULL,ylab=NULL,xl
   ylim=Ylim+yd*c(-.05,.05)
   }
 
-  if ( isTRUE(all.equal(cent,circ.cent.tri(tri))) )
+  if ( isTRUE(all.equal(cent,circumcenter.tri(tri))) )
   {M="CC"}
 
   if (is.null(main))
@@ -3758,15 +3799,15 @@ plotASarcs.tri <- function(Xp,tri,M="CC",asp=NA,main=NULL,xlab=NULL,ylab=NULL,xl
   polygon(tri,...)
   if (!is.null(S)) {arrows(S[,1], S[,2], E[,1], E[,2], length = 0.1, col= 4)}
   if(vert.reg){
-    cent = (ArcsAS$par)$c
-    CC<-circ.cent.tri(tri)
+    cent = (arcsAS$par)$c
+    CC<-circumcenter.tri(tri)
     A = tri[1,]; B = tri[2,]; C = tri[3,]
 
     if (isTRUE(all.equal(cent,CC)) || identical(M,"CC"))
     {D1<-(B+C)/2; D2<-(A+C)/2; D3<-(A+B)/2;
     Ds<-rbind(D1,D2,D3)
     } else
-    { Ds<-cent2edges.tri(tri,M)}
+    { Ds<-prj.cent2edges(tri,M)}
     L<-rbind(cent,cent,cent); R<-Ds
     segments(L[,1], L[,2], R[,1], R[,2], lty=2)
   }
@@ -3834,14 +3875,14 @@ plotASarcs.tri <- function(Xp,tri,M="CC",asp=NA,main=NULL,xlab=NULL,ylab=NULL,xl
 #'
 #' # or try the default center
 #' #plotASregs.tri(Xp,Tr,main="Proximity Regions for AS-PCD", xlab="",ylab="",vert.reg=TRUE);
-#' M = (ArcsAStri(Xp,Tr)$param)$c #the part "M = as.numeric(ArcsAStri(Xp,Tr)$param)" is optional,
+#' M = (arcsAStri(Xp,Tr)$param)$c #the part "M = as.numeric(arcsAStri(Xp,Tr)$param)" is optional,
 #' #for the below annotation of the plot
 #'
 #' #can add vertex labels and text to the figure (with vertex regions)
 #' #but first we need to determine whether the center used for vertex regions is CC or not
 #' #see the description for more detail.
-#' CC<-circ.cent.tri(Tr)
-#' #Arcs<-ArcsAStri(Xp,Tr,M)
+#' CC<-circumcenter.tri(Tr)
+#' #Arcs<-arcsAStri(Xp,Tr,M)
 #' #M = as.numeric(Arcs$parameters)
 #' if (isTRUE(all.equal(M,CC)) || identical(M,"CC"))
 #' {cent<-CC
@@ -3851,7 +3892,7 @@ plotASarcs.tri <- function(Xp,tri,M="CC",asp=NA,main=NULL,xlab=NULL,ylab=NULL,xl
 #' } else
 #' {cent<-M
 #' cent.name<-"M"
-#' Ds<-cent2edges.tri(Tr,M)
+#' Ds<-prj.cent2edges(Tr,M)
 #' }
 #'
 #' #now we add the vertex names and annotation
@@ -3889,7 +3930,7 @@ plotASregs.tri <- function(Xp,tri,M="CC",main=NULL,xlab=NULL,ylab=NULL,xlim=NULL
   {stop('M must be the circumcenter "CC" or a numeric 2D point for Cartesian coordinates or
           3D point for barycentric coordinates')}
 
-  CC = circ.cent.tri(tri)
+  CC = circumcenter.tri(tri)
   if (identical(M,"CC") ||isTRUE(all.equal(M,CC)) )
   {cent=CC; M="CC"
   } else if (dimension(M)==3)
@@ -3897,8 +3938,8 @@ plotASregs.tri <- function(Xp,tri,M="CC",main=NULL,xlab=NULL,ylab=NULL,xlim=NULL
   } else
   {cent=M}
 
-    if (!identical(M,"CC") && in.triangle(M,tri,boundary=FALSE)$in.tri==FALSE)
-    {stop('center is not the circumcenter or not in the interior of the triangle')}
+  if (!identical(M,"CC") && in.triangle(M,tri,boundary=FALSE)$in.tri==FALSE)
+  {stop('center is not the circumcenter or not in the interior of the triangle')}
 
   nx<-nrow(Xp)
   in.tri<-rep(0,nx)
@@ -3937,7 +3978,7 @@ plotASregs.tri <- function(Xp,tri,M="CC",main=NULL,xlab=NULL,ylab=NULL,xlim=NULL
     for (i in 1:nx2)
     {
       P1<-Xtri[i,]
-      rv<-ifelse(identical(M,"CC"),rv.triCC(P1,tri)$rv,rv.tri.cent(P1,tri,M)$rv)  #vertex region for pt
+      rv<-ifelse(identical(M,"CC"),rel.vert.triCC(P1,tri)$rv,rel.vert.tri(P1,tri,M)$rv)  #vertex region for pt
       RV<-tri[rv,]
       rad<-Dist(P1,RV)
 
@@ -3969,7 +4010,7 @@ plotASregs.tri <- function(Xp,tri,M="CC",main=NULL,xlab=NULL,ylab=NULL,xlim=NULL
     } else
     {
       cent=M
-      Ds<-cent2edges.tri(tri,M)}
+      Ds<-prj.cent2edges(tri,M)}
     L<-rbind(cent,cent,cent); R<-Ds
     segments(L[,1], L[,2], R[,1], R[,2], lty=2)
   }
@@ -4027,8 +4068,8 @@ plotASregs.tri <- function(Xp,tri,M="CC",main=NULL,xlab=NULL,ylab=NULL,xlim=NULL
 #' \item{quant}{Various quantities for the digraph: number of vertices, number of partition points,
 #' number of intervals, number of arcs, and arc density.}
 #'
-#' @seealso \code{\link{ArcsAStri}}, \code{\link{ArcsPEtri}}, \code{\link{ArcsCStri}}, \code{\link{ArcsPE}},
-#' and \code{\link{ArcsCS}}
+#' @seealso \code{\link{arcsAStri}}, \code{\link{arcsPEtri}}, \code{\link{arcsCStri}}, \code{\link{arcsPE}},
+#' and \code{\link{arcsCS}}
 #'
 #' @references
 #' \insertAllCited{}
@@ -4047,16 +4088,16 @@ plotASregs.tri <- function(Xp,tri,M="CC",main=NULL,xlab=NULL,ylab=NULL,xlim=NULL
 #'
 #' M<-c(1,1,1)  #try also M<-c(1,2,3)
 #'
-#' Arcs<-ArcsAS(Xp,Yp,M) #try also the default M with Arcs<-ArcsAS(Xp,Yp)
+#' Arcs<-arcsAS(Xp,Yp,M) #try also the default M with Arcs<-arcsAS(Xp,Yp)
 #' Arcs
 #' summary(Arcs)
 #' plot(Arcs)
 #'
-#' ArcsAS(Xp,Yp[1:3,],M)
+#' arcsAS(Xp,Yp[1:3,],M)
 #' }
 #'
-#' @export ArcsAS
-ArcsAS <- function(Xp,Yp,M="CC")
+#' @export arcsAS
+arcsAS <- function(Xp,Yp,M="CC")
 {
   xname <-deparse(substitute(Xp))
   yname <-deparse(substitute(Yp))
@@ -4078,7 +4119,7 @@ ArcsAS <- function(Xp,Yp,M="CC")
 
   if (nrow(Yp)==3)
   {
-    res<-ArcsAStri(Xp,Yp,M)
+    res<-arcsAStri(Xp,Yp,M)
   } else {
     if ((!is.point(M,3) && M!="CC") || !all(M>0))
     {stop('M must be a numeric 3D point with positive barycentric coordinates or "CC" for circumcenter')}
@@ -4114,14 +4155,14 @@ ArcsAS <- function(Xp,Yp,M="CC")
         if (nrow(Xl)>1)
         {
           Yi.Tri<-Yp[DTr[i,],] #vertices of the ith triangle
-          Yi.tri<-as.bas.tri(Yi.Tri)$tri #convert the triangle Tri into an nonscaled basic triangle, see as.bas.tri help page
+          Yi.tri<-as.basic.tri(Yi.Tri)$tri #convert the triangle Tri into an nonscaled basic triangle, see as.basic.tri help page
           nl<-nrow(Xl)
-          ifelse(identical(M,"CC"), rv.ind<-rel.verts.triCC(Xl,tri=Yi.tri)$rv,
-                 rv.ind<-rel.verts.tri.cent(Xl,tri=Yi.tri,M)$rv)  #vertex region for pt
+          ifelse(identical(M,"CC"), rel.vert.ind<-rel.verts.triCC(Xl,tri=Yi.tri)$rv,
+                 rel.vert.ind<-rel.verts.tri(Xl,tri=Yi.tri,M)$rv)  #vertex region for pt
           for (j in 1:nl)
-          {RV<-rv.ind[j]
+          {RV<-rel.vert.ind[j]
           for (k in (1:nl)[-j])  # to avoid loops
-            if (IndNAStri(Xl[j,],Xl[k,],Yi.tri,M,rv=RV)==1 )
+            if (IarcAStri(Xl[j,],Xl[k,],Yi.tri,M,rv=RV)==1 )
             {
               S <-rbind(S,Xl[j,]); E <-rbind(E,Xl[k,]);
             }
@@ -4130,19 +4171,19 @@ ArcsAS <- function(Xp,Yp,M="CC")
       }
     }
 
-   cname <-ifelse(identical(M,"CC"),"CC","M")
+    cname <-ifelse(identical(M,"CC"),"CC","M")
 
     param<-list(M)
     names(param)<-c("center")
 
     Mvec <- paste(M, collapse=",");
     if (identical(M,"CC"))
-        {
-          typ<-"Arc Slice Proximity Catch Digraph (AS-PCD) for 2D Points in Multiple Triangles with CC-Vertex Regions"
-          main.txt<-"Arcs of AS-PCD with CC-Vertex Regions"
-          } else
-          { typ<-paste("Arc Slice Proximity Catch Digraph (AS-PCD) for 2D Points in Multiple Triangles with Center ", cname," = (",Mvec,")",sep="")
-      main.txt <- paste("Arcs of AS-PCD with Center ", cname," = (",Mvec,")",sep="")
+    {
+      typ<-"Arc Slice Proximity Catch Digraph (AS-PCD) for 2D Points in Multiple Triangles with CC-Vertex Regions"
+      main.txt<-"Arcs of AS-PCD with CC-Vertex Regions"
+    } else
+    { typ<-paste("Arc Slice Proximity Catch Digraph (AS-PCD) for 2D Points in Multiple Triangles with Center ", cname," = (",Mvec,")",sep="")
+    main.txt <- paste("Arcs of AS-PCD with Center ", cname," = (",Mvec,")",sep="")
     }
 
     nvert<-nx2; ny<-nrow(Yp); ntri<-nt; narcs=ifelse(!is.null(S),nrow(S),0);
@@ -4244,9 +4285,9 @@ plotASarcs <- function(Xp,Yp,M="CC",asp=NA,main=NULL,xlab=NULL,ylab=NULL,xlim=NU
     plotASarcs.tri(Xp,Yp,M,asp,main,xlab,ylab,xlim,ylim)
   } else
   {
-    ArcsAS<-ArcsAS(Xp,Yp,M)
-    S<-ArcsAS$S
-    E<-ArcsAS$E
+    arcsAS<-arcsAS(Xp,Yp,M)
+    S<-arcsAS$S
+    E<-arcsAS$E
 
     DTmesh<-interp::tri.mesh(Yp[,1],Yp[,2],duplicate="remove")
 
@@ -4414,7 +4455,7 @@ plotASregs <- function(Xp,Yp,M="CC",main=NULL,xlab=NULL,ylab=NULL,xlim=NULL,ylim
       for (i in 1:nt)
       {
         Tri<-Yp[DTr[i,],] #vertices of the ith triangle
-        tri<-as.bas.tri(Tri)$tri #convert the triangle Tri into an nonscaled basic triangle, see as.bas.tri help page
+        tri<-as.basic.tri(Tri)$tri #convert the triangle Tri into an nonscaled basic triangle, see as.basic.tri help page
 
         polygon(tri,lty=2)
         Xtri<-matrix(Xch[i.tr==i,],ncol=2)  #Xp points inside triangle i
@@ -4425,7 +4466,7 @@ plotASregs <- function(Xp,Yp,M="CC",main=NULL,xlab=NULL,ylab=NULL,xlim=NULL,ylim
           for (j in 1:ni)
           {
             P1<-Xtri[j,]
-            rv<-ifelse(identical(M,"CC"), rv.triCC(P1,tri)$rv, rv.tri.cent(P1,tri,M)$rv)  #vertex region for P1
+            rv<-ifelse(identical(M,"CC"), rel.vert.triCC(P1,tri)$rv, rel.vert.tri(P1,tri,M)$rv)  #vertex region for P1
             RV<-tri[rv,]
             rad<-Dist(P1,RV)
 

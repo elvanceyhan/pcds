@@ -13,11 +13,14 @@
 }
 \value{
 The \code{call} of the \code{object} of class \code{"PCDs"}
-and also the \code{type} (i.e. a brief description) of the proximity catch digraph (PCD)).
+and also the \code{type} (i.e. a brief description)
+of the proximity catch digraph (PCD.
 }
 \description{
-Prints the \code{call} of the \code{object} of class \code{"PCDs"}
-and also the \code{type} (i.e. a brief description) of the proximity catch digraph (PCD)).
+Prints the \code{call} of the \code{object}
+of class \code{"PCDs"}
+and also the \code{type} (i.e. a brief description)
+of the proximity catch digraph (PCD.
 }
 \examples{
 \dontrun{
@@ -26,12 +29,17 @@ Tr<-rbind(A,B,C);
 n<-10
 Xp<-runif.tri(n,Tr)$g
 M<-as.numeric(runif.tri(1,Tr)$g)
-Arcs<-ArcsAStri(Xp,Tr,M)
+Arcs<-arcsAStri(Xp,Tr,M)
 Arcs
 print(Arcs)
+
+typeof(Arcs))
+attributes(Arcs)
 }
 
 }
 \seealso{
-\code{\link{summary.PCDs}}, \code{\link{print.summary.PCDs}}, and \code{\link{plot.PCDs}}
+\code{\link{summary.PCDs}},
+\code{\link{print.summary.PCDs}},
+and \code{\link{plot.PCDs}}
 }

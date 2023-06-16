@@ -9,17 +9,23 @@ centersMc(Yp, c = 0.5)
 \arguments{
 \item{Yp}{A \code{vector} real numbers that constitute the end points of intervals.}
 
-\item{c}{A positive real number in \eqn{(0,1)} parameterizing the centers inside the intervals
+\item{c}{A positive real number in \eqn{(0,1)}
+parameterizing the centers inside the intervals
 with the default \code{c=.5}.
-For the interval, \code{int}\eqn{=(a,b)}, the parameterized center is \eqn{M_c=a+c(b-a)}.}
+For the interval, \code{int}\eqn{=(a,b)},
+the parameterized center is \eqn{M_c=a+c(b-a)}.}
 }
 \value{
-(parameterized) centers of the intervals based on \code{Yp} points as a vector
+(parameterized) centers of the intervals
+based on \code{Yp} points as a vector
 }
 \description{
-Returns the centers of the intervals based on 1D points in `Yp` parameterized by \eqn{c \in (0,1)}
-so that \eqn{100c} \% of the length of interval is to the left of \eqn{M_c} and \eqn{100(1-c)} \% of the length of the interval
-is to the right of \eqn{M_c}. That is, for an interval \eqn{(a,b)}, the parameterized center is \eqn{M_c=a+c(b-a)}
+Returns the centers of the intervals based on
+1D points in \code{Yp} parameterized by \eqn{c \in (0,1)}
+so that \eqn{100c} \% of the length of interval is to the left of \eqn{M_c}
+and \eqn{100(1-c)} \% of the length of the interval
+is to the right of \eqn{M_c}. That is, for an interval \eqn{(a,b)},
+the parameterized center is \eqn{M_c=a+c(b-a)}
 \code{Yp} is a \code{vector} of 1D points, not necessarily sorted.
 
 See also (\insertCite{ceyhan:metrika-2012,ceyhan:revstat-2016;textual}{pcds}).
@@ -41,7 +47,7 @@ centersMc(Yp,c)
 \insertAllCited{}
 }
 \seealso{
-\code{\link{centMc}}
+\code{\link{centerMc}}
 }
 \author{
 Elvan Ceyhan

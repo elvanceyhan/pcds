@@ -16,7 +16,8 @@ The \code{call} of the \code{object} of class \code{"Patterns"}
 and also the \code{type} (or description) of the pattern).
 }
 \description{
-Prints the \code{call} of the \code{object} of class \code{"Patterns"}
+Prints the \code{call} of the \code{object}
+of class \code{"Patterns"}
 and also the \code{type} (or description) of the pattern).
 }
 \examples{
@@ -24,14 +25,20 @@ and also the \code{type} (or description) of the pattern).
 nx<-10; #try also 20, 100, and 1000
 ny<-5; #try also 1
 e<-.15;
-Y<-cbind(runif(ny),runif(ny)) #with default bounding box (i.e., unit square)
+Y<-cbind(runif(ny),runif(ny))
+#with default bounding box (i.e., unit square)
 
-Xdt<-rseg.circ(nx,Y,e)
+Xdt<-rseg.circular(nx,Y,e)
 Xdt
 print(Xdt)
+
+typeof(Xdt))
+attributes(Xdt)
 }
 
 }
 \seealso{
-\code{\link{summary.Patterns}}, \code{\link{print.summary.Patterns}}, and \code{\link{plot.Patterns}}
+\code{\link{summary.Patterns}},
+\code{\link{print.summary.Patterns}},
+and \code{\link{plot.Patterns}}
 }

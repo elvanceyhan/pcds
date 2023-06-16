@@ -7,31 +7,46 @@
 runif.tetra(n, th)
 }
 \arguments{
-\item{n}{A positive integer representing the number of uniform points to be generated in the tetrahedron.}
+\item{n}{A positive integer
+representing the number of uniform points
+to be generated in the tetrahedron.}
 
-\item{th}{A \eqn{4 \times 3} matrix with each row representing a vertex of the tetrahedron.}
+\item{th}{A \eqn{4 \times 3} matrix with each row
+representing a vertex of the tetrahedron.}
 }
 \value{
 A \code{list} with the elements
-\item{type}{The type of the pattern from which points are to be generated}
-\item{mtitle}{The \code{"main"} title for the plot of the point pattern}
-\item{tess.points}{The vertices of the support of the uniformly generated points, it is the tetrahedron
-\code{th} for this function}
-\item{gen.points}{The output set of generated points uniformly in the tetrahedron, \code{th}.}
-\item{out.region}{The outer region which contains the support region, \code{NULL} for this function.}
-\item{desc.pat}{Description of the point pattern from which points are to be generated}
-\item{num.points}{The \code{vector} of two numbers, which are the number of generated points and the number
+\item{type}{The type of the pattern
+from which points are to be generated}
+\item{mtitle}{The \code{"main"} title
+for the plot of the point pattern}
+\item{tess.points}{The vertices of the support of
+the uniformly generated points,
+it is the tetrahedron' \code{th} for this function}
+\item{gen.points}{The output set of generated points uniformly
+in the tetrahedron, \code{th}.}
+\item{out.region}{The outer region
+which contains the support region,
+\code{NULL} for this function.}
+\item{desc.pat}{Description of the point pattern
+from which points are to be generated}
+\item{num.points}{The \code{vector} of two numbers,
+which are the number of generated points and the number
 of vertices of the support points (here it is 4).}
 \item{txt4pnts}{Description of the two numbers in \code{num.points}}
-\item{xlimit, ylimit, zlimit}{The ranges of the \eqn{x}-, \eqn{y}-, and \eqn{z}-coordinates of the support, \code{th}}
+\item{xlimit, ylimit, zlimit}{The ranges of the \eqn{x}-, \eqn{y}-,
+and \eqn{z}-coordinates of the support, \code{th}}
 }
 \description{
 An object of class \code{"Uniform"}.
-Generates \code{n} points uniformly in the general tetrahedron \code{th} whose vertices are stacked row-wise.
+Generates \code{n} points uniformly
+in the general tetrahedron \code{th}
+whose vertices are stacked row-wise.
 }
 \examples{
 \dontrun{
-A<-sample(1:12,3); B<-sample(1:12,3); C<-sample(1:12,3); D<-sample(1:12,3)
+A<-sample(1:12,3); B<-sample(1:12,3);
+C<-sample(1:12,3); D<-sample(1:12,3)
 tetra<-rbind(A,B,C,D)
 
 n<-100
@@ -51,19 +66,24 @@ xd<-Xlim[2]-Xlim[1]
 yd<-Ylim[2]-Ylim[1]
 zd<-Zlim[2]-Zlim[1]
 
-plot3D::scatter3D(Xp[,1],Xp[,2],Xp[,3], theta =225, phi = 30, bty = "g",
+plot3D::scatter3D(Xp[,1],Xp[,2],Xp[,3],
+theta =225, phi = 30, bty = "g",
 main="Uniform Points in a Tetrahedron",
-xlim=Xlim+xd*c(-.05,.05),ylim=Ylim+yd*c(-.05,.05), zlim=Zlim+zd*c(-.05,.05),
+xlim=Xlim+xd*c(-.05,.05),ylim=Ylim+yd*c(-.05,.05),
+zlim=Zlim+zd*c(-.05,.05),
           pch = 20, cex = 1, ticktype = "detailed")
 #add the vertices of the tetrahedron
 plot3D::points3D(tetra[,1],tetra[,2],tetra[,3], add=TRUE)
 L<-rbind(A,A,A,B,B,C); R<-rbind(B,C,D,C,D,D)
-plot3D::segments3D(L[,1], L[,2], L[,3], R[,1], R[,2],R[,3], add=TRUE,lwd=2)
+plot3D::segments3D(L[,1], L[,2], L[,3], R[,1], R[,2],R[,3],
+add=TRUE,lwd=2)
 
-plot3D::text3D(tetra[,1],tetra[,2],tetra[,3], labels=c("A","B","C","D"), add=TRUE)
+plot3D::text3D(tetra[,1],tetra[,2],tetra[,3],
+labels=c("A","B","C","D"), add=TRUE)
 
 #need to install scatterplot3d package and call "library(scatterplot3d)"
-s3d<-scatterplot3d(Xp, highlight.3d=TRUE,xlab="x",ylab="y",zlab="z",
+s3d<-scatterplot3d(Xp, highlight.3d=TRUE,
+xlab="x",ylab="y",zlab="z",
                     col.axis="blue", col.grid="lightblue",
                     main="3D Scatterplot of the data", pch=20)
  s3d$points3d(tetra,pch=20,col="blue")

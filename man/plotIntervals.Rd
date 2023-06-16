@@ -2,7 +2,8 @@
 % Please edit documentation in R/AuxDelaunay.R
 \name{plotIntervals}
 \alias{plotIntervals}
-\title{The plot of the subintervals based on \code{Yp} points together with \code{Xp} points}
+\title{The plot of the subintervals based on \code{Yp} points
+together with \code{Xp} points}
 \usage{
 plotIntervals(
   Xp,
@@ -18,24 +19,28 @@ plotIntervals(
 \arguments{
 \item{Xp}{A set of 1D points whose scatter-plot is provided.}
 
-\item{Yp}{A set of 1D points which constitute the end points of the intervals which
+\item{Yp}{A set of 1D points
+which constitute the end points of the intervals which
 partition the real line.}
 
 \item{main}{An overall title for the plot (default=\code{NULL}).}
 
-\item{xlab, ylab}{Titles for the \eqn{x} and \eqn{y} axes, respectively (default=\code{NULL} for both).}
+\item{xlab, ylab}{Titles for the \eqn{x} and \eqn{y} axes,
+respectively (default=\code{NULL} for both).}
 
-\item{xlim, ylim}{Two \code{numeric} vectors of length 2, giving the \eqn{x}- and \eqn{y}-coordinate ranges
+\item{xlim, ylim}{Two \code{numeric} vectors of length 2,
+giving the \eqn{x}- and \eqn{y}-coordinate ranges
 (default=\code{NULL} for both).}
 
 \item{\dots}{Additional \code{plot} parameters.}
 }
 \value{
-Plot of the intervals based on \code{Yp} points and also scatter plot of \code{Xp} points
+Plot of the intervals based on \code{Yp} points
+and also scatter plot of \code{Xp} points
 }
 \description{
-Plots the \code{Xp} points and the intervals based on \code{Yp} points
-points.
+Plots the \code{Xp} points
+and the intervals based on \code{Yp} points.
 }
 \examples{
 \dontrun{
@@ -53,7 +58,7 @@ plotIntervals(Xp,Yp,xlab="",ylab="")
 
 }
 \seealso{
-\code{\link{plotPEregs1D}} and \code{\link{plotDeltri}}
+\code{\link{plotPEregs1D}} and \code{\link{plotDelaunay.tri}}
 }
 \author{
 Elvan Ceyhan

@@ -131,11 +131,11 @@ asyvarCS2D <- function(t)
 #' @return \eqn{I(}\code{p2} is in \eqn{N_{CS}(p1,t=1))} for \code{p1} in the first one-sixth of \eqn{T_e},
 #' \eqn{T(A,D_3,CM)}, that is, returns 1 if \code{p2} is in \eqn{N_{CS}(p1,t=1)}, returns 0 otherwise
 #'
-#' @seealso \code{\link{IndNCSTe}}
+#' @seealso \code{\link{IarcCSstd.tri}}
 #'
 #' @author Elvan Ceyhan
 #'
-IndNCS.Te.onesixth <- function(p1,p2)
+IarcCS.Te.onesixth <- function(p1,p2)
 {
   if (!is.point(p1) || !is.point(p2) )
   {stop('both arguments must be numeric 2D points')}
@@ -188,14 +188,14 @@ IndNCS.Te.onesixth <- function(p1,p2)
 #' @return \eqn{I(}\code{p} is a dominating point of the CS-PCD\eqn{)} where the vertices of the CS-PCD are the 2D data set \code{Xp},
 #' that is, returns 1 if \code{p} is a dominating point, returns 0 otherwise
 #'
-#' @seealso \code{\link{Gam1CSTe}} and \code{\link{Gam1CSTet1}}
+#' @seealso \code{\link{Idom.num1CSstd.tri}} and \code{\link{Idom.num1CSt1std.tri}}
 #'
 #' @references
 #' \insertAllCited{}
 #'
 #' @author Elvan Ceyhan
 #'
-Gam1CS.Te.onesixth <- function(p,Xp,ch.data.pnt=FALSE)
+Idom.num1CS.Te.onesixth <- function(p,Xp,ch.data.pnt=FALSE)
 {
   if (!is.point(p))
   {stop('p must be a numeric point of dimension 2')}
@@ -217,7 +217,7 @@ Gam1CS.Te.onesixth <- function(p,Xp,ch.data.pnt=FALSE)
   n<-nrow(Xp)
   ct<-1; i<-1;
   while (i <= n && ct==1)
-  {if (IndNCS.Te.onesixth(p,Xp[i,])==0)
+  {if (IarcCS.Te.onesixth(p,Xp[i,])==0)
   {ct<-0};
     i<-i+1;
   }
@@ -252,14 +252,14 @@ Gam1CS.Te.onesixth <- function(p,Xp,ch.data.pnt=FALSE)
 #' @return \eqn{I(}\{\code{p1,p2}\} is a dominating set of the CS-PCD\eqn{)} where the vertices of the CS-PCD are the 2D data set \code{Xp}),
 #' that is, returns 1 if \{\code{p1,p2}\} is a dominating set of CS-PCD, returns 0 otherwise
 #'
-#' @seealso \code{\link{Gam2CSTe}}
+#' @seealso \code{\link{Idom.num2CSstd.tri}}
 #'
 #' @references
 #' \insertAllCited{}
 #'
 #' @author Elvan Ceyhan
 #'
-Gam2CS.Te.onesixth <- function(p1,p2,Xp,ch.data.pnts=FALSE)
+Idom.num2CS.Te.onesixth <- function(p1,p2,Xp,ch.data.pnts=FALSE)
 {
   if (!is.point(p1) || !is.point(p2) )
   {stop('p1 and p2 must both be numeric 2D points')}
@@ -286,7 +286,7 @@ Gam2CS.Te.onesixth <- function(p1,p2,Xp,ch.data.pnts=FALSE)
   ct<-1; i<-1;
   while (i<=n && ct==1)
   {
-    if (max(IndNCS.Te.onesixth(p1,Xp[i,]),IndNCS.Te.onesixth(p2,Xp[i,]))==0)
+    if (max(IarcCS.Te.onesixth(p1,Xp[i,]),IarcCS.Te.onesixth(p2,Xp[i,]))==0)
     {ct<-0};
     i<-i+1;
   }
@@ -324,7 +324,7 @@ Gam2CS.Te.onesixth <- function(p1,p2,Xp,ch.data.pnts=FALSE)
 #' @return Vertices of the triangular region which constitutes the CS proximity region with expansion parameter
 #' \eqn{t>0} and center \code{M} for a point \code{p}
 #'
-#' @seealso \code{\link{NPEtri}}, \code{\link{NAStri}}, and  \code{\link{IndNCStri}}
+#' @seealso \code{\link{NPEtri}}, \code{\link{NAStri}}, and  \code{\link{IarcCStri}}
 #'
 #' @references
 #' \insertAllCited{}
@@ -349,7 +349,7 @@ Gam2CS.Te.onesixth <- function(p1,p2,Xp,ch.data.pnts=FALSE)
 #' NCStri(P1,Tr,tau,M)
 #'
 #' #or try
-#' re<-rel.edges.tri.cent(P1,Tr,M)$re
+#' re<-rel.edges.tri(P1,Tr,M)$re
 #' NCStri(P1,Tr,tau,M,re)
 #' }
 #'
@@ -384,7 +384,7 @@ NCStri <- function(p,tri,t,M=c(1,1,1),re=NULL)
   {reg<-NULL; return(reg); stop}
 
   if (is.null(re))
-  {re<-re.tri.cent(p,tri,M)$re #edge region for p
+  {re<-rel.edge.tri(p,tri,M)$re #edge region for p
   } else
   {  if (!is.numeric(re) || sum(re==c(1,2,3))!=1)
   {stop('edge index, re, must be 1, 2 or 3')}}
@@ -402,16 +402,16 @@ NCStri <- function(p,tri,t,M=c(1,1,1),re=NULL)
   reg<-tri.shr+t(replicate(3,p))
   A1<-reg[1,]; B1<-reg[2,]; C1<-reg[3,];
   if (t>1)
-  {G1<-int.2lines(A1,B1,B,C);
-  H1<-int.2lines(A1,C1,B,C);
+  {G1<-intersect2lines(A1,B1,B,C);
+  H1<-intersect2lines(A1,C1,B,C);
   if (in.triangle(A1,tri,boundary = TRUE)$i)
   {reg<-rbind(A1,G1,H1)
   } else if (in.triangle(C,reg,boundary = FALSE)$i && !in.triangle(B,reg,boundary = TRUE)$i)
   {
-    I1<-int.2lines(A1,B1,A,C);
+    I1<-intersect2lines(A1,B1,A,C);
     reg<-rbind(G1,C,I1)
   } else if (!in.triangle(C,reg,boundary = FALSE)$i && in.triangle(B,reg,boundary = TRUE)$i)
-  {J1<-int.2lines(A1,C1,A,B)
+  {J1<-intersect2lines(A1,C1,A,B)
   reg<-rbind(H1,B,J1)
   } else
   {reg<-tri}
@@ -424,16 +424,16 @@ NCStri <- function(p,tri,t,M=c(1,1,1),re=NULL)
     reg<-tri.shr+t(replicate(3,p))
     A1<-reg[1,]; B1<-reg[2,]; C1<-reg[3,];
     if (t>1)
-    {G1<-int.2lines(A1,B1,A,C);
-    H1<-int.2lines(B1,C1,A,C);
+    {G1<-intersect2lines(A1,B1,A,C);
+    H1<-intersect2lines(B1,C1,A,C);
     if (in.triangle(B1,tri,boundary = TRUE)$i)
     {reg<-rbind(B1,G1,H1)
     } else if (in.triangle(C,reg,boundary = FALSE)$i && !in.triangle(A,reg,boundary = TRUE)$i)
     {
-      I1<-int.2lines(A1,B1,B,C);
+      I1<-intersect2lines(A1,B1,B,C);
       reg<-rbind(G1,C,I1)
     } else if (!in.triangle(C,reg,boundary = FALSE)$i && in.triangle(A,reg,boundary = TRUE)$i)
-    {J1<-int.2lines(B1,C1,A,B)
+    {J1<-intersect2lines(B1,C1,A,B)
     reg<-rbind(H1,A,J1)
     } else
     {reg<-tri}
@@ -446,16 +446,16 @@ NCStri <- function(p,tri,t,M=c(1,1,1),re=NULL)
     reg<-tri.shr+t(replicate(3,p))
     A1<-reg[1,]; B1<-reg[2,]; C1<-reg[3,];
     if (t>1)
-    {G1<-int.2lines(A1,C1,A,B);
-    H1<-int.2lines(B1,C1,A,B);
+    {G1<-intersect2lines(A1,C1,A,B);
+    H1<-intersect2lines(B1,C1,A,B);
     if (in.triangle(C1,tri,boundary = TRUE)$i)
     {reg<-rbind(C1,G1,H1)
     } else if (in.triangle(B,reg,boundary = FALSE)$i && !in.triangle(A,reg,boundary = TRUE)$i)
     {
-      I1<-int.2lines(A1,C1,B,C);
+      I1<-intersect2lines(A1,C1,B,C);
       reg<-rbind(G1,B,I1)
     } else if (!in.triangle(B,reg,boundary = FALSE)$i && in.triangle(A,reg,boundary = TRUE)$i)
-    {J1<-int.2lines(B1,C1,A,C)
+    {J1<-intersect2lines(B1,C1,A,C)
     reg<-rbind(H1,A,J1)
     } else
     {reg<-tri}
@@ -498,7 +498,7 @@ NCStri <- function(p,tri,t,M=c(1,1,1),re=NULL)
 #'
 #' @return I(\code{p2} is in \eqn{NCS(p1,t)}) for \code{p1}, that is, returns 1 if \code{p2} is in \eqn{NCS(p1,t)}, returns 0 otherwise
 #'
-#' @seealso \code{\link{IndNAStri}}, \code{\link{IndNPEtri}}, \code{\link{IndNCStri}}, and \code{\link{IndNCSTe}}
+#' @seealso \code{\link{IarcAStri}}, \code{\link{IarcPEtri}}, \code{\link{IarcCStri}}, and \code{\link{IarcCSstd.tri}}
 #'
 #' @references
 #' \insertAllCited{}
@@ -517,19 +517,19 @@ NCStri <- function(p,tri,t,M=c(1,1,1),re=NULL)
 #' set.seed(1)
 #' Xp<-runif.tri(n,Tr)$g
 #'
-#' IndNCStri(Xp[1,],Xp[2,],Tr,tau,M)
+#' IarcCStri(Xp[1,],Xp[2,],Tr,tau,M)
 #'
 #' P1<-as.numeric(runif.tri(1,Tr)$g)
 #' P2<-as.numeric(runif.tri(1,Tr)$g)
-#' IndNCStri(P1,P2,Tr,tau,M)
+#' IarcCStri(P1,P2,Tr,tau,M)
 #'
 #' #or try
-#' re<-rel.edges.tri.cent(P1,Tr,M)$re
-#' IndNCStri(P1,P2,Tr,tau,M,re)
+#' re<-rel.edges.tri(P1,Tr,M)$re
+#' IarcCStri(P1,P2,Tr,tau,M,re)
 #' }
 #'
-#' @export IndNCStri
-IndNCStri <- function(p1,p2,tri,t,M,re=NULL)
+#' @export IarcCStri
+IarcCStri <- function(p1,p2,tri,t,M,re=NULL)
 {
   if (!is.point(p1) || !is.point(p2) )
   {stop('p1 and p2 must both be numeric 2D points')}
@@ -562,7 +562,7 @@ IndNCStri <- function(p1,p2,tri,t,M,re=NULL)
   {arc<-0; return(arc); stop}
 
   if (is.null(re))
-  {rel.ed<-re.tri.cent(p1,tri,M)$re #rel.edges.tri.cent(p1,tri,M)$re #edge region for p1
+  {rel.ed<-rel.edge.tri(p1,tri,M)$re #rel.edges.tri(p1,tri,M)$re #edge region for p1
   } else if (!is.numeric(re) || sum(re==c(1,2,3))!=1)
   {stop('edge index, re, must be 1, 2 or 3')
   } else
@@ -637,7 +637,7 @@ IndNCStri <- function(p1,p2,tri,t,M,re=NULL)
 #' that is, returns 1 if \code{p2} is in \eqn{N_{CS}(p1,t)},
 #' returns 0 otherwise
 #'
-#' @seealso \code{\link{IndNCStri}} and \code{\link{IndNCSTe}}
+#' @seealso \code{\link{IarcCStri}} and \code{\link{IarcCSstd.tri}}
 #'
 #' @references
 #' \insertAllCited{}
@@ -650,27 +650,27 @@ IndNCStri <- function(p1,p2,tri,t,M,re=NULL)
 #' A<-c(0,0); B<-c(1,0); C<-c(c1,c2);
 #' Tb<-rbind(A,B,C);
 #'
-#' M<-as.numeric(runif.bas.tri(1,c1,c2)$g)
+#' M<-as.numeric(runif.basic.tri(1,c1,c2)$g)
 #'
 #' tau<-2
 #'
-#' P1<-as.numeric(runif.bas.tri(1,c1,c2)$g)
-#' P2<-as.numeric(runif.bas.tri(1,c1,c2)$g)
-#' IndNCSbas.tri(P1,P2,tau,c1,c2,M)
+#' P1<-as.numeric(runif.basic.tri(1,c1,c2)$g)
+#' P2<-as.numeric(runif.basic.tri(1,c1,c2)$g)
+#' IarcCSbasic.tri(P1,P2,tau,c1,c2,M)
 #'
 #' P1<-c(.4,.2)
 #' P2<-c(.5,.26)
-#' IndNCSbas.tri(P1,P2,tau,c1,c2,M)
-#' IndNCSbas.tri(P1,P1,tau,c1,c2,M)
+#' IarcCSbasic.tri(P1,P2,tau,c1,c2,M)
+#' IarcCSbasic.tri(P1,P1,tau,c1,c2,M)
 #'
 #' #or try
-#' Re<-re.bas.tri.cent(P1,c1,c2,M)$re
-#' IndNCSbas.tri(P1,P2,tau,c1,c2,M,Re)
-#' IndNCSbas.tri(P1,P1,tau,c1,c2,M,Re)
+#' Re<-rel.edge.basic.tri(P1,c1,c2,M)$re
+#' IarcCSbasic.tri(P1,P2,tau,c1,c2,M,Re)
+#' IarcCSbasic.tri(P1,P1,tau,c1,c2,M,Re)
 #' }
 #'
-#' @export IndNCSbas.tri
-IndNCSbas.tri <- function(p1,p2,t,c1,c2,M=c(1,1,1),re=NULL)
+#' @export IarcCSbasic.tri
+IarcCSbasic.tri <- function(p1,p2,t,c1,c2,M=c(1,1,1),re=NULL)
 {
   if (!is.point(p1) || !is.point(p2))
   {stop('p1 and p2 must be numeric 2D points')}
@@ -703,7 +703,7 @@ IndNCSbas.tri <- function(p1,p2,t,c1,c2,M=c(1,1,1),re=NULL)
   {arc<-0; return(arc); stop}
 
   if (is.null(re))
-  { re<-re.bas.tri.cent(p1,c1,c2,M)$re
+  { re<-rel.edge.basic.tri(p1,c1,c2,M)$re
   } else
   {  if (!is.numeric(re) || sum(re==c(1,2,3))!=1)
   {stop('edge index, re, must be 1, 2 or 3')}}
@@ -769,7 +769,7 @@ IndNCSbas.tri <- function(p1,p2,t,c1,c2,M=c(1,1,1),re=NULL)
 #' @return \eqn{I(}\code{p2} is in \eqn{N_{CS}(p1,t))} for points \code{p1} and \code{p2}, that is, returns 1 if \code{p2} is in \eqn{N_{CS}(p1,t)},
 #' returns 0 otherwise
 #'
-#' @seealso \code{\link{IndNCStri}}, \code{\link{IndNCSbas.tri}}, and \code{\link{IndNPETe}}
+#' @seealso \code{\link{IarcCStri}}, \code{\link{IarcCSbasic.tri}}, and \code{\link{IarcPEstd.tri}}
 #'
 #' @references
 #' \insertAllCited{}
@@ -787,16 +787,16 @@ IndNCSbas.tri <- function(p1,p2,t,c1,c2,M=c(1,1,1),re=NULL)
 #'
 #' M<-as.numeric(runif.std.tri(1)$g)  #try also M<-c(.6,.2) or M=(A+B+C)/3
 #'
-#' IndNCSTe(Xp[1,],Xp[3,],t=2,M)
-#' IndNCSTe(c(0,1),Xp[3,],t=2,M)
+#' IarcCSstd.tri(Xp[1,],Xp[3,],t=2,M)
+#' IarcCSstd.tri(c(0,1),Xp[3,],t=2,M)
 #'
 #' #or try
-#' Re<-re.tri.cent(Xp[1,],Te,M) $re
-#' IndNCSTe(Xp[1,],Xp[3,],t=2,M,Re)
+#' Re<-rel.edge.tri(Xp[1,],Te,M) $re
+#' IarcCSstd.tri(Xp[1,],Xp[3,],t=2,M,Re)
 #' }
 #'
-#' @export IndNCSTe
-IndNCSTe <- function(p1,p2,t,M=c(1,1,1),re=NULL)
+#' @export IarcCSstd.tri
+IarcCSstd.tri <- function(p1,p2,t,M=c(1,1,1),re=NULL)
 {
   if (!is.point(p1) || !is.point(p2))
   {stop('p1 and p2 must be numeric 2D points')}
@@ -824,7 +824,7 @@ IndNCSTe <- function(p1,p2,t,M=c(1,1,1),re=NULL)
   {arc<-0; return(arc); stop}
 
   if (is.null(re))
-  {re<-re.tri.cent(p1,Te,M)$re #rvTe.cent(p1,M)$rv #vertex region for p1
+  {re<-rel.edge.tri(p1,Te,M)$re
   } else
   {  if (!is.numeric(re) || sum(re==c(1,2,3))!=1)
   {stop('edge index, re, must be 1, 2 or 3')}}
@@ -872,15 +872,15 @@ IndNCSTe <- function(p1,p2,t,M=c(1,1,1),re=NULL)
 #' standard equilateral triangle case with \eqn{t=1}
 #'
 #' @description
-#' Three indicator functions: \code{IndNCSTeRABt1}, \code{IndNCSTeRBCt1} and \code{IndNCSTeRACt1}.
+#' Three indicator functions: \code{IarcCSt1.std.triRAB}, \code{IarcCSt1.std.triRBC} and \code{IarcCSt1.std.triRAC}.
 #'
-#' The function \code{IndNCSTeRABt1} returns \eqn{I(}\code{p2} is in \eqn{N_{CS}(p1,t=1)} for \code{p1} in \eqn{RAB}
+#' The function \code{IarcCSt1.std.triRAB} returns \eqn{I(}\code{p2} is in \eqn{N_{CS}(p1,t=1)} for \code{p1} in \eqn{RAB}
 #' (edge region for edge \eqn{AB}, i.e., edge 3) in the standard equilateral triangle \eqn{T_e=T(A,B,C)=T((0,0),(1,0),(1/2,\sqrt{3}/2))};
 #'
-#' \code{IndNCSTeRBCt1} returns \eqn{I(}\code{p2} is in \eqn{N_{CS}(p1,t=1)} for \code{p1} in \eqn{RBC} (edge region for edge \eqn{BC}, i.e., edge 1) in \eqn{T_e};
+#' \code{IarcCSt1.std.triRBC} returns \eqn{I(}\code{p2} is in \eqn{N_{CS}(p1,t=1)} for \code{p1} in \eqn{RBC} (edge region for edge \eqn{BC}, i.e., edge 1) in \eqn{T_e};
 #' and
 #'
-#' \code{IndNCSTeRACt1} returns \eqn{I(}\code{p2} is in \eqn{N_{CS}(p1,t=1)} for \code{p1} in \eqn{RAC} (edge region for edge \eqn{AC}, i.e., edge 2) in \eqn{T_e}.
+#' \code{IarcCSt1.std.triRAC} returns \eqn{I(}\code{p2} is in \eqn{N_{CS}(p1,t=1)} for \code{p1} in \eqn{RAC} (edge region for edge \eqn{AC}, i.e., edge 2) in \eqn{T_e}.
 #'
 #' That is, each function returns 1 if \code{p2} is in \eqn{N_{CS}(p1,t=1)}, returns 0 otherwise, where \eqn{N_{CS}(x,t)} is the
 #' CS proximity region for point \eqn{x} with expansion parameter \eqn{t=1}.
@@ -895,7 +895,7 @@ IndNCSTe <- function(p1,p2,t,M=c(1,1,1),re=NULL)
 #' @name funsCSt1EdgeRegs
 NULL
 #'
-#' @seealso \code{\link{IndNCSTeRAB}}, \code{\link{IndNCSTeRBC}} and \code{\link{IndNCSTeRAC}}
+#' @seealso \code{\link{IarcCSstd.triRAB}}, \code{\link{IarcCSstd.triRBC}} and \code{\link{IarcCSstd.triRAC}}
 #'
 #' @rdname funsCSt1EdgeRegs
 #'
@@ -903,7 +903,7 @@ NULL
 #'
 #' @examples
 #' \dontrun{
-#' #Examples for IndNCSTeRABt1
+#' #Examples for IarcCSt1.std.triRAB
 #' A<-c(0,0); B<-c(1,0); C<-c(1/2,sqrt(3)/2);
 #' CM<-(A+B+C)/3
 #' T3<-rbind(A,B,CM);
@@ -911,13 +911,13 @@ NULL
 #' set.seed(1)
 #' Xp<-runif.std.tri(10)$gen.points
 #'
-#' IndNCSTeRABt1(Xp[1,],Xp[2,])
+#' IarcCSt1.std.triRAB(Xp[1,],Xp[2,])
 #'
-#' IndNCSTeRABt1(c(.2,.5),Xp[2,])
+#' IarcCSt1.std.triRAB(c(.2,.5),Xp[2,])
 #' }
 #'
 #' @export
-IndNCSTeRABt1 <- function(p1,p2)
+IarcCSt1.std.triRAB <- function(p1,p2)
 {
   if (!is.point(p1) || !is.point(p2) )
   {stop('both arguments must be numeric 2D points')}
@@ -946,7 +946,7 @@ IndNCSTeRABt1 <- function(p1,p2)
 #'
 #' @examples
 #' \dontrun{
-#' #Examples for IndNCSTeRBCt1
+#' #Examples for IarcCSt1.std.triRBC
 #' A<-c(0,0); B<-c(1,0); C<-c(1/2,sqrt(3)/2);
 #' CM<-(A+B+C)/3
 #' T1<-rbind(B,C,CM);
@@ -954,13 +954,13 @@ IndNCSTeRABt1 <- function(p1,p2)
 #' set.seed(1)
 #' Xp<-runif.std.tri(3)$gen.points
 #'
-#' IndNCSTeRBCt1(Xp[1,],Xp[2,])
+#' IarcCSt1.std.triRBC(Xp[1,],Xp[2,])
 #'
-#' IndNCSTeRBCt1(c(.2,.5),Xp[2,])
+#' IarcCSt1.std.triRBC(c(.2,.5),Xp[2,])
 #' }
 #'
 #' @export
-IndNCSTeRBCt1 <- function(p1,p2)
+IarcCSt1.std.triRBC <- function(p1,p2)
 {
   if (!is.point(p1) || !is.point(p2) )
   {stop('both arguments must be numeric 2D points')}
@@ -986,7 +986,7 @@ IndNCSTeRBCt1 <- function(p1,p2)
 #'
 #' @examples
 #' \dontrun{
-#' #Examples for IndNCSTeRACt1
+#' #Examples for IarcCSt1.std.triRAC
 #' A<-c(0,0); B<-c(1,0); C<-c(1/2,sqrt(3)/2);
 #' CM<-(A+B+C)/3
 #' T2<-rbind(A,C,CM);
@@ -994,12 +994,12 @@ IndNCSTeRBCt1 <- function(p1,p2)
 #' set.seed(1)
 #' Xp<-runif.std.tri(3)$gen.points
 #'
-#' IndNCSTeRACt1(Xp[1,],Xp[2,])
-#' IndNCSTeRACt1(c(1,2),Xp[2,])
+#' IarcCSt1.std.triRAC(Xp[1,],Xp[2,])
+#' IarcCSt1.std.triRAC(c(1,2),Xp[2,])
 #' }
 #'
 #' @export
-IndNCSTeRACt1 <- function(p1,p2)
+IarcCSt1.std.triRAC <- function(p1,p2)
 {
   if (!is.point(p1) || !is.point(p2) )
   {stop('both arguments must be numeric 2D points')}
@@ -1043,7 +1043,7 @@ IndNCSTeRACt1 <- function(p1,p2)
 #' @return \eqn{I(}\code{p2} is in \eqn{N_{CS}(p1,t=1))} for \code{p1} in \eqn{T_e} that is, returns 1 if \code{p2}
 #' is in \eqn{N_{CS}(p1,t=1)}, returns 0 otherwise
 #'
-#' @seealso \code{\link{IndNCSTe}}
+#' @seealso \code{\link{IarcCSstd.tri}}
 #'
 #' @author Elvan Ceyhan
 #'
@@ -1056,12 +1056,12 @@ IndNCSTeRACt1 <- function(p1,p2)
 #' set.seed(1)
 #' Xp<-runif.std.tri(n)$gen.points
 #'
-#' IndNCSTet1(Xp[1,],Xp[2,])
-#' IndNCSTet1(c(.2,.5),Xp[2,])
+#' IarcCSt1.std.tri(Xp[1,],Xp[2,])
+#' IarcCSt1.std.tri(c(.2,.5),Xp[2,])
 #' }
 #'
 #' @export
-IndNCSTet1 <- function(p1,p2)
+IarcCSt1.std.tri <- function(p1,p2)
 {
   if (!is.point(p1) || !is.point(p2) )
   {stop('both arguments must be numeric 2D points')}
@@ -1076,13 +1076,13 @@ IndNCSTet1 <- function(p1,p2)
 
   x<-c(p1[1],p2[1]);y<-c(p1[2],p2[2]);
   if (y[1] <= .5773502694*x[1] && y[1]<= .5773502694-.5773502694*x[1])
-  {arc<-IndNCSTeRABt1(p1,p2)}
+  {arc<-IarcCSt1.std.triRAB(p1,p2)}
   else
   {
     if (y[1] > .5773502694-.5773502694*x[1] && x[1] >= .5)
-    {arc<-IndNCSTeRBCt1(p1,p2)}
+    {arc<-IarcCSt1.std.triRBC(p1,p2)}
     else
-    {arc<-IndNCSTeRACt1(p1,p2)}
+    {arc<-IarcCSt1.std.triRAC(p1,p2)}
   }
   arc
 } #end of the function
@@ -1096,15 +1096,15 @@ IndNCSTet1 <- function(p1,p2)
 #' to another for Central Similarity Proximity Catch Digraphs (CS-PCDs) - standard equilateral triangle case
 #'
 #' @description
-#' Three indicator functions: \code{IndNCSTeRAB}, \code{IndNCSTeRBC} and \code{IndNCSTeRAC}.
+#' Three indicator functions: \code{IarcCSstd.triRAB}, \code{IarcCSstd.triRBC} and \code{IarcCSstd.triRAC}.
 #'
-#' The function \code{IndNCSTeRAB} returns I(\code{p2} is in \eqn{N_{CS}(p1,t)} for \code{p1} in \eqn{RAB} (edge region for edge \eqn{AB},
+#' The function \code{IarcCSstd.triRAB} returns I(\code{p2} is in \eqn{N_{CS}(p1,t)} for \code{p1} in \eqn{RAB} (edge region for edge \eqn{AB},
 #' i.e., edge 3) in the standard equilateral triangle \eqn{T_e=T(A,B,C)=T((0,0),(1,0),(1/2,\sqrt{3}/2))};
 #'
-#' \code{IndNCSTeRBC} returns I(\code{p2} is in \eqn{N_{CS}(p1,t)} for \code{p1} in \eqn{RBC} (edge region for edge \eqn{BC}, i.e., edge 1) in \eqn{T_e};
+#' \code{IarcCSstd.triRBC} returns I(\code{p2} is in \eqn{N_{CS}(p1,t)} for \code{p1} in \eqn{RBC} (edge region for edge \eqn{BC}, i.e., edge 1) in \eqn{T_e};
 #' and
 #'
-#' \code{IndNCSTeRAC} returns I(\code{p2} is in \eqn{N_{CS}(p1,t)} for \code{p1} in \eqn{RAC} (edge region for edge \eqn{AC}, i.e., edge 2) in \eqn{T_e}.
+#' \code{IarcCSstd.triRAC} returns I(\code{p2} is in \eqn{N_{CS}(p1,t)} for \code{p1} in \eqn{RAC} (edge region for edge \eqn{AC}, i.e., edge 2) in \eqn{T_e}.
 #' That is, each function returns 1 if \code{p2} is in \eqn{N_{CS}(p1,t)}, returns 0 otherwise.
 #'
 #' CS proximity region is defined with respect to \eqn{T_e} whose vertices are also labeled as \eqn{T_e=T(v=1,v=2,v=3)}
@@ -1129,7 +1129,7 @@ IndNCSTet1 <- function(p1,p2)
 #' @name funsCSEdgeRegs
 NULL
 #'
-#' @seealso \code{\link{IndNCSTeRABt1}}, \code{\link{IndNCSTeRBCt1}} and \code{\link{IndNCSTeRACt1}}
+#' @seealso \code{\link{IarcCSt1.std.triRAB}}, \code{\link{IarcCSt1.std.triRBC}} and \code{\link{IarcCSt1.std.triRAC}}
 #'
 #' @rdname funsCSEdgeRegs
 #'
@@ -1137,7 +1137,7 @@ NULL
 #'
 #' @examples
 #' \dontrun{
-#' #Examples for IndNCSTeRAB
+#' #Examples for IarcCSstd.triRAB
 #' A<-c(0,0); B<-c(1,0); C<-c(1/2,sqrt(3)/2);
 #' CM<-(A+B+C)/3
 #' T3<-rbind(A,B,CM);
@@ -1149,12 +1149,12 @@ NULL
 #'
 #' t<-1
 #'
-#' IndNCSTeRAB(Xp[1,],Xp[2,],t,M)
-#' IndNCSTeRAB(c(.2,.5),Xp[2,],t,M)
+#' IarcCSstd.triRAB(Xp[1,],Xp[2,],t,M)
+#' IarcCSstd.triRAB(c(.2,.5),Xp[2,],t,M)
 #' }
 #'
 #' @export
-IndNCSTeRAB <- function(p1,p2,t,M)
+IarcCSstd.triRAB <- function(p1,p2,t,M)
 {
   if (!is.point(p1) || !is.point(p2) )
   {stop('p1 and p2 must both be numeric 2D points')}
@@ -1219,7 +1219,7 @@ IndNCSTeRAB <- function(p1,p2,t,M)
 #'
 #' @examples
 #' \dontrun{
-#' #Examples for IndNCSTeRBC
+#' #Examples for IarcCSstd.triRBC
 #' A<-c(0,0); B<-c(1,0); C<-c(1/2,sqrt(3)/2);
 #' CM<-(A+B+C)/3
 #' T1<-rbind(B,C,CM);
@@ -1231,12 +1231,12 @@ IndNCSTeRAB <- function(p1,p2,t,M)
 #'
 #' t<-1
 #'
-#' IndNCSTeRBC(Xp[1,],Xp[2,],t,M)
-#' IndNCSTeRBC(c(.2,.5),Xp[2,],t,M)
+#' IarcCSstd.triRBC(Xp[1,],Xp[2,],t,M)
+#' IarcCSstd.triRBC(c(.2,.5),Xp[2,],t,M)
 #' }
 #'
 #' @export
-IndNCSTeRBC <- function(p1,p2,t,M)
+IarcCSstd.triRBC <- function(p1,p2,t,M)
 {
   if (!is.point(p1) || !is.point(p2) )
   {stop('p1 and p2 must both be numeric 2D points')}
@@ -1301,7 +1301,7 @@ IndNCSTeRBC <- function(p1,p2,t,M)
 #'
 #' @examples
 #' \dontrun{
-#' #Examples for IndNCSTeRAC
+#' #Examples for IarcCSstd.triRAC
 #' A<-c(0,0); B<-c(1,0); C<-c(1/2,sqrt(3)/2);
 #' CM<-(A+B+C)/3
 #' T2<-rbind(A,C,CM);
@@ -1313,12 +1313,12 @@ IndNCSTeRBC <- function(p1,p2,t,M)
 #'
 #' t<-1
 #'
-#' IndNCSTeRAC(Xp[1,],Xp[2,],t,M)
-#' IndNCSTeRAC(c(.2,.5),Xp[2,],t,M)
+#' IarcCSstd.triRAC(Xp[1,],Xp[2,],t,M)
+#' IarcCSstd.triRAC(c(.2,.5),Xp[2,],t,M)
 #' }
 #'
 #' @export
-IndNCSTeRAC <- function(p1,p2,t,M)
+IarcCSstd.triRAC <- function(p1,p2,t,M)
 {
   if (!is.point(p1) || !is.point(p2) )
   {stop('p1 and p2 must both be numeric 2D points')}
@@ -1388,10 +1388,10 @@ IndNCSTeRAC <- function(p1,p2,t,M)
 #' @description Returns \eqn{I(}\code{p2} is in \eqn{N_{CS}(p1,t))} for points \code{p1} and \code{p2},
 #' that is, returns 1 if \code{p2} is in \eqn{N_{CS}(p1,t)},
 #' returns 0 otherwise, where \eqn{N_{CS}(x,t)} is the CS proximity region for point \eqn{x} with expansion parameter \eqn{t>0}.
-#' This function is equivalent to \code{IndNCSTe}, except that it computes the indicator using the functions
-#' \code{IndNCSTeRAB}, \code{IndNCSTeRBC} and \code{IndNCSTeRAC} which are edge-region specific indicator functions.
+#' This function is equivalent to \code{IarcCSstd.tri}, except that it computes the indicator using the functions
+#' \code{IarcCSstd.triRAB}, \code{IarcCSstd.triRBC} and \code{IarcCSstd.triRAC} which are edge-region specific indicator functions.
 #' For example,
-#' \code{IndNCSTeRAB} computes \eqn{I(}\code{p2} is in \eqn{N_{CS}(p1,t))} for points \code{p1} and \code{p2} when \code{p1}
+#' \code{IarcCSstd.triRAB} computes \eqn{I(}\code{p2} is in \eqn{N_{CS}(p1,t))} for points \code{p1} and \code{p2} when \code{p1}
 #' resides in the edge region of edge \eqn{AB}.
 #'
 #' CS proximity region is defined with respect to the standard equilateral triangle
@@ -1418,7 +1418,7 @@ IndNCSTeRAC <- function(p1,p2,t,M)
 #' @return \eqn{I(}\code{p2} is in \eqn{N_{CS}(p1,t))} for \code{p1},
 #' that is, returns 1 if \code{p2} is in \eqn{N_{CS}(p1,t)}, returns 0 otherwise
 #'
-#' @seealso \code{\link{IndNCStri}} and \code{\link{IndNPETe}}
+#' @seealso \code{\link{IarcCStri}} and \code{\link{IarcPEstd.tri}}
 #'
 #' @references
 #' \insertAllCited{}
@@ -1437,16 +1437,16 @@ IndNCSTeRAC <- function(p1,p2,t,M)
 #' M<-as.numeric(runif.std.tri(1)$g)  #try also M<-c(.6,.2)
 #'
 #' t<-1
-#' IndNCSedge.regTe(Xp[1,],Xp[2,],t,M)
-#' IndNCSTe(Xp[1,],Xp[2,],t,M)
+#' IarcCSedge.reg.std.tri(Xp[1,],Xp[2,],t,M)
+#' IarcCSstd.tri(Xp[1,],Xp[2,],t,M)
 #'
 #' #or try
-#' re<-reTeCM(Xp[1,])$re
-#' IndNCSedge.regTe(Xp[1,],Xp[2,],t,M,re=re)
+#' re<-rel.edge.std.triCM(Xp[1,])$re
+#' IarcCSedge.reg.std.tri(Xp[1,],Xp[2,],t,M,re=re)
 #' }
 #'
-#' @export IndNCSedge.regTe
-IndNCSedge.regTe <- function(p1,p2,t,M=c(1,1,1),re=NULL)
+#' @export IarcCSedge.reg.std.tri
+IarcCSedge.reg.std.tri <- function(p1,p2,t,M=c(1,1,1),re=NULL)
 {
   if (!is.point(p1) || !is.point(p2) )
   {stop('p1 and p2 must both be numeric 2D points')}
@@ -1473,20 +1473,20 @@ IndNCSedge.regTe <- function(p1,p2,t,M=c(1,1,1),re=NULL)
   {arc<-0; return(arc); stop}
 
   if (is.null(re))
-  {re<-re.tri.cent(p1,Te,M)$re #edge region for p1
+  {re<-rel.edge.tri(p1,Te,M)$re #edge region for p1
   } else
   {  if (!is.numeric(re) || sum(re==c(1,2,3))!=1)
   {stop('edge index, re, must be 1, 2 or 3')}}
 
   x<-c(p1[1],p2[1]);y<-c(p1[2],p2[2]);
   if (re==3)
-  {arc<-IndNCSTeRAB(p1,p2,t,M)
+  {arc<-IarcCSstd.triRAB(p1,p2,t,M)
   } else
   {
     if (re==1)
-    {arc<-IndNCSTeRBC(p1,p2,t,M)}
+    {arc<-IarcCSstd.triRBC(p1,p2,t,M)}
     else
-    {arc<-IndNCSTeRAC(p1,p2,t,M)}
+    {arc<-IarcCSstd.triRAC(p1,p2,t,M)}
   }
   arc
 } #end of the function
@@ -1517,7 +1517,7 @@ IndNCSedge.regTe <- function(p1,p2,t,M=c(1,1,1),re=NULL)
 #' @return Incidence matrix for the CS-PCD with vertices being 2D data set, \code{Xp} and CS proximity
 #' regions are defined in the standard equilateral triangle \eqn{T_e} with \code{M}-edge regions.
 #'
-#' @seealso \code{\link{IncMatCStri}}, \code{\link{IncMatCS}} and \code{\link{IncMatPETe}}
+#' @seealso \code{\link{inci.matCStri}}, \code{\link{inci.matCS}} and \code{\link{inci.matPEstd.tri}}
 #'
 #' @references
 #' \insertAllCited{}
@@ -1535,17 +1535,17 @@ IndNCSedge.regTe <- function(p1,p2,t,M=c(1,1,1),re=NULL)
 #'
 #' M<-as.numeric(runif.std.tri(1)$g)  #try also M<-c(.6,.2)
 #'
-#' inc.mat<-IncMatCSTe(Xp,t=1.25,M)
+#' inc.mat<-inci.matCSstd.tri(Xp,t=1.25,M)
 #' inc.mat
 #' sum(inc.mat)-n
-#' NumArcsCSTe(Xp,t=1.25)
+#' num.arcsCSstd.tri(Xp,t=1.25)
 #'
-#' dom.greedy(inc.mat) #try also dom.exact(inc.mat)  #might take a long time for large n
-#' IndUBdom(inc.mat,1)
+#' dom.num.greedy(inc.mat) #try also dom.num.exact(inc.mat)  #might take a long time for large n
+#' Idom.num.up.bnd(inc.mat,1)
 #' }
 #'
-#' @export IncMatCSTe
-IncMatCSTe <- function(Xp,t,M=c(1,1,1))
+#' @export inci.matCSstd.tri
+inci.matCSstd.tri <- function(Xp,t,M=c(1,1,1))
 {
   if (!is.numeric(as.matrix(Xp)))
   {stop('Xp must be numeric')}
@@ -1580,7 +1580,7 @@ IncMatCSTe <- function(Xp,t,M=c(1,1,1))
   {p1<-Xp[i,]
   for (j in ((1:n)) )
   {p2<-Xp[j,]
-  inc.mat[i,j]<-IndNCSTe(p1,p2,t,M)
+  inc.mat[i,j]<-IarcCSstd.tri(p1,p2,t,M)
   }
   }
   inc.mat
@@ -1589,11 +1589,17 @@ IncMatCSTe <- function(Xp,t,M=c(1,1,1))
 
 #################################################################
 
-#' @title Number of arcs of Central Similarity Proximity Catch Digraphs (CS-PCDs) - standard equilateral triangle case
+#' @title Number of arcs of Central Similarity Proximity Catch Digraphs (CS-PCDs)
+#' and quantities related to the triangle - standard equilateral triangle case
 #'
-#' @description Returns the number of arcs of Central Similarity Proximity Catch Digraphs (CS-PCDs) whose vertices are the
-#' given 2D numerical data set, \code{Xp}. It also provides number of vertices (i.e., number of data points inside the triangle)
-#' and indices of the data points that reside in the triangle.
+#' @description
+#' An object of class \code{"NumArcs"}.
+#' Returns the number of arcs of Central Similarity Proximity Catch Digraphs (CS-PCDs)
+#' whose vertices are the
+#' given 2D numerical data set, \code{Xp}.
+#' It also provides number of vertices
+#' (i.e., number of data points inside the standard equilateral triangle \eqn{T_e})
+#' and indices of the data points that reside in \eqn{T_e}.
 #'
 #' CS proximity region \eqn{N_{CS}(x,t)} is defined with respect to the standard
 #' equilateral triangle \eqn{T_e=T(v=1,v=2,v=3)=T((0,0),(1,0),(1/2,\sqrt{3}/2))} with expansion parameter \eqn{t>0}
@@ -1608,15 +1614,21 @@ IncMatCSTe <- function(Xp,t,M=c(1,1,1))
 #' @param Xp A set of 2D points which constitute the vertices of the digraph.
 #' @param t A positive real number which serves as the expansion parameter in CS proximity region.
 #' @param M A 2D point in Cartesian coordinates or a 3D point in barycentric coordinates.
-#' which serves as a center in the interior of the standard equilateral triangle \eqn{T_e}; default is \eqn{M=(1,1,1)} i.e.
+#' which serves as a center in the interior of the standard equilateral triangle \eqn{T_e};
+#' default is \eqn{M=(1,1,1)} i.e.
 #' the center of mass of \eqn{T_e}.
 #'
 #' @return A \code{list} with the elements
+#' \item{desc}{A short description of the output: number of arcs
+#' and quantities related to the standard equilateral triangle}
 #' \item{num.arcs}{Number of arcs of the CS-PCD}
 #' \item{num.in.tri}{Number of \code{Xp} points in the standard equilateral triangle, \eqn{T_e}}
 #' \item{ind.in.tri}{The vector of indices of the \code{Xp} points that reside in \eqn{T_e}}
+#' \item{tess.points}{Points on which the tessellation of the study region is performed, here, tessellation
+#' is the support triangle \eqn{T_e}.}
+#' \item{vertices}{Vertices of the digraph, \code{Xp}.}
 #'
-#' @seealso \code{\link{NumArcsCStri}}, \code{\link{NumArcsCS}}, and \code{\link{NumArcsPETe}},
+#' @seealso \code{\link{num.arcsCStri}}, \code{\link{num.arcsCS}}, and \code{\link{num.arcsPEstd.tri}},
 #'
 #' @references
 #' \insertAllCited{}
@@ -1633,12 +1645,15 @@ IncMatCSTe <- function(Xp,t,M=c(1,1,1))
 #'
 #' M<-as.numeric(runif.std.tri(1)$g)  #try also M<-c(.6,.2)
 #'
-#' NumArcsCSTe(Xp,t=.5,M)
-#' NumArcsCSTe(Xp,t=1.5,M)
+#' Narcs = num.arcsCSstd.tri(Xp,t=.5,M)
+#' Narcs
+#' summary(Narcs)
+#' par(pty="s")
+#' plot(Narcs,asp=1)
 #' }
 #'
-#' @export NumArcsCSTe
-NumArcsCSTe <- function(Xp,t,M=c(1,1,1))
+#' @export num.arcsCSstd.tri
+num.arcsCSstd.tri <- function(Xp,t,M=c(1,1,1))
 {
   if (!is.numeric(as.matrix(Xp)))
   {stop('Xp must be numeric')}
@@ -1688,7 +1703,7 @@ NumArcsCSTe <- function(Xp,t,M=c(1,1,1))
     {arcs<-arcs+0
     } else
     {
-      arcs<-arcs + IndNCSTe(p1,p2,t,M)
+      arcs<-arcs + IarcCSstd.tri(p1,p2,t,M)
     }
     }
   }
@@ -1696,10 +1711,18 @@ NumArcsCSTe <- function(Xp,t,M=c(1,1,1))
 }
 
   NinTri = length(ind.in.tri)
+  desc<-"Number of Arcs of the CS-PCD and the Related Quantities with vertices Xp in the Standard Equilateral Triangle"
 
-  res<-list(num.arcs=arcs, #number of arcs for the PE-PCD
+  res<-list(desc=desc, #description of the output
+            num.arcs=arcs, #number of arcs for the AS-PCD
             num.in.tri=NinTri, # number of Xp points in CH of Yp points
-            ind.in.tri=ind.in.tri) #indices of data points inside the triangle
+            ind.in.tri=ind.in.tri, #indices of data points inside the triangle
+            tess.points=Te, #tessellation points
+            vertices=Xp #vertices of the digraph
+  )
+
+  class(res)<-"NumArcs"
+  res$call <-match.call()
 
   res
 } #end of the function
@@ -1707,10 +1730,16 @@ NumArcsCSTe <- function(Xp,t,M=c(1,1,1))
 
 #################################################################
 
-#' @title Number of arcs of Central Similarity Proximity Catch Digraphs (CS-PCDs) - one triangle case
+#' @title Number of arcs of Central Similarity Proximity Catch Digraphs (CS-PCDs)
+#' and quantities related to the triangle - one triangle case
 #'
-#' @description Returns the number of arcs of Central Similarity Proximity Catch Digraphs (CS-PCDs) whose vertices are the
-#' given 2D numerical data set, \code{Xp}. It also provides number of vertices (i.e., number of data points inside the triangle)
+#' @description
+#' An object of class \code{"NumArcs"}.
+#' Returns the number of arcs of Central Similarity Proximity Catch Digraphs (CS-PCDs)
+#' whose vertices are the
+#' given 2D numerical data set, \code{Xp}.
+#' It also provides number of vertices
+#' (i.e., number of data points inside the triangle)
 #' and indices of the data points that reside in the triangle.
 #'
 #' CS proximity region \eqn{N_{CS}(x,t)} is defined with respect to the triangle, \code{tri}  with expansion parameter \eqn{t>0}
@@ -1730,12 +1759,17 @@ NumArcsCSTe <- function(Xp,t,M=c(1,1,1))
 #' the center of mass of \code{tri}.
 #'
 #' @return A \code{list} with the elements
+#' \item{desc}{A short description of the output: number of arcs
+#' and quantities related to the triangle}
 #' \item{num.arcs}{Number of arcs of the CS-PCD}
 #' \item{num.in.tri}{Number of \code{Xp} points in the triangle, \code{tri}}
 #' \item{ind.in.tri}{The vector of indices of the \code{Xp} points that reside in the triangle}
+#' \item{tess.points}{Points on which the tessellation of the study region is performed, here, tessellation
+#' is the support triangle.}
+#' \item{vertices}{Vertices of the digraph, \code{Xp}.}
 #'
-#' @seealso \code{\link{NumArcsCSTe}}, \code{\link{NumArcsCS}}, \code{\link{NumArcsPEtri}},
-#' and \code{\link{NumArcsAStri}}
+#' @seealso \code{\link{num.arcsCSstd.tri}}, \code{\link{num.arcsCS}}, \code{\link{num.arcsPEtri}},
+#' and \code{\link{num.arcsAStri}}
 #'
 #' @references
 #' \insertAllCited{}
@@ -1753,13 +1787,14 @@ NumArcsCSTe <- function(Xp,t,M=c(1,1,1))
 #'
 #' M<-as.numeric(runif.tri(1,Tr)$g)  #try also M<-c(1.6,1.0)
 #'
-#' NumArcsCStri(Xp,Tr,t=.5,M)
-#' NumArcsCStri(Xp,Tr,t=1,M)
-#' NumArcsCStri(Xp,Tr,t=1.5,M)
+#' Narcs = num.arcsCStri(Xp,Tr,t=.5,M)
+#' Narcs
+#' summary(Narcs)
+#' plot(Narcs)
 #' }
 #'
-#' @export NumArcsCStri
-NumArcsCStri <- function(Xp,tri,t,M=c(1,1,1))
+#' @export num.arcsCStri
+num.arcsCStri <- function(Xp,tri,t,M=c(1,1,1))
 {
   if (!is.numeric(as.matrix(Xp)))
   {stop('Xp must be numeric')}
@@ -1785,7 +1820,8 @@ NumArcsCStri <- function(Xp,tri,t,M=c(1,1,1))
   {stop('t must be a scalar greater than 0')}
 
   if (!is.point(M) && !is.point(M,3) )
-  {stop('M must be a numeric 2D point for Cartesian coordinates or 3D point for barycentric coordinates')}
+  {stop('M must be a numeric 2D point for Cartesian coordinates or
+        3D point for barycentric coordinates')}
 
   if (dimension(M)==3)
   {M<-bary2cart(M,tri)}
@@ -1804,34 +1840,45 @@ NumArcsCStri <- function(Xp,tri,t,M=c(1,1,1))
     for (i in 1:n)
     { Xpi<-as.numeric(Xp[i,])
     if (in.triangle(Xpi,tri,boundary=TRUE)$in.tri)
-    {   edgei<-rel.edges.tri.cent(Xpi,tri,M)$re
+    {   edgei<-rel.edges.tri(Xpi,tri,M)$re
     ind.in.tri = c(ind.in.tri,i)
     for (j in (1:n)[-i])  #to avoid loops
     { Xpj<-as.numeric(Xp[j,])
-    arcs<-arcs+IndNCStri(Xpi,Xpj,tri,t,M,re=edgei)
+    arcs<-arcs+IarcCStri(Xpi,Xpj,tri,t,M,re=edgei)
     }
     }
     }
   }
   NinTri = length(ind.in.tri)
+  desc<-"Number of Arcs of the CS-PCD with vertices Xp and Quantities Related to the Support Triangle"
 
-  res<-list(num.arcs=arcs, #number of arcs for the PE-PCD
+  res<-list(desc=desc, #description of the output
+            num.arcs=arcs, #number of arcs for the AS-PCD
             num.in.tri=NinTri, # number of Xp points in CH of Yp points
-            ind.in.tri=ind.in.tri) #indices of data points inside the triangle
+            ind.in.tri=ind.in.tri, #indices of data points inside the triangle
+            tess.points=tri, #tessellation points
+            vertices=Xp #vertices of the digraph
+  )
 
-res
+  class(res)<-"NumArcs"
+  res$call <-match.call()
+
+  res
 } #end of the function
 #'
 
 #################################################################
 
-#' @title Number of arcs of Central Similarity Proximity Catch Digraphs (CS-PCDs) - multiple triangle case
+#' @title Number of arcs of Central Similarity Proximity Catch Digraphs (CS-PCDs)
+#' and related quantities of the induced subdigraphs for points in the Delaunay triangles -
+#' multiple triangle case
 #'
-#' @description Returns the number of arcs of  whose vertices are
-#' the data points in \code{Xp} in the multiple triangle case.
-#'
-#' @description Returns the number of arcs and various other quantities, vectors, and lists for Central Similarity Proximity Catch Digraph
-#' (CS-PCD) whose vertices are the data points in \code{Xp} in the multiple triangle case.
+#' @description
+#' An object of class \code{"NumArcs"}.
+#' Returns the number of arcs and various other quantities related to the Delaunay triangles
+#' for Central Similarity Proximity Catch Digraph
+#' (CS-PCD) whose vertices are the data points in \code{Xp}
+#' in the multiple triangle case.
 #'
 #' CS proximity regions are defined with respect to the
 #' Delaunay triangles based on \code{Yp} points with expansion parameter \eqn{t>0} and edge regions in each triangle
@@ -1856,6 +1903,8 @@ res
 #' triangle, default for \eqn{M=(1,1,1)} which is the center of mass of each triangle.
 #'
 #' @return A \code{list} with the elements
+#' \item{desc}{A short description of the output: number of arcs
+#' and related quantities for the induced subdigraphs in the Delaunay triangles}
 #' \item{num.arcs}{Total number of arcs in all triangles, i.e., the number of arcs for the entire PE-PCD}
 #' \item{num.in.conhull}{Number of \code{Xp} points in the convex hull of \code{Yp} points}
 #' \item{num.in.tris}{The vector of number of \code{Xp} points in the Delaunay triangles based on \code{Yp} points}
@@ -1866,9 +1915,12 @@ res
 #' each column corresponds to the vector of indices of the vertices of one triangle.}
 #' \item{data.tri.ind}{A \code{vector} of indices of vertices of the Delaunay triangles in which data points reside,
 #' i.e., column number of \code{del.tri.ind} for each \code{Xp} point.}
+#' \item{tess.points}{Points on which the tessellation of the study region is performed, here, tessellation
+#' is the Delaunay triangulation based on \code{Yp} points.}
+#' \item{vertices}{Vertices of the digraph, \code{Xp}.}
 #'
-#' @seealso \code{\link{NumArcsCStri}}, \code{\link{NumArcsCSTe}}, \code{\link{NumArcsPE}},
-#' and \code{\link{NumArcsAS}}
+#' @seealso \code{\link{num.arcsCStri}}, \code{\link{num.arcsCSstd.tri}}, \code{\link{num.arcsPE}},
+#' and \code{\link{num.arcsAS}}
 #'
 #' @references
 #' \insertAllCited{}
@@ -1885,17 +1937,16 @@ res
 #' Yp<-cbind(runif(ny,0,.25),runif(ny,0,.25))+cbind(c(0,0,0.5,1,1),c(0,1,.5,0,1))
 #' #try also Yp<-cbind(runif(ny,0,1),runif(ny,0,1))
 #'
-#' plotDeltri(Xp,Yp,xlab="",ylab="")
-#'
 #' M<-c(1,1,1)  #try also M<-c(1,2,3)
 #'
-#' NumArcsCS(Xp,Yp,t=.5,M)
-#' NumArcsCS(Xp,Yp,t=1.,M)
-#' NumArcsCS(Xp,Yp,t=1.5,M)
+#' Narcs = num.arcsCS(Xp,Yp,t=1,M)
+#' Narcs
+#' summary(Narcs)
+#' plot(Narcs)
 #' }
 #'
-#' @export NumArcsCS
-NumArcsCS <- function(Xp,Yp,t,M=c(1,1,1))
+#' @export num.arcsCS
+num.arcsCS <- function(Xp,Yp,t,M=c(1,1,1))
 {
   if (!is.numeric(as.matrix(Xp)) || !is.numeric(as.matrix(Yp)))
   {stop('Xp and Yp must be numeric')}
@@ -1936,30 +1987,39 @@ NumArcsCS <- function(Xp,Yp,t,M=c(1,1,1))
   }
 
   if (ny==3)
+  { tri<-as.basic.tri(Yp)$tri
+  NumArcs = num.arcsCStri(Xdt,tri,t,M)
+  NinTri<-NumArcs$num.in.tri #number of points in the triangle
+
+  if (NinTri==0)
+  {Tot.Arcs<-0;
+  ni.vec<-arcs<-rep(0,ndt)
+  data.tri.ind = NA
+  } else
   {
-    Tri.Ind<-indices.del.tri(Xp,Yp)  #returns 1's if the points Xp[i,]'s are inside triangle based on Yp, NA otherwise
+    Xdt<-matrix(Xp[NumArcs$ind.in.tri,],ncol=2)
+    tri<-as.basic.tri(Yp)$tri #convert the triangle Yp into an nonscaled basic triangle, see as.basic.tri help page
+    Wvec<-area.polygon(tri)
+    Tot.Arcs<- NumArcs$num.arcs #number of arcs in the triangle Yp
+    ni.vec = NumArcs$num.in.tri
+    Tri.Ind = NumArcs$ind.in.tri
+    data.tri.ind = rep(NA,nx)
+    data.tri.ind[Tri.Ind] =1
+    arcs = NumArcs$num.arcs
+  }
 
-    inTri<-which(Tri.Ind==1)
-    NinTri<-length(inTri)  #number of points in the triangle
-
-    if (NinTri==0)
-    {Tot.Arcs<-0;
-      ni.vec<-arcs<-rep(0,ndt)
-      data.tri.ind =NULL
-    } else
-    {
-      Xdt<-matrix(Xp[inTri,],ncol=2)
-      tri<-as.bas.tri(Yp)$tri #convert the triangle Yp into an nonscaled basic triangle, see as.bas.tri help page
-      Wvec<-area.polygon(tri)
-      Tot.Arcs<-NumArcsCStri(Xdt,tri,t,M)$num.arcs  #number of arcs in the triangle Yp
-    }
-    res<-list(num.arcs=Tot.Arcs,
-              tri.num.arcs=Tot.Arcs,
-              num.in.conv.hull=NinTri,
-              num.in.tris=NinTri,
-              weight.vec=Wvec,
-              del.tri.ind=t(Ytri),
-              data.tri.ind=Tri.Ind )
+  desc<-"Number of Arcs of the CS-PCD with vertices Xp and Related Quantities for the Induced Subdigraph for the Points in the Delaunay Triangles"
+  res<-list(desc=desc, #description of the output
+            num.arcs=Tot.Arcs,
+            tri.num.arcs=arcs,
+            num.in.conv.hull=NinTri,
+            num.in.tris=ni.vec,
+            weight.vec=Wvec,
+            del.tri.ind=t(Ytri),
+            data.tri.ind=data.tri.ind,
+            tess.points=Yp, #tessellation points
+            vertices=Xp #vertices of the digraph
+  )
   } else
   {
     if (NinCH==0)
@@ -1968,38 +2028,47 @@ NumArcsCS <- function(Xp,Yp,t,M=c(1,1,1))
     data.tri.ind =NULL
     } else
     {
-      Tri.Ind<-indices.del.tri(Xp,Yp,Ytrimesh)  #indices of triangles in which the points in the data fall
-
+      Tri.Ind<-indices.delaunay.tri(Xp,Yp,Ytrimesh) #indices of triangles in which the points in the data fall
+      ind.in.CH = which(!is.na(Tri.Ind))
       #calculation of the total number of arcs
       ni.vec<-arcs<-vector()
-     #data.del.tris = del.tris=list()
       data.tri.ind = rep(NA,nx)
       for (i in 1:ndt)
       {
         dt.ind=which(Tri.Ind==i) #which indices of data points residing in ith Delaunay triangle
         Xpi<-Xp[dt.ind,] #points in ith Delaunay triangle
         data.tri.ind[dt.ind] =i #assigning the index of the Delaunay triangle that contains the data point
-        #  data.del.tris=c(data.del.tris,list(Xpi))
         ifelse(ndt==1,Tri<-Yp[Ytri,],Tri<-Yp[Ytri[i,],])  #vertices of ith triangle
-        tri<-as.bas.tri(Tri)$tri #convert the triangle Tri into an nonscaled basic triangle, see as.bas.tri help page
-        #  del.tris=rbind(del.tris,tri)
+        tri<-as.basic.tri(Tri)$tri #convert the triangle Tri into an nonscaled basic triangle, see as.basic.tri help page
         ni.vec<-c(ni.vec,length(Xpi)/2)  #number of points in ith Delaunay triangle
 
-        num.arcs<-NumArcsCStri(Xpi,tri,t,M)$num.arcs  #number of arcs in ith triangle
+        num.arcs<-num.arcsCStri(Xpi,tri,t,M)$num.arcs  #number of arcs in ith triangle
         arcs<-c(arcs,num.arcs)  #number of arcs in all triangles as a vector
+
       }
 
       Tot.Arcs<-sum(arcs)  #the total number of arcs in all triangles
     }
 
-    res<-list(num.arcs=Tot.Arcs, #number of arcs for the entire PCD
+    desc<-"Number of Arcs of the CS-PCD with vertices Xp and Related Quantities for the Induced Subdigraphs for the Points in the Delaunay Triangles"
+
+    res<-list(desc=desc, #description of the output
+              num.arcs=Tot.Arcs, #number of arcs for the entire PCD
               tri.num.arcs=arcs, #vector of number of arcs for the Delaunay triangles
-              num.in.conv.hull=NinCH, # number of Xp points in CH of Yp points
+              num.in.conv.hull=NinCH, #number of Xp points in CH of Yp points
+              ind.in.conv.hull= ind.in.CH, #indices of Xp points in CH of Yp points
               num.in.tris=ni.vec, # vector of number of Xp points in the Delaunay triangles
               weight.vec=Wvec, #areas of Delaunay triangles
-              del.tri.ind=t(Ytri), # indices of the Delaunay triangles, each column corresponds to the vector of indices of the vertices of one triangle
-              data.tri.ind=data.tri.ind) #indices of vertices of the Delaunay triangles in which data points reside, i.e., column number of del.tri for each Xp point
+              del.tri.ind=t(Ytri), # indices of the vertices of the Delaunay triangles, i.e., each column corresponds to the indices of the vertices of one Delaunay triangle
+              data.tri.ind=data.tri.ind, #indices of the Delaunay triangles in which data points reside, i.e., column number of del.tri.ind for each Xp point
+              tess.points=Yp, #tessellation points
+              vertices=Xp #vertices of the digraph
+    )
   }
+
+  class(res)<-"NumArcs"
+  res$call <-match.call()
+
   res
 } #end of the function
 #'
@@ -2065,7 +2134,7 @@ NumArcsCS <- function(Xp,Yp,t,M=c(1,1,1))
 #' \item{method}{Description of the hypothesis test}
 #' \item{data.name}{Name of the data set}
 #'
-#' @seealso \code{\link{TSArcDensPE}} and \code{\link{TSArcDensCS1D}}
+#' @seealso \code{\link{PEarc.dens.test}} and \code{\link{CSarc.dens.test1D}}
 #'
 #' @references
 #' \insertAllCited{}
@@ -2082,15 +2151,16 @@ NumArcsCS <- function(Xp,Yp,t,M=c(1,1,1))
 #' Yp<-cbind(runif(ny,0,.25),runif(ny,0,.25))+cbind(c(0,0,0.5,1,1),c(0,1,.5,0,1))
 #' #try also Yp<-cbind(runif(ny,0,1),runif(ny,0,1))
 #'
-#' plotDeltri(Xp,Yp,xlab="",ylab = "")
+#' plotDelaunay.tri(Xp,Yp,xlab="",ylab = "")
 #'
-#' TSArcDensCS(Xp,Yp,t=.5)
-#' TSArcDensCS(Xp,Yp,t=.5,ch=TRUE)
+#' CSarc.dens.test(Xp,Yp,t=.5)
+#' CSarc.dens.test(Xp,Yp,t=.5,ch=TRUE)
 #' #try also t=1.0 and 1.5 above
 #' }
 #'
-#' @export TSArcDensCS
-TSArcDensCS <- function(Xp,Yp,t,ch.cor=FALSE,alternative = c("two.sided", "less", "greater"),conf.level = 0.95)
+#' @export CSarc.dens.test
+CSarc.dens.test <- function(Xp,Yp,t,ch.cor=FALSE,
+                            alternative = c("two.sided", "less", "greater"),conf.level = 0.95)
 {
   dname <-deparse(substitute(Xp))
 
@@ -2120,7 +2190,7 @@ TSArcDensCS <- function(Xp,Yp,t,ch.cor=FALSE,alternative = c("two.sided", "less"
     if (length(conf.level) != 1 || is.na(conf.level) || conf.level < 0 || conf.level > 1)
       stop("conf.level must be a number between 0 and 1")
 
-  Arcs<-NumArcsCS(Xp,Yp,t,M=c(1,1,1))  #use the default, i.e., CM for the center M
+  Arcs<-num.arcsCS(Xp,Yp,t,M=c(1,1,1))  #use the default, i.e., CM for the center M
   NinCH<-Arcs$num.in.con
 
   num.arcs<-Arcs$num.arcs #total number of arcs in the PE-PCD
@@ -2167,18 +2237,18 @@ TSArcDensCS <- function(Xp,Yp,t,ch.cor=FALSE,alternative = c("two.sided", "less"
   if (ch.cor==FALSE)
   {
     TS<-TS0
-    method <-c(method, " without Convex Hull Correction")
+    method <-c(method, "\n without Convex Hull Correction")
   }
   else
   {
     m<-nrow(Yp)  #number of Y points
     NoutCH<-n-NinCH #number of points outside of the convex hull
 
-    prop.out<-NoutCH/n #observed proportion of points outside convex hull
-    exp.prop.out<- 1.7932/m+1.2229/sqrt(m)   #expected proportion of points outside convex hull
+    prop.out <- NoutCH/n #observed proportion of points outside convex hull
+    exp.prop.out <- 1.7932/m+1.2229/sqrt(m) #expected proportion of points outside convex hull
 
     TS<-TS0+abs(TS0)*sign(prop.out-exp.prop.out)*(prop.out-exp.prop.out)^2
-    method <-c(method, " with Convex Hull Correction")
+    method <-c(method, "\n with Convex Hull Correction")
   }
 
   names(estimate1) <-c("arc density")
@@ -2201,7 +2271,7 @@ TSArcDensCS <- function(Xp,Yp,t,ch.cor=FALSE,alternative = c("two.sided", "less"
     cint <-arc.dens+c(-cint, cint)*sqrt(asy.var/NinCH)
   }
 
-  attr(cint, "conf.level") <-conf.level
+  attr(cint, "conf.level") <- conf.level
 
   rval <-list(
     statistic=TS,
@@ -2258,9 +2328,9 @@ TSArcDensCS <- function(Xp,Yp,t,ch.cor=FALSE,alternative = c("two.sided", "less"
 #' \item{E}{Heads (or arrow ends) of the arcs of CS-PCD for 2D data set \code{Xp} as vertices of the digraph}
 #' \item{mtitle}{Text for \code{"main"} title in the plot of the digraph}
 #' \item{quant}{Various quantities for the digraph: number of vertices, number of partition points,
-#' number of intervals, number of arcs, and arc density.}
+#' number of triangles, number of arcs, and arc density.}
 #'
-#' @seealso \code{\link{ArcsCS}}, \code{\link{ArcsAStri}} and \code{\link{ArcsPEtri}}
+#' @seealso \code{\link{arcsCS}}, \code{\link{arcsAStri}} and \code{\link{arcsPEtri}}
 #'
 #' @references
 #' \insertAllCited{}
@@ -2280,8 +2350,8 @@ TSArcDensCS <- function(Xp,Yp,t,ch.cor=FALSE,alternative = c("two.sided", "less"
 #'
 #' t<-1.5  #try also t<-2
 #'
-#' Arcs<-ArcsCStri(Xp,Tr,t,M)
-#' #or try with the default center Arcs<-ArcsCStri(Xp,Tr,t); M= (Arcs$param)$c
+#' Arcs<-arcsCStri(Xp,Tr,t,M)
+#' #or try with the default center Arcs<-arcsCStri(Xp,Tr,t); M= (Arcs$param)$c
 #' Arcs
 #' summary(Arcs)
 #' plot(Arcs)
@@ -2298,8 +2368,8 @@ TSArcDensCS <- function(Xp,Yp,t,ch.cor=FALSE,alternative = c("two.sided", "less"
 #' text(xc,yc,txt.str)
 #' }
 #'
-#' @export ArcsCStri
-ArcsCStri <- function(Xp,tri,t,M=c(1,1,1))
+#' @export arcsCStri
+arcsCStri <- function(Xp,tri,t,M=c(1,1,1))
 {
   xname <-deparse(substitute(Xp))
   yname <-deparse(substitute(tri))
@@ -2351,12 +2421,12 @@ ArcsCStri <- function(Xp,tri,t,M=c(1,1,1))
   {
     for (j in 1:n2)
     {
-      p1<-Xtri[j,]; RE1<-re.tri.cent(p1,tri,M)$re;
+      p1<-Xtri[j,]; RE1<-rel.edge.tri(p1,tri,M)$re;
       for (k in (1:n2)[-j])  #to avoid loops
       {
         p2<-Xtri[k,];
-       # print(IndNCStri(p1,p2,tri,t,M,RE1))
-        if (IndNCStri(p1,p2,tri,t,M,RE1)==1)
+       # print(IarcCStri(p1,p2,tri,t,M,RE1))
+        if (IarcCStri(p1,p2,tri,t,M,RE1)==1)
         {
           S <-rbind(S,Xtri[j,]); E <-rbind(E,Xtri[k,]);
         }
@@ -2421,7 +2491,7 @@ ArcsCStri <- function(Xp,tri,t,M=c(1,1,1))
 #' @return Incidence matrix for the CS-PCD with vertices being 2D data set, \code{Xp},
 #' in the triangle \code{tri} with edge regions based on center \code{M}
 #'
-#' @seealso \code{\link{IncMatCS}}, \code{\link{IncMatPEtri}}, and  \code{\link{IncMatAStri}}
+#' @seealso \code{\link{inci.matCS}}, \code{\link{inci.matPEtri}}, and  \code{\link{inci.matAStri}}
 #'
 #' @references
 #' \insertAllCited{}
@@ -2440,16 +2510,16 @@ ArcsCStri <- function(Xp,tri,t,M=c(1,1,1))
 #'
 #' M<-as.numeric(runif.tri(1,Tr)$g)  #try also M<-c(1.6,1.0)
 #'
-#' IM<-IncMatCStri(Xp,Tr,t=1.25,M)
+#' IM<-inci.matCStri(Xp,Tr,t=1.25,M)
 #' IM
-#' dom.greedy(IM) #try also dom.exact(IM)
-#' IndUBdom(IM,3)
+#' dom.num.greedy(IM) #try also dom.num.exact(IM)
+#' Idom.num.up.bnd(IM,3)
 #'
-#' IncMatCStri(Xp,Tr,t=1.5,M)
+#' inci.matCStri(Xp,Tr,t=1.5,M)
 #' }
 #'
-#' @export IncMatCStri
-IncMatCStri <- function(Xp,tri,t,M=c(1,1,1))
+#' @export inci.matCStri
+inci.matCStri <- function(Xp,tri,t,M=c(1,1,1))
 {
   if (!is.numeric(as.matrix(Xp)))
   {stop('Xp must be numeric')}
@@ -2480,7 +2550,7 @@ IncMatCStri <- function(Xp,tri,t,M=c(1,1,1))
   if (dimension(M)==3)
   {M<-bary2cart(M,tri)}
 
-  if (isTRUE(all.equal(M,circ.cent.tri(tri)))==FALSE & in.triangle(M,tri,boundary=FALSE)$in.tri==FALSE)
+  if (isTRUE(all.equal(M,circumcenter.tri(tri)))==FALSE & in.triangle(M,tri,boundary=FALSE)$in.tri==FALSE)
   {stop('center is not the circumcenter or not in the interior of the triangle')}
 
   n<-nrow(Xp)
@@ -2490,10 +2560,10 @@ IncMatCStri <- function(Xp,tri,t,M=c(1,1,1))
   {
     for (i in 1:n)
     {p1<-Xp[i,]
-    RE<-re.tri.cent(p1,tri,M)$re
+    RE<-rel.edge.tri(p1,tri,M)$re
     for (j in 1:n )
     {p2<-Xp[j,]
-    inc.mat[i,j]<-IndNCStri(p1,p2,tri,t,M,re=RE)
+    inc.mat[i,j]<-IarcCStri(p1,p2,tri,t,M,re=RE)
     }
     }
   }
@@ -2558,7 +2628,7 @@ IncMatCStri <- function(Xp,tri,t,M=c(1,1,1))
 #'
 #' # or try the default center
 #' #plotCSarcs.tri(Xp,Tr,t,main="Arcs of CS-PCD with t=1.5",xlab="",ylab="",edge.reg = TRUE);
-#' #M=(ArcsCStri(Xp,Tr,r)$param)$c #the part "M=(ArcsPEtri(Xp,Tr,r)$param)$cent" is optional,
+#' #M=(arcsCStri(Xp,Tr,r)$param)$c #the part "M=(arcsPEtri(Xp,Tr,r)$param)$cent" is optional,
 #' #for the below annotation of the plot
 #'
 #' #can add vertex labels and text to the figure (with edge regions)
@@ -2573,10 +2643,10 @@ IncMatCStri <- function(Xp,tri,t,M=c(1,1,1))
 plotCSarcs.tri <- function(Xp,tri,t,M=c(1,1,1),asp=NA,main=NULL,xlab=NULL,ylab=NULL,
                            xlim=NULL,ylim=NULL,edge.reg=FALSE,...)
 {
-  ArcsCS<-ArcsCStri(Xp,tri,t,M)
-  S<-ArcsCS$S
-  E<-ArcsCS$E
-  cent = (ArcsCS$param)$c
+  arcsCS<-arcsCStri(Xp,tri,t,M)
+  S<-arcsCS$S
+  E<-arcsCS$E
+  cent = (arcsCS$param)$c
 
   Xp<-matrix(Xp,ncol=2)
   if (is.null(xlim))
@@ -2665,7 +2735,7 @@ plotCSarcs.tri <- function(Xp,tri,t,M=c(1,1,1),asp=NA,main=NULL,xlab=NULL,ylab=N
 #'
 #' # or try the default center
 #' plotCSregs.tri(Xp,Tr,t,main="CS Proximity Regions with t=.5", xlab="",ylab="",edge.reg=TRUE);
-#' #M=(ArcsCStri(Xp,Tr,r)$param)$c #the part "M=(ArcsPEtri(Xp,Tr,r)$param)$cent" is optional,
+#' #M=(arcsCStri(Xp,Tr,r)$param)$c #the part "M=(arcsPEtri(Xp,Tr,r)$param)$cent" is optional,
 #' #for the below annotation of the plot
 #'
 #' #can add vertex labels and text to the figure (with edge regions)
@@ -2745,7 +2815,7 @@ plotCSregs.tri <- function(Xp,tri,t,M=c(1,1,1),asp=NA,main=NULL,xlab=NULL,ylab=N
     for (i in 1:nt)
     {
       P1<-Xtri[i,]
-      RE<-re.tri.cent(P1,tri,M)$re
+      RE<-rel.edge.tri(P1,tri,M)$re
 
       pr<-NCStri(P1,tri,t,M,re=RE)
       polygon(pr,border="blue")
@@ -2803,9 +2873,9 @@ plotCSregs.tri <- function(Xp,tri,t,M=c(1,1,1),asp=NA,main=NULL,xlab=NULL,ylab=N
 #' \item{E}{Heads (or arrow ends) of the arcs of CS-PCD for 2D data set \code{Xp} as vertices of the digraph}
 #' \item{mtitle}{Text for \code{"main"} title in the plot of the digraph}
 #' \item{quant}{Various quantities for the digraph: number of vertices, number of partition points,
-#' number of intervals, number of arcs, and arc density.}
+#' number of triangles, number of arcs, and arc density.}
 #'
-#' @seealso \code{\link{ArcsCStri}}, \code{\link{ArcsAS}} and \code{\link{ArcsPE}}
+#' @seealso \code{\link{arcsCStri}}, \code{\link{arcsAS}} and \code{\link{arcsPE}}
 #'
 #' @references
 #' \insertAllCited{}
@@ -2826,15 +2896,15 @@ plotCSregs.tri <- function(Xp,tri,t,M=c(1,1,1),asp=NA,main=NULL,xlab=NULL,ylab=N
 #'
 #' tau<-1.5  #try also tau<-2
 #'
-#' Arcs<-ArcsCS(Xp,Yp,tau,M)
-#' #or use the default center Arcs<-ArcsCS(Xp,Yp,tau)
+#' Arcs<-arcsCS(Xp,Yp,tau,M)
+#' #or use the default center Arcs<-arcsCS(Xp,Yp,tau)
 #' Arcs
 #' summary(Arcs)
 #' plot(Arcs)
 #' }
 #'
-#' @export ArcsCS
-ArcsCS <- function(Xp,Yp,t,M=c(1,1,1))
+#' @export arcsCS
+arcsCS <- function(Xp,Yp,t,M=c(1,1,1))
 {
   xname <-deparse(substitute(Xp))
   yname <-deparse(substitute(Yp))
@@ -2859,7 +2929,7 @@ ArcsCS <- function(Xp,Yp,t,M=c(1,1,1))
 
   if (nrow(Yp)==3)
   {
-    res<-ArcsCStri(Xp,Yp,t,M)
+    res<-arcsCStri(Xp,Yp,t,M)
   } else
   { if (!is.point(M,3) || !all(M>0))
   {stop('M must be a numeric 3D point with positive barycentric coordinates')}
@@ -2895,14 +2965,14 @@ ArcsCS <- function(Xp,Yp,t,M=c(1,1,1))
         if (nrow(Xl)>1)
         {
           Yi.Tri<-Yp[DTr[i,],] #vertices of the ith triangle
-          Yi.tri<-as.bas.tri(Yi.Tri)$tri #convert the triangle Yi.Tri into an nonscaled basic triangle, see as.bas.tri help page
+          Yi.tri<-as.basic.tri(Yi.Tri)$tri #convert the triangle Yi.Tri into an nonscaled basic triangle, see as.basic.tri help page
 
           nl<-nrow(Xl)
-          re.ind<-rel.edges.tri.cent(Xl,Yi.tri,M)$re
+          re.ind<-rel.edges.tri(Xl,Yi.tri,M)$re
           for (j in 1:nl)
           {RE<-re.ind[j]
           for (k in (1:nl)[-j])  #to avoid loops
-            if (IndNCStri(Xl[j,],Xl[k,],Yi.tri,t,M,re=RE)==1 )
+            if (IarcCStri(Xl[j,],Xl[k,],Yi.tri,t,M,re=RE)==1 )
             {
               S <-rbind(S,Xl[j,]); E <-rbind(E,Xl[k,]);
             }
@@ -2977,8 +3047,8 @@ ArcsCS <- function(Xp,Yp,t,M=c(1,1,1))
 #' @return Incidence matrix for the CS-PCD with vertices being 2D data set, \code{Xp}.
 #' CS proximity regions are constructed with respect to the Delaunay triangles and \code{M}-edge regions.
 #'
-#' @seealso \code{\link{IncMatCStri}}, \code{\link{IncMatCSTe}}, \code{\link{IncMatAS}},
-#' and \code{\link{IncMatPE}}
+#' @seealso \code{\link{inci.matCStri}}, \code{\link{inci.matCSstd.tri}}, \code{\link{inci.matAS}},
+#' and \code{\link{inci.matPE}}
 #'
 #' @references
 #' \insertAllCited{}
@@ -2999,14 +3069,14 @@ ArcsCS <- function(Xp,Yp,t,M=c(1,1,1))
 #'
 #' t<-1.5  #try also t<-2
 #'
-#' IM<-IncMatCS(Xp,Yp,t,M)
+#' IM<-inci.matCS(Xp,Yp,t,M)
 #' IM
-#' dom.greedy(IM) #try also dom.exact(IM)  #takes a very long time for large nx, try smaller nx
-#' IndUBdom(IM,3)  #takes a very long time for large nx, try smaller nx
+#' dom.num.greedy(IM) #try also dom.num.exact(IM)  #takes a very long time for large nx, try smaller nx
+#' Idom.num.up.bnd(IM,3)  #takes a very long time for large nx, try smaller nx
 #' }
 #'
-#' @export IncMatCS
-IncMatCS <- function(Xp,Yp,t,M=c(1,1,1))
+#' @export inci.matCS
+inci.matCS <- function(Xp,Yp,t,M=c(1,1,1))
 {
   if (!is.numeric(as.matrix(Xp)) || !is.numeric(as.matrix(Yp)))
   {stop('Xp and Yp must be numeric')}
@@ -3028,7 +3098,7 @@ IncMatCS <- function(Xp,Yp,t,M=c(1,1,1))
 
   if (nrow(Yp)==3)
   {
-    inc.mat<-IncMatCStri(Xp,Yp,t,M)
+    inc.mat<-inci.matCStri(Xp,Yp,t,M)
   } else
   { if (!is.point(M,3) || !all(M>0))
   {stop('M must be a numeric 3D point with positive barycentric coordinates')}
@@ -3061,12 +3131,12 @@ IncMatCS <- function(Xp,Yp,t,M=c(1,1,1))
       if (i.tr[i]!=0)
       {
         Yi.Tri<-Yp[DTr[i.tr[i],],] #vertices of the ith triangle
-        Yi.tri<-as.bas.tri(Yi.Tri)$tri #convert the triangle Yi.Tri into an nonscaled basic triangle, see as.bas.tri help page
+        Yi.tri<-as.basic.tri(Yi.Tri)$tri #convert the triangle Yi.Tri into an nonscaled basic triangle, see as.basic.tri help page
 
-        edge<-re.tri.cent(p1,Yi.tri,M)$re
+        edge<-rel.edge.tri(p1,Yi.tri,M)$re
         for (j in 1:nx )
         {p2<-Xp[j,]
-        inc.mat[i,j]<-IndNCStri(p1,p2,Yi.tri,t,M,re=edge)
+        inc.mat[i,j]<-IarcCStri(p1,p2,Yi.tri,t,M,re=edge)
         }
       }
       }
@@ -3149,13 +3219,13 @@ plotCSarcs <- function(Xp,Yp,t,M=c(1,1,1),asp=NA,main=NULL,xlab=NULL,ylab=NULL,x
     plotCSarcs.tri(Xp,Yp,t,M,asp,main,xlab,ylab,xlim,ylim)
   } else
   {
-    ArcsCS<-ArcsCS(Xp,Yp,t,M)
-    S<-ArcsCS$S
-    E<-ArcsCS$E
+    arcsCS<-arcsCS(Xp,Yp,t,M)
+    S<-arcsCS$S
+    E<-arcsCS$E
 
     DTmesh<-interp::tri.mesh(Yp[,1],Yp[,2],duplicate="remove")
 
-    Xch<-XinConvHullY(Xp,Yp)
+    Xch<-Xin.convex.hullY(Xp,Yp)
 
     if (is.null(main))
     {Mvec= paste(M, collapse=",")
@@ -3312,7 +3382,7 @@ plotCSregs <- function(Xp,Yp,t,M=c(1,1,1),asp=NA,main=NULL,xlab=NULL,ylab=NULL,x
     for (i in 1:nt)
     {
       Tri<-Yp[DTr[i,],]  #vertices of the ith triangle
-      tri<-as.bas.tri(Tri)$tri #convert the triangle Tri into an nonscaled basic triangle, see as.bas.tri help page
+      tri<-as.basic.tri(Tri)$tri #convert the triangle Tri into an nonscaled basic triangle, see as.basic.tri help page
 
       polygon(tri,lty=2)
       if (nx2>=1)
@@ -3325,7 +3395,7 @@ plotCSregs <- function(Xp,Yp,t,M=c(1,1,1),asp=NA,main=NULL,xlab=NULL,ylab=NULL,x
           for (j in 1:ni)
           {
             P1<-Xtri[j,]
-            RE<-re.tri.cent(P1,tri,M)$re
+            RE<-rel.edge.tri(P1,tri,M)$re
 
             pr<-NCStri(P1,tri,t,M,re=RE)
             polygon(pr,border="blue")
@@ -3371,7 +3441,7 @@ plotCSregs <- function(Xp,Yp,t,M=c(1,1,1),asp=NA,main=NULL,xlab=NULL,ylab=NULL,x
 #' one \eqn{x} in \code{S}, returns 0 otherwise. CS proximity region is constructed with respect to the standard
 #' equilateral triangle \eqn{T_e=T(A,B,C)=T((0,0),(1,0),(1/2,\sqrt{3}/2))} with \code{M}-edge regions.
 #'
-#' @seealso \code{\link{IndNCStriSet}}, \code{\link{IndNCSTe}}, \code{\link{IndNCStri}}, and \code{\link{IndNPETeSet}}
+#' @seealso \code{\link{IarcCSset2pnt.tri}}, \code{\link{IarcCSstd.tri}}, \code{\link{IarcCStri}}, and \code{\link{IarcPEset2pnt.std.tri}}
 #'
 #' @references
 #' \insertAllCited{}
@@ -3392,16 +3462,16 @@ plotCSregs <- function(Xp,Yp,t,M=c(1,1,1),asp=NA,main=NULL,xlab=NULL,ylab=NULL,x
 #' t<-.5
 #'
 #' S<-rbind(Xp[1,],Xp[2,])  #try also S<-c(.5,.5)
-#' IndNCSTeSet(S,Xp[3,],t,M)
-#' IndNCSTeSet(S,Xp[3,],t=1,M)
-#' IndNCSTeSet(S,Xp[3,],t=1.5,M)
+#' IarcCSset2pnt.std.tri(S,Xp[3,],t,M)
+#' IarcCSset2pnt.std.tri(S,Xp[3,],t=1,M)
+#' IarcCSset2pnt.std.tri(S,Xp[3,],t=1.5,M)
 #'
 #' S<-rbind(c(.1,.1),c(.3,.4),c(.5,.3))
-#' IndNCSTeSet(S,Xp[3,],t,M)
+#' IarcCSset2pnt.std.tri(S,Xp[3,],t,M)
 #' }
 #'
-#' @export IndNCSTeSet
-IndNCSTeSet <- function(S,p,t,M=c(1,1,1))
+#' @export IarcCSset2pnt.std.tri
+IarcCSset2pnt.std.tri <- function(S,p,t,M=c(1,1,1))
 {
   if (!is.point(p))
   {stop('p must be a numeric 2D point')}
@@ -3427,7 +3497,7 @@ IndNCSTeSet <- function(S,p,t,M=c(1,1,1))
   dom<-0; i<-1;
   while (dom ==0 && i<= k)
   {
-    if (IndNCSTe(S[i,],p,t,M)==1)
+    if (IarcCSstd.tri(S[i,],p,t,M)==1)
     {dom<-1};
     i<-i+1;
   }
@@ -3467,7 +3537,8 @@ IndNCSTeSet <- function(S,p,t,M=c(1,1,1))
 #' @return I(\code{p} is in \eqn{\cup_{x in S} N_{CS}(x,t)}), that is, returns 1 if \code{p} is in \code{S} or inside \eqn{N_{CS}(x,t)} for at least
 #' one \eqn{x} in \code{S}, returns 0 otherwise where CS proximity region is constructed with respect to the triangle \code{tri}
 #'
-#' @seealso \code{\link{IndNCSTeSet}}, \code{\link{IndNCStri}}, \code{\link{IndNCSTe}}, \code{\link{IndNAStriSet}}, and \code{\link{IndNPEtriSet}}
+#' @seealso \code{\link{IarcCSset2pnt.std.tri}}, \code{\link{IarcCStri}}, \code{\link{IarcCSstd.tri}},
+#' \code{\link{IarcASset2pnt.tri}}, and \code{\link{IarcPEset2pnt.tri}}
 #'
 #' @author Elvan Ceyhan
 #'
@@ -3486,16 +3557,16 @@ IndNCSTeSet <- function(S,p,t,M=c(1,1,1))
 #'
 #' tau<-.5
 #'
-#' IndNCStriSet(S,Xp[3,],Tr,tau,M)
-#' IndNCStriSet(S,Xp[3,],Tr,t=1,M)
-#' IndNCStriSet(S,Xp[3,],Tr,t=1.5,M)
+#' IarcCSset2pnt.tri(S,Xp[3,],Tr,tau,M)
+#' IarcCSset2pnt.tri(S,Xp[3,],Tr,t=1,M)
+#' IarcCSset2pnt.tri(S,Xp[3,],Tr,t=1.5,M)
 #'
 #' S<-rbind(c(.1,.1),c(.3,.4),c(.5,.3))
-#' IndNCStriSet(S,Xp[3,],Tr,tau,M)
+#' IarcCSset2pnt.tri(S,Xp[3,],Tr,tau,M)
 #' }
 #'
-#' @export IndNCStriSet
-IndNCStriSet <- function(S,p,tri,t,M=c(1,1,1))
+#' @export IarcCSset2pnt.tri
+IarcCSset2pnt.tri <- function(S,p,tri,t,M=c(1,1,1))
 {
   if (!is.point(p))
   {stop('p must be a numeric 2D point')}
@@ -3536,7 +3607,7 @@ IndNCStriSet <- function(S,p,tri,t,M=c(1,1,1))
   dom<-0; i<-1;
   while (dom ==0 && i<= k)
   {
-    if (IndNCStri(S[i,],p,tri,t,M)==1)
+    if (IarcCStri(S[i,],p,tri,t,M)==1)
     {dom<-1};
     i<-i+1;
   }
@@ -3573,7 +3644,7 @@ IndNCStriSet <- function(S,p,tri,t,M=c(1,1,1))
 #' @return \eqn{I(}\code{S} a dominating set of the CS-PCD\eqn{)}, that is, returns 1 if \code{S} is a dominating set of CS-PCD,
 #' returns 0 otherwise, where CS proximity region is constructed in the standard equilateral triangle \eqn{T_e}
 #'
-#' @seealso \code{\link{IndNCStri.domset}} and \code{\link{IndNPETe.domset}}
+#' @seealso \code{\link{Idom.setCStri}} and \code{\link{Idom.setPEstd.tri}}
 #'
 #' @references
 #' \insertAllCited{}
@@ -3594,14 +3665,14 @@ IndNCStriSet <- function(S,p,tri,t,M=c(1,1,1))
 #' t<-.5
 #'
 #' S<-rbind(Xp[1,],Xp[2,])
-#' IndNCSTe.domset(S,Xp,t,M)
+#' Idom.setCSstd.tri(S,Xp,t,M)
 #'
 #' S<-rbind(Xp[1,],Xp[2,],Xp[3,],Xp[5,])
-#' IndNCSTe.domset(S,Xp,t,M)
+#' Idom.setCSstd.tri(S,Xp,t,M)
 #' }
 #'
-#' @export IndNCSTe.domset
-IndNCSTe.domset <- function(S,Xp,t,M=c(1,1,1))
+#' @export Idom.setCSstd.tri
+Idom.setCSstd.tri <- function(S,Xp,t,M=c(1,1,1))
 {
   if (!is.numeric(as.matrix(S)) || !is.numeric(as.matrix(Xp)))
   {stop('Both arguments must be numeric')}
@@ -3643,7 +3714,7 @@ IndNCSTe.domset <- function(S,Xp,t,M=c(1,1,1))
   dom<-1; i<-1;
   while (dom ==1 && i<= n)
   {
-    if (IndNCSTeSet(S,Xp[i,],t,M)==0)  #this is where std equilateral triangle Te is implicitly used
+    if (IarcCSset2pnt.std.tri(S,Xp[i,],t,M)==0)  #this is where std equilateral triangle Te is implicitly used
     {dom<-0};
     i<-i+1;
   }
@@ -3681,7 +3752,7 @@ IndNCSTe.domset <- function(S,Xp,t,M=c(1,1,1))
 #' vertices are the data points in \code{Xp}; returns 0 otherwise, where CS proximity region is constructed in
 #' the triangle \code{tri}
 #'
-#' @seealso \code{\link{IndNCSTe.domset}}, \code{\link{IndNPEtri.domset}} and \code{\link{IndNAStri.domset}}
+#' @seealso \code{\link{Idom.setCSstd.tri}}, \code{\link{Idom.setPEtri}} and \code{\link{Idom.setAStri}}
 #'
 #' @references
 #' \insertAllCited{}
@@ -3701,14 +3772,14 @@ IndNCSTe.domset <- function(S,Xp,t,M=c(1,1,1))
 #'
 #' tau<-.5
 #' S<-rbind(Xp[1,],Xp[2,])
-#' IndNCStri.domset(S,Xp,Tr,tau,M)
+#' Idom.setCStri(S,Xp,Tr,tau,M)
 #'
 #' S<-rbind(Xp[1,],Xp[2,],Xp[3,],Xp[5,])
-#' IndNCStri.domset(S,Xp,Tr,tau,M)
+#' Idom.setCStri(S,Xp,Tr,tau,M)
 #' }
 #'
-#' @export IndNCStri.domset
-IndNCStri.domset <- function(S,Xp,tri,t,M=c(1,1,1))
+#' @export Idom.setCStri
+Idom.setCStri <- function(S,Xp,tri,t,M=c(1,1,1))
 {
   if (!is.numeric(as.matrix(S)) || !is.numeric(as.matrix(Xp)))
   {stop('Both arguments must be numeric')}
@@ -3747,7 +3818,7 @@ IndNCStri.domset <- function(S,Xp,tri,t,M=c(1,1,1))
   if (dimension(M)==3)
   {M<-bary2cart(M,tri)}
 
-  if (isTRUE(all.equal(M,circ.cent.tri(tri)))==FALSE & in.triangle(M,tri,boundary=FALSE)$in.tri==FALSE)
+  if (isTRUE(all.equal(M,circumcenter.tri(tri)))==FALSE & in.triangle(M,tri,boundary=FALSE)$in.tri==FALSE)
   {stop('center is not the circumcenter or not in the interior of the triangle')}
 
   k<-nrow(S);
@@ -3756,7 +3827,7 @@ IndNCStri.domset <- function(S,Xp,tri,t,M=c(1,1,1))
   dom<-1; i<-1;
   while (dom ==1 && i<= n)
   {
-    if (IndNCStriSet(S,Xp[i,],tri,t,M)==0)  #this is where tri is used
+    if (IarcCSset2pnt.tri(S,Xp[i,],tri,t,M)==0)  #this is where tri is used
     {dom<-0};
     i<-i+1;
   }
@@ -3795,13 +3866,13 @@ IndNCStri.domset <- function(S,Xp,tri,t,M=c(1,1,1))
 #' @return A \code{list} with two elements
 #' \item{domUB}{The upper bound \code{k} (to be checked) for the domination number of CS-PCD. It is prespecified
 #' as \code{k} in the function arguments.}
-#' \item{IndUBdom}{The indicator for the upper bound for domination number of CS-PCD being the
+#' \item{Idom.num.up.bnd}{The indicator for the upper bound for domination number of CS-PCD being the
 #' specified value \code{k} or not. It returns 1 if the upper bound is \code{k}, and 0 otherwise.}
 #' \item{ind.domset}{The vertices (i.e., data points) in the dominating set of size \code{k} if it exists,
 #' otherwise it is \code{NULL}.}
 #'
-#' @seealso \code{\link{IndNCSdomUBtri}}, \code{\link{IndUBdom}}, \code{\link{IndASdomUBtri}},
-#' and \code{\link{dom.exact}}
+#' @seealso \code{\link{Idom.numCSup.bnd.tri}}, \code{\link{Idom.num.up.bnd}}, \code{\link{Idom.numASup.bnd.tri}},
+#' and \code{\link{dom.num.exact}}
 #'
 #' @references
 #' \insertAllCited{}
@@ -3821,15 +3892,15 @@ IndNCStri.domset <- function(S,Xp,tri,t,M=c(1,1,1))
 #'
 #' t<-.5
 #'
-#' IndNCSdomUBTe(Xp,1,t,M)
+#' Idom.numCSup.bnd.std.tri(Xp,1,t,M)
 #'
 #' for (k in 1:n)
-#'   print(c(k,IndNCSdomUBTe(Xp,k,t,M)$IndUBdom))
-#'   print(c(k,IndNCSdomUBTe(Xp,k,t,M)$domUB))
+#'   print(c(k,Idom.numCSup.bnd.std.tri(Xp,k,t,M)$Idom.num.up.bnd))
+#'   print(c(k,Idom.numCSup.bnd.std.tri(Xp,k,t,M)$domUB))
 #' }
 #'
-#' @export IndNCSdomUBTe
-IndNCSdomUBTe <- function(Xp,k,t,M=c(1,1,1))
+#' @export Idom.numCSup.bnd.std.tri
+Idom.numCSup.bnd.std.tri <- function(Xp,k,t,M=c(1,1,1))
 {
   if (!is.numeric(as.matrix(Xp)))
   {stop('Xp must be numeric')}
@@ -3863,13 +3934,13 @@ IndNCSdomUBTe <- function(Xp,k,t,M=c(1,1,1))
   dom<-0; j<-1; domset<-c();
   while (j<=N1 && dom==0)
   {
-    if (IndNCSTe.domset(Xp[xc[,j],],Xp,t,M)==1)  #this is where std equilateral triangle Te is implicitly used
+    if (Idom.setCSstd.tri(Xp[xc[,j],],Xp,t,M)==1)  #this is where std equilateral triangle Te is implicitly used
     {dom<-1; domset<-Xp[xc[,j],];}
     j<-j+1;
   }
 
   list(domUB=k, #upper bound for the domination number of CS-PCD
-       IndUBdom=dom, #indicator that domination number <=k
+       Idom.num.up.bnd=dom, #indicator that domination number <=k
        domset=domset #a dominating set of size k (if exists)
   )
 } #end of the function
@@ -3908,13 +3979,13 @@ IndNCSdomUBTe <- function(Xp,k,t,M=c(1,1,1))
 #' @return A \code{list} with two elements
 #' \item{domUB}{The upper bound \code{k} (to be checked) for the domination number of CS-PCD. It is prespecified
 #' as \code{k} in the function arguments.}
-#' \item{IndUBdom}{The indicator for the upper bound for domination number of CS-PCD being the
+#' \item{Idom.num.up.bnd}{The indicator for the upper bound for domination number of CS-PCD being the
 #' specified value \code{k} or not. It returns 1 if the upper bound is \code{k}, and 0 otherwise.}
 #' \item{ind.domset}{The vertices (i.e., data points) in the dominating set of size \code{k} if it exists,
 #' otherwise it is \code{NULL}.}
 #'
-#' @seealso \code{\link{IndNCSdomUBTe}}, \code{\link{IndUBdom}}, \code{\link{IndASdomUBtri}},
-#' and \code{\link{dom.exact}}
+#' @seealso \code{\link{Idom.numCSup.bnd.std.tri}}, \code{\link{Idom.num.up.bnd}}, \code{\link{Idom.numASup.bnd.tri}},
+#' and \code{\link{dom.num.exact}}
 #'
 #' @references
 #' \insertAllCited{}
@@ -3934,14 +4005,14 @@ IndNCSdomUBTe <- function(Xp,k,t,M=c(1,1,1))
 #'
 #' t<-.5
 #'
-#' IndNCSdomUBtri(Xp,1,Tr,t,M)
+#' Idom.numCSup.bnd.tri(Xp,1,Tr,t,M)
 #'
 #' for (k in 1:n)
-#'   print(c(k,IndNCSdomUBtri(Xp,k,Tr,t,M)))
+#'   print(c(k,Idom.numCSup.bnd.tri(Xp,k,Tr,t,M)))
 #' }
 #'
-#' @export IndNCSdomUBtri
-IndNCSdomUBtri <- function(Xp,k,tri,t,M=c(1,1,1))
+#' @export Idom.numCSup.bnd.tri
+Idom.numCSup.bnd.tri <- function(Xp,k,tri,t,M=c(1,1,1))
 {
   if (!is.numeric(as.matrix(Xp)))
   {stop('Xp must be numeric')}
@@ -3981,13 +4052,13 @@ IndNCSdomUBtri <- function(Xp,k,tri,t,M=c(1,1,1))
   dom<-0; j<-1; domset<-c();
   while (j<=N1 && dom==0)
   {
-    if (IndNCStri.domset(Xp[xc[,j],],Xp,tri,t,M)==1)  #this is where triangle tri is used
+    if (Idom.setCStri(Xp[xc[,j],],Xp,tri,t,M)==1)  #this is where triangle tri is used
     {dom<-1; domset<-Xp[xc[,j],];}
     j<-j+1;
   }
 
   list(domUB=k, #upper bound for the domination number of CS-PCD
-       IndUBdom=dom, #indicator that domination number <=k
+       Idom.num.up.bnd=dom, #indicator that domination number <=k
        domset=domset #a dominating set of size k (if exists)
   )
 } #end of the function
@@ -4024,7 +4095,7 @@ IndNCSdomUBtri <- function(Xp,k,tri,t,M=c(1,1,1))
 #' @return \eqn{I(}\code{p} is a dominating point of the CS-PCD\eqn{)} where the vertices of the CS-PCD are the 2D data set \code{Xp},
 #' that is, returns 1 if \code{p} is a dominating point, returns 0 otherwise.
 #'
-#' @seealso \code{\link{Gam1CSTe}}
+#' @seealso \code{\link{Idom.num1CSstd.tri}}
 #'
 #' @references
 #' \insertAllCited{}
@@ -4041,14 +4112,14 @@ IndNCSdomUBtri <- function(Xp,k,tri,t,M=c(1,1,1))
 #' set.seed(1)
 #' Xp<-runif.std.tri(n)$gen.points
 #'
-#' Gam1CSTet1(Xp[3,],Xp)
+#' Idom.num1CSt1std.tri(Xp[3,],Xp)
 #'
-#' Gam1CSTet1(c(1,2),c(1,2))
-#' Gam1CSTet1(c(1,2),c(1,2),ch.data.pnt = TRUE)
+#' Idom.num1CSt1std.tri(c(1,2),c(1,2))
+#' Idom.num1CSt1std.tri(c(1,2),c(1,2),ch.data.pnt = TRUE)
 #'
 #' gam.vec<-vector()
 #' for (i in 1:n)
-#' {gam.vec<-c(gam.vec,Gam1CSTet1(Xp[i,],Xp))}
+#' {gam.vec<-c(gam.vec,Idom.num1CSt1std.tri(Xp[i,],Xp))}
 #'
 #' ind.gam1<-which(gam.vec==1)
 #' ind.gam1
@@ -4074,7 +4145,7 @@ IndNCSdomUBtri <- function(Xp,k,tri,t,M=c(1,1,1))
 #' }
 #'
 #' @export
-Gam1CSTet1 <- function(p,Xp,re=NULL,ch.data.pnt=FALSE)
+Idom.num1CSt1std.tri <- function(p,Xp,re=NULL,ch.data.pnt=FALSE)
 {
   if (!is.point(p))
   {stop('p must be a numeric point of dimension 2')}
@@ -4099,7 +4170,7 @@ Gam1CSTet1 <- function(p,Xp,re=NULL,ch.data.pnt=FALSE)
   {dom<-0; return(dom); stop}
 
   if (is.null(re))
-  {re<-reTeCM(p)$re #edge region for p
+  {re<-rel.edge.std.triCM(p)$re #edge region for p
   } else
   {  if (!is.numeric(re) || sum(re==c(1,2,3))!=1)
   {stop('edge index, re, must be 1, 2 or 3')}}
@@ -4113,7 +4184,7 @@ Gam1CSTet1 <- function(p,Xp,re=NULL,ch.data.pnt=FALSE)
   dom<-0
   c.e<-cl2edges.std.tri(Xp)$ext
   c.e<-c.e[-re,]
-  if (IndNCSTet1(p,c.e[1,])==1 && IndNCSTet1(p,c.e[2,])==1)  #this is where std equilateral triangle Te is implicitly used
+  if (IarcCSt1.std.tri(p,c.e[1,])==1 && IarcCSt1.std.tri(p,c.e[2,])==1)  #this is where std equilateral triangle Te is implicitly used
     dom<-1;
   dom
 } #end of the function
@@ -4145,7 +4216,7 @@ Gam1CSTet1 <- function(p,Xp,re=NULL,ch.data.pnt=FALSE)
 #' @return \eqn{I(}\code{p} is a dominating point of the CS-PCD\eqn{)} where the vertices of the CS-PCD are the 2D data set \code{Xp},
 #' that is, returns 1 if \code{p} is a dominating point, returns 0 otherwise
 #'
-#' @seealso \code{\link{Gam1CSTet1}}
+#' @seealso \code{\link{Idom.num1CSt1std.tri}}
 #'
 #' @references
 #' \insertAllCited{}
@@ -4163,13 +4234,13 @@ Gam1CSTet1 <- function(p,Xp,re=NULL,ch.data.pnt=FALSE)
 #' set.seed(1)
 #' Xp<-runif.std.tri(n)$gen.points
 #'
-#' Gam1CSTe(Xp[3,],Xp,t)
-#' Gam1CSTe(c(1,2),c(1,2),t)
-#' Gam1CSTe(c(1,2),c(1,2),t,ch.data.pnt = TRUE)
+#' Idom.num1CSstd.tri(Xp[3,],Xp,t)
+#' Idom.num1CSstd.tri(c(1,2),c(1,2),t)
+#' Idom.num1CSstd.tri(c(1,2),c(1,2),t,ch.data.pnt = TRUE)
 #'
 #' gam.vec<-vector()
 #' for (i in 1:n)
-#' {gam.vec<-c(gam.vec,Gam1CSTe(Xp[i,],Xp,t))}
+#' {gam.vec<-c(gam.vec,Idom.num1CSstd.tri(Xp[i,],Xp,t))}
 #'
 #' ind.gam1<-which(gam.vec==1)
 #' ind.gam1
@@ -4193,12 +4264,12 @@ Gam1CSTet1 <- function(p,Xp,re=NULL,ch.data.pnt=FALSE)
 #' txt.str<-c("A","B","C","CM")
 #' text(xc,yc,txt.str)
 #'
-#' Gam1CSTe(c(1,2),Xp,t,ch.data.pnt = FALSE)
+#' Idom.num1CSstd.tri(c(1,2),Xp,t,ch.data.pnt = FALSE)
 #' #gives an error if ch.data.pnt = TRUE message since p is not a data point
 #' }
 #'
-#' @export Gam1CSTe
-Gam1CSTe <- function(p,Xp,t,ch.data.pnt=FALSE)
+#' @export Idom.num1CSstd.tri
+Idom.num1CSstd.tri <- function(p,Xp,t,ch.data.pnt=FALSE)
 {
   if (!is.point(p))
   {stop('p must be a numeric point of dimension 2')}
@@ -4226,7 +4297,7 @@ Gam1CSTe <- function(p,Xp,t,ch.data.pnt=FALSE)
   n<-nrow(Xp)
   dom<-1; i<-1;
   while (i <= n && dom==1)
-  {if (IndNCSTe(p,Xp[i,],t)==0)  #this is where std equilateral triangle Te is implicitly used
+  {if (IarcCSstd.tri(p,Xp[i,],t)==0)  #this is where std equilateral triangle Te is implicitly used
     dom<-0;
   i<-i+1;
   }
@@ -4238,13 +4309,13 @@ Gam1CSTe <- function(p,Xp,t,ch.data.pnt=FALSE)
 
 # funsCSGamTe
 #'
-#' @title The function \code{GamkCSTe} is for \eqn{k} (\eqn{k=2,3,4,5}) points constituting a dominating set for Central Similarity
+#' @title The function \code{gammakCSstd.tri} is for \eqn{k} (\eqn{k=2,3,4,5}) points constituting a dominating set for Central Similarity
 #' Proximity Catch Digraphs (CS-PCDs) - standard equilateral triangle case
 #'
 #' @description
-#' Four indicator functions: \code{Gam2CSTe}, \code{Gam3CSTe}, \code{Gam4CSTe}, \code{Gam5CSTe} and \code{Gam6CSTe}.
+#' Four indicator functions: \code{Idom.num2CSstd.tri}, \code{Idom.num3CSstd.tri}, \code{Idom.num4CSstd.tri}, \code{Idom.num5CSstd.tri} and \code{Idom.num6CSstd.tri}.
 #'
-#' The function \code{GamkCSTe} returns I(\{\code{p1},...,\code{pk}\} is a dominating set of the CS-PCD)
+#' The function \code{gammakCSstd.tri} returns I(\{\code{p1},...,\code{pk}\} is a dominating set of the CS-PCD)
 #' where vertices of CS-PCD are the 2D data set \code{Xp}, that is, returns 1 if \{\code{p1},...,\code{pk}\}
 #' is a dominating set of CS-PCD, returns 0 otherwise for \eqn{k=2,3,4,5,6}.
 #'
@@ -4264,14 +4335,14 @@ Gam1CSTe <- function(p,Xp,t,ch.data.pnt=FALSE)
 #' @param ch.data.pnts A logical argument for checking whether points \{\eqn{p1,\ldots,pk}\} are
 #' data points in \code{Xp} or not (default is \code{FALSE}).
 #'
-#' @return The function \code{GamkCSTe} returns \{\code{p1},...,\code{pk}\} is a dominating set of the CS-PCD) where
+#' @return The function \code{gammakCSstd.tri} returns \{\code{p1},...,\code{pk}\} is a dominating set of the CS-PCD) where
 #' vertices of the CS-PCD are the 2D data set \code{Xp}), that is, returns 1 if \{\code{p1},...,\code{pk}\}
 #' is a dominating set of CS-PCD, returns 0 otherwise.
 #'
 #' @name funsCSGamTe
 NULL
 #'
-#' @seealso \code{\link{Gam1CSTe}}, \code{\link{Gam2PEtri}} and \code{\link{Gam2PEtetra}}
+#' @seealso \code{\link{Idom.num1CSstd.tri}}, \code{\link{Idom.num2PEtri}} and \code{\link{Idom.num2PEtetra}}
 #'
 #' @rdname funsCSGamTe
 #'
@@ -4280,27 +4351,27 @@ NULL
 #' @examples
 #' \dontrun{
 #' set.seed(123)
-#' #Examples for Gam2CSTe
+#' #Examples for Idom.num2CSstd.tri
 #' t<-1.5
 #' n<-10 #try also 10, 20 (it may take longer for larger n)
 #'
 #' set.seed(1)
 #' Xp<-runif.std.tri(n)$gen.points
 #'
-#' Gam2CSTe(Xp[1,],Xp[2,],Xp,t)
-#' Gam2CSTe(c(.2,.2),Xp[2,],Xp,t)
+#' Idom.num2CSstd.tri(Xp[1,],Xp[2,],Xp,t)
+#' Idom.num2CSstd.tri(c(.2,.2),Xp[2,],Xp,t)
 #'
 #' ind.gam2<-vector()
 #' for (i in 1:(n-1))
 #'  for (j in (i+1):n)
-#'  {if (Gam2CSTe(Xp[i,],Xp[j,],Xp,t)==1)
+#'  {if (Idom.num2CSstd.tri(Xp[i,],Xp[j,],Xp,t)==1)
 #'   ind.gam2<-rbind(ind.gam2,c(i,j))}
 #'
 #' ind.gam2
 #' }
 #'
 #' @export
-Gam2CSTe <- function(p1,p2,Xp,t,ch.data.pnts=FALSE)
+Idom.num2CSstd.tri <- function(p1,p2,Xp,t,ch.data.pnts=FALSE)
 {
   if (!is.point(p1) || !is.point(p2) )
   {stop('p1 and p2 must both be numeric 2D points')}
@@ -4329,7 +4400,7 @@ Gam2CSTe <- function(p1,p2,Xp,t,ch.data.pnts=FALSE)
   dom<-1; i<-1;
   while (i<=n && dom==1)
   {
-    if (IndNCSTe(p1,Xp[i,],t)==0 && IndNCSTe(p2,Xp[i,],t)==0)  #this is where std equilateral triangle Te is implicitly used
+    if (IarcCSstd.tri(p1,Xp[i,],t)==0 && IarcCSstd.tri(p2,Xp[i,],t)==0)  #this is where std equilateral triangle Te is implicitly used
     {dom<-0};
     i<-i+1;
   }
@@ -4340,27 +4411,27 @@ Gam2CSTe <- function(p1,p2,Xp,t,ch.data.pnts=FALSE)
 #'
 #' @examples
 #' \dontrun{
-#' #Examples for Gam3CSTe
+#' #Examples for Idom.num3CSstd.tri
 #' t<-1.5
 #' n<-10 #try also 10, 20 (it may take longer for larger n)
 #'
 #' set.seed(1)
 #' Xp<-runif.std.tri(n)$gen.points
 #'
-#' Gam3CSTe(Xp[1,],Xp[2,],Xp[3,],Xp,t)
+#' Idom.num3CSstd.tri(Xp[1,],Xp[2,],Xp[3,],Xp,t)
 #'
 #' ind.gam3<-vector()
 #' for (i in 1:(n-2))
 #'  for (j in (i+1):(n-1))
 #'    for (k in (j+1):n)
-#'    {if (Gam3CSTe(Xp[i,],Xp[j,],Xp[k,],Xp,t)==1)
+#'    {if (Idom.num3CSstd.tri(Xp[i,],Xp[j,],Xp[k,],Xp,t)==1)
 #'     ind.gam3<-rbind(ind.gam3,c(i,j,k))}
 #'
 #' ind.gam3
 #' }
 #'
 #' @export
-Gam3CSTe <- function(p1,p2,p3,Xp,t,ch.data.pnts=FALSE)
+Idom.num3CSstd.tri <- function(p1,p2,p3,Xp,t,ch.data.pnts=FALSE)
 {
   if (!is.point(p1) || !is.point(p2) || !is.point(p3) )
   {stop('p1, p2, and p3 must all be numeric 2D points')}
@@ -4389,7 +4460,7 @@ Gam3CSTe <- function(p1,p2,p3,Xp,t,ch.data.pnts=FALSE)
   dom<-1; i<-1;
   while (i<=n && dom==1)
   {
-    if (IndNCSTe(p1,Xp[i,],t)==0 && IndNCSTe(p2,Xp[i,],t)==0 && IndNCSTe(p3,Xp[i,],t)==0)  #this is where std equilateral triangle Te is implicitly used
+    if (IarcCSstd.tri(p1,Xp[i,],t)==0 && IarcCSstd.tri(p2,Xp[i,],t)==0 && IarcCSstd.tri(p3,Xp[i,],t)==0)  #this is where std equilateral triangle Te is implicitly used
     {dom<-0};
     i<-i+1;
   }
@@ -4400,31 +4471,31 @@ Gam3CSTe <- function(p1,p2,p3,Xp,t,ch.data.pnts=FALSE)
 #'
 #' @examples
 #' \dontrun{
-#' #Examples for Gam4CSTe
+#' #Examples for Idom.num4CSstd.tri
 #' t<-1.5
 #' n<-10 #try also 10, 20 (it may take longer for larger n)
 #'
 #' set.seed(1)
 #' Xp<-runif.std.tri(n)$gen.points
 #'
-#' Gam4CSTe(Xp[1,],Xp[2,],Xp[3,],Xp[4,],Xp,t)
+#' Idom.num4CSstd.tri(Xp[1,],Xp[2,],Xp[3,],Xp[4,],Xp,t)
 #'
 #' ind.gam4<-vector()
 #' for (i in 1:(n-3))
 #'  for (j in (i+1):(n-2))
 #'    for (k in (j+1):(n-1))
 #'      for (l in (k+1):n)
-#'      {if (Gam4CSTe(Xp[i,],Xp[j,],Xp[k,],Xp[l,],Xp,t)==1)
+#'      {if (Idom.num4CSstd.tri(Xp[i,],Xp[j,],Xp[k,],Xp[l,],Xp,t)==1)
 #'       ind.gam4<-rbind(ind.gam4,c(i,j,k,l))}
 #'
 #' ind.gam4
 #'
-#' Gam4CSTe(c(.2,.2),Xp[2,],Xp[3,],Xp[4,],Xp,t,ch.data.pnts = FALSE)
+#' Idom.num4CSstd.tri(c(.2,.2),Xp[2,],Xp[3,],Xp[4,],Xp,t,ch.data.pnts = FALSE)
 #' #gives an error message if ch.data.pnts = TRUE since not all points are data points in Xp
 #' }
 #'
 #' @export
-Gam4CSTe <- function(p1,p2,p3,p4,Xp,t,ch.data.pnts=FALSE)
+Idom.num4CSstd.tri <- function(p1,p2,p3,p4,Xp,t,ch.data.pnts=FALSE)
 {
   if (!is.point(p1) || !is.point(p2) || !is.point(p3) || !is.point(p4) )
   {stop('p1, p2, p3 and p4 must all be numeric 2D points')}
@@ -4453,8 +4524,8 @@ Gam4CSTe <- function(p1,p2,p3,p4,Xp,t,ch.data.pnts=FALSE)
   dom<-1; i<-1;
   while (i<=n && dom==1)
   {
-    if (IndNCSTe(p1,Xp[i,],t)==0 && IndNCSTe(p2,Xp[i,],t)==0 && IndNCSTe(p3,Xp[i,],t)==0
-        && IndNCSTe(p4,Xp[i,],t)==0)
+    if (IarcCSstd.tri(p1,Xp[i,],t)==0 && IarcCSstd.tri(p2,Xp[i,],t)==0 && IarcCSstd.tri(p3,Xp[i,],t)==0
+        && IarcCSstd.tri(p4,Xp[i,],t)==0)
       #this is where std equilateral triangle Te is implicitly used
     {dom<-0};
     i<-i+1;
@@ -4466,14 +4537,14 @@ Gam4CSTe <- function(p1,p2,p3,p4,Xp,t,ch.data.pnts=FALSE)
 #'
 #' @examples
 #' \dontrun{
-#' #Examples for Gam5CSTe
+#' #Examples for Idom.num5CSstd.tri
 #' t<-1.5
 #' n<-10 #try also 10, 20 (it may take longer for larger n)
 #'
 #' set.seed(1)
 #' Xp<-runif.std.tri(n)$gen.points
 #'
-#' Gam5CSTe(Xp[1,],Xp[2,],Xp[3,],Xp[4,],Xp[5,],Xp,t)
+#' Idom.num5CSstd.tri(Xp[1,],Xp[2,],Xp[3,],Xp[4,],Xp[5,],Xp,t)
 #'
 #' ind.gam5<-vector()
 #' for (i1 in 1:(n-4))
@@ -4481,17 +4552,17 @@ Gam4CSTe <- function(p1,p2,p3,p4,Xp,t,ch.data.pnts=FALSE)
 #'    for (i3 in (i2+1):(n-2))
 #'      for (i4 in (i3+1):(n-1))
 #'        for (i5 in (i4+1):n)
-#'        {if (Gam5CSTe(Xp[i1,],Xp[i2,],Xp[i3,],Xp[i4,],Xp[i5,],Xp,t)==1)
+#'        {if (Idom.num5CSstd.tri(Xp[i1,],Xp[i2,],Xp[i3,],Xp[i4,],Xp[i5,],Xp,t)==1)
 #'         ind.gam5<-rbind(ind.gam5,c(i1,i2,i3,i4,i5))}
 #'
 #' ind.gam5
 #'
-#' Gam5CSTe(c(.2,.2),Xp[2,],Xp[3,],Xp[4,],Xp[5,],Xp,t,ch.data.pnts = FALSE)
+#' Idom.num5CSstd.tri(c(.2,.2),Xp[2,],Xp[3,],Xp[4,],Xp[5,],Xp,t,ch.data.pnts = FALSE)
 #' #gives an error message if ch.data.pnts = TRUE since not all points are data points in Xp
 #' }
 #'
 #' @export
-Gam5CSTe <- function(p1,p2,p3,p4,p5,Xp,t,ch.data.pnts=FALSE)
+Idom.num5CSstd.tri <- function(p1,p2,p3,p4,p5,Xp,t,ch.data.pnts=FALSE)
 {
   if (!is.point(p1) || !is.point(p2) || !is.point(p3) || !is.point(p4) || !is.point(p5) )
   {stop('p1, p2, p3, p4 and p5 must all be numeric 2D points')}
@@ -4520,8 +4591,8 @@ Gam5CSTe <- function(p1,p2,p3,p4,p5,Xp,t,ch.data.pnts=FALSE)
   dom<-1; i<-1;
   while (i<=n && dom==1)
   {
-    if (IndNCSTe(p1,Xp[i,],t)==0 && IndNCSTe(p2,Xp[i,],t)==0 && IndNCSTe(p3,Xp[i,],t)==0 &&
-        IndNCSTe(p4,Xp[i,],t)==0 && IndNCSTe(p5,Xp[i,],t)==0)  #this is where std equilateral triangle Te is implicitly used
+    if (IarcCSstd.tri(p1,Xp[i,],t)==0 && IarcCSstd.tri(p2,Xp[i,],t)==0 && IarcCSstd.tri(p3,Xp[i,],t)==0 &&
+        IarcCSstd.tri(p4,Xp[i,],t)==0 && IarcCSstd.tri(p5,Xp[i,],t)==0)  #this is where std equilateral triangle Te is implicitly used
     {dom<-0};
     i<-i+1;
   }
@@ -4532,14 +4603,14 @@ Gam5CSTe <- function(p1,p2,p3,p4,p5,Xp,t,ch.data.pnts=FALSE)
 #'
 #' @examples
 #' \dontrun{
-#' #Examples for Gam6CSTe
+#' #Examples for Idom.num6CSstd.tri
 #' t<-1.5
 #' n<-10 #try also 10, 20 (it may take longer for larger n)
 #'
 #' set.seed(1)
 #' Xp<-runif.std.tri(n)$gen.points
 #'
-#' Gam6CSTe(Xp[1,],Xp[2,],Xp[3,],Xp[4,],Xp[5,],Xp[6,],Xp,t)
+#' Idom.num6CSstd.tri(Xp[1,],Xp[2,],Xp[3,],Xp[4,],Xp[5,],Xp[6,],Xp,t)
 #'
 #' ind.gam6<-vector()
 #' for (i1 in 1:(n-5))
@@ -4548,17 +4619,17 @@ Gam5CSTe <- function(p1,p2,p3,p4,p5,Xp,t,ch.data.pnts=FALSE)
 #'      for (i4 in (i3+1):(n-2))
 #'        for (i5 in (i4+1):(n-1))
 #'          for (i6 in (i5+1):n)
-#'          {if (Gam6CSTe(Xp[i1,],Xp[i2,],Xp[i3,],Xp[i4,],Xp[i5,],Xp[i6,],Xp,t)==1)
+#'          {if (Idom.num6CSstd.tri(Xp[i1,],Xp[i2,],Xp[i3,],Xp[i4,],Xp[i5,],Xp[i6,],Xp,t)==1)
 #'           ind.gam6<-rbind(ind.gam6,c(i1,i2,i3,i4,i5,i6))}
 #'
 #' ind.gam6
 #'
-#' Gam6CSTe(c(.2,.2),Xp[2,],Xp[3,],Xp[4,],Xp[5,],Xp[6,],Xp,t,ch.data.pnts = FALSE)
+#' Idom.num6CSstd.tri(c(.2,.2),Xp[2,],Xp[3,],Xp[4,],Xp[5,],Xp[6,],Xp,t,ch.data.pnts = FALSE)
 #' #gives an error message if ch.data.pnts = TRUE since not all points are data points in Xp
 #' }
 #'
 #' @export
-Gam6CSTe <- function(p1,p2,p3,p4,p5,p6,Xp,t,ch.data.pnts=FALSE)
+Idom.num6CSstd.tri <- function(p1,p2,p3,p4,p5,p6,Xp,t,ch.data.pnts=FALSE)
 {
   if (!is.point(p1) || !is.point(p2) || !is.point(p3) || !is.point(p4) || !is.point(p5) || !is.point(p6) )
   {stop('p1, p2, p3, p4, p5 and p6 must all be numeric 2D points')}
@@ -4588,8 +4659,8 @@ Gam6CSTe <- function(p1,p2,p3,p4,p5,p6,Xp,t,ch.data.pnts=FALSE)
   dom<-1; i<-1;
   while (i<=n && dom==1)
   {
-    if (IndNCSTe(p1,Xp[i,],t)==0 && IndNCSTe(p2,Xp[i,],t)==0 && IndNCSTe(p3,Xp[i,],t)==0 &&
-        IndNCSTe(p4,Xp[i,],t)==0 && IndNCSTe(p5,Xp[i,],t)==0 && IndNCSTe(p6,Xp[i,],t)==0)  #this is where std equilateral triangle Te is implicitly used
+    if (IarcCSstd.tri(p1,Xp[i,],t)==0 && IarcCSstd.tri(p2,Xp[i,],t)==0 && IarcCSstd.tri(p3,Xp[i,],t)==0 &&
+        IarcCSstd.tri(p4,Xp[i,],t)==0 && IarcCSstd.tri(p5,Xp[i,],t)==0 && IarcCSstd.tri(p6,Xp[i,],t)==0)  #this is where std equilateral triangle Te is implicitly used
     {dom<-0};
     i<-i+1;
   }
@@ -4599,7 +4670,7 @@ Gam6CSTe <- function(p1,p2,p3,p4,p5,p6,Xp,t,ch.data.pnts=FALSE)
 
 #################################################################
 
-#' @title  An alternative to the function \code{\link{IndNCStri}} which yields the indicator
+#' @title  An alternative to the function \code{\link{IarcCStri}} which yields the indicator
 #' for the presence of an arc from one point to another
 #' for Central Similarity Proximity Catch Digraphs (CS-PCDs)
 #'
@@ -4628,7 +4699,7 @@ Gam6CSTe <- function(p1,p2,p3,p4,p5,p6,Xp,t,ch.data.pnts=FALSE)
 #' @return \eqn{I(}\code{p2} is in \eqn{N_{CS}(p1,t))} for \code{p1}, that is,
 #' returns 1 if \code{p2} is in \eqn{N_{CS}(p1,t)}, returns 0 otherwise.
 #'
-#' @seealso \code{\link{IndNAStri}}, \code{\link{IndNPEtri}}, \code{\link{IndNCStri}}, and \code{\link{IndNCSTe}}
+#' @seealso \code{\link{IarcAStri}}, \code{\link{IarcPEtri}}, \code{\link{IarcCStri}}, and \code{\link{IarcCSstd.tri}}
 #'
 #' @references
 #' \insertAllCited{}
@@ -4643,20 +4714,20 @@ Gam6CSTe <- function(p1,p2,p3,p4,p5,p6,Xp,t,ch.data.pnts=FALSE)
 #'
 #' P1<-c(.4,.2)
 #' P2<-c(1.8,.5)
-#' IndNCStri(P1,P2,Tr,t,M=c(1,1,1))
-#' IndNCStri.alt(P1,P2,Tr,t)
+#' IarcCStri(P1,P2,Tr,t,M=c(1,1,1))
+#' IarcCStri.alt(P1,P2,Tr,t)
 #'
-#' IndNCStri(P2,P1,Tr,t,M=c(1,1,1))
-#' IndNCStri.alt(P2,P1,Tr,t)
+#' IarcCStri(P2,P1,Tr,t,M=c(1,1,1))
+#' IarcCStri.alt(P2,P1,Tr,t)
 #'
 #' #or try
 #' re<-rel.edges.triCM(P1,Tr)$re
-#' IndNCStri(P1,P2,Tr,t,M=c(1,1,1),re)
-#' IndNCStri.alt(P1,P2,Tr,t,re)
+#' IarcCStri(P1,P2,Tr,t,M=c(1,1,1),re)
+#' IarcCStri.alt(P1,P2,Tr,t,re)
 #' }
 #'
 #' @export
-IndNCStri.alt <- function(p1,p2,tri,t,re=NULL)
+IarcCStri.alt <- function(p1,p2,tri,t,re=NULL)
 {
   if (!is.point(p1) || !is.point(p2) )
   {stop('p1 and p2 must both be numeric 2D points')}
@@ -4745,7 +4816,7 @@ IndNCStri.alt <- function(p1,p2,tri,t,re=NULL)
 #' \item{std.arc.dens}{Arc density standardized by the mean and asymptotic variance of the arc
 #' density of CS-PCD for uniform data in the triangle \code{tri}.This will only be returned if \code{M} is the center of mass.}
 #'
-#' @seealso \code{\link{ASarcdens.tri}}, \code{\link{PEarcdens.tri}}, and \code{\link{NumArcsCStri}}
+#' @seealso \code{\link{ASarc.dens.tri}}, \code{\link{PEarc.dens.tri}}, and \code{\link{num.arcsCStri}}
 #'
 #' @references
 #' \insertAllCited{}
@@ -4763,13 +4834,13 @@ IndNCStri.alt <- function(p1,p2,tri,t,re=NULL)
 #'
 #' M<-as.numeric(runif.tri(1,Tr)$g)  #try also M<-c(1.6,1.0)
 #'
-#' CSarcdens.tri(Xp,Tr,t=.5,M)
-#' CSarcdens.tri(Xp,Tr,t=.5,M,tri.cor = FALSE)
+#' CSarc.dens.tri(Xp,Tr,t=.5,M)
+#' CSarc.dens.tri(Xp,Tr,t=.5,M,tri.cor = FALSE)
 #' #try also t=1 and t=1.5 above
 #' }
 #'
-#' @export CSarcdens.tri
-CSarcdens.tri <- function(Xp,tri,t,M=c(1,1,1),tri.cor=FALSE)
+#' @export CSarc.dens.tri
+CSarc.dens.tri <- function(Xp,tri,t,M=c(1,1,1),tri.cor=FALSE)
 {
   if (!is.numeric(as.matrix(Xp)) )
   {stop('Xp must be numeric')}
@@ -4800,12 +4871,12 @@ CSarcdens.tri <- function(Xp,tri,t,M=c(1,1,1),tri.cor=FALSE)
   if (dimension(M)==3)
   {M<-bary2cart(M,tri)}
 
-  if (isTRUE(all.equal(M,circ.cent.tri(tri)))==FALSE & in.triangle(M,tri,boundary=FALSE)$in.tri==FALSE)
+  if (isTRUE(all.equal(M,circumcenter.tri(tri)))==FALSE & in.triangle(M,tri,boundary=FALSE)$in.tri==FALSE)
   {stop('center is not the circumcenter or not in the interior of the triangle')}
 
   nx<-nrow(Xp)
 
-  narcs<-NumArcsCStri(Xp,tri,t,M)$num.arcs
+  narcs<-num.arcsCStri(Xp,tri,t,M)$num.arcs
   mean.rho<-muCS2D(t)
   var.rho<-asyvarCS2D(t)
 
