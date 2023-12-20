@@ -16,6 +16,8 @@ Description: Contains the functions for construction and visualization of
 License: GPL-2
 Encoding: UTF-8
 LazyData: TRUE
+URL: https://github.com/elvanceyhan/pcds
+BugReports: https://github.com/elvanceyhan/pcds/issues
 Imports: 
     combinat,
     interp,
